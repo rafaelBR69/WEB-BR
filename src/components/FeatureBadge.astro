@@ -1,0 +1,11 @@
+---
+const { label } = Astro.props;
+
+if (!label) {
+  return null;
+}
+---
+
+<span class="feature-badge">
+  {label}
+</span>

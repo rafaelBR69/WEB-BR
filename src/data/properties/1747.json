@@ -1,0 +1,781 @@
+
+{
+  "id": "1747",
+  "slugs": {
+    "es": "casas-venta-mijas-costa",
+    "en": "townhouses-for-sale-mijas-costa",
+    "de": "reihenhaus-mijas-costa",
+    "fr": "maisons-mitoyennes-mijas-costa",
+    "it": "case-a-schiera-mijas-costa",
+    "nl": "rijwoningen-mijas-costa"
+  },
+  "status": "available",
+  "featured": true,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+
+  "transaction": "sale",
+  "price": 599000,
+  "currency": "EUR",
+
+  "location": {
+    "country": "ES",
+    "province": "Málaga",
+    "area": "La Cala de Mijas"
+  },
+
+  "property": {
+    "type": "townhouse",
+    "year_built": 2021,
+    "area_m2": 139,
+    "terrace_m2": 26,
+    "garden_m2": 80,
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "garages": 1,
+    "orientation": "west",
+    "condition": "new"
+  },
+
+  "features": [
+    "air_conditioning",
+    "fitted_kitchen",
+    "garage",
+    "gym",
+    "new_build",
+    "communal_pool",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "gated_community"
+  ],
+
+  "seo": {
+    "focus_keyphrase": {
+      "es": "casa adosada en venta mijas costa",
+      "en": "townhouse for sale mijas costa",
+      "de": "reihenhaus kaufen mijas costa",
+      "it": "casa a schiera in vendita mijas costa",
+      "nl": "geschakelde woning te koop mijas costa",
+      "fr": "maison mitoyenne à vendre mijas costa"
+    },
+    "meta_description": {
+      "es": "3 habitaciones, 3 baños, amplias terrazas y jardín privado con vistas al mar. Gimnasio y piscina comunitaria.",
+      "en": "3 bedrooms, 3 bathrooms, large terraces and private garden with sea views. Gym and communal pool.",
+      "de": "3 Schlafzimmer, 3 Bäder, große Terrassen und privater Garten mit Meerblick.",
+      "it": "3 camere da letto, 3 bagni, ampie terrazze e giardino privato con vista mare.",
+      "nl": "3 slaapkamers, 3 badkamers, grote terrassen en privétuin met zeezicht.",
+      "fr": "3 chambres, 3 salles de bain, grandes terrasses et jardin privé avec vue sur la mer."
+    }
+  },
+
+  "translations": {
+    "es": {
+      "title": "Casas adosadas en Mijas Costa",
+      "intro": "¿Buscando una casa adosada en Mijas Costa con vistas al mar? Ha llegado al lugar correcto.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "En una ubicación inigualable en lo alto de una colina, podrá disfrutar de maravillosas vistas al mar desde su jardín y su amplia terraza."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Casas adosadas con 3 dormitorios en Mijas Costa"
+        },
+        {
+          "type": "paragraph",
+          "content": "En la siguiente descripción encontrará los detalles de su próxima vivienda."
+        },
+        {
+          "type": "paragraph",
+          "content": "Una casa distribuida en dos plantas de la siguiente manera:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Planta baja: recibidor, aseo, cuarto de máquinas o lavadero, cocina, salón, comedor, terraza cubierta y jardín.",
+            "Planta primera: 3 dormitorios, uno de ellos con baño en suite, 1 baño y terraza con más de 8 m²."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "Con el fin de aprovechar el máximo espacio, la cocina y el comedor comparten el mismo espacio, iluminados por amplios ventanales con triple acristalamiento que dan acceso a la terraza y al jardín."
+        },
+        {
+          "type": "paragraph",
+          "content": "Ni se imagina los maravillosos atardeceres que regala la Costa del Sol y que podrá disfrutar desde su casa, su jardín o sentado en su terraza."
+        },
+        {
+          "type": "paragraph",
+          "content": "La cocina se entrega amueblada y equipada con electrodomésticos de alta calidad de la marca Bosch."
+        },
+        {
+          "type": "paragraph",
+          "content": "Una propiedad con certificado energético B que utiliza el sistema de aerotermia para la climatización y la producción de agua caliente."
+        },
+        {
+          "type": "paragraph",
+          "content": "Un recinto cerrado que aporta seguridad y tranquilidad para usted y su familia."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Zonas comunes en esta promoción de obra nueva en Cala de Mijas"
+        },
+        {
+          "type": "paragraph",
+          "content": "En este recinto podrá disfrutar de zonas ajardinadas, gimnasio y piscina comunitaria."
+        },
+        {
+          "type": "paragraph",
+          "content": "Además, dentro del Sport Club encontrará pistas de tenis y pádel."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Enclave estratégico en la Costa del Golf"
+        },
+        {
+          "type": "paragraph",
+          "content": "Si es amante del golf y desea comprar una casa adosada en la Costa del Golf, debe saber que tiene más de 70 campos y clubes de golf a su alcance."
+        },
+        {
+          "type": "paragraph",
+          "content": "El más cercano es Chaparral Golf, a tan solo 400 metros. En menos de 20 minutos podrá acceder a:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Cerrado del Águila Golf & Resort (10 minutos).",
+            "Mijas Golf International SAU (15 minutos).",
+            "Santana Golf (20 minutos)."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "El Club Hípico Samuel Oliva se encuentra a tan solo 10 minutos en coche."
+        },
+        {
+          "type": "paragraph",
+          "content": "También se recomienda disfrutar de actividades como running o ciclismo por la gran senda litoral."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Conexiones a otras localidades de la Costa del Sol"
+        },
+        {
+          "type": "paragraph",
+          "content": "El complejo goza de una excelente localización que permite acceder fácilmente a otras localidades con una amplia oferta de servicios y ocio."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fuengirola a 12 minutos.",
+            "Marbella a 25 minutos.",
+            "Aeropuerto de Málaga a 20 minutos.",
+            "Málaga centro a 30 minutos."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "La playa más cercana se encuentra a tan solo 650 metros. Disfrute de un refrescante cóctel y del tradicional espeto malagueño."
+        },
+        {
+          "type": "paragraph",
+          "content": "¡Solo quedan 4 unidades disponibles! Contáctenos o complete el formulario para recibir asesoramiento personalizado."
+        }
+      ]
+    },
+    "en": {
+      "title": "Sea-view townhouses in La Cala de Mijas",
+      "intro": "Looking for a sea-view townhouse in Mijas Costa? You’ve come to the right place.",
+      "description": [
+          {
+          "type": "paragraph",
+          "content": "In an unbeatable hilltop location, you can enjoy wonderful sea views from your garden and spacious terrace."
+          },
+          {
+          "type": "heading",
+          "level": 3,
+          "content": "3-bedroom townhouses in Mijas Costa"
+          },
+          {
+          "type": "paragraph",
+          "content": "In the following description you will find the details of your future home."
+          },
+          {
+          "type": "paragraph",
+          "content": "A home laid out over two floors as follows:"
+          },
+          {
+          "type": "list",
+          "items": [
+              "Ground floor: entrance hall, guest toilet, utility room or laundry room, kitchen, living room, dining area, covered terrace and garden.",
+              "First floor: 3 bedrooms, one with an en-suite bathroom, 1 bathroom and a terrace of over 8 m²."
+          ]
+          },
+          {
+          "type": "paragraph",
+          "content": "To make the most of the space, the kitchen and dining area share the same open-plan layout, filled with natural light through large triple-glazed windows that open onto the terrace and garden."
+          },
+          {
+          "type": "paragraph",
+          "content": "You can’t imagine the breathtaking sunsets the Costa del Sol offers, which you’ll be able to enjoy from your home, your garden, or sitting on your terrace."
+          },
+          {
+          "type": "paragraph",
+          "content": "The kitchen is delivered furnished and equipped with high-quality Bosch appliances."
+          },
+          {
+          "type": "paragraph",
+          "content": "A B energy-rated property that uses an aerothermal system for climate control and domestic hot water production."
+          },
+          {
+          "type": "paragraph",
+          "content": "A gated community that provides security and peace of mind for you and your family."
+          },
+          {
+          "type": "heading",
+          "level": 3,
+          "content": "Communal areas in this new-build development in La Cala de Mijas"
+          },
+          {
+          "type": "paragraph",
+          "content": "Within the complex you can enjoy landscaped gardens, a gym and a communal swimming pool."
+          },
+          {
+          "type": "paragraph",
+          "content": "In addition, the Sport Club includes tennis and padel courts."
+          },
+          {
+          "type": "heading",
+          "level": 3,
+          "content": "A strategic location on the Costa del Golf"
+          },
+          {
+          "type": "paragraph",
+          "content": "If you love golf and want to buy a townhouse on the Costa del Golf, you should know that you have more than 70 golf courses and clubs within reach."
+          },
+          {
+          "type": "paragraph",
+          "content": "The closest is Chaparral Golf, just 400 metres away. In under 20 minutes you can reach:"
+          },
+          {
+          "type": "list",
+          "items": [
+              "Cerrado del Águila Golf & Resort (10 minutes).",
+              "Mijas Golf International SAU (15 minutes).",
+              "Santana Golf (20 minutes)."
+          ]
+          },
+          {
+          "type": "paragraph",
+          "content": "Samuel Oliva Equestrian Club is only a 10-minute drive away."
+          },
+          {
+          "type": "paragraph",
+          "content": "It’s also recommended to enjoy activities such as running or cycling along the coastal path."
+          },
+          {
+          "type": "heading",
+          "level": 3,
+          "content": "Connections to other towns on the Costa del Sol"
+          },
+          {
+          "type": "paragraph",
+          "content": "The development enjoys an excellent location, making it easy to reach other towns with a wide range of services and leisure options."
+          },
+          {
+          "type": "list",
+          "items": [
+              "Fuengirola: 12 minutes.",
+              "Marbella: 25 minutes.",
+              "Málaga Airport: 20 minutes.",
+              "Málaga city centre: 30 minutes."
+          ]
+          },
+          {
+          "type": "paragraph",
+          "content": "The nearest beach is only 650 metres away. Enjoy a refreshing cocktail and the traditional Málaga-style espeto (grilled sardines)."
+          },
+          {
+          "type": "paragraph",
+          "content": "Only 4 units left! Contact us or fill in the form to receive personalised advice."
+          }
+      ]
+      },
+      "de": {
+          "title": "Reihenhäuser mit Meerblick in La Cala de Mijas",
+          "intro": "Suchen Sie ein Reihenhaus in Mijas Costa mit Meerblick? Dann sind Sie hier genau richtig.",
+          "description": [
+              {
+              "type": "paragraph",
+              "content": "In einer unvergleichlichen Lage auf einem Hügel genießen Sie von Ihrem Garten und Ihrer großzügigen Terrasse einen herrlichen Meerblick."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Reihenhäuser mit 3 Schlafzimmern in Mijas Costa"
+              },
+              {
+              "type": "paragraph",
+              "content": "In der folgenden Beschreibung finden Sie die Details zu Ihrem zukünftigen Zuhause."
+              },
+              {
+              "type": "paragraph",
+              "content": "Ein Haus, das sich wie folgt auf zwei Etagen verteilt:"
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Erdgeschoss: Eingangsbereich, Gäste-WC, Technikraum oder Hauswirtschafts-/Waschraum, Küche, Wohnzimmer, Essbereich, überdachte Terrasse und Garten.",
+                  "Obergeschoss: 3 Schlafzimmer, eines davon mit Bad en suite, 1 Badezimmer und eine Terrasse mit mehr als 8 m²."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Um den Raum optimal zu nutzen, bilden Küche und Essbereich einen offenen gemeinsamen Bereich, der durch große, dreifach verglaste Fenster hell und freundlich ist und direkten Zugang zur Terrasse und zum Garten bietet."
+              },
+              {
+              "type": "paragraph",
+              "content": "Sie können sich kaum vorstellen, welche wunderschönen Sonnenuntergänge die Costa del Sol bietet und die Sie von Ihrem Zuhause, Ihrem Garten oder ganz entspannt von Ihrer Terrasse aus genießen können."
+              },
+              {
+              "type": "paragraph",
+              "content": "Die Küche wird möbliert und mit hochwertigen Bosch-Elektrogeräten ausgestattet übergeben."
+              },
+              {
+              "type": "paragraph",
+              "content": "Eine Immobilie mit Energieeffizienzklasse B, die für Klimatisierung und Warmwasserbereitung ein Aerothermie-System nutzt."
+              },
+              {
+              "type": "paragraph",
+              "content": "Eine abgeschlossene Wohnanlage, die Ihnen und Ihrer Familie Sicherheit und Ruhe bietet."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Gemeinschaftsbereiche in dieser Neubauanlage in La Cala de Mijas"
+              },
+              {
+              "type": "paragraph",
+              "content": "In der Anlage können Sie Gartenbereiche, ein Fitnessstudio und einen Gemeinschaftspool genießen."
+              },
+              {
+              "type": "paragraph",
+              "content": "Außerdem finden Sie im Sport Club Tennis- und Padelplätze."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Strategische Lage an der Costa del Golf"
+              },
+              {
+              "type": "paragraph",
+              "content": "Wenn Sie Golf lieben und ein Reihenhaus an der Costa del Golf kaufen möchten, sollten Sie wissen, dass Ihnen mehr als 70 Golfplätze und Golfclubs zur Verfügung stehen."
+              },
+              {
+              "type": "paragraph",
+              "content": "Der nächste ist Chaparral Golf, nur 400 Meter entfernt. In weniger als 20 Minuten erreichen Sie:"
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Cerrado del Águila Golf & Resort (10 Minuten).",
+                  "Mijas Golf International SAU (15 Minuten).",
+                  "Santana Golf (20 Minuten)."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Der Reitclub Samuel Oliva ist in nur 10 Minuten mit dem Auto erreichbar."
+              },
+              {
+              "type": "paragraph",
+              "content": "Außerdem empfiehlt es sich, Aktivitäten wie Laufen oder Radfahren auf dem Küstenweg zu genießen."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Verbindungen zu anderen Orten an der Costa del Sol"
+              },
+              {
+              "type": "paragraph",
+              "content": "Die Anlage verfügt über eine hervorragende Lage, die einen einfachen Zugang zu anderen Orten mit einem breiten Angebot an Dienstleistungen und Freizeitmöglichkeiten ermöglicht."
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Fuengirola: 12 Minuten.",
+                  "Marbella: 25 Minuten.",
+                  "Flughafen Málaga: 20 Minuten.",
+                  "Málaga Zentrum: 30 Minuten."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Der nächste Strand ist nur 650 Meter entfernt. Genießen Sie einen erfrischenden Cocktail und den traditionellen Málaga-Espeto (gegrillte Sardinen)."
+              },
+              {
+              "type": "paragraph",
+              "content": "Nur noch 4 Einheiten verfügbar! Kontaktieren Sie uns oder füllen Sie das Formular aus, um eine persönliche Beratung zu erhalten."
+              }
+          ]
+      },
+      "fr": {
+          "title": "Maisons mitoyennes avec vue sur la mer à La Cala de Mijas",
+          "intro": "Vous recherchez une maison mitoyenne à Mijas Costa avec vue sur la mer ? Vous êtes au bon endroit.",
+          "description": [
+              {
+              "type": "paragraph",
+              "content": "Dans un emplacement incomparable au sommet d’une colline, vous pourrez profiter de magnifiques vues sur la mer depuis votre jardin et votre grande terrasse."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Maisons mitoyennes avec 3 chambres à Mijas Costa"
+              },
+              {
+              "type": "paragraph",
+              "content": "Dans la description suivante, vous trouverez les détails de votre future habitation."
+              },
+              {
+              "type": "paragraph",
+              "content": "Une maison répartie sur deux niveaux de la manière suivante :"
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Rez-de-chaussée : hall d’entrée, toilettes invités, local technique ou buanderie, cuisine, salon, salle à manger, terrasse couverte et jardin.",
+                  "Premier étage : 3 chambres, dont une avec salle de bains en suite, 1 salle de bains et une terrasse de plus de 8 m²."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Afin d’optimiser l’espace, la cuisine et la salle à manger partagent un même espace ouvert, baigné de lumière grâce à de grandes baies vitrées à triple vitrage donnant accès à la terrasse et au jardin."
+              },
+              {
+              "type": "paragraph",
+              "content": "Vous n’imaginez pas les magnifiques couchers de soleil que la Costa del Sol offre et que vous pourrez admirer depuis votre maison, votre jardin ou assis sur votre terrasse."
+              },
+              {
+              "type": "paragraph",
+              "content": "La cuisine est livrée meublée et équipée d’électroménagers haut de gamme de la marque Bosch."
+              },
+              {
+              "type": "paragraph",
+              "content": "Une propriété avec un certificat énergétique B qui utilise un système d’aérothermie pour la climatisation et la production d’eau chaude."
+              },
+              {
+              "type": "paragraph",
+              "content": "Une résidence fermée offrant sécurité et tranquillité pour vous et votre famille."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Espaces communs dans ce programme neuf à La Cala de Mijas"
+              },
+              {
+              "type": "paragraph",
+              "content": "Dans cette résidence, vous pourrez profiter d’espaces paysagers, d’une salle de sport et d’une piscine commune."
+              },
+              {
+              "type": "paragraph",
+              "content": "De plus, au sein du Sport Club, vous trouverez des courts de tennis et de padel."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Un emplacement stratégique sur la Costa del Golf"
+              },
+              {
+              "type": "paragraph",
+              "content": "Si vous aimez le golf et souhaitez acheter une maison mitoyenne sur la Costa del Golf, sachez que plus de 70 parcours et clubs de golf sont à votre portée."
+              },
+              {
+              "type": "paragraph",
+              "content": "Le plus proche est Chaparral Golf, à seulement 400 mètres. En moins de 20 minutes, vous pouvez accéder à :"
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Cerrado del Águila Golf & Resort (10 minutes).",
+                  "Mijas Golf International SAU (15 minutes).",
+                  "Santana Golf (20 minutes)."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Le Club Équestre Samuel Oliva se trouve à seulement 10 minutes en voiture."
+              },
+              {
+              "type": "paragraph",
+              "content": "Il est également recommandé de profiter d’activités comme le running ou le cyclisme le long du grand sentier littoral."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Connexions vers d’autres villes de la Costa del Sol"
+              },
+              {
+              "type": "paragraph",
+              "content": "Le complexe bénéficie d’un excellent emplacement, permettant d’accéder facilement à d’autres villes offrant une large gamme de services et de loisirs."
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Fuengirola à 12 minutes.",
+                  "Marbella à 25 minutes.",
+                  "Aéroport de Málaga à 20 minutes.",
+                  "Centre de Málaga à 30 minutes."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "La plage la plus proche se trouve à seulement 650 mètres. Profitez d’un cocktail rafraîchissant et du traditionnel espeto malaguène (sardines grillées)."
+              },
+              {
+              "type": "paragraph",
+              "content": "Il ne reste plus que 4 unités disponibles ! Contactez-nous ou remplissez le formulaire pour recevoir un accompagnement personnalisé."
+              }
+          ]
+      },
+      "it": {
+          "title": "Case a schiera con vista mare a La Cala de Mijas",
+          "intro": "Stai cercando una casa a schiera a Mijas Costa con vista mare? Sei nel posto giusto.",
+          "description": [
+              {
+              "type": "paragraph",
+              "content": "In una posizione ineguagliabile sulla sommità di una collina, potrai godere di splendide viste sul mare dal tuo giardino e dalla tua ampia terrazza."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Case a schiera con 3 camere da letto a Mijas Costa"
+              },
+              {
+              "type": "paragraph",
+              "content": "Nella descrizione seguente troverai i dettagli della tua futura casa."
+              },
+              {
+              "type": "paragraph",
+              "content": "Una casa distribuita su due piani nel modo seguente:"
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Piano terra: ingresso, toilette di cortesia, locale tecnico o lavanderia, cucina, soggiorno, zona pranzo, terrazza coperta e giardino.",
+                  "Primo piano: 3 camere da letto, una con bagno en suite, 1 bagno e una terrazza di oltre 8 m²."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Per sfruttare al massimo lo spazio, cucina e zona pranzo condividono un unico ambiente open space, luminoso grazie alle ampie vetrate con triplo vetro che danno accesso alla terrazza e al giardino."
+              },
+              {
+              "type": "paragraph",
+              "content": "Non immagini i meravigliosi tramonti che regala la Costa del Sol e che potrai goderti da casa tua, dal giardino o seduto sulla terrazza."
+              },
+              {
+              "type": "paragraph",
+              "content": "La cucina viene consegnata arredata e completa di elettrodomestici di alta qualità del marchio Bosch."
+              },
+              {
+              "type": "paragraph",
+              "content": "Una proprietà con certificazione energetica B che utilizza un sistema di aerotermia per la climatizzazione e la produzione di acqua calda."
+              },
+              {
+              "type": "paragraph",
+              "content": "Un complesso residenziale recintato che offre sicurezza e tranquillità per te e la tua famiglia."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Aree comuni in questo complesso di nuova costruzione a La Cala de Mijas"
+              },
+              {
+              "type": "paragraph",
+              "content": "All’interno del complesso potrai usufruire di aree verdi, palestra e piscina condominiale."
+              },
+              {
+              "type": "paragraph",
+              "content": "Inoltre, all’interno dello Sport Club troverai campi da tennis e da padel."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Posizione strategica sulla Costa del Golf"
+              },
+              {
+              "type": "paragraph",
+              "content": "Se sei un appassionato di golf e desideri acquistare una casa a schiera sulla Costa del Golf, sappi che hai a disposizione oltre 70 campi e club di golf."
+              },
+              {
+              "type": "paragraph",
+              "content": "Il più vicino è Chaparral Golf, a soli 400 metri. In meno di 20 minuti puoi raggiungere:"
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Cerrado del Águila Golf & Resort (10 minuti).",
+                  "Mijas Golf International SAU (15 minuti).",
+                  "Santana Golf (20 minuti)."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Il Club Ippico Samuel Oliva si trova a soli 10 minuti di auto."
+              },
+              {
+              "type": "paragraph",
+              "content": "Si consiglia inoltre di praticare attività come running o ciclismo lungo il grande percorso costiero."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Collegamenti con altre località della Costa del Sol"
+              },
+              {
+              "type": "paragraph",
+              "content": "Il complesso gode di un’ottima posizione che permette di raggiungere facilmente altre località con un’ampia offerta di servizi e svago."
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Fuengirola a 12 minuti.",
+                  "Marbella a 25 minuti.",
+                  "Aeroporto di Málaga a 20 minuti.",
+                  "Centro di Málaga a 30 minuti."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "La spiaggia più vicina si trova a soli 650 metri. Goditi un cocktail rinfrescante e il tradizionale espeto malagueño (sardine alla griglia)."
+              },
+              {
+              "type": "paragraph",
+              "content": "Restano solo 4 unità disponibili! Contattaci o compila il modulo per ricevere una consulenza personalizzata."
+              }
+          ]
+      },
+      "nl": {
+          "title": "Rijwoningen met zeezicht in La Cala de Mijas",
+          "intro": "Op zoek naar een rijwoning in Mijas Costa met zeezicht? Dan bent u hier aan het juiste adres.",
+          "description": [
+              {
+              "type": "paragraph",
+              "content": "Op een onovertroffen locatie boven op een heuvel geniet u van prachtig uitzicht op zee vanuit uw tuin en uw ruime terras."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Rijwoningen met 3 slaapkamers in Mijas Costa"
+              },
+              {
+              "type": "paragraph",
+              "content": "In de onderstaande beschrijving vindt u de details van uw toekomstige woning."
+              },
+              {
+              "type": "paragraph",
+              "content": "Een woning verdeeld over twee verdiepingen als volgt:"
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Begane grond: hal, gastentoilet, technische ruimte of bijkeuken/wasruimte, keuken, woonkamer, eetgedeelte, overdekt terras en tuin.",
+                  "Eerste verdieping: 3 slaapkamers, waarvan één met en-suite badkamer, 1 badkamer en een terras van meer dan 8 m²."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Om de ruimte optimaal te benutten, delen de keuken en het eetgedeelte dezelfde open indeling, met veel lichtinval dankzij grote ramen met driedubbele beglazing die toegang geven tot het terras en de tuin."
+              },
+              {
+              "type": "paragraph",
+              "content": "U kunt zich de prachtige zonsondergangen van de Costa del Sol nauwelijks voorstellen, die u vanuit uw woning, uw tuin of zittend op uw terras kunt bewonderen."
+              },
+              {
+              "type": "paragraph",
+              "content": "De keuken wordt opgeleverd met meubels en uitgerust met hoogwaardige Bosch-apparatuur."
+              },
+              {
+              "type": "paragraph",
+              "content": "Een woning met energielabel B die gebruikmaakt van een aerothermisch systeem voor klimaatregeling en de productie van warm water."
+              },
+              {
+              "type": "paragraph",
+              "content": "Een afgesloten wooncomplex dat veiligheid en rust biedt voor u en uw gezin."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Gemeenschappelijke voorzieningen in dit nieuwbouwproject in La Cala de Mijas"
+              },
+              {
+              "type": "paragraph",
+              "content": "Binnen het complex kunt u genieten van aangelegde tuinen, een fitnessruimte en een gemeenschappelijk zwembad."
+              },
+              {
+              "type": "paragraph",
+              "content": "Daarnaast vindt u binnen de Sport Club tennis- en padelbanen."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Strategische ligging aan de Costa del Golf"
+              },
+              {
+              "type": "paragraph",
+              "content": "Bent u een golfliefhebber en wilt u een rijwoning kopen aan de Costa del Golf? Dan is het goed om te weten dat u meer dan 70 golfbanen en -clubs binnen handbereik heeft."
+              },
+              {
+              "type": "paragraph",
+              "content": "De dichtstbijzijnde is Chaparral Golf, op slechts 400 meter. Binnen minder dan 20 minuten bereikt u:"
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Cerrado del Águila Golf & Resort (10 minuten).",
+                  "Mijas Golf International SAU (15 minuten).",
+                  "Santana Golf (20 minuten)."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "De manege Club Hípico Samuel Oliva ligt op slechts 10 minuten rijden."
+              },
+              {
+              "type": "paragraph",
+              "content": "Ook wordt aangeraden om activiteiten zoals hardlopen of fietsen te doen langs de grote kustroute."
+              },
+              {
+              "type": "heading",
+              "level": 3,
+              "content": "Verbonden met andere plaatsen aan de Costa del Sol"
+              },
+              {
+              "type": "paragraph",
+              "content": "Het complex heeft een uitstekende ligging, waardoor u gemakkelijk andere plaatsen bereikt met een ruim aanbod aan voorzieningen en vrijetijdsmogelijkheden."
+              },
+              {
+              "type": "list",
+              "items": [
+                  "Fuengirola: 12 minuten.",
+                  "Marbella: 25 minuten.",
+                  "Luchthaven Málaga: 20 minuten.",
+                  "Centrum Málaga: 30 minuten."
+              ]
+              },
+              {
+              "type": "paragraph",
+              "content": "Het dichtstbijzijnde strand ligt op slechts 650 meter. Geniet van een verfrissende cocktail en de traditionele Málaga-se espeto (gegrilde sardientjes)."
+              },
+              {
+              "type": "paragraph",
+              "content": "Er zijn nog maar 4 woningen beschikbaar! Neem contact met ons op of vul het formulier in voor persoonlijk advies."
+              }
+          ]
+      }
+  }
+}

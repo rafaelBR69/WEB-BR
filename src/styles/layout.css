@@ -1,0 +1,15 @@
+header {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-md);
+}
+
+nav a {
+  margin-right: var(--space-sm);
+  font-weight: 500;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+}

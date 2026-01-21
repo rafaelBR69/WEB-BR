@@ -1,0 +1,67 @@
+---
+import { formatPrice } from "@/utils/formatters";
+import {
+  formatArea,
+  formatOrientation,
+  formatPropertyType,
+} from "@/utils/presentation";
+import FeatureBadge from "@/components/FeatureBadge.astro";
+import { formatFeature, type Feature } from "@/utils/formatFeature";
+
+const { property, lang } = Astro.props;
+
+// traducciones obligatorias (ya has decidido que siempre existen)
+const t = property.translations[lang];
+
+// features seguras (si una no existe en el diccionario, no se pinta)
+const features = (property.features || [])
+  .map((key: string) => formatFeature(key, lang))
+  .filter((f: Feature | null): f is Feature => Boolean(f));
+---
+
+<article class="property-card">
+
+  <header class="header">
+    <h2 class="title">
+      <a href={`/${lang}/properties/${property.slugs[lang]}/`}>
+        {t.title}
+      </a>
+    </h2>
+
+    <p class="price">
+      {formatPrice(property.price, property.currency, lang)}
+    </p>
+  </header>
+
+  <ul class="meta">
+    {property.property.bedrooms && (
+      <li>{property.property.bedrooms} hab</li>
+    )}
+
+    {property.property.bathrooms && (
+      <li>{property.property.bathrooms} baños</li>
+    )}
+
+    {formatArea(property.property.area_m2, lang) && (
+      <li>{formatArea(property.property.area_m2, lang)}</li>
+    )}
+
+    {formatOrientation(property.property.orientation, lang) && (
+      <li>{formatOrientation(property.property.orientation, lang)}</li>
+    )}
+
+    {formatPropertyType(property.property.type, lang) && (
+      <li>{formatPropertyType(property.property.type, lang)}</li>
+    )}
+  </ul>
+
+  {features.length > 0 && (
+    <div class="features">
+      {features.map((f: Feature) => (
+        <FeatureBadge icon={f.icon} label={f.label} />
+      ))}
+    </div>
+  )}
+
+</article>
+

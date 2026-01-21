@@ -1,0 +1,41 @@
+---
+const { blocks } = Astro.props;
+---
+
+{Array.isArray(blocks) &&
+  blocks.map((block, index) => {
+    if (!block || !block.type) {
+      return null;
+    }
+
+    if (block.type === "heading" && block.content) {
+      if (block.level === 2) {
+        return <h2 key={index}>{block.content}</h2>;
+      }
+      return <h3 key={index}>{block.content}</h3>;
+    }
+
+    if (block.type === "paragraph" && block.content) {
+      return <p key={index}>{block.content}</p>;
+    }
+
+    if (block.type === "list") {
+      if (!Array.isArray(block.items)) {
+        return (
+          <pre key={index} style="color:red">
+            LIST MAL FORMADA EN BLOQUE {index}
+          </pre>
+        );
+      }
+
+      return (
+        <ul key={index}>
+          {block.items.map((text, i) => (
+            <li key={`${index}-${i}`}>{text}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    return null;
+  })}

@@ -1,0 +1,71 @@
+/* =========================
+   PROPERTY CARD
+   ========================= */
+
+.property-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  background-color: #fff;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* =========================
+   TITLE
+   ========================= */
+
+.property-card h2 {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.property-card h2 a {
+  color: var(--color-primary);
+}
+
+.property-card h2 a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   PRICE
+   ========================= */
+
+.property-card .price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin: var(--space-xs) 0;
+}
+
+/* =========================
+   META INFO
+   ========================= */
+
+.property-card .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.property-card .meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* =========================
+   FEATURES / BADGES
+   ========================= */
+
+.property-card .features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}

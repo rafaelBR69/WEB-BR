@@ -1,0 +1,35 @@
+---
+import "@/styles/base.css";
+import "@/styles/layout.css";
+import "@/styles/components/property-card.css";
+import "@/styles/components/feature-badge.css";
+import "@/styles/components/properties-grid.css";
+
+const {
+  title = "BlancaReal",
+  lang = "es",
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a href={`/${lang}/`}>Home</a> |
+        <a href={`/${lang}/properties/`}>Properties</a> |
+        <a href={`/${lang}/about/`}>About</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

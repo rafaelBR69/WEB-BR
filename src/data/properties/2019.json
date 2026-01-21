@@ -1,0 +1,95 @@
+{
+  "id": "2019",
+  "slugs": {
+    "es": "chalet-lujo-cala-mijas-vistas-mar",
+    "en": "luxury-villa-for-sale-la-cala-de-mijas",
+    "de": "luxusvilla-kaufen-la-cala-de-mijas",
+    "fr": "villa-de-luxe-a-vendre-la-cala-de-mijas",
+    "it": "villa-di-lusso-in-vendita-la-cala-de-mijas",
+    "nl": "luxe-villa-te-koop-la-cala-de-mijas"
+  },
+  "status": "available",
+  "featured": true,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+
+  "transaction": "sale",
+  "price": 1275000,
+  "currency": "EUR",
+
+  "location": {
+    "country": "ES",
+    "province": "Málaga",
+    "area": "La Cala de Mijas"
+  },
+
+  "property": {
+    "type": "detached_villa",
+    "year_built": 2019,
+    "area_m2": 191,
+    "usable_area_m2": 157,
+    "terrace_m2": 80,
+    "garden_m2": 200,
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "garages": 1,
+    "orientation": "south",
+    "condition": "new"
+  },
+
+  "features": [
+    "air_conditioning",
+    "fitted_kitchen",
+    "garage",
+    "gym",
+    "new_build",
+    "communal_pool",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "private_garden",
+    "sport_club",
+    "spa",
+    "tennis_court"
+  ],
+
+  "seo": {
+    "focus_keyphrase": {
+      "es": "chalet cala mijas",
+      "en": "luxury villa la cala de mijas",
+      "de": "villa la cala de mijas kaufen",
+      "it": "villa la cala de mijas",
+      "nl": "villa la cala de mijas",
+      "fr": "villa la cala de mijas"
+    },
+    "meta_description": {
+      "es": "Chalet independiente de lujo con 4 habitaciones, jardín privado y vistas al mar en la Cala de Mijas.",
+      "en": "Luxury detached villa with 4 bedrooms, private garden and sea views in La Cala de Mijas.",
+      "de": "Luxusvilla mit 4 Schlafzimmern, privatem Garten und Meerblick in La Cala de Mijas.",
+      "it": "Villa indipendente di lusso con 4 camere, giardino privato e vista mare a La Cala de Mijas.",
+      "nl": "Luxe vrijstaande villa met 4 slaapkamers, privétuin en zeezicht in La Cala de Mijas.",
+      "fr": "Villa individuelle de luxe avec 4 chambres, jardin privé et vue sur la mer à La Cala de Mijas."
+    }
+  },
+
+  "translations": {
+    "es": {
+      "title": "Chalet de lujo con vistas al mar en La Cala de Mijas",
+      "intro": "Exclusivo chalet independiente en la Cala de Mijas, en plena Costa del Sol, rodeado de naturaleza, golf y vistas abiertas al Mediterráneo.",
+      "description": [
+        { "type": "paragraph", "content": "En la Costa del Sol, una de las zonas más demandadas por inversores y residentes por su clima y oferta de ocio, se encuentra este complejo residencial de lujo con vistas al mar y al golf." },
+        { "type": "heading", "level": 3, "content": "Chalets independientes de 4 dormitorios en La Cala de Mijas" },
+        { "type": "paragraph", "content": "El complejo está compuesto por chalets independientes de estilo contemporáneo, diseñados con los más altos estándares de calidad, diseño y tecnología." },
+        { "type": "paragraph", "content": "La vivienda cuenta con una parcela privada y una superficie construida de 191 m², distribuidos en dos plantas, con más de 157 m² útiles, jardín privado y amplias terrazas." },
+        { "type": "paragraph", "content": "La planta inferior alberga el salón, comedor y cocina en un espacio abierto, inundado de luz natural gracias a los grandes ventanales de triple acristalamiento." },
+        { "type": "paragraph", "content": "La cocina se entrega completamente amueblada, con isla o frente recto, encimeras de alta calidad y electrodomésticos de primeras marcas." },
+        { "type": "paragraph", "content": "En esta planta se ubica también un dormitorio con baño en suite, lavadero y aseo de cortesía." },
+        { "type": "paragraph", "content": "La conexión entre interior y exterior es perfecta, con terrazas cubiertas y descubiertas ideales para disfrutar del clima mediterráneo." },
+        { "type": "paragraph", "content": "En la planta superior se encuentran dos dormitorios adicionales y el dormitorio principal con baño en suite y acceso a una terraza privada de más de 33 m²." },
+        { "type": "heading", "level": 3, "content": "Zonas comunes y entorno" },
+        { "type": "paragraph", "content": "La urbanización ofrece zonas ajardinadas, piscina comunitaria y un completo Sport Club con piscina, gimnasio, spa y pistas deportivas." },
+        { "type": "heading", "level": 3, "content": "Ubicación estratégica en la Costa del Golf" },
+        { "type": "paragraph", "content": "La excelente ubicación permite un acceso rápido a playas, campos de golf, servicios y principales núcleos urbanos de la Costa del Sol." }
+      ]
+    }
+  }
+}

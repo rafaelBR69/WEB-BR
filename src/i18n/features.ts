@@ -1,0 +1,48 @@
+export const FEATURES = {
+  air_conditioning: {
+    es: "Aire acondicionado",
+    en: "Air conditioning",
+    de: "Klimaanlage",
+    fr: "Climatisation",
+    it: "Aria condizionata",
+    nl: "Airconditioning",
+    icon: "❄️",
+  },
+  fitted_kitchen: {
+    es: "Cocina amueblada",
+    en: "Fitted kitchen",
+    de: "Einbauküche",
+    fr: "Cuisine équipée",
+    it: "Cucina arredata",
+    nl: "Ingerichte keuken",
+    icon: "🍳",
+  },
+  sea_views: {
+    es: "Vistas al mar",
+    en: "Sea views",
+    de: "Meerblick",
+    fr: "Vue sur la mer",
+    it: "Vista mare",
+    nl: "Zeezicht",
+    icon: "🌊",
+  },
+  private_garden: {
+    es: "Jardín privado",
+    en: "Private garden",
+    de: "Privater Garten",
+    fr: "Jardin privé",
+    it: "Giardino privato",
+    nl: "Privétuin",
+    icon: "🌿",
+  },
+  gym: {
+    es: "Gimnasio",
+    en: "Gym",
+    de: "Fitnessraum",
+    fr: "Salle de sport",
+    it: "Palestra",
+    nl: "Fitnessruimte",
+    icon: "🏋️",
+  },
+  // añade sin miedo: el sistema escala
+};

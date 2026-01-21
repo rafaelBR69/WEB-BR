@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import properties from "@/data/properties";
+import PropertyCard from "@/components/PropertyCard.astro";
+
+const lang = "es";
+
+const visibleProperties = properties.filter(
+  (p) => p.status === "available"
+);
+---
+
+<BaseLayout title="Propiedades en venta | BlancaReal">
+
+  <h1>Propiedades en venta en la Costa del Sol</h1>
+
+  <section class="properties-grid">
+    {visibleProperties.map((property) => (
+      <PropertyCard property={property} lang={lang} />
+    ))}
+  </section>
+
+</BaseLayout>
