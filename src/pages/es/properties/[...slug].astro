@@ -1,0 +1,64 @@
+---
+export const prerender = false;
+
+import { INDEXABLE_CITIES, INDEXABLE_AREAS, INDEXABLE_TYPES } from "@/config/seoSlugs";
+import { normalizeCity } from "@/utils/normalizeCity";
+import { normalizeArea } from "@/utils/normalizeArea";
+
+const { slug = [] } = Astro.params;
+
+// Máximo permitido: /city o /city/zone o /city/type
+if (slug.length === 0 || slug.length > 2) {
+  return Astro.redirect("/es/properties/", 301);
+}
+
+const citySlug = slug[0];
+if (!INDEXABLE_CITIES.includes(citySlug)) {
+  return Astro.redirect("/es/properties/", 301);
+}
+
+let city = normalizeCity(citySlug);
+let area: string | null = null;
+let type: string | null = null;
+
+// CASO 1: /city
+if (slug.length === 1) {
+  // OK
+}
+
+// CASO 2: /city/second
+if (slug.length === 2) {
+  const second = slug[1];
+
+  // ¿Es tipo?
+  if (INDEXABLE_TYPES.includes(second)) {
+    type = second;
+  }
+
+  // ¿Es zona?
+  if (INDEXABLE_AREAS[citySlug]?.includes(second)) {
+    area = normalizeArea(second);
+  }
+
+  // Si no es ni tipo ni zona → fuera
+  if (!type && !area) {
+    return Astro.redirect(`/es/properties/${citySlug}/`, 301);
+  }
+}
+
+// ⚠️ Prohibido: city + area + type
+// (ya lo evitamos porque solo aceptamos 2 segmentos)
+
+// Construimos URL interna limpia
+const url = new URL(Astro.request.url);
+
+url.searchParams.set("city", city);
+if (area) url.searchParams.set("area", area);
+if (type) url.searchParams.set("type", type);
+
+// Eliminamos basura técnica
+url.searchParams.delete("sort");
+url.searchParams.delete("page");
+
+return Astro.redirect(url.pathname + url.search, 307);
+---

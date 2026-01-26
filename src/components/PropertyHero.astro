@@ -1,0 +1,23 @@
+---
+const { cover, title, lang } = Astro.props;
+
+if (!cover?.url) return null;
+
+const alt =
+  cover.alt?.[lang] ||
+  cover.alt?.es ||
+  title;
+---
+<section class="property-hero">
+  <img
+    src={cover.url}
+    alt={alt}
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+
+  <div class="overlay">
+    <h1>{title}</h1>
+  </div>
+</section>

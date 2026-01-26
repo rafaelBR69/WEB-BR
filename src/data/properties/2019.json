@@ -19,7 +19,12 @@
   "location": {
     "country": "ES",
     "province": "Málaga",
-    "area": "La Cala de Mijas"
+    "city": "Marbella",
+    "area": "Puerto Banús",
+    "coordinates": {
+      "lat": 36.50968678269858,
+      "lng": -4.656487860774938
+    }
   },
 
   "property": {

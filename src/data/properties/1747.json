@@ -20,7 +20,12 @@
   "location": {
     "country": "ES",
     "province": "Málaga",
-    "area": "La Cala de Mijas"
+    "city": "Mijas",
+    "area": "La Cala de Mijas",
+    "coordinates": {
+      "lat": 36.50968678269858,
+      "lng": -4.656487860774938
+    }
   },
 
   "property": {
@@ -48,6 +53,57 @@
     "green_areas",
     "gated_community"
   ],
+
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/cover/1.jpg",
+      "alt": {
+        "es": "Casa adosada con vistas al mar en La Cala de Mijas",
+        "en": "Townhouse with sea views in La Cala de Mijas",
+        "de": "Reihenhaus mit Meerblick in La Cala de Mijas",
+        "fr": "Maison mitoyenne avec vue sur la mer à La Cala de Mijas",
+        "it": "Casa a schiera con vista mare a La Cala de Mijas",
+        "nl": "Geschakelde woning met zeezicht in La Cala de Mijas"
+      }
+    },
+
+    "gallery": {
+      "exterior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/facade-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/facade-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/garden-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/pool-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/terrace-01.jpg" }
+      ],
+
+      "interior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bathroom-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bathroom-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bathroom-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bedroom-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bedroom-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/kitchen-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/living-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/living-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/living-03.jpg" }
+      ],
+
+      "views": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/sea-view-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/sport-area-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/urbanization-view-render-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/urbanization-view-render-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/urbanization-view-render-03.jpg" }
+      ],
+
+      "floorplan": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/floorplan/plano-70x50-eden-casa-01.pdf" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/floorplan/plano-70x50-eden-casa-05.pdf" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/floorplan/plano-70x50-eden-casa-09.pdf" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/floorplan/plano-70x50-eden-casa-17.pdf" }
+      ]
+    }
+  },
 
   "seo": {
     "focus_keyphrase": {

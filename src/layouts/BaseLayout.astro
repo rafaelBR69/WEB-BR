@@ -4,19 +4,82 @@ import "@/styles/layout.css";
 import "@/styles/components/property-card.css";
 import "@/styles/components/feature-badge.css";
 import "@/styles/components/properties-grid.css";
+import "@/styles/components/property-hero.css";
+import "@/styles/components/gallery.css";
+import "@/styles/components/property-detail.css";
+import "@/styles/components/filters.css";
+
+import lightboxUrl from "@/scripts/lightbox.js?url";
 
 const {
   title = "BlancaReal",
+  description = "",
+  noindex = false,
   lang = "es",
+  og = {},
 } = Astro.props;
----
 
+const SITE_URL = "https://blancareal.com";
+
+const currentUrl = Astro.url;
+const canonicalPath = currentUrl.pathname;
+
+// Canonical SIEMPRE sin query params
+const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+
+const ogLocaleMap = {
+  es: "es_ES",
+  en: "en_GB",
+  fr: "fr_FR",
+  it: "it_IT",
+  de: "de_DE",
+  nl: "nl_NL",
+};
+---
 <!DOCTYPE html>
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <title>{title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+
+    {description && (
+      <meta name="description" content={description} />
+    )}
+
+    {noindex && (
+      <meta name="robots" content="noindex,follow" />
+    )}
+
+    {canonicalUrl && (
+      <link rel="canonical" href={canonicalUrl} />
+    )}
+
+    <meta property="og:type" content={og.type ?? "website"} />
+
+    {title && (
+      <meta property="og:title" content={title} />
+    )}
+
+    {description && (
+      <meta property="og:description" content={description} />
+    )}
+
+    {canonicalUrl && (
+      <meta property="og:url" content={canonicalUrl} />
+    )}
+
+    {og.image && (
+      <meta property="og:image" content={og.image} />
+    )}
+
+    <meta
+      property="og:locale"
+      content={ogLocaleMap[lang] ?? "es_ES"}
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
 
   <body>
@@ -31,5 +94,7 @@ const {
     <main>
       <slot />
     </main>
+
+    <script type="module" src={lightboxUrl}></script>
   </body>
 </html>

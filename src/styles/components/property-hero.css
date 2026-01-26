@@ -1,0 +1,26 @@
+.property-hero {
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+.property-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+}
+
+.property-hero .overlay {
+  position: absolute;
+  bottom: var(--space-md);
+  left: var(--space-md);
+  right: var(--space-md);
+  background: rgba(0, 0, 0, 0.5);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+}
+
+.property-hero h1 {
+  color: #fff;
+  margin: 0;
+}

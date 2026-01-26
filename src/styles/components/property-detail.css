@@ -1,0 +1,26 @@
+.property-detail {
+  margin-top: var(--space-lg);
+}
+
+.property-detail .price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.property-detail .location {
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+.property-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.property-meta li {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}

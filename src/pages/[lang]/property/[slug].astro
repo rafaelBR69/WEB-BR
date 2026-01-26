@@ -1,0 +1,131 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import RichContent from "@/components/RichContent.astro";
+import PropertyHero from "@/components/PropertyHero.astro";
+import GallerySection from "@/components/GallerySection.astro";
+import LightboxGallery from "@/components/LightboxGallery.astro";
+
+import { getOrderedGallery } from "@/utils/media";
+import { formatPrice } from "@/utils/formatters";
+import { normalizeProperty } from "@/utils/normalizeProperty";
+import properties from "@/data/properties";
+
+/* =========================
+   STATIC PATHS
+========================= */
+export async function getStaticPaths() {
+  const LANGS = ["es", "en", "de", "fr", "it", "nl"];
+
+  return properties.flatMap((property) =>
+    LANGS.flatMap((lang) => {
+      if (!property.slugs?.[lang]) return [];
+      return [{
+        params: {
+          lang,
+          slug: property.slugs[lang],
+        },
+      }];
+    })
+  );
+}
+
+/* =========================
+   PARAMS
+========================= */
+const { slug } = Astro.params;
+const lang = "es";
+
+/* =========================
+   RESOLVER PROPIEDAD
+========================= */
+const property = properties.find(
+  (p) => p.slugs?.[lang] === slug
+);
+
+if (!property) {
+  throw new Error(`Property not found: ${lang}/${slug}`);
+}
+
+/* =========================
+   NORMALIZACIÓN (ÚNICA FUENTE)
+========================= */
+const data = normalizeProperty(property, lang);
+
+if (!data.visible) {
+  throw new Error(`Property is private: ${lang}/${slug}`);
+}
+
+/* =========================
+   DERIVADOS SEGUROS
+========================= */
+const orderedImages = getOrderedGallery(data.media);
+const canonicalUrl = `https://blancareal.com/${lang}/properties/${slug}/`;
+
+---
+
+<BaseLayout
+  title={data.seo.title}
+  description={data.seo.description}
+  noindex={data.seo.noindex}
+  og={data.seo.og}
+  url={canonicalUrl}
+  lang={lang}
+>
+  <!-- HERO -->
+  <PropertyHero
+    cover={data.media.cover}
+    title={data.text.title}
+    lang={lang}
+  />
+
+  <article class="property-detail">
+
+    <!-- PRECIO -->
+    {data.price && (
+      <p class="price">
+        {formatPrice(data.price, data.currency, lang)}
+      </p>
+    )}
+
+    <!-- UBICACIÓN -->
+    {data.location.area && data.location.province && (
+      <p class="location">
+        {data.location.area}, {data.location.province}
+      </p>
+    )}
+
+    <!-- META INFO -->
+    <ul class="property-meta">
+      {data.details.bedrooms && <li>{data.details.bedrooms} dormitorios</li>}
+      {data.details.bathrooms && <li>{data.details.bathrooms} baños</li>}
+      {data.details.garages && <li>{data.details.garages} garaje</li>}
+      {data.details.area_m2 && <li>{data.details.area_m2} m² construidos</li>}
+      {data.details.usable_area_m2 && (
+        <li>{data.details.usable_area_m2} m² útiles</li>
+      )}
+      {data.details.terrace_m2 && <li>{data.details.terrace_m2} m² terrazas</li>}
+      {data.details.garden_m2 && <li>{data.details.garden_m2} m² jardín</li>}
+      {data.details.orientation && (
+        <li>Orientación {data.details.orientation}</li>
+      )}
+    </ul>
+
+    <hr />
+
+    <!-- DESCRIPCIÓN -->
+    {data.text.description?.length > 0 && (
+      <RichContent blocks={data.text.description} />
+    )}
+
+    <!-- GALERÍAS -->
+    <GallerySection title="Exterior" items={data.media.gallery.exterior} />
+    <GallerySection title="Interior" items={data.media.gallery.interior} />
+    <GallerySection title="Vistas y zonas comunes" items={data.media.gallery.views} />
+    <GallerySection title="Planos" items={data.media.gallery.floorplan} />
+
+  </article>
+
+  <!-- LIGHTBOX -->
+  <LightboxGallery items={orderedImages} />
+
+</BaseLayout>
