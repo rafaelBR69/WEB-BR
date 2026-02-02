@@ -33,6 +33,10 @@ const label = labels[lang as keyof typeof labels] || labels.es;
         <div class="no-image-placeholder"></div>
       )}
     </a>
+
+    {data.isPromotion && (
+      <span class="badge-promotion">Promoción</span>
+    )}
   </div>
 
   <div class="card-content">
@@ -44,33 +48,43 @@ const label = labels[lang as keyof typeof labels] || labels.es;
       </h2>
 
       <div class="price-row">
-        {data.price && (
-          <p class="price">
-            {formatPrice(data.price, data.currency, lang)}
-          </p>
+        {data.isPromotion ? (
+          data.priceFrom && (
+            <p class="price">
+              Desde {formatPrice(data.priceFrom, data.currency, lang)}
+            </p>
+          )
+        ) : (
+          data.price && (
+            <p class="price">
+              {formatPrice(data.price, data.currency, lang)}
+            </p>
+          )
         )}
       </div>
     </header>
 
-    <ul class="meta">
-      {data.details.bedrooms && (
-        <li>
-          <span class="icon">🛏</span> {data.details.bedrooms}
-        </li>
-      )}
+    {!data.isPromotion && (
+      <ul class="meta">
+        {data.details.bedrooms && (
+          <li>
+            <span class="icon">🛏</span> {data.details.bedrooms}
+          </li>
+        )}
 
-      {data.details.bathrooms && (
-        <li>
-          <span class="icon">🚿</span> {data.details.bathrooms}
-        </li>
-      )}
+        {data.details.bathrooms && (
+          <li>
+            <span class="icon">🚿</span> {data.details.bathrooms}
+          </li>
+        )}
 
-      {formatArea(data.details.area_m2, lang) && (
-        <li>
-          <span class="icon">📐</span> {formatArea(data.details.area_m2, lang)}
-        </li>
-      )}
-    </ul>
+        {formatArea(data.details.area_m2, lang) && (
+          <li>
+            <span class="icon">📐</span> {formatArea(data.details.area_m2, lang)}
+          </li>
+        )}
+      </ul>
+    )}
 
     {data.features.length > 0 && (
       <div class="features">

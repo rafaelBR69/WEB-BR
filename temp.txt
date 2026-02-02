@@ -12,9 +12,6 @@ export function normalizePropertyCard(property, lang) {
 
   const status = property.status ?? "available";
   const visible = status !== "private";
-  const listingType = property.listing_type ?? "unit";
-  const isPromotion = listingType === "promotion";
-  const isUnit = !isPromotion;
 
   const typeKey = matchType(raw.type); // 👉 clave canónica
   const cityKey = property.location?.city
@@ -36,10 +33,6 @@ export function normalizePropertyCard(property, lang) {
     .map((key) => formatFeature(key, lang))
     .filter(Boolean);
 
-  const priceFrom = isPromotion ? property.pricing?.from ?? null : null;
-  const price = isPromotion ? null : property.price ?? null;
-  const priceDisplay = isPromotion ? priceFrom : price;
-
   return {
     status,
     visible,
@@ -47,14 +40,8 @@ export function normalizePropertyCard(property, lang) {
     slug: property.slugs?.[lang],   // 👈 AÑADIR ESTO
     title: t.title ?? "",
     cover: property.media?.cover ?? null, // 👈 AÑADIR ESTO
-    price,
+    price: property.price ?? null,
     currency: property.currency ?? "EUR",
-    listingType,
-    isPromotion,
-    isUnit,
-    parentId: property.parent_id ?? null,
-    priceFrom,
-    priceDisplay,
 
     typeKey,
     cityKey,

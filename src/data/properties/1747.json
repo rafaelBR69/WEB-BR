@@ -10,12 +10,17 @@
     "nl": "rijwoningen-mijas-costa"
   },
   "status": "available",
+  "listing_type": "promotion",
   "featured": true,
   "languages": ["es", "en", "de", "fr", "it", "nl"],
 
   "transaction": "sale",
   "price": 599000,
   "currency": "EUR",
+  "pricing": {
+    "from": 244000,
+    "currency": "EUR"
+  },
 
   "location": {
     "country": "ES",

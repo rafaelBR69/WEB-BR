@@ -24,19 +24,23 @@ export function normalizePropertyList({
 
   const semanticFilters = [city, area, type, market].filter(Boolean).length;
 
+  const hasMultiTypes = Array.isArray(type) && type.length > 1;
   const shouldIndex =
     semanticFilters > 0 &&
     semanticFilters <= 2 &&
-    !hasTechnicalFilters;
+    !hasTechnicalFilters &&
+    !hasMultiTypes;
 
   const locationLabel = area || city || province;
+  const shouldAppendLocation =
+    locationLabel && !base.title.includes(locationLabel);
 
   return {
-    title: locationLabel
+    title: shouldAppendLocation
       ? `${base.title} en ${locationLabel}`
       : base.title,
 
-    description: locationLabel
+    description: shouldAppendLocation
       ? `${base.description} en ${locationLabel}.`
       : base.description,
 

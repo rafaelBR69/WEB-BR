@@ -1,16 +1,19 @@
 export function applyFilters(cards, filters) {
-  console.log("APPLYING FILTERS:", filters);
-  return cards.filter((card) => {
-    console.log("CARD:", card);
-    console.log("CARD CITY KEY:", card.cityKey);
-    console.log("CARD AREA KEY:", card.areaKey);
-    console.log("CARD TYPE KEY:", card.typeKey);
-    console.log("CARD MARKET KEY:", card.marketKey);
-    console.log("CARD PRICE:", card.price);
-    console.log("CARD PRICE MIN:", filters.priceMin);
-    console.log("CARD PRICE MAX:", filters.priceMax);
+  const hasUnitFilters =
+    typeof filters.priceMin === "number" ||
+    typeof filters.priceMax === "number";
 
+  return cards.filter((card) => {
     if (!card.visible) return false;
+
+    if (card.listingType === "unit" && card.parentId) {
+      return false;
+    }
+
+    // ⛔ PROMOCIONES NO PASAN FILTROS DE UNIDAD
+    if (hasUnitFilters && card.isPromotion) {
+      return false;
+    }
 
     // CITY
     if (filters.city && card.cityKey !== filters.city) {
@@ -23,8 +26,19 @@ export function applyFilters(cards, filters) {
     }
 
     // TYPE
-    if (filters.type && card.typeKey !== filters.type) {
-      return false;
+    if (filters.type) {
+      const types = Array.isArray(filters.type) ? filters.type : [filters.type];
+      if (!types.includes(card.typeKey)) {
+        return false;
+      }
+    }
+
+    // BEDROOMS
+    if (filters.bedrooms) {
+      const bedrooms = Array.isArray(filters.bedrooms) ? filters.bedrooms : [filters.bedrooms];
+      if (!bedrooms.includes(card.details?.bedrooms)) {
+        return false;
+      }
     }
 
     // MARKET
@@ -32,17 +46,19 @@ export function applyFilters(cards, filters) {
       return false;
     }
 
-    // PRICE MIN
+    // PRICE MIN (solo unidades)
     if (
       typeof filters.priceMin === "number" &&
+      typeof card.price === "number" &&
       card.price < filters.priceMin
     ) {
       return false;
     }
 
-    // PRICE MAX
+    // PRICE MAX (solo unidades)
     if (
       typeof filters.priceMax === "number" &&
+      typeof card.price === "number" &&
       card.price > filters.priceMax
     ) {
       return false;

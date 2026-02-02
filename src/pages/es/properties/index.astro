@@ -12,6 +12,7 @@ import { applyFilters } from "@/utils/applyFilters";
 import { normalizeCity } from "@/utils/normalizeCity";
 import { normalizeArea } from "@/utils/normalizeArea";
 import { displayLocation, formatPropertyType } from "@/utils/presentation";
+import { TYPES } from "@/data/properties/taxonomies";
 import "@/styles/pages/properties.css";
 
 const lang = "es";
@@ -20,6 +21,35 @@ const lang = "es";
    FILTROS ACTIVOS (QUERY PARAMS)
 ========================= */
 const { searchParams } = Astro.url;
+
+const getMultiParam = (key) => {
+  const values = searchParams.getAll(key)
+    .map((v) => String(v).trim())
+    .filter(Boolean);
+  return values.length ? values : null;
+};
+
+const toggleMulti = (current, value) => {
+  const next = new Set(current || []);
+  if (next.has(value)) {
+    next.delete(value);
+  } else {
+    next.add(value);
+  }
+  return Array.from(next);
+};
+
+const normalizeTypeParam = (value) => {
+  if (!value) return null;
+  const normalized = String(value).toLowerCase().trim();
+  if (TYPES[normalized]) return normalized;
+
+  for (const [key, def] of Object.entries(TYPES)) {
+    if (def.label?.es?.toLowerCase() === normalized) return key;
+  }
+
+  return normalized;
+};
 
 const activeFilters = {
   city: searchParams.get("city")
@@ -30,8 +60,14 @@ const activeFilters = {
     ? normalizeArea(searchParams.get("area"))
     : null,
 
-  type: searchParams.get("type") || null,
+  type: getMultiParam("type")
+    ? getMultiParam("type").map((v) => normalizeTypeParam(v))
+    : null,
   market: searchParams.get("market") || null,
+
+  bedrooms: getMultiParam("bedrooms")
+    ? getMultiParam("bedrooms").map((v) => Number(v)).filter((v) => !Number.isNaN(v))
+    : null,
 
   priceMin: searchParams.get("priceMin")
     ? Number(searchParams.get("priceMin"))
@@ -79,6 +115,7 @@ const filters = buildFilters(
   areas: Record<string, string[]>;
   types: string[];
   markets: string[];
+  bedrooms: number[];
   price: { min: number; max: number };
 };
 
@@ -106,6 +143,7 @@ function buildUrl(overrides = {}) {
     area: activeFilters.area,
     type: activeFilters.type,
     market: activeFilters.market,
+    bedrooms: activeFilters.bedrooms,
     priceMin: activeFilters.priceMin,
     priceMax: activeFilters.priceMax,
     sort,
@@ -113,15 +151,20 @@ function buildUrl(overrides = {}) {
   };
 
   Object.entries(merged).forEach(([key, value]) => {
-    if (value !== null && value !== undefined) {
-      params.set(key, String(value));
+    if (value === null || value === undefined) return;
+    if (Array.isArray(value)) {
+      value.filter((v) => v !== null && v !== undefined).forEach((v) => {
+        params.append(key, String(v));
+      });
+      return;
     }
+    params.set(key, String(value));
   });
 
   const qs = params.toString();
   return qs ? `?${qs}` : "";
 }
-const isFiltered = !!(activeFilters.city || activeFilters.area || activeFilters.type || activeFilters.priceMin || activeFilters.priceMax);
+const isFiltered = !!(activeFilters.city || activeFilters.area || (activeFilters.type && activeFilters.type.length) || (activeFilters.bedrooms && activeFilters.bedrooms.length) || activeFilters.priceMin || activeFilters.priceMax);
 ---
 
 <BaseLayout
@@ -194,7 +237,7 @@ const isFiltered = !!(activeFilters.city || activeFilters.area || activeFilters.
            <section class="filters-panel">
             <div class="filters-header">
               <h2>Filtrar</h2>
-              {(activeFilters.city || activeFilters.area || activeFilters.type) && (
+              {(activeFilters.city || activeFilters.area || (activeFilters.type && activeFilters.type.length) || (activeFilters.bedrooms && activeFilters.bedrooms.length)) && (
                 <a href={`/${lang}/properties/`} class="reset-all">Limpiar todo</a>
               )}
             </div>
@@ -205,9 +248,12 @@ const isFiltered = !!(activeFilters.city || activeFilters.area || activeFilters.
                 <ul class="filter-list vertical">
                   {filters.cities.map((city: string) => (
                     <li class={city === activeFilters.city ? "active" : ""}>
-                      <a href={buildUrl({ city, area: null })}>
+                      <a href={buildUrl({ city: city === activeFilters.city ? null : city, area: null })}>
                         <span class="check-icon"></span>
                         {displayLocation(city)}
+                        {city === activeFilters.city && (
+                          <span class="filter-clear">x</span>
+                        )}
                       </a>
                     </li>
                   ))}
@@ -221,9 +267,12 @@ const isFiltered = !!(activeFilters.city || activeFilters.area || activeFilters.
                 <ul class="filter-list vertical">
                   {filters.areas[activeFilters.city].map((area: string) => (
                     <li class={area === activeFilters.area ? "active" : ""}>
-                      <a href={buildUrl({ area })}>
+                      <a href={buildUrl({ area: area === activeFilters.area ? null : area })}>
                          <span class="check-icon"></span>
                         {displayLocation(area)}
+                        {area === activeFilters.area && (
+                          <span class="filter-clear">x</span>
+                        )}
                       </a>
                     </li>
                   ))}
@@ -231,15 +280,37 @@ const isFiltered = !!(activeFilters.city || activeFilters.area || activeFilters.
               </div>
             )}
 
-            {filters.types.length > 1 && (
+            {(filters.types.length > 1 || (activeFilters.type && activeFilters.type.length)) && (
               <div class="filter-group">
                 <h3>Tipo de Propiedad</h3>
                 <ul class="filter-list vertical">
                   {filters.types.map((type: string) => (
-                    <li class={type === activeFilters.type ? "active" : ""}>
-                      <a href={buildUrl({ type })}>
+                    <li class={activeFilters.type?.includes(type) ? "active" : ""}>
+                      <a href={buildUrl({ type: toggleMulti(activeFilters.type, type) })}>
                          <span class="check-icon"></span>
                         {formatPropertyType(type, lang)}
+                        {activeFilters.type?.includes(type) && (
+                          <span class="filter-clear">x</span>
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {filters.bedrooms.length > 0 && (
+              <div class="filter-group">
+                <h3>Dormitorios</h3>
+                <ul class="filter-list vertical">
+                  {filters.bedrooms.map((bedrooms: number) => (
+                    <li class={activeFilters.bedrooms?.includes(bedrooms) ? "active" : ""}>
+                      <a href={buildUrl({ bedrooms: toggleMulti(activeFilters.bedrooms, bedrooms) })}>
+                         <span class="check-icon"></span>
+                        {bedrooms} dormitorios
+                        {activeFilters.bedrooms?.includes(bedrooms) && (
+                          <span class="filter-clear">x</span>
+                        )}
                       </a>
                     </li>
                   ))}
@@ -268,32 +339,6 @@ const isFiltered = !!(activeFilters.city || activeFilters.area || activeFilters.
              </div>
           </div>
         </div>
-
-        <!-- ACTIVE FILTERS (Chips) -->
-        {(activeFilters.city || activeFilters.area || activeFilters.type || activeFilters.priceMin || activeFilters.priceMax) && (
-          <div class="active-filters-bar">
-            {activeFilters.city && (
-              <a class="chip" href={buildUrl({ city: null, area: null })}>
-                {activeFilters.city} <span class="close">×</span>
-              </a>
-            )}
-            {activeFilters.area && (
-              <a class="chip" href={buildUrl({ area: null })}>
-                {activeFilters.area} <span class="close">×</span>
-              </a>
-            )}
-            {activeFilters.type && (
-              <a class="chip" href={buildUrl({ type: null })}>
-                {activeFilters.type} <span class="close">×</span>
-              </a>
-            )}
-             {(activeFilters.priceMin || activeFilters.priceMax) && (
-              <a class="chip" href={buildUrl({ priceMin: null, priceMax: null })}>
-                Precio <span class="close">×</span>
-              </a>
-            )}
-          </div>
-        )}
 
         {sortedCards.length === 0 ? (
           <div class="empty-state">

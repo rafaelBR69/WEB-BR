@@ -1,6 +1,7 @@
 export function buildFilters(cards) {
   const visible = cards.filter((c) => c.visible);
   const uniq = (arr) => [...new Set(arr.filter(Boolean))];
+  const uniqNumbers = (arr) => [...new Set(arr.filter((n) => typeof n === "number"))].sort((a, b) => a - b);
 
   const areasByCity = {};
 
@@ -22,6 +23,7 @@ export function buildFilters(cards) {
     cities: uniq(visible.map((c) => c.cityKey)),
     areas: areasByCity,
     markets: uniq(visible.map((c) => c.marketKey)),
+    bedrooms: uniqNumbers(visible.map((c) => c.details?.bedrooms)),
 
     price: {
       min: Math.min(...visible.map((c) => c.price).filter(Boolean)),

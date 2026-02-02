@@ -64,6 +64,28 @@ if (!data || !data.visible) {
 ========================= */
 const orderedImages = getOrderedGallery(data.media);
 const canonicalUrl = `https://blancareal.com/${lang}/property/${slug}/`;
+const isPromotion =
+  data.isPromotion ?? property.listing_type === "promotion";
+const unitsRaw = isPromotion
+  ? properties.filter(
+      (p) =>
+        String(p.parent_id) === String(property.id) &&
+        p.listing_type === "unit" &&
+        (p.status ?? "available") === "available" &&
+        p.slugs?.[lang]
+    )
+  : [];
+const units = unitsRaw
+  .map((unit) => ({
+    raw: unit,
+    data: normalizeProperty(unit, lang),
+  }))
+  .filter(
+    (unit) =>
+      unit.data &&
+      unit.data.visible &&
+      unit.raw?.slugs?.[lang]
+  );
 
 ---
 
@@ -161,6 +183,49 @@ const canonicalUrl = `https://blancareal.com/${lang}/property/${slug}/`;
           )}
         </ul>
       </section>
+
+      {isPromotion && units.length > 0 && (
+        <section class="section-units">
+          <span class="editorial-label">Disponibilidad</span>
+          <h2 class="section-title">Viviendas disponibles</h2>
+          <div class="luxury-divider"></div>
+          <table class="units-table">
+            <thead>
+              <tr>
+                <th>Dormitorios</th>
+                <th>Superficie (m²)</th>
+                <th>Precio</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {units.map((unit) => (
+                <tr>
+                  <td>{unit.data.details.bedrooms ?? "-"}</td>
+                  <td>{unit.data.details.area_m2 ?? "-"}</td>
+                  <td>
+                    {unit.data.price !== null
+                      ? formatPrice(
+                          unit.data.price,
+                          unit.data.currency,
+                          lang
+                        )
+                      : "-"}
+                  </td>
+                  <td>
+                    <a
+                      href={`/${lang}/property/${unit.raw.slugs[lang]}`}
+                      class="text-link-luxury"
+                    >
+                      Ver unidad
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
 
       <!-- UBICACIÓN Y ASESORAMIENTO -->
       <section class="section-advisory">

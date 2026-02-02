@@ -40,6 +40,21 @@
   transform: scale(1.08);
 }
 
+/* --- PROMOTION BADGE --- */
+.badge-promotion {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 /* --- CONTENT --- */
 .card-content {
   padding: 1.25rem 1.5rem;

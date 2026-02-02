@@ -9,6 +9,8 @@ export function normalizeProperty(property: any, lang: string) {
 
   const seoRaw = translations.seo ?? {};
   const status = property.status ?? "available";
+  const listingType = property.listing_type ?? "unit";
+  const isPromotion = listingType === "promotion";
 
   const noindexByStatus =
     status === "sold" || status === "private";
@@ -21,6 +23,8 @@ export function normalizeProperty(property: any, lang: string) {
     id: property.id,
     status,
     visible: visibleByStatus,
+    listingType,
+    isPromotion,
 
     price: property.price ?? null,
     currency: property.currency ?? "EUR",

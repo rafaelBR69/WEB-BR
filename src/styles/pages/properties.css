@@ -245,6 +245,16 @@
   font-weight: 700;
 }
 
+.filter-clear {
+  margin-left: auto;
+  font-weight: 800;
+  color: var(--color-secondary);
+}
+
+.filter-list.vertical li.active .filter-clear {
+  color: #fff;
+}
+
 /* El icono X se elimina para un look más limpio en el sidebar */
 
 /* --- CONTENT HEADER --- */
