@@ -57,5 +57,12 @@ export function formatPropertyType(
 ): string | null {
   if (!type) return null;
 
-  return PROPERTY_TYPE_LABELS[type]?.[lang] ?? type;
+  return PROPERTY_TYPE_LABELS[type]?.[lang] ?? displayLocation(type);
+}
+
+export function displayLocation(key: string | null | undefined): string {
+  if (!key) return "";
+  return key
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (l) => l.toUpperCase());
 }

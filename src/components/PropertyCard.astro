@@ -8,52 +8,84 @@ import {
 import FeatureBadge from "@/components/FeatureBadge.astro";
 
 const { data, lang } = Astro.props;
+
+const labels = {
+  es: "Ver detalles",
+  en: "View details",
+  fr: "Voir détails",
+  de: "Details ansehen"
+};
+
+const label = labels[lang as keyof typeof labels] || labels.es;
 ---
 
+
 <article class="property-card">
+  <div class="card-image">
+    <a href={`/${lang}/property/${data.slug}`} aria-label={data.title}>
+      {data.cover ? (
+        <img 
+          src={data.cover.url || data.cover} 
+          alt={data.cover.alt || data.title}
+          loading="lazy"
+        />
+      ) : (
+        <div class="no-image-placeholder"></div>
+      )}
+    </a>
+  </div>
 
-  <header class="header">
-    <h2 class="title">
-      <a href={`/${lang}/property/${data.slug}`}>
-        {data.title}
-      </a>
-    </h2>
+  <div class="card-content">
+    <header class="header">
+      <h2 class="title">
+        <a href={`/${lang}/property/${data.slug}`}>
+          {data.title}
+        </a>
+      </h2>
 
-    {data.price && (
-      <p class="price">
-        {formatPrice(data.price, data.currency, lang)}
-      </p>
+      <div class="price-row">
+        {data.price && (
+          <p class="price">
+            {formatPrice(data.price, data.currency, lang)}
+          </p>
+        )}
+      </div>
+    </header>
+
+    <ul class="meta">
+      {data.details.bedrooms && (
+        <li>
+          <span class="icon">🛏</span> {data.details.bedrooms}
+        </li>
+      )}
+
+      {data.details.bathrooms && (
+        <li>
+          <span class="icon">🚿</span> {data.details.bathrooms}
+        </li>
+      )}
+
+      {formatArea(data.details.area_m2, lang) && (
+        <li>
+          <span class="icon">📐</span> {formatArea(data.details.area_m2, lang)}
+        </li>
+      )}
+    </ul>
+
+    {data.features.length > 0 && (
+      <div class="features">
+        {data.features.slice(0, 3).map((f) => (
+          <FeatureBadge icon={f.icon} label={f.label} />
+        ))}
+        {data.features.length > 3 && (
+          <span class="more-features">+{data.features.length - 3}</span>
+        )}
+      </div>
     )}
-  </header>
 
-  <ul class="meta">
-    {data.details.bedrooms && (
-      <li>{data.details.bedrooms} hab</li>
-    )}
-
-    {data.details.bathrooms && (
-      <li>{data.details.bathrooms} baños</li>
-    )}
-
-    {formatArea(data.details.area_m2, lang) && (
-      <li>{formatArea(data.details.area_m2, lang)}</li>
-    )}
-
-    {formatOrientation(data.details.orientation, lang) && (
-      <li>{formatOrientation(data.details.orientation, lang)}</li>
-    )}
-
-    {formatPropertyType(data.details.type, lang) && (
-      <li>{formatPropertyType(data.details.type, lang)}</li>
-    )}
-  </ul>
-
-  {data.features.length > 0 && (
-    <div class="features">
-      {data.features.map((f) => (
-        <FeatureBadge icon={f.icon} label={f.label} />
-      ))}
+    <div class="card-actions">
+      <a href={`/${lang}/property/${data.slug}`} class="btn-card">{label}</a>
     </div>
-  )}
-
+  </div>
 </article>
+

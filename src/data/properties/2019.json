@@ -19,8 +19,8 @@
   "location": {
     "country": "ES",
     "province": "Málaga",
-    "city": "Marbella",
-    "area": "Puerto Banús",
+    "city": "Mijas",
+    "area": "La Cala de Mijas",
     "coordinates": {
       "lat": 36.50968678269858,
       "lng": -4.656487860774938
@@ -94,6 +94,101 @@
         { "type": "paragraph", "content": "La urbanización ofrece zonas ajardinadas, piscina comunitaria y un completo Sport Club con piscina, gimnasio, spa y pistas deportivas." },
         { "type": "heading", "level": 3, "content": "Ubicación estratégica en la Costa del Golf" },
         { "type": "paragraph", "content": "La excelente ubicación permite un acceso rápido a playas, campos de golf, servicios y principales núcleos urbanos de la Costa del Sol." }
+      ]
+    },
+    "en": {
+      "title": "Luxury sea-view villa in La Cala de Mijas",
+      "intro": "Exclusive detached villa in La Cala de Mijas on the Costa del Sol, surrounded by nature, golf and open views of the Mediterranean.",
+      "description": [
+        { "type": "paragraph", "content": "On the Costa del Sol, one of the most sought-after areas for investors and residents for its climate and leisure options, sits this luxury residential development with sea and golf views." },
+        { "type": "heading", "level": 3, "content": "4-bedroom detached villas in La Cala de Mijas" },
+        { "type": "paragraph", "content": "The complex is made up of contemporary detached villas, designed to the highest standards of quality, design and technology." },
+        { "type": "paragraph", "content": "The home sits on a private plot with a built area of 191 mÂ², laid out over two floors, with over 157 mÂ² of usable space, a private garden and large terraces." },
+        { "type": "paragraph", "content": "The lower floor houses the living room, dining room and kitchen in an open space, flooded with natural light thanks to large triple-glazed windows." },
+        { "type": "paragraph", "content": "The kitchen is delivered fully furnished, with an island or straight-line layout, high-quality countertops and top-brand appliances." },
+        { "type": "paragraph", "content": "This floor also includes a bedroom with en-suite bathroom, laundry room and guest toilet." },
+        { "type": "paragraph", "content": "The connection between indoors and outdoors is seamless, with covered and uncovered terraces ideal for enjoying the Mediterranean climate." },
+        { "type": "paragraph", "content": "On the upper floor there are two additional bedrooms and the master bedroom with en-suite bathroom and access to a private terrace of over 33 mÂ²." },
+        { "type": "heading", "level": 3, "content": "Communal areas and surroundings" },
+        { "type": "paragraph", "content": "The urbanisation offers landscaped areas, a communal pool and a complete Sport Club with pool, gym, spa and sports courts." },
+        { "type": "heading", "level": 3, "content": "Strategic location on the Costa del Golf" },
+        { "type": "paragraph", "content": "The excellent location provides quick access to beaches, golf courses, services and the main urban centres of the Costa del Sol." }
+      ]
+    },
+    "de": {
+      "title": "Luxusvilla mit Meerblick in La Cala de Mijas",
+      "intro": "Exklusive freistehende Villa in La Cala de Mijas an der Costa del Sol, umgeben von Natur, Golf und weitem Blick auf das Mittelmeer.",
+      "description": [
+        { "type": "paragraph", "content": "An der Costa del Sol, einer der gefragtesten Gegenden fÃ¼r Investoren und Bewohner wegen ihres Klimas und Freizeitangebots, befindet sich diese luxuriÃ¶se Wohnanlage mit Meer- und Golfblick." },
+        { "type": "heading", "level": 3, "content": "Freistehende 4-Schlafzimmer-Villen in La Cala de Mijas" },
+        { "type": "paragraph", "content": "Die Anlage besteht aus freistehenden Villen im zeitgenÃ¶ssischen Stil, die nach hÃ¶chsten Standards in QualitÃ¤t, Design und Technologie entworfen wurden." },
+        { "type": "paragraph", "content": "Das Haus verfÃ¼gt Ã¼ber ein privates GrundstÃ¼ck und eine bebaute FlÃ¤che von 191 mÂ², verteilt auf zwei Etagen, mit mehr als 157 mÂ² NutzflÃ¤che, privatem Garten und groÃŸzÃ¼gigen Terrassen." },
+        { "type": "paragraph", "content": "Im unteren Stockwerk befinden sich Wohnzimmer, Essbereich und KÃ¼che in einem offenen Raum, der dank groÃŸer, dreifach verglaster Fenster von natÃ¼rlichem Licht durchflutet wird." },
+        { "type": "paragraph", "content": "Die KÃ¼che wird voll mÃ¶bliert Ã¼bergeben, mit Insel oder geradliniger Anordnung, hochwertigen Arbeitsplatten und ElektrogerÃ¤ten fÃ¼hrender Marken." },
+        { "type": "paragraph", "content": "Auf dieser Etage befindet sich zudem ein Schlafzimmer mit Bad en suite, ein Hauswirtschaftsraum und ein GÃ¤ste-WC." },
+        { "type": "paragraph", "content": "Die Verbindung zwischen Innen- und AuÃŸenbereich ist perfekt, mit Ã¼berdachten und offenen Terrassen, ideal um das mediterrane Klima zu genieÃŸen." },
+        { "type": "paragraph", "content": "Im Obergeschoss befinden sich zwei weitere Schlafzimmer sowie das Hauptschlafzimmer mit Bad en suite und Zugang zu einer privaten Terrasse von mehr als 33 mÂ²." },
+        { "type": "heading", "level": 3, "content": "Gemeinschaftsbereiche und Umgebung" },
+        { "type": "paragraph", "content": "Die Urbanisation bietet begrÃ¼nte Bereiche, einen Gemeinschaftspool und einen voll ausgestatteten Sport Club mit Pool, Fitnessraum, Spa und SportplÃ¤tzen." },
+        { "type": "heading", "level": 3, "content": "Strategische Lage an der Costa del Golf" },
+        { "type": "paragraph", "content": "Die ausgezeichnete Lage ermÃ¶glicht einen schnellen Zugang zu StrÃ¤nden, GolfplÃ¤tzen, Dienstleistungen und den wichtigsten stÃ¤dtischen Zentren der Costa del Sol." }
+      ]
+    },
+    "fr": {
+      "title": "Villa de luxe avec vue sur la mer Ã  La Cala de Mijas",
+      "intro": "Villa individuelle exclusive Ã  La Cala de Mijas, sur la Costa del Sol, entourÃ©e de nature, de golf et de vues ouvertes sur la MÃ©diterranÃ©e.",
+      "description": [
+        { "type": "paragraph", "content": "Sur la Costa del Sol, l'une des zones les plus recherchÃ©es par les investisseurs et les rÃ©sidents pour son climat et ses loisirs, se trouve ce complexe rÃ©sidentiel de luxe avec vue sur la mer et le golf." },
+        { "type": "heading", "level": 3, "content": "Villas individuelles de 4 chambres Ã  La Cala de Mijas" },
+        { "type": "paragraph", "content": "Le complexe est composÃ© de villas individuelles de style contemporain, conÃ§ues selon les plus hauts standards de qualitÃ©, de design et de technologie." },
+        { "type": "paragraph", "content": "La maison dispose d'un terrain privÃ© et d'une surface construite de 191 mÂ², rÃ©partis sur deux niveaux, avec plus de 157 mÂ² habitables, un jardin privÃ© et de grandes terrasses." },
+        { "type": "paragraph", "content": "Le niveau infÃ©rieur accueille le salon, la salle Ã  manger et la cuisine dans un espace ouvert, inondÃ© de lumiÃ¨re naturelle grÃ¢ce aux grandes baies vitrÃ©es Ã  triple vitrage." },
+        { "type": "paragraph", "content": "La cuisine est livrÃ©e entiÃ¨rement Ã©quipÃ©e, avec Ã®lot ou linÃ©aire, plans de travail de haute qualitÃ© et Ã©lectromÃ©nagers de grandes marques." },
+        { "type": "paragraph", "content": "Ã ce niveau se trouvent Ã©galement une chambre avec salle de bains en suite, une buanderie et des toilettes invitÃ©s." },
+        { "type": "paragraph", "content": "La connexion entre l'intÃ©rieur et l'extÃ©rieur est parfaite, avec des terrasses couvertes et dÃ©couvertes idÃ©ales pour profiter du climat mÃ©diterranÃ©en." },
+        { "type": "paragraph", "content": "Ã l'Ã©tage supÃ©rieur se trouvent deux autres chambres et la chambre principale avec salle de bains en suite et accÃ¨s Ã  une terrasse privÃ©e de plus de 33 mÂ²." },
+        { "type": "heading", "level": 3, "content": "Espaces communs et environnement" },
+        { "type": "paragraph", "content": "L'urbanisation offre des espaces paysagers, une piscine commune et un Sport Club complet avec piscine, salle de sport, spa et terrains de sport." },
+        { "type": "heading", "level": 3, "content": "Emplacement stratÃ©gique sur la Costa del Golf" },
+        { "type": "paragraph", "content": "L'excellente localisation permet un accÃ¨s rapide aux plages, aux parcours de golf, aux services et aux principaux centres urbains de la Costa del Sol." }
+      ]
+    },
+    "it": {
+      "title": "Villa di lusso con vista mare a La Cala de Mijas",
+      "intro": "Villa indipendente esclusiva a La Cala de Mijas, nel cuore della Costa del Sol, circondata da natura, golf e viste aperte sul Mediterraneo.",
+      "description": [
+        { "type": "paragraph", "content": "Sulla Costa del Sol, una delle zone piÃ¹ richieste da investitori e residenti per il suo clima e le opportunitÃ  di svago, si trova questo complesso residenziale di lusso con vista sul mare e sul golf." },
+        { "type": "heading", "level": 3, "content": "Ville indipendenti con 4 camere da letto a La Cala de Mijas" },
+        { "type": "paragraph", "content": "Il complesso Ã¨ composto da ville indipendenti in stile contemporaneo, progettate secondo i piÃ¹ alti standard di qualitÃ , design e tecnologia." },
+        { "type": "paragraph", "content": "L'abitazione dispone di un lotto privato e di una superficie costruita di 191 mÂ², distribuiti su due piani, con oltre 157 mÂ² di superficie utile, giardino privato e ampie terrazze." },
+        { "type": "paragraph", "content": "Il piano inferiore ospita soggiorno, sala da pranzo e cucina in un unico ambiente open space, inondato di luce naturale grazie alle grandi vetrate a triplo vetro." },
+        { "type": "paragraph", "content": "La cucina viene consegnata completamente arredata, con isola o layout lineare, piani di lavoro di alta qualitÃ  ed elettrodomestici di marche prestigiose." },
+        { "type": "paragraph", "content": "Su questo piano si trovano anche una camera con bagno en suite, lavanderia e bagno di cortesia." },
+        { "type": "paragraph", "content": "Il collegamento tra interno ed esterno Ã¨ perfetto, con terrazze coperte e scoperte ideali per godere del clima mediterraneo." },
+        { "type": "paragraph", "content": "Al piano superiore si trovano due camere aggiuntive e la camera padronale con bagno en suite e accesso a una terrazza privata di oltre 33 mÂ²." },
+        { "type": "heading", "level": 3, "content": "Aree comuni e dintorni" },
+        { "type": "paragraph", "content": "L'urbanizzazione offre aree verdi, piscina condominiale e un completo Sport Club con piscina, palestra, spa e campi sportivi." },
+        { "type": "heading", "level": 3, "content": "Posizione strategica sulla Costa del Golf" },
+        { "type": "paragraph", "content": "L'eccellente posizione consente un accesso rapido a spiagge, campi da golf, servizi e principali centri urbani della Costa del Sol." }
+      ]
+    },
+    "nl": {
+      "title": "Luxe villa met zeezicht in La Cala de Mijas",
+      "intro": "Exclusieve vrijstaande villa in La Cala de Mijas aan de Costa del Sol, omringd door natuur, golf en weidse uitzichten over de Middellandse Zee.",
+      "description": [
+        { "type": "paragraph", "content": "Aan de Costa del Sol, een van de meest gewilde gebieden voor investeerders en bewoners vanwege het klimaat en het aanbod aan vrije tijd, ligt dit luxe wooncomplex met uitzicht op zee en de golfbaan." },
+        { "type": "heading", "level": 3, "content": "Vrijstaande villa's met 4 slaapkamers in La Cala de Mijas" },
+        { "type": "paragraph", "content": "Het complex bestaat uit vrijstaande villa's in eigentijdse stijl, ontworpen volgens de hoogste normen op het gebied van kwaliteit, design en technologie." },
+        { "type": "paragraph", "content": "De woning heeft een privÃ©perceel en een bebouwde oppervlakte van 191 mÂ², verdeeld over twee verdiepingen, met meer dan 157 mÂ² aan bruikbare ruimte, privÃ©tuin en ruime terrassen." },
+        { "type": "paragraph", "content": "De benedenverdieping herbergt de woonkamer, eetkamer en keuken in een open ruimte, overspoeld met natuurlijk licht dankzij grote ramen met driedubbele beglazing." },
+        { "type": "paragraph", "content": "De keuken wordt volledig gemeubileerd opgeleverd, met een eiland of rechte opstelling, hoogwaardige werkbladen en apparatuur van topmerken." },
+        { "type": "paragraph", "content": "Op deze verdieping bevindt zich ook een slaapkamer met en-suite badkamer, wasruimte en gastentoilet." },
+        { "type": "paragraph", "content": "De verbinding tussen binnen en buiten is perfect, met overdekte en onoverdekte terrassen die ideaal zijn om van het mediterrane klimaat te genieten." },
+        { "type": "paragraph", "content": "Op de bovenverdieping bevinden zich nog twee slaapkamers en de hoofdslaapkamer met en-suite badkamer en toegang tot een privÃ©terras van meer dan 33 mÂ²." },
+        { "type": "heading", "level": 3, "content": "Gemeenschappelijke ruimtes en omgeving" },
+        { "type": "paragraph", "content": "De urbanisatie biedt aangelegde tuinen, een gemeenschappelijk zwembad en een complete Sport Club met zwembad, fitnessruimte, spa en sportvelden." },
+        { "type": "heading", "level": 3, "content": "Strategische ligging aan de Costa del Golf" },
+        { "type": "paragraph", "content": "De uitstekende locatie zorgt voor snelle toegang tot stranden, golfbanen, voorzieningen en de belangrijkste stedelijke centra van de Costa del Sol." }
       ]
     }
   }

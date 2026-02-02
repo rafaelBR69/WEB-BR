@@ -1,21 +1,135 @@
-.gallery-section {
-  margin-top: var(--space-lg);
+/* =========================
+   GALLERY (Mosaic Boutique)
+   ========================= */
+
+.gallery-category {
+  margin-bottom: 4rem;
 }
 
-.gallery-section h2 {
-  margin-bottom: var(--space-sm);
+.category-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-accent);
 }
 
-.gallery-grid {
+.gallery-mosaic {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: var(--space-sm);
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px;
+  gap: 1rem;
 }
 
-.gallery-grid img {
+.mosaic-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background-color: var(--color-bg);
+  display: block;
+}
+
+.mosaic-item.main {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.mosaic-item.thumb {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.mosaic-item img {
   width: 100%;
-  height: 160px;
+  height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.mosaic-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(32, 47, 78, 0.6); /* Blue corp overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.mosaic-overlay span {
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid #fff;
+  padding: 0.5rem 1rem;
+}
+
+.mosaic-item:hover img {
+  transform: scale(1.05);
+}
+
+.mosaic-item:hover .mosaic-overlay {
+  opacity: 1;
+}
+
+/* Lightbox Basic UI Fixes */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 15, 25, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.lightbox-overlay img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 1024px) {
+  .gallery-mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery-mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 150px;
+    gap: 0.5rem;
+  }
+  .mosaic-item.main {
+    grid-column: span 2;
+    grid-row: span 2;
+    height: 300px;
+  }
+  .mosaic-overlay span {
+    font-size: 0.7rem;
+  }
 }

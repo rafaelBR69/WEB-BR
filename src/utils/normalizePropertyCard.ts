@@ -39,6 +39,7 @@ export function normalizePropertyCard(property, lang) {
 
     slug: property.slugs?.[lang],   // 👈 AÑADIR ESTO
     title: t.title ?? "",
+    cover: property.media?.cover ?? null, // 👈 AÑADIR ESTO
     price: property.price ?? null,
     currency: property.currency ?? "EUR",
 

@@ -76,20 +76,102 @@ const ogLocaleMap = {
 
     <meta
       property="og:locale"
-      content={ogLocaleMap[lang] ?? "es_ES"}
+      content={ogLocaleMap[lang as keyof typeof ogLocaleMap] ?? "es_ES"}
     />
 
     <meta name="twitter:card" content="summary_large_image" />
   </head>
 
   <body>
-    <header>
-      <nav>
-        <a href={`/${lang}/`}>Home</a> |
-        <a href={`/${lang}/properties/`}>Properties</a> |
-        <a href={`/${lang}/about/`}>About</a>
-      </nav>
+    <header class="main-header">
+      <div class="header-container">
+        <div class="brand-logo">
+          <a href={`/${lang}/`}>
+            Blanca<span>Real</span>
+          </a>
+        </div>
+        
+        <!-- Desktop Nav -->
+        <nav class="main-nav desktop-only">
+          <ul class="nav-links">
+            <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? 'active' : ''}>Inicio</a></li>
+            <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>Propiedades</a></li>
+            <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>Nosotros</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+           <a href="tel:+34600123456" class="header-cta desktop-only">
+              Contactar
+           </a>
+           
+           <!-- Mobile Toggle -->
+           <button class="mobile-menu-toggle" aria-label="Menu" id="menuToggle">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+           </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav Overlay -->
+      <div class="mobile-nav-overlay" id="mobileMenu">
+        <nav class="mobile-nav-content">
+          <ul class="mobile-nav-links">
+            <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? 'active' : ''}>Inicio</a></li>
+            <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>Propiedades</a></li>
+            <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>Nosotros</a></li>
+          </ul>
+          <div class="mobile-menu-contact">
+            <a href="tel:+34600123456" class="mobile-menu-cta">Llamar Ahora</a>
+          </div>
+        </nav>
+      </div>
     </header>
+
+    <!-- MOBILE STICKY CONTACT BAR -->
+    <div class="mobile-sticky-cta">
+        <a href="tel:+34600123456" class="cta-item call">
+           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+           Llamar
+        </a>
+        <a href="#descContainer" class="cta-item contact" id="mobileContactBtn">
+           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+           Contactar
+        </a>
+    </div>
+
+    <script is:inline>
+      const toggle = document.getElementById('menuToggle');
+      const menu = document.getElementById('mobileMenu');
+      const body = document.body;
+
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          const isOpen = menu.classList.toggle('is-open');
+          toggle.classList.toggle('is-active');
+          body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        // Close on link click
+        menu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            menu.classList.remove('is-open');
+            toggle.classList.remove('is-active');
+            body.style.overflow = '';
+          });
+        });
+      }
+
+      // Smooth scroll for the contact button
+      document.getElementById('mobileContactBtn')?.addEventListener('click', (e) => {
+         e.preventDefault();
+         const target = document.querySelector('.concierge-card');
+         if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+         }
+      });
+    </script>
 
     <main>
       <slot />

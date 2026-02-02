@@ -3,15 +3,16 @@
    ========================= */
 
 :root {
-  /* Colores */
-  --color-bg: #ffffff;
-  --color-text: #1a1a1a;
-  --color-muted: #6b7280;
+  /* Colores Corporativos */
+  --color-bg: #F7F8F8; /* Blanco corporativo */
+  --color-text: #1C273D; /* Un azul casi negro para máxima legibilidad */
+  --color-muted: #64748b;
 
-  --color-primary: #00274e;
-  --color-accent: #cba052;
+  --color-primary: #202F4E; /* Azul corporativo */
+  --color-accent: #D32C43;  /* Rojo corporativo (antes dorado) */
+  --color-secondary: #D32C43; 
 
-  --color-border: #e5e7eb;
+  --color-border: rgba(32, 47, 78, 0.1); /* Borde basado en el azul primario */
 
   /* Tipografía */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont,

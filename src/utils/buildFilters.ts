@@ -5,16 +5,17 @@ export function buildFilters(cards) {
   const areasByCity = {};
 
   visible.forEach((c) => {
-    if (!c.cityKey || !c.areaKey) return;
+    if (!c.cityKey) return;
 
     if (!areasByCity[c.cityKey]) {
       areasByCity[c.cityKey] = [];
     }
 
-    if (!areasByCity[c.cityKey].includes(c.areaKey)) {
+    if (c.areaKey && !areasByCity[c.cityKey].includes(c.areaKey)) {
       areasByCity[c.cityKey].push(c.areaKey);
     }
   });
+
 
   return {
     types: uniq(visible.map((c) => c.typeKey)),

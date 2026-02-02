@@ -1,19 +1,29 @@
 ---
-const { title, items = [] } = Astro.props;
+const { title, items = [], category = "general" } = Astro.props;
 
-if (!items.length) return null;
+if (!items || !items.length) return null;
 ---
-<section class="gallery-section">
-  <h2>{title}</h2>
-
-  <div class="gallery-grid">
-    {items.map((img) => (
-      <img
-        src={img.url}
-        alt={img.alt ?? ""}
-        loading="lazy"
-        decoding="async"
-      />
+<div class={`gallery-category category-${category}`}>
+  <h3 class="category-title">{title}</h3>
+  
+  <div class="gallery-mosaic">
+    {items.map((img: any, index: number) => (
+      <a 
+        href={img.url} 
+        class={`mosaic-item ${index === 0 ? 'main' : 'thumb'}`}
+        data-lightbox="property"
+        title={img.alt || title}
+      >
+        <img
+          src={img.url}
+          alt={img.alt || title}
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="mosaic-overlay">
+           <span>Ver en grande</span>
+        </div>
+      </a>
     ))}
   </div>
-</section>
+</div>

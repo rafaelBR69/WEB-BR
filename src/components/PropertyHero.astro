@@ -9,15 +9,21 @@ const alt =
   title;
 ---
 <section class="property-hero">
-  <img
-    src={cover.url}
-    alt={alt}
-    loading="eager"
-    fetchpriority="high"
-    decoding="async"
-  />
+  <div class="hero-image-wrapper">
+    <img
+      src={cover.url}
+      alt={alt}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div class="hero-gradient"></div>
+  </div>
 
-  <div class="overlay">
-    <h1>{title}</h1>
+  <div class="hero-content container">
+    <div class="hero-text">
+       {Astro.props.location && <span class="hero-location-badge">{Astro.props.location}</span>}
+      <h1>{title}</h1>
+    </div>
   </div>
 </section>

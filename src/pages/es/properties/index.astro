@@ -11,6 +11,8 @@ import { buildFilters } from "@/utils/buildFilters";
 import { applyFilters } from "@/utils/applyFilters";
 import { normalizeCity } from "@/utils/normalizeCity";
 import { normalizeArea } from "@/utils/normalizeArea";
+import { displayLocation, formatPropertyType } from "@/utils/presentation";
+import "@/styles/pages/properties.css";
 
 const lang = "es";
 
@@ -72,7 +74,13 @@ const sortedCards = [...filteredCards].sort((a, b) => {
 ========================= */
 const filters = buildFilters(
   sortedCards.length ? sortedCards : cards
-);
+) as {
+  cities: string[];
+  areas: Record<string, string[]>;
+  types: string[];
+  markets: string[];
+  price: { min: number; max: number };
+};
 
 /* =========================
    SEO
@@ -113,6 +121,7 @@ function buildUrl(overrides = {}) {
   const qs = params.toString();
   return qs ? `?${qs}` : "";
 }
+const isFiltered = !!(activeFilters.city || activeFilters.area || activeFilters.type || activeFilters.priceMin || activeFilters.priceMax);
 ---
 
 <BaseLayout
@@ -121,174 +130,202 @@ function buildUrl(overrides = {}) {
   noindex={listSeo.noindex}
   lang={lang}
 >
-  <h1>{listSeo.title}</h1>
-
-  <p class="list-context">
-    {sortedCards.length > 0 && (
-      <>
-        Mostrando <strong>{activeFilters.type ?? "propiedades"}</strong>
-        {activeFilters.city && <> en <strong>{activeFilters.city}</strong></>}
-        {activeFilters.area && <> / <strong>{activeFilters.area}</strong></>}
-      </>
-    )}
-  </p>
-
-  <p class="results-count">
-    {sortedCards.length}
-    {sortedCards.length === 1
-      ? " propiedad encontrada"
-      : " propiedades encontradas"}
-  </p>
-
-  {(activeFilters.city ||
-    activeFilters.area ||
-    activeFilters.type ||
-    activeFilters.market ||
-    activeFilters.priceMin ||
-    activeFilters.priceMax) && (
-    <div class="active-filters">
-      <div class="chips">
-        {activeFilters.city && (
-          <a class="chip" href={buildUrl({ city: null, area: null })} rel="nofollow">
-            Ciudad: {activeFilters.city} ×
-          </a>
+  <div class={`properties-page ${isFiltered ? 'is-filtered' : ''}`}>
+    
+    <!-- HEADER DE PÁGINA -->
+    <header class="properties-header">
+      <div class="header-content">
+        <h1>{listSeo.title}</h1>
+        { !isFiltered && (
+          <p class="subtitle">
+            Encuentra tu propiedad ideal en {displayLocation(activeFilters.city) || "la Costa del Sol"}.
+          </p>
         )}
-
-        {activeFilters.area && (
-          <a class="chip" href={buildUrl({ area: null })} rel="nofollow">
-            Zona: {activeFilters.area} ×
-          </a>
-        )}
-
-        {activeFilters.type && (
-          <a class="chip" href={buildUrl({ type: null })} rel="nofollow">
-            Tipo: {activeFilters.type} ×
-          </a>
-        )}
-
-        {(activeFilters.priceMin || activeFilters.priceMax) && (
-          <a
-            class="chip"
-            href={buildUrl({ priceMin: null, priceMax: null })}
-            rel="nofollow"
-          >
-            Precio ×
-          </a>
-        )}
-
-        <a class="chip chip--reset" href={`/${lang}/properties/`} rel="nofollow">
-          Limpiar todo
-        </a>
       </div>
-    </div>
-  )}
+    </header>
 
-  <section class="filters">
-    <h2 class="filters-title">Filtrar propiedades</h2>
 
-    {filters.cities.length > 1 && (
-      <div class="filter-group">
-        <h3>Ciudad</h3>
-        <ul class="filter-list">
-          {filters.cities.map((city) => (
-            <li class={city === activeFilters.city ? "active" : ""}>
-              <a href={buildUrl({ city, area: null })}>{city}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
+        {!activeFilters.area && activeFilters.city && (
+          <section class="city-exploration-section">
+            <div class="exploration-content">
+              <div class="exploration-header">
+                <span class="exploration-label">Selección Exclusiva</span>
+                <h2>{displayLocation(activeFilters.city)}</h2>
+                <div class="exploration-divider"></div>
+                <p>
+                  {`Explore las residencias más prestigiosas en ${displayLocation(activeFilters.city)}. Seleccionamos cuidadosamente propiedades que definen el estilo de vida mediterráneo.`}
+                </p>
+              </div>
+              
+              <div class="exploration-links">
+                {filters.areas[activeFilters.city]?.length > 0 && (
+                  <div class="link-group">
+                    <h4>Zonas destacadas</h4>
+                    <div class="link-list">
+                      {filters.areas[activeFilters.city].map((area: string) => (
+                        <a href={buildUrl({ area })} class="text-link">
+                          {displayLocation(area)}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
-    {activeFilters.city &&
-      filters.areas[activeFilters.city]?.length > 0 && (
-        <div class="filter-group">
-          <h3>Zona</h3>
-          <ul class="filter-list">
-            {filters.areas[activeFilters.city].map((area) => (
-              <li class={area === activeFilters.area ? "active" : ""}>
-                <a href={buildUrl({ area })}>{area}</a>
-              </li>
-            ))}
-          </ul>
+                <div class="link-group">
+                  <h4>Propiedades en {displayLocation(activeFilters.city)}</h4>
+                  <div class="link-list">
+                    {filters.types.map((type: string) => (
+                      <a href={buildUrl({ type })} class="text-link">
+                        {formatPropertyType(type, lang)}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+    <div class="properties-layout">
+      
+      <!-- SIDEBAR FILTROS -->
+      <aside class="properties-sidebar">
+        <div class="filters-sticky">
+           <section class="filters-panel">
+            <div class="filters-header">
+              <h2>Filtrar</h2>
+              {(activeFilters.city || activeFilters.area || activeFilters.type) && (
+                <a href={`/${lang}/properties/`} class="reset-all">Limpiar todo</a>
+              )}
+            </div>
+
+            {filters.cities.length > 0 && (
+              <div class="filter-group">
+                <h3>Ubicación</h3>
+                <ul class="filter-list vertical">
+                  {filters.cities.map((city: string) => (
+                    <li class={city === activeFilters.city ? "active" : ""}>
+                      <a href={buildUrl({ city, area: null })}>
+                        <span class="check-icon"></span>
+                        {displayLocation(city)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {activeFilters.city && filters.areas[activeFilters.city]?.length > 0 && (
+              <div class="filter-group">
+                <h3>Zonas en {displayLocation(activeFilters.city)}</h3>
+                <ul class="filter-list vertical">
+                  {filters.areas[activeFilters.city].map((area: string) => (
+                    <li class={area === activeFilters.area ? "active" : ""}>
+                      <a href={buildUrl({ area })}>
+                         <span class="check-icon"></span>
+                        {displayLocation(area)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {filters.types.length > 1 && (
+              <div class="filter-group">
+                <h3>Tipo de Propiedad</h3>
+                <ul class="filter-list vertical">
+                  {filters.types.map((type: string) => (
+                    <li class={type === activeFilters.type ? "active" : ""}>
+                      <a href={buildUrl({ type })}>
+                         <span class="check-icon"></span>
+                        {formatPropertyType(type, lang)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+          </section>
         </div>
-      )}
+      </aside>
 
-    {filters.types.length > 1 && (
-      <div class="filter-group">
-        <h3>Tipo de propiedad</h3>
-        <ul class="filter-list">
-          {filters.types.map((type) => (
-            <li class={type === activeFilters.type ? "active" : ""}>
-              <a href={buildUrl({ type })}>{type}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
-  </section>
+      <!-- CONTENIDO PRINCIPAL -->
+      <main class="properties-content">
+        
+        <!-- BARRA SUPERIOR (Resultados + Ordenar) -->
+        <div class="content-header">
+          <p class="results-count">
+            <strong>{sortedCards.length}</strong> propiedades encontradas
+          </p>
+          
+          <div class="sort-dropdown">
+             <span>Ordenar por:</span>
+             <div class="sort-options">
+                <a href={buildUrl({ sort: "price_asc" })} class={sort === 'price_asc' ? 'active' : ''}>Precio: Menor a Mayor</a>
+                <a href={buildUrl({ sort: "price_desc" })} class={sort === 'price_desc' ? 'active' : ''}>Precio: Mayor a Menor</a>
+             </div>
+          </div>
+        </div>
 
-  <div class="sort-bar">
-    <span>Ordenar por:</span>
-    <a href={buildUrl({ sort: "price_asc" })}>Precio ↑</a>
-    <a href={buildUrl({ sort: "price_desc" })}>Precio ↓</a>
-  </div>
-
-  <hr />
-
-  {sortedCards.length === 0 ? (
-    <div class="empty-state">
-      <p>No hay propiedades que coincidan con estos filtros.</p>
-
-      <ul>
-        {activeFilters.area && (
-          <li>
-            <a href={buildUrl({ area: null })}>
-              Quitar zona ({activeFilters.area})
-            </a>
-          </li>
+        <!-- ACTIVE FILTERS (Chips) -->
+        {(activeFilters.city || activeFilters.area || activeFilters.type || activeFilters.priceMin || activeFilters.priceMax) && (
+          <div class="active-filters-bar">
+            {activeFilters.city && (
+              <a class="chip" href={buildUrl({ city: null, area: null })}>
+                {activeFilters.city} <span class="close">×</span>
+              </a>
+            )}
+            {activeFilters.area && (
+              <a class="chip" href={buildUrl({ area: null })}>
+                {activeFilters.area} <span class="close">×</span>
+              </a>
+            )}
+            {activeFilters.type && (
+              <a class="chip" href={buildUrl({ type: null })}>
+                {activeFilters.type} <span class="close">×</span>
+              </a>
+            )}
+             {(activeFilters.priceMin || activeFilters.priceMax) && (
+              <a class="chip" href={buildUrl({ priceMin: null, priceMax: null })}>
+                Precio <span class="close">×</span>
+              </a>
+            )}
+          </div>
         )}
 
-        {activeFilters.city && (
-          <li>
-            <a href={buildUrl({ city: null, area: null })}>
-              Ver todas en {activeFilters.city}
-            </a>
-          </li>
+        {sortedCards.length === 0 ? (
+          <div class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <h3>No encontramos propiedades exactas</h3>
+            <p>Prueba a ajustar tus filtros o ampliar la zona de búsqueda.</p>
+            <a href={`/${lang}/properties/`} class="btn btn-primary">Ver todas las propiedades</a>
+          </div>
+        ) : (
+          <>
+            <section class="properties-grid">
+              {sortedCards.map((data) => (
+                <PropertyCard data={data} lang={lang} />
+              ))}
+            </section>
+          </>
         )}
-      </ul>
 
-      <a href={`/${lang}/properties/`} class="btn">
-        Ver todas las propiedades
-      </a>
+      </main>
     </div>
-  ) : (
-    <>
-      <section class="properties-grid">
-        {sortedCards.map((data) => (
-          <PropertyCard data={data} lang={lang} />
-        ))}
-      </section>
 
-      <section class="list-seo-copy">
-        <p>
-          Descubre {activeFilters.type ?? "propiedades"} en{" "}
-          {activeFilters.area
-            ? `${activeFilters.area}, ${activeFilters.city}`
-            : activeFilters.city ?? "la Costa del Sol"}.
-          Nuestro catálogo incluye opciones cuidadosamente seleccionadas
-          para vivir o invertir con seguridad.
-        </p>
-      </section>
+    <!-- CTA FOOTER (CENTRADOR) -->
+    <div class="list-footer-cta">
+      <h3>¿No encuentras lo que buscas?</h3>
+      <p>
+        {activeFilters.city
+          ? `¿Buscas propiedades en ${displayLocation(activeFilters.city)}? Te asesoramos sin compromiso.`
+          : "¿Buscas propiedades en la Costa del Sol? Te asesoramos sin compromiso."}
+      </p>
+      <a href={`/${lang}/contacto`} class="btn btn-outline">Contáctanos</a>
+    </div>
 
-      <div class="list-cta">
-        <p>
-          ¿Buscas {activeFilters.type ?? "una propiedad"}
-          {activeFilters.city && <> en {activeFilters.city}</>}?
-        </p>
-        <a href="/contacto" class="btn-primary">
-          Te ayudamos sin compromiso
-        </a>
-      </div>
-    </>
-  )}
+  </div>
 </BaseLayout>
+

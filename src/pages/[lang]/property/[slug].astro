@@ -34,6 +34,10 @@ export async function getStaticPaths() {
 ========================= */
 const { slug } = Astro.params;
 const lang = "es";
+const agent = {
+  phone: "+34 600 123 456",
+  email: "info@blancareal.com",
+};
 
 /* =========================
    RESOLVER PROPIEDAD
@@ -51,15 +55,15 @@ if (!property) {
 ========================= */
 const data = normalizeProperty(property, lang);
 
-if (!data.visible) {
-  throw new Error(`Property is private: ${lang}/${slug}`);
+if (!data || !data.visible) {
+  throw new Error(`Property is private or not available: ${lang}/${slug}`);
 }
 
 /* =========================
    DERIVADOS SEGUROS
 ========================= */
 const orderedImages = getOrderedGallery(data.media);
-const canonicalUrl = `https://blancareal.com/${lang}/properties/${slug}/`;
+const canonicalUrl = `https://blancareal.com/${lang}/property/${slug}/`;
 
 ---
 
@@ -71,61 +75,208 @@ const canonicalUrl = `https://blancareal.com/${lang}/properties/${slug}/`;
   url={canonicalUrl}
   lang={lang}
 >
-  <!-- HERO -->
   <PropertyHero
     cover={data.media.cover}
     title={data.text.title}
+    location={`${data.location.area}, ${data.location.province}`}
     lang={lang}
   />
 
-  <article class="property-detail">
+  <div class="property-container">
+    
+    <!-- MAIN CONTENT -->
+    <main class="property-main">
+      
+      <!-- DESCRIPCIÓN -->
+      <section class="section-details">
+        <span class="editorial-label">Presentación</span>
+        <h2 class="section-title">Sobre esta propiedad</h2>
+        <div class="luxury-divider"></div>
+        
+        <div class="expandable-description" id="descContainer">
+          <div class="description-content">
+            {data.text.description?.length > 0 && (
+              <RichContent blocks={data.text.description} />
+            )}
+          </div>
+          <button class="read-more-btn" id="readMoreBtn">
+            Leer más
+          </button>
+        </div>
+      </section>
 
-    <!-- PRECIO -->
-    {data.price && (
-      <p class="price">
-        {formatPrice(data.price, data.currency, lang)}
-      </p>
-    )}
+      <script is:inline>
+        const btn = document.getElementById('readMoreBtn');
+        const container = document.getElementById('descContainer');
+        
+        if (btn && container) {
+          btn.addEventListener('click', () => {
+            const isExpanded = container.classList.toggle('is-expanded');
+            btn.textContent = isExpanded ? 'Leer menos' : 'Leer más';
+          });
+        }
+      </script>
 
-    <!-- UBICACIÓN -->
-    {data.location.area && data.location.province && (
-      <p class="location">
-        {data.location.area}, {data.location.province}
-      </p>
-    )}
+      <!-- CARACTERÍSTICAS -->
+      <section class="section-features">
+        <span class="editorial-label">Especificaciones</span>
+        <h2 class="section-title">Detalles Técnicos</h2>
+        <div class="luxury-divider"></div>
+        <ul class="features-list">
+          {data.details.bedrooms && (
+            <li class="feature-detail">
+              <span class="value">{data.details.bedrooms}</span>
+              <span class="type">Dormitorios</span>
+            </li>
+          )}
+          {data.details.bathrooms && (
+             <li class="feature-detail">
+              <span class="value">{data.details.bathrooms}</span>
+              <span class="type">Baños</span>
+            </li>
+          )}
+          {data.details.area_m2 && (
+             <li class="feature-detail">
+              <span class="value">{data.details.area_m2}</span>
+              <span class="type">m² Const.</span>
+            </li>
+          )}
+          {data.details.terrace_m2 && (
+             <li class="feature-detail">
+              <span class="value">{data.details.terrace_m2}</span>
+              <span class="type">m² Terraza</span>
+            </li>
+          )}
+          {data.details.garages && (
+             <li class="feature-detail">
+              <span class="value">{data.details.garages}</span>
+              <span class="type">Plazas Garaje</span>
+            </li>
+          )}
+          {data.details.orientation && (
+             <li class="feature-detail">
+              <span class="value">{data.details.orientation}</span>
+              <span class="type">Orientación</span>
+            </li>
+          )}
+        </ul>
+      </section>
 
-    <!-- META INFO -->
-    <ul class="property-meta">
-      {data.details.bedrooms && <li>{data.details.bedrooms} dormitorios</li>}
-      {data.details.bathrooms && <li>{data.details.bathrooms} baños</li>}
-      {data.details.garages && <li>{data.details.garages} garaje</li>}
-      {data.details.area_m2 && <li>{data.details.area_m2} m² construidos</li>}
-      {data.details.usable_area_m2 && (
-        <li>{data.details.usable_area_m2} m² útiles</li>
-      )}
-      {data.details.terrace_m2 && <li>{data.details.terrace_m2} m² terrazas</li>}
-      {data.details.garden_m2 && <li>{data.details.garden_m2} m² jardín</li>}
-      {data.details.orientation && (
-        <li>Orientación {data.details.orientation}</li>
-      )}
-    </ul>
+      <!-- UBICACIÓN Y ASESORAMIENTO -->
+      <section class="section-advisory">
+        <span class="editorial-label">Ubicación</span>
+        <h2 class="section-title">Vida en {data.location.area}</h2>
+        <div class="luxury-divider"></div>
+        <p class="advisory-text">
+          Esta propiedad se encuentra en una de las zonas más privilegiadas de {data.location.province}. 
+          Nuestro equipo de expertos locales le guiará en cada paso para asegurar que su transición a este exclusivo entorno sea impecable.
+        </p>
+        <div class="advisory-links">
+          <a href={`/${lang}/properties/`} class="text-link-luxury">
+            Explorar todas las propiedades
+          </a>
+          <a href={`/${lang}/properties/?area=${data.location.area}`} class="text-link-luxury">
+            Propiedades en {data.location.area}
+          </a>
+        </div>
+      </section>
 
-    <hr />
+      <!-- GALERÍAS -->
+      <div class="galleries-wrapper">
+        <span class="editorial-label">Catálogo Visual</span>
+        <h2 class="section-title">Inmersión en la propiedad</h2>
+        <div class="luxury-divider"></div>
+        
+        <div class="property-galleries">
+           <GallerySection title="Exterior y Alrededores" items={data.media.gallery.exterior} category="exterior" />
+           <GallerySection title="Ambientes Interiores" items={data.media.gallery.interior} category="interior" />
+           
+           {data.media.gallery.views?.length > 0 && (
+              <GallerySection title="Zonas Comunes y Vistas" items={data.media.gallery.views} category="views" />
+           )}
+           
+           {data.media.gallery.floorplan?.length > 0 && (
+              <GallerySection title="Planimetría" items={data.media.gallery.floorplan} category="plans" />
+           )}
+        </div>
+      </div>
 
-    <!-- DESCRIPCIÓN -->
-    {data.text.description?.length > 0 && (
-      <RichContent blocks={data.text.description} />
-    )}
+    </main>
 
-    <!-- GALERÍAS -->
-    <GallerySection title="Exterior" items={data.media.gallery.exterior} />
-    <GallerySection title="Interior" items={data.media.gallery.interior} />
-    <GallerySection title="Vistas y zonas comunes" items={data.media.gallery.views} />
-    <GallerySection title="Planos" items={data.media.gallery.floorplan} />
+    <!-- SIDEBAR -->
+    <aside class="property-sidebar">
+      <div class="concierge-card">
+        {data.price && (
+          <div class="price-section">
+             <span class="concierge-label">Inversión</span>
+             <p class="premium-price">
+              {formatPrice(data.price, data.currency, lang)}
+            </p>
+          </div>
+        )}
+        
+        <div class="concierge-actions">
+          <h3 class="concierge-title">Servicio Concierge</h3>
+          <p class="concierge-desc">Solicite información personalizada o agende una visita privada.</p>
 
-  </article>
+          <div class="action-buttons">
+            <a href={`tel:${agent.phone}`} class="btn-premium primary">
+              Llamar ahora
+            </a>
+            
+            <details class="concierge-expandable">
+              <summary class="btn-premium secondary">Solicitar Dossier</summary>
+              <div class="expandable-content">
+                <p>Nuestra oficina de <strong>{data.location.province}</strong> le enviará los detalles completos.</p>
+                <a href={`mailto:${agent.email}?subject=Dossier Ref: ${data.id || slug}`} class="email-direct">
+                  {agent.email}
+                </a>
+              </div>
+            </details>
 
-  <!-- LIGHTBOX -->
-  <LightboxGallery items={orderedImages} />
+            <details class="concierge-expandable">
+              <summary class="btn-premium outline">Agendar Visita</summary>
+              <div class="expandable-content">
+                 <form class="luxury-form" onsubmit="event.preventDefault()">
+                    <input type="text" placeholder="Su Nombre" required />
+                    <input type="email" placeholder="Email de contacto" required />
+                    <button type="submit" class="btn-send">Enviar Solicitud</button>
+                 </form>
+              </div>
+            </details>
+          </div>
 
+          <div class="property-reference">
+             <span>Referencia Especial</span>
+             <strong>{data.id || slug}</strong>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  <!-- UBICACIÓN (MAPA) -->
+  {data.location.coordinates && (
+    <section class="section-map">
+      <div class="map-container">
+        <span class="editorial-label">Localización</span>
+        <h2 class="section-title">Ubicación Privilegiada</h2>
+        <div class="luxury-divider"></div>
+        
+        <div class="map-wrapper">
+          <iframe
+            width="100%"
+            height="450"
+            style="border:0; border-radius: 1rem;"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src={`https://maps.google.com/maps?q=${data.location.coordinates.lat},${data.location.coordinates.lng}&z=15&output=embed`}
+          ></iframe>
+        </div>
+        <p class="map-note">
+          * La ubicación exacta se proporcionará tras agendar una visita privada por motivos de seguridad y privacidad.
+        </p>
+      </div>
+    </section>
+  )}
 </BaseLayout>

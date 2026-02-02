@@ -1,4 +1,4 @@
-export function normalizeProperty(property, lang) {
+export function normalizeProperty(property: any, lang: string) {
   if (!property) return null;
 
   const translations = property.translations?.[lang] ?? {};
@@ -66,6 +66,7 @@ export function normalizeProperty(property, lang) {
     location: {
       area: rawLocation.area ?? "",
       province: rawLocation.province ?? "",
+      coordinates: rawLocation.coordinates ?? null,
     },
 
     media: {
