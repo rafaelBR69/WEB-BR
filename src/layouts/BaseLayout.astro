@@ -83,6 +83,10 @@ const ogLocaleMap = {
   </head>
 
   <body>
+    <a class="skip-link" href="#mainContent">Saltar al contenido</a>
+    <div class="page-loader" aria-hidden="true">
+      <div class="loader-ring"></div>
+    </div>
     <header class="main-header">
       <div class="header-container">
         <div class="brand-logo">
@@ -106,7 +110,7 @@ const ogLocaleMap = {
            </a>
            
            <!-- Mobile Toggle -->
-           <button class="mobile-menu-toggle" aria-label="Menu" id="menuToggle">
+           <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu" id="menuToggle">
               <span class="bar"></span>
               <span class="bar"></span>
               <span class="bar"></span>
@@ -150,6 +154,7 @@ const ogLocaleMap = {
         toggle.addEventListener('click', () => {
           const isOpen = menu.classList.toggle('is-open');
           toggle.classList.toggle('is-active');
+          toggle.setAttribute('aria-expanded', String(isOpen));
           body.style.overflow = isOpen ? 'hidden' : '';
         });
 
@@ -158,6 +163,7 @@ const ogLocaleMap = {
           link.addEventListener('click', () => {
             menu.classList.remove('is-open');
             toggle.classList.remove('is-active');
+            toggle.setAttribute('aria-expanded', 'false');
             body.style.overflow = '';
           });
         });
@@ -171,9 +177,39 @@ const ogLocaleMap = {
             target.scrollIntoView({ behavior: 'smooth', block: 'center' });
          }
       });
+
+      const isSameOrigin = (link) => {
+        try {
+          return new URL(link.href).origin === window.location.origin;
+        } catch {
+          return false;
+        }
+      };
+
+      const shouldSkipTransition = (link) => {
+        if (!link || link.hasAttribute('download')) return true;
+        if (link.target && link.target !== '_self') return true;
+        if (link.rel && link.rel.includes('external')) return true;
+        const href = link.getAttribute('href') || '';
+        if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return true;
+        return !isSameOrigin(link);
+      };
+
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('a');
+        if (!link || shouldSkipTransition(link)) return;
+        const href = link.href;
+        if (!href) return;
+
+        event.preventDefault();
+        document.body.classList.add('page-is-leaving');
+        setTimeout(() => {
+          window.location.href = href;
+        }, 180);
+      });
     </script>
 
-    <main>
+    <main id="mainContent">
       <slot />
     </main>
 

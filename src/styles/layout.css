@@ -30,7 +30,7 @@
 
 .brand-logo span {
   font-weight: 800;
-  color: var(--color-accent);
+  color: var(--color-brand);
 }
 
 .main-nav {
@@ -88,6 +88,29 @@
   background-color: var(--color-accent);
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* --- SKIP LINK --- */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 2001;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+  outline: 3px solid rgba(211, 44, 67, 0.45);
+  outline-offset: 2px;
 }
 
 /* --- DESKTOP NAV --- */
@@ -200,7 +223,7 @@
   text-decoration: none;
   color: var(--color-primary);
   font-size: 1.75rem;
-  font-weight: 300;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.25em;
   transition: all 0.3s;
@@ -255,7 +278,7 @@
     justify-content: center;
     text-decoration: none;
     color: var(--color-primary);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.1em;

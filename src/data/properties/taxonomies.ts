@@ -249,5 +249,8 @@ export const MARKET_TYPE = {
   segunda_mano: {
     label: { es: "Segunda mano", en: "Resale" },
   },
+  alquiler_vacacional: {
+    label: { es: "Alquiler vacacional", en: "Holiday rental" },
+  },
 };
 

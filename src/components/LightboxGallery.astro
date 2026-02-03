@@ -4,18 +4,24 @@ const { items = [] } = Astro.props;
 
 {items.length > 0 && (
   <div class="gallery-grid">
-    {items.map((img, index) => (
-      <a
-        href={img.url}
-        class="gallery-item"
-        data-lightbox="property"
-      >
-        <img
-          src={img.url}
-          loading={index === 0 ? "eager" : "lazy"}
-          decoding="async"
-        />
-      </a>
-    ))}
+    {items.map((img, index) => {
+      const fallbackAlt = `Imagen ${index + 1}`;
+      const altText = img.alt || fallbackAlt;
+      return (
+        <a
+          href={img.url}
+          class="gallery-item"
+          data-lightbox="property"
+          title={altText}
+        >
+          <img
+            src={img.url}
+            alt={altText}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        </a>
+      );
+    })}
   </div>
 )}

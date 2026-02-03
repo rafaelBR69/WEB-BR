@@ -35,17 +35,19 @@ const label = labels[lang as keyof typeof labels] || labels.es;
     </a>
 
     {data.isPromotion && (
-      <span class="badge-promotion">Promoción</span>
+      <span class="badge-promotion">
+        {lang === "es" ? "Obra nueva" : "New build"}
+      </span>
     )}
   </div>
 
   <div class="card-content">
     <header class="header">
-      <h2 class="title">
+      <h3 class="title">
         <a href={`/${lang}/property/${data.slug}`}>
           {data.title}
         </a>
-      </h2>
+      </h3>
 
       <div class="price-row">
         {data.isPromotion ? (

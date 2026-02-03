@@ -1,6 +1,7 @@
 
 {
   "id": "1747",
+  "priority": 90,
   "slugs": {
     "es": "casas-venta-mijas-costa",
     "en": "townhouses-for-sale-mijas-costa",
@@ -35,6 +36,7 @@
 
   "property": {
     "type": "townhouse",
+    "market": "obra_nueva",
     "year_built": 2021,
     "area_m2": 139,
     "terrace_m2": 26,

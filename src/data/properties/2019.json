@@ -1,5 +1,6 @@
 {
   "id": "2019",
+  "priority": 85,
   "slugs": {
     "es": "chalet-lujo-cala-mijas-vistas-mar",
     "en": "luxury-villa-for-sale-la-cala-de-mijas",
@@ -29,6 +30,7 @@
 
   "property": {
     "type": "detached_villa",
+    "market": "obra_nueva",
     "year_built": 2019,
     "area_m2": 191,
     "usable_area_m2": 157,

@@ -124,7 +124,7 @@
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #bbb;
+  color: var(--color-muted);
   margin-bottom: 0.75rem;
   font-weight: 700;
 }
@@ -154,10 +154,10 @@
 .properties-layout {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 1.5rem 2rem 5rem;
+  padding: 1.25rem 2rem 4rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
 @media (min-width: 1024px) {
@@ -165,12 +165,84 @@
     grid-template-columns: 260px 1fr;
     align-items: start;
   }
+
+  .filters-disclosure {
+    border: none;
+    background: transparent;
+  }
+
+  .filters-summary {
+    display: none;
+  }
+
+  .filters-body {
+    padding: 0;
+    display: block;
+  }
 }
 
 /* --- SIDEBAR FILTERS (Luxury Refractive Design) --- */
+.properties-sidebar {
+  position: relative;
+}
+
+.filters-sticky {
+  position: sticky;
+  top: 6.5rem;
+}
+
+@media (max-width: 1023px) {
+  .filters-sticky {
+    position: static;
+  }
+}
+
 .filters-panel {
   background: transparent;
   padding: 0;
+}
+
+.filters-disclosure {
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.filters-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-primary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.filters-summary::-webkit-details-marker {
+  display: none;
+}
+
+.filters-summary .reset-all {
+  font-size: 0.65rem;
+}
+
+.filters-body {
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: none;
+}
+
+.filters-disclosure[open] .filters-summary {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filters-disclosure[open] .filters-body {
+  display: block;
 }
 
 .filters-header {
@@ -205,12 +277,12 @@
 }
 
 .filter-group {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .filter-group h3 {
   font-size: 0.6rem;
-  color: #bbb;
+  color: var(--color-muted);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -274,19 +346,90 @@
     align-items: flex-start;
     gap: 1rem;
   }
+
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar button {
+    width: 100%;
+  }
 }
 
 .results-count {
-  font-size: 0.75rem;
-  color: #bbb;
+  font-size: 0.8rem;
+  color: var(--color-muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 600;
 }
 
 .results-count strong {
-  color: #000;
+  color: var(--color-primary);
   font-weight: 800;
+}
+
+.results-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.results-query {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-secondary);
+  margin: 0;
+  font-weight: 700;
+}
+
+.results-query span {
+  color: var(--color-primary);
+}
+
+.search-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0 0 1.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  align-items: center;
+}
+
+.search-bar input[type="search"] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.4rem;
+  color: var(--color-primary);
+  outline: none;
+}
+
+.search-bar input[type="search"]::placeholder {
+  color: var(--color-muted);
+}
+
+.search-bar button {
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.6rem 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.search-bar button:hover {
+  background: transparent;
+  color: var(--color-primary);
 }
 
 .sort-dropdown {
@@ -308,8 +451,8 @@
 }
 
 .sort-options a {
-  color: #bbb;
-  font-size: 0.7rem;
+  color: var(--color-muted);
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -332,7 +475,7 @@
 }
 
 .chip {
-  background: #fff;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-primary);
   padding: 0.4rem 0.8rem;
@@ -365,7 +508,7 @@
 
 /* --- FOOTER CTA (Centered & Brand Colors) --- */
 .list-footer-cta {
-  background: linear-gradient(135deg, var(--color-primary) 0%, #151f33 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, rgba(32, 47, 78, 0.9) 100%);
   padding: 5rem 2rem;
   margin: 6rem auto; 
   max-width: 1000px;
@@ -438,6 +581,27 @@
   }
   
   .text-link {
+    font-size: 0.85rem;
+  }
+
+  .properties-layout {
+    padding: 1rem 1rem 3rem;
+    gap: 2rem;
+  }
+
+  .filter-group h3 {
+    font-size: 0.7rem;
+  }
+
+  .filter-list.vertical li a {
+    font-size: 0.9rem;
+  }
+
+  .results-count {
+    font-size: 0.85rem;
+  }
+
+  .sort-options a {
     font-size: 0.8rem;
   }
 }
@@ -453,5 +617,5 @@
 }
 
 .btn-outline:hover {
-  color: #000;
+  color: var(--color-primary);
 }

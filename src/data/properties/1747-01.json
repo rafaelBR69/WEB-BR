@@ -1,5 +1,6 @@
 {
   "id": "1747-01",
+  "priority": 80,
   "listing_type": "unit",
   "parent_id": "1747",
   "slugs": {
@@ -31,6 +32,7 @@
 
   "property": {
     "type": "townhouse",
+    "market": "obra_nueva",
     "year_built": 2021,
     "area_m2": 95,
     "terrace_m2": 18,
@@ -38,6 +40,7 @@
     "bedrooms": 2,
     "bathrooms": 2,
     "garages": 1,
+    "floor_level": 0,
     "orientation": "west",
     "condition": "new"
   },

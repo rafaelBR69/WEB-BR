@@ -1,0 +1,291 @@
+{
+  "id": "PM0079",
+  "priority": 88,
+  "slugs": {
+    "es": "obra-nueva-nylva-homes-manilva",
+    "en": "new-build-nylva-homes-manilva",
+    "de": "neubau-nylva-homes-manilva",
+    "fr": "programme-neuf-nylva-homes-manilva",
+    "it": "nuova-costruzione-nylva-homes-manilva",
+    "nl": "nieuwbouw-nylva-homes-manilva"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 329259,
+  "currency": "EUR",
+  "pricing": {
+    "from": 329259,
+    "currency": "EUR"
+  },
+  "location": {
+    "country": "ES",
+    "province": "Málaga",
+    "city": "Manilva",
+    "area": "Manilva - Sotogrande",
+    "coordinates": {
+      "lat": 36.32369757380338,
+      "lng": -5.253296331945576
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2026,
+    "area_m2": null,
+    "terrace_m2": null,
+    "bedrooms": null,
+    "bathrooms": null,
+    "orientation": null,
+    "condition": "new",
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "garages": null
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+      "alt": {
+        "es": "Nylva Homes en Manilva - obra nueva",
+        "en": "Nylva Homes in Manilva - new build",
+        "de": "Nylva Homes in Manilva - Neubau",
+        "fr": "Nylva Homes à Manilva - programme neuf",
+        "it": "Nylva Homes a Manilva - nuova costruzione",
+        "nl": "Nylva Homes in Manilva - nieuwbouw"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-03.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-04.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-05.webp"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-06.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-07.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-08.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-09.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-01.JPG"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-02.JPG"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-03.JPG"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-03.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-04.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-05.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-06.jpeg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bathroom-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bedroom-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bedroom-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/kitchen-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/kitchen-02.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-1-Nylva-Homes0.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-2-Nylva-Homes0.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-3-Nylva-Homes0.jpg"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "obra nueva manilva nylva homes",
+      "en": "new build manilva nylva homes",
+      "de": "neubau manilva nylva homes",
+      "it": "nuova costruzione manilva nylva homes",
+      "nl": "nieuwbouw manilva nylva homes",
+      "fr": "programme neuf manilva nylva homes"
+    },
+    "meta_description": {
+      "es": "Promoción Nylva Homes en Manilva-Sotogrande con terrazas y vistas abiertas al mar, Gibraltar y África.",
+      "en": "Nylva Homes development in Manilva-Sotogrande with terraces and open views to the sea, Gibraltar and Africa.",
+      "de": "Nylva Homes in Manilva-Sotogrande mit Terrassen und offenen Blicken auf Meer, Gibraltar und Afrika.",
+      "it": "Promozione Nylva Homes a Manilva-Sotogrande con terrazze e viste aperte su mare, Gibilterra e Africa.",
+      "nl": "Nylva Homes in Manilva-Sotogrande met terrassen en open uitzicht op zee, Gibraltar en Afrika.",
+      "fr": "Programme Nylva Homes à Manilva-Sotogrande avec terrasses et vues ouvertes sur la mer, Gibraltar et l'Afrique."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Nylva Homes: obra nueva en Manilva",
+      "intro": "Promoción de 45 apartamentos en Manilva-Sotogrande con diseño moderno y vistas abiertas al mar, Gibraltar y África.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, calma y confort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes es una promoción de 45 exclusivos apartamentos en la zona de Manilva-Sotogrande con un diseño exterior moderno, donde poder disfrutar de sus magníficas terrazas que permiten gozar de vistas abiertas al mar, Gibraltar y África."
+        },
+        {
+          "type": "paragraph",
+          "content": "Su arquitectura ofrece luz natural y privacidad en todas las viviendas, además de crear espacios exteriores muy amplios. El hogar que tanto deseó."
+        }
+      ]
+    },
+    "en": {
+      "title": "Nylva Homes: new build in Manilva",
+      "intro": "A 45-apartment development in Manilva-Sotogrande with modern design and open views to the sea, Gibraltar and Africa.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, calm and comfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes consists of 45 exclusive apartments in Manilva with a modern exterior design to enjoy its magnificent terraces, offering open views of the sea, Gibraltar and Africa."
+        },
+        {
+          "type": "paragraph",
+          "content": "Its architecture offers natural light and privacy in all its homes, while creating ample outdoor spaces. The home you have always dreamed of."
+        }
+      ]
+    },
+    "de": {
+      "title": "Nylva Homes: Neubau in Manilva",
+      "intro": "Eine Anlage mit 45 Apartments in Manilva-Sotogrande mit modernem Design und offenem Blick auf Meer, Gibraltar und Afrika.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, Ruhe und Komfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes ist eine Wohnanlage mit 45 exklusiven Apartments in der Region Manilva-Sotogrande mit modernem Außendesign und großzügigen Terrassen mit offenem Blick auf das Meer, Gibraltar und Afrika."
+        },
+        {
+          "type": "paragraph",
+          "content": "Die Architektur bietet in allen Wohnungen viel Tageslicht und Privatsphäre und schafft zugleich großzügige Außenbereiche. Das Zuhause, das Sie sich immer gewünscht haben."
+        }
+      ]
+    },
+    "fr": {
+      "title": "Nylva Homes : programme neuf à Manilva",
+      "intro": "Programme de 45 appartements à Manilva-Sotogrande au design moderne avec vues ouvertes sur la mer, Gibraltar et l’Afrique.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, calme et confort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes est un programme de 45 appartements exclusifs à Manilva-Sotogrande, au design extérieur moderne, avec de magnifiques terrasses offrant des vues ouvertes sur la mer, Gibraltar et l’Afrique."
+        },
+        {
+          "type": "paragraph",
+          "content": "Son architecture offre une lumière naturelle et de l’intimité dans tous les logements, tout en créant de grands espaces extérieurs. La maison dont vous avez toujours rêvé."
+        }
+      ]
+    },
+    "it": {
+      "title": "Nylva Homes: nuova costruzione a Manilva",
+      "intro": "Complesso di 45 appartamenti a Manilva-Sotogrande con design moderno e viste aperte su mare, Gibilterra e Africa.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, calma e comfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes è una promozione di 45 esclusivi appartamenti a Manilva-Sotogrande con un design esterno moderno, dove poter godere di magnifiche terrazze con viste aperte sul mare, Gibilterra e Africa."
+        },
+        {
+          "type": "paragraph",
+          "content": "L’architettura offre luce naturale e privacy in tutte le abitazioni, creando al contempo ampi spazi esterni. La casa che hai sempre desiderato."
+        }
+      ]
+    },
+    "nl": {
+      "title": "Nylva Homes: nieuwbouw in Manilva",
+      "intro": "Een project met 45 appartementen in Manilva-Sotogrande met modern design en open uitzicht op zee, Gibraltar en Afrika.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, rust en comfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes is een project met 45 exclusieve appartementen in Manilva-Sotogrande met een modern exterieur en prachtige terrassen met open uitzicht op zee, Gibraltar en Afrika."
+        },
+        {
+          "type": "paragraph",
+          "content": "De architectuur biedt natuurlijk licht en privacy in alle woningen en creëert tegelijk royale buitenruimtes. Het huis waar u altijd van heeft gedroomd."
+        }
+      ]
+    }
+  }
+}

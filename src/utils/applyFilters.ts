@@ -1,12 +1,25 @@
+import { normalizeSearchText } from "@/utils/search";
+
 export function applyFilters(cards, filters) {
   const hasUnitFilters =
     typeof filters.priceMin === "number" ||
-    typeof filters.priceMax === "number";
+    typeof filters.priceMax === "number" ||
+    (Array.isArray(filters.bedrooms) && filters.bedrooms.length > 0) ||
+    (Array.isArray(filters.floor) && filters.floor.length > 0) ||
+    filters.listingType === "unit";
+
+  const searchQuery = filters.search ? normalizeSearchText(filters.search) : "";
+  const searchTerms = searchQuery ? searchQuery.split(" ").filter(Boolean) : [];
 
   return cards.filter((card) => {
     if (!card.visible) return false;
+    if (card.status === "sold") return false;
 
-    if (card.listingType === "unit" && card.parentId) {
+    if (!hasUnitFilters) {
+      if (card.listingType === "unit" && card.parentId) {
+        return false;
+      }
+    } else if (card.isPromotion && filters.listingType !== "promotion") {
       return false;
     }
 
@@ -41,8 +54,21 @@ export function applyFilters(cards, filters) {
       }
     }
 
+    // FLOOR FILTER (label-based)
+    if (filters.floor) {
+      const floors = Array.isArray(filters.floor) ? filters.floor : [filters.floor];
+      if (!floors.includes(card.details?.floor_filter)) {
+        return false;
+      }
+    }
+
     // MARKET
     if (filters.market && card.marketKey !== filters.market) {
+      return false;
+    }
+
+    // LISTING TYPE
+    if (filters.listingType && card.listingType !== filters.listingType) {
       return false;
     }
 
@@ -62,6 +88,12 @@ export function applyFilters(cards, filters) {
       card.price > filters.priceMax
     ) {
       return false;
+    }
+
+    if (searchTerms.length > 0) {
+      const haystack = card.searchText ?? "";
+      const matched = searchTerms.every((term) => haystack.includes(term));
+      if (!matched) return false;
     }
 
     return true;

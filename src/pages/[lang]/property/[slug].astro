@@ -87,6 +87,12 @@ const units = unitsRaw
       unit.raw?.slugs?.[lang]
   );
 
+const getUnitNumber = (unit) => {
+  const id = unit?.raw?.id ?? "";
+  if (id.includes("-")) return id.split("-").pop();
+  return id || "-";
+};
+
 ---
 
 <BaseLayout
@@ -107,91 +113,93 @@ const units = unitsRaw
   <div class="property-container">
     
     <!-- MAIN CONTENT -->
-    <main class="property-main">
-      
-      <!-- DESCRIPCIÓN -->
-      <section class="section-details">
-        <span class="editorial-label">Presentación</span>
-        <h2 class="section-title">Sobre esta propiedad</h2>
-        <div class="luxury-divider"></div>
-        
-        <div class="expandable-description" id="descContainer">
-          <div class="description-content">
-            {data.text.description?.length > 0 && (
-              <RichContent blocks={data.text.description} />
-            )}
-          </div>
-          <button class="read-more-btn" id="readMoreBtn">
-            Leer más
-          </button>
-        </div>
-      </section>
+    <div class="property-main">
 
-      <script is:inline>
-        const btn = document.getElementById('readMoreBtn');
-        const container = document.getElementById('descContainer');
-        
-        if (btn && container) {
-          btn.addEventListener('click', () => {
-            const isExpanded = container.classList.toggle('is-expanded');
-            btn.textContent = isExpanded ? 'Leer menos' : 'Leer más';
-          });
-        }
-      </script>
-
-      <!-- CARACTERÍSTICAS -->
-      <section class="section-features">
-        <span class="editorial-label">Especificaciones</span>
-        <h2 class="section-title">Detalles Técnicos</h2>
-        <div class="luxury-divider"></div>
-        <ul class="features-list">
+      <!-- RESUMEN -->
+      <section class="section-intro" aria-labelledby="intro-title">
+        <span class="editorial-label">Ficha rápida</span>
+        <h2 class="section-title" id="intro-title">Resumen ejecutivo</h2>
+        <p class="intro-subtitle">
+          Una visión clara de la propiedad con los datos que más importan al decidir una visita.
+        </p>
+        <dl class="key-facts">
+          {data.price !== null && (
+            <div class="key-fact">
+              <dt>Precio</dt>
+              <dd>{formatPrice(data.price, data.currency, lang)}</dd>
+            </div>
+          )}
           {data.details.bedrooms && (
-            <li class="feature-detail">
-              <span class="value">{data.details.bedrooms}</span>
-              <span class="type">Dormitorios</span>
-            </li>
+            <div class="key-fact">
+              <dt>Dormitorios</dt>
+              <dd>{data.details.bedrooms}</dd>
+            </div>
           )}
           {data.details.bathrooms && (
-             <li class="feature-detail">
-              <span class="value">{data.details.bathrooms}</span>
-              <span class="type">Baños</span>
-            </li>
+            <div class="key-fact">
+              <dt>Baños</dt>
+              <dd>{data.details.bathrooms}</dd>
+            </div>
           )}
           {data.details.area_m2 && (
-             <li class="feature-detail">
-              <span class="value">{data.details.area_m2}</span>
-              <span class="type">m² Const.</span>
-            </li>
+            <div class="key-fact">
+              <dt>Superficie construida</dt>
+              <dd>{data.details.area_m2} m²</dd>
+            </div>
+          )}
+          {data.details.usable_area_m2 && (
+            <div class="key-fact">
+              <dt>Superficie útil</dt>
+              <dd>{data.details.usable_area_m2} m²</dd>
+            </div>
           )}
           {data.details.terrace_m2 && (
-             <li class="feature-detail">
-              <span class="value">{data.details.terrace_m2}</span>
-              <span class="type">m² Terraza</span>
-            </li>
+            <div class="key-fact">
+              <dt>Terraza</dt>
+              <dd>{data.details.terrace_m2} m²</dd>
+            </div>
           )}
-          {data.details.garages && (
-             <li class="feature-detail">
-              <span class="value">{data.details.garages}</span>
-              <span class="type">Plazas Garaje</span>
-            </li>
+          {data.details.garden_m2 && (
+            <div class="key-fact">
+              <dt>Jardín</dt>
+              <dd>{data.details.garden_m2} m²</dd>
+            </div>
           )}
           {data.details.orientation && (
-             <li class="feature-detail">
-              <span class="value">{data.details.orientation}</span>
-              <span class="type">Orientación</span>
-            </li>
+            <div class="key-fact">
+              <dt>Orientación</dt>
+              <dd>{data.details.orientation}</dd>
+            </div>
           )}
-        </ul>
+          {data.details.garages && (
+            <div class="key-fact">
+              <dt>Plazas de garaje</dt>
+              <dd>{data.details.garages}</dd>
+            </div>
+          )}
+        </dl>
+        {isPromotion && units.length > 0 && (
+          <div class="summary-cta">
+            <a href="#units" class="btn-premium primary">
+              Ver viviendas disponibles
+            </a>
+            <p class="summary-note">
+              Más abajo encontrará el listado completo de unidades disponibles.
+            </p>
+          </div>
+        )}
       </section>
 
       {isPromotion && units.length > 0 && (
-        <section class="section-units">
+        <section class="section-units" aria-labelledby="units-title" id="units">
           <span class="editorial-label">Disponibilidad</span>
-          <h2 class="section-title">Viviendas disponibles</h2>
+          <h2 class="section-title" id="units-title">Viviendas disponibles</h2>
           <div class="luxury-divider"></div>
           <table class="units-table">
+            <caption class="sr-only">Listado de viviendas disponibles</caption>
             <thead>
               <tr>
+                <th>Unidad</th>
                 <th>Dormitorios</th>
                 <th>Superficie (m²)</th>
                 <th>Precio</th>
@@ -201,6 +209,7 @@ const units = unitsRaw
             <tbody>
               {units.map((unit) => (
                 <tr>
+                  <td>{getUnitNumber(unit)}</td>
                   <td>{unit.data.details.bedrooms ?? "-"}</td>
                   <td>{unit.data.details.area_m2 ?? "-"}</td>
                   <td>
@@ -227,13 +236,50 @@ const units = unitsRaw
         </section>
       )}
 
+      <!-- DESCRIPCIÓN -->
+      <section class="section-details" aria-labelledby="details-title">
+        <span class="editorial-label">Presentación</span>
+        <h2 class="section-title" id="details-title">Sobre esta propiedad</h2>
+        <div class="luxury-divider"></div>
+        
+        <div class="expandable-description" id="descContainer">
+          <div class="description-content" id="descContent">
+            {data.text.description?.length > 0 && (
+              <RichContent blocks={data.text.description} />
+            )}
+          </div>
+          <button
+            class="read-more-btn"
+            id="readMoreBtn"
+            type="button"
+            aria-expanded="false"
+            aria-controls="descContent"
+          >
+            Leer más
+          </button>
+        </div>
+      </section>
+
+      <script is:inline>
+        const btn = document.getElementById('readMoreBtn');
+        const container = document.getElementById('descContainer');
+        
+        if (btn && container) {
+          btn.addEventListener('click', () => {
+            const isExpanded = container.classList.toggle('is-expanded');
+            btn.setAttribute('aria-expanded', String(isExpanded));
+            btn.textContent = isExpanded ? 'Leer menos' : 'Leer más';
+          });
+        }
+      </script>
+
       <!-- UBICACIÓN Y ASESORAMIENTO -->
-      <section class="section-advisory">
+      <section class="section-advisory" aria-labelledby="advisory-title">
         <span class="editorial-label">Ubicación</span>
-        <h2 class="section-title">Vida en {data.location.area}</h2>
+        <h2 class="section-title" id="advisory-title">Vida en {data.location.area}</h2>
         <div class="luxury-divider"></div>
         <p class="advisory-text">
-          Esta propiedad se encuentra en una de las zonas más privilegiadas de {data.location.province}. 
+          Esta propiedad se encuentra en una de las zonas más privilegiadas de {data.location.province}.
           Nuestro equipo de expertos locales le guiará en cada paso para asegurar que su transición a este exclusivo entorno sea impecable.
         </p>
         <div class="advisory-links">
@@ -247,9 +293,9 @@ const units = unitsRaw
       </section>
 
       <!-- GALERÍAS -->
-      <div class="galleries-wrapper">
-        <span class="editorial-label">Catálogo Visual</span>
-        <h2 class="section-title">Inmersión en la propiedad</h2>
+      <section class="galleries-wrapper" aria-labelledby="galleries-title">
+        <span class="editorial-label">Catálogo visual</span>
+        <h2 class="section-title" id="galleries-title">Inmersión en la propiedad</h2>
         <div class="luxury-divider"></div>
         
         <div class="property-galleries">
@@ -264,9 +310,9 @@ const units = unitsRaw
               <GallerySection title="Planimetría" items={data.media.gallery.floorplan} category="plans" />
            )}
         </div>
-      </div>
+      </section>
 
-    </main>
+    </div>
 
     <!-- SIDEBAR -->
     <aside class="property-sidebar">
@@ -303,8 +349,10 @@ const units = unitsRaw
               <summary class="btn-premium outline">Agendar Visita</summary>
               <div class="expandable-content">
                  <form class="luxury-form" onsubmit="event.preventDefault()">
-                    <input type="text" placeholder="Su Nombre" required />
-                    <input type="email" placeholder="Email de contacto" required />
+                    <label class="sr-only" for="visit-name">Nombre</label>
+                    <input id="visit-name" type="text" placeholder="Su Nombre" autocomplete="name" required />
+                    <label class="sr-only" for="visit-email">Email</label>
+                    <input id="visit-email" type="email" placeholder="Email de contacto" autocomplete="email" required />
                     <button type="submit" class="btn-send">Enviar Solicitud</button>
                  </form>
               </div>
@@ -318,13 +366,14 @@ const units = unitsRaw
         </div>
       </div>
     </aside>
+  </div>
 
   <!-- UBICACIÓN (MAPA) -->
   {data.location.coordinates && (
-    <section class="section-map">
+    <section class="section-map" aria-labelledby="map-title">
       <div class="map-container">
         <span class="editorial-label">Localización</span>
-        <h2 class="section-title">Ubicación Privilegiada</h2>
+        <h2 class="section-title" id="map-title">Ubicación privilegiada</h2>
         <div class="luxury-divider"></div>
         
         <div class="map-wrapper">
@@ -335,6 +384,7 @@ const units = unitsRaw
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
+            title={`Mapa de ubicación en ${data.location.area}`}
             src={`https://maps.google.com/maps?q=${data.location.coordinates.lat},${data.location.coordinates.lng}&z=15&output=embed`}
           ></iframe>
         </div>
