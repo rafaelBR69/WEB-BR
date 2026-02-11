@@ -8,32 +8,17 @@ import LightboxGallery from "@/components/LightboxGallery.astro";
 import { getOrderedGallery } from "@/utils/media";
 import { formatPrice } from "@/utils/formatters";
 import { normalizeProperty } from "@/utils/normalizeProperty";
+import { DEFAULT_LANG, isSupportedLang } from "@/i18n/languages";
 import properties from "@/data/properties";
-
-/* =========================
-   STATIC PATHS
-========================= */
-export async function getStaticPaths() {
-  const LANGS = ["es", "en", "de", "fr", "it", "nl"];
-
-  return properties.flatMap((property) =>
-    LANGS.flatMap((lang) => {
-      if (!property.slugs?.[lang]) return [];
-      return [{
-        params: {
-          lang,
-          slug: property.slugs[lang],
-        },
-      }];
-    })
-  );
-}
 
 /* =========================
    PARAMS
 ========================= */
-const { slug } = Astro.params;
-const lang = "es";
+const { slug, lang: langParam } = Astro.params;
+const lang = typeof langParam === "string" ? langParam : DEFAULT_LANG;
+if (!isSupportedLang(lang)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/`, 302);
+}
 const agent = {
   phone: "+34 600 123 456",
   email: "info@blancareal.com",
@@ -42,18 +27,64 @@ const agent = {
 /* =========================
    RESOLVER PROPIEDAD
 ========================= */
-const property = properties.find(
-  (p) => p.slugs?.[lang] === slug
+const propertyByLangSlug = properties.find((p) => p.slugs?.[lang] === slug);
+
+const propertyByAnySlug = propertyByLangSlug ?? properties.find((p) =>
+  Object.values(p.slugs ?? {}).includes(slug)
 );
+
+if (!propertyByLangSlug && propertyByAnySlug?.slugs?.[lang]) {
+  return Astro.redirect(`/${lang}/property/${propertyByAnySlug.slugs[lang]}/`, 302);
+}
+
+const property = propertyByLangSlug ?? propertyByAnySlug;
 
 if (!property) {
   throw new Error(`Property not found: ${lang}/${slug}`);
 }
 
+const parentProperty = property.parent_id
+  ? properties.find((p) => String(p.id) === String(property.parent_id))
+  : null;
+
+const ownGallery = property.media?.gallery ?? {};
+const hasAnyOwnGallery =
+  (ownGallery.exterior?.length ?? 0) > 0 ||
+  (ownGallery.interior?.length ?? 0) > 0 ||
+  (ownGallery.views?.length ?? 0) > 0 ||
+  (ownGallery.floorplan?.length ?? 0) > 0;
+
+const resolvedMedia = {
+  ...(parentProperty?.media ?? {}),
+  ...(property.media ?? {}),
+  cover: property.media?.cover ?? parentProperty?.media?.cover ?? null,
+  gallery: {
+    ...(parentProperty?.media?.gallery ?? {}),
+    ...(property.media?.gallery ?? {}),
+    exterior: hasAnyOwnGallery
+      ? property.media?.gallery?.exterior ?? []
+      : parentProperty?.media?.gallery?.exterior ?? [],
+    interior: hasAnyOwnGallery
+      ? property.media?.gallery?.interior ?? []
+      : parentProperty?.media?.gallery?.interior ?? [],
+    views: hasAnyOwnGallery
+      ? property.media?.gallery?.views ?? []
+      : parentProperty?.media?.gallery?.views ?? [],
+    floorplan: hasAnyOwnGallery
+      ? property.media?.gallery?.floorplan ?? []
+      : parentProperty?.media?.gallery?.floorplan ?? [],
+  },
+};
+
+const propertyResolved = {
+  ...property,
+  media: resolvedMedia,
+};
+
 /* =========================
    NORMALIZACIÓN (ÚNICA FUENTE)
 ========================= */
-const data = normalizeProperty(property, lang);
+const data = normalizeProperty(propertyResolved, lang);
 
 if (!data || !data.visible) {
   throw new Error(`Property is private or not available: ${lang}/${slug}`);
@@ -64,6 +95,9 @@ if (!data || !data.visible) {
 ========================= */
 const orderedImages = getOrderedGallery(data.media);
 const canonicalUrl = `https://blancareal.com/${lang}/property/${slug}/`;
+const propertyLangs = Array.isArray(property.languages) && property.languages.length
+  ? property.languages
+  : [lang];
 const isPromotion =
   data.isPromotion ?? property.listing_type === "promotion";
 const unitsRaw = isPromotion
@@ -102,6 +136,7 @@ const getUnitNumber = (unit) => {
   og={data.seo.og}
   url={canonicalUrl}
   lang={lang}
+  availableLangs={propertyLangs}
 >
   <PropertyHero
     cover={data.media.cover}

@@ -8,6 +8,11 @@ import {
 import FeatureBadge from "@/components/FeatureBadge.astro";
 
 const { data, lang } = Astro.props;
+const coverUrl = typeof data.cover === "string" ? data.cover : data.cover?.url;
+const coverAlt =
+  (typeof data.cover === "object" ? data.cover?.alt?.[lang] : null) ||
+  (typeof data.cover === "object" ? data.cover?.alt?.es : null) ||
+  data.title;
 
 const labels = {
   es: "Ver detalles",
@@ -23,10 +28,10 @@ const label = labels[lang as keyof typeof labels] || labels.es;
 <article class="property-card">
   <div class="card-image">
     <a href={`/${lang}/property/${data.slug}`} aria-label={data.title}>
-      {data.cover ? (
+      {coverUrl ? (
         <img 
-          src={data.cover.url || data.cover} 
-          alt={data.cover.alt || data.title}
+          src={coverUrl} 
+          alt={coverAlt}
           loading="lazy"
         />
       ) : (

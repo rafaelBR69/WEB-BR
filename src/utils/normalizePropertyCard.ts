@@ -1,4 +1,4 @@
-import { formatFeature } from "@/utils/formatFeature";
+﻿import { formatFeature } from "@/utils/formatFeature";
 import { matchType } from "@/utils/matchType";
 import { normalizeCity } from "@/utils/normalizeCity";
 import { normalizeArea } from "@/utils/normalizeArea";
@@ -17,7 +17,7 @@ export function normalizePropertyCard(property, lang) {
   const isPromotion = listingType === "promotion";
   const isUnit = !isPromotion;
 
-  const typeKey = matchType(raw.type); // 👉 clave canónica
+  const typeKey = matchType(raw.type);
   const cityKey = property.location?.city
     ? normalizeCity(property.location.city)
     : null;
@@ -27,11 +27,6 @@ export function normalizePropertyCard(property, lang) {
   const areaKey = location.area
     ? normalizeArea(location.area)
     : null;
-
-  console.log(
-    "RAW LOCATION:",
-    property.location
-  );
 
   const features = (property.features || [])
     .map((key) => formatFeature(key, lang))
@@ -43,15 +38,21 @@ export function normalizePropertyCard(property, lang) {
   const priceFrom = isPromotion ? property.pricing?.from ?? null : null;
   const price = isPromotion ? null : property.price ?? null;
   const priceDisplay = isPromotion ? priceFrom : price;
+  const cover =
+    property.media?.cover ??
+    property.media?.gallery?.exterior?.[0] ??
+    property.media?.gallery?.interior?.[0] ??
+    property.media?.gallery?.views?.[0] ??
+    null;
 
   return {
     status,
     isAvailable: status === "available",
     visible,
 
-    slug: property.slugs?.[lang],   // 👈 AÑADIR ESTO
+    slug: property.slugs?.[lang],
     title: t.title ?? "",
-    cover: property.media?.cover ?? null, // 👈 AÑADIR ESTO
+    cover,
     price,
     currency: property.currency ?? "EUR",
     priority: typeof property.priority === "number" ? property.priority : 0,

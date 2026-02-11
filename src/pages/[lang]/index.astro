@@ -1,0 +1,14 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/`, 302);
+}
+---
+<BaseLayout title="Home | BlancaReal" lang={langParam} availableLangs={SUPPORTED_LANGS}>
+  <h1>Home</h1>
+  <p>Layout funcionando correctamente.</p>
+</BaseLayout>

@@ -13,9 +13,15 @@ import { normalizeCity } from "@/utils/normalizeCity";
 import { normalizeArea } from "@/utils/normalizeArea";
 import { displayLocation, formatPropertyType } from "@/utils/presentation";
 import { TYPES, MARKET_TYPE } from "@/data/properties/taxonomies";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
 import "@/styles/pages/properties.css";
 
-const lang = "es";
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/properties/`, 302);
+}
+
+const lang = langParam;
 
 /* =========================
    FILTROS ACTIVOS (QUERY PARAMS)
@@ -45,6 +51,7 @@ const normalizeTypeParam = (value) => {
   if (TYPES[normalized]) return normalized;
 
   for (const [key, def] of Object.entries(TYPES)) {
+    if (def.label?.[lang]?.toLowerCase() === normalized) return key;
     if (def.label?.es?.toLowerCase() === normalized) return key;
   }
 
@@ -202,6 +209,7 @@ const formatMarketLabel = (value) => {
   description={listSeo.description}
   noindex={listSeo.noindex}
   lang={lang}
+  availableLangs={SUPPORTED_LANGS}
 >
   <div class={`properties-page ${isFiltered ? 'is-filtered' : ''}`}>
     

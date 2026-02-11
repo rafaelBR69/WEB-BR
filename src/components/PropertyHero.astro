@@ -1,17 +1,18 @@
 ---
 const { cover, title, lang } = Astro.props;
 
-if (!cover?.url) return null;
+const coverUrl = typeof cover === "string" ? cover : cover?.url;
+if (!coverUrl) return null;
 
 const alt =
-  cover.alt?.[lang] ||
-  cover.alt?.es ||
+  (typeof cover === "object" ? cover?.alt?.[lang] : null) ||
+  (typeof cover === "object" ? cover?.alt?.es : null) ||
   title;
 ---
 <section class="property-hero">
   <div class="hero-image-wrapper">
     <img
-      src={cover.url}
+      src={coverUrl}
       alt={alt}
       loading="eager"
       fetchpriority="high"

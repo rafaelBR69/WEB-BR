@@ -6,6 +6,11 @@ export function normalizeProperty(property: any, lang: string) {
   const rawLocation = property.location ?? {};
   const rawMedia = property.media ?? {};
   const rawGallery = rawMedia.gallery ?? {};
+  const fallbackCover =
+    rawGallery.exterior?.[0] ??
+    rawGallery.interior?.[0] ??
+    rawGallery.views?.[0] ??
+    null;
 
   const seoRaw = translations.seo ?? {};
   const status = property.status ?? "available";
@@ -49,7 +54,7 @@ export function normalizeProperty(property: any, lang: string) {
       noindex: seoRaw.noindex ?? noindexByStatus,
 
       og: {
-        image: rawMedia.cover ?? null,
+        image: rawMedia.cover ?? fallbackCover ?? null,
         type: "website",
       },
     },
@@ -74,7 +79,7 @@ export function normalizeProperty(property: any, lang: string) {
     },
 
     media: {
-      cover: rawMedia.cover ?? null,
+      cover: rawMedia.cover ?? fallbackCover ?? null,
       gallery: {
         exterior: rawGallery.exterior ?? [],
         interior: rawGallery.interior ?? [],

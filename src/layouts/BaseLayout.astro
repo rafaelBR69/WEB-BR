@@ -8,6 +8,7 @@ import "@/styles/components/property-hero.css";
 import "@/styles/components/gallery.css";
 import "@/styles/components/property-detail.css";
 import "@/styles/components/filters.css";
+import { DEFAULT_LANG, LANG_LABELS, SUPPORTED_LANGS } from "@/i18n/languages";
 
 import lightboxUrl from "@/scripts/lightbox.js?url";
 
@@ -15,8 +16,9 @@ const {
   title = "BlancaReal",
   description = "",
   noindex = false,
-  lang = "es",
+  lang = DEFAULT_LANG,
   og = {},
+  availableLangs,
 } = Astro.props;
 
 const SITE_URL = "https://blancareal.com";
@@ -26,6 +28,37 @@ const canonicalPath = currentUrl.pathname;
 
 // Canonical SIEMPRE sin query params
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+
+const resolveLangs = () => {
+  const list = Array.isArray(availableLangs) && availableLangs.length
+    ? availableLangs
+    : [lang];
+  const unique = Array.from(new Set(list));
+  if (!unique.includes(lang)) {
+    unique.unshift(lang);
+  }
+  const sorted = SUPPORTED_LANGS.filter((code) => unique.includes(code));
+  return sorted.length ? sorted : [lang];
+};
+
+const buildLangPath = (targetLang) => {
+  const parts = canonicalPath.split("/").filter(Boolean);
+  const hasLangPrefix = parts.length > 0 && SUPPORTED_LANGS.includes(parts[0]);
+  if (hasLangPrefix) {
+    parts[0] = targetLang;
+    const base = `/${parts.join("/")}`;
+    const suffix = canonicalPath.endsWith("/") ? "/" : "";
+    return `${base}${suffix}${currentUrl.search}`;
+  }
+  return `/${targetLang}/`;
+};
+
+const langLinks = resolveLangs().map((code) => ({
+  code,
+  label: LANG_LABELS[code] ?? String(code).toUpperCase(),
+  href: buildLangPath(code),
+  isActive: code === lang,
+}));
 
 const ogLocaleMap = {
   es: "es_ES",
@@ -105,6 +138,21 @@ const ogLocaleMap = {
         </nav>
 
         <div class="header-actions">
+           <div class="lang-switcher desktop-only">
+             <label class="lang-switcher-label" for="langSelectDesktop">Idioma</label>
+             <select
+               id="langSelectDesktop"
+               class="lang-select"
+               aria-label="Seleccionar idioma"
+               data-lang-select
+             >
+               {langLinks.map((item) => (
+                 <option value={item.href} selected={item.isActive}>
+                   {item.label}
+                 </option>
+               ))}
+             </select>
+           </div>
            <a href="tel:+34600123456" class="header-cta desktop-only">
               Contactar
            </a>
@@ -126,8 +174,25 @@ const ogLocaleMap = {
             <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>Propiedades</a></li>
             <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>Nosotros</a></li>
           </ul>
-          <div class="mobile-menu-contact">
-            <a href="tel:+34600123456" class="mobile-menu-cta">Llamar Ahora</a>
+          <div class="mobile-menu-utilities">
+            <div class="mobile-lang-switcher">
+              <label class="lang-switcher-label" for="langSelectMobile">Idioma</label>
+              <select
+                id="langSelectMobile"
+                class="lang-select"
+                aria-label="Seleccionar idioma"
+                data-lang-select
+              >
+                {langLinks.map((item) => (
+                  <option value={item.href} selected={item.isActive}>
+                    {item.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div class="mobile-menu-contact">
+              <a href="tel:+34600123456" class="mobile-menu-cta">Llamar Ahora</a>
+            </div>
           </div>
         </nav>
       </div>
@@ -194,6 +259,16 @@ const ogLocaleMap = {
         if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return true;
         return !isSameOrigin(link);
       };
+
+      document.querySelectorAll('[data-lang-select]').forEach((select) => {
+        select.addEventListener('change', (event) => {
+          const target = event.currentTarget;
+          if (!(target instanceof HTMLSelectElement)) return;
+          if (target.value) {
+            window.location.href = target.value;
+          }
+        });
+      });
 
       document.addEventListener('click', (event) => {
         const link = event.target.closest('a');
