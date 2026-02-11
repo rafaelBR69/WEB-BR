@@ -12,6 +12,7 @@
   "status": "available",
   "listing_type": "promotion",
   "featured": false,
+  "is_own_project": true,
   "languages": [
     "es",
     "en",

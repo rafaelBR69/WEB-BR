@@ -3,6 +3,13 @@ import type { APIRoute } from "astro";
 const SITE_URL = "https://blancareal.com";
 
 const URLS = [
+  "/es/projects/",
+  "/en/projects/",
+  "/de/projects/",
+  "/fr/projects/",
+  "/it/projects/",
+  "/nl/projects/",
+
   // Ciudades
   "/es/properties/mijas/",
   "/es/properties/marbella/",

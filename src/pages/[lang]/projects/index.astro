@@ -1,0 +1,179 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import properties from "@/data/properties";
+import { formatPrice } from "@/utils/formatters";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import "@/styles/pages/projects.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/projects/`, 302);
+}
+
+const lang = langParam;
+
+const seoByLang = {
+  es: {
+    title: "Proyectos exclusivos | BlancaReal",
+    description:
+      "Promociones exclusivas comercializadas por BlancaReal en Costa del Sol. Acceso directo a disponibilidad, precios y fichas.",
+    eyebrow: "Promociones exclusivas",
+    heading: "Nuestros proyectos con promotoras",
+    intro:
+      "Seleccionamos y comercializamos promociones en exclusiva junto a promotoras de primer nivel.",
+    units: "unidades",
+    available: "disponibles",
+    cta: "Ver proyecto",
+    emptyTitle: "Aun no hay proyectos exclusivos publicados",
+    emptyText:
+      "Cuando activemos una promocion en exclusiva aparecera aqui con su disponibilidad.",
+    from: "Desde",
+  },
+  en: {
+    title: "Exclusive projects | BlancaReal",
+    description:
+      "Exclusive developments marketed by BlancaReal on the Costa del Sol with live availability and pricing.",
+    eyebrow: "Exclusive developments",
+    heading: "Our promoted projects",
+    intro:
+      "We work directly with developers to market selected projects under exclusive agreements.",
+    units: "units",
+    available: "available",
+    cta: "View project",
+    emptyTitle: "No exclusive projects published yet",
+    emptyText:
+      "Once an exclusive development is published it will appear here with availability.",
+    from: "From",
+  },
+};
+
+const t = seoByLang[lang] ?? seoByLang.es;
+
+const byId = new Map(properties.map((property) => [String(property.id), property]));
+
+const isOwnProject = (property) => {
+  if (property.is_own_project === true) return true;
+  if (!property.parent_id) return false;
+  const parent = byId.get(String(property.parent_id));
+  return parent?.is_own_project === true;
+};
+
+const projectCards = properties
+  .filter((property) => property.listing_type === "promotion")
+  .filter((property) => property.status !== "private")
+  .filter((property) => isOwnProject(property))
+  .map((project) => {
+    const units = properties.filter(
+      (item) =>
+        String(item.parent_id) === String(project.id) &&
+        item.listing_type === "unit"
+    );
+
+    const availableUnits = units.filter((item) => item.status === "available");
+    const minUnitPrice = availableUnits
+      .map((item) => item.price)
+      .filter((price) => typeof price === "number")
+      .sort((a, b) => a - b)[0] ?? null;
+
+    const cover =
+      project.media?.cover ??
+      project.media?.gallery?.exterior?.[0] ??
+      project.media?.gallery?.interior?.[0] ??
+      project.media?.gallery?.views?.[0] ??
+      null;
+
+    const slug = project.slugs?.[lang] ?? project.slugs?.es ?? null;
+    if (!slug) return null;
+
+    const translation = project.translations?.[lang] ?? project.translations?.es ?? {};
+    const priceFrom = project.pricing?.from ?? minUnitPrice ?? project.price ?? null;
+
+    return {
+      id: project.id,
+      title: translation.title ?? project.id,
+      intro: translation.intro ?? "",
+      area: project.location?.area ?? "",
+      province: project.location?.province ?? "",
+      unitsCount: units.length,
+      availableCount: availableUnits.length,
+      priceFrom,
+      currency: project.currency ?? "EUR",
+      coverUrl: typeof cover === "string" ? cover : cover?.url ?? null,
+      coverAlt:
+        (typeof cover === "object" ? cover?.alt?.[lang] : null) ??
+        (typeof cover === "object" ? cover?.alt?.es : null) ??
+        translation.title ??
+        project.id,
+      href: `/${lang}/property/${slug}/`,
+    };
+  })
+  .filter(Boolean)
+  .sort((a, b) => (b.availableCount ?? 0) - (a.availableCount ?? 0));
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="projects-hero container">
+    <span class="projects-eyebrow">{t.eyebrow}</span>
+    <h1>{t.heading}</h1>
+    <p>{t.intro}</p>
+  </section>
+
+  {projectCards.length === 0 ? (
+    <section class="projects-empty container">
+      <h2>{t.emptyTitle}</h2>
+      <p>{t.emptyText}</p>
+    </section>
+  ) : (
+    <section class="projects-grid container">
+      {projectCards.map((card) => (
+        <article class="project-card">
+          <a class="project-media" href={card.href} aria-label={card.title}>
+            {card.coverUrl ? (
+              <img src={card.coverUrl} alt={card.coverAlt} loading="lazy" />
+            ) : (
+              <div class="project-media-fallback"></div>
+            )}
+          </a>
+
+          <div class="project-content">
+            <div class="project-meta">
+              <span>{card.area}</span>
+              <span>{card.province}</span>
+            </div>
+
+            <h2>
+              <a href={card.href}>{card.title}</a>
+            </h2>
+
+            {card.intro && <p class="project-intro">{card.intro}</p>}
+
+            <dl class="project-kpis">
+              <div>
+                <dt>{t.units}</dt>
+                <dd>{card.unitsCount}</dd>
+              </div>
+              <div>
+                <dt>{t.available}</dt>
+                <dd>{card.availableCount}</dd>
+              </div>
+              <div>
+                <dt>{t.from}</dt>
+                <dd>{formatPrice(card.priceFrom, card.currency, lang)}</dd>
+              </div>
+            </dl>
+
+            <a href={card.href} class="project-cta">{t.cta}</a>
+          </div>
+        </article>
+      ))}
+    </section>
+  )}
+</BaseLayout>
+
