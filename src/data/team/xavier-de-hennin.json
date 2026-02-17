@@ -1,0 +1,42 @@
+{
+  "id": "xavier-de-hennin",
+  "category": "ceo",
+  "name": "Xavier de Hennin",
+  "role": {
+    "es": "CEO & Director Comercial",
+    "en": "CEO & Sales Director",
+    "de": "CEO & Verkaufsdirektor",
+    "fr": "CEO & Directeur Commercial",
+    "it": "CEO & Direttore Commerciale",
+    "nl": "CEO & Commercieel Directeur"
+  },
+  "spoken_languages": [
+    "es",
+    "en",
+    "fr",
+    "de",
+    "nl",
+    "it"
+  ],
+  "email": "xavier@blancareal.com",
+  "phone": "+34 628188800",
+  "photo": {
+    "url": "/team/xavier.png",
+    "alt": {
+      "es": "Perfil de Xavier de Hennin",
+      "en": "Profile of Xavier de Hennin",
+      "de": "Profil von Xavier de Hennin",
+      "fr": "Profil de Xavier de Hennin",
+      "it": "Profilo di Xavier de Hennin",
+      "nl": "Profiel van Xavier de Hennin"
+    }
+  },
+  "bio": {
+    "es": "Propietario y director general de BlancaReal, Xavier procede de una larga tradicion familiar de profesionales inmobiliarios en Espana y Belgica.\n\nEstudio en el Colegio Aleman de Elviria antes de graduarse en Filologia y Economia en Belgica.\n\nVivio en Bruselas y Barcelona antes de asumir la direccion de la sede corporativa en Calahonda, Mijas.\n\nAmante de la naturaleza, la historia y Malaga, estara encantado de ensenarte la Costa del Sol en 6 idiomas: espanol, ingles, neerlandes, aleman, italiano y frances. Lo lleva en la sangre.",
+    "en": "Owner and Managing director of BlancaReal, Xavier comes from a long family lineage of real estate professionals in Spain and in Belgium.\n\nHe attended the German School in Elviria before graduating in Philology and Economics in Belgium.\n\nHe has been living in Brussels and Barcelona before taking over the corporate HQ in Calahonda, Mijas.\n\nNature- & history-lover as well as Malaga-addict, he will enjoy showing you around the Costa del Sol in 6 languages, namely Spanish, English, Dutch, German, Italian & French. It is in his blood.",
+    "de": "Als Eigentuemer und Geschaeftsfuehrer von BlancaReal stammt Xavier aus einer langen Familientradition von Immobilienprofis in Spanien und Belgien.\n\nEr besuchte die Deutsche Schule in Elviria und absolvierte anschliessend ein Studium in Philologie und Wirtschaft in Belgien.\n\nEr lebte in Bruessel und Barcelona, bevor er die Leitung des Unternehmenssitzes in Calahonda, Mijas, uebernahm.\n\nAls Natur- und Geschichtsliebhaber sowie Malaga-Fan zeigt er Ihnen die Costa del Sol gerne in 6 Sprachen: Spanisch, Englisch, Niederlaendisch, Deutsch, Italienisch und Franzoesisch. Es liegt ihm im Blut.",
+    "fr": "Proprietaire et directeur general de BlancaReal, Xavier est issu d une longue tradition familiale de professionnels de l immobilier en Espagne et en Belgique.\n\nIl a frequente l Ecole Allemande d Elviria avant d obtenir son diplome en Philologie et Economie en Belgique.\n\nIl a vecu a Bruxelles et a Barcelone avant de reprendre la direction du siege de l entreprise a Calahonda, Mijas.\n\nAmoureux de la nature, de l histoire et passionne de Malaga, il sera ravi de vous faire decouvrir la Costa del Sol en 6 langues : espagnol, anglais, neerlandais, allemand, italien et francais. C est dans son sang.",
+    "it": "Proprietario e direttore generale di BlancaReal, Xavier proviene da una lunga tradizione familiare di professionisti immobiliari in Spagna e in Belgio.\n\nHa frequentato la Scuola Tedesca di Elviria prima di laurearsi in Filologia ed Economia in Belgio.\n\nHa vissuto a Bruxelles e Barcellona prima di assumere la guida della sede aziendale di Calahonda, Mijas.\n\nAmante della natura, della storia e grande appassionato di Malaga, sara felice di mostrarti la Costa del Sol in 6 lingue: spagnolo, inglese, olandese, tedesco, italiano e francese. Ce l ha nel sangue.",
+    "nl": "Als eigenaar en algemeen directeur van BlancaReal komt Xavier uit een lange familietraditie van vastgoedprofessionals in Spanje en Belgie.\n\nHij volgde onderwijs aan de Duitse School in Elviria en studeerde daarna Filologie en Economie in Belgie.\n\nHij woonde in Brussel en Barcelona voordat hij de leiding over het hoofdkantoor in Calahonda, Mijas, op zich nam.\n\nAls liefhebber van natuur, geschiedenis en Malaga laat hij je met plezier de Costa del Sol zien in 6 talen: Spaans, Engels, Nederlands, Duits, Italiaans en Frans. Het zit in zijn bloed."
+  }
+}

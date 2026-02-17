@@ -1,0 +1,38 @@
+{
+  "id": "noemi",
+  "category": "legal",
+  "name": "Noemi Parada",
+  "role": {
+    "es": "Asesora Legal",
+    "en": "Legal Assistant",
+    "de": "Juristische Assistentin",
+    "fr": "Assistante Juridique",
+    "it": "Assistente Legale",
+    "nl": "Juridisch Assistent"
+  },
+  "spoken_languages": [
+    "es",
+    "en"
+  ],
+  "email": "noemi@blancareal.com",
+  "phone": "+34 621 183 500",
+  "photo": {
+    "url": "/team/noemi.png",
+    "alt": {
+      "es": "Perfil de Noemi Parada",
+      "en": "Profile of Noemi Parada",
+      "de": "Profil von Noemi Parada",
+      "fr": "Profil de Noemi Parada",
+      "it": "Profilo di Noemi Parada",
+      "nl": "Profiel van Noemi Parada"
+    }
+  },
+  "bio": {
+    "es": "Procedente de la Serrania de Ronda, Noemi, graduada en Derecho y con un Master de Acceso a la Abogacia por la Universidad de Malaga, es nuestra asesora legal mas joven.\n\nSiempre dispuesta a ayudar a los demas, eligio estudiar Derecho porque, como ella dice, es un arma invisible.\n\nAmante del yoga y del te, Noemi entiende que la profesion juridica debe equilibrarse con actividades que permitan desconectar del caos diario.",
+    "en": "Hailing from the Serrania de Ronda, Noemi, a Law graduate with a Master's in Legal Practice from the University of Malaga, is our youngest legal advisor.\n\nAlways eager to help others, she chose to study law because, as she says, it is an invisible firearm.\n\nA lover of yoga and tea, Noemi understands that the legal profession must be balanced with activities that allow you to disconnect from the chaos of everyday life.",
+    "de": "Aus der Serrania de Ronda stammend, ist Noemi, Juristin mit Master in Rechtspraxis der Universitaet Malaga, unsere juengste Rechtsberaterin.\n\nSie ist immer bereit, anderen zu helfen, und entschied sich fuer das Jurastudium, weil es, wie sie sagt, eine unsichtbare Waffe ist.\n\nAls Liebhaberin von Yoga und Tee weiss Noemi, dass der juristische Beruf mit Aktivitaeten im Gleichgewicht stehen muss, die vom taeglichen Chaos abschalten lassen.",
+    "fr": "Originaire de la Serrania de Ronda, Noemi, diplomee en droit et titulaire d un Master d acces a la profession juridique de l Universite de Malaga, est notre plus jeune conseillere juridique.\n\nToujours prete a aider les autres, elle a choisi d etudier le droit parce que, comme elle le dit, c est une arme invisible.\n\nAmatrice de yoga et de the, Noemi sait que la profession juridique doit etre equilibree par des activites qui permettent de se deconnecter du chaos quotidien.",
+    "it": "Originaria della Serrania de Ronda, Noemi, laureata in Giurisprudenza con un Master di accesso alla professione legale presso l Universita di Malaga, e la nostra consulente legale piu giovane.\n\nSempre pronta ad aiutare gli altri, ha scelto di studiare diritto perche, come dice lei, e un arma invisibile.\n\nAppassionata di yoga e te, Noemi sa che la professione legale deve essere bilanciata con attivita che permettono di staccare dal caos quotidiano.",
+    "nl": "Noemi komt uit de Serrania de Ronda, is afgestudeerd in Rechten en heeft een master in juridische praktijk aan de Universiteit van Malaga. Zij is onze jongste juridisch adviseur.\n\nZe staat altijd klaar om anderen te helpen en koos voor rechten omdat het, zoals zij zegt, een onzichtbaar wapen is.\n\nAls liefhebber van yoga en thee begrijpt Noemi dat het juridische beroep in balans moet zijn met activiteiten die je losmaken van de dagelijkse drukte."
+  }
+}

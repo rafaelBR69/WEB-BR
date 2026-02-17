@@ -120,31 +120,78 @@
   font-weight: 700;
 }
 
-.lang-select {
+.lang-picker {
+  position: relative;
+  min-width: 72px;
+}
+
+.lang-trigger {
+  width: 100%;
   border: 0;
   border-radius: 999px;
   background: transparent;
-  padding: 0.2rem 1.65rem 0.2rem 0.35rem;
+  padding: 0.2rem 1.4rem 0.2rem 0.35rem;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-primary);
-  appearance: none;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--color-primary) 50%),
-    linear-gradient(135deg, var(--color-primary) 50%, transparent 50%);
-  background-position:
-    calc(100% - 14px) calc(50% - 2px),
-    calc(100% - 9px) calc(50% - 2px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  position: relative;
+  text-align: left;
 }
 
-.lang-select:hover {
+.lang-trigger::after {
+  content: "";
+  position: absolute;
+  right: 0.45rem;
+  top: 50%;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-60%) rotate(45deg);
+}
+
+.lang-trigger:hover {
   color: var(--color-accent);
+  background: rgba(211, 44, 67, 0.08);
+}
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  min-width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  box-shadow: 0 12px 24px rgba(13, 22, 40, 0.14);
+  z-index: 100;
+  padding: 0.35rem;
+}
+
+.lang-option {
+  width: 100%;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--color-primary);
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.45rem 0.5rem;
+  cursor: pointer;
+}
+
+.lang-option:hover {
+  background: rgba(32, 47, 78, 0.09);
+}
+
+.lang-option.is-active {
+  background: rgba(211, 44, 67, 0.12);
+  color: var(--color-primary);
 }
 
 /* --- SKIP LINK --- */
@@ -312,11 +359,8 @@
   font-size: 0.72rem;
 }
 
-.mobile-lang-switcher .lang-select {
-  width: auto;
-  font-size: 0.8rem;
-  padding-left: 0.4rem;
-  padding-right: 1.5rem;
+.mobile-lang-switcher .lang-picker {
+  min-width: 82px;
 }
 
 .mobile-menu-utilities {

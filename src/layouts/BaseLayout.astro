@@ -1,4 +1,4 @@
----
+﻿---
 import "@/styles/base.css";
 import "@/styles/layout.css";
 import "@/styles/components/property-card.css";
@@ -8,6 +8,7 @@ import "@/styles/components/property-hero.css";
 import "@/styles/components/gallery.css";
 import "@/styles/components/property-detail.css";
 import "@/styles/components/filters.css";
+import "@/styles/pages/home.css";
 import { DEFAULT_LANG, LANG_LABELS, SUPPORTED_LANGS } from "@/i18n/languages";
 
 import lightboxUrl from "@/scripts/lightbox.js?url";
@@ -59,6 +60,7 @@ const langLinks = resolveLangs().map((code) => ({
   href: buildLangPath(code),
   isActive: code === lang,
 }));
+const activeLangLabel = langLinks.find((item) => item.isActive)?.label ?? "ES";
 
 const ogLocaleMap = {
   es: "es_ES",
@@ -140,19 +142,33 @@ const ogLocaleMap = {
 
         <div class="header-actions">
            <div class="lang-switcher desktop-only">
-             <label class="lang-switcher-label" for="langSelectDesktop">Idioma</label>
-             <select
-               id="langSelectDesktop"
-               class="lang-select"
-               aria-label="Seleccionar idioma"
-               data-lang-select
-             >
-               {langLinks.map((item) => (
-                 <option value={item.href} selected={item.isActive}>
-                   {item.label}
-                 </option>
-               ))}
-             </select>
+             <span class="lang-switcher-label">Idioma</span>
+             <div class="lang-picker" id="langPickerDesktop">
+               <button
+                 type="button"
+                 class="lang-trigger"
+                 id="langTriggerDesktop"
+                 aria-haspopup="listbox"
+                 aria-expanded="false"
+                 aria-controls="langMenuDesktop"
+               >
+                 <span id="langLabelDesktop">{activeLangLabel}</span>
+               </button>
+               <div class="lang-menu" id="langMenuDesktop" role="listbox" hidden>
+                 {langLinks.map((item) => (
+                   <button
+                     type="button"
+                     class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                     data-href={item.href}
+                     data-label={item.label}
+                     role="option"
+                     aria-selected={item.isActive ? "true" : "false"}
+                   >
+                     {item.label}
+                   </button>
+                 ))}
+               </div>
+             </div>
            </div>
            <a href="tel:+34600123456" class="header-cta desktop-only">
               Contactar
@@ -178,19 +194,33 @@ const ogLocaleMap = {
           </ul>
           <div class="mobile-menu-utilities">
             <div class="mobile-lang-switcher">
-              <label class="lang-switcher-label" for="langSelectMobile">Idioma</label>
-              <select
-                id="langSelectMobile"
-                class="lang-select"
-                aria-label="Seleccionar idioma"
-                data-lang-select
-              >
-                {langLinks.map((item) => (
-                  <option value={item.href} selected={item.isActive}>
-                    {item.label}
-                  </option>
-                ))}
-              </select>
+              <span class="lang-switcher-label">Idioma</span>
+              <div class="lang-picker" id="langPickerMobile">
+                <button
+                  type="button"
+                  class="lang-trigger"
+                  id="langTriggerMobile"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-controls="langMenuMobile"
+                >
+                  <span id="langLabelMobile">{activeLangLabel}</span>
+                </button>
+                <div class="lang-menu" id="langMenuMobile" role="listbox" hidden>
+                  {langLinks.map((item) => (
+                    <button
+                      type="button"
+                      class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                      data-href={item.href}
+                      data-label={item.label}
+                      role="option"
+                      aria-selected={item.isActive ? "true" : "false"}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
             <div class="mobile-menu-contact">
               <a href="tel:+34600123456" class="mobile-menu-cta">Llamar Ahora</a>
@@ -262,15 +292,41 @@ const ogLocaleMap = {
         return !isSameOrigin(link);
       };
 
-      document.querySelectorAll('[data-lang-select]').forEach((select) => {
-        select.addEventListener('change', (event) => {
-          const target = event.currentTarget;
-          if (!(target instanceof HTMLSelectElement)) return;
-          if (target.value) {
-            window.location.href = target.value;
+      const initLangPicker = (pickerId, triggerId, menuId, labelId) => {
+        const picker = document.getElementById(pickerId);
+        const trigger = document.getElementById(triggerId);
+        const menu = document.getElementById(menuId);
+        const label = document.getElementById(labelId);
+        if (!picker || !trigger || !menu || !label) return;
+
+        trigger.addEventListener('click', () => {
+          const willOpen = menu.hasAttribute('hidden');
+          if (willOpen) {
+            menu.removeAttribute('hidden');
+          } else {
+            menu.setAttribute('hidden', '');
           }
+          trigger.setAttribute('aria-expanded', String(willOpen));
         });
-      });
+
+        menu.querySelectorAll('.lang-option').forEach((option) => {
+          option.addEventListener('click', () => {
+            const href = option.getAttribute('data-href');
+            const nextLabel = option.getAttribute('data-label');
+            if (nextLabel) label.textContent = nextLabel;
+            if (href) window.location.href = href;
+          });
+        });
+
+        document.addEventListener('click', (event) => {
+          if (picker.contains(event.target)) return;
+          menu.setAttribute('hidden', '');
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+      };
+
+      initLangPicker('langPickerDesktop', 'langTriggerDesktop', 'langMenuDesktop', 'langLabelDesktop');
+      initLangPicker('langPickerMobile', 'langTriggerMobile', 'langMenuMobile', 'langLabelMobile');
 
       document.addEventListener('click', (event) => {
         const link = event.target.closest('a');
@@ -293,3 +349,4 @@ const ogLocaleMap = {
     <script type="module" src={lightboxUrl}></script>
   </body>
 </html>
+

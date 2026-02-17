@@ -1,0 +1,38 @@
+{
+  "id": "marcelo",
+  "category": "commercial",
+  "name": "Marcelo Navarro",
+  "role": {
+    "es": "Responsable Comercial Internacional",
+    "en": "International Sales Manager",
+    "de": "Internationaler Vertriebsleiter",
+    "fr": "Responsable Commercial International",
+    "it": "Responsabile Commerciale Internazionale",
+    "nl": "Internationaal Sales Manager"
+  },
+  "spoken_languages": [
+    "es",
+    "en"
+  ],
+  "email": "marcelo@blancareal.com",
+  "phone": "+34 621 283 445",
+  "photo": {
+    "url": "/team/marcelo.png",
+    "alt": {
+      "es": "Perfil de Marcelo Navarro",
+      "en": "Profile of Marcelo Navarro",
+      "de": "Profil von Marcelo Navarro",
+      "fr": "Profil de Marcelo Navarro",
+      "it": "Profilo di Marcelo Navarro",
+      "nl": "Profiel van Marcelo Navarro"
+    }
+  },
+  "bio": {
+    "es": "Nacido en Cadiz, lleva media vida viajando por el mundo; probablemente por eso es nuestro responsable comercial internacional.\n\nLe respaldan 23 anos de experiencia profesional, en su mayoria dedicados a ventas y clientes.\n\nCercano, accesible, positivo y con trato facil. Siempre esta dispuesto a ofrecer su mejor servicio, con buenas ideas y una gran sonrisa.\n\nComo el mismo dice: Mi objetivo real en este negocio no es vender propiedades, sino ayudar a las personas a encontrar su hogar.\n\nAmante de la montana y del mar, deportista de verdad, marido feliz y padre orgulloso.\n\nNo dudes en contactar con el: te estara esperando con los brazos abiertos.",
+    "en": "Born in Cadiz, he has been traveling the world half of his life. That is probably one of the reasons why he is our international sales manager.\n\nHe is backed by 23 years of professional experience, mostly dedicated to sales and clients.\n\nFriendly, accessible, positive and easy-going. He is always ready to offer his best service, with good ideas and a big smile.\n\nAs he always says: My real goal in this business is not to sell properties, but to help people find their homes.\n\nA passionate lover of the mountain and the sea, a true sports fan, a happy husband and father.\n\nDo not hesitate to contact him. He will be waiting for you with open arms.",
+    "de": "In Cadiz geboren, reist Marcelo seit der Haelfte seines Lebens um die Welt. Wahrscheinlich ist das einer der Gruende, warum er unser internationaler Vertriebsleiter ist.\n\nEr bringt 23 Jahre Berufserfahrung mit, hauptsaechlich in Vertrieb und Kundenbetreuung.\n\nFreundlich, nahbar, positiv und unkompliziert. Er ist immer bereit, seinen besten Service mit guten Ideen und grossem Laecheln zu geben.\n\nWie er selbst sagt: Mein eigentliches Ziel in diesem Geschaeft ist nicht, Immobilien zu verkaufen, sondern Menschen zu helfen, ihr Zuhause zu finden.\n\nLeidenschaftlicher Liebhaber von Bergen und Meer, sportbegeistert, gluecklicher Ehemann und Vater.\n\nZoegern Sie nicht, ihn zu kontaktieren. Er erwartet Sie mit offenen Armen.",
+    "fr": "Ne a Cadix, Marcelo a passe la moitie de sa vie a voyager dans le monde. C est sans doute l une des raisons pour lesquelles il est notre responsable commercial international.\n\nIl est soutenu par 23 ans d experience professionnelle, principalement consacres a la vente et aux clients.\n\nSympathique, accessible, positif et facile a vivre. Il est toujours pret a offrir le meilleur service, avec de bonnes idees et un grand sourire.\n\nComme il le dit toujours : Mon vrai objectif dans ce metier n est pas de vendre des biens, mais d aider les gens a trouver leur maison.\n\nPassionne par la montagne et la mer, grand amateur de sport, mari heureux et pere comble.\n\nN hesitez pas a le contacter, il vous attendra a bras ouverts.",
+    "it": "Nato a Cadice, Marcelo ha passato meta della sua vita viaggiando per il mondo; probabilmente e uno dei motivi per cui e il nostro responsabile commerciale internazionale.\n\nHa alle spalle 23 anni di esperienza professionale, soprattutto nelle vendite e nella relazione con i clienti.\n\nCordiale, disponibile, positivo e alla mano. E sempre pronto a offrire il suo miglior servizio, con buone idee e un grande sorriso.\n\nCome dice sempre: Il mio vero obiettivo in questo settore non e vendere immobili, ma aiutare le persone a trovare la loro casa.\n\nGrande amante della montagna e del mare, appassionato di sport, marito felice e padre orgoglioso.\n\nNon esitare a contattarlo: ti aspettera a braccia aperte.",
+    "nl": "Marcelo is geboren in Cadiz en reist al de helft van zijn leven de wereld rond. Dat is waarschijnlijk een van de redenen waarom hij onze internationaal sales manager is.\n\nHij heeft 23 jaar professionele ervaring, vooral in sales en klantrelaties.\n\nVriendelijk, toegankelijk, positief en ontspannen. Hij staat altijd klaar om zijn beste service te bieden, met goede ideeen en een grote glimlach.\n\nZoals hij zelf zegt: Mijn echte doel in deze sector is niet om woningen te verkopen, maar om mensen te helpen hun thuis te vinden.\n\nLiefhebber van bergen en zee, echte sportfan, gelukkige echtgenoot en vader.\n\nAarzel niet om contact met hem op te nemen, hij wacht op je met open armen."
+  }
+}

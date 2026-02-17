@@ -1,0 +1,38 @@
+{
+  "id": "santiago",
+  "category": "marketing",
+  "name": "Santiago Dominguez",
+  "role": {
+    "es": "Ejecutivo de Marketing Digital",
+    "en": "Digital Marketing Executive",
+    "de": "Digital Marketing Executive",
+    "fr": "Responsable Marketing Digital",
+    "it": "Digital Marketing Executive",
+    "nl": "Digital Marketing Executive"
+  },
+  "spoken_languages": [
+    "es",
+    "en"
+  ],
+  "email": "marketing@blancareal.com",
+  "phone": "+34 601 643 392",
+  "photo": {
+    "url": "/team/santiago.png",
+    "alt": {
+      "es": "Perfil de Santiago Dominguez",
+      "en": "Profile of Santiago Dominguez",
+      "de": "Profil von Santiago Dominguez",
+      "fr": "Profil de Santiago Dominguez",
+      "it": "Profilo di Santiago Dominguez",
+      "nl": "Profiel van Santiago Dominguez"
+    }
+  },
+  "bio": {
+    "es": "Santiago nacio en Velez-Malaga. Es historiador, marketer y un lector y escritor incansable.\n\nSe define como una persona tranquila pero ambiciosa, con nuevos retos e ideas siempre en mente.\n\nEn 2021 entro en el apasionante mundo del marketing digital como copywriter y especialista SEO, ya que le permite dar forma a esas ideas y llevarlas al siguiente nivel. Es creativo y perfeccionista en su trabajo.\n\nEn su tiempo libre le gusta ir al gimnasio y practicar deporte, porque cree que cuidar el cuerpo es tan importante como cuidar la mente.",
+    "en": "Santiago was born in Velez-Malaga. He is a historian, marketer, and an avid reader and writer.\n\nHe describes himself as a calm but ambitious person who always has new challenges and ideas in mind.\n\nIn 2021, he entered the exciting world of digital marketing as a copywriter and SEO specialist, as it allows him to shape these ideas and take them to the next level. He is creative and a perfectionist in his work.\n\nIn his free time, he likes going to the gym and playing sports, as he believes that taking care of the body is just as important as taking care of the mind.",
+    "de": "Santiago wurde in Velez-Malaga geboren. Er ist Historiker, Marketer sowie leidenschaftlicher Leser und Schreiber.\n\nEr beschreibt sich als ruhigen, aber ehrgeizigen Menschen, der immer neue Herausforderungen und Ideen im Kopf hat.\n\n2021 stieg er als Copywriter und SEO-Spezialist in die spannende Welt des digitalen Marketings ein, weil er dort seine Ideen formen und auf die naechste Stufe bringen kann. Er arbeitet kreativ und sehr perfektionistisch.\n\nIn seiner Freizeit geht er gerne ins Fitnessstudio und treibt Sport, denn fuer ihn ist die Pflege des Koerpers genauso wichtig wie die des Geistes.",
+    "fr": "Santiago est ne a Velez-Malaga. Il est historien, marketer et grand lecteur et ecrivain.\n\nIl se decrit comme une personne calme mais ambitieuse, avec toujours de nouveaux defis et de nouvelles idees en tete.\n\nEn 2021, il est entre dans le monde passionnant du marketing digital comme copywriter et specialiste SEO, car cela lui permet de donner forme a ses idees et de les porter a un niveau superieur. Il est creatif et perfectionniste dans son travail.\n\nPendant son temps libre, il aime aller a la salle de sport et pratiquer du sport, car il pense que prendre soin du corps est aussi important que prendre soin de l esprit.",
+    "it": "Santiago e nato a Velez-Malaga. E storico, marketer e grande appassionato di lettura e scrittura.\n\nSi definisce una persona calma ma ambiziosa, con nuove sfide e idee sempre in mente.\n\nNel 2021 e entrato nel mondo del digital marketing come copywriter e specialista SEO, perche questo gli permette di trasformare le sue idee e portarle a un livello superiore. E creativo e perfezionista nel lavoro.\n\nNel tempo libero gli piace andare in palestra e fare sport, perche crede che prendersi cura del corpo sia importante quanto prendersi cura della mente.",
+    "nl": "Santiago is geboren in Velez-Malaga. Hij is historicus, marketeer en een fanatiek lezer en schrijver.\n\nHij omschrijft zichzelf als een rustig maar ambitieus persoon die altijd nieuwe uitdagingen en ideeen in gedachten heeft.\n\nIn 2021 stapte hij als copywriter en SEO-specialist in de boeiende wereld van digitale marketing, omdat hij daar zijn ideeen kan vormgeven en naar een hoger niveau kan brengen. Hij is creatief en perfectionistisch in zijn werk.\n\nIn zijn vrije tijd gaat hij graag naar de sportschool en doet hij aan sport, omdat hij vindt dat zorg voor het lichaam net zo belangrijk is als zorg voor de geest."
+  }
+}

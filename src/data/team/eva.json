@@ -1,0 +1,39 @@
+{
+  "id": "eva",
+  "category": "commercial",
+  "name": "Eva Valero",
+  "role": {
+    "es": "Directora Comercial y de Marketing",
+    "en": "Chief Sales & Marketing Officer",
+    "de": "Chief Sales & Marketing Officer",
+    "fr": "Directrice Commerciale et Marketing",
+    "it": "Direttrice Commerciale e Marketing",
+    "nl": "Commercieel en Marketing Directeur"
+  },
+  "spoken_languages": [
+    "es",
+    "en",
+    "it"
+  ],
+  "email": "eva@blancareal.com",
+  "phone": "+34 601 641 600",
+  "photo": {
+    "url": "/team/eva.png",
+    "alt": {
+      "es": "Perfil de Eva Valero",
+      "en": "Profile of Eva Valero",
+      "de": "Profil von Eva Valero",
+      "fr": "Profil de Eva Valero",
+      "it": "Profilo di Eva Valero",
+      "nl": "Profiel van Eva Valero"
+    }
+  },
+  "bio": {
+    "es": "Nacida entre olivares de Jaen, Eva destaca por su cercania andaluza y su empatia.\n\nDe formacion inicial docente, ha ocupado puestos directivos tanto en el sector educativo como en el inmobiliario.\n\nGracias a estas experiencias ha desarrollado una gran capacidad organizativa y una excelente eficiencia en todas las tareas que asume.\n\nSu disposicion para escuchar la convierte en una solucionadora de problemas imprescindible para nuestros clientes.\n\nEva es muy familiar y apasionada por los animales y los viajes.",
+    "en": "Born among the olive trees of Jaen, Eva is distinguished by her Andalusian warmth and empathy.\n\nOriginally a teacher by profession, she has held management positions in both the education and real estate sectors.\n\nThanks to these experiences she has developed admirable organisational skills and excellent efficiency in all the tasks she undertakes.\n\nHer willingness to listen makes her an indispensable problem solver for our clients.\n\nEva is very family-oriented and passionate about animals and travel.",
+    "de": "Geboren zwischen den Olivenhainen von Jaen, zeichnet sich Eva durch ihre andalusische Herzlichkeit und Empathie aus.\n\nUrspruenglich Lehrerin, hatte sie Fuehrungspositionen sowohl im Bildungsbereich als auch im Immobiliensektor inne.\n\nDurch diese Erfahrungen hat sie eine beeindruckende Organisationsfaehigkeit und hohe Effizienz in allen Aufgaben entwickelt.\n\nIhre Bereitschaft zuzuhoeren macht sie zu einer unverzichtbaren Problemloeserin fuer unsere Kunden.\n\nEva ist sehr familienorientiert und liebt Tiere und Reisen.",
+    "fr": "Nee au milieu des oliviers de Jaen, Eva se distingue par sa chaleur andalouse et son empathie.\n\nInitialement enseignante, elle a occupe des postes de direction dans les secteurs de l education et de l immobilier.\n\nGrace a ces experiences, elle a developpe d excellentes competences organisationnelles et une grande efficacite dans toutes ses missions.\n\nSa capacite d ecoute fait d elle une resolutrice de problemes indispensable pour nos clients.\n\nEva est tres attachee a sa famille et passionnee par les animaux et les voyages.",
+    "it": "Nata tra gli uliveti di Jaen, Eva si distingue per il suo calore andaluso e la sua empatia.\n\nDi formazione insegnante, ha ricoperto ruoli dirigenziali sia nel settore educativo sia in quello immobiliare.\n\nGrazie a queste esperienze ha sviluppato eccellenti capacita organizzative e una grande efficienza in ogni attivita che svolge.\n\nLa sua disponibilita all ascolto la rende una risolutrice di problemi indispensabile per i nostri clienti.\n\nEva e molto legata alla famiglia ed e appassionata di animali e viaggi.",
+    "nl": "Eva is geboren tussen de olijfbomen van Jaen en valt op door haar Andalusische warmte en empathie.\n\nVan oorsprong is ze docent en ze heeft managementfuncties bekleed in zowel de onderwijs- als de vastgoedsector.\n\nDankzij die ervaring heeft ze sterke organisatorische vaardigheden en een hoge efficientie ontwikkeld in alles wat ze doet.\n\nHaar luisterbereidheid maakt haar een onmisbare probleemoplosser voor onze klanten.\n\nEva is erg familiegericht en gepassioneerd door dieren en reizen."
+  }
+}

@@ -1,0 +1,323 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import teamMembers, { TEAM_CATEGORY_ORDER } from "@/data/team";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import "@/styles/pages/about.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/about/`, 302);
+}
+
+const lang = langParam;
+
+const copyByLang = {
+  es: {
+    title: "Nosotros | BlancaReal",
+    description:
+      "Conoce al equipo de BlancaReal por departamentos: CEO, comercial, legal, inversiones y marketing.",
+    eyebrow: "Equipo BlancaReal",
+    heading: "Sobre nosotros",
+    intro:
+      "Un equipo multidisciplinar enfocado en operaciones inmobiliarias en Costa del Sol.",
+    categoryLabels: {
+      ceo: "CEO",
+      commercial: "Comercial",
+      legal: "Departamento legal",
+      investments: "Inversiones",
+      marketing: "Marketing",
+    },
+    languagesLabel: "Idiomas",
+    emailLabel: "Email",
+    phoneLabel: "Telefono",
+    showMore: "Mostrar mas",
+    showLess: "Mostrar menos",
+    emptyCategory: "Proximamente agregaremos perfiles en esta categoria.",
+  },
+  en: {
+    title: "About us | BlancaReal",
+    description:
+      "Meet BlancaReal team members by department: CEO, sales, legal, investments and marketing.",
+    eyebrow: "BlancaReal Team",
+    heading: "About us",
+    intro:
+      "A multidisciplinary team focused on real estate operations on Costa del Sol.",
+    categoryLabels: {
+      ceo: "CEO",
+      commercial: "Sales",
+      legal: "Legal department",
+      investments: "Investments",
+      marketing: "Marketing",
+    },
+    languagesLabel: "Languages",
+    emailLabel: "Email",
+    phoneLabel: "Phone",
+    showMore: "Show more",
+    showLess: "Show less",
+    emptyCategory: "Profiles for this category will be added soon.",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.en;
+
+const LANGUAGE_BADGES = {
+  es: {
+    label: "Espanol",
+    flagUrl: "/flags/es.svg",
+  },
+  en: {
+    label: "English",
+    flagUrl: "/flags/gb.svg",
+  },
+  fr: {
+    label: "Francais",
+    flagUrl: "/flags/fr.svg",
+  },
+  de: {
+    label: "Deutsch",
+    flagUrl: "/flags/de.svg",
+  },
+  nl: {
+    label: "Nederlands",
+    flagUrl: "/flags/nl.svg",
+  },
+  it: {
+    label: "Italiano",
+    flagUrl: "/flags/it.svg",
+  },
+};
+
+const toTelHref = (value) => {
+  return `tel:${String(value ?? "").replace(/[^\d+]/g, "")}`;
+};
+
+const normalizeEmailEntry = (entry, lang) => {
+  if (!entry) return null;
+
+  if (typeof entry === "string") {
+    const address = entry.trim();
+    if (!address) return null;
+    return { address, label: "" };
+  }
+
+  const address = String(entry.address ?? entry.email ?? entry.value ?? "").trim();
+  if (!address) return null;
+
+  let label = "";
+  if (typeof entry.label === "string") {
+    label = entry.label.trim();
+  } else if (entry.label && typeof entry.label === "object") {
+    label =
+      String(entry.label?.[lang] ?? entry.label?.en ?? entry.label?.es ?? "").trim();
+  }
+
+  return { address, label };
+};
+
+const normalizeMember = (member) => {
+  const role = member.role?.[lang] ?? member.role?.en ?? member.role?.es ?? "";
+  const bioRaw = member.bio?.[lang] ?? member.bio?.en ?? member.bio?.es ?? "";
+  const bio = String(bioRaw)
+    .split(/\n\s*\n/g)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  const photoUrl = member.photo?.url ?? null;
+  const photoAlt = member.photo?.alt?.[lang] ?? member.photo?.alt?.en ?? member.name;
+  const spokenLanguages = Array.isArray(member.spoken_languages)
+    ? member.spoken_languages.filter((code) => LANGUAGE_BADGES[code])
+    : [];
+  const emailEntries = Array.isArray(member.emails)
+    ? member.emails
+        .map((entry) => normalizeEmailEntry(entry, lang))
+        .filter(Boolean)
+    : [];
+  const fallbackEmail = String(member.email ?? "").trim();
+  if (!emailEntries.length && fallbackEmail) {
+    emailEntries.push({ address: fallbackEmail, label: "" });
+  }
+  const phone = String(member.phone ?? "").trim();
+  const hasContact = Boolean(emailEntries.length || phone);
+  const bioText = bio.join(" ").trim();
+  const canCollapseBio = bioText.length > 220;
+
+  return {
+    ...member,
+    role,
+    bio,
+    photoUrl,
+    photoAlt,
+    spokenLanguages,
+    emails: emailEntries,
+    phone,
+    hasContact,
+    canCollapseBio,
+  };
+};
+
+const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => {
+  const members = teamMembers
+    .filter((member) => member.category === categoryId)
+    .map((member) => normalizeMember(member));
+
+  return {
+    id: categoryId,
+    label: t.categoryLabels[categoryId] ?? categoryId,
+    members,
+  };
+});
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="about-hero container">
+    <span class="about-eyebrow">{t.eyebrow}</span>
+    <h1>{t.heading}</h1>
+    <p>{t.intro}</p>
+  </section>
+
+  <section class="about-team container">
+    {membersByCategory.map((section) => {
+      const sectionHeadingId = `team-category-${section.id}`;
+
+      return (
+        <section class="team-section" aria-labelledby={sectionHeadingId}>
+          <h2 id={sectionHeadingId}>{section.label}</h2>
+
+          {section.members.length === 0 ? (
+            <div class="team-empty">{t.emptyCategory}</div>
+          ) : (
+            <div class="team-grid">
+              {section.members.map((member) => {
+                const memberIdBase =
+                  member.id ??
+                  member.name
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")
+                    .replace(/[^\w-]/g, "");
+                const memberHeadingId = `${memberIdBase}-heading`;
+                const memberBioId = `${memberIdBase}-bio`;
+
+                return (
+                  <article class="team-card" aria-labelledby={memberHeadingId}>
+                    <div class="team-photo">
+                      {member.photoUrl ? (
+                        <img src={member.photoUrl} alt={member.photoAlt} loading="lazy" />
+                      ) : (
+                        <div class="team-photo-fallback" aria-hidden="true">
+                          {member.name
+                            .split(" ")
+                            .slice(0, 2)
+                            .map((part) => part[0] || "")
+                            .join("")
+                            .toUpperCase()}
+                        </div>
+                      )}
+                    </div>
+
+                    <div class="team-body">
+                      <h3 id={memberHeadingId}>{member.name}</h3>
+                      <p class="team-role">{member.role}</p>
+
+                      {member.spokenLanguages.length > 0 && (
+                        <div class="team-flags-wrap">
+                          <span>{t.languagesLabel}</span>
+                          <ul class="team-flags">
+                            {member.spokenLanguages.map((langCode) => {
+                              const badge = LANGUAGE_BADGES[langCode];
+                              if (!badge) return null;
+
+                              return (
+                                <li title={badge.label}>
+                                  <img src={badge.flagUrl} alt={badge.label} loading="lazy" />
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      )}
+
+                      {member.hasContact && (
+                        <div class="team-contact">
+                          {member.emails.map((emailItem) => (
+                            <a
+                              href={`mailto:${emailItem.address}`}
+                              aria-label={`${t.emailLabel}: ${emailItem.label ? `${emailItem.label} - ` : ""}${emailItem.address}`}
+                            >
+                              {emailItem.label && <span class="team-contact-label">{emailItem.label}: </span>}
+                              {emailItem.address}
+                            </a>
+                          ))}
+                          {member.phone && (
+                            <a href={toTelHref(member.phone)} aria-label={`${t.phoneLabel}: ${member.phone}`}>
+                              <span class="team-contact-label">{t.phoneLabel}: </span>
+                              {member.phone}
+                            </a>
+                          )}
+                        </div>
+                      )}
+
+                      {member.bio.length > 0 && (
+                        <div class="team-bio-wrap">
+                          <div
+                            id={memberBioId}
+                            class:list={["team-bio", member.canCollapseBio && "is-collapsed"]}
+                          >
+                            {member.bio.map((paragraph) => (
+                              <p>{paragraph}</p>
+                            ))}
+                          </div>
+                          {member.canCollapseBio && (
+                            <button
+                              type="button"
+                              class="team-bio-toggle"
+                              data-more-label={t.showMore}
+                              data-less-label={t.showLess}
+                              aria-expanded="false"
+                              aria-controls={memberBioId}
+                            >
+                              {t.showMore}
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <div class="team-brand">
+                      <img src="/logo.png" alt="BlancaReal logo" loading="lazy" />
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </section>
+      );
+    })}
+  </section>
+
+  <script is:inline>
+    document.querySelectorAll(".team-bio-toggle").forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      const wrapper = button.closest(".team-bio-wrap");
+      const bio = wrapper?.querySelector(".team-bio");
+      if (!(bio instanceof HTMLDivElement)) return;
+
+      const moreLabel = button.dataset.moreLabel || "Show more";
+      const lessLabel = button.dataset.lessLabel || "Show less";
+
+      button.addEventListener("click", () => {
+        const isCollapsed = bio.classList.toggle("is-collapsed");
+        const isExpanded = !isCollapsed;
+        button.setAttribute("aria-expanded", String(isExpanded));
+        button.textContent = isExpanded ? lessLabel : moreLabel;
+      });
+    });
+  </script>
+</BaseLayout>

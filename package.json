@@ -6,10 +6,17 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pois:fetch": "node scripts/fetch-pois-overpass.mjs",
+    "zones:fetch": "node scripts/fetch-zones-nominatim.mjs"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.2",
-    "astro": "^5.17.1"
+    "@turf/boolean-point-in-polygon": "^7.3.4",
+    "@turf/distance": "^7.3.4",
+    "@turf/helpers": "^7.3.4",
+    "@turf/nearest-point": "^7.3.4",
+    "astro": "^5.17.1",
+    "mapbox-gl": "^3.18.1"
   }
 }

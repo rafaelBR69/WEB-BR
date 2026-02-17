@@ -90,6 +90,9 @@ const activeFilters = {
   search: searchParams.get("q")
     ? String(searchParams.get("q")).trim()
     : null,
+  ref: searchParams.get("ref")
+    ? String(searchParams.get("ref")).trim()
+    : null,
 };
 
 const hasTechnicalFilters =
@@ -167,6 +170,7 @@ function buildUrl(overrides = {}) {
     priceMin: activeFilters.priceMin,
     priceMax: activeFilters.priceMax,
     q: activeFilters.search,
+    ref: activeFilters.ref,
     sort,
     ...overrides,
   };
@@ -194,7 +198,8 @@ const isFiltered = !!(
   activeFilters.market ||
   activeFilters.priceMin ||
   activeFilters.priceMax ||
-  activeFilters.search
+  activeFilters.search ||
+  activeFilters.ref
 );
 // formatFloorLabel defined above (identity)
 
@@ -280,7 +285,7 @@ const formatMarketLabel = (value) => {
               <div class="filters-body" id="filtersBody">
                 <div class="filters-header desktop-only">
                   <h2>Filtrar</h2>
-                  {(activeFilters.city || activeFilters.area || (activeFilters.type && activeFilters.type.length) || (activeFilters.bedrooms && activeFilters.bedrooms.length) || (activeFilters.floor && activeFilters.floor.length) || activeFilters.market || activeFilters.search) && (
+                  {(activeFilters.city || activeFilters.area || (activeFilters.type && activeFilters.type.length) || (activeFilters.bedrooms && activeFilters.bedrooms.length) || (activeFilters.floor && activeFilters.floor.length) || activeFilters.market || activeFilters.search || activeFilters.ref) && (
                     <a href={`/${lang}/properties/`} class="reset-all">Limpiar todo</a>
                   )}
                 </div>
@@ -480,6 +485,7 @@ const formatMarketLabel = (value) => {
             <input type="hidden" name="priceMax" value={activeFilters.priceMax} />
           )}
           {sort && <input type="hidden" name="sort" value={sort} />}
+          {activeFilters.ref && <input type="hidden" name="ref" value={activeFilters.ref} />}
           <button type="submit">Buscar</button>
         </form>
 

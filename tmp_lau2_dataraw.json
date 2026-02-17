@@ -1,0 +1,50 @@
+[
+  {
+    "name": "script_make_datos.R",
+    "path": "data-raw/script_make_datos.R",
+    "sha": "6d2dddd58e5445b77366be0e50bebfc98899c90f",
+    "size": 14147,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data-raw/script_make_datos.R?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/data-raw/script_make_datos.R",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/6d2dddd58e5445b77366be0e50bebfc98899c90f",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/data-raw/script_make_datos.R",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data-raw/script_make_datos.R?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/6d2dddd58e5445b77366be0e50bebfc98899c90f",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/data-raw/script_make_datos.R"
+    }
+  },
+  {
+    "name": "script_make_datos_2.R",
+    "path": "data-raw/script_make_datos_2.R",
+    "sha": "45e5c7c421ebbe81f6bc538d97795f7b4e8594cd",
+    "size": 2300,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data-raw/script_make_datos_2.R?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/data-raw/script_make_datos_2.R",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/45e5c7c421ebbe81f6bc538d97795f7b4e8594cd",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/data-raw/script_make_datos_2.R",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data-raw/script_make_datos_2.R?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/45e5c7c421ebbe81f6bc538d97795f7b4e8594cd",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/data-raw/script_make_datos_2.R"
+    }
+  },
+  {
+    "name": "script_make_datos_3.R",
+    "path": "data-raw/script_make_datos_3.R",
+    "sha": "66b6ede07728138f1c4e809e986ef9651990b38e",
+    "size": 592,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data-raw/script_make_datos_3.R?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/data-raw/script_make_datos_3.R",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/66b6ede07728138f1c4e809e986ef9651990b38e",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/data-raw/script_make_datos_3.R",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data-raw/script_make_datos_3.R?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/66b6ede07728138f1c4e809e986ef9651990b38e",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/data-raw/script_make_datos_3.R"
+    }
+  }
+]

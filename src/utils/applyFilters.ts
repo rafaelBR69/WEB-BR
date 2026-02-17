@@ -1,15 +1,18 @@
 import { normalizeSearchText } from "@/utils/search";
 
 export function applyFilters(cards, filters) {
+  const searchQuery = filters.search ? normalizeSearchText(filters.search) : "";
+  const searchTerms = searchQuery ? searchQuery.split(" ").filter(Boolean) : [];
+  const refQuery = filters.ref ? normalizeSearchText(filters.ref) : "";
+  const hasTextSearch = searchTerms.length > 0 || Boolean(refQuery);
+
   const hasUnitFilters =
     typeof filters.priceMin === "number" ||
     typeof filters.priceMax === "number" ||
     (Array.isArray(filters.bedrooms) && filters.bedrooms.length > 0) ||
     (Array.isArray(filters.floor) && filters.floor.length > 0) ||
-    filters.listingType === "unit";
-
-  const searchQuery = filters.search ? normalizeSearchText(filters.search) : "";
-  const searchTerms = searchQuery ? searchQuery.split(" ").filter(Boolean) : [];
+    filters.listingType === "unit" ||
+    hasTextSearch;
 
   return cards.filter((card) => {
     if (!card.visible) return false;
@@ -88,6 +91,19 @@ export function applyFilters(cards, filters) {
       card.price > filters.priceMax
     ) {
       return false;
+    }
+
+    if (refQuery) {
+      const refCandidates = [
+        card.id,
+        card.parentId,
+        card.slug,
+      ]
+        .filter(Boolean)
+        .map((value) => normalizeSearchText(value));
+
+      const matchedRef = refCandidates.some((value) => value.includes(refQuery));
+      if (!matchedRef) return false;
     }
 
     if (searchTerms.length > 0) {

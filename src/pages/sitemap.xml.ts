@@ -9,6 +9,12 @@ const URLS = [
   "/fr/projects/",
   "/it/projects/",
   "/nl/projects/",
+  "/es/map/",
+  "/en/map/",
+  "/de/map/",
+  "/fr/map/",
+  "/it/map/",
+  "/nl/map/",
 
   // Ciudades
   "/es/properties/mijas/",

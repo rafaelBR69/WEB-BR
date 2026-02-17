@@ -1,0 +1,66 @@
+[
+  {
+    "name": "CITATION",
+    "path": "inst/CITATION",
+    "sha": "79de67b919c8d53eceac02eb7b595e11293b1847",
+    "size": 478,
+    "url": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/inst/CITATION?ref=main",
+    "html_url": "https://github.com/rOpenSpain/mapSpain/blob/main/inst/CITATION",
+    "git_url": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/79de67b919c8d53eceac02eb7b595e11293b1847",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/mapSpain/main/inst/CITATION",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/inst/CITATION?ref=main",
+      "git": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/79de67b919c8d53eceac02eb7b595e11293b1847",
+      "html": "https://github.com/rOpenSpain/mapSpain/blob/main/inst/CITATION"
+    }
+  },
+  {
+    "name": "COPYRIGHTS",
+    "path": "inst/COPYRIGHTS",
+    "sha": "75eacd38ab714be8bc3fe06b43c734191ec60c19",
+    "size": 3621,
+    "url": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/inst/COPYRIGHTS?ref=main",
+    "html_url": "https://github.com/rOpenSpain/mapSpain/blob/main/inst/COPYRIGHTS",
+    "git_url": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/75eacd38ab714be8bc3fe06b43c734191ec60c19",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/mapSpain/main/inst/COPYRIGHTS",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/inst/COPYRIGHTS?ref=main",
+      "git": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/75eacd38ab714be8bc3fe06b43c734191ec60c19",
+      "html": "https://github.com/rOpenSpain/mapSpain/blob/main/inst/COPYRIGHTS"
+    }
+  },
+  {
+    "name": "WORDLIST",
+    "path": "inst/WORDLIST",
+    "sha": "66f926177b5d132e4c52a6875735efa6b3cfe04a",
+    "size": 785,
+    "url": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/inst/WORDLIST?ref=main",
+    "html_url": "https://github.com/rOpenSpain/mapSpain/blob/main/inst/WORDLIST",
+    "git_url": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/66f926177b5d132e4c52a6875735efa6b3cfe04a",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/mapSpain/main/inst/WORDLIST",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/inst/WORDLIST?ref=main",
+      "git": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/66f926177b5d132e4c52a6875735efa6b3cfe04a",
+      "html": "https://github.com/rOpenSpain/mapSpain/blob/main/inst/WORDLIST"
+    }
+  },
+  {
+    "name": "schemaorg.json",
+    "path": "inst/schemaorg.json",
+    "sha": "11a6978b1f9231679bb65b42fd3f3d7e6560c6d9",
+    "size": 2122,
+    "url": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/inst/schemaorg.json?ref=main",
+    "html_url": "https://github.com/rOpenSpain/mapSpain/blob/main/inst/schemaorg.json",
+    "git_url": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/11a6978b1f9231679bb65b42fd3f3d7e6560c6d9",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/mapSpain/main/inst/schemaorg.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/inst/schemaorg.json?ref=main",
+      "git": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/11a6978b1f9231679bb65b42fd3f3d7e6560c6d9",
+      "html": "https://github.com/rOpenSpain/mapSpain/blob/main/inst/schemaorg.json"
+    }
+  }
+]

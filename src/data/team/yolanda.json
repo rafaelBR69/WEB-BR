@@ -1,0 +1,27 @@
+{
+  "id": "yolanda",
+  "category": "commercial",
+  "name": "Yolanda",
+  "role": {
+    "es": "Captacion de propiedades",
+    "en": "Property Acquisition",
+    "de": "Immobilienakquise",
+    "fr": "Acquisition de Proprietes",
+    "it": "Acquisizione di Immobili",
+    "nl": "Vastgoedacquisitie"
+  },
+  "spoken_languages": [],
+  "email": "yolanda@blancareal.com",
+  "phone": "+34 635 01 54 47",
+  "photo": {
+    "url": "/team/yolanda.png",
+    "alt": {
+      "es": "Perfil de Yolanda",
+      "en": "Profile of Yolanda",
+      "de": "Profil von Yolanda",
+      "fr": "Profil de Yolanda",
+      "it": "Profilo di Yolanda",
+      "nl": "Profiel van Yolanda"
+    }
+  }
+}

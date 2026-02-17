@@ -1,0 +1,66 @@
+[
+  {
+    "name": "esp_codelist.rda",
+    "path": "data/esp_codelist.rda",
+    "sha": "8398cd8fed65d8b9be6636a3e6d4fbd15be100e7",
+    "size": 4252,
+    "url": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/data/esp_codelist.rda?ref=main",
+    "html_url": "https://github.com/rOpenSpain/mapSpain/blob/main/data/esp_codelist.rda",
+    "git_url": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/8398cd8fed65d8b9be6636a3e6d4fbd15be100e7",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/mapSpain/main/data/esp_codelist.rda",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/data/esp_codelist.rda?ref=main",
+      "git": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/8398cd8fed65d8b9be6636a3e6d4fbd15be100e7",
+      "html": "https://github.com/rOpenSpain/mapSpain/blob/main/data/esp_codelist.rda"
+    }
+  },
+  {
+    "name": "esp_nuts_2024.rda",
+    "path": "data/esp_nuts_2024.rda",
+    "sha": "6bf70c546a029d3bbf51bfe14791847c9f71c3f8",
+    "size": 292956,
+    "url": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/data/esp_nuts_2024.rda?ref=main",
+    "html_url": "https://github.com/rOpenSpain/mapSpain/blob/main/data/esp_nuts_2024.rda",
+    "git_url": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/6bf70c546a029d3bbf51bfe14791847c9f71c3f8",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/mapSpain/main/data/esp_nuts_2024.rda",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/data/esp_nuts_2024.rda?ref=main",
+      "git": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/6bf70c546a029d3bbf51bfe14791847c9f71c3f8",
+      "html": "https://github.com/rOpenSpain/mapSpain/blob/main/data/esp_nuts_2024.rda"
+    }
+  },
+  {
+    "name": "esp_tiles_providers.rda",
+    "path": "data/esp_tiles_providers.rda",
+    "sha": "e30e33148733ee2704926681c16b06ea9e9fab55",
+    "size": 4019,
+    "url": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/data/esp_tiles_providers.rda?ref=main",
+    "html_url": "https://github.com/rOpenSpain/mapSpain/blob/main/data/esp_tiles_providers.rda",
+    "git_url": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/e30e33148733ee2704926681c16b06ea9e9fab55",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/mapSpain/main/data/esp_tiles_providers.rda",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/data/esp_tiles_providers.rda?ref=main",
+      "git": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/e30e33148733ee2704926681c16b06ea9e9fab55",
+      "html": "https://github.com/rOpenSpain/mapSpain/blob/main/data/esp_tiles_providers.rda"
+    }
+  },
+  {
+    "name": "pobmun25.rda",
+    "path": "data/pobmun25.rda",
+    "sha": "a14606fc5aa8f23dfbc0a82212de025c5bf6393d",
+    "size": 95076,
+    "url": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/data/pobmun25.rda?ref=main",
+    "html_url": "https://github.com/rOpenSpain/mapSpain/blob/main/data/pobmun25.rda",
+    "git_url": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/a14606fc5aa8f23dfbc0a82212de025c5bf6393d",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/mapSpain/main/data/pobmun25.rda",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/mapSpain/contents/data/pobmun25.rda?ref=main",
+      "git": "https://api.github.com/repos/rOpenSpain/mapSpain/git/blobs/a14606fc5aa8f23dfbc0a82212de025c5bf6393d",
+      "html": "https://github.com/rOpenSpain/mapSpain/blob/main/data/pobmun25.rda"
+    }
+  }
+]

@@ -1,0 +1,178 @@
+{
+  "id": "PM0074-13",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM0074",
+  "slugs": {
+    "es": "unidad-13-orion-manilva",
+    "en": "unit-13-orion-manilva",
+    "de": "einheit-13-orion-manilva",
+    "fr": "unite-13-orion-manilva",
+    "it": "unita-13-orion-manilva",
+    "nl": "unit-13-orion-manilva"
+  },
+  "status": "sold",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Las Lagunas",
+    "coordinates": {
+      "lat": 36.53577628175631,
+      "lng": -4.639616603103012
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": 95.48,
+    "usable_area_m2": 66.86,
+    "terrace_m2": 21.16,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": null,
+    "garages": null,
+    "floor_level": 4,
+    "orientation": null,
+    "condition": "new",
+    "floor_label": "Planta 4",
+    "type_label": "A",
+    "useful_interior_m2": 65.37
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "communal_pool",
+    "gated_community"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+      "alt": {
+        "es": "Orion en Manilva - obra nueva",
+        "en": "Orion in Manilva - new build",
+        "de": "Orion in Manilva - Neubau",
+        "fr": "Orion a Manilva - programme neuf",
+        "it": "Orion a Manilva - nuova costruzione",
+        "nl": "Orion in Manilva - nieuwbouw"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/02_EXT_PERGOLA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/03_EXT_TERRAZAS--v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/04_EXT_PISCINA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/05_EXT_AGUA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/12_EXT_AEREA_NOCTURNA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-02.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/06_INT_SALON_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/07_INT_COCINA_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/08_TERRAZA_PISCINA_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/10_TERRAZA_FACHADA_sin-fondo-mar-v1.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/02_EXT_PERGOLA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/04_EXT_PISCINA-v1.jpg"
+        }
+      ],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/planos/1-4-A.pdf"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento orion manilva unidad 13",
+      "en": "orion manilva apartment unit 13",
+      "de": "orion manilva apartment einheit 13",
+      "fr": "appartement orion manilva unite 13",
+      "it": "appartamento orion manilva unita 13",
+      "nl": "orion manilva appartement unit 13"
+    },
+    "meta_description": {
+      "es": "Unidad en Orion, Manilva. Consulte disponibilidad y detalles.",
+      "en": "Unit at Orion, Manilva. Check availability and details.",
+      "de": "Einheit in Orion, Manilva. Verfuegbarkeit und Details.",
+      "fr": "Unite a Orion, Manilva. Consultez disponibilite et details.",
+      "it": "Unita in Orion, Manilva. Verifica disponibilita e dettagli.",
+      "nl": "Unit in Orion, Manilva. Bekijk beschikbaarheid en details."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Unidad 13 en Orion (Manilva)",
+      "intro": "Unidad disponible en Orion con 2 dormitorios.",
+      "description": []
+    },
+    "en": {
+      "title": "Unit 13 at Orion (Manilva)",
+      "intro": "Available unit in Orion with 2 bedrooms.",
+      "description": []
+    },
+    "de": {
+      "title": "Einheit 13 in Orion (Manilva)",
+      "intro": "Verfuegbare Einheit in Orion mit 2 Schlafzimmern.",
+      "description": []
+    },
+    "fr": {
+      "title": "Unite 13 a Orion (Manilva)",
+      "intro": "Unite disponible a Orion avec 2 chambres.",
+      "description": []
+    },
+    "it": {
+      "title": "Unita 13 a Orion (Manilva)",
+      "intro": "Unita disponibile in Orion con 2 camere.",
+      "description": []
+    },
+    "nl": {
+      "title": "Unit 13 in Orion (Manilva)",
+      "intro": "Beschikbare unit in Orion met 2 slaapkamers.",
+      "description": []
+    }
+  }
+}

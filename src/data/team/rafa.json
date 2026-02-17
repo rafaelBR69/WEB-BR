@@ -1,0 +1,37 @@
+{
+  "id": "rafa",
+  "category": "marketing",
+  "name": "Rafael Borrego",
+  "role": {
+    "es": "Desarrollador IT",
+    "en": "IT Developer",
+    "de": "IT Entwickler",
+    "fr": "Developpeur IT",
+    "it": "Sviluppatore IT",
+    "nl": "IT Ontwikkelaar"
+  },
+  "spoken_languages": [
+    "es"
+  ],
+  "email": "rafael@blancareal.com",
+  "phone": "+34 621 240 324",
+  "photo": {
+    "url": "/team/rafa.png",
+    "alt": {
+      "es": "Perfil de Rafael Borrego",
+      "en": "Profile of Rafael Borrego",
+      "de": "Profil von Rafael Borrego",
+      "fr": "Profil de Rafael Borrego",
+      "it": "Profilo di Rafael Borrego",
+      "nl": "Profiel van Rafael Borrego"
+    }
+  },
+  "bio": {
+    "es": "Un autentico cordobes, apasionado por la tecnologia, que desde joven ha trabajado con dedicacion y ambicion para construir un futuro mas comodo y estable.\n\nAmante del gimnasio, el padel y los esports, encuentra en el deporte y en los habitos saludables el equilibrio perfecto para rendir al maximo cada dia.\n\nCurioso e incansable, Rafa dedica gran parte de su tiempo libre a estudiar y explorar la inteligencia artificial y la economia, dos campos que le inspiran y retan constantemente.\n\nSu trayectoria profesional acaba de empezar, y este primer trabajo representa una gran responsabilidad que asume con compromiso, disciplina y muchas ganas de crecer paso a paso.\n\nSus mayores pilares en la vida son su familia y su perro Cuco, que le llenan de alegria y motivacion cada dia.\n\nSe define como una persona responsable y constante, con gran capacidad para escuchar, comprender y aprender. Mas que hablar, prefiere absorber conocimiento y evolucionar en cada experiencia.",
+    "en": "A true man from Cordoba and passionate about technology, Rafael has worked with dedication and ambition from a young age to build a more stable future.\n\nA fan of the gym, padel and esports, he finds in sport and healthy habits the perfect balance to perform at his best every day.\n\nCurious and tireless, Rafa devotes much of his free time to studying and exploring artificial intelligence and economics, two fields that constantly inspire and challenge him.\n\nHis professional journey is just beginning, and this first job represents a great responsibility that he embraces with commitment, discipline and a strong desire to grow step by step.\n\nHis greatest pillars in life are his family and his dog Cuco, who fill him with daily joy and motivation.\n\nHe describes himself as responsible and consistent, with a strong ability to listen, understand and learn. Rather than talking, he prefers to absorb knowledge and evolve through every experience.",
+    "de": "Ein echter Cordobeser mit grosser Leidenschaft fuer Technologie, der seit jungen Jahren mit Einsatz und Ehrgeiz an einer stabilen Zukunft arbeitet.\n\nAls Fan von Fitnessstudio, Padel und Esports findet er im Sport und in gesunden Gewohnheiten die perfekte Balance, um jeden Tag sein Bestes zu geben.\n\nNeugierig und unermuedlich widmet Rafa einen grossen Teil seiner Freizeit dem Studium von kuenstlicher Intelligenz und Wirtschaft, zwei Bereichen, die ihn staendig inspirieren und fordern.\n\nSein beruflicher Weg hat gerade erst begonnen, und dieser erste Job ist eine grosse Verantwortung, die er mit Engagement, Disziplin und starkem Wachstumswillen annimmt.\n\nSeine wichtigsten Saeulen im Leben sind seine Familie und sein Hund Cuco, die ihm taeglich Freude und Motivation geben.\n\nEr beschreibt sich als verantwortungsbewusst und bestaendig, mit grosser Faehigkeit zuzuhoeren, zu verstehen und zu lernen. Statt viel zu reden, nimmt er lieber Wissen auf und entwickelt sich mit jeder Erfahrung weiter.",
+    "fr": "Authentique Cordouan passionne de technologie, Rafael travaille depuis son plus jeune age avec dedication et ambition pour construire un avenir plus stable.\n\nFan de salle de sport, de padel et d esports, il trouve dans le sport et les habitudes saines l equilibre parfait pour donner le meilleur de lui-meme chaque jour.\n\nCurieux et infatigable, Rafa consacre une grande partie de son temps libre a etudier et explorer l intelligence artificielle et l economie, deux domaines qui le stimulent en permanence.\n\nSon parcours professionnel ne fait que commencer, et ce premier emploi represente une grande responsabilite qu il assume avec engagement, discipline et envie de progresser pas a pas.\n\nSes deux grands piliers dans la vie sont sa famille et son chien Cuco, qui lui apportent de la joie et de la motivation au quotidien.\n\nIl se definit comme une personne responsable et constante, avec une forte capacite d ecoute, de comprehension et d apprentissage. Plus que parler, il prefere absorber des connaissances et evoluer a chaque experience.",
+    "it": "Autentico cordobese appassionato di tecnologia, Rafael lavora fin da giovane con dedizione e ambizione per costruire un futuro piu stabile.\n\nAppassionato di palestra, padel ed esports, trova nello sport e nelle abitudini sane l equilibrio perfetto per rendere al massimo ogni giorno.\n\nCurioso e instancabile, Rafa dedica gran parte del suo tempo libero a studiare ed esplorare l intelligenza artificiale e l economia, due settori che lo ispirano e lo sfidano continuamente.\n\nIl suo percorso professionale e appena iniziato e questo primo lavoro rappresenta una grande responsabilita, che affronta con impegno, disciplina e voglia di crescere passo dopo passo.\n\nI suoi pilastri piu importanti sono la sua famiglia e il suo cane Cuco, che gli regalano ogni giorno gioia e motivazione.\n\nSi definisce una persona responsabile e costante, con grande capacita di ascoltare, comprendere e imparare. Piu che parlare, preferisce assorbire conoscenza ed evolvere in ogni esperienza.",
+    "nl": "Een echte man uit Cordoba met passie voor technologie. Rafael werkt al van jongs af aan met toewijding en ambitie aan een stabielere toekomst.\n\nAls liefhebber van fitness, padel en esports vindt hij in sport en gezonde gewoonten de perfecte balans om elke dag op zijn best te presteren.\n\nNieuwsgierig en onvermoeibaar besteedt Rafa een groot deel van zijn vrije tijd aan het bestuderen van kunstmatige intelligentie en economie, twee domeinen die hem blijven inspireren en uitdagen.\n\nZijn professionele traject is nog maar net begonnen, en deze eerste baan is een grote verantwoordelijkheid die hij met inzet, discipline en sterke groeidrang opneemt.\n\nZijn belangrijkste pijlers in het leven zijn zijn familie en zijn hond Cuco, die hem dagelijks vreugde en motivatie geven.\n\nHij omschrijft zichzelf als verantwoordelijk en standvastig, met een sterk vermogen om te luisteren, te begrijpen en te leren. In plaats van veel te praten neemt hij liever kennis op en groeit hij met elke ervaring."
+  }
+}

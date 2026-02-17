@@ -46,6 +46,7 @@ export function normalizePropertyCard(property, lang) {
     null;
 
   return {
+    id: property.id ?? null,
     status,
     isAvailable: status === "available",
     visible,

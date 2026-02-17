@@ -1,0 +1,113 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MapboxCostaMap from "@/components/MapboxCostaMap.astro";
+import properties from "@/data/properties";
+import { buildMapFeatures } from "@/utils/buildMapFeatures";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/map/`, 302);
+}
+const lang = langParam;
+
+const token = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
+const styleUrl = import.meta.env.PUBLIC_MAPBOX_STYLE ?? "mapbox://styles/mapbox/streets-v12";
+
+const copyByLang = {
+  es: {
+    title: "Mapa inmobiliario Costa del Sol | BlancaReal",
+    description:
+      "Mapa interactivo de propiedades en Costa del Sol con vista inicial en Manilva, Marbella, Mijas y zonas clave.",
+    heading: "Mapa interactivo de propiedades",
+    subtitle:
+      "Vista inicial en Costa del Sol. Puede navegar por toda Espana y abrir cada inmueble directamente desde el mapa.",
+    empty: "No hay propiedades geolocalizadas disponibles.",
+    zoomSpain: "Ver Espana",
+    poiFilters: [
+      { id: "restaurant", label: "Restaurantes" },
+      { id: "hospital", label: "Hospitales" },
+      { id: "school", label: "Colegios" },
+      { id: "pharmacy", label: "Farmacias" },
+      { id: "leisure", label: "Ocio" },
+    ],
+  },
+  en: {
+    title: "Costa del Sol property map | BlancaReal",
+    description:
+      "Interactive property map focused on Costa del Sol with full Spain navigation.",
+    heading: "Interactive property map",
+    subtitle:
+      "Initial frame on Costa del Sol. You can navigate all Spain and open each property directly from the map.",
+    empty: "No geolocated properties available.",
+    zoomSpain: "View Spain",
+    poiFilters: [
+      { id: "restaurant", label: "Restaurants" },
+      { id: "hospital", label: "Hospitals" },
+      { id: "school", label: "Schools" },
+      { id: "pharmacy", label: "Pharmacies" },
+      { id: "leisure", label: "Leisure" },
+    ],
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+
+const features = buildMapFeatures(properties, lang);
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="container map-page-head">
+    <h1>{t.heading}</h1>
+    <p>{t.subtitle}</p>
+  </section>
+
+  <section class="container map-page-body">
+    <MapboxCostaMap
+      token={token}
+      styleUrl={styleUrl}
+      features={features}
+      poisUrl="/data/pois.geojson"
+      poiFilters={t.poiFilters}
+      emptyMessage={t.empty}
+      zoomToSpainLabel={t.zoomSpain}
+    />
+  </section>
+</BaseLayout>
+
+<style>
+  .map-page-head.container,
+  .map-page-body.container {
+    max-width: 1500px;
+    padding-left: clamp(0.75rem, 1.8vw, 1.8rem);
+    padding-right: clamp(0.75rem, 1.8vw, 1.8rem);
+  }
+
+  .map-page-head {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+
+  .map-page-head h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    color: var(--color-primary);
+  }
+
+  .map-page-head p {
+    margin-top: 0.55rem;
+    color: var(--color-muted);
+    max-width: 760px;
+  }
+
+  .map-page-body {
+    padding-bottom: 3rem;
+  }
+</style>

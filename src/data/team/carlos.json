@@ -1,0 +1,39 @@
+{
+  "id": "carlos",
+  "category": "marketing",
+  "name": "Carlos Leirado",
+  "role": {
+    "es": "Responsable Multimedia",
+    "en": "Multimedia Manager",
+    "de": "Multimedia Manager",
+    "fr": "Responsable Multimedia",
+    "it": "Responsabile Multimedia",
+    "nl": "Multimedia Manager"
+  },
+  "spoken_languages": [
+    "es",
+    "fr",
+    "en"
+  ],
+  "email": "carlos@blancareal.com",
+  "phone": "+34 655 454 776",
+  "photo": {
+    "url": "/team/carlos.png",
+    "alt": {
+      "es": "Perfil de Carlos Leirado",
+      "en": "Profile of Carlos Leirado",
+      "de": "Profil von Carlos Leirado",
+      "fr": "Profil de Carlos Leirado",
+      "it": "Profilo di Carlos Leirado",
+      "nl": "Profiel van Carlos Leirado"
+    }
+  },
+  "bio": {
+    "es": "Carlos nacio y crecio en Malaga, y estudio en el Liceo Internacional Frances.\n\nComo conoce la zona a la perfeccion, que recorre con su moto corporativa de 400cc, es la persona ideal para mostrar tu propiedad a compradores.\n\nGracias a herramientas profesionales y a su pasion por el multimedia, convierte fotos, imagenes 3D y tomas de dron en reportajes espectaculares.\n\nA pesar de su juventud, Carlos es uno de los primeros pilotos de dron inmobiliario con licencia en Espana y sigue en formacion fotografica continua para sacar el maximo partido a tu vivienda en venta.",
+    "en": "Carlos was born and raised in Malaga and attended the French International Lycee.\n\nSince he knows the area perfectly, which he tours with his 400cc corporate motorbike, Carlos is the ideal person to show your property to buyers.\n\nThanks to highly professional tools and his passion for multimedia, he transforms photography, 3D and drone footage into spectacular reports.\n\nDespite his young age, Carlos is one of the first licensed real-estate drone pilots in Spain. He is also in continuous photography training to get the best out of your property for sale.",
+    "de": "Carlos wurde in Malaga geboren und ist dort aufgewachsen. Er besuchte das franzoesische internationale Lycee.\n\nDa er die Gegend perfekt kennt und sie mit seinem 400cc Firmenmotorrad erkundet, ist Carlos die ideale Person, um Ihre Immobilie Interessenten zu praesentieren.\n\nMit professionellen Tools und seiner Leidenschaft fuer Multimedia verwandelt er Foto-, 3D- und Drohnenaufnahmen in spektakulaere Reportagen.\n\nTrotz seines jungen Alters gehoert Carlos zu den ersten lizenzierten Immobilien-Drohnenpiloten Spaniens und bildet sich fotografisch staendig weiter, um das Maximum aus Ihrer Immobilie herauszuholen.",
+    "fr": "Carlos est ne et a grandi a Malaga, et il a etudie au Lycee International Francais.\n\nComme il connait parfaitement la region, qu il parcourt avec sa moto d entreprise de 400cc, Carlos est la personne ideale pour presenter votre bien aux acheteurs.\n\nGrace a des outils tres professionnels et a sa passion pour le multimedia, il transforme les prises de vue photo, 3D et drone en reportages spectaculaires.\n\nMalgre son jeune age, Carlos fait partie des premiers pilotes de drone immobilier agrees en Espagne et poursuit une formation photo continue pour mettre en valeur votre bien a vendre.",
+    "it": "Carlos e nato e cresciuto a Malaga e ha studiato al Liceo Internazionale Francese.\n\nConosce perfettamente la zona, che percorre con la sua moto aziendale da 400cc, ed e quindi la persona ideale per mostrare la tua proprieta ai compratori.\n\nGrazie a strumenti professionali e alla sua passione per il multimedia, trasforma foto, immagini 3D e riprese drone in reportage spettacolari.\n\nNonostante la giovane eta, Carlos e tra i primi piloti di droni immobiliari con licenza in Spagna e continua a formarsi in fotografia per valorizzare al massimo il tuo immobile in vendita.",
+    "nl": "Carlos is geboren en opgegroeid in Malaga en studeerde aan het Franse internationale lyceum.\n\nOmdat hij de regio perfect kent en deze met zijn 400cc bedrijfsmotor doorkruist, is Carlos de ideale persoon om je woning aan kopers te tonen.\n\nDankzij professionele tools en zijn passie voor multimedia zet hij foto-, 3D- en dronebeelden om in spectaculaire reportages.\n\nOndanks zijn jonge leeftijd behoort Carlos tot de eerste erkende dronepiloten in de Spaanse vastgoedsector en volgt hij voortdurend opleiding in fotografie om het maximale uit je te koop staande woning te halen."
+  }
+}

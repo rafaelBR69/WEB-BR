@@ -1,0 +1,38 @@
+{
+  "id": "maria",
+  "category": "legal",
+  "name": "Maria Gomez",
+  "role": {
+    "es": "Directora del Departamento Legal",
+    "en": "Chief Legal Officer",
+    "de": "Leiterin Rechtsabteilung",
+    "fr": "Directrice du Departement Juridique",
+    "it": "Direttrice del Dipartimento Legale",
+    "nl": "Hoofd Juridische Zaken"
+  },
+  "spoken_languages": [
+    "es",
+    "en"
+  ],
+  "email": "legal@blancareal.com",
+  "phone": "+34 610 846 240",
+  "photo": {
+    "url": "/team/maria.png",
+    "alt": {
+      "es": "Perfil de Maria Gomez",
+      "en": "Profile of Maria Gomez",
+      "de": "Profil von Maria Gomez",
+      "fr": "Profil de Maria Gomez",
+      "it": "Profilo di Maria Gomez",
+      "nl": "Profiel van Maria Gomez"
+    }
+  },
+  "bio": {
+    "es": "Mas malaguena que el espeto de sardinas, Maria es la cara visible de nuestro departamento legal.\n\nA lo largo de mas de 20 anos de trayectoria, ha logrado innovar de forma constante, derribando muros que parecian insalvables.\n\nMaria ha trabajado sin descanso en areas donde la ley aun no estaba desarrollada. Por ejemplo, su dominio del derecho digital es abrumador.\n\nSin embargo, lo que mas admiran sus companeros de Maria no es solo su nivel profesional: pocas veces en la vida te cruzas con personas tan inquietas culturalmente.\n\nCon Maria puedes hablar de casi cualquier tema, siempre con un tono de humor que quienes compartimos su dia a dia agradecemos enormemente.",
+    "en": "More malaguena than the sardine espeto, Maria is the visible face of our legal department.\n\nThroughout her more than 20-year career, she has managed to constantly innovate, breaking down numerous walls that seemed insurmountable.\n\nMaria has worked tirelessly in areas where the law was not developed. For example, her mastery of digital law is overwhelming.\n\nYet what her colleagues admire most about Maria is not the professional level: rarely in life do you come across people as culturally restless as she is.\n\nWith Maria, you can talk about almost any subject, and always with a tone of humour that those of us who share her daily life are very grateful for.",
+    "de": "Malaguenischer als ein Sardinen-Espeto ist Maria das sichtbare Gesicht unserer Rechtsabteilung.\n\nIn mehr als 20 Jahren Berufserfahrung hat sie es geschafft, sich staendig neu zu erfinden und viele scheinbar unueberwindbare Huerden zu durchbrechen.\n\nMaria hat unermuedlich in Bereichen gearbeitet, in denen das Recht noch kaum entwickelt war. Ihr Know-how im digitalen Recht ist beeindruckend.\n\nWas ihre Kolleginnen und Kollegen an ihr am meisten schaetzen, ist jedoch nicht nur ihr fachliches Niveau: Man trifft im Leben selten auf so kulturell neugierige Menschen wie sie.\n\nMit Maria kann man ueber fast jedes Thema sprechen, immer mit einem Humor, den alle in ihrem Alltag sehr zu schaetzen wissen.",
+    "fr": "Plus malaguene que l espeto de sardines, Maria est le visage visible de notre departement juridique.\n\nTout au long de ses plus de 20 ans de carriere, elle a su innover en permanence et franchir de nombreux murs qui semblaient infranchissables.\n\nMaria a travaille sans relache dans des domaines ou le droit n etait pas encore developpe. Par exemple, sa maitrise du droit numerique est impressionnante.\n\nCe que ses collegues admirent le plus chez elle n est pourtant pas seulement son niveau professionnel : on rencontre rarement des personnes aussi curieuses sur le plan culturel.\n\nAvec Maria, on peut parler de presque tout, toujours avec une touche d humour que ceux qui partagent son quotidien apprecient enormement.",
+    "it": "Piu malaguena di uno spiedo di sardine, Maria e il volto del nostro dipartimento legale.\n\nIn oltre 20 anni di carriera, e riuscita a innovare costantemente, abbattendo molti muri che sembravano insormontabili.\n\nMaria ha lavorato senza sosta in ambiti in cui la normativa non era ancora sviluppata. Per esempio, la sua padronanza del diritto digitale e straordinaria.\n\nCio che i colleghi ammirano di piu in Maria non e solo il livello professionale: nella vita si incontrano raramente persone cosi vivaci dal punto di vista culturale.\n\nCon Maria si puo parlare di quasi qualsiasi argomento, sempre con un tono di umorismo che chi lavora con lei ogni giorno apprezza tantissimo.",
+    "nl": "Meer Malagaans dan een sardinespeto is Maria het zichtbare gezicht van onze juridische afdeling.\n\nIn haar loopbaan van meer dan 20 jaar is ze blijven vernieuwen en heeft ze veel muren doorbroken die onoverkomelijk leken.\n\nMaria heeft onvermoeibaar gewerkt in domeinen waar de wetgeving nog niet ontwikkeld was. Haar beheersing van digitaal recht is bijvoorbeeld indrukwekkend.\n\nToch bewonderen haar collega s vooral niet alleen haar professionele niveau: je komt zelden mensen tegen die cultureel zo nieuwsgierig zijn als zij.\n\nMet Maria kun je over bijna elk onderwerp praten, altijd met een gevoel voor humor dat wij in het dagelijks werk enorm waarderen."
+  }
+}

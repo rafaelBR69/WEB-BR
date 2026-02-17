@@ -1,0 +1,322 @@
+[
+  {
+    "name": ".Rbuildignore",
+    "path": ".Rbuildignore",
+    "sha": "85c658c7c5ee4309271e857608801103fec110f7",
+    "size": 110,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/.Rbuildignore?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/.Rbuildignore",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/85c658c7c5ee4309271e857608801103fec110f7",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/.Rbuildignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/.Rbuildignore?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/85c658c7c5ee4309271e857608801103fec110f7",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/.Rbuildignore"
+    }
+  },
+  {
+    "name": ".gitattributes",
+    "path": ".gitattributes",
+    "sha": "4c0dfb0c543dc86c6cda8587a2e202dfda8a992a",
+    "size": 48,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/.gitattributes?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/.gitattributes",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/4c0dfb0c543dc86c6cda8587a2e202dfda8a992a",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/.gitattributes",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/.gitattributes?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/4c0dfb0c543dc86c6cda8587a2e202dfda8a992a",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/.gitattributes"
+    }
+  },
+  {
+    "name": ".github",
+    "path": ".github",
+    "sha": "b1b09d38c493b0676ac586979351fc5a8f9b3662",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/.github?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/.github",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/b1b09d38c493b0676ac586979351fc5a8f9b3662",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/.github?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/b1b09d38c493b0676ac586979351fc5a8f9b3662",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/.github"
+    }
+  },
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "554385acecc16ebcc632b54adc0d507f4b9c8b64",
+    "size": 222,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/.gitignore?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/.gitignore",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/554385acecc16ebcc632b54adc0d507f4b9c8b64",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/.gitignore?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/554385acecc16ebcc632b54adc0d507f4b9c8b64",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/.gitignore"
+    }
+  },
+  {
+    "name": "DESCRIPTION",
+    "path": "DESCRIPTION",
+    "sha": "a632862ecfade19a783a2bf1033feed309ab37ab",
+    "size": 1059,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/DESCRIPTION?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/DESCRIPTION",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/a632862ecfade19a783a2bf1033feed309ab37ab",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/DESCRIPTION",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/DESCRIPTION?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/a632862ecfade19a783a2bf1033feed309ab37ab",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/DESCRIPTION"
+    }
+  },
+  {
+    "name": "LAU2boundaries4spain.Rproj",
+    "path": "LAU2boundaries4spain.Rproj",
+    "sha": "497f8bfcfb9d13ad61d14d79963641e9aeab41b0",
+    "size": 356,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/LAU2boundaries4spain.Rproj?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/LAU2boundaries4spain.Rproj",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/497f8bfcfb9d13ad61d14d79963641e9aeab41b0",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/LAU2boundaries4spain.Rproj",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/LAU2boundaries4spain.Rproj?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/497f8bfcfb9d13ad61d14d79963641e9aeab41b0",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/LAU2boundaries4spain.Rproj"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "cc75c2057342cabb61b87a83968958bbcdc38021",
+    "size": 1068,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/LICENSE?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/LICENSE",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/cc75c2057342cabb61b87a83968958bbcdc38021",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/LICENSE?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/cc75c2057342cabb61b87a83968958bbcdc38021",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/LICENSE"
+    }
+  },
+  {
+    "name": "NAMESPACE",
+    "path": "NAMESPACE",
+    "sha": "d75f824ec6278db24891505b14ab3d915514dba7",
+    "size": 31,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/NAMESPACE?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/NAMESPACE",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/d75f824ec6278db24891505b14ab3d915514dba7",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/NAMESPACE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/NAMESPACE?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/d75f824ec6278db24891505b14ab3d915514dba7",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/NAMESPACE"
+    }
+  },
+  {
+    "name": "NEWS.md",
+    "path": "NEWS.md",
+    "sha": "1987d43e66093c776f19d23a05896fe7cde4a78d",
+    "size": 347,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/NEWS.md?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/NEWS.md",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/1987d43e66093c776f19d23a05896fe7cde4a78d",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/NEWS.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/NEWS.md?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/1987d43e66093c776f19d23a05896fe7cde4a78d",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/NEWS.md"
+    }
+  },
+  {
+    "name": "R",
+    "path": "R",
+    "sha": "5338e21d76f51522fe84d54e9cc023528c4fb0f1",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/R?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/R",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/5338e21d76f51522fe84d54e9cc023528c4fb0f1",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/R?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/5338e21d76f51522fe84d54e9cc023528c4fb0f1",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/R"
+    }
+  },
+  {
+    "name": "README.Rmd",
+    "path": "README.Rmd",
+    "sha": "411e5c74933185c2107308212fcfbf540b0fb652",
+    "size": 13237,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/README.Rmd?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/README.Rmd",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/411e5c74933185c2107308212fcfbf540b0fb652",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/README.Rmd",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/README.Rmd?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/411e5c74933185c2107308212fcfbf540b0fb652",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/README.Rmd"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "43738684354fdcaea7fe2f2224979626a17213ad",
+    "size": 10798,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/README.md?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/README.md",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/43738684354fdcaea7fe2f2224979626a17213ad",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/README.md?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/43738684354fdcaea7fe2f2224979626a17213ad",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/README.md"
+    }
+  },
+  {
+    "name": "_pkgdown.yml",
+    "path": "_pkgdown.yml",
+    "sha": "7dcb45d87c163b49d6b7dab82aa792ac148bc0ef",
+    "size": 67,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/_pkgdown.yml?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/_pkgdown.yml",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/7dcb45d87c163b49d6b7dab82aa792ac148bc0ef",
+    "download_url": "https://raw.githubusercontent.com/rOpenSpain/LAU2boundaries4spain/master/_pkgdown.yml",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/_pkgdown.yml?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/blobs/7dcb45d87c163b49d6b7dab82aa792ac148bc0ef",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/blob/master/_pkgdown.yml"
+    }
+  },
+  {
+    "name": "data-raw",
+    "path": "data-raw",
+    "sha": "bd4ad30f216446af45855e9ad5a8922b34e0a252",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data-raw?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/data-raw",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/bd4ad30f216446af45855e9ad5a8922b34e0a252",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data-raw?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/bd4ad30f216446af45855e9ad5a8922b34e0a252",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/data-raw"
+    }
+  },
+  {
+    "name": "data",
+    "path": "data",
+    "sha": "384e920f76a671a07983624663005d01fc7b9f0f",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/data",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/384e920f76a671a07983624663005d01fc7b9f0f",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/data?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/384e920f76a671a07983624663005d01fc7b9f0f",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/data"
+    }
+  },
+  {
+    "name": "doc",
+    "path": "doc",
+    "sha": "c741fb4631a243dac04f2dcfa0f0c033c2a49fbe",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/doc?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/doc",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/c741fb4631a243dac04f2dcfa0f0c033c2a49fbe",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/doc?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/c741fb4631a243dac04f2dcfa0f0c033c2a49fbe",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/doc"
+    }
+  },
+  {
+    "name": "docs",
+    "path": "docs",
+    "sha": "8624dff838945420f845e42d32b97fba6c803a76",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/docs?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/docs",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/8624dff838945420f845e42d32b97fba6c803a76",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/docs?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/8624dff838945420f845e42d32b97fba6c803a76",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/docs"
+    }
+  },
+  {
+    "name": "man",
+    "path": "man",
+    "sha": "863e1edd5b354ab7a292f03afa0c74b02dea5ba8",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/man?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/man",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/863e1edd5b354ab7a292f03afa0c74b02dea5ba8",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/man?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/863e1edd5b354ab7a292f03afa0c74b02dea5ba8",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/man"
+    }
+  },
+  {
+    "name": "pkgdown",
+    "path": "pkgdown",
+    "sha": "3d1818fb20e123e161bbf31877b5a86871c62c81",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/pkgdown?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/pkgdown",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/3d1818fb20e123e161bbf31877b5a86871c62c81",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/pkgdown?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/3d1818fb20e123e161bbf31877b5a86871c62c81",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/pkgdown"
+    }
+  },
+  {
+    "name": "vignettes",
+    "path": "vignettes",
+    "sha": "32ec61053ae262e683572fc74d64d869cb3ce46d",
+    "size": 0,
+    "url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/vignettes?ref=master",
+    "html_url": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/vignettes",
+    "git_url": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/32ec61053ae262e683572fc74d64d869cb3ce46d",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/contents/vignettes?ref=master",
+      "git": "https://api.github.com/repos/rOpenSpain/LAU2boundaries4spain/git/trees/32ec61053ae262e683572fc74d64d869cb3ce46d",
+      "html": "https://github.com/rOpenSpain/LAU2boundaries4spain/tree/master/vignettes"
+    }
+  }
+]

@@ -35,6 +35,7 @@ export function buildSearchText(property: any): string {
     location.city,
     location.area,
     raw.type,
+    raw.floor_label,
     raw.market,
     property.listing_type,
     property.status,

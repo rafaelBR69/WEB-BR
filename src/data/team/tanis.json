@@ -1,0 +1,38 @@
+{
+  "id": "tanis",
+  "category": "investments",
+  "name": "Estanislao Ron",
+  "role": {
+    "es": "Gestor de Activos",
+    "en": "Asset Manager",
+    "de": "Asset Manager",
+    "fr": "Gestionnaire d Actifs",
+    "it": "Asset Manager",
+    "nl": "Asset Manager"
+  },
+  "spoken_languages": [
+    "es",
+    "en"
+  ],
+  "email": "tanis@blancareal.com",
+  "phone": "+34 667 266 349",
+  "photo": {
+    "url": "/team/tanis.png",
+    "alt": {
+      "es": "Perfil de Estanislao Ron",
+      "en": "Profile of Estanislao Ron",
+      "de": "Profil von Estanislao Ron",
+      "fr": "Profil de Estanislao Ron",
+      "it": "Profilo di Estanislao Ron",
+      "nl": "Profiel van Estanislao Ron"
+    }
+  },
+  "bio": {
+    "es": "Natural de Vitoria, Estanislao cuenta con mas de 20 anos de experiencia en el sector inmobiliario.\n\nEn BlancaReal se encarga de captar suelo o activos comerciales de lujo. Gracias a su comunicacion y a su gran capacidad de analisis de mercado, encuentra oportunidades unicas.\n\nFuera de la oficina, le apasionan la lectura, la musica y las tendencias digitales.\n\nQuiza esto tenga relacion con que fue uno de los primeros profesionales del marketing digital en Espana y siempre se ha rodeado de gente joven que le ha ayudado a reinventarse.",
+    "en": "Originally from Vitoria, Estanislao has more than 20 years of experience in the real estate sector.\n\nAt BlancaReal he is in charge of securing land or luxury commercial properties. Thanks to his communication skills and his strong market-analysis ability, he finds unique opportunities.\n\nOutside the office, he is passionate about reading, music and digital trends.\n\nPerhaps this has something to do with the fact that he was one of the first digital marketing professionals in Spain, and he has always surrounded himself with young people who helped him reinvent himself.",
+    "de": "Estanislao stammt aus Vitoria und verfuegt ueber mehr als 20 Jahre Erfahrung im Immobiliensektor.\n\nBei BlancaReal ist er fuer die Sicherung von Grundstuecken und hochwertigen Gewerbeimmobilien zustaendig. Dank seiner Kommunikationsstaerke und Marktanalyse findet er einzigartige Chancen.\n\nAusserhalb des Buros begeistern ihn Lesen, Musik und digitale Trends.\n\nVielleicht haengt das damit zusammen, dass er zu den ersten Digital-Marketing-Profis in Spanien gehoerte und sich immer mit jungen Menschen umgeben hat, die ihm halfen, sich neu zu erfinden.",
+    "fr": "Originaire de Vitoria, Estanislao compte plus de 20 ans d experience dans le secteur immobilier.\n\nChez BlancaReal, il est charge de securiser des terrains ou des actifs commerciaux de luxe. Grace a ses competences en communication et a sa capacite d analyse du marche, il trouve des opportunites uniques.\n\nEn dehors du bureau, il est passionne de lecture, de musique et de tendances digitales.\n\nCe n est peut-etre pas un hasard s il a ete l un des premiers professionnels du marketing digital en Espagne et qu il s est toujours entoure de jeunes talents pour se reinventer.",
+    "it": "Originario di Vitoria, Estanislao ha oltre 20 anni di esperienza nel settore immobiliare.\n\nIn BlancaReal si occupa di acquisire terreni o proprieta commerciali di lusso. Grazie alle sue capacita comunicative e alla sua analisi del mercato, individua opportunita uniche.\n\nFuori dall ufficio e appassionato di lettura, musica e tendenze digitali.\n\nForse non e un caso che sia stato uno dei primi professionisti del digital marketing in Spagna e che si sia sempre circondato di giovani che lo hanno aiutato a reinventarsi.",
+    "nl": "Estanislao komt uit Vitoria en heeft meer dan 20 jaar ervaring in de vastgoedsector.\n\nBij BlancaReal is hij verantwoordelijk voor het veiligstellen van grondposities en luxe commercieel vastgoed. Dankzij zijn communicatieve vaardigheden en marktanalyse vindt hij unieke kansen.\n\nBuiten kantoor is hij gepassioneerd door lezen, muziek en digitale trends.\n\nMisschien hangt dat samen met het feit dat hij een van de eerste digital-marketingprofessionals in Spanje was en zich altijd omringde met jonge mensen die hem hielpen zichzelf opnieuw uit te vinden."
+  }
+}

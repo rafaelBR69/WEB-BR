@@ -1,0 +1,64 @@
+{
+  "id": "natascha",
+  "category": "commercial",
+  "name": "Natascha",
+  "role": {
+    "es": "Directora Administrativa",
+    "en": "Chief Administrative Officer",
+    "de": "Leiterin Administration",
+    "fr": "Directrice Administrative",
+    "it": "Direttrice Amministrativa",
+    "nl": "Administratief Directeur"
+  },
+  "spoken_languages": [
+    "es",
+    "en",
+    "it",
+    "fr",
+    "de"
+  ],
+  "emails": [
+    {
+      "address": "office@blancareal.com",
+      "label": {
+        "es": "Administrativo",
+        "en": "Administrative",
+        "de": "Administration",
+        "fr": "Administratif",
+        "it": "Amministrazione",
+        "nl": "Administratie"
+      }
+    },
+    {
+      "address": "natascha@blancareal.com",
+      "label": {
+        "es": "Comercial",
+        "en": "Sales",
+        "de": "Vertrieb",
+        "fr": "Commercial",
+        "it": "Commerciale",
+        "nl": "Sales"
+      }
+    }
+  ],
+  "phone": "+34 666 917 973",
+  "photo": {
+    "url": "/team/natascha.png",
+    "alt": {
+      "es": "Perfil de Natascha",
+      "en": "Profile of Natascha",
+      "de": "Profil von Natascha",
+      "fr": "Profil de Natascha",
+      "it": "Profilo di Natascha",
+      "nl": "Profiel van Natascha"
+    }
+  },
+  "bio": {
+    "es": "Natascha es la expresion mas clara del multiculturalismo: de origen italo-aleman, nacio en Alemania y crecio en Belgica.\n\nSe traslado a Espana hace 20 anos, trayendo su lado cercano y estructurado, lo que la ha convertido en una gran profesional y una colaboradora de referencia.\n\nDespues de mas de tres decadas en el mundo de las multinacionales, decidio unirse a BlancaReal, donde ha demostrado ser una pieza clave a nivel organizativo.\n\nLa familia, la cocina y los paseos al aire libre forman parte de su dia a dia, y siempre encuentra una excusa para celebrar.\n\nNatascha se comunicara contigo en aleman, frances, italiano, ingles y espanol.",
+    "en": "Natascha is the ultimate expression of multiculturalism: of Italian-German origin, she was born in Germany and grew up in Belgium.\n\nShe moved to Spain 20 years ago, bringing her welcoming and structured side with her, which has made her an excellent professional and a valuable partner.\n\nAfter more than 3 decades in the world of multinationals, she decided to join BlancaReal, where she has proved to be an important presence on an organisational level.\n\nFamily, cooking, and walks in the open air are always in her daily life, and she loves to look for any excuse to party.\n\nNatascha will communicate with you in German, French, Italian, English, and Spanish.",
+    "de": "Natascha ist der perfekte Ausdruck von Multikulturalitaet: mit italienisch-deutschen Wurzeln wurde sie in Deutschland geboren und wuchs in Belgien auf.\n\nVor 20 Jahren zog sie nach Spanien und brachte ihre herzliche und strukturierte Art mit, die sie zu einer hervorragenden Fachkraft und wertvollen Partnerin macht.\n\nNach mehr als drei Jahrzehnten in der Welt der multinationalen Unternehmen entschied sie sich fuer BlancaReal, wo sie sich auf organisatorischer Ebene als Schluesselfigur erwiesen hat.\n\nFamilie, Kochen und Spaziergaenge an der frischen Luft gehoeren zu ihrem Alltag, und sie findet immer einen Grund zum Feiern.\n\nNatascha kommuniziert mit Ihnen auf Deutsch, Franzoesisch, Italienisch, Englisch und Spanisch.",
+    "fr": "Natascha est la meilleure expression du multiculturalisme : d origine italo-allemande, elle est nee en Allemagne et a grandi en Belgique.\n\nElle s est installee en Espagne il y a 20 ans, en apportant son cote accueillant et structure, ce qui a fait d elle une excellente professionnelle et une collaboratrice precieuse.\n\nApres plus de trois decennies dans le monde des multinationales, elle a decide de rejoindre BlancaReal, ou elle s est imposee comme une presence essentielle sur le plan organisationnel.\n\nLa famille, la cuisine et les promenades au grand air font partie de son quotidien, et elle adore trouver une excuse pour faire la fete.\n\nNatascha communiquera avec vous en allemand, francais, italien, anglais et espagnol.",
+    "it": "Natascha e la migliore espressione del multiculturalismo: di origine italo-tedesca, e nata in Germania ed e cresciuta in Belgio.\n\nSi e trasferita in Spagna 20 anni fa, portando con se il suo lato accogliente e strutturato, che l ha resa un ottima professionista e una collaboratrice di grande valore.\n\nDopo oltre tre decenni nel mondo delle multinazionali, ha deciso di unirsi a BlancaReal, dove ha dimostrato di essere una presenza fondamentale a livello organizzativo.\n\nFamiglia, cucina e passeggiate all aria aperta fanno parte della sua vita quotidiana, e trova sempre una scusa per festeggiare.\n\nNatascha comunichera con te in tedesco, francese, italiano, inglese e spagnolo.",
+    "nl": "Natascha is de ultieme uitdrukking van multiculturalisme: met Italiaans-Duitse roots werd ze geboren in Duitsland en groeide ze op in Belgie.\n\nTwintig jaar geleden verhuisde ze naar Spanje. Haar warme en gestructureerde aanpak heeft haar tot een uitstekende professional en waardevolle partner gemaakt.\n\nNa meer dan drie decennia in de wereld van multinationals koos ze voor BlancaReal, waar ze zich organisatorisch heeft bewezen als een belangrijke spil.\n\nFamilie, koken en wandelingen in de buitenlucht maken deel uit van haar dagelijkse leven, en ze vindt altijd een reden om iets te vieren.\n\nNatascha communiceert met je in het Duits, Frans, Italiaans, Engels en Spaans."
+  }
+}
