@@ -1,0 +1,131 @@
+{
+  "id": "post-2026-buying-new-build-guide",
+  "status": "published",
+  "category": "guide",
+  "featured": false,
+  "published_at": "2026-02-08",
+  "updated_at": "2026-02-08",
+  "reading_time_min": 5,
+  "slugs": {
+    "es": "guia-compra-obra-nueva-costa-del-sol",
+    "en": "new-build-buying-guide-costa-del-sol",
+    "de": "kauf-guide-neubau-costa-del-sol",
+    "fr": "guide-achat-neuf-costa-del-sol",
+    "it": "guida-acquisto-nuova-costruzione-costa-del-sol",
+    "nl": "koopgids-nieuwbouw-costa-del-sol"
+  },
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+      "alt": {
+        "es": "Vista exterior de promocion de obra nueva",
+        "en": "Exterior view of a new-build development",
+        "de": "Aussenansicht eines Neubauprojekts",
+        "fr": "Vue exterieure d un programme neuf",
+        "it": "Vista esterna di un progetto di nuova costruzione",
+        "nl": "Buitenaanzicht van een nieuwbouwproject"
+      }
+    }
+  },
+  "author": {
+    "name": "Equipo BlancaReal",
+    "role": {
+      "es": "Asesoria inmobiliaria",
+      "en": "Property advisory",
+      "de": "Immobilienberatung",
+      "fr": "Conseil immobilier",
+      "it": "Consulenza immobiliare",
+      "nl": "Vastgoedadvies"
+    }
+  },
+  "seo": {
+    "meta_description": {
+      "es": "Guia practica para comprar obra nueva en Costa del Sol: reservas, pagos, calidades y tiempos de entrega.",
+      "en": "Practical guide to buying new build on Costa del Sol: reservation, payment stages, specs and delivery timelines.",
+      "de": "Praxisleitfaden fuer den Neubaukauf an der Costa del Sol: Reservierung, Zahlungsplan, Ausstattung und Uebergabe.",
+      "fr": "Guide pratique pour acheter dans le neuf sur la Costa del Sol : reservation, paiements, qualites et livraison.",
+      "it": "Guida pratica all acquisto di nuova costruzione in Costa del Sol: prenotazione, pagamenti, capitolato e consegna.",
+      "nl": "Praktische gids voor het kopen van nieuwbouw aan de Costa del Sol: reservering, betalingen, specificaties en oplevering."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Guia rapida para comprar obra nueva en Costa del Sol",
+      "excerpt": "Checklist breve con los puntos que mas impactan en precio final, seguridad juridica y tiempos de entrega.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Comprar obra nueva exige revisar no solo la vivienda, sino el calendario completo de pagos, la memoria de calidades y los plazos de construccion."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Checklist recomendada"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Solicitar cuadro de pagos y confirmar importes con IVA.",
+            "Revisar memoria de calidades y posibles mejoras opcionales.",
+            "Validar superficie interior, terrazas y parcela por unidad.",
+            "Confirmar fecha estimada de entrega y hitos de obra."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "Con esta base comparativa se reducen errores de decision y se acelera la seleccion de unidad."
+        }
+      ]
+    },
+    "en": {
+      "title": "Quick guide to buying new build on Costa del Sol",
+      "excerpt": "Short checklist focused on final price, legal certainty and realistic delivery timing.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "When buying new build, review the full payment calendar, the specification sheet and the construction timeline before choosing a unit."
+        }
+      ]
+    },
+    "de": {
+      "title": "Kurzer Guide: Neubau an der Costa del Sol kaufen",
+      "excerpt": "Kompakte Checkliste zu Endpreis, Rechtssicherheit und realistischen Uebergabezeiten.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Beim Neubaukauf sollten Zahlungsplan, Baubeschreibung und Bauzeit vor der Reservierung klar geprueft werden."
+        }
+      ]
+    },
+    "fr": {
+      "title": "Guide rapide pour acheter dans le neuf",
+      "excerpt": "Checklist concise sur le prix final, la securite juridique et le delai de livraison.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Avant de reserver, il faut verifier l echeancier de paiement, le descriptif technique et le calendrier des travaux."
+        }
+      ]
+    },
+    "it": {
+      "title": "Guida rapida all acquisto di nuova costruzione",
+      "excerpt": "Checklist sintetica su prezzo finale, sicurezza legale e tempi di consegna.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Prima della prenotazione e fondamentale verificare piano pagamenti, capitolato e cronoprogramma lavori."
+        }
+      ]
+    },
+    "nl": {
+      "title": "Snelle gids voor het kopen van nieuwbouw",
+      "excerpt": "Korte checklist over eindprijs, juridische zekerheid en oplevertermijn.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Controleer voor reservering altijd het betaalschema, de technische specificatie en de bouwplanning."
+        }
+      ]
+    }
+  }
+}

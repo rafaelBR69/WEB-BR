@@ -1,4 +1,17 @@
 export function buildMapFeatures(properties: any[], lang: string) {
+  const toFiniteNumber = (value: unknown) => {
+    const num = Number(value);
+    return Number.isFinite(num) ? num : null;
+  };
+
+  const getRange = (values: number[]) => {
+    if (!values.length) return { min: null, max: null };
+    return {
+      min: Math.min(...values),
+      max: Math.max(...values),
+    };
+  };
+
   const resolveCoverUrl = (property: any) => {
     const cover =
       property?.media?.cover ??
@@ -26,14 +39,42 @@ export function buildMapFeatures(properties: any[], lang: string) {
       const listingType = property.listing_type ?? "unit";
       const isPromotion = listingType === "promotion";
 
-      const availableUnits = isPromotion
+      const relatedAvailableUnits = isPromotion
         ? properties.filter(
             (unit) =>
               String(unit.parent_id) === String(property.id) &&
               unit.listing_type === "unit" &&
               unit.status === "available"
-          ).length
+          )
+        : [];
+
+      const availableUnits = isPromotion
+        ? relatedAvailableUnits.length
         : null;
+
+      const summaryCurrency = property.currency ?? property.pricing?.currency ?? "EUR";
+
+      const summaryPriceValues = isPromotion
+        ? relatedAvailableUnits
+            .map((unit) => toFiniteNumber(unit?.price ?? unit?.pricing?.from))
+            .filter((value): value is number => value !== null && value > 0)
+        : [];
+      const summaryPriceFallback = toFiniteNumber(property?.pricing?.from ?? property?.price);
+      const summaryPrice = summaryPriceValues.length
+        ? Math.min(...summaryPriceValues)
+        : summaryPriceFallback;
+
+      const summarySource = isPromotion && relatedAvailableUnits.length
+        ? relatedAvailableUnits
+        : [property];
+      const summaryBedroomsValues = summarySource
+        .map((item) => toFiniteNumber(item?.property?.bedrooms))
+        .filter((value): value is number => value !== null && value > 0);
+      const summaryAreaValues = summarySource
+        .map((item) => toFiniteNumber(item?.property?.area_m2))
+        .filter((value): value is number => value !== null && value > 0);
+      const summaryBedroomsRange = getRange(summaryBedroomsValues);
+      const summaryAreaRange = getRange(summaryAreaValues);
 
       return {
         type: "Feature",
@@ -52,6 +93,12 @@ export function buildMapFeatures(properties: any[], lang: string) {
           coverUrl: resolveCoverUrl(property),
           listingType,
           availableUnits: availableUnits ?? "",
+          summaryPrice: summaryPrice ?? "",
+          summaryCurrency,
+          summaryBedroomsMin: summaryBedroomsRange.min ?? "",
+          summaryBedroomsMax: summaryBedroomsRange.max ?? "",
+          summaryAreaMin: summaryAreaRange.min ?? "",
+          summaryAreaMax: summaryAreaRange.max ?? "",
           href: `/${lang}/property/${slug}/`,
         },
       };

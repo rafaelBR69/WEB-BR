@@ -1,0 +1,91 @@
+{
+  "id": "PMXXXX",
+  "priority": 80,
+  "slugs": {
+    "es": "slug-es",
+    "en": "slug-en",
+    "de": "slug-de",
+    "fr": "slug-fr",
+    "it": "slug-it",
+    "nl": "slug-nl"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": true,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "pricing": {
+    "from": null,
+    "currency": "EUR"
+  },
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Ciudad",
+    "area": "Zona",
+    "coordinates": {
+      "lat": 36.5,
+      "lng": -4.6
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": null,
+    "terrace_m2": null,
+    "bedrooms": null,
+    "bathrooms": null,
+    "orientation": null,
+    "condition": "new",
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "garages": null
+  },
+  "features": ["new_build"],
+  "media": {
+    "cover": {
+      "url": "https://example.com/cover.jpg",
+      "alt": {
+        "es": "Alt ES",
+        "en": "Alt EN",
+        "de": "Alt DE",
+        "fr": "Alt FR",
+        "it": "Alt IT",
+        "nl": "Alt NL"
+      }
+    },
+    "gallery": {
+      "exterior": [],
+      "interior": [],
+      "views": [],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "keyphrase es",
+      "en": "keyphrase en"
+    },
+    "meta_description": {
+      "es": "Meta ES",
+      "en": "Meta EN"
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Titulo ES",
+      "intro": "Intro ES",
+      "description": []
+    },
+    "en": {
+      "title": "Title EN",
+      "intro": "Intro EN",
+      "description": []
+    }
+  }
+}
+

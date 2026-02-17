@@ -1,0 +1,86 @@
+{
+  "id": "PMXXXX-A1",
+  "priority": 60,
+  "listing_type": "unit",
+  "parent_id": "PMXXXX",
+  "slugs": {
+    "es": "slug-es",
+    "en": "slug-en",
+    "de": "slug-de",
+    "fr": "slug-fr",
+    "it": "slug-it",
+    "nl": "slug-nl"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": 450000,
+  "currency": "EUR",
+  "phase": "Fase 1",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Ciudad",
+    "area": "Zona",
+    "coordinates": {
+      "lat": 36.5,
+      "lng": -4.6
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": 120,
+    "usable_area_m2": 100,
+    "terrace_m2": 30,
+    "garden_m2": 40,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "garages": 1,
+    "floor_level": 0,
+    "floor_label": "Planta baja",
+    "orientation": "south",
+    "condition": "new"
+  },
+  "features": ["new_build", "terrace"],
+  "media": {
+    "cover": {
+      "url": "https://example.com/cover.jpg",
+      "alt": {
+        "es": "Alt ES",
+        "en": "Alt EN"
+      }
+    },
+    "gallery": {
+      "exterior": [],
+      "interior": [],
+      "views": [],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "keyphrase es",
+      "en": "keyphrase en"
+    },
+    "meta_description": {
+      "es": "Meta ES",
+      "en": "Meta EN"
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Titulo ES",
+      "intro": "Intro ES",
+      "description": []
+    },
+    "en": {
+      "title": "Title EN",
+      "intro": "Intro EN",
+      "description": []
+    }
+  }
+}
+

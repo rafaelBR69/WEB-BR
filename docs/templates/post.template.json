@@ -1,0 +1,71 @@
+{
+  "id": "post-2026-example",
+  "status": "published",
+  "category": "market",
+  "featured": false,
+  "published_at": "2026-02-17",
+  "updated_at": "2026-02-17",
+  "reading_time_min": 4,
+  "slugs": {
+    "es": "slug-es",
+    "en": "slug-en",
+    "de": "slug-de",
+    "fr": "slug-fr",
+    "it": "slug-it",
+    "nl": "slug-nl"
+  },
+  "media": {
+    "cover": {
+      "url": "https://example.com/post-cover.jpg",
+      "alt": {
+        "es": "Alt ES",
+        "en": "Alt EN"
+      }
+    }
+  },
+  "author": {
+    "name": "Equipo BlancaReal",
+    "role": {
+      "es": "Comercial",
+      "en": "Sales"
+    }
+  },
+  "seo": {
+    "meta_description": {
+      "es": "Meta ES",
+      "en": "Meta EN"
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Titulo ES",
+      "excerpt": "Resumen ES",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Parrafo ES"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Subtitulo ES"
+        },
+        {
+          "type": "list",
+          "items": ["Punto 1", "Punto 2"]
+        }
+      ]
+    },
+    "en": {
+      "title": "Title EN",
+      "excerpt": "Excerpt EN",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Paragraph EN"
+        }
+      ]
+    }
+  }
+}
+

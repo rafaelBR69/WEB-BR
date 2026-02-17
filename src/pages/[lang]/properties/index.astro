@@ -11,6 +11,7 @@ import { buildFilters } from "@/utils/buildFilters";
 import { applyFilters } from "@/utils/applyFilters";
 import { normalizeCity } from "@/utils/normalizeCity";
 import { normalizeArea } from "@/utils/normalizeArea";
+import { isVillaFloorLabel, normalizeFloorFilterLabel } from "@/utils/floorFilter";
 import { displayLocation, formatPropertyType } from "@/utils/presentation";
 import { TYPES, MARKET_TYPE } from "@/data/properties/taxonomies";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
@@ -77,7 +78,11 @@ const activeFilters = {
     : null,
 
   floor: getMultiParam("floor")
-    ? getMultiParam("floor").map((v) => String(v).trim()).filter(Boolean)
+    ? [...new Set(
+        getMultiParam("floor")
+          .map((v) => normalizeFloorFilterLabel(v))
+          .filter((v): v is string => typeof v === "string" && !isVillaFloorLabel(v))
+      )]
     : null,
 
   priceMin: searchParams.get("priceMin")

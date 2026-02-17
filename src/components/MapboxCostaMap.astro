@@ -94,17 +94,17 @@ const featureCollection = {
   </div>
 
   <aside class="map-nav">
-    <section class="nav-section" data-step="1">
+    <section class="nav-section">
       <p class="map-filter-title">{zoneFilterLabel}</p>
       <div class="zone-filters" id="zoneFilters" data-all-label={allZonesLabel}></div>
     </section>
 
-    <section class="nav-section" data-step="2">
+    <section class="nav-section">
       <p class="map-filter-title">{subzoneFilterLabel}</p>
       <div class="zone-filters" id="areaFilters" data-all-label={allSubzonesLabel}></div>
     </section>
 
-    <section class="nav-section nav-results" data-step="3">
+    <section class="nav-section nav-results">
       <h3>{listTitle}</h3>
       <ul class="map-result-list" id="mapResults"></ul>
     </section>
@@ -282,10 +282,103 @@ const featureCollection = {
         ),
       };
     };
+
+    const uiLocale = (() => {
+      const lang = String(document.documentElement?.lang || "es").toLowerCase();
+      if (lang.startsWith("en")) return "en-GB";
+      if (lang.startsWith("de")) return "de-DE";
+      if (lang.startsWith("fr")) return "fr-FR";
+      if (lang.startsWith("it")) return "it-IT";
+      if (lang.startsWith("nl")) return "nl-NL";
+      return "es-ES";
+    })();
+
+    const numberFormatter = new Intl.NumberFormat(uiLocale, { maximumFractionDigits: 0 });
+    const currencyFormatterCache = new Map();
+
+    const toFiniteNumber = (value) => {
+      const num = Number(value);
+      return Number.isFinite(num) ? num : null;
+    };
+
+    const normalizeForCompare = (value) =>
+      String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+
+    const formatCityArea = (cityValue, areaValue) => {
+      const city = String(cityValue || "").trim();
+      const area = String(areaValue || "").trim();
+      if (!city) return area;
+      if (!area) return city;
+
+      const cityNorm = normalizeForCompare(city);
+      const areaNorm = normalizeForCompare(area);
+      if (!cityNorm || !areaNorm) return `${city}${city && area ? " · " : ""}${area}`;
+      if (areaNorm === cityNorm || areaNorm.includes(cityNorm)) return area;
+      return `${city} · ${area}`;
+    };
+
+    const formatCurrency = (value, currency = "EUR") => {
+      const amount = toFiniteNumber(value);
+      if (amount === null || amount <= 0) return "";
+      const currencyCode = String(currency || "EUR").toUpperCase();
+      const cacheKey = `${uiLocale}:${currencyCode}`;
+      if (!currencyFormatterCache.has(cacheKey)) {
+        currencyFormatterCache.set(
+          cacheKey,
+          new Intl.NumberFormat(uiLocale, {
+            style: "currency",
+            currency: currencyCode,
+            maximumFractionDigits: 0,
+          })
+        );
+      }
+      return currencyFormatterCache.get(cacheKey).format(amount);
+    };
+
+    const formatRange = (minValue, maxValue, suffix = "") => {
+      const min = toFiniteNumber(minValue);
+      const max = toFiniteNumber(maxValue);
+      if (min === null && max === null) return "";
+      if (min === null || max === null) {
+        const single = min ?? max;
+        return `${numberFormatter.format(single)}${suffix}`;
+      }
+      if (min === max) return `${numberFormatter.format(min)}${suffix}`;
+      return `${numberFormatter.format(min)}-${numberFormatter.format(max)}${suffix}`;
+    };
+
+    const buildResultSummaryHtml = (props) => {
+      const chips = [];
+      const listType = String(props.listingType || "");
+
+      const price = formatCurrency(props.summaryPrice, props.summaryCurrency || "EUR");
+      if (price) {
+        chips.push(
+          `<span class="result-summary-pill result-summary-pill-price">${listType === "promotion" ? "Desde " : ""}${price}</span>`
+        );
+      }
+
+      const beds = formatRange(props.summaryBedroomsMin, props.summaryBedroomsMax, " dorm.");
+      if (beds) {
+        chips.push(`<span class="result-summary-pill">${beds}</span>`);
+      }
+
+      const area = formatRange(props.summaryAreaMin, props.summaryAreaMax, " m²");
+      if (area) {
+        chips.push(`<span class="result-summary-pill">${area}</span>`);
+      }
+
+      if (!chips.length) return "";
+      return `<div class="result-summary-row">${chips.join("")}</div>`;
+    };
+
     const createPropertyPopupHtml = (props) => {
       const title = props.title || "Propiedad";
-      const area = props.area || "";
-      const city = props.city || "";
+      const locationLabel = formatCityArea(props.city || "", props.area || "");
       const listingType = props.listingType || "unit";
       const availableUnits = props.availableUnits || "";
       const href = props.href || "#";
@@ -301,7 +394,7 @@ const featureCollection = {
         Number.isFinite(lng) && Number.isFinite(lat)
           ? `<button type="button" class="popup-start-route-btn" data-lng="${lng}" data-lat="${lat}" data-name="${title}">${routeStartLabel}</button>`
           : "";
-      return `<div class="map-popup map-popup-property">${media}<div class="map-popup-body"><h3>${title}</h3><p>${city}${city && area ? " · " : ""}${area}</p>${unitsLine}<div class="map-popup-actions">${routeButton}<a href="${href}">Ver detalle</a></div></div></div>`;
+      return `<div class="map-popup map-popup-property">${media}<div class="map-popup-body"><h3>${title}</h3><p>${locationLabel}</p>${unitsLine}<div class="map-popup-actions">${routeButton}<a href="${href}">Ver detalle</a></div></div></div>`;
     };
 
     const getVisiblePropertiesInViewport = () => {
@@ -353,12 +446,15 @@ const featureCollection = {
           const mediaBlock = coverUrl
             ? `<div class="result-media"><img src="${coverUrl}" alt="${props.title || "Propiedad"}" loading="lazy" decoding="async" /></div>`
             : `<div class="result-media result-media-placeholder"></div>`;
+          const locationLabel = formatCityArea(props.city || "", props.area || "");
+          const summaryHtml = buildResultSummaryHtml(props);
           return `
             <li class="map-result-item" data-id="${feature.id}" data-lng="${feature.geometry.coordinates[0]}" data-lat="${feature.geometry.coordinates[1]}">
               ${mediaBlock}
               <div class="result-body">
                 <button type="button" class="result-jump">${props.title || "Propiedad"}</button>
-                <span>${props.city || ""}${props.city && props.area ? " · " : ""}${props.area || ""}</span>
+                <span>${locationLabel}</span>
+                ${summaryHtml}
                 <div class="result-meta-row">
                   <span class="map-result-tag">${markerType}</span>
                   ${unitsMeta}
@@ -1588,30 +1684,12 @@ const featureCollection = {
   }
 
   .nav-section {
-    background: linear-gradient(180deg, #ffffff, #f9fbff);
+    background: transparent;
     border: 1px solid var(--map-border);
     border-radius: 18px;
     padding: 0.9rem 0.95rem;
     position: relative;
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-  }
-
-  .nav-section[data-step]::before {
-    content: attr(data-step);
-    position: absolute;
-    top: 0.72rem;
-    right: 0.72rem;
-    width: 1.35rem;
-    height: 1.35rem;
-    border-radius: 999px;
-    background: linear-gradient(145deg, #ebf2ff, #dce8ff);
-    color: #1d3d72;
-    font-size: 0.66rem;
-    font-weight: 800;
-    display: grid;
-    place-items: center;
-    box-shadow: inset 0 0 0 1px rgba(32, 47, 78, 0.08);
-    font-family: "Manrope", sans-serif;
+    box-shadow: none;
   }
 
   .map-action {
@@ -1821,6 +1899,8 @@ const featureCollection = {
     padding: 0;
     display: grid;
     gap: var(--map-result-gap);
+    align-content: start;
+    grid-auto-rows: min-content;
     max-height: min(100%, calc((var(--map-result-card-height) * 3) + (var(--map-result-gap) * 2)));
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -1843,6 +1923,8 @@ const featureCollection = {
       background-color 0.18s ease;
     position: relative;
     overflow: hidden;
+    align-content: start;
+    align-self: start;
     min-height: var(--map-result-card-height);
   }
 
@@ -1958,6 +2040,36 @@ const featureCollection = {
     align-items: center;
     gap: 0.32rem;
     flex-wrap: wrap;
+  }
+
+  .result-summary-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.32rem;
+    margin-top: 0.02rem;
+  }
+
+  .result-summary-pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1px solid rgba(32, 47, 78, 0.18);
+    background: rgba(32, 47, 78, 0.06);
+    color: rgba(32, 47, 78, 0.86);
+    padding: 0.17rem 0.5rem;
+    font-size: 0.61rem;
+    letter-spacing: 0.04em;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .result-summary-pill-price {
+    border-color: rgba(29, 78, 216, 0.33);
+    background: rgba(29, 78, 216, 0.12);
+    color: #1e3a8a;
   }
 
   .map-result-tag {
@@ -2267,6 +2379,8 @@ const featureCollection = {
     --map-result-card-height: 166px;
     --map-result-gap: 0.72rem;
     gap: var(--map-result-gap);
+    align-content: start;
+    grid-auto-rows: min-content;
     max-height: min(100%, calc((var(--map-result-card-height) * 3) + (var(--map-result-gap) * 2)));
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -2284,6 +2398,8 @@ const featureCollection = {
     box-shadow: 0 10px 20px rgba(15, 23, 42, 0.07);
     position: relative;
     overflow: hidden;
+    align-content: start;
+    align-self: start;
     transition:
       transform 0.18s ease,
       box-shadow 0.18s ease,
@@ -2387,6 +2503,36 @@ const featureCollection = {
     align-items: center;
     gap: 0.32rem;
     flex-wrap: wrap;
+  }
+
+  :global(.result-summary-row) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.32rem;
+    margin-top: 0.02rem;
+  }
+
+  :global(.result-summary-pill) {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1px solid rgba(32, 47, 78, 0.18);
+    background: rgba(32, 47, 78, 0.06);
+    color: rgba(32, 47, 78, 0.86);
+    padding: 0.17rem 0.5rem;
+    font-size: 0.61rem;
+    letter-spacing: 0.04em;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  :global(.result-summary-pill-price) {
+    border-color: rgba(29, 78, 216, 0.33);
+    background: rgba(29, 78, 216, 0.12);
+    color: #1e3a8a;
   }
 
   :global(.map-result-tag) {
@@ -2561,6 +2707,10 @@ const featureCollection = {
     }
 
     :global(.result-meta-badge) {
+      font-size: 0.58rem;
+    }
+
+    :global(.result-summary-pill) {
       font-size: 0.58rem;
     }
 

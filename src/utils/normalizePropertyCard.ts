@@ -2,6 +2,7 @@
 import { matchType } from "@/utils/matchType";
 import { normalizeCity } from "@/utils/normalizeCity";
 import { normalizeArea } from "@/utils/normalizeArea";
+import { normalizeFloorFilterLabel } from "@/utils/floorFilter";
 import { buildSearchText, normalizeSearchText } from "@/utils/search";
 
 export function normalizePropertyCard(property, lang) {
@@ -75,11 +76,12 @@ export function normalizePropertyCard(property, lang) {
       area_m2: raw.area_m2 ?? null,
       floor_level: typeof raw.floor_level === "number" ? raw.floor_level : null,
       floor_label: raw.floor_label ?? null,
-      floor_filter:
+      floor_filter: normalizeFloorFilterLabel(
         raw.floor_label ??
-        (typeof raw.floor_level === "number"
-          ? `Planta ${raw.floor_level}`
-          : null),
+          (typeof raw.floor_level === "number"
+            ? `Planta ${raw.floor_level}`
+            : null)
+      ),
       orientation: raw.orientation ?? null,
     },
 

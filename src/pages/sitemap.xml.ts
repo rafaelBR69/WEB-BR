@@ -1,8 +1,10 @@
 import type { APIRoute } from "astro";
+import posts from "@/data/posts";
+import { SUPPORTED_LANGS } from "@/i18n/languages";
 
 const SITE_URL = "https://blancareal.com";
 
-const URLS = [
+const STATIC_URLS = [
   "/es/projects/",
   "/en/projects/",
   "/de/projects/",
@@ -29,6 +31,18 @@ const URLS = [
   "/es/properties/mijas/villas/",
   "/es/properties/marbella/apartments/",
 ];
+
+const POST_URLS = SUPPORTED_LANGS.flatMap((lang) => {
+  const indexUrl = `/${lang}/posts/`;
+  const detailUrls = posts
+    .filter((post) => post.status === "published")
+    .map((post) => post.slugs?.[lang] ?? post.slugs?.es ?? null)
+    .filter(Boolean)
+    .map((slug) => `/${lang}/post/${slug}/`);
+  return [indexUrl, ...detailUrls];
+});
+
+const URLS = Array.from(new Set([...STATIC_URLS, ...POST_URLS]));
 
 export const GET: APIRoute = async () => {
   const body = `<?xml version="1.0" encoding="UTF-8"?>

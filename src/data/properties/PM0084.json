@@ -1,0 +1,287 @@
+{
+  "id": "PM0084",
+  "priority": 91,
+  "slugs": {
+    "es": "obra-nueva-white-hills-fuengirola-mijas",
+    "en": "new-build-white-hills-fuengirola-mijas",
+    "de": "neubau-white-hills-fuengirola-mijas",
+    "fr": "programme-neuf-white-hills-fuengirola-mijas",
+    "it": "nuova-costruzione-white-hills-fuengirola-mijas",
+    "nl": "nieuwbouw-white-hills-fuengirola-mijas"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": true,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 764320,
+  "currency": "EUR",
+  "pricing": {
+    "from": 764320,
+    "currency": "EUR"
+  },
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Torreblanca",
+    "coordinates": {
+      "lat": 36.57546460818317,
+      "lng": -4.606035318443788
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": null,
+    "terrace_m2": null,
+    "bedrooms": null,
+    "bathrooms": null,
+    "orientation": null,
+    "condition": "new",
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "garages": null
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "garden",
+    "private_parking",
+    "aerothermal"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+      "alt": {
+        "es": "White Hills en Fuengirola - Mijas, obra nueva",
+        "en": "White Hills in Fuengirola - Mijas, new build",
+        "de": "White Hills in Fuengirola - Mijas, Neubau",
+        "fr": "White Hills a Fuengirola - Mijas, programme neuf",
+        "it": "White Hills a Fuengirola - Mijas, nuova costruzione",
+        "nl": "White Hills in Fuengirola - Mijas, nieuwbouw"
+      }
+    },
+    "logo": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/logo/logo-whitehills.png",
+      "alt": {
+        "es": "Logo White Hills",
+        "en": "White Hills logo",
+        "de": "White Hills Logo",
+        "fr": "Logo White Hills",
+        "it": "Logo White Hills",
+        "nl": "White Hills logo"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_1_Whitehills.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_2_Whitehills.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_3_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/garden_Whitehills.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/master%20plan_2_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/WhiteHills%20A4_EXT.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/basement_1_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/bedroom_1_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/bedroom_2_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/kitchen_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_2_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_3_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_4_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Cocina%20mostrar_01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Dorm1%20mostrar%202.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Salon%20mostrar_02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20sotano%203%20mostrar.jpg"
+        }
+      ],
+      "views": [],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "obra nueva white hills fuengirola mijas",
+      "en": "white hills new build fuengirola mijas",
+      "de": "white hills neubau fuengirola mijas",
+      "fr": "programme neuf white hills fuengirola mijas",
+      "it": "nuova costruzione white hills fuengirola mijas",
+      "nl": "white hills nieuwbouw fuengirola mijas"
+    },
+    "meta_description": {
+      "es": "White Hills en Fuengirola - Mijas: 12 villas de obra nueva con sotano, jardin, terrazas y aerotermia.",
+      "en": "White Hills in Fuengirola - Mijas: 12 new-build villas with basement, garden, terraces and aerothermal system.",
+      "de": "White Hills in Fuengirola - Mijas: 12 Neubau-Villen mit Untergeschoss, Garten, Terrassen und Aerothermie.",
+      "fr": "White Hills a Fuengirola - Mijas : 12 villas neuves avec sous-sol, jardin, terrasses et aerothermie.",
+      "it": "White Hills a Fuengirola - Mijas: 12 ville di nuova costruzione con seminterrato, giardino, terrazze e aerotermia.",
+      "nl": "White Hills in Fuengirola - Mijas: 12 nieuwbouwvilla's met kelder, tuin, terrassen en aerothermie."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "White Hills: obra nueva en Fuengirola - Mijas",
+      "intro": "Promocion de 12 villas de obra nueva distribuidas en dos fases, con sotano, jardin privado y amplias terrazas.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "White Hills, villas de nueva generacion"
+        },
+        {
+          "type": "paragraph",
+          "content": "White Hills (PM0084) es un proyecto propio en Fuengirola - Mijas formado por 12 villas (tipologias A y B), con superficies interiores amplias, sotano, terraza y parcela privada."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Memoria de calidades destacada"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Estructura y cimentacion en hormigon armado segun CTE y estudio geotecnico.",
+            "Carpinteria exterior de aluminio con rotura de puente termico y doble acristalamiento tipo climalit.",
+            "Puerta de acceso blindada, puertas interiores lacadas en blanco y armarios empotrados.",
+            "Suelos y alicatados de gres porcelanico de gran formato en interior y terrazas.",
+            "Sistema completo de aerotermia para ACS y climatizacion frio/calor por conductos, con termostato por planta.",
+            "Ventilacion mecanica con recuperador de calor y punto de recarga electrica para vehiculo."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Formas de pago orientativas (actualizado 09/02/2026)"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Reserva: 25.000 EUR.",
+            "Contrato de compraventa: 15% + IVA 10%.",
+            "Comienzo de obras: 8% + IVA.",
+            "6 meses desde inicio de obra: 8% + IVA.",
+            "12 meses desde inicio de obra: 8% + IVA.",
+            "Entrega de llaves: 61% + IVA."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "White Hills: new build in Fuengirola - Mijas",
+      "intro": "A 12-villa new-build development in two phases, with basement, private garden and large terraces.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "White Hills, next-generation villas"
+        },
+        {
+          "type": "paragraph",
+          "content": "White Hills (PM0084) is our in-house development in Fuengirola - Mijas with 12 villas (A and B layouts), generous indoor space, basement level, private plots and outdoor living areas."
+        }
+      ]
+    },
+    "de": {
+      "title": "White Hills: Neubau in Fuengirola - Mijas",
+      "intro": "Neubauprojekt mit 12 Villen in zwei Bauphasen, mit Untergeschoss, Privatgarten und grossen Terrassen.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "White Hills, Villen der neuen Generation"
+        },
+        {
+          "type": "paragraph",
+          "content": "White Hills (PM0084) ist unser Eigenprojekt in Fuengirola - Mijas mit 12 Villen (Typen A und B), grosszuegigen Innenflaechen, Untergeschoss und privaten Grundstuecken."
+        }
+      ]
+    },
+    "fr": {
+      "title": "White Hills : programme neuf a Fuengirola - Mijas",
+      "intro": "Programme neuf de 12 villas en deux phases, avec sous-sol, jardin prive et grandes terrasses.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "White Hills, villas nouvelle generation"
+        },
+        {
+          "type": "paragraph",
+          "content": "White Hills (PM0084) est notre projet propre a Fuengirola - Mijas, compose de 12 villas (typologies A et B) avec de grands espaces interieurs, sous-sol et parcelles privees."
+        }
+      ]
+    },
+    "it": {
+      "title": "White Hills: nuova costruzione a Fuengirola - Mijas",
+      "intro": "Complesso di 12 ville di nuova costruzione in due fasi, con seminterrato, giardino privato e ampie terrazze.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "White Hills, ville di nuova generazione"
+        },
+        {
+          "type": "paragraph",
+          "content": "White Hills (PM0084) e il nostro progetto a Fuengirola - Mijas con 12 ville (tipologie A e B), ampi spazi interni, seminterrato e parcelle private."
+        }
+      ]
+    },
+    "nl": {
+      "title": "White Hills: nieuwbouw in Fuengirola - Mijas",
+      "intro": "Nieuwbouwproject met 12 villa's in twee fases, met kelder, prive tuin en ruime terrassen.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "White Hills, villa's van de nieuwe generatie"
+        },
+        {
+          "type": "paragraph",
+          "content": "White Hills (PM0084) is ons eigen project in Fuengirola - Mijas met 12 villa's (types A en B), royale binnenruimte, kelderverdieping en prive percelen."
+        }
+      ]
+    }
+  }
+}

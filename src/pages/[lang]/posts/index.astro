@@ -1,0 +1,279 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import posts, { POST_CATEGORY_ORDER, isPostCategory } from "@/data/posts";
+import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@/i18n/languages";
+import "@/styles/pages/posts.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/posts/`, 302);
+}
+
+const lang = langParam;
+
+const copyByLang = {
+  es: {
+    title: "Posts y analisis | BlancaReal",
+    description:
+      "Publicaciones de BlancaReal con analisis de mercado, guias practicas y novedades de proyectos.",
+    eyebrow: "Insights BlancaReal",
+    heading: "Posts y novedades",
+    intro:
+      "Publicamos analisis operativos, guias de compra y actualizaciones de proyectos para clientes finales e inversores.",
+    allCategories: "Todas",
+    readMore: "Leer post",
+    minRead: "min lectura",
+    emptyTitle: "No hay publicaciones para esta categoria",
+    emptyText: "Pruebe otra categoria o vuelva a todas las publicaciones.",
+    categories: {
+      market: "Mercado",
+      guide: "Guia",
+      company: "Empresa"
+    }
+  },
+  en: {
+    title: "Posts and insights | BlancaReal",
+    description:
+      "BlancaReal posts with market insights, practical guides and project updates.",
+    eyebrow: "BlancaReal Insights",
+    heading: "Posts and updates",
+    intro:
+      "We publish operational market insights, buying guides and project updates for end buyers and investors.",
+    allCategories: "All",
+    readMore: "Read post",
+    minRead: "min read",
+    emptyTitle: "No posts found for this category",
+    emptyText: "Try a different category or go back to all posts.",
+    categories: {
+      market: "Market",
+      guide: "Guide",
+      company: "Company"
+    }
+  },
+  de: {
+    title: "Posts und Insights | BlancaReal",
+    description:
+      "BlancaReal Beitraege mit Marktanalysen, Praxisguides und Projektupdates.",
+    eyebrow: "BlancaReal Insights",
+    heading: "Posts und Updates",
+    intro:
+      "Wir veroeffentlichen Marktanalysen, Kaufguides und Projektupdates fuer Endkunden und Investoren.",
+    allCategories: "Alle",
+    readMore: "Beitrag lesen",
+    minRead: "min lesen",
+    emptyTitle: "Keine Beitraege in dieser Kategorie",
+    emptyText: "Bitte eine andere Kategorie waehlen oder alle Beitraege anzeigen.",
+    categories: {
+      market: "Markt",
+      guide: "Guide",
+      company: "Unternehmen"
+    }
+  },
+  fr: {
+    title: "Posts et analyses | BlancaReal",
+    description:
+      "Publications BlancaReal avec analyses de marche, guides pratiques et mises a jour projets.",
+    eyebrow: "Insights BlancaReal",
+    heading: "Posts et actualites",
+    intro:
+      "Nous publions des analyses de marche, des guides d achat et des mises a jour de projets.",
+    allCategories: "Toutes",
+    readMore: "Lire le post",
+    minRead: "min lecture",
+    emptyTitle: "Aucun post pour cette categorie",
+    emptyText: "Essayez une autre categorie ou revenez a toutes les publications.",
+    categories: {
+      market: "Marche",
+      guide: "Guide",
+      company: "Entreprise"
+    }
+  },
+  it: {
+    title: "Post e analisi | BlancaReal",
+    description:
+      "Post BlancaReal con analisi di mercato, guide pratiche e aggiornamenti progetto.",
+    eyebrow: "Insights BlancaReal",
+    heading: "Post e aggiornamenti",
+    intro:
+      "Pubblichiamo analisi operative, guide all acquisto e aggiornamenti progetto per clienti e investitori.",
+    allCategories: "Tutte",
+    readMore: "Leggi post",
+    minRead: "min lettura",
+    emptyTitle: "Nessun post per questa categoria",
+    emptyText: "Prova un altra categoria o torna a tutti i post.",
+    categories: {
+      market: "Mercato",
+      guide: "Guida",
+      company: "Azienda"
+    }
+  },
+  nl: {
+    title: "Posts en inzichten | BlancaReal",
+    description:
+      "BlancaReal posts met marktinzichten, praktische gidsen en projectupdates.",
+    eyebrow: "BlancaReal Insights",
+    heading: "Posts en updates",
+    intro:
+      "We publiceren marktinzichten, koopgidsen en projectupdates voor kopers en investeerders.",
+    allCategories: "Alle",
+    readMore: "Lees post",
+    minRead: "min lezen",
+    emptyTitle: "Geen posts in deze categorie",
+    emptyText: "Probeer een andere categorie of ga terug naar alle posts.",
+    categories: {
+      market: "Markt",
+      guide: "Gids",
+      company: "Bedrijf"
+    }
+  }
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+
+const localeByLang = {
+  es: "es-ES",
+  en: "en-GB",
+  de: "de-DE",
+  fr: "fr-FR",
+  it: "it-IT",
+  nl: "nl-NL"
+};
+
+const formatDate = (value) => {
+  if (!value) return "";
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return new Intl.DateTimeFormat(localeByLang[lang] ?? "es-ES", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  }).format(date);
+};
+
+const allPublishedPosts = posts
+  .filter((post) => post.status === "published")
+  .map((post) => {
+    const translation = post.translations?.[lang] ?? post.translations?.es ?? null;
+    const slug = post.slugs?.[lang] ?? post.slugs?.es ?? null;
+    if (!translation || !slug || !translation.title) return null;
+
+    const coverUrl = post.media?.cover?.url ?? "";
+    const coverAlt =
+      post.media?.cover?.alt?.[lang] ??
+      post.media?.cover?.alt?.es ??
+      translation.title;
+
+    return {
+      id: post.id,
+      slug,
+      title: translation.title,
+      excerpt: translation.excerpt ?? "",
+      category: String(post.category ?? ""),
+      categoryLabel: t.categories?.[post.category] ?? String(post.category ?? ""),
+      publishedAt: post.published_at ?? "",
+      publishedAtLabel: formatDate(post.published_at),
+      readingTimeMin: Number(post.reading_time_min ?? 0) || 0,
+      featured: post.featured === true,
+      coverUrl,
+      coverAlt
+    };
+  })
+  .filter(Boolean)
+  .sort((a, b) => {
+    const aTime = new Date(`${a.publishedAt}T00:00:00`).getTime();
+    const bTime = new Date(`${b.publishedAt}T00:00:00`).getTime();
+    return bTime - aTime;
+  });
+
+const categoriesWithPosts = POST_CATEGORY_ORDER.filter((category) =>
+  allPublishedPosts.some((post) => post.category === category)
+);
+
+const rawCategory = String(Astro.url.searchParams.get("category") ?? "")
+  .toLowerCase()
+  .trim();
+const selectedCategory =
+  isPostCategory(rawCategory) && categoriesWithPosts.includes(rawCategory)
+    ? rawCategory
+    : "";
+
+const filteredPosts = selectedCategory
+  ? allPublishedPosts.filter((post) => post.category === selectedCategory)
+  : allPublishedPosts;
+
+const categoryCounts = Object.fromEntries(
+  categoriesWithPosts.map((category) => [
+    category,
+    allPublishedPosts.filter((post) => post.category === category).length
+  ])
+);
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="posts-page container">
+    <header class="posts-hero">
+      <span class="posts-eyebrow">{t.eyebrow}</span>
+      <h1>{t.heading}</h1>
+      <p>{t.intro}</p>
+    </header>
+
+    <nav class="posts-categories" aria-label="Categorias de posts">
+      <a href={`/${lang}/posts/`} class={selectedCategory === "" ? "is-active" : ""}>
+        {t.allCategories} ({allPublishedPosts.length})
+      </a>
+      {categoriesWithPosts.map((category) => (
+        <a
+          href={`/${lang}/posts/?category=${category}`}
+          class={selectedCategory === category ? "is-active" : ""}
+        >
+          {t.categories?.[category] ?? category} ({categoryCounts[category] ?? 0})
+        </a>
+      ))}
+    </nav>
+
+    {filteredPosts.length === 0 ? (
+      <section class="posts-empty">
+        <h2>{t.emptyTitle}</h2>
+        <p>{t.emptyText}</p>
+      </section>
+    ) : (
+      <section class="posts-grid">
+        {filteredPosts.map((post) => (
+          <article class={`post-card ${post.featured ? "is-featured" : ""}`}>
+            <a href={`/${lang}/post/${post.slug}/`} class="post-cover-link" aria-label={post.title}>
+              {post.coverUrl ? (
+                <img src={post.coverUrl} alt={post.coverAlt} loading="lazy" />
+              ) : (
+                <div class="post-cover-fallback"></div>
+              )}
+            </a>
+
+            <div class="post-content">
+              <div class="post-meta">
+                <span class="post-category">{post.categoryLabel}</span>
+                {post.publishedAtLabel && <span>{post.publishedAtLabel}</span>}
+                {post.readingTimeMin > 0 && <span>{post.readingTimeMin} {t.minRead}</span>}
+              </div>
+
+              <h2>
+                <a href={`/${lang}/post/${post.slug}/`}>{post.title}</a>
+              </h2>
+
+              {post.excerpt && <p>{post.excerpt}</p>}
+
+              <a href={`/${lang}/post/${post.slug}/`} class="post-cta">{t.readMore}</a>
+            </div>
+          </article>
+        ))}
+      </section>
+    )}
+  </section>
+</BaseLayout>
+

@@ -156,6 +156,10 @@ const seoByLang = {
 };
 
 const t = seoByLang[lang] ?? seoByLang.es;
+const pinnedProjectOrder = ["PM0079", "PM0084", "PM0074"];
+const pinnedProjectRank = new Map(
+  pinnedProjectOrder.map((id, index) => [id, index])
+);
 
 const byId = new Map(properties.map((property) => [String(property.id), property]));
 
@@ -253,6 +257,13 @@ const projectCards = properties
   })
   .filter(Boolean)
   .sort((a, b) => {
+    const rankA = pinnedProjectRank.has(a.id) ? pinnedProjectRank.get(a.id) : Number.POSITIVE_INFINITY;
+    const rankB = pinnedProjectRank.has(b.id) ? pinnedProjectRank.get(b.id) : Number.POSITIVE_INFINITY;
+
+    if (rankA !== rankB) {
+      return rankA - rankB;
+    }
+
     const byAvailability = (b.availableCount ?? 0) - (a.availableCount ?? 0);
     if (byAvailability !== 0) return byAvailability;
     return (b.soldPercent ?? 0) - (a.soldPercent ?? 0);

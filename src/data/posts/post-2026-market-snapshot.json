@@ -1,0 +1,126 @@
+{
+  "id": "post-2026-market-snapshot",
+  "status": "published",
+  "category": "market",
+  "featured": false,
+  "published_at": "2026-02-03",
+  "updated_at": "2026-02-03",
+  "reading_time_min": 3,
+  "slugs": {
+    "es": "snapshot-mercado-costa-del-sol-inicio-2026",
+    "en": "costa-del-sol-market-snapshot-early-2026",
+    "de": "markt-snapshot-costa-del-sol-anfang-2026",
+    "fr": "snapshot-marche-costa-del-sol-debut-2026",
+    "it": "snapshot-mercato-costa-del-sol-inizio-2026",
+    "nl": "markt-snapshot-costa-del-sol-begin-2026"
+  },
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+      "alt": {
+        "es": "Costa del Sol vista aerea",
+        "en": "Costa del Sol aerial view",
+        "de": "Luftaufnahme Costa del Sol",
+        "fr": "Vue aerienne de la Costa del Sol",
+        "it": "Vista aerea della Costa del Sol",
+        "nl": "Luchtfoto van de Costa del Sol"
+      }
+    }
+  },
+  "author": {
+    "name": "Research BlancaReal",
+    "role": {
+      "es": "Analisis interno",
+      "en": "Internal research",
+      "de": "Interne Analyse",
+      "fr": "Analyse interne",
+      "it": "Analisi interna",
+      "nl": "Interne analyse"
+    }
+  },
+  "seo": {
+    "meta_description": {
+      "es": "Snapshot del mercado residencial en Costa del Sol al inicio de 2026: demanda, producto y ritmo de cierre.",
+      "en": "Residential market snapshot for Costa del Sol at the start of 2026: demand, product mix and closing pace.",
+      "de": "Wohnmarkt-Snapshot Costa del Sol Anfang 2026: Nachfrage, Produktmix und Abschlussdynamik.",
+      "fr": "Snapshot du marche residentiel Costa del Sol debut 2026 : demande, offre et rythme de vente.",
+      "it": "Snapshot del mercato residenziale Costa del Sol a inizio 2026: domanda, prodotto e ritmo di chiusura.",
+      "nl": "Woningmarkt-snapshot Costa del Sol begin 2026: vraag, aanbod en verkoopsnelheid."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Snapshot del mercado residencial en Costa del Sol (inicio 2026)",
+      "excerpt": "Lectura rapida sobre demanda activa, producto disponible y ventanas de decision para comprador final.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "El inicio de 2026 mantiene una demanda activa en producto bien ubicado, con especial interes por promociones nuevas con terrazas amplias y zonas comunes de calidad."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Conclusiones operativas"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Mayor velocidad de venta en activos con precio de entrada claro.",
+            "Comparacion mas tecnica por parte del comprador internacional.",
+            "Valor diferencial en memoria de calidades y transparencia de inventario."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Residential market snapshot on Costa del Sol (early 2026)",
+      "excerpt": "Quick read on active demand, available stock and decision windows for end buyers.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Early 2026 keeps demand focused on well-located assets, especially new developments with generous terraces and strong communal areas."
+        }
+      ]
+    },
+    "de": {
+      "title": "Wohnmarkt-Snapshot Costa del Sol (Anfang 2026)",
+      "excerpt": "Kurzueberblick zu Nachfrage, Angebot und Entscheidungsfenstern fuer Endkunden.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Zu Jahresbeginn 2026 bleibt die Nachfrage auf gut positionierte Objekte mit klarer Preisstruktur konzentriert."
+        }
+      ]
+    },
+    "fr": {
+      "title": "Snapshot du marche residentiel Costa del Sol (debut 2026)",
+      "excerpt": "Lecture rapide sur la demande active, l offre disponible et les fenetres de decision.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Debut 2026, la demande reste concentree sur des produits bien localises avec un positionnement prix lisible."
+        }
+      ]
+    },
+    "it": {
+      "title": "Snapshot del mercato residenziale Costa del Sol (inizio 2026)",
+      "excerpt": "Sintesi rapida su domanda attiva, offerta disponibile e tempi decisionali del buyer.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "A inizio 2026 la domanda resta concentrata su asset ben posizionati con prezzo di ingresso chiaro."
+        }
+      ]
+    },
+    "nl": {
+      "title": "Woningmarkt-snapshot Costa del Sol (begin 2026)",
+      "excerpt": "Snelle blik op actieve vraag, beschikbaar aanbod en beslismomenten voor kopers.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Begin 2026 blijft de vraag gericht op goed gelegen projecten met duidelijke instapprijs."
+        }
+      ]
+    }
+  }
+}

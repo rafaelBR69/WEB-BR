@@ -1,0 +1,143 @@
+{
+  "id": "post-2026-white-hills-update",
+  "status": "published",
+  "category": "company",
+  "featured": true,
+  "published_at": "2026-02-12",
+  "updated_at": "2026-02-12",
+  "reading_time_min": 4,
+  "slugs": {
+    "es": "white-hills-actualizacion-comercial-febrero-2026",
+    "en": "white-hills-commercial-update-february-2026",
+    "de": "white-hills-vertriebsupdate-februar-2026",
+    "fr": "white-hills-mise-a-jour-commerciale-fevrier-2026",
+    "it": "white-hills-aggiornamento-commerciale-febbraio-2026",
+    "nl": "white-hills-commerciele-update-februari-2026"
+  },
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+      "alt": {
+        "es": "Vista general de White Hills",
+        "en": "General view of White Hills",
+        "de": "Gesamtansicht von White Hills",
+        "fr": "Vue generale de White Hills",
+        "it": "Vista generale di White Hills",
+        "nl": "Algemeen beeld van White Hills"
+      }
+    }
+  },
+  "author": {
+    "name": "Equipo BlancaReal",
+    "role": {
+      "es": "Comercial y marketing",
+      "en": "Sales and marketing",
+      "de": "Vertrieb und Marketing",
+      "fr": "Commercial et marketing",
+      "it": "Commerciale e marketing",
+      "nl": "Sales en marketing"
+    }
+  },
+  "seo": {
+    "meta_description": {
+      "es": "Actualizacion comercial de White Hills en Fuengirola con estado de disponibilidad y siguientes hitos.",
+      "en": "Commercial update for White Hills in Fuengirola with current availability and upcoming milestones.",
+      "de": "Vertriebsupdate zu White Hills in Fuengirola mit Verfuegbarkeit und naechsten Meilensteinen.",
+      "fr": "Mise a jour commerciale de White Hills a Fuengirola avec disponibilite et prochaines etapes.",
+      "it": "Aggiornamento commerciale di White Hills a Fuengirola con disponibilita e prossime tappe.",
+      "nl": "Commerciele update van White Hills in Fuengirola met beschikbaarheid en volgende mijlpalen."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "White Hills: actualizacion comercial de febrero 2026",
+      "excerpt": "Resumen ejecutivo del estado comercial de White Hills y de los siguientes pasos de lanzamiento en Fuengirola.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Durante febrero de 2026 hemos revisado inventario, posicionamiento de precios y materiales comerciales de White Hills para alinear el proyecto con la demanda actual en Costa del Sol."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Puntos principales de la revision"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Actualizacion de disponibilidad por tipologia A y B.",
+            "Ajuste de mensajes comerciales para comprador internacional.",
+            "Revision de fichas tecnicas y presentacion visual del proyecto."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "En la siguiente fase publicaremos nuevos contenidos de producto y un seguimiento periodico para mantener informacion clara en cada unidad."
+        }
+      ]
+    },
+    "en": {
+      "title": "White Hills: commercial update for February 2026",
+      "excerpt": "Executive snapshot of White Hills commercial status and next launch milestones in Fuengirola.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "During February 2026 we reviewed stock, price positioning and sales materials for White Hills to keep the project aligned with current Costa del Sol demand."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Main review highlights"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Availability update by A and B villa layouts.",
+            "Commercial messaging refinement for international buyers.",
+            "Technical sheets and visual presentation review."
+          ]
+        }
+      ]
+    },
+    "de": {
+      "title": "White Hills: Vertriebsupdate Februar 2026",
+      "excerpt": "Kompakter Ueberblick zum Vertriebsstand von White Hills und den naechsten Schritten in Fuengirola.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Im Februar 2026 haben wir Verfuegbarkeit, Preispositionierung und Vertriebsunterlagen von White Hills aktualisiert."
+        }
+      ]
+    },
+    "fr": {
+      "title": "White Hills : mise a jour commerciale fevrier 2026",
+      "excerpt": "Synthese du statut commercial de White Hills et des prochaines etapes a Fuengirola.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "En fevrier 2026, nous avons revise disponibilites, positionnement prix et supports commerciaux de White Hills."
+        }
+      ]
+    },
+    "it": {
+      "title": "White Hills: aggiornamento commerciale febbraio 2026",
+      "excerpt": "Sintesi dello stato commerciale di White Hills e delle prossime tappe a Fuengirola.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "A febbraio 2026 abbiamo aggiornato disponibilita, posizionamento prezzi e materiali commerciali di White Hills."
+        }
+      ]
+    },
+    "nl": {
+      "title": "White Hills: commerciele update februari 2026",
+      "excerpt": "Korte samenvatting van de commerciele status van White Hills en de volgende stappen in Fuengirola.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "In februari 2026 hebben we beschikbaarheid, prijspositie en salesmateriaal van White Hills bijgewerkt."
+        }
+      ]
+    }
+  }
+}

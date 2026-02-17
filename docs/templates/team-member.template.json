@@ -1,0 +1,36 @@
+{
+  "id": "nombre-apellido",
+  "category": "commercial",
+  "name": "Nombre Apellido",
+  "role": {
+    "es": "Puesto ES",
+    "en": "Role EN",
+    "de": "Role DE",
+    "fr": "Role FR",
+    "it": "Role IT",
+    "nl": "Role NL"
+  },
+  "spoken_languages": ["es", "en"],
+  "email": "email@blancareal.com",
+  "phone": "+34 600 000 000",
+  "photo": {
+    "url": "/team/foto.png",
+    "alt": {
+      "es": "Perfil de Nombre Apellido",
+      "en": "Profile of Nombre Apellido",
+      "de": "Profil von Nombre Apellido",
+      "fr": "Profil de Nombre Apellido",
+      "it": "Profilo di Nombre Apellido",
+      "nl": "Profiel van Nombre Apellido"
+    }
+  },
+  "bio": {
+    "es": "Bio ES",
+    "en": "Bio EN",
+    "de": "Bio DE",
+    "fr": "Bio FR",
+    "it": "Bio IT",
+    "nl": "Bio NL"
+  }
+}
+

@@ -1,16 +1,26 @@
 import { normalizeSearchText } from "@/utils/search";
+import { isVillaFloorLabel, normalizeFloorFilterLabel } from "@/utils/floorFilter";
 
 export function applyFilters(cards, filters) {
   const searchQuery = filters.search ? normalizeSearchText(filters.search) : "";
   const searchTerms = searchQuery ? searchQuery.split(" ").filter(Boolean) : [];
   const refQuery = filters.ref ? normalizeSearchText(filters.ref) : "";
   const hasTextSearch = searchTerms.length > 0 || Boolean(refQuery);
+  const selectedFloorsRaw = Array.isArray(filters.floor)
+    ? filters.floor
+    : filters.floor
+      ? [filters.floor]
+      : [];
+  const selectedFloors = selectedFloorsRaw
+    .map((value) => normalizeFloorFilterLabel(value))
+    .filter((value): value is string => typeof value === "string" && !isVillaFloorLabel(value));
+  const hasFloorFilters = selectedFloors.length > 0;
 
   const hasUnitFilters =
     typeof filters.priceMin === "number" ||
     typeof filters.priceMax === "number" ||
     (Array.isArray(filters.bedrooms) && filters.bedrooms.length > 0) ||
-    (Array.isArray(filters.floor) && filters.floor.length > 0) ||
+    hasFloorFilters ||
     filters.listingType === "unit" ||
     hasTextSearch;
 
@@ -58,9 +68,9 @@ export function applyFilters(cards, filters) {
     }
 
     // FLOOR FILTER (label-based)
-    if (filters.floor) {
-      const floors = Array.isArray(filters.floor) ? filters.floor : [filters.floor];
-      if (!floors.includes(card.details?.floor_filter)) {
+    if (hasFloorFilters) {
+      const cardFloor = normalizeFloorFilterLabel(card.details?.floor_filter);
+      if (!cardFloor || !selectedFloors.includes(cardFloor)) {
         return false;
       }
     }

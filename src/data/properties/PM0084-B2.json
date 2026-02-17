@@ -1,0 +1,191 @@
+{
+  "id": "PM0084-B2",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM0084",
+  "slugs": {
+    "es": "villa-b2-white-hills-fuengirola-mijas",
+    "en": "villa-b2-white-hills-fuengirola-mijas",
+    "de": "villa-b2-white-hills-fuengirola-mijas",
+    "fr": "villa-b2-white-hills-fuengirola-mijas",
+    "it": "villa-b2-white-hills-fuengirola-mijas",
+    "nl": "villa-b2-white-hills-fuengirola-mijas"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 937215,
+  "currency": "EUR",
+  "phase": "Fase 1",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Torreblanca",
+    "coordinates": {
+      "lat": 36.57546460818317,
+      "lng": -4.606035318443788
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": 270.36,
+    "usable_area_m2": null,
+    "terrace_m2": 84.09,
+    "garden_m2": 237.28,
+    "bedrooms": null,
+    "bathrooms": null,
+    "garages": null,
+    "floor_level": 0,
+    "orientation": null,
+    "condition": "new",
+    "floor_label": "Villa B2",
+    "type_label": "B",
+    "parking_exterior_m2": 0,
+    "exterior_m2": 321.37,
+    "plot_m2": 337.19
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "garden",
+    "private_parking",
+    "aerothermal"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+      "alt": {
+        "es": "White Hills en Fuengirola - Mijas, obra nueva",
+        "en": "White Hills in Fuengirola - Mijas, new build",
+        "de": "White Hills in Fuengirola - Mijas, Neubau",
+        "fr": "White Hills a Fuengirola - Mijas, programme neuf",
+        "it": "White Hills a Fuengirola - Mijas, nuova costruzione",
+        "nl": "White Hills in Fuengirola - Mijas, nieuwbouw"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_1_Whitehills.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_2_Whitehills.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_3_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/garden_Whitehills.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/master%20plan_2_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/WhiteHills%20A4_EXT.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/basement_1_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/bedroom_1_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/bedroom_2_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/kitchen_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_2_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_3_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_4_Whitehills.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Cocina%20mostrar_01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Dorm1%20mostrar%202.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Salon%20mostrar_02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20sotano%203%20mostrar.jpg"
+        }
+      ],
+      "views": [],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/planos/Planos-Comerciales-WhiteHills-B2.pdf"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "villa b2 white hills fuengirola mijas",
+      "en": "white hills villa b2 fuengirola mijas",
+      "de": "white hills villa b2 fuengirola mijas",
+      "fr": "white hills villa b2 fuengirola mijas",
+      "it": "white hills villa b2 fuengirola mijas",
+      "nl": "white hills villa b2 fuengirola mijas"
+    },
+    "meta_description": {
+      "es": "Villa B2 en White Hills, Fuengirola - Mijas. Consulte disponibilidad y detalles.",
+      "en": "Villa B2 at White Hills, Fuengirola - Mijas. Check availability and details.",
+      "de": "Villa B2 in White Hills, Fuengirola - Mijas. Verfuegbarkeit und Details.",
+      "fr": "Villa B2 a White Hills, Fuengirola - Mijas. Consultez disponibilite et details.",
+      "it": "Villa B2 a White Hills, Fuengirola - Mijas. Verifica disponibilita e dettagli.",
+      "nl": "Villa B2 in White Hills, Fuengirola - Mijas. Bekijk beschikbaarheid en details."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Villa B2 en White Hills (Fuengirola - Mijas)",
+      "intro": "Fase 1. Villa disponible en White Hills con parcela privada y terrazas amplias.",
+      "description": []
+    },
+    "en": {
+      "title": "Villa B2 at White Hills (Fuengirola - Mijas)",
+      "intro": "Fase 1. Available villa in White Hills with private plot and generous terraces.",
+      "description": []
+    },
+    "de": {
+      "title": "Villa B2 in White Hills (Fuengirola - Mijas)",
+      "intro": "Fase 1. Verfuegbare Villa in White Hills mit privatem Grundstueck und grossen Terrassen.",
+      "description": []
+    },
+    "fr": {
+      "title": "Villa B2 a White Hills (Fuengirola - Mijas)",
+      "intro": "Fase 1. Villa disponible a White Hills avec parcelle privee et grandes terrasses.",
+      "description": []
+    },
+    "it": {
+      "title": "Villa B2 a White Hills (Fuengirola - Mijas)",
+      "intro": "Fase 1. Villa disponibile a White Hills con parcella privata e ampie terrazze.",
+      "description": []
+    },
+    "nl": {
+      "title": "Villa B2 in White Hills (Fuengirola - Mijas)",
+      "intro": "Fase 1. Beschikbare villa in White Hills met priveperceel en ruime terrassen.",
+      "description": []
+    }
+  }
+}

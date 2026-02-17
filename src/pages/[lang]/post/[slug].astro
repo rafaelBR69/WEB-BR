@@ -1,0 +1,236 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import RichContent from "@/components/RichContent.astro";
+import posts from "@/data/posts";
+import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@/i18n/languages";
+import "@/styles/pages/posts.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/posts/`, 302);
+}
+
+const lang = langParam;
+const slugParam = String(Astro.params.slug ?? "").trim();
+if (!slugParam) {
+  return Astro.redirect(`/${lang}/posts/`, 302);
+}
+
+const copyByLang = {
+  es: {
+    backToPosts: "Volver a posts",
+    readTime: "min lectura",
+    relatedTitle: "Posts relacionados",
+    readPost: "Leer post",
+    categories: {
+      market: "Mercado",
+      guide: "Guia",
+      company: "Empresa"
+    }
+  },
+  en: {
+    backToPosts: "Back to posts",
+    readTime: "min read",
+    relatedTitle: "Related posts",
+    readPost: "Read post",
+    categories: {
+      market: "Market",
+      guide: "Guide",
+      company: "Company"
+    }
+  },
+  de: {
+    backToPosts: "Zurueck zu Posts",
+    readTime: "min lesen",
+    relatedTitle: "Aehnliche Posts",
+    readPost: "Beitrag lesen",
+    categories: {
+      market: "Markt",
+      guide: "Guide",
+      company: "Unternehmen"
+    }
+  },
+  fr: {
+    backToPosts: "Retour aux posts",
+    readTime: "min lecture",
+    relatedTitle: "Posts lies",
+    readPost: "Lire le post",
+    categories: {
+      market: "Marche",
+      guide: "Guide",
+      company: "Entreprise"
+    }
+  },
+  it: {
+    backToPosts: "Torna ai post",
+    readTime: "min lettura",
+    relatedTitle: "Post correlati",
+    readPost: "Leggi post",
+    categories: {
+      market: "Mercato",
+      guide: "Guida",
+      company: "Azienda"
+    }
+  },
+  nl: {
+    backToPosts: "Terug naar posts",
+    readTime: "min lezen",
+    relatedTitle: "Gerelateerde posts",
+    readPost: "Lees post",
+    categories: {
+      market: "Markt",
+      guide: "Gids",
+      company: "Bedrijf"
+    }
+  }
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+
+const localeByLang = {
+  es: "es-ES",
+  en: "en-GB",
+  de: "de-DE",
+  fr: "fr-FR",
+  it: "it-IT",
+  nl: "nl-NL"
+};
+
+const formatDate = (value) => {
+  if (!value) return "";
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return new Intl.DateTimeFormat(localeByLang[lang] ?? "es-ES", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  }).format(date);
+};
+
+const postRaw = posts.find((item) =>
+  Object.values(item.slugs ?? {}).includes(slugParam)
+);
+
+if (!postRaw || postRaw.status !== "published") {
+  return Astro.redirect(`/${lang}/posts/`, 302);
+}
+
+const targetSlug = postRaw.slugs?.[lang] ?? postRaw.slugs?.es ?? "";
+if (targetSlug && targetSlug !== slugParam) {
+  return Astro.redirect(`/${lang}/post/${targetSlug}/`, 301);
+}
+
+const translation = postRaw.translations?.[lang] ?? postRaw.translations?.es ?? null;
+if (!translation || !translation.title) {
+  return Astro.redirect(`/${lang}/posts/`, 302);
+}
+
+const availableLangs = SUPPORTED_LANGS.filter(
+  (code) => postRaw.slugs?.[code] && postRaw.translations?.[code]
+);
+
+const coverUrl = postRaw.media?.cover?.url ?? "";
+const coverAlt =
+  postRaw.media?.cover?.alt?.[lang] ??
+  postRaw.media?.cover?.alt?.es ??
+  translation.title;
+
+const categoryLabel = t.categories?.[postRaw.category] ?? String(postRaw.category ?? "");
+const publishedLabel = formatDate(postRaw.published_at);
+const readTime = Number(postRaw.reading_time_min ?? 0) || 0;
+const title = `${translation.title} | BlancaReal`;
+const description =
+  postRaw.seo?.meta_description?.[lang] ??
+  postRaw.seo?.meta_description?.es ??
+  translation.excerpt ??
+  "";
+
+const relatedPosts = posts
+  .filter((item) => item.status === "published")
+  .filter((item) => item.id !== postRaw.id)
+  .filter((item) => item.category === postRaw.category)
+  .map((item) => {
+    const itemTranslation = item.translations?.[lang] ?? item.translations?.es ?? null;
+    const itemSlug = item.slugs?.[lang] ?? item.slugs?.es ?? null;
+    if (!itemTranslation || !itemSlug || !itemTranslation.title) return null;
+
+    return {
+      id: item.id,
+      slug: itemSlug,
+      title: itemTranslation.title,
+      excerpt: itemTranslation.excerpt ?? "",
+      coverUrl: item.media?.cover?.url ?? "",
+      coverAlt:
+        item.media?.cover?.alt?.[lang] ??
+        item.media?.cover?.alt?.es ??
+        itemTranslation.title
+    };
+  })
+  .filter(Boolean)
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang={lang}
+  availableLangs={availableLangs.length ? availableLangs : [lang]}
+>
+  <section class="post-detail-page container">
+    <a class="post-back-link" href={`/${lang}/posts/`}>{t.backToPosts}</a>
+
+    <article class="post-detail-card">
+      <header class="post-detail-hero">
+        {coverUrl ? (
+          <img src={coverUrl} alt={coverAlt} class="post-detail-cover" />
+        ) : (
+          <div class="post-detail-cover-fallback"></div>
+        )}
+        <div class="post-detail-headline">
+          <div class="post-meta">
+            <span class="post-category">{categoryLabel}</span>
+            {publishedLabel && <span>{publishedLabel}</span>}
+            {readTime > 0 && <span>{readTime} {t.readTime}</span>}
+          </div>
+          <h1>{translation.title}</h1>
+          {translation.excerpt && <p class="post-lead">{translation.excerpt}</p>}
+        </div>
+      </header>
+
+      <div class="post-detail-body">
+        <div class="post-rich-content">
+          <RichContent blocks={translation.content ?? []} />
+        </div>
+      </div>
+    </article>
+
+    {relatedPosts.length > 0 && (
+      <section class="post-related">
+        <h2>{t.relatedTitle}</h2>
+        <div class="post-related-grid">
+          {relatedPosts.map((related) => (
+            <article class="post-related-card">
+              <a href={`/${lang}/post/${related.slug}/`} aria-label={related.title}>
+                {related.coverUrl ? (
+                  <img src={related.coverUrl} alt={related.coverAlt} loading="lazy" />
+                ) : (
+                  <div class="post-cover-fallback"></div>
+                )}
+              </a>
+              <div>
+                <h3>
+                  <a href={`/${lang}/post/${related.slug}/`}>{related.title}</a>
+                </h3>
+                {related.excerpt && <p>{related.excerpt}</p>}
+                <a href={`/${lang}/post/${related.slug}/`} class="post-cta">{t.readPost}</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+  </section>
+</BaseLayout>
+
