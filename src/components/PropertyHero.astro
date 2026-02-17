@@ -1,4 +1,6 @@
 ---
+import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@/utils/supabaseImage";
+
 const { cover, title, lang } = Astro.props;
 
 const coverUrl = typeof cover === "string" ? cover : cover?.url;
@@ -8,11 +10,22 @@ const alt =
   (typeof cover === "object" ? cover?.alt?.[lang] : null) ||
   (typeof cover === "object" ? cover?.alt?.es : null) ||
   title;
+const heroSrc = buildSupabaseImageUrl(coverUrl, {
+  width: 1600,
+  quality: 78,
+});
+const heroSrcSet = buildSupabaseSrcSet(coverUrl, [768, 1200, 1600, 2000], {
+  quality: 78,
+});
 ---
 <section class="property-hero">
   <div class="hero-image-wrapper">
     <img
-      src={coverUrl}
+      src={heroSrc || coverUrl}
+      srcset={heroSrcSet || undefined}
+      sizes="100vw"
+      data-fallback-src={coverUrl}
+      onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;this.srcset='';}"
       alt={alt}
       loading="eager"
       fetchpriority="high"

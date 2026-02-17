@@ -1,0 +1,187 @@
+{
+  "id": "PM0011-B1P1_BA",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM0011",
+  "slugs": {
+    "es": "unidad-bloque-1-portal-1-bajo-a-calahonda-sunset",
+    "en": "unit-bloque-1-portal-1-bajo-a-calahonda-sunset",
+    "de": "einheit-bloque-1-portal-1-bajo-a-calahonda-sunset",
+    "fr": "unite-bloque-1-portal-1-bajo-a-calahonda-sunset",
+    "it": "unita-bloque-1-portal-1-bajo-a-calahonda-sunset",
+    "nl": "unit-bloque-1-portal-1-bajo-a-calahonda-sunset"
+  },
+  "status": "sold",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "phase": "Bloque 1",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Calahonda",
+    "coordinates": {
+      "lat": 36.51162385658065,
+      "lng": -4.730218545432794
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2026,
+    "area_m2": 107.72,
+    "usable_area_m2": null,
+    "terrace_m2": 57.34,
+    "garden_m2": null,
+    "bedrooms": 3,
+    "bathrooms": null,
+    "garages": null,
+    "floor_level": 0,
+    "orientation": null,
+    "condition": "new",
+    "floor_label": "Planta baja",
+    "type_label": "A",
+    "block": 1,
+    "portal": 1,
+    "unit_code": "1-1-BA",
+    "useful_interior_m2": 107.72
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "communal_pool",
+    "gated_community"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+      "alt": {
+        "es": "Calahonda Sunset en Mijas - obra nueva",
+        "en": "Calahonda Sunset in Mijas - new build",
+        "de": "Calahonda Sunset in Mijas - Neubau",
+        "fr": "Calahonda Sunset a Mijas - programme neuf",
+        "it": "Calahonda Sunset a Mijas - nuova costruzione",
+        "nl": "Calahonda Sunset in Mijas - nieuwbouw"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/edificio.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/facade-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/frontal.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza2.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza3.png"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/bano.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/cocina.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/comedor.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio2.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon2.png"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas-03.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas2.png"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento calahonda sunset B1 P1 BA",
+      "en": "calahonda sunset apartment B1 P1 BA",
+      "de": "calahonda sunset apartment B1 P1 BA",
+      "fr": "appartement calahonda sunset B1 P1 BA",
+      "it": "appartamento calahonda sunset B1 P1 BA",
+      "nl": "calahonda sunset appartement B1 P1 BA"
+    },
+    "meta_description": {
+      "es": "Unidad B1 P1 BA en Calahonda Sunset (vendida). Consulte disponibilidad, superficies y precio.",
+      "en": "Unit B1 P1 BA at Calahonda Sunset (sold). Check availability, areas and price.",
+      "de": "Einheit B1 P1 BA in Calahonda Sunset (verkauft). Verfuegbarkeit, Flaechen und Preis.",
+      "fr": "Unite B1 P1 BA a Calahonda Sunset (vendue). Consultez disponibilite, surfaces et prix.",
+      "it": "Unita B1 P1 BA a Calahonda Sunset (venduta). Verifica disponibilita, superfici e prezzo.",
+      "nl": "Unit B1 P1 BA in Calahonda Sunset (verkocht). Bekijk beschikbaarheid, oppervlaktes en prijs."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Unidad B1 P1 BA en Calahonda Sunset",
+      "intro": "Unidad vendida en bloque 1, portal 1, Bajo, letra A.",
+      "description": []
+    },
+    "en": {
+      "title": "Unit B1 P1 BA at Calahonda Sunset",
+      "intro": "Unit sold in block 1, portal 1, Ground floor, letter A.",
+      "description": []
+    },
+    "de": {
+      "title": "Einheit B1 P1 BA in Calahonda Sunset",
+      "intro": "Einheit verkauft in Block 1, Portal 1, Erdgeschoss, Buchstabe A.",
+      "description": []
+    },
+    "fr": {
+      "title": "Unite B1 P1 BA a Calahonda Sunset",
+      "intro": "Unite vendue dans le bloc 1, portail 1, Rez-de-chaussee, lettre A.",
+      "description": []
+    },
+    "it": {
+      "title": "Unita B1 P1 BA a Calahonda Sunset",
+      "intro": "Unita venduta nel blocco 1, portale 1, Piano terra, lettera A.",
+      "description": []
+    },
+    "nl": {
+      "title": "Unit B1 P1 BA in Calahonda Sunset",
+      "intro": "Unit verkocht in blok 1, portaal 1, Begane grond, letter A.",
+      "description": []
+    }
+  }
+}

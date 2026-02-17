@@ -1,0 +1,197 @@
+{
+  "id": "PM0011",
+  "priority": 87,
+  "slugs": {
+    "es": "obra-nueva-calahonda-sunset-mijas",
+    "en": "new-build-calahonda-sunset-mijas",
+    "de": "neubau-calahonda-sunset-mijas",
+    "fr": "programme-neuf-calahonda-sunset-mijas",
+    "it": "nuova-costruzione-calahonda-sunset-mijas",
+    "nl": "nieuwbouw-calahonda-sunset-mijas"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": true,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 310045,
+  "currency": "EUR",
+  "pricing": {
+    "from": 310045,
+    "currency": "EUR"
+  },
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Calahonda",
+    "coordinates": {
+      "lat": 36.51162385658065,
+      "lng": -4.730218545432794
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2026,
+    "area_m2": null,
+    "terrace_m2": null,
+    "bedrooms": null,
+    "bathrooms": null,
+    "orientation": null,
+    "condition": "new",
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "garages": null
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "communal_pool",
+    "gated_community"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+      "alt": {
+        "es": "Calahonda Sunset en Mijas - obra nueva",
+        "en": "Calahonda Sunset in Mijas - new build",
+        "de": "Calahonda Sunset in Mijas - Neubau",
+        "fr": "Calahonda Sunset a Mijas - programme neuf",
+        "it": "Calahonda Sunset a Mijas - nuova costruzione",
+        "nl": "Calahonda Sunset in Mijas - nieuwbouw"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/edificio.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/facade-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/frontal.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza2.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza3.png"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/bano.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/cocina.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/comedor.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio2.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon2.png"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas-03.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas2.png"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "obra nueva calahonda sunset mijas",
+      "en": "new build calahonda sunset mijas",
+      "de": "neubau calahonda sunset mijas",
+      "fr": "programme neuf calahonda sunset mijas",
+      "it": "nuova costruzione calahonda sunset mijas",
+      "nl": "nieuwbouw calahonda sunset mijas"
+    },
+    "meta_description": {
+      "es": "Promocion Calahonda Sunset en Mijas con viviendas de 1, 2 y 3 dormitorios distribuidas en varios bloques y portales.",
+      "en": "Calahonda Sunset development in Mijas with 1, 2 and 3-bedroom homes across multiple blocks and portals.",
+      "de": "Calahonda Sunset in Mijas mit Wohnungen mit 1, 2 und 3 Schlafzimmern in mehreren Bloecken und Portalen.",
+      "fr": "Programme Calahonda Sunset a Mijas avec logements de 1, 2 et 3 chambres repartis en plusieurs blocs et portails.",
+      "it": "Promozione Calahonda Sunset a Mijas con unita da 1, 2 e 3 camere distribuite in piu blocchi e portali.",
+      "nl": "Calahonda Sunset in Mijas met woningen met 1, 2 en 3 slaapkamers verdeeld over meerdere blokken en portalen."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Calahonda Sunset: obra nueva en Mijas",
+      "intro": "Promocion residencial con 93 viviendas en Calahonda, organizada en 3 bloques y 3 portales.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Calahonda Sunset, distribucion por bloques"
+        },
+        {
+          "type": "paragraph",
+          "content": "Calahonda Sunset es un proyecto residencial en Mijas con 93 viviendas de 1, 2 y 3 dormitorios, distribuidas en los bloques 1, 2 y 3, cada uno con varios portales y tipologias de planta baja, planta 1, planta 2 y atico."
+        },
+        {
+          "type": "paragraph",
+          "content": "Cada unidad incluye informacion detallada de bloque, portal, planta, letra, superficie interior, terraza y estado comercial para facilitar la seleccion."
+        }
+      ]
+    },
+    "en": {
+      "title": "Calahonda Sunset: new build in Mijas",
+      "intro": "Residential development with 93 homes in Calahonda, organized across 3 blocks and 3 portals.",
+      "description": []
+    },
+    "de": {
+      "title": "Calahonda Sunset: Neubau in Mijas",
+      "intro": "Wohnprojekt mit 93 Einheiten in Calahonda, verteilt auf 3 Bloecke und 3 Portale.",
+      "description": []
+    },
+    "fr": {
+      "title": "Calahonda Sunset : programme neuf a Mijas",
+      "intro": "Programme residentiel de 93 logements a Calahonda, repartis sur 3 blocs et 3 portails.",
+      "description": []
+    },
+    "it": {
+      "title": "Calahonda Sunset: nuova costruzione a Mijas",
+      "intro": "Progetto residenziale con 93 unita a Calahonda, distribuite su 3 blocchi e 3 portali.",
+      "description": []
+    },
+    "nl": {
+      "title": "Calahonda Sunset: nieuwbouw in Mijas",
+      "intro": "Residentieel project met 93 woningen in Calahonda, verdeeld over 3 blokken en 3 portalen.",
+      "description": []
+    }
+  }
+}

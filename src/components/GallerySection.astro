@@ -1,4 +1,6 @@
 ---
+import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@/utils/supabaseImage";
+
 const { title, items = [], category = "general", lang = "es" } = Astro.props;
 
 const labelsByLang = {
@@ -53,6 +55,20 @@ if (!items || !items.length) return null;
       const altText = img.alt || fallbackAlt;
       const url = img.url ?? "";
       const isPdf = url.toLowerCase().endsWith(".pdf");
+      const previewWidth = index === 0 ? 1280 : 640;
+      const previewSrc = buildSupabaseImageUrl(url, {
+        width: previewWidth,
+        quality: 72,
+      });
+      const previewSrcSet = buildSupabaseSrcSet(
+        url,
+        index === 0 ? [640, 960, 1280] : [320, 480, 640],
+        { quality: 72 }
+      );
+      const previewSizes =
+        index === 0
+          ? "(max-width: 900px) 100vw, 66vw"
+          : "(max-width: 900px) 50vw, 33vw";
 
       if (isPdf) {
         return (
@@ -79,7 +95,11 @@ if (!items || !items.length) return null;
           title={altText}
         >
           <img
-            src={url}
+            src={previewSrc || url}
+            srcset={previewSrcSet || undefined}
+            sizes={previewSizes}
+            data-fallback-src={url}
+            onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;this.srcset='';}"
             alt={altText}
             loading="lazy"
             decoding="async"

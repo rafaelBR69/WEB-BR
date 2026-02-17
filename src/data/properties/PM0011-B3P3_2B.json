@@ -1,0 +1,187 @@
+{
+  "id": "PM0011-B3P3_2B",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM0011",
+  "slugs": {
+    "es": "unidad-bloque-3-portal-3-planta-2-b-calahonda-sunset",
+    "en": "unit-bloque-3-portal-3-planta-2-b-calahonda-sunset",
+    "de": "einheit-bloque-3-portal-3-planta-2-b-calahonda-sunset",
+    "fr": "unite-bloque-3-portal-3-planta-2-b-calahonda-sunset",
+    "it": "unita-bloque-3-portal-3-planta-2-b-calahonda-sunset",
+    "nl": "unit-bloque-3-portal-3-planta-2-b-calahonda-sunset"
+  },
+  "status": "sold",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "phase": "Bloque 3",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Calahonda",
+    "coordinates": {
+      "lat": 36.51162385658065,
+      "lng": -4.730218545432794
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2026,
+    "area_m2": 83.43,
+    "usable_area_m2": null,
+    "terrace_m2": 33.07,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": null,
+    "garages": null,
+    "floor_level": 2,
+    "orientation": null,
+    "condition": "new",
+    "floor_label": "Planta 2",
+    "type_label": "B",
+    "block": 3,
+    "portal": 3,
+    "unit_code": "3-3-2B",
+    "useful_interior_m2": 83.43
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "communal_pool",
+    "gated_community"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+      "alt": {
+        "es": "Calahonda Sunset en Mijas - obra nueva",
+        "en": "Calahonda Sunset in Mijas - new build",
+        "de": "Calahonda Sunset in Mijas - Neubau",
+        "fr": "Calahonda Sunset a Mijas - programme neuf",
+        "it": "Calahonda Sunset a Mijas - nuova costruzione",
+        "nl": "Calahonda Sunset in Mijas - nieuwbouw"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/edificio.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/facade-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/frontal.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza2.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza3.png"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/bano.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/cocina.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/comedor.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio2.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon2.png"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas-03.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas2.png"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento calahonda sunset B3 P3 2B",
+      "en": "calahonda sunset apartment B3 P3 2B",
+      "de": "calahonda sunset apartment B3 P3 2B",
+      "fr": "appartement calahonda sunset B3 P3 2B",
+      "it": "appartamento calahonda sunset B3 P3 2B",
+      "nl": "calahonda sunset appartement B3 P3 2B"
+    },
+    "meta_description": {
+      "es": "Unidad B3 P3 2B en Calahonda Sunset (vendida). Consulte disponibilidad, superficies y precio.",
+      "en": "Unit B3 P3 2B at Calahonda Sunset (sold). Check availability, areas and price.",
+      "de": "Einheit B3 P3 2B in Calahonda Sunset (verkauft). Verfuegbarkeit, Flaechen und Preis.",
+      "fr": "Unite B3 P3 2B a Calahonda Sunset (vendue). Consultez disponibilite, surfaces et prix.",
+      "it": "Unita B3 P3 2B a Calahonda Sunset (venduta). Verifica disponibilita, superfici e prezzo.",
+      "nl": "Unit B3 P3 2B in Calahonda Sunset (verkocht). Bekijk beschikbaarheid, oppervlaktes en prijs."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Unidad B3 P3 2B en Calahonda Sunset",
+      "intro": "Unidad vendida en bloque 3, portal 3, Planta 2, letra B.",
+      "description": []
+    },
+    "en": {
+      "title": "Unit B3 P3 2B at Calahonda Sunset",
+      "intro": "Unit sold in block 3, portal 3, Floor 2, letter B.",
+      "description": []
+    },
+    "de": {
+      "title": "Einheit B3 P3 2B in Calahonda Sunset",
+      "intro": "Einheit verkauft in Block 3, Portal 3, Etage 2, Buchstabe B.",
+      "description": []
+    },
+    "fr": {
+      "title": "Unite B3 P3 2B a Calahonda Sunset",
+      "intro": "Unite vendue dans le bloc 3, portail 3, Etage 2, lettre B.",
+      "description": []
+    },
+    "it": {
+      "title": "Unita B3 P3 2B a Calahonda Sunset",
+      "intro": "Unita venduta nel blocco 3, portale 3, Piano 2, lettera B.",
+      "description": []
+    },
+    "nl": {
+      "title": "Unit B3 P3 2B in Calahonda Sunset",
+      "intro": "Unit verkocht in blok 3, portaal 3, Verdieping 2, letter B.",
+      "description": []
+    }
+  }
+}

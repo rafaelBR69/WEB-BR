@@ -1,4 +1,6 @@
 ---
+import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@/utils/supabaseImage";
+
 const { items = [] } = Astro.props;
 ---
 
@@ -7,6 +9,16 @@ const { items = [] } = Astro.props;
     {items.map((img, index) => {
       const fallbackAlt = `Imagen ${index + 1}`;
       const altText = img.alt || fallbackAlt;
+      const previewWidth = index === 0 ? 1400 : 800;
+      const previewSrc = buildSupabaseImageUrl(img.url, {
+        width: previewWidth,
+        quality: 74,
+      });
+      const previewSrcSet = buildSupabaseSrcSet(
+        img.url,
+        index === 0 ? [640, 960, 1400] : [320, 480, 800],
+        { quality: 74 }
+      );
       return (
         <a
           href={img.url}
@@ -15,7 +27,11 @@ const { items = [] } = Astro.props;
           title={altText}
         >
           <img
-            src={img.url}
+            src={previewSrc || img.url}
+            srcset={previewSrcSet || undefined}
+            sizes={index === 0 ? "(max-width: 1024px) 100vw, 70vw" : "(max-width: 1024px) 50vw, 33vw"}
+            data-fallback-src={img.url}
+            onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;this.srcset='';}"
             alt={altText}
             loading={index === 0 ? "eager" : "lazy"}
             decoding="async"

@@ -1,3 +1,5 @@
+import { buildSupabaseImageUrl } from "@/utils/supabaseImage";
+
 export function buildMapFeatures(properties: any[], lang: string) {
   const toFiniteNumber = (value: unknown) => {
     const num = Number(value);
@@ -13,6 +15,19 @@ export function buildMapFeatures(properties: any[], lang: string) {
   };
 
   const resolveCoverUrl = (property: any) => {
+    const cover =
+      property?.media?.cover ??
+      property?.media?.gallery?.exterior?.[0] ??
+      property?.media?.gallery?.interior?.[0] ??
+      property?.media?.gallery?.views?.[0] ??
+      null;
+
+    if (!cover) return "";
+    const raw = typeof cover === "string" ? cover : String(cover?.url ?? "");
+    return buildSupabaseImageUrl(raw, { width: 360, quality: 70 });
+  };
+
+  const resolveRawCoverUrl = (property: any) => {
     const cover =
       property?.media?.cover ??
       property?.media?.gallery?.exterior?.[0] ??
@@ -91,6 +106,7 @@ export function buildMapFeatures(properties: any[], lang: string) {
           area,
           city,
           coverUrl: resolveCoverUrl(property),
+          coverUrlFallback: resolveRawCoverUrl(property),
           listingType,
           availableUnits: availableUnits ?? "",
           summaryPrice: summaryPrice ?? "",

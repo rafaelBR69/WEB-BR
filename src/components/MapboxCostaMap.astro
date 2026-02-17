@@ -383,12 +383,13 @@ const featureCollection = {
       const availableUnits = props.availableUnits || "";
       const href = props.href || "#";
       const coverUrl = String(props.coverUrl || "").trim();
+      const coverFallback = String(props.coverUrlFallback || coverUrl).trim();
       const unitsLine = listingType === "promotion" && availableUnits ? `<p>${availableUnits} unidades disponibles</p>` : "";
       const lng = Number(props.lng ?? NaN);
       const lat = Number(props.lat ?? NaN);
       const media =
         coverUrl
-          ? `<img class="map-popup-cover" src="${coverUrl}" alt="${title}" loading="lazy" decoding="async" />`
+          ? `<img class="map-popup-cover" src="${coverUrl}" data-fallback-src="${coverFallback}" onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;}" alt="${title}" loading="lazy" decoding="async" />`
           : "";
       const routeButton =
         Number.isFinite(lng) && Number.isFinite(lat)
@@ -443,8 +444,9 @@ const featureCollection = {
             ? `<span class="result-meta-badge">${availableUnitsRaw} disp.</span>`
             : "";
           const coverUrl = String(props.coverUrl || "").trim();
+          const coverFallback = String(props.coverUrlFallback || coverUrl).trim();
           const mediaBlock = coverUrl
-            ? `<div class="result-media"><img src="${coverUrl}" alt="${props.title || "Propiedad"}" loading="lazy" decoding="async" /></div>`
+            ? `<div class="result-media"><img src="${coverUrl}" data-fallback-src="${coverFallback}" onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;}" alt="${props.title || "Propiedad"}" loading="lazy" decoding="async" /></div>`
             : `<div class="result-media result-media-placeholder"></div>`;
           const locationLabel = formatCityArea(props.city || "", props.area || "");
           const summaryHtml = buildResultSummaryHtml(props);
@@ -2821,4 +2823,3 @@ const featureCollection = {
     }
   }
 </style>
-

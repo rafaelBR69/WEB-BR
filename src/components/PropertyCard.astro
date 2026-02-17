@@ -6,6 +6,7 @@ import {
   formatPropertyType,
 } from "@/utils/presentation";
 import FeatureBadge from "@/components/FeatureBadge.astro";
+import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@/utils/supabaseImage";
 
 const { data, lang } = Astro.props;
 const coverUrl = typeof data.cover === "string" ? data.cover : data.cover?.url;
@@ -13,6 +14,12 @@ const coverAlt =
   (typeof data.cover === "object" ? data.cover?.alt?.[lang] : null) ||
   (typeof data.cover === "object" ? data.cover?.alt?.es : null) ||
   data.title;
+const coverSrc = coverUrl
+  ? buildSupabaseImageUrl(coverUrl, { width: 720, quality: 72 })
+  : null;
+const coverSrcSet = coverUrl
+  ? buildSupabaseSrcSet(coverUrl, [320, 480, 640, 720], { quality: 72 })
+  : "";
 
 const labels = {
   es: "Ver detalles",
@@ -30,9 +37,14 @@ const label = labels[lang as keyof typeof labels] || labels.es;
     <a href={`/${lang}/property/${data.slug}`} aria-label={data.title}>
       {coverUrl ? (
         <img 
-          src={coverUrl} 
+          src={coverSrc ?? coverUrl} 
+          srcset={coverSrcSet || undefined}
+          sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 380px"
+          data-fallback-src={coverUrl}
+          onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;this.srcset='';}"
           alt={coverAlt}
           loading="lazy"
+          decoding="async"
         />
       ) : (
         <div class="no-image-placeholder"></div>
