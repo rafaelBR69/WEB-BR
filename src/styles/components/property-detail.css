@@ -98,6 +98,86 @@
   color: var(--color-muted);
 }
 
+.promotion-overview {
+  margin-top: 2rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-bg);
+}
+
+.promotion-overview-title {
+  margin: 0 0 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.promotion-overview-grid {
+  margin: 0;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.promotion-overview-grid .snapshot-item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 82px;
+  padding: 0.72rem 0.82rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.7rem;
+  background: var(--color-surface);
+}
+
+.promotion-overview-grid dt {
+  margin: 0;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.promotion-overview-grid dd.snapshot-value {
+  margin: 0;
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+}
+
+.promotion-overview-grid dd.snapshot-value.is-green {
+  color: #2f8a51;
+}
+
+.promotion-overview-grid dd.snapshot-value.is-red {
+  color: #c34a4a;
+}
+
+@media (max-width: 900px) {
+  .promotion-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .promotion-overview-grid dd.snapshot-value {
+    font-size: 1.14rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .promotion-overview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Expandable Description (Mobile Focus) */
 .expandable-description {
   position: relative;
@@ -244,8 +324,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0.8rem;
     padding: 0.9rem 1rem;
     border-bottom: none;
+  }
+
+  .units-table tbody td::before {
+    content: attr(data-label);
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .units-table tbody td[data-label=""]::before {
+    content: "";
   }
 
   .units-table tbody td:last-child {

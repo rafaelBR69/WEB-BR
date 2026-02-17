@@ -1,11 +1,9 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import RichContent from "@/components/RichContent.astro";
 import PropertyHero from "@/components/PropertyHero.astro";
 import GallerySection from "@/components/GallerySection.astro";
-import LightboxGallery from "@/components/LightboxGallery.astro";
 
-import { getOrderedGallery } from "@/utils/media";
 import { formatPrice } from "@/utils/formatters";
 import { normalizeProperty } from "@/utils/normalizeProperty";
 import { DEFAULT_LANG, isSupportedLang } from "@/i18n/languages";
@@ -19,13 +17,14 @@ const lang = typeof langParam === "string" ? langParam : DEFAULT_LANG;
 if (!isSupportedLang(lang)) {
   return Astro.redirect(`/${DEFAULT_LANG}/`, 302);
 }
+
 const agent = {
   phone: "+34 600 123 456",
   email: "info@blancareal.com",
 };
 
 /* =========================
-   RESOLVER PROPIEDAD
+   RESOLVE PROPERTY
 ========================= */
 const propertyByLangSlug = properties.find((p) => p.slugs?.[lang] === slug);
 
@@ -82,7 +81,7 @@ const propertyResolved = {
 };
 
 /* =========================
-   NORMALIZACIÓN (ÚNICA FUENTE)
+   NORMALIZATION
 ========================= */
 const data = normalizeProperty(propertyResolved, lang);
 
@@ -91,35 +90,34 @@ if (!data || !data.visible) {
 }
 
 /* =========================
-   DERIVADOS SEGUROS
+   SAFE DERIVED DATA
 ========================= */
-const orderedImages = getOrderedGallery(data.media);
 const canonicalUrl = `https://blancareal.com/${lang}/property/${slug}/`;
 const propertyLangs = Array.isArray(property.languages) && property.languages.length
   ? property.languages
   : [lang];
-const isPromotion =
-  data.isPromotion ?? property.listing_type === "promotion";
-const unitsRaw = isPromotion
+
+const isPromotion = data.isPromotion ?? property.listing_type === "promotion";
+
+const allProjectUnitsRaw = isPromotion
   ? properties.filter(
       (p) =>
         String(p.parent_id) === String(property.id) &&
         p.listing_type === "unit" &&
-        (p.status ?? "available") === "available" &&
-        p.slugs?.[lang]
+        (p.status ?? "available") !== "private"
     )
   : [];
+
+const unitsRaw = allProjectUnitsRaw.filter(
+  (p) => (p.status ?? "available") === "available" && p.slugs?.[lang]
+);
+
 const units = unitsRaw
   .map((unit) => ({
     raw: unit,
     data: normalizeProperty(unit, lang),
   }))
-  .filter(
-    (unit) =>
-      unit.data &&
-      unit.data.visible &&
-      unit.raw?.slugs?.[lang]
-  );
+  .filter((unit) => unit.data && unit.data.visible && unit.raw?.slugs?.[lang]);
 
 const getUnitNumber = (unit) => {
   const id = unit?.raw?.id ?? "";
@@ -127,6 +125,229 @@ const getUnitNumber = (unit) => {
   return id || "-";
 };
 
+const getNumericRange = (values) => {
+  if (!values.length) return null;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  return { min, max };
+};
+
+const projectSummary = (() => {
+  if (!isPromotion || !allProjectUnitsRaw.length) return null;
+
+  const soldCount = allProjectUnitsRaw.filter((unit) => unit.status === "sold").length;
+  const availableCount = allProjectUnitsRaw.filter(
+    (unit) => (unit.status ?? "available") === "available"
+  ).length;
+
+  const priceRange = getNumericRange(
+    allProjectUnitsRaw
+      .filter((unit) => (unit.status ?? "available") === "available")
+      .map((unit) => unit.price)
+      .filter((value) => typeof value === "number")
+  );
+
+  const bedroomsRange = getNumericRange(
+    allProjectUnitsRaw
+      .map((unit) => unit.property?.bedrooms)
+      .filter((value) => typeof value === "number")
+  );
+
+  const areaRange = getNumericRange(
+    allProjectUnitsRaw
+      .map((unit) => unit.property?.area_m2)
+      .filter((value) => typeof value === "number")
+  );
+
+  const terraceRange = getNumericRange(
+    allProjectUnitsRaw
+      .map((unit) => unit.property?.terrace_m2)
+      .filter((value) => typeof value === "number")
+  );
+
+  return {
+    unitsCount: allProjectUnitsRaw.length,
+    soldCount,
+    availableCount,
+    priceRange,
+    bedroomsRange,
+    areaRange,
+    terraceRange,
+    deliveryYear: property.property?.year_built ?? null,
+  };
+})();
+
+const formatRangeValue = (range, decimals = 0) => {
+  if (!range) return null;
+  const min = decimals > 0 ? range.min.toFixed(decimals) : Math.round(range.min);
+  const max = decimals > 0 ? range.max.toFixed(decimals) : Math.round(range.max);
+  if (min === max) return String(min);
+  return `${min}-${max}`;
+};
+
+const getUnitFloorLabel = (unit) => {
+  const raw = unit?.raw?.property ?? {};
+  if (typeof raw.floor_label === "string" && raw.floor_label.trim().length > 0) {
+    return raw.floor_label;
+  }
+  if (typeof raw.floor_level === "number") {
+    return `P${raw.floor_level}`;
+  }
+  return "-";
+};
+
+const getUnitFloorplanUrl = (unit) => {
+  const plans = unit?.raw?.media?.gallery?.floorplan ?? [];
+  const firstPdf = plans.find((item) =>
+    typeof item?.url === "string" && item.url.toLowerCase().endsWith(".pdf")
+  );
+  return firstPdf?.url ?? null;
+};
+
+const copyByLang = {
+  es: {
+    quickSheet: "Ficha rapida",
+    executiveSummary: "Resumen ejecutivo",
+    introSubtitle:
+      "Una vision clara de la propiedad con los datos que mas importan al decidir una visita.",
+    price: "Precio",
+    bedrooms: "Dormitorios",
+    bathrooms: "Banos",
+    builtArea: "Superficie construida",
+    usableArea: "Superficie util",
+    terrace: "Terraza",
+    garden: "Jardin",
+    orientation: "Orientacion",
+    garages: "Plazas de garaje",
+    seeAvailableUnits: "Ver viviendas disponibles",
+    summaryNote: "Mas abajo encontrara el listado completo de unidades disponibles.",
+    availability: "Disponibilidad",
+    availableHomes: "Viviendas disponibles",
+    availableHomesCaption: "Listado de viviendas disponibles",
+    snapshotUnits: "Unidades",
+    snapshotAvailable: "Disponibles",
+    unit: "Unidad",
+    areaM2: "Superficie (m2)",
+    snapshotArea: "Superficie",
+    snapshotFrom: "Desde",
+    snapshotTo: "Hasta",
+    floor: "Planta",
+    floorplan: "Plano",
+    openPlan: "Abrir",
+    sold: "Vendidas",
+    delivery: "Entrega",
+    projectSnapshot: "Resumen del proyecto",
+    viewUnit: "Ver unidad",
+    presentation: "Presentacion",
+    aboutProperty: "Sobre esta propiedad",
+    readMore: "Leer mas",
+    readLess: "Leer menos",
+    location: "Ubicacion",
+    lifeInArea: "Vida en",
+    advisoryText: "Esta propiedad se encuentra en una de las zonas mas privilegiadas de",
+    advisoryText2:
+      "Nuestro equipo de expertos locales le guiara en cada paso para asegurar que su transicion a este exclusivo entorno sea impecable.",
+    exploreAllProperties: "Explorar todas las propiedades",
+    propertiesInArea: "Propiedades en",
+    visualCatalog: "Catalogo visual",
+    propertyImmersion: "Inmersion en la propiedad",
+    galleryExterior: "Exterior y alrededores",
+    galleryInterior: "Ambientes interiores",
+    galleryViews: "Zonas comunes y vistas",
+    galleryPlans: "Planimetria",
+    investment: "Inversion",
+    conciergeTitle: "Servicio concierge",
+    conciergeDesc: "Solicite informacion personalizada o agende una visita privada.",
+    callNow: "Llamar ahora",
+    requestDossier: "Solicitar dossier",
+    dossierOfficeIntro: "Nuestra oficina de",
+    dossierOfficeOutro: "le enviara los detalles completos.",
+    scheduleVisit: "Agendar visita",
+    nameLabel: "Nombre",
+    namePlaceholder: "Su nombre",
+    emailLabel: "Email",
+    emailPlaceholder: "Email de contacto",
+    sendRequest: "Enviar solicitud",
+    specialReference: "Referencia especial",
+    mapLocation: "Localizacion",
+    privilegedLocation: "Ubicacion privilegiada",
+    mapTitleIn: "Mapa de ubicacion en",
+    mapNote:
+      "* La ubicacion exacta se proporcionara tras agendar una visita privada por motivos de seguridad y privacidad.",
+  },
+  en: {
+    quickSheet: "Quick facts",
+    executiveSummary: "Executive summary",
+    introSubtitle:
+      "A clear snapshot of the property with the key data that matters when planning a visit.",
+    price: "Price",
+    bedrooms: "Bedrooms",
+    bathrooms: "Bathrooms",
+    builtArea: "Built area",
+    usableArea: "Usable area",
+    terrace: "Terrace",
+    garden: "Garden",
+    orientation: "Orientation",
+    garages: "Garage spaces",
+    seeAvailableUnits: "View available units",
+    summaryNote: "Below you will find the full list of available units.",
+    availability: "Availability",
+    availableHomes: "Available units",
+    availableHomesCaption: "List of available units",
+    snapshotUnits: "Units",
+    snapshotAvailable: "Available",
+    unit: "Unit",
+    areaM2: "Area (m2)",
+    snapshotArea: "Area",
+    snapshotFrom: "From",
+    snapshotTo: "To",
+    floor: "Floor",
+    floorplan: "Floorplan",
+    openPlan: "Open",
+    sold: "Sold",
+    delivery: "Delivery",
+    projectSnapshot: "Project snapshot",
+    viewUnit: "View unit",
+    presentation: "Presentation",
+    aboutProperty: "About this property",
+    readMore: "Read more",
+    readLess: "Read less",
+    location: "Location",
+    lifeInArea: "Life in",
+    advisoryText: "This property is located in one of the most privileged areas of",
+    advisoryText2:
+      "Our local experts will guide you at every step to ensure a seamless move into this exclusive setting.",
+    exploreAllProperties: "Explore all properties",
+    propertiesInArea: "Properties in",
+    visualCatalog: "Visual catalog",
+    propertyImmersion: "Property immersion",
+    galleryExterior: "Exteriors and surroundings",
+    galleryInterior: "Interior spaces",
+    galleryViews: "Communal areas and views",
+    galleryPlans: "Floorplans",
+    investment: "Investment",
+    conciergeTitle: "Concierge service",
+    conciergeDesc: "Request personalized information or schedule a private viewing.",
+    callNow: "Call now",
+    requestDossier: "Request dossier",
+    dossierOfficeIntro: "Our office in",
+    dossierOfficeOutro: "will send you the full details.",
+    scheduleVisit: "Schedule visit",
+    nameLabel: "Name",
+    namePlaceholder: "Your name",
+    emailLabel: "Email",
+    emailPlaceholder: "Contact email",
+    sendRequest: "Send request",
+    specialReference: "Special reference",
+    mapLocation: "Location",
+    privilegedLocation: "Prime location",
+    mapTitleIn: "Location map in",
+    mapNote:
+      "* The exact address is shared after scheduling a private visit for safety and privacy reasons.",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.en;
 ---
 
 <BaseLayout
@@ -146,122 +367,190 @@ const getUnitNumber = (unit) => {
   />
 
   <div class="property-container">
-    
-    <!-- MAIN CONTENT -->
     <div class="property-main">
-
-      <!-- RESUMEN -->
       <section class="section-intro" aria-labelledby="intro-title">
-        <span class="editorial-label">Ficha rápida</span>
-        <h2 class="section-title" id="intro-title">Resumen ejecutivo</h2>
-        <p class="intro-subtitle">
-          Una visión clara de la propiedad con los datos que más importan al decidir una visita.
-        </p>
+        <span class="editorial-label">{t.quickSheet}</span>
+        <h2 class="section-title" id="intro-title">{t.executiveSummary}</h2>
+        <p class="intro-subtitle">{t.introSubtitle}</p>
+
         <dl class="key-facts">
-          {data.price !== null && (
+          {data.price !== null && !isPromotion && (
             <div class="key-fact">
-              <dt>Precio</dt>
+              <dt>{t.price}</dt>
               <dd>{formatPrice(data.price, data.currency, lang)}</dd>
             </div>
           )}
           {data.details.bedrooms && (
             <div class="key-fact">
-              <dt>Dormitorios</dt>
+              <dt>{t.bedrooms}</dt>
               <dd>{data.details.bedrooms}</dd>
             </div>
           )}
           {data.details.bathrooms && (
             <div class="key-fact">
-              <dt>Baños</dt>
+              <dt>{t.bathrooms}</dt>
               <dd>{data.details.bathrooms}</dd>
             </div>
           )}
           {data.details.area_m2 && (
             <div class="key-fact">
-              <dt>Superficie construida</dt>
-              <dd>{data.details.area_m2} m²</dd>
+              <dt>{t.builtArea}</dt>
+              <dd>{data.details.area_m2} m2</dd>
             </div>
           )}
           {data.details.usable_area_m2 && (
             <div class="key-fact">
-              <dt>Superficie útil</dt>
-              <dd>{data.details.usable_area_m2} m²</dd>
+              <dt>{t.usableArea}</dt>
+              <dd>{data.details.usable_area_m2} m2</dd>
             </div>
           )}
           {data.details.terrace_m2 && (
             <div class="key-fact">
-              <dt>Terraza</dt>
-              <dd>{data.details.terrace_m2} m²</dd>
+              <dt>{t.terrace}</dt>
+              <dd>{data.details.terrace_m2} m2</dd>
             </div>
           )}
           {data.details.garden_m2 && (
             <div class="key-fact">
-              <dt>Jardín</dt>
-              <dd>{data.details.garden_m2} m²</dd>
+              <dt>{t.garden}</dt>
+              <dd>{data.details.garden_m2} m2</dd>
             </div>
           )}
           {data.details.orientation && (
             <div class="key-fact">
-              <dt>Orientación</dt>
+              <dt>{t.orientation}</dt>
               <dd>{data.details.orientation}</dd>
             </div>
           )}
           {data.details.garages && (
             <div class="key-fact">
-              <dt>Plazas de garaje</dt>
+              <dt>{t.garages}</dt>
               <dd>{data.details.garages}</dd>
             </div>
           )}
         </dl>
+
+        {projectSummary && (
+          <div class="promotion-overview">
+            <p class="promotion-overview-title">{t.projectSnapshot}</p>
+            <dl class="promotion-overview-grid">
+              <div class="snapshot-item">
+                <dt>{t.snapshotUnits}</dt>
+                <dd class="snapshot-value">{projectSummary.unitsCount}</dd>
+              </div>
+              <div class="snapshot-item">
+                <dt>{t.snapshotAvailable}</dt>
+                <dd class="snapshot-value is-green">{projectSummary.availableCount}</dd>
+              </div>
+              <div class="snapshot-item">
+                <dt>{t.sold}</dt>
+                <dd class="snapshot-value is-red">{projectSummary.soldCount}</dd>
+              </div>
+              {projectSummary.deliveryYear && (
+                <div class="snapshot-item">
+                  <dt>{t.delivery}</dt>
+                  <dd class="snapshot-value">{projectSummary.deliveryYear}</dd>
+                </div>
+              )}
+              {projectSummary.priceRange && (
+                <div class="snapshot-item">
+                  <dt>{t.snapshotFrom}</dt>
+                  <dd class="snapshot-value">
+                    {formatPrice(projectSummary.priceRange.min, data.currency, lang)}
+                  </dd>
+                </div>
+              )}
+              {projectSummary.priceRange && (
+                <div class="snapshot-item">
+                  <dt>{t.snapshotTo}</dt>
+                  <dd class="snapshot-value">
+                    {formatPrice(projectSummary.priceRange.max, data.currency, lang)}
+                  </dd>
+                </div>
+              )}
+              {projectSummary.bedroomsRange && (
+                <div class="snapshot-item">
+                  <dt>{t.bedrooms}</dt>
+                  <dd class="snapshot-value">{formatRangeValue(projectSummary.bedroomsRange)}</dd>
+                </div>
+              )}
+              {projectSummary.areaRange && (
+                <div class="snapshot-item">
+                  <dt>{t.snapshotArea}</dt>
+                  <dd class="snapshot-value">{formatRangeValue(projectSummary.areaRange, 1)} m2</dd>
+                </div>
+              )}
+              {projectSummary.terraceRange && (
+                <div class="snapshot-item">
+                  <dt>{t.terrace}</dt>
+                  <dd class="snapshot-value">{formatRangeValue(projectSummary.terraceRange, 1)} m2</dd>
+                </div>
+              )}
+            </dl>
+          </div>
+        )}
+
         {isPromotion && units.length > 0 && (
           <div class="summary-cta">
-            <a href="#units" class="btn-premium primary">
-              Ver viviendas disponibles
-            </a>
-            <p class="summary-note">
-              Más abajo encontrará el listado completo de unidades disponibles.
-            </p>
+            <a href="#units" class="btn-premium primary">{t.seeAvailableUnits}</a>
+            <p class="summary-note">{t.summaryNote}</p>
           </div>
         )}
       </section>
 
       {isPromotion && units.length > 0 && (
         <section class="section-units" aria-labelledby="units-title" id="units">
-          <span class="editorial-label">Disponibilidad</span>
-          <h2 class="section-title" id="units-title">Viviendas disponibles</h2>
+          <span class="editorial-label">{t.availability}</span>
+          <h2 class="section-title" id="units-title">{t.availableHomes}</h2>
           <div class="luxury-divider"></div>
+
           <table class="units-table">
-            <caption class="sr-only">Listado de viviendas disponibles</caption>
+            <caption class="sr-only">{t.availableHomesCaption}</caption>
             <thead>
               <tr>
-                <th>Unidad</th>
-                <th>Dormitorios</th>
-                <th>Superficie (m²)</th>
-                <th>Precio</th>
+                <th>{t.unit}</th>
+                <th>{t.bedrooms}</th>
+                <th>{t.floor}</th>
+                <th>{t.areaM2}</th>
+                <th>{t.terrace}</th>
+                <th>{t.price}</th>
+                <th>{t.floorplan}</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {units.map((unit) => (
                 <tr>
-                  <td>{getUnitNumber(unit)}</td>
-                  <td>{unit.data.details.bedrooms ?? "-"}</td>
-                  <td>{unit.data.details.area_m2 ?? "-"}</td>
-                  <td>
+                  <td data-label={t.unit}>{getUnitNumber(unit)}</td>
+                  <td data-label={t.bedrooms}>{unit.data.details.bedrooms ?? "-"}</td>
+                  <td data-label={t.floor}>{getUnitFloorLabel(unit)}</td>
+                  <td data-label={t.areaM2}>{unit.data.details.area_m2 ?? "-"}</td>
+                  <td data-label={t.terrace}>{unit.data.details.terrace_m2 ?? "-"}</td>
+                  <td data-label={t.price}>
                     {unit.data.price !== null
-                      ? formatPrice(
-                          unit.data.price,
-                          unit.data.currency,
-                          lang
-                        )
+                      ? formatPrice(unit.data.price, unit.data.currency, lang)
                       : "-"}
                   </td>
-                  <td>
+                  <td data-label={t.floorplan}>
+                    {getUnitFloorplanUrl(unit) ? (
+                      <a
+                        href={getUnitFloorplanUrl(unit)}
+                        class="text-link-luxury"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {t.openPlan}
+                      </a>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
+                  <td data-label="">
                     <a
                       href={`/${lang}/property/${unit.raw.slugs[lang]}`}
                       class="text-link-luxury"
                     >
-                      Ver unidad
+                      {t.viewUnit}
                     </a>
                   </td>
                 </tr>
@@ -271,17 +560,14 @@ const getUnitNumber = (unit) => {
         </section>
       )}
 
-      <!-- DESCRIPCIÓN -->
       <section class="section-details" aria-labelledby="details-title">
-        <span class="editorial-label">Presentación</span>
-        <h2 class="section-title" id="details-title">Sobre esta propiedad</h2>
+        <span class="editorial-label">{t.presentation}</span>
+        <h2 class="section-title" id="details-title">{t.aboutProperty}</h2>
         <div class="luxury-divider"></div>
-        
+
         <div class="expandable-description" id="descContainer">
           <div class="description-content" id="descContent">
-            {data.text.description?.length > 0 && (
-              <RichContent blocks={data.text.description} />
-            )}
+            {data.text.description?.length > 0 && <RichContent blocks={data.text.description} />}
           </div>
           <button
             class="read-more-btn"
@@ -289,91 +575,106 @@ const getUnitNumber = (unit) => {
             type="button"
             aria-expanded="false"
             aria-controls="descContent"
+            data-read-more={t.readMore}
+            data-read-less={t.readLess}
           >
-            Leer más
+            {t.readMore}
           </button>
         </div>
       </section>
 
       <script is:inline>
-        const btn = document.getElementById('readMoreBtn');
-        const container = document.getElementById('descContainer');
-        
+        const btn = document.getElementById("readMoreBtn");
+        const container = document.getElementById("descContainer");
+
         if (btn && container) {
-          btn.addEventListener('click', () => {
-            const isExpanded = container.classList.toggle('is-expanded');
-            btn.setAttribute('aria-expanded', String(isExpanded));
-            btn.textContent = isExpanded ? 'Leer menos' : 'Leer más';
+          btn.addEventListener("click", () => {
+            const isExpanded = container.classList.toggle("is-expanded");
+            btn.setAttribute("aria-expanded", String(isExpanded));
+            const readMore = btn.getAttribute("data-read-more") || "Read more";
+            const readLess = btn.getAttribute("data-read-less") || "Read less";
+            btn.textContent = isExpanded ? readLess : readMore;
           });
         }
       </script>
 
-      <!-- UBICACIÓN Y ASESORAMIENTO -->
       <section class="section-advisory" aria-labelledby="advisory-title">
-        <span class="editorial-label">Ubicación</span>
-        <h2 class="section-title" id="advisory-title">Vida en {data.location.area}</h2>
+        <span class="editorial-label">{t.location}</span>
+        <h2 class="section-title" id="advisory-title">{t.lifeInArea} {data.location.area}</h2>
         <div class="luxury-divider"></div>
         <p class="advisory-text">
-          Esta propiedad se encuentra en una de las zonas más privilegiadas de {data.location.province}.
-          Nuestro equipo de expertos locales le guiará en cada paso para asegurar que su transición a este exclusivo entorno sea impecable.
+          {t.advisoryText} {data.location.province}. {t.advisoryText2}
         </p>
         <div class="advisory-links">
-          <a href={`/${lang}/properties/`} class="text-link-luxury">
-            Explorar todas las propiedades
-          </a>
+          <a href={`/${lang}/properties/`} class="text-link-luxury">{t.exploreAllProperties}</a>
           <a href={`/${lang}/properties/?area=${data.location.area}`} class="text-link-luxury">
-            Propiedades en {data.location.area}
+            {t.propertiesInArea} {data.location.area}
           </a>
         </div>
       </section>
 
-      <!-- GALERÍAS -->
       <section class="galleries-wrapper" aria-labelledby="galleries-title">
-        <span class="editorial-label">Catálogo visual</span>
-        <h2 class="section-title" id="galleries-title">Inmersión en la propiedad</h2>
+        <span class="editorial-label">{t.visualCatalog}</span>
+        <h2 class="section-title" id="galleries-title">{t.propertyImmersion}</h2>
         <div class="luxury-divider"></div>
-        
+
         <div class="property-galleries">
-           <GallerySection title="Exterior y Alrededores" items={data.media.gallery.exterior} category="exterior" />
-           <GallerySection title="Ambientes Interiores" items={data.media.gallery.interior} category="interior" />
-           
-           {data.media.gallery.views?.length > 0 && (
-              <GallerySection title="Zonas Comunes y Vistas" items={data.media.gallery.views} category="views" />
-           )}
-           
-           {data.media.gallery.floorplan?.length > 0 && (
-              <GallerySection title="Planimetría" items={data.media.gallery.floorplan} category="plans" />
-           )}
+          <GallerySection
+            title={t.galleryExterior}
+            items={data.media.gallery.exterior}
+            category="exterior"
+            lang={lang}
+          />
+          <GallerySection
+            title={t.galleryInterior}
+            items={data.media.gallery.interior}
+            category="interior"
+            lang={lang}
+          />
+
+          {data.media.gallery.views?.length > 0 && (
+            <GallerySection
+              title={t.galleryViews}
+              items={data.media.gallery.views}
+              category="views"
+              lang={lang}
+            />
+          )}
+
+          {data.media.gallery.floorplan?.length > 0 && (
+            <GallerySection
+              title={t.galleryPlans}
+              items={data.media.gallery.floorplan}
+              category="plans"
+              lang={lang}
+            />
+          )}
         </div>
       </section>
-
     </div>
 
-    <!-- SIDEBAR -->
     <aside class="property-sidebar">
       <div class="concierge-card">
         {data.price && (
           <div class="price-section">
-             <span class="concierge-label">Inversión</span>
-             <p class="premium-price">
-              {formatPrice(data.price, data.currency, lang)}
-            </p>
+            <span class="concierge-label">{t.investment}</span>
+            <p class="premium-price">{formatPrice(data.price, data.currency, lang)}</p>
           </div>
         )}
-        
+
         <div class="concierge-actions">
-          <h3 class="concierge-title">Servicio Concierge</h3>
-          <p class="concierge-desc">Solicite información personalizada o agende una visita privada.</p>
+          <h3 class="concierge-title">{t.conciergeTitle}</h3>
+          <p class="concierge-desc">{t.conciergeDesc}</p>
 
           <div class="action-buttons">
-            <a href={`tel:${agent.phone}`} class="btn-premium primary">
-              Llamar ahora
-            </a>
-            
+            <a href={`tel:${agent.phone}`} class="btn-premium primary">{t.callNow}</a>
+
             <details class="concierge-expandable">
-              <summary class="btn-premium secondary">Solicitar Dossier</summary>
+              <summary class="btn-premium secondary">{t.requestDossier}</summary>
               <div class="expandable-content">
-                <p>Nuestra oficina de <strong>{data.location.province}</strong> le enviará los detalles completos.</p>
+                <p>
+                  {t.dossierOfficeIntro} <strong>{data.location.province}</strong> {t.dossierOfficeOutro}
+                </p>
                 <a href={`mailto:${agent.email}?subject=Dossier Ref: ${data.id || slug}`} class="email-direct">
                   {agent.email}
                 </a>
@@ -381,36 +682,47 @@ const getUnitNumber = (unit) => {
             </details>
 
             <details class="concierge-expandable">
-              <summary class="btn-premium outline">Agendar Visita</summary>
+              <summary class="btn-premium outline">{t.scheduleVisit}</summary>
               <div class="expandable-content">
-                 <form class="luxury-form" onsubmit="event.preventDefault()">
-                    <label class="sr-only" for="visit-name">Nombre</label>
-                    <input id="visit-name" type="text" placeholder="Su Nombre" autocomplete="name" required />
-                    <label class="sr-only" for="visit-email">Email</label>
-                    <input id="visit-email" type="email" placeholder="Email de contacto" autocomplete="email" required />
-                    <button type="submit" class="btn-send">Enviar Solicitud</button>
-                 </form>
+                <form class="luxury-form" onsubmit="event.preventDefault()">
+                  <label class="sr-only" for="visit-name">{t.nameLabel}</label>
+                  <input
+                    id="visit-name"
+                    type="text"
+                    placeholder={t.namePlaceholder}
+                    autocomplete="name"
+                    required
+                  />
+                  <label class="sr-only" for="visit-email">{t.emailLabel}</label>
+                  <input
+                    id="visit-email"
+                    type="email"
+                    placeholder={t.emailPlaceholder}
+                    autocomplete="email"
+                    required
+                  />
+                  <button type="submit" class="btn-send">{t.sendRequest}</button>
+                </form>
               </div>
             </details>
           </div>
 
           <div class="property-reference">
-             <span>Referencia Especial</span>
-             <strong>{data.id || slug}</strong>
+            <span>{t.specialReference}</span>
+            <strong>{data.id || slug}</strong>
           </div>
         </div>
       </div>
     </aside>
   </div>
 
-  <!-- UBICACIÓN (MAPA) -->
   {data.location.coordinates && (
     <section class="section-map" aria-labelledby="map-title">
       <div class="map-container">
-        <span class="editorial-label">Localización</span>
-        <h2 class="section-title" id="map-title">Ubicación privilegiada</h2>
+        <span class="editorial-label">{t.mapLocation}</span>
+        <h2 class="section-title" id="map-title">{t.privilegedLocation}</h2>
         <div class="luxury-divider"></div>
-        
+
         <div class="map-wrapper">
           <iframe
             width="100%"
@@ -419,13 +731,12 @@ const getUnitNumber = (unit) => {
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
-            title={`Mapa de ubicación en ${data.location.area}`}
+            title={`${t.mapTitleIn} ${data.location.area}`}
             src={`https://maps.google.com/maps?q=${data.location.coordinates.lat},${data.location.coordinates.lng}&z=15&output=embed`}
           ></iframe>
         </div>
-        <p class="map-note">
-          * La ubicación exacta se proporcionará tras agendar una visita privada por motivos de seguridad y privacidad.
-        </p>
+
+        <p class="map-note">{t.mapNote}</p>
       </div>
     </section>
   )}

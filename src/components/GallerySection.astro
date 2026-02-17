@@ -1,5 +1,46 @@
 ---
-const { title, items = [], category = "general" } = Astro.props;
+const { title, items = [], category = "general", lang = "es" } = Astro.props;
+
+const labelsByLang = {
+  es: {
+    image: "Imagen",
+    pdf: "Plano PDF",
+    openPdf: "Abrir plano",
+    viewLarge: "Ver en grande",
+  },
+  en: {
+    image: "Image",
+    pdf: "PDF floorplan",
+    openPdf: "Open floorplan",
+    viewLarge: "View full size",
+  },
+  de: {
+    image: "Bild",
+    pdf: "PDF Grundriss",
+    openPdf: "Grundriss oeffnen",
+    viewLarge: "Gross anzeigen",
+  },
+  fr: {
+    image: "Image",
+    pdf: "Plan PDF",
+    openPdf: "Ouvrir le plan",
+    viewLarge: "Voir en grand",
+  },
+  it: {
+    image: "Immagine",
+    pdf: "Planimetria PDF",
+    openPdf: "Apri planimetria",
+    viewLarge: "Vedi grande",
+  },
+  nl: {
+    image: "Afbeelding",
+    pdf: "PDF plattegrond",
+    openPdf: "Open plattegrond",
+    viewLarge: "Vergroot bekijken",
+  },
+};
+
+const t = labelsByLang[lang] ?? labelsByLang.es;
 
 if (!items || !items.length) return null;
 ---
@@ -8,7 +49,7 @@ if (!items || !items.length) return null;
   
   <div class="gallery-mosaic">
     {items.map((img: any, index: number) => {
-      const fallbackAlt = `${title} - Imagen ${index + 1}`;
+      const fallbackAlt = `${title} - ${t.image} ${index + 1}`;
       const altText = img.alt || fallbackAlt;
       const url = img.url ?? "";
       const isPdf = url.toLowerCase().endsWith(".pdf");
@@ -23,8 +64,8 @@ if (!items || !items.length) return null;
             rel="noreferrer"
           >
             <div class="pdf-card">
-              <span class="pdf-label">Plano PDF</span>
-              <span class="pdf-action">Abrir plano</span>
+              <span class="pdf-label">{t.pdf}</span>
+              <span class="pdf-action">{t.openPdf}</span>
             </div>
           </a>
         );
@@ -44,7 +85,7 @@ if (!items || !items.length) return null;
             decoding="async"
           />
           <div class="mosaic-overlay">
-            <span>Ver en grande</span>
+            <span>{t.viewLarge}</span>
           </div>
         </a>
       );

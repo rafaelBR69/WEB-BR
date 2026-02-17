@@ -64,12 +64,12 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
       "alt": {
-        "es": "Orion en Manilva - obra nueva",
-        "en": "Orion in Manilva - new build",
-        "de": "Orion in Manilva - Neubau",
-        "fr": "Orion a Manilva - programme neuf",
-        "it": "Orion a Manilva - nuova costruzione",
-        "nl": "Orion in Manilva - nieuwbouw"
+        "es": "Orion en Mijas - obra nueva",
+        "en": "Orion in Mijas - new build",
+        "de": "Orion in Mijas - Neubau",
+        "fr": "Orion a Mijas - programme neuf",
+        "it": "Orion a Mijas - nuova costruzione",
+        "nl": "Orion in Mijas - nieuwbouw"
       }
     },
     "gallery": {
@@ -123,26 +123,26 @@
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "obra nueva orion manilva",
-      "en": "new build orion manilva",
-      "de": "neubau orion manilva",
-      "fr": "programme neuf orion manilva",
-      "it": "nuova costruzione orion manilva",
-      "nl": "nieuwbouw orion manilva"
+      "es": "obra nueva orion mijas",
+      "en": "new build orion mijas",
+      "de": "neubau orion mijas",
+      "fr": "programme neuf orion mijas",
+      "it": "nuova costruzione orion mijas",
+      "nl": "nieuwbouw orion mijas"
     },
     "meta_description": {
-      "es": "Promocion Orion en Manilva con viviendas de 1, 2 y 3 dormitorios y amplias terrazas.",
-      "en": "Orion development in Manilva with 1, 2 and 3-bedroom homes and large terraces.",
-      "de": "Orion in Manilva mit Wohnungen mit 1, 2 und 3 Schlafzimmern und grossen Terrassen.",
-      "fr": "Programme Orion a Manilva avec logements de 1, 2 et 3 chambres et grandes terrasses.",
-      "it": "Promozione Orion a Manilva con unita da 1, 2 e 3 camere e ampie terrazze.",
-      "nl": "Orion in Manilva met woningen met 1, 2 en 3 slaapkamers en grote terrassen."
+      "es": "Promocion Orion en Mijas con viviendas de 1, 2 y 3 dormitorios y amplias terrazas.",
+      "en": "Orion development in Mijas with 1, 2 and 3-bedroom homes and large terraces.",
+      "de": "Orion in Mijas mit Wohnungen mit 1, 2 und 3 Schlafzimmern und grossen Terrassen.",
+      "fr": "Programme Orion a Mijas avec logements de 1, 2 et 3 chambres et grandes terrasses.",
+      "it": "Promozione Orion a Mijas con unita da 1, 2 e 3 camere e ampie terrazze.",
+      "nl": "Orion in Mijas met woningen met 1, 2 en 3 slaapkamers en grote terrassen."
     }
   },
   "translations": {
     "es": {
-      "title": "Orion: obra nueva en Manilva",
-      "intro": "Promocion de 46 apartamentos en Manilva con terrazas amplias y zonas comunes.",
+      "title": "Orion: obra nueva en Mijas",
+      "intro": "Promocion de 46 apartamentos en Mijas con terrazas amplias y zonas comunes.",
       "description": [
         {
           "type": "heading",
@@ -155,13 +155,13 @@
         },
         {
           "type": "paragraph",
-          "content": "La urbanizacion incorpora zonas comunes y piscina, con viviendas orientadas a maximizar luz natural y superficie exterior en Manilva."
+          "content": "La urbanizacion incorpora zonas comunes y piscina, con viviendas orientadas a maximizar luz natural y superficie exterior en Mijas."
         }
       ]
     },
     "en": {
-      "title": "Orion: new build in Manilva",
-      "intro": "A 46-apartment development in Manilva with spacious terraces and communal areas.",
+      "title": "Orion: new build in Mijas",
+      "intro": "A 46-apartment development in Mijas with spacious terraces and communal areas.",
       "description": [
         {
           "type": "heading",
@@ -174,13 +174,13 @@
         },
         {
           "type": "paragraph",
-          "content": "The project includes communal spaces and a pool, with homes designed to maximize natural light and outdoor living in Manilva."
+          "content": "The project includes communal spaces and a pool, with homes designed to maximize natural light and outdoor living in Mijas."
         }
       ]
     },
     "de": {
-      "title": "Orion: Neubau in Manilva",
-      "intro": "Wohnanlage mit 46 Apartments in Manilva mit grossen Terrassen und Gemeinschaftsbereichen.",
+      "title": "Orion: Neubau in Mijas",
+      "intro": "Wohnanlage mit 46 Apartments in Mijas mit grossen Terrassen und Gemeinschaftsbereichen.",
       "description": [
         {
           "type": "heading",
@@ -193,13 +193,13 @@
         },
         {
           "type": "paragraph",
-          "content": "Die Anlage bietet Gemeinschaftsbereiche und Pool und ist auf viel Tageslicht und grosszuegige Aussenflaechen in Manilva ausgelegt."
+          "content": "Die Anlage bietet Gemeinschaftsbereiche und Pool und ist auf viel Tageslicht und grosszuegige Aussenflaechen in Mijas ausgelegt."
         }
       ]
     },
     "fr": {
-      "title": "Orion : programme neuf a Manilva",
-      "intro": "Programme de 46 appartements a Manilva avec grandes terrasses et espaces communs.",
+      "title": "Orion : programme neuf a Mijas",
+      "intro": "Programme de 46 appartements a Mijas avec grandes terrasses et espaces communs.",
       "description": [
         {
           "type": "heading",
@@ -212,13 +212,13 @@
         },
         {
           "type": "paragraph",
-          "content": "La residence inclut des espaces communs et piscine, avec des logements concus pour maximiser la lumiere naturelle et les surfaces exterieures a Manilva."
+          "content": "La residence inclut des espaces communs et piscine, avec des logements concus pour maximiser la lumiere naturelle et les surfaces exterieures a Mijas."
         }
       ]
     },
     "it": {
-      "title": "Orion: nuova costruzione a Manilva",
-      "intro": "Complesso di 46 appartamenti a Manilva con ampie terrazze e aree comuni.",
+      "title": "Orion: nuova costruzione a Mijas",
+      "intro": "Complesso di 46 appartamenti a Mijas con ampie terrazze e aree comuni.",
       "description": [
         {
           "type": "heading",
@@ -231,13 +231,13 @@
         },
         {
           "type": "paragraph",
-          "content": "Il complesso offre aree comuni e piscina, con abitazioni pensate per valorizzare luce naturale e spazi esterni a Manilva."
+          "content": "Il complesso offre aree comuni e piscina, con abitazioni pensate per valorizzare luce naturale e spazi esterni a Mijas."
         }
       ]
     },
     "nl": {
-      "title": "Orion: nieuwbouw in Manilva",
-      "intro": "Project met 46 appartementen in Manilva met ruime terrassen en gemeenschappelijke zones.",
+      "title": "Orion: nieuwbouw in Mijas",
+      "intro": "Project met 46 appartementen in Mijas met ruime terrassen en gemeenschappelijke zones.",
       "description": [
         {
           "type": "heading",
@@ -250,7 +250,7 @@
         },
         {
           "type": "paragraph",
-          "content": "Het project biedt gemeenschappelijke ruimtes en een zwembad, met woningen die veel daglicht en buitenruimte in Manilva bieden."
+          "content": "Het project biedt gemeenschappelijke ruimtes en een zwembad, met woningen die veel daglicht en buitenruimte in Mijas bieden."
         }
       ]
     }

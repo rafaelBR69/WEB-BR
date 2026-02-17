@@ -13,5 +13,13 @@ export default defineConfig({
         "@": path.resolve("./src"),
       },
     },
+    optimizeDeps: {
+      include: [
+        "mapbox-gl",
+        "@turf/helpers",
+        "@turf/distance",
+        "@turf/boolean-point-in-polygon",
+      ],
+    },
   },
 });
