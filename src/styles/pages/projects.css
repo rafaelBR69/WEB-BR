@@ -51,7 +51,9 @@
 
 .project-media {
   display: block;
-  aspect-ratio: 16 / 10;
+  width: 100%;
+  height: clamp(230px, 25vw, 390px);
+  overflow: hidden;
 }
 
 .project-media img,
@@ -239,7 +241,7 @@
   }
 
   .project-media {
-    aspect-ratio: 16 / 10;
+    height: 230px;
   }
 
   .project-content {

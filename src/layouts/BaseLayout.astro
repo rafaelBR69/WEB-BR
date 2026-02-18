@@ -10,6 +10,7 @@ import "@/styles/components/property-detail.css";
 import "@/styles/components/filters.css";
 import "@/styles/pages/home.css";
 import { DEFAULT_LANG, LANG_LABELS, SUPPORTED_LANGS } from "@/i18n/languages";
+import { getUiCopy } from "@/i18n/ui";
 
 import lightboxUrl from "@/scripts/lightbox.js?url";
 
@@ -61,6 +62,7 @@ const langLinks = resolveLangs().map((code) => ({
   isActive: code === lang,
 }));
 const activeLangLabel = langLinks.find((item) => item.isActive)?.label ?? "ES";
+const ui = getUiCopy(lang);
 
 const ogLocaleMap = {
   es: "es_ES",
@@ -119,7 +121,7 @@ const ogLocaleMap = {
   </head>
 
   <body>
-    <a class="skip-link" href="#mainContent">Saltar al contenido</a>
+    <a class="skip-link" href="#mainContent">{ui.layout.skipToContent}</a>
     <div class="page-loader" aria-hidden="true">
       <div class="loader-ring"></div>
     </div>
@@ -134,17 +136,17 @@ const ogLocaleMap = {
         <!-- Desktop Nav -->
         <nav class="main-nav desktop-only">
           <ul class="nav-links">
-            <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? 'active' : ''}>Inicio</a></li>
-            <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>Propiedades</a></li>
-            <li><a href={`/${lang}/projects/`} class={canonicalPath.includes('/projects') ? 'active' : ''}>Proyectos</a></li>
-            <li><a href={`/${lang}/posts/`} class={canonicalPath.includes('/posts') || canonicalPath.includes('/post/') ? 'active' : ''}>Posts</a></li>
-            <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>Nosotros</a></li>
+            <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? 'active' : ''}>{ui.layout.navHome}</a></li>
+            <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>{ui.layout.navProperties}</a></li>
+            <li><a href={`/${lang}/projects/`} class={canonicalPath.includes('/projects') ? 'active' : ''}>{ui.layout.navProjects}</a></li>
+            <li><a href={`/${lang}/posts/`} class={canonicalPath.includes('/posts') || canonicalPath.includes('/post/') ? 'active' : ''}>{ui.layout.navPosts}</a></li>
+            <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>{ui.layout.navAbout}</a></li>
           </ul>
         </nav>
 
         <div class="header-actions">
            <div class="lang-switcher desktop-only">
-             <span class="lang-switcher-label">Idioma</span>
+             <span class="lang-switcher-label">{ui.layout.language}</span>
              <div class="lang-picker" id="langPickerDesktop">
                <button
                  type="button"
@@ -173,11 +175,11 @@ const ogLocaleMap = {
              </div>
            </div>
            <a href="tel:+34600123456" class="header-cta desktop-only">
-              Contactar
+              {ui.layout.contact}
            </a>
            
            <!-- Mobile Toggle -->
-           <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu" id="menuToggle">
+           <button class="mobile-menu-toggle" aria-label={ui.layout.menu} aria-expanded="false" aria-controls="mobileMenu" id="menuToggle">
               <span class="bar"></span>
               <span class="bar"></span>
               <span class="bar"></span>
@@ -189,15 +191,15 @@ const ogLocaleMap = {
       <div class="mobile-nav-overlay" id="mobileMenu">
         <nav class="mobile-nav-content">
           <ul class="mobile-nav-links">
-            <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? 'active' : ''}>Inicio</a></li>
-            <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>Propiedades</a></li>
-            <li><a href={`/${lang}/projects/`} class={canonicalPath.includes('/projects') ? 'active' : ''}>Proyectos</a></li>
-            <li><a href={`/${lang}/posts/`} class={canonicalPath.includes('/posts') || canonicalPath.includes('/post/') ? 'active' : ''}>Posts</a></li>
-            <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>Nosotros</a></li>
+            <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? 'active' : ''}>{ui.layout.navHome}</a></li>
+            <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>{ui.layout.navProperties}</a></li>
+            <li><a href={`/${lang}/projects/`} class={canonicalPath.includes('/projects') ? 'active' : ''}>{ui.layout.navProjects}</a></li>
+            <li><a href={`/${lang}/posts/`} class={canonicalPath.includes('/posts') || canonicalPath.includes('/post/') ? 'active' : ''}>{ui.layout.navPosts}</a></li>
+            <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>{ui.layout.navAbout}</a></li>
           </ul>
           <div class="mobile-menu-utilities">
             <div class="mobile-lang-switcher">
-              <span class="lang-switcher-label">Idioma</span>
+              <span class="lang-switcher-label">{ui.layout.language}</span>
               <div class="lang-picker" id="langPickerMobile">
                 <button
                   type="button"
@@ -226,7 +228,7 @@ const ogLocaleMap = {
               </div>
             </div>
             <div class="mobile-menu-contact">
-              <a href="tel:+34600123456" class="mobile-menu-cta">Llamar Ahora</a>
+              <a href="tel:+34600123456" class="mobile-menu-cta">{ui.layout.callNow}</a>
             </div>
           </div>
         </nav>
@@ -237,11 +239,11 @@ const ogLocaleMap = {
     <div class="mobile-sticky-cta">
         <a href="tel:+34600123456" class="cta-item call">
            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-           Llamar
+           {ui.layout.call}
         </a>
         <a href="#descContainer" class="cta-item contact" id="mobileContactBtn">
            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-           Contactar
+           {ui.layout.contact}
         </a>
     </div>
 

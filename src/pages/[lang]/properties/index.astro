@@ -24,6 +24,247 @@ if (!isSupportedLang(langParam)) {
 
 const lang = langParam;
 
+const copyByLang = {
+  es: {
+    headerSubtitle: "Encuentra tu propiedad ideal en {location}.",
+    defaultLocation: "la Costa del Sol",
+    exclusiveSelection: "Seleccion exclusiva",
+    explorationIntro:
+      "Explore las residencias mas prestigiosas en {city}. Seleccionamos cuidadosamente propiedades que definen el estilo de vida mediterraneo.",
+    highlightedAreas: "Zonas destacadas",
+    propertiesIn: "Propiedades en {city}",
+    openFiltersAria: "Abrir filtros de propiedades",
+    filterProperties: "Filtrar propiedades",
+    filter: "Filtrar",
+    clearAll: "Limpiar todo",
+    location: "Ubicacion",
+    areasIn: "Zonas en {city}",
+    propertyType: "Tipo de propiedad",
+    status: "Estado",
+    bedrooms: "Dormitorios",
+    bedroomsSuffix: "dormitorios",
+    floor: "Planta",
+    propertiesFound: "propiedades encontradas",
+    resultsFor: "Resultados para",
+    sortBy: "Ordenar por:",
+    relevance: "Relevancia",
+    priceAsc: "Precio: menor a mayor",
+    priceDesc: "Precio: mayor a menor",
+    searchPlaceholder: "Buscar por zona, ciudad o palabra clave",
+    searchAria: "Buscar propiedades",
+    search: "Buscar",
+    emptyTitle: "No encontramos propiedades exactas",
+    emptyText: "Prueba a ajustar tus filtros o ampliar la zona de busqueda.",
+    viewAllProperties: "Ver todas las propiedades",
+    footerTitle: "No encuentras lo que buscas?",
+    footerCityPrompt:
+      "Buscas propiedades en {city}? Te asesoramos sin compromiso.",
+    footerDefaultPrompt:
+      "Buscas propiedades en la Costa del Sol? Te asesoramos sin compromiso.",
+    contactUs: "Contactanos",
+  },
+  en: {
+    headerSubtitle: "Find your ideal property in {location}.",
+    defaultLocation: "Costa del Sol",
+    exclusiveSelection: "Exclusive selection",
+    explorationIntro:
+      "Explore the most prestigious residences in {city}. We carefully select properties that define the Mediterranean lifestyle.",
+    highlightedAreas: "Top areas",
+    propertiesIn: "Properties in {city}",
+    openFiltersAria: "Open property filters",
+    filterProperties: "Filter properties",
+    filter: "Filter",
+    clearAll: "Clear all",
+    location: "Location",
+    areasIn: "Areas in {city}",
+    propertyType: "Property type",
+    status: "Status",
+    bedrooms: "Bedrooms",
+    bedroomsSuffix: "bedrooms",
+    floor: "Floor",
+    propertiesFound: "properties found",
+    resultsFor: "Results for",
+    sortBy: "Sort by:",
+    relevance: "Relevance",
+    priceAsc: "Price: low to high",
+    priceDesc: "Price: high to low",
+    searchPlaceholder: "Search by area, city or keyword",
+    searchAria: "Search properties",
+    search: "Search",
+    emptyTitle: "No exact properties found",
+    emptyText: "Try adjusting your filters or widening your search area.",
+    viewAllProperties: "View all properties",
+    footerTitle: "Did not find what you need?",
+    footerCityPrompt:
+      "Looking for properties in {city}? We can advise you with no obligation.",
+    footerDefaultPrompt:
+      "Looking for properties on the Costa del Sol? We can advise you with no obligation.",
+    contactUs: "Contact us",
+  },
+  de: {
+    headerSubtitle: "Finden Sie Ihre ideale Immobilie in {location}.",
+    defaultLocation: "der Costa del Sol",
+    exclusiveSelection: "Exklusive Auswahl",
+    explorationIntro:
+      "Entdecken Sie die prestigetraechtigsten Immobilien in {city}. Wir waehlen Objekte aus, die den mediterranen Lebensstil definieren.",
+    highlightedAreas: "Top-Gebiete",
+    propertiesIn: "Immobilien in {city}",
+    openFiltersAria: "Immobilienfilter oeffnen",
+    filterProperties: "Immobilien filtern",
+    filter: "Filtern",
+    clearAll: "Alles zuruecksetzen",
+    location: "Lage",
+    areasIn: "Gebiete in {city}",
+    propertyType: "Immobilientyp",
+    status: "Status",
+    bedrooms: "Schlafzimmer",
+    bedroomsSuffix: "schlafzimmer",
+    floor: "Etage",
+    propertiesFound: "Immobilien gefunden",
+    resultsFor: "Ergebnisse fuer",
+    sortBy: "Sortieren nach:",
+    relevance: "Relevanz",
+    priceAsc: "Preis: niedrig bis hoch",
+    priceDesc: "Preis: hoch bis niedrig",
+    searchPlaceholder: "Nach Gebiet, Stadt oder Stichwort suchen",
+    searchAria: "Immobilien suchen",
+    search: "Suchen",
+    emptyTitle: "Keine passenden Immobilien gefunden",
+    emptyText: "Passen Sie Ihre Filter an oder erweitern Sie den Suchbereich.",
+    viewAllProperties: "Alle Immobilien anzeigen",
+    footerTitle: "Nicht gefunden, was Sie suchen?",
+    footerCityPrompt:
+      "Suchen Sie Immobilien in {city}? Wir beraten Sie unverbindlich.",
+    footerDefaultPrompt:
+      "Suchen Sie Immobilien an der Costa del Sol? Wir beraten Sie unverbindlich.",
+    contactUs: "Kontakt",
+  },
+  fr: {
+    headerSubtitle: "Trouvez votre bien ideal a {location}.",
+    defaultLocation: "la Costa del Sol",
+    exclusiveSelection: "Selection exclusive",
+    explorationIntro:
+      "Explorez les residences les plus prestigieuses a {city}. Nous selectionnons avec soin des biens qui definissent le style de vie mediterraneen.",
+    highlightedAreas: "Zones vedettes",
+    propertiesIn: "Proprietes a {city}",
+    openFiltersAria: "Ouvrir les filtres des proprietes",
+    filterProperties: "Filtrer les proprietes",
+    filter: "Filtrer",
+    clearAll: "Tout effacer",
+    location: "Localisation",
+    areasIn: "Zones a {city}",
+    propertyType: "Type de propriete",
+    status: "Statut",
+    bedrooms: "Chambres",
+    bedroomsSuffix: "chambres",
+    floor: "Etage",
+    propertiesFound: "proprietes trouvees",
+    resultsFor: "Resultats pour",
+    sortBy: "Trier par :",
+    relevance: "Pertinence",
+    priceAsc: "Prix : croissant",
+    priceDesc: "Prix : decroissant",
+    searchPlaceholder: "Rechercher par zone, ville ou mot-cle",
+    searchAria: "Rechercher des proprietes",
+    search: "Rechercher",
+    emptyTitle: "Aucune propriete exacte trouvee",
+    emptyText: "Essayez d ajuster vos filtres ou d elargir la zone de recherche.",
+    viewAllProperties: "Voir toutes les proprietes",
+    footerTitle: "Vous ne trouvez pas ce que vous cherchez ?",
+    footerCityPrompt:
+      "Vous cherchez des proprietes a {city} ? Nous vous conseillons sans engagement.",
+    footerDefaultPrompt:
+      "Vous cherchez des proprietes sur la Costa del Sol ? Nous vous conseillons sans engagement.",
+    contactUs: "Contactez-nous",
+  },
+  it: {
+    headerSubtitle: "Trova la tua proprieta ideale a {location}.",
+    defaultLocation: "Costa del Sol",
+    exclusiveSelection: "Selezione esclusiva",
+    explorationIntro:
+      "Esplora le residenze piu prestigiose a {city}. Selezioniamo con cura proprieta che definiscono lo stile di vita mediterraneo.",
+    highlightedAreas: "Zone in evidenza",
+    propertiesIn: "Proprieta a {city}",
+    openFiltersAria: "Apri i filtri proprieta",
+    filterProperties: "Filtra proprieta",
+    filter: "Filtra",
+    clearAll: "Cancella tutto",
+    location: "Posizione",
+    areasIn: "Zone a {city}",
+    propertyType: "Tipo di proprieta",
+    status: "Stato",
+    bedrooms: "Camere",
+    bedroomsSuffix: "camere",
+    floor: "Piano",
+    propertiesFound: "proprieta trovate",
+    resultsFor: "Risultati per",
+    sortBy: "Ordina per:",
+    relevance: "Rilevanza",
+    priceAsc: "Prezzo: dal minore al maggiore",
+    priceDesc: "Prezzo: dal maggiore al minore",
+    searchPlaceholder: "Cerca per zona, citta o parola chiave",
+    searchAria: "Cerca proprieta",
+    search: "Cerca",
+    emptyTitle: "Nessuna proprieta esatta trovata",
+    emptyText: "Prova ad adattare i filtri o ad ampliare l area di ricerca.",
+    viewAllProperties: "Vedi tutte le proprieta",
+    footerTitle: "Non trovi quello che cerchi?",
+    footerCityPrompt:
+      "Cerchi proprieta a {city}? Ti aiutiamo senza impegno.",
+    footerDefaultPrompt:
+      "Cerchi proprieta in Costa del Sol? Ti aiutiamo senza impegno.",
+    contactUs: "Contattaci",
+  },
+  nl: {
+    headerSubtitle: "Vind jouw ideale woning in {location}.",
+    defaultLocation: "de Costa del Sol",
+    exclusiveSelection: "Exclusieve selectie",
+    explorationIntro:
+      "Ontdek de meest prestigieuze woningen in {city}. Wij selecteren zorgvuldig woningen die de mediterrane levensstijl belichamen.",
+    highlightedAreas: "Uitgelichte zones",
+    propertiesIn: "Woningen in {city}",
+    openFiltersAria: "Woningfilters openen",
+    filterProperties: "Woningen filteren",
+    filter: "Filteren",
+    clearAll: "Alles wissen",
+    location: "Locatie",
+    areasIn: "Zones in {city}",
+    propertyType: "Woningtype",
+    status: "Status",
+    bedrooms: "Slaapkamers",
+    bedroomsSuffix: "slaapkamers",
+    floor: "Verdieping",
+    propertiesFound: "woningen gevonden",
+    resultsFor: "Resultaten voor",
+    sortBy: "Sorteren op:",
+    relevance: "Relevantie",
+    priceAsc: "Prijs: laag naar hoog",
+    priceDesc: "Prijs: hoog naar laag",
+    searchPlaceholder: "Zoek op zone, stad of trefwoord",
+    searchAria: "Zoek woningen",
+    search: "Zoeken",
+    emptyTitle: "Geen exacte woningen gevonden",
+    emptyText: "Pas je filters aan of vergroot het zoekgebied.",
+    viewAllProperties: "Bekijk alle woningen",
+    footerTitle: "Niet gevonden wat je zoekt?",
+    footerCityPrompt:
+      "Zoek je woningen in {city}? Wij adviseren je vrijblijvend.",
+    footerDefaultPrompt:
+      "Zoek je woningen aan de Costa del Sol? Wij adviseren je vrijblijvend.",
+    contactUs: "Neem contact op",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+
+const renderText = (
+  template,
+  values: Record<string, string | number | null | undefined> = {}
+) =>
+  String(template).replace(/\{(\w+)\}/g, (_, key) =>
+    String(values[key] ?? "")
+  );
+
 /* =========================
    FILTROS ACTIVOS (QUERY PARAMS)
 ========================= */
@@ -118,7 +359,7 @@ const cards = properties
 const filteredCards = applyFilters(cards, activeFilters);
 
 /* =========================
-   ORDENACIÓN
+   ORDENACIÃ“N
 ========================= */
 const sort = searchParams.get("sort");
 const sortApplied = sort ?? "priority";
@@ -223,13 +464,15 @@ const formatMarketLabel = (value) => {
 >
   <div class={`properties-page ${isFiltered ? 'is-filtered' : ''}`}>
     
-    <!-- HEADER DE PÁGINA -->
+    <!-- HEADER DE PÃGINA -->
     <header class="properties-header">
       <div class="header-content">
         <h1>{listSeo.title}</h1>
         { !isFiltered && (
           <p class="subtitle">
-            Encuentra tu propiedad ideal en {displayLocation(activeFilters.city) || "la Costa del Sol"}.
+            {renderText(t.headerSubtitle, {
+              location: displayLocation(activeFilters.city) || t.defaultLocation,
+            })}
           </p>
         )}
       </div>
@@ -240,18 +483,20 @@ const formatMarketLabel = (value) => {
           <section class="city-exploration-section">
             <div class="exploration-content">
               <div class="exploration-header">
-                <span class="exploration-label">Selección Exclusiva</span>
+                <span class="exploration-label">{t.exclusiveSelection}</span>
                 <h2>{displayLocation(activeFilters.city)}</h2>
                 <div class="exploration-divider"></div>
                 <p>
-                  {`Explore las residencias más prestigiosas en ${displayLocation(activeFilters.city)}. Seleccionamos cuidadosamente propiedades que definen el estilo de vida mediterráneo.`}
+                  {renderText(t.explorationIntro, {
+                    city: displayLocation(activeFilters.city),
+                  })}
                 </p>
               </div>
               
               <div class="exploration-links">
                 {filters.areas[activeFilters.city]?.length > 0 && (
                   <div class="link-group">
-                    <h4>Zonas destacadas</h4>
+                    <h4>{t.highlightedAreas}</h4>
                     <div class="link-list">
                       {filters.areas[activeFilters.city].map((area: string) => (
                         <a href={buildUrl({ area })} class="text-link">
@@ -263,7 +508,7 @@ const formatMarketLabel = (value) => {
                 )}
 
                 <div class="link-group">
-                  <h4>Propiedades en {displayLocation(activeFilters.city)}</h4>
+                  <h4>{renderText(t.propertiesIn, { city: displayLocation(activeFilters.city) })}</h4>
                   <div class="link-list">
                     {filters.types.map((type: string) => (
                       <a href={buildUrl({ type })} class="text-link">
@@ -284,20 +529,20 @@ const formatMarketLabel = (value) => {
         <div class="filters-sticky">
            <section class="filters-panel">
             <details class="filters-disclosure" id="filtersDisclosure" open>
-              <summary class="filters-summary" aria-label="Abrir filtros de propiedades" aria-controls="filtersBody">
-                <span>Filtrar propiedades</span>
+              <summary class="filters-summary" aria-label={t.openFiltersAria} aria-controls="filtersBody">
+                <span>{t.filterProperties}</span>
               </summary>
               <div class="filters-body" id="filtersBody">
                 <div class="filters-header desktop-only">
-                  <h2>Filtrar</h2>
+                  <h2>{t.filter}</h2>
                   {(activeFilters.city || activeFilters.area || (activeFilters.type && activeFilters.type.length) || (activeFilters.bedrooms && activeFilters.bedrooms.length) || (activeFilters.floor && activeFilters.floor.length) || activeFilters.market || activeFilters.search || activeFilters.ref) && (
-                    <a href={`/${lang}/properties/`} class="reset-all">Limpiar todo</a>
+                    <a href={`/${lang}/properties/`} class="reset-all">{t.clearAll}</a>
                   )}
                 </div>
 
             {filters.cities.length > 0 && (
               <div class="filter-group">
-                <h3>Ubicación</h3>
+                <h3>{t.location}</h3>
                 <ul class="filter-list vertical">
                   {filters.cities.map((city: string) => (
                     <li class={city === activeFilters.city ? "active" : ""}>
@@ -316,7 +561,7 @@ const formatMarketLabel = (value) => {
 
             {activeFilters.city && filters.areas[activeFilters.city]?.length > 0 && (
               <div class="filter-group">
-                <h3>Zonas en {displayLocation(activeFilters.city)}</h3>
+                <h3>{renderText(t.areasIn, { city: displayLocation(activeFilters.city) })}</h3>
                 <ul class="filter-list vertical">
                   {filters.areas[activeFilters.city].map((area: string) => (
                     <li class={area === activeFilters.area ? "active" : ""}>
@@ -335,7 +580,7 @@ const formatMarketLabel = (value) => {
 
             {(filters.types.length > 1 || (activeFilters.type && activeFilters.type.length)) && (
               <div class="filter-group">
-                <h3>Tipo de Propiedad</h3>
+                <h3>{t.propertyType}</h3>
                 <ul class="filter-list vertical">
                   {filters.types.map((type: string) => (
                     <li class={activeFilters.type?.includes(type) ? "active" : ""}>
@@ -354,7 +599,7 @@ const formatMarketLabel = (value) => {
 
             {filters.markets.length > 0 && (
               <div class="filter-group">
-                <h3>Estado</h3>
+                <h3>{t.status}</h3>
                 <ul class="filter-list vertical">
                   {filters.markets.map((market: string) => (
                     <li class={market === activeFilters.market ? "active" : ""}>
@@ -373,13 +618,13 @@ const formatMarketLabel = (value) => {
 
             {filters.bedrooms.length > 0 && (
               <div class="filter-group">
-                <h3>Dormitorios</h3>
+                <h3>{t.bedrooms}</h3>
                 <ul class="filter-list vertical">
                   {filters.bedrooms.map((bedrooms: number) => (
                     <li class={activeFilters.bedrooms?.includes(bedrooms) ? "active" : ""}>
                       <a href={buildUrl({ bedrooms: toggleMulti(activeFilters.bedrooms, bedrooms) })}>
                          <span class="check-icon"></span>
-                        {bedrooms} dormitorios
+                        {bedrooms} {t.bedroomsSuffix}
                         {activeFilters.bedrooms?.includes(bedrooms) && (
                           <span class="filter-clear">x</span>
                         )}
@@ -392,7 +637,7 @@ const formatMarketLabel = (value) => {
 
             {filters.floors.length > 0 && (
               <div class="filter-group">
-                <h3>Planta</h3>
+                <h3>{t.floor}</h3>
                 <ul class="filter-list vertical">
                   {filters.floors.map((floor: string) => (
                     <li class={activeFilters.floor?.includes(floor) ? "active" : ""}>
@@ -438,21 +683,21 @@ const formatMarketLabel = (value) => {
         <div class="content-header">
           <div class="results-summary">
             <p class="results-count">
-              <strong>{sortedCards.length}</strong> propiedades encontradas
+              <strong>{sortedCards.length}</strong> {t.propertiesFound}
             </p>
             {activeFilters.search && (
               <p class="results-query">
-                Resultados para "<span>{activeFilters.search}</span>"
+                {t.resultsFor} "<span>{activeFilters.search}</span>"
               </p>
             )}
           </div>
           
           <div class="sort-dropdown">
-             <span>Ordenar por:</span>
+             <span>{t.sortBy}</span>
              <div class="sort-options">
-                <a href={buildUrl({ sort: "priority" })} class={sort === 'priority' ? 'active' : ''}>Relevancia</a>
-                <a href={buildUrl({ sort: "price_asc" })} class={sort === 'price_asc' ? 'active' : ''}>Precio: Menor a Mayor</a>
-                <a href={buildUrl({ sort: "price_desc" })} class={sort === 'price_desc' ? 'active' : ''}>Precio: Mayor a Menor</a>
+                <a href={buildUrl({ sort: "priority" })} class={sort === 'priority' ? 'active' : ''}>{t.relevance}</a>
+                <a href={buildUrl({ sort: "price_asc" })} class={sort === 'price_asc' ? 'active' : ''}>{t.priceAsc}</a>
+                <a href={buildUrl({ sort: "price_desc" })} class={sort === 'price_desc' ? 'active' : ''}>{t.priceDesc}</a>
              </div>
           </div>
         </div>
@@ -461,9 +706,9 @@ const formatMarketLabel = (value) => {
           <input
             type="search"
             name="q"
-            placeholder="Buscar por zona, ciudad o palabra clave"
+            placeholder={t.searchPlaceholder}
             value={activeFilters.search ?? ""}
-            aria-label="Buscar propiedades"
+            aria-label={t.searchAria}
           />
           {activeFilters.city && (
             <input type="hidden" name="city" value={activeFilters.city} />
@@ -491,15 +736,15 @@ const formatMarketLabel = (value) => {
           )}
           {sort && <input type="hidden" name="sort" value={sort} />}
           {activeFilters.ref && <input type="hidden" name="ref" value={activeFilters.ref} />}
-          <button type="submit">Buscar</button>
+          <button type="submit">{t.search}</button>
         </form>
 
         {sortedCards.length === 0 ? (
           <div class="empty-state">
-            <div class="empty-icon">🔍</div>
-            <h3>No encontramos propiedades exactas</h3>
-            <p>Prueba a ajustar tus filtros o ampliar la zona de búsqueda.</p>
-            <a href={`/${lang}/properties/`} class="btn btn-primary">Ver todas las propiedades</a>
+            <div class="empty-icon">ðŸ”</div>
+            <h3>{t.emptyTitle}</h3>
+            <p>{t.emptyText}</p>
+            <a href={`/${lang}/properties/`} class="btn btn-primary">{t.viewAllProperties}</a>
           </div>
         ) : (
           <>
@@ -516,13 +761,13 @@ const formatMarketLabel = (value) => {
 
     <!-- CTA FOOTER (CENTRADOR) -->
     <div class="list-footer-cta">
-      <h3>¿No encuentras lo que buscas?</h3>
+      <h3>{t.footerTitle}</h3>
       <p>
         {activeFilters.city
-          ? `¿Buscas propiedades en ${displayLocation(activeFilters.city)}? Te asesoramos sin compromiso.`
-          : "¿Buscas propiedades en la Costa del Sol? Te asesoramos sin compromiso."}
+          ? renderText(t.footerCityPrompt, { city: displayLocation(activeFilters.city) })
+          : t.footerDefaultPrompt}
       </p>
-      <a href={`/${lang}/contacto`} class="btn btn-outline">Contáctanos</a>
+      <a href={`/${lang}/contacto`} class="btn btn-outline">{t.contactUs}</a>
     </div>
 
   </div>
@@ -602,4 +847,5 @@ const formatMarketLabel = (value) => {
     handleNavigation(window.location.href);
   });
 </script>
+
 

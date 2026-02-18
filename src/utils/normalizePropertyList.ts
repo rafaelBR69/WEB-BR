@@ -12,11 +12,37 @@ export function normalizePropertyList({
       title: "Propiedades en venta en la Costa del Sol",
       description:
         "Descubre propiedades en venta en la Costa del Sol: casas, apartamentos y villas con asesoramiento profesional.",
+      locationConnector: "en",
     },
     en: {
       title: "Properties for sale on the Costa del Sol",
       description:
         "Discover properties for sale on the Costa del Sol with professional guidance.",
+      locationConnector: "in",
+    },
+    de: {
+      title: "Immobilien zum Verkauf an der Costa del Sol",
+      description:
+        "Entdecken Sie Immobilien zum Verkauf an der Costa del Sol mit professioneller Beratung.",
+      locationConnector: "in",
+    },
+    fr: {
+      title: "Proprietes a vendre sur la Costa del Sol",
+      description:
+        "Decouvrez des proprietes a vendre sur la Costa del Sol avec un accompagnement professionnel.",
+      locationConnector: "a",
+    },
+    it: {
+      title: "Proprieta in vendita in Costa del Sol",
+      description:
+        "Scopri proprieta in vendita in Costa del Sol con consulenza professionale.",
+      locationConnector: "a",
+    },
+    nl: {
+      title: "Woningen te koop aan de Costa del Sol",
+      description:
+        "Ontdek woningen te koop aan de Costa del Sol met professionele begeleiding.",
+      locationConnector: "in",
     },
   };
 
@@ -37,11 +63,11 @@ export function normalizePropertyList({
 
   return {
     title: shouldAppendLocation
-      ? `${base.title} en ${locationLabel}`
+      ? `${base.title} ${base.locationConnector} ${locationLabel}`
       : base.title,
 
     description: shouldAppendLocation
-      ? `${base.description} en ${locationLabel}.`
+      ? `${base.description} ${base.locationConnector} ${locationLabel}.`
       : base.description,
 
     noindex: !shouldIndex,

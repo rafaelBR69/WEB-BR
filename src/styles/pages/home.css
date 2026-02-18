@@ -249,6 +249,12 @@
   padding: 1rem 0 3.4rem;
 }
 
+.home-properties-preview .container {
+  max-width: 1500px;
+  padding-left: clamp(0.75rem, 1.8vw, 1.8rem);
+  padding-right: clamp(0.75rem, 1.8vw, 1.8rem);
+}
+
 .home-properties-head {
   margin-bottom: 0.85rem;
 }
@@ -265,16 +271,127 @@
   max-width: 760px;
 }
 
-.home-properties-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.15rem;
-  margin: 0;
+.home-properties-carousel {
+  position: relative;
+  padding: 0 3.35rem;
+  margin-top: 0.35rem;
 }
 
-@media (min-width: 1450px) {
-  .home-properties-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.home-properties-carousel::before,
+.home-properties-carousel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0.35rem;
+  width: 3.6rem;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.home-properties-carousel::before {
+  left: 0;
+  background: linear-gradient(90deg, #f7f5f1 0%, rgba(247, 245, 241, 0) 100%);
+}
+
+.home-properties-carousel::after {
+  right: 0;
+  background: linear-gradient(270deg, #f7f5f1 0%, rgba(247, 245, 241, 0) 100%);
+}
+
+.home-carousel-controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.home-carousel-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 2.85rem;
+  height: 2.85rem;
+  padding: 0;
+  border: 1px solid rgba(32, 47, 78, 0.22);
+  border-radius: 999px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.96), rgba(237, 243, 252, 0.95));
+  color: var(--color-primary);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    0 12px 24px rgba(12, 20, 38, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease;
+  pointer-events: auto;
+}
+
+.home-carousel-icon {
+  width: 1.08rem;
+  height: 1.08rem;
+  display: block;
+  pointer-events: none;
+}
+
+.home-carousel-btn:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+  border-color: rgba(32, 47, 78, 0.44);
+  box-shadow:
+    0 16px 28px rgba(12, 20, 38, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.home-carousel-btn:focus-visible {
+  outline: 3px solid rgba(211, 44, 67, 0.42);
+  outline-offset: 2px;
+}
+
+.home-carousel-btn:disabled {
+  opacity: 0;
+  transform: scale(0.88);
+  cursor: default;
+}
+
+.home-carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(320px, calc((100% - 2rem) / 3));
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  margin: 0;
+  padding: 0.3rem 0.1rem 0.62rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.home-carousel-track::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.home-carousel-slide {
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+.home-carousel-slide .property-card {
+  height: 100%;
+  box-shadow:
+    0 16px 32px rgba(15, 23, 42, 0.1),
+    0 2px 6px rgba(15, 23, 42, 0.06);
 }
 
 @media (max-width: 1024px) {
@@ -286,8 +403,27 @@
     width: 100%;
   }
 
-  .home-properties-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .home-properties-carousel {
+    padding: 0 3rem;
+  }
+
+  .home-properties-carousel::before,
+  .home-properties-carousel::after {
+    width: 3rem;
+  }
+
+  .home-carousel-btn {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .home-carousel-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .home-carousel-track {
+    grid-auto-columns: minmax(300px, calc((100% - 1rem) / 2));
   }
 }
 
@@ -320,12 +456,43 @@
     padding: 0.25rem 0 2.1rem;
   }
 
-  .home-properties-grid {
-    grid-template-columns: 1fr;
-    gap: 0.95rem;
+  .home-properties-carousel {
+    padding: 0;
+    margin-top: 0.25rem;
   }
 
-  .home-map-wrap .container {
+  .home-properties-carousel::before,
+  .home-properties-carousel::after {
+    display: none;
+  }
+
+  .home-carousel-controls {
+    inset: auto 0 0.3rem 0;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0 0.35rem;
+  }
+
+  .home-carousel-btn {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-color: rgba(32, 47, 78, 0.28);
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .home-carousel-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .home-carousel-track {
+    grid-auto-columns: minmax(270px, 87%);
+    gap: 0.95rem;
+    padding: 0.15rem 0.15rem 3rem;
+  }
+
+  .home-map-wrap .container,
+  .home-properties-preview .container {
     padding-left: 0.8rem;
     padding-right: 0.8rem;
   }

@@ -9,45 +9,73 @@ const labelsByLang = {
     pdf: "Plano PDF",
     openPdf: "Abrir plano",
     viewLarge: "Ver en grande",
+    openImage: "Abrir imagen",
+    imageOf: "de",
   },
   en: {
     image: "Image",
     pdf: "PDF floorplan",
     openPdf: "Open floorplan",
     viewLarge: "View full size",
+    openImage: "Open image",
+    imageOf: "of",
   },
   de: {
     image: "Bild",
     pdf: "PDF Grundriss",
     openPdf: "Grundriss oeffnen",
     viewLarge: "Gross anzeigen",
+    openImage: "Bild oeffnen",
+    imageOf: "von",
   },
   fr: {
     image: "Image",
     pdf: "Plan PDF",
     openPdf: "Ouvrir le plan",
     viewLarge: "Voir en grand",
+    openImage: "Ouvrir l image",
+    imageOf: "sur",
   },
   it: {
     image: "Immagine",
     pdf: "Planimetria PDF",
     openPdf: "Apri planimetria",
     viewLarge: "Vedi grande",
+    openImage: "Apri immagine",
+    imageOf: "di",
   },
   nl: {
     image: "Afbeelding",
     pdf: "PDF plattegrond",
     openPdf: "Open plattegrond",
     viewLarge: "Vergroot bekijken",
+    openImage: "Open afbeelding",
+    imageOf: "van",
   },
 };
 
 const t = labelsByLang[lang] ?? labelsByLang.es;
 
 if (!items || !items.length) return null;
+
+const imageIndexByItem = new Map<number, number>();
+let imageTotal = 0;
+
+items.forEach((img: any, index: number) => {
+  const url = String(img?.url ?? "");
+  if (url && !url.toLowerCase().endsWith(".pdf")) {
+    imageTotal += 1;
+    imageIndexByItem.set(index, imageTotal);
+  }
+});
 ---
 <div class={`gallery-category category-${category}`}>
-  <h3 class="category-title">{title}</h3>
+  <div class="gallery-category-head">
+    <h3 class="category-title">{title}</h3>
+    {imageTotal > 0 && (
+      <p class="category-count">{imageTotal} {t.image.toLowerCase()}</p>
+    )}
+  </div>
   
   <div class="gallery-mosaic">
     {items.map((img: any, index: number) => {
@@ -55,6 +83,7 @@ if (!items || !items.length) return null;
       const altText = img.alt || fallbackAlt;
       const url = img.url ?? "";
       const isPdf = url.toLowerCase().endsWith(".pdf");
+      const imagePosition = imageIndexByItem.get(index) ?? null;
       const previewWidth = index === 0 ? 1280 : 640;
       const previewSrc = buildSupabaseImageUrl(url, {
         width: previewWidth,
@@ -76,6 +105,7 @@ if (!items || !items.length) return null;
             href={url}
             class={`mosaic-item pdf ${index === 0 ? "main" : "thumb"}`}
             title={altText}
+            aria-label={`${t.openPdf}: ${altText}`}
             target="_blank"
             rel="noreferrer"
           >
@@ -91,8 +121,11 @@ if (!items || !items.length) return null;
         <a
           href={url}
           class={`mosaic-item ${index === 0 ? "main" : "thumb"}`}
-          data-lightbox="property"
+          data-lightbox="property-gallery"
+          data-lightbox-alt={altText}
+          data-lightbox-caption={altText}
           title={altText}
+          aria-label={`${t.openImage} ${imagePosition ?? index + 1} ${t.imageOf} ${imageTotal}: ${altText}`}
         >
           <img
             src={previewSrc || url}
@@ -106,6 +139,9 @@ if (!items || !items.length) return null;
           />
           <div class="mosaic-overlay">
             <span>{t.viewLarge}</span>
+            {imagePosition && (
+              <small>{imagePosition} / {imageTotal}</small>
+            )}
           </div>
         </a>
       );

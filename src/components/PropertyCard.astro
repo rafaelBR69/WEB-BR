@@ -1,12 +1,9 @@
 ---
 import { formatPrice } from "@/utils/formatters";
-import {
-  formatArea,
-  formatOrientation,
-  formatPropertyType,
-} from "@/utils/presentation";
+import { formatArea } from "@/utils/presentation";
 import FeatureBadge from "@/components/FeatureBadge.astro";
 import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@/utils/supabaseImage";
+import { getUiCopy } from "@/i18n/ui";
 
 const { data, lang } = Astro.props;
 const coverUrl = typeof data.cover === "string" ? data.cover : data.cover?.url;
@@ -21,23 +18,16 @@ const coverSrcSet = coverUrl
   ? buildSupabaseSrcSet(coverUrl, [320, 480, 640, 720], { quality: 72 })
   : "";
 
-const labels = {
-  es: "Ver detalles",
-  en: "View details",
-  fr: "Voir détails",
-  de: "Details ansehen"
-};
-
-const label = labels[lang as keyof typeof labels] || labels.es;
+const ui = getUiCopy(lang);
+const label = ui.propertyCard.viewDetails;
 ---
-
 
 <article class="property-card">
   <div class="card-image">
     <a href={`/${lang}/property/${data.slug}`} aria-label={data.title}>
       {coverUrl ? (
-        <img 
-          src={coverSrc ?? coverUrl} 
+        <img
+          src={coverSrc ?? coverUrl}
           srcset={coverSrcSet || undefined}
           sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 380px"
           data-fallback-src={coverUrl}
@@ -53,7 +43,7 @@ const label = labels[lang as keyof typeof labels] || labels.es;
 
     {data.isPromotion && (
       <span class="badge-promotion">
-        {lang === "es" ? "Obra nueva" : "New build"}
+        {ui.propertyCard.newBuild}
       </span>
     )}
   </div>
@@ -70,7 +60,7 @@ const label = labels[lang as keyof typeof labels] || labels.es;
         {data.isPromotion ? (
           data.priceFrom && (
             <p class="price">
-              Desde {formatPrice(data.priceFrom, data.currency, lang)}
+              {ui.propertyCard.fromPrice} {formatPrice(data.priceFrom, data.currency, lang)}
             </p>
           )
         ) : (
@@ -121,4 +111,3 @@ const label = labels[lang as keyof typeof labels] || labels.es;
     </div>
   </div>
 </article>
-
