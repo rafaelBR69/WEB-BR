@@ -23,6 +23,7 @@ Esta documentacion esta pensada para alguien que entra por primera vez al proyec
 - `docs/20-content-models`
 - `docs/30-playbooks`
 - `docs/40-ops`
+- `docs/50-crm`
 - `docs/templates`
 
 ## Regla rapida: "que toco para X"
@@ -39,4 +40,3 @@ Esta documentacion esta pensada para alguien que entra por primera vez al proyec
 - Paginas de posts: `src/pages/[lang]/posts/index.astro` y `src/pages/[lang]/post/[slug].astro`
 - Equipo: `src/data/team/*.json` y `src/data/team/index.ts`
 - Navegacion global: `src/layouts/BaseLayout.astro`
-

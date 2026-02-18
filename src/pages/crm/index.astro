@@ -1,0 +1,60 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Dashboard" section="dashboard">
+  <div class="crm-stack">
+    <section class="crm-grid">
+      <article class="crm-card crm-kpi">
+        <strong>18</strong>
+        <p>Leads nuevos (ultimos 7 dias)</p>
+      </article>
+      <article class="crm-card crm-kpi">
+        <strong>64</strong>
+        <p>Propiedades activas en venta</p>
+      </article>
+      <article class="crm-card crm-kpi">
+        <strong>11</strong>
+        <p>Propiedades activas en alquiler</p>
+      </article>
+      <article class="crm-card crm-kpi">
+        <strong>7</strong>
+        <p>Facturas pendientes de cobro</p>
+      </article>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h2>Arranque CRM (fase actual)</h2>
+        <ul class="crm-list">
+          <li>Area CRM separada de la web publica en `/crm`.</li>
+          <li>Endpoints base disponibles en `/api/v1/*`.</li>
+          <li>Modelo SQL inicial en `supabase/sql/001_crm_core.sql`.</li>
+          <li>Soporte de propiedades de venta y alquiler desde el esquema base.</li>
+        </ul>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h2>Modulos incluidos</h2>
+        <div class="crm-links">
+          <a class="crm-link" href="/crm/leads/">Leads</a>
+          <a class="crm-link" href="/crm/properties/">Propiedades</a>
+          <a class="crm-link" href="/crm/clients/">Clientes</a>
+          <a class="crm-link" href="/crm/contracts/">Contratos</a>
+          <a class="crm-link" href="/crm/invoices/">Facturacion</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h2>Endpoints listos para empezar</h2>
+      <div class="crm-links">
+        <a class="crm-link" href="/api/v1/health">GET /api/v1/health</a>
+        <a class="crm-link" href="/api/v1/leads">GET /api/v1/leads</a>
+        <a class="crm-link" href="/api/v1/properties">GET /api/v1/properties</a>
+        <a class="crm-link" href="/api/v1/clients">GET /api/v1/clients</a>
+        <a class="crm-link" href="/api/v1/contracts">GET /api/v1/contracts</a>
+        <a class="crm-link" href="/api/v1/invoices">GET /api/v1/invoices</a>
+      </div>
+    </section>
+  </div>
+</CrmLayout>

@@ -1,0 +1,39 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Facturacion" section="invoices">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <h2>Facturacion</h2>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Factura</th>
+              <th>Cliente</th>
+              <th>Importe</th>
+              <th>Vencimiento</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>FAC-2026-0042</td>
+              <td>North Sea Capital BV</td>
+              <td>14520 EUR</td>
+              <td>2026-03-01</td>
+              <td><span class="crm-badge warn">issued</span></td>
+            </tr>
+            <tr>
+              <td>FAC-2026-0043</td>
+              <td>Arancha Molina</td>
+              <td>9800 EUR</td>
+              <td>2026-02-20</td>
+              <td><span class="crm-badge ok">paid</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</CrmLayout>

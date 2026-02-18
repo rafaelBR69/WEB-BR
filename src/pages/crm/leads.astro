@@ -1,0 +1,79 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Leads" section="leads">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <h2>Entrada rapida de lead</h2>
+      <form class="crm-form">
+        <label>
+          Nombre completo
+          <input type="text" placeholder="Nombre y apellidos" />
+        </label>
+        <label>
+          Email
+          <input type="email" placeholder="cliente@email.com" />
+        </label>
+        <label>
+          Telefono
+          <input type="tel" placeholder="+34..." />
+        </label>
+        <label>
+          Interes
+          <select>
+            <option>Compra</option>
+            <option>Alquiler</option>
+            <option>Compra y alquiler</option>
+          </select>
+        </label>
+        <label class="crm-col-2">
+          Mensaje
+          <textarea placeholder="Necesidad del cliente, zona, presupuesto..."></textarea>
+        </label>
+        <div class="crm-col-2">
+          <button type="button" class="crm-button">Guardar lead (mock)</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h2>Pipeline inicial</h2>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Lead</th>
+              <th>Interes</th>
+              <th>Propiedad</th>
+              <th>Estado</th>
+              <th>Origen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Marta Ruiz</td>
+              <td>Compra</td>
+              <td>PM0084</td>
+              <td><span class="crm-badge warn">new</span></td>
+              <td>web_form</td>
+            </tr>
+            <tr>
+              <td>Tom van Dijk</td>
+              <td>Alquiler</td>
+              <td>PM0011-B2P2_2A</td>
+              <td><span class="crm-badge ok">qualified</span></td>
+              <td>whatsapp</td>
+            </tr>
+            <tr>
+              <td>Giulia Serra</td>
+              <td>Compra</td>
+              <td>PM0079</td>
+              <td><span class="crm-badge danger">lost</span></td>
+              <td>partner</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</CrmLayout>

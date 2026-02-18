@@ -1,0 +1,39 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Clientes" section="clients">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <h2>Clientes activos</h2>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Email</th>
+              <th>Telefono</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Arancha Molina</td>
+              <td>arancha@example.com</td>
+              <td>+34 600 100 100</td>
+              <td>particular</td>
+              <td><span class="crm-badge ok">active</span></td>
+            </tr>
+            <tr>
+              <td>North Sea Capital BV</td>
+              <td>ops@northsea-capital.com</td>
+              <td>+31 20 000 000</td>
+              <td>empresa</td>
+              <td><span class="crm-badge ok">active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</CrmLayout>

@@ -1,0 +1,85 @@
+---
+import "@/styles/crm/base.css";
+
+type NavItem = {
+  href: string;
+  label: string;
+  key: string;
+};
+
+const {
+  title = "CRM | BlancaReal",
+  description = "Panel interno para gestion de clientes, propiedades y operaciones.",
+  section = "dashboard",
+} = Astro.props;
+
+const navItems: NavItem[] = [
+  { key: "dashboard", label: "Dashboard", href: "/crm/" },
+  { key: "leads", label: "Leads", href: "/crm/leads/" },
+  { key: "properties", label: "Propiedades", href: "/crm/properties/" },
+  { key: "clients", label: "Clientes", href: "/crm/clients/" },
+  { key: "contracts", label: "Contratos", href: "/crm/contracts/" },
+  { key: "invoices", label: "Facturacion", href: "/crm/invoices/" },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+const isActive = (href: string) => {
+  const normalizedHref = href.replace(/\/+$/, "") || "/";
+  if (normalizedHref === "/crm") return currentPath === "/crm";
+  return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+};
+
+const sectionLabel = navItems.find((item) => item.key === section)?.label ?? "CRM";
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="crm-body">
+    <div class="crm-shell">
+      <aside class="crm-sidebar">
+        <a class="crm-brand" href="/crm/" aria-label="Ir al inicio del CRM">
+          <span class="crm-brand-mark">BR</span>
+          <span class="crm-brand-text">BlancaReal CRM</span>
+        </a>
+
+        <nav aria-label="Navegacion CRM">
+          <ul class="crm-nav">
+            {navItems.map((item) => (
+              <li>
+                <a href={item.href} class={isActive(item.href) ? "is-active" : ""}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div class="crm-sidebar-footer">
+          <p>Zona interna separada de la web publica.</p>
+          <a href="/es/">Ir a web publica</a>
+        </div>
+      </aside>
+
+      <div class="crm-main">
+        <header class="crm-topbar">
+          <div>
+            <p class="crm-eyebrow">CRM</p>
+            <h1>{sectionLabel}</h1>
+          </div>
+          <code class="crm-path">{currentPath}/</code>
+        </header>
+
+        <main class="crm-content">
+          <slot />
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
