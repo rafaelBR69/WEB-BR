@@ -1,0 +1,121 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Propiedades | Nueva" section="properties">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between">
+        <div>
+          <h2>Crear nueva propiedad</h2>
+          <p>Alta de promocion, unidad o vivienda suelta.</p>
+        </div>
+        <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
+          <a class="crm-link" href="/crm/properties/dashboard/">Dashboard</a>
+          <a class="crm-link" href="/crm/properties/listado/">Listado</a>
+          <a class="crm-link is-active" href="/crm/properties/nueva/">Nueva propiedad</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <form id="property-create-form" class="crm-form crm-wizard-form" novalidate>
+        <ol id="property-create-steps" class="crm-wizard-steps crm-col-2">
+          <li data-step-indicator="1" class="is-active">1. Base</li>
+          <li data-step-indicator="2">2. Comercial</li>
+          <li data-step-indicator="3">3. Publicacion</li>
+        </ol>
+
+        <fieldset class="crm-wizard-step crm-col-2" data-wizard-step="1">
+          <p class="crm-inline-note">Paso 1: define codigo, tipo y estructura de la propiedad.</p>
+          <div class="crm-form">
+            <label>Codigo interno <input name="legacy_code" type="text" placeholder="PM0101 o PM0101-B1" required /></label>
+            <label>Tipo registro
+              <select name="record_type">
+                <option value="project">Promocion</option>
+                <option value="unit">Vivienda de promocion</option>
+                <option value="single" selected>Vivienda individual</option>
+              </select>
+            </label>
+            <label>Operacion
+              <select name="operation_type">
+                <option value="sale">Venta</option>
+                <option value="rent">Alquiler</option>
+                <option value="both">Venta y alquiler</option>
+              </select>
+            </label>
+            <label>Estado
+              <select name="status">
+                <option value="draft">Borrador</option>
+                <option value="available" selected>Disponible</option>
+                <option value="reserved">Reservada</option>
+                <option value="sold">Vendida</option>
+                <option value="rented">Alquilada</option>
+                <option value="private">Privada</option>
+                <option value="archived">Archivada</option>
+              </select>
+            </label>
+            <label class="crm-col-2">Promocion padre (legacy_code) <input name="parent_legacy_code" type="text" placeholder="Obligatorio para unit" /></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="crm-wizard-step crm-col-2" data-wizard-step="2" hidden>
+          <p class="crm-inline-note">Paso 2: completa precio y caracteristicas operativas.</p>
+          <div class="crm-form">
+            <label>Precio venta <input name="price_sale" type="number" min="0" step="0.0001" placeholder="430000" /></label>
+            <label>Precio alquiler mensual <input name="price_rent_monthly" type="number" min="0" step="0.0001" placeholder="1950" /></label>
+            <label>Moneda <input name="currency" type="text" value="EUR" maxlength="5" /></label>
+            <label>Superficie construida (m2) <input name="area_m2" type="number" min="0" step="0.0001" placeholder="120" /></label>
+            <label>Superficie construida total (m2) <input name="built_area_total_m2" type="number" min="0" step="0.0001" placeholder="135" /></label>
+            <label>Superficie util (m2) <input name="usable_area_m2" type="number" min="0" step="0.0001" placeholder="102" /></label>
+            <label>Terraza (m2) <input name="terrace_m2" type="number" min="0" step="0.0001" placeholder="28" /></label>
+            <label>Jardin (m2) <input name="garden_m2" type="number" min="0" step="0.0001" placeholder="40" /></label>
+            <label>Parcela (m2) <input name="plot_m2" type="number" min="0" step="0.0001" placeholder="280" /></label>
+            <label>Dormitorios <input name="bedrooms" type="number" min="0" step="0.0001" placeholder="3" /></label>
+            <label>Banos <input name="bathrooms" type="number" min="0" step="0.0001" placeholder="2" /></label>
+            <label>Garajes <input name="garages" type="number" min="0" step="0.0001" placeholder="1" /></label>
+            <label>Trasteros <input name="storage_rooms" type="number" min="0" step="0.0001" placeholder="1" /></label>
+            <label>Bloque <input name="building_block" type="text" placeholder="Bloque A" /></label>
+            <label>Portal <input name="building_portal" type="text" placeholder="Portal 2" /></label>
+            <label>Puerta <input name="building_door" type="text" placeholder="B" /></label>
+            <label>Planta (numero) <input name="floor_level" type="number" step="0.0001" placeholder="2" /></label>
+            <label>Planta (texto) <input name="floor_label" type="text" placeholder="Segunda planta" /></label>
+            <label class="crm-checkbox-label crm-col-2"><input name="rent_price_on_request" type="checkbox" /> Alquiler con precio a consultar</label>
+            <label class="crm-checkbox-label crm-col-2"><input name="elevator" type="checkbox" /> Tiene ascensor</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="crm-wizard-step crm-col-2" data-wizard-step="3" hidden>
+          <p class="crm-inline-note">Paso 3: define modelo de negocio y visibilidad.</p>
+          <div class="crm-form">
+            <label>Modelo de negocio
+              <select name="project_business_type">
+                <option value="owned_and_commercialized">Propia y comercializada</option>
+                <option value="provider_and_commercialized_by_us">Proveedor + comercializamos</option>
+                <option value="external_listing">Captacion externa</option>
+              </select>
+            </label>
+            <label class="crm-checkbox-label"><input name="is_public" type="checkbox" checked /> Visible en web</label>
+            <label class="crm-checkbox-label"><input name="is_featured" type="checkbox" /> Destacada</label>
+            <label class="crm-col-2">Notas de comercializacion
+              <textarea
+                name="commercialization_notes"
+                placeholder="Condiciones con proveedor, notas de comercializacion, etc."
+              ></textarea>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="crm-col-2 crm-actions-row crm-wizard-actions">
+          <button id="property-create-prev" type="button" class="crm-button crm-button-soft" hidden>Anterior</button>
+          <button id="property-create-next" type="button" class="crm-button crm-button-soft">Siguiente</button>
+          <button id="property-create-submit" type="submit" class="crm-button" hidden>Crear propiedad</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="properties-feedback" class="crm-feedback">Listo para operar.</p>
+    </section>
+  </div>
+  <script is:inline src="/crm/properties.js"></script>
+</CrmLayout>

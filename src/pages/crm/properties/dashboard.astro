@@ -1,0 +1,88 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Propiedades | Dashboard" section="properties">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between">
+        <div>
+          <h2>Dashboard de propiedades</h2>
+          <p>Distribucion por tipo de negocio y promociones.</p>
+        </div>
+        <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
+          <a class="crm-link is-active" href="/crm/properties/dashboard/">Dashboard</a>
+          <a class="crm-link" href="/crm/properties/listado/">Listado</a>
+          <a class="crm-link" href="/crm/properties/nueva/">Nueva propiedad</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="properties-dashboard-summary" class="crm-inline-note">
+        Cargando distribucion por obra nueva, segunda mano y promociones propias...
+      </p>
+      <div id="properties-kpi-grid" class="crm-grid crm-properties-kpi-grid">
+        <article class="crm-card crm-kpi">
+          <strong>-</strong>
+          <p>Total propiedades</p>
+        </article>
+        <article class="crm-card crm-kpi">
+          <strong>-</strong>
+          <p>Disponibles</p>
+        </article>
+        <article class="crm-card crm-kpi">
+          <strong>-</strong>
+          <p>Promociones</p>
+        </article>
+        <article class="crm-card crm-kpi">
+          <strong>-</strong>
+          <p>Viviendas de promocion</p>
+        </article>
+      </div>
+      <div id="properties-status-board" class="crm-status-board">
+        <p class="crm-inline-note">Calculando estados...</p>
+      </div>
+      <div id="properties-dashboard-groups" class="crm-dashboard-groups">
+        <article class="crm-dashboard-column">
+          <h3>Obra nueva</h3>
+          <p class="crm-inline-note">Cargando promociones...</p>
+        </article>
+        <article class="crm-dashboard-column">
+          <h3>Segunda mano</h3>
+          <p class="crm-inline-note">Cargando promociones...</p>
+        </article>
+        <article class="crm-dashboard-column">
+          <h3>Promociones nuestras</h3>
+          <p class="crm-inline-note">Cargando promociones...</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Promociones con mas disponibilidad</h3>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Promocion</th>
+              <th>Modelo negocio</th>
+              <th>Estado promocion</th>
+              <th>Total viviendas</th>
+              <th>Disponibles</th>
+              <th>Reservadas</th>
+              <th>Vendidas/alquiladas</th>
+            </tr>
+          </thead>
+          <tbody id="properties-promotions-tbody">
+            <tr><td colspan="7">Cargando promociones...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="properties-feedback" class="crm-feedback">Listo para operar.</p>
+    </section>
+  </div>
+  <script is:inline src="/crm/properties.js"></script>
+</CrmLayout>

@@ -1,0 +1,113 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Propiedades | Listado" section="properties">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between">
+        <div>
+          <h2>Listado total de propiedades</h2>
+          <p>Filtra y navega promociones y viviendas disponibles/no disponibles.</p>
+        </div>
+        <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
+          <a class="crm-link" href="/crm/properties/dashboard/">Dashboard</a>
+          <a class="crm-link is-active" href="/crm/properties/listado/">Listado</a>
+          <a class="crm-link" href="/crm/properties/nueva/">Nueva propiedad</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <form id="property-filter-form" class="crm-form crm-form-compact">
+        <label>Buscar promocion o referencia <input name="q" type="search" placeholder="White Hills o PM0084" /></label>
+        <label>Operacion
+          <select name="operation">
+            <option value="">Todas</option>
+            <option value="sale">Venta</option>
+            <option value="rent">Alquiler</option>
+            <option value="both">Venta y alquiler</option>
+          </select>
+        </label>
+        <label>Tipo
+          <select name="record_type">
+            <option value="">Todos</option>
+            <option value="project">Promocion</option>
+            <option value="unit">Vivienda de promocion</option>
+            <option value="single">Vivienda individual</option>
+          </select>
+        </label>
+        <label>Modelo negocio
+          <select name="project_business_type">
+            <option value="">Todos</option>
+            <option value="owned_and_commercialized">Propia y comercializada</option>
+            <option value="provider_and_commercialized_by_us">Proveedor + comercializamos</option>
+            <option value="external_listing">Captacion externa</option>
+          </select>
+        </label>
+        <label>Estado
+          <select name="status">
+            <option value="">Todos</option>
+            <option value="draft">Borrador</option>
+            <option value="available">Disponible</option>
+            <option value="reserved">Reservada</option>
+            <option value="sold">Vendida</option>
+            <option value="rented">Alquilada</option>
+            <option value="private">Privada</option>
+            <option value="archived">Archivada</option>
+          </select>
+        </label>
+        <label>Por pagina
+          <select name="per_page" id="properties-per-page">
+            <option value="12">12</option>
+            <option value="24" selected>24</option>
+            <option value="48">48</option>
+            <option value="96">96</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="property-filters-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+      <p id="properties-meta" class="crm-inline-note"></p>
+      <div class="crm-project-browser">
+        <aside id="projects-list" class="crm-project-list">
+          <p class="crm-inline-note">Cargando promociones...</p>
+        </aside>
+        <div id="project-detail" class="crm-project-detail">
+          <p class="crm-inline-note">Selecciona una promocion para ver sus viviendas.</p>
+        </div>
+      </div>
+      <div id="project-kpi-grid" class="crm-grid crm-project-kpi-grid">
+        <p class="crm-inline-note">Selecciona una promocion para ver KPIs.</p>
+      </div>
+      <div class="crm-table-wrap crm-properties-table-wrap">
+        <table class="crm-table crm-properties-simple">
+          <thead>
+            <tr>
+              <th>Nombre / codigo</th>
+              <th>Tipo</th>
+              <th>Precio</th>
+              <th>Disponibilidad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="properties-tbody">
+            <tr><td colspan="5">Cargando propiedades...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="properties-mobile-list" class="crm-mobile-property-list" aria-live="polite"></div>
+      <div id="properties-pagination" class="crm-pagination">
+        <button type="button" class="crm-button crm-button-soft" data-page-action="prev">Anterior</button>
+        <p id="properties-page-info" class="crm-inline-note">Pagina 1 de 1</p>
+        <button type="button" class="crm-button crm-button-soft" data-page-action="next">Siguiente</button>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="properties-feedback" class="crm-feedback">Listo para operar.</p>
+    </section>
+  </div>
+  <script is:inline src="/crm/properties.js"></script>
+</CrmLayout>

@@ -2,9 +2,10 @@
 export const prerender = false;
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import properties from "@/data/properties";
+import fallbackProperties from "@/data/properties";
 import { formatPrice } from "@/utils/formatters";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import { getPublicPropertiesWithFallback } from "@/utils/publicPropertiesSource";
 import "@/styles/pages/projects.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -13,6 +14,9 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const { properties } = await getPublicPropertiesWithFallback({
+  fallbackProperties,
+});
 
 const seoByLang = {
   es: {

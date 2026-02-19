@@ -7,7 +7,8 @@ import GallerySection from "@/components/GallerySection.astro";
 import { formatPrice } from "@/utils/formatters";
 import { normalizeProperty } from "@/utils/normalizeProperty";
 import { DEFAULT_LANG, isSupportedLang } from "@/i18n/languages";
-import properties from "@/data/properties";
+import fallbackProperties from "@/data/properties";
+import { getPublicPropertiesWithFallback } from "@/utils/publicPropertiesSource";
 
 /* =========================
    PARAMS
@@ -17,6 +18,9 @@ const lang = typeof langParam === "string" ? langParam : DEFAULT_LANG;
 if (!isSupportedLang(lang)) {
   return Astro.redirect(`/${DEFAULT_LANG}/`, 302);
 }
+const { properties } = await getPublicPropertiesWithFallback({
+  fallbackProperties,
+});
 
 const agent = {
   phone: "+34 600 123 456",
@@ -47,11 +51,13 @@ const parentProperty = property.parent_id
   : null;
 
 const ownGallery = property.media?.gallery ?? {};
-const hasAnyOwnGallery =
-  (ownGallery.exterior?.length ?? 0) > 0 ||
-  (ownGallery.interior?.length ?? 0) > 0 ||
-  (ownGallery.views?.length ?? 0) > 0 ||
-  (ownGallery.floorplan?.length ?? 0) > 0;
+const galleryKeys = ["exterior", "interior", "views", "floorplan", "living", "bedroom", "kitchen", "bathroom"];
+const getGalleryList = (source, key) => (Array.isArray(source?.[key]) ? source[key] : []);
+const hasAnyOwnGallery = galleryKeys.some((key) => getGalleryList(ownGallery, key).length > 0);
+const selectGalleryCategory = (key) =>
+  hasAnyOwnGallery
+    ? getGalleryList(property.media?.gallery, key)
+    : getGalleryList(parentProperty?.media?.gallery, key);
 
 const resolvedMedia = {
   ...(parentProperty?.media ?? {}),
@@ -60,18 +66,14 @@ const resolvedMedia = {
   gallery: {
     ...(parentProperty?.media?.gallery ?? {}),
     ...(property.media?.gallery ?? {}),
-    exterior: hasAnyOwnGallery
-      ? property.media?.gallery?.exterior ?? []
-      : parentProperty?.media?.gallery?.exterior ?? [],
-    interior: hasAnyOwnGallery
-      ? property.media?.gallery?.interior ?? []
-      : parentProperty?.media?.gallery?.interior ?? [],
-    views: hasAnyOwnGallery
-      ? property.media?.gallery?.views ?? []
-      : parentProperty?.media?.gallery?.views ?? [],
-    floorplan: hasAnyOwnGallery
-      ? property.media?.gallery?.floorplan ?? []
-      : parentProperty?.media?.gallery?.floorplan ?? [],
+    exterior: selectGalleryCategory("exterior"),
+    interior: selectGalleryCategory("interior"),
+    views: selectGalleryCategory("views"),
+    floorplan: selectGalleryCategory("floorplan"),
+    living: selectGalleryCategory("living"),
+    bedroom: selectGalleryCategory("bedroom"),
+    kitchen: selectGalleryCategory("kitchen"),
+    bathroom: selectGalleryCategory("bathroom"),
   },
 };
 
@@ -251,8 +253,12 @@ const copyByLang = {
     propertiesInArea: "Propiedades en",
     visualCatalog: "Catalogo visual",
     propertyImmersion: "Inmersion en la propiedad",
+    galleryLiving: "Salon",
+    galleryBedroom: "Dormitorios",
+    galleryKitchen: "Cocina",
+    galleryBathroom: "Banos",
     galleryExterior: "Exterior y alrededores",
-    galleryInterior: "Ambientes interiores",
+    galleryInterior: "Interior general",
     galleryViews: "Zonas comunes y vistas",
     galleryPlans: "Planimetria",
     investment: "Inversion",
@@ -321,8 +327,12 @@ const copyByLang = {
     propertiesInArea: "Properties in",
     visualCatalog: "Visual catalog",
     propertyImmersion: "Property immersion",
+    galleryLiving: "Living room",
+    galleryBedroom: "Bedrooms",
+    galleryKitchen: "Kitchen",
+    galleryBathroom: "Bathrooms",
     galleryExterior: "Exteriors and surroundings",
-    galleryInterior: "Interior spaces",
+    galleryInterior: "General interiors",
     galleryViews: "Communal areas and views",
     galleryPlans: "Floorplans",
     investment: "Investment",
@@ -348,6 +358,16 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.en;
+const gallerySections = [
+  { key: "living", title: t.galleryLiving },
+  { key: "bedroom", title: t.galleryBedroom },
+  { key: "kitchen", title: t.galleryKitchen },
+  { key: "bathroom", title: t.galleryBathroom },
+  { key: "exterior", title: t.galleryExterior },
+  { key: "interior", title: t.galleryInterior },
+  { key: "views", title: t.galleryViews },
+  { key: "floorplan", title: t.galleryPlans },
+].filter((section) => (data.media?.gallery?.[section.key]?.length ?? 0) > 0);
 ---
 
 <BaseLayout
@@ -619,36 +639,14 @@ const t = copyByLang[lang] ?? copyByLang.en;
         <div class="luxury-divider"></div>
 
         <div class="property-galleries">
-          <GallerySection
-            title={t.galleryExterior}
-            items={data.media.gallery.exterior}
-            category="exterior"
-            lang={lang}
-          />
-          <GallerySection
-            title={t.galleryInterior}
-            items={data.media.gallery.interior}
-            category="interior"
-            lang={lang}
-          />
-
-          {data.media.gallery.views?.length > 0 && (
+          {gallerySections.map((section) => (
             <GallerySection
-              title={t.galleryViews}
-              items={data.media.gallery.views}
-              category="views"
+              title={section.title}
+              items={data.media.gallery[section.key]}
+              category={section.key}
               lang={lang}
             />
-          )}
-
-          {data.media.gallery.floorplan?.length > 0 && (
-            <GallerySection
-              title={t.galleryPlans}
-              items={data.media.gallery.floorplan}
-              category="plans"
-              lang={lang}
-            />
-          )}
+          ))}
         </div>
       </section>
     </div>

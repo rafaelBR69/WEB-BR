@@ -40,6 +40,11 @@ create type crm.invoice_status as enum (
 create type crm.document_scope as enum ('lead', 'client', 'property', 'contract', 'invoice', 'general');
 create type crm.agency_status as enum ('active', 'inactive', 'discarded');
 create type crm.agency_contact_role as enum ('agent', 'lawyer', 'assistant', 'owner', 'other');
+create type crm.project_business_type as enum (
+  'owned_and_commercialized',
+  'provider_and_commercialized_by_us',
+  'external_listing'
+);
 create type crm.lead_origin_type as enum (
   'direct',
   'website',
@@ -170,6 +175,8 @@ create table if not exists crm.properties (
   website_id uuid references crm.websites(id) on delete set null,
   legacy_code text not null,
   record_type crm.property_record_type not null default 'single',
+  project_business_type crm.project_business_type not null default 'external_listing',
+  commercialization_notes text,
   parent_property_id uuid references crm.properties(id) on delete set null,
   operation_type crm.operation_type not null default 'sale',
   listing_type text not null default 'resale' check (listing_type in ('promotion', 'unit', 'resale', 'rental')),
@@ -404,6 +411,7 @@ create index if not exists idx_agency_contacts_org on crm.agency_contacts (organ
 create index if not exists idx_agency_contacts_agency on crm.agency_contacts (agency_id);
 create index if not exists idx_properties_org on crm.properties (organization_id);
 create index if not exists idx_properties_org_record_type on crm.properties (organization_id, record_type);
+create index if not exists idx_properties_org_business_type on crm.properties (organization_id, project_business_type);
 create index if not exists idx_properties_org_operation_type on crm.properties (organization_id, operation_type);
 create index if not exists idx_properties_parent on crm.properties (parent_property_id);
 create index if not exists idx_properties_status on crm.properties (status);

@@ -62,6 +62,24 @@ Lanzar un CRM minimo dentro del mismo repo, separado de la web publica, con:
 2. Ejecutar completo: `supabase/sql/001_crm_core.sql`.
 3. Revisar que tablas y tipos del schema `crm` se hayan creado.
 4. (Opcional) usar ejemplos de carga inicial: `supabase/sql/002_bootstrap_examples.sql`.
+5. Si ya habias ejecutado `001` antes, aplicar cambios incrementales: `supabase/sql/003_property_business_type.sql`.
+
+## Migrar JSON de propiedades al CRM
+
+1. Definir variables de entorno:
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `CRM_ORGANIZATION_ID` (UUID de `crm.organizations.id`)
+- `CRM_WEBSITE_ID` (opcional, UUID de `crm.websites.id`)
+
+2. Validar mapeo sin escribir:
+`npm run properties:migrate-crm -- -- --dry-run --organization-id <ORG_UUID>`
+
+3. Ejecutar migracion real:
+`npm run properties:migrate-crm -- -- --organization-id <ORG_UUID>`
+
+4. (Opcional) migrar solo una muestra inicial:
+`npm run properties:migrate-crm -- -- --organization-id <ORG_UUID> --limit 20`
 
 ## Orden recomendado de despliegue
 
@@ -76,6 +94,10 @@ Lanzar un CRM minimo dentro del mismo repo, separado de la web publica, con:
 - Un proveedor es un cliente facturable: `crm.providers.client_id -> crm.clients.id`.
 - Un proveedor se ancla a promociones padre en `crm.project_providers`.
 - La tabla `crm.project_providers` valida que el inmueble destino sea `record_type='project'`.
+- En `crm.properties.project_business_type` se diferencia:
+  - `owned_and_commercialized`: promocion propia.
+  - `provider_and_commercialized_by_us`: promocion de proveedor comercializada por nosotros.
+  - `external_listing`: captacion externa tradicional.
 
 ## Agencias y abogados
 

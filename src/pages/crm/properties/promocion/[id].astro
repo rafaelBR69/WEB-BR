@@ -1,0 +1,54 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+
+const projectId = String(Astro.params.id ?? "").trim();
+---
+<CrmLayout title="CRM | Promocion" section="properties">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between">
+        <div>
+          <h2>Vista de promocion</h2>
+          <p>Seguimiento operativo de una promocion concreta con KPIs y estado de viviendas.</p>
+        </div>
+        <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
+          <a class="crm-link" href="/crm/properties/dashboard/">Dashboard</a>
+          <a class="crm-link" href="/crm/properties/listado/">Listado</a>
+          <a class="crm-link" href="/crm/properties/nueva/">Nueva propiedad</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>KPIs de la promocion</h3>
+      <div id="project-kpi-grid" class="crm-grid crm-project-kpi-grid">
+        <article class="crm-card crm-kpi crm-kpi-inline">
+          <strong>-</strong>
+          <p>Total viviendas</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Vista ejecutiva de la promocion</h3>
+      <div id="project-exec-board" class="crm-project-exec-board">
+        <p class="crm-inline-note">Cargando indicadores ejecutivos...</p>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <div id="project-detail" class="crm-project-detail">
+        <p class="crm-inline-note">Cargando promocion...</p>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="properties-feedback" class="crm-feedback">Listo para operar.</p>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ projectId }}>
+    window.__crmProjectId = projectId;
+  </script>
+  <script is:inline src="/crm/properties.js"></script>
+</CrmLayout>

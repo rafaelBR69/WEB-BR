@@ -39,11 +39,19 @@ export function normalizePropertyCard(property, lang) {
   const priceFrom = isPromotion ? property.pricing?.from ?? null : null;
   const price = isPromotion ? null : property.price ?? null;
   const priceDisplay = isPromotion ? priceFrom : price;
+  const gallery = property.media?.gallery ?? {};
+  const interiorExtended = [
+    ...(Array.isArray(gallery?.interior) ? gallery.interior : []),
+    ...(Array.isArray(gallery?.living) ? gallery.living : []),
+    ...(Array.isArray(gallery?.bedroom) ? gallery.bedroom : []),
+    ...(Array.isArray(gallery?.kitchen) ? gallery.kitchen : []),
+    ...(Array.isArray(gallery?.bathroom) ? gallery.bathroom : []),
+  ];
   const cover =
     property.media?.cover ??
-    property.media?.gallery?.exterior?.[0] ??
-    property.media?.gallery?.interior?.[0] ??
-    property.media?.gallery?.views?.[0] ??
+    gallery?.exterior?.[0] ??
+    interiorExtended[0] ??
+    gallery?.views?.[0] ??
     null;
 
   return {

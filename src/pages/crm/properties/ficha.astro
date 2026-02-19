@@ -1,0 +1,241 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Propiedades | Ficha y Media" section="properties">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between">
+        <div>
+          <h2>Ficha de propiedad y media</h2>
+          <p>Selecciona la propiedad y edita la ficha operativa dentro de su detalle.</p>
+        </div>
+        <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
+          <a class="crm-link" href="/crm/properties/dashboard/">Dashboard</a>
+          <a class="crm-link" href="/crm/properties/listado/">Listado</a>
+          <a class="crm-link" href="/crm/properties/nueva/">Nueva propiedad</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Seleccion de propiedad</h3>
+      <form id="property-filter-form" class="crm-form crm-form-compact">
+        <label>Buscar promocion o referencia <input name="q" type="search" placeholder="White Hills o PM0084" /></label>
+        <label>Operacion
+          <select name="operation">
+            <option value="">Todas</option>
+            <option value="sale">Venta</option>
+            <option value="rent">Alquiler</option>
+            <option value="both">Venta y alquiler</option>
+          </select>
+        </label>
+        <label>Tipo
+          <select name="record_type">
+            <option value="">Todos</option>
+            <option value="project">Promocion</option>
+            <option value="unit">Vivienda de promocion</option>
+            <option value="single">Vivienda individual</option>
+          </select>
+        </label>
+        <label>Modelo negocio
+          <select name="project_business_type">
+            <option value="">Todos</option>
+            <option value="owned_and_commercialized">Propia y comercializada</option>
+            <option value="provider_and_commercialized_by_us">Proveedor + comercializamos</option>
+            <option value="external_listing">Captacion externa</option>
+          </select>
+        </label>
+        <label>Estado
+          <select name="status">
+            <option value="">Todos</option>
+            <option value="draft">Borrador</option>
+            <option value="available">Disponible</option>
+            <option value="reserved">Reservada</option>
+            <option value="sold">Vendida</option>
+            <option value="rented">Alquilada</option>
+            <option value="private">Privada</option>
+            <option value="archived">Archivada</option>
+          </select>
+        </label>
+        <label>Por pagina
+          <select name="per_page" id="properties-per-page">
+            <option value="12">12</option>
+            <option value="24" selected>24</option>
+            <option value="48">48</option>
+            <option value="96">96</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="property-filters-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+      <p id="properties-meta" class="crm-inline-note"></p>
+      <div class="crm-project-browser">
+        <aside id="projects-list" class="crm-project-list">
+          <p class="crm-inline-note">Cargando promociones...</p>
+        </aside>
+        <div id="project-detail" class="crm-project-detail">
+          <p class="crm-inline-note">Selecciona una promocion para ver sus viviendas.</p>
+        </div>
+      </div>
+      <div id="project-kpi-grid" class="crm-grid crm-project-kpi-grid">
+        <p class="crm-inline-note">Selecciona una promocion para ver KPIs.</p>
+      </div>
+      <div class="crm-table-wrap crm-properties-table-wrap">
+        <table class="crm-table crm-properties-simple">
+          <thead>
+            <tr>
+              <th>Nombre / codigo</th>
+              <th>Tipo</th>
+              <th>Precio</th>
+              <th>Disponibilidad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="properties-tbody">
+            <tr><td colspan="5">Cargando propiedades...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="properties-mobile-list" class="crm-mobile-property-list" aria-live="polite"></div>
+      <div id="properties-pagination" class="crm-pagination">
+        <button type="button" class="crm-button crm-button-soft" data-page-action="prev">Anterior</button>
+        <p id="properties-page-info" class="crm-inline-note">Pagina 1 de 1</p>
+        <button type="button" class="crm-button crm-button-soft" data-page-action="next">Siguiente</button>
+      </div>
+    </section>
+
+    <section id="property-workspace" class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Edicion de ficha operativa</h3>
+        <p id="selected-property-context" class="crm-inline-note">
+          Selecciona una propiedad del listado para editar la ficha.
+        </p>
+        <form id="property-edit-form" class="crm-form">
+          <fieldset id="property-edit-fieldset" class="crm-fieldset" disabled>
+            <input type="hidden" name="id" />
+            <label>Codigo interno <input name="legacy_code" type="text" required /></label>
+            <label>Tipo registro
+              <select name="record_type">
+                <option value="project">Promocion</option>
+                <option value="unit">Vivienda de promocion</option>
+                <option value="single">Vivienda individual</option>
+              </select>
+            </label>
+            <label>Modelo negocio
+              <select name="project_business_type">
+                <option value="owned_and_commercialized">Propia y comercializada</option>
+                <option value="provider_and_commercialized_by_us">Proveedor + comercializamos</option>
+                <option value="external_listing">Captacion externa</option>
+              </select>
+            </label>
+            <label>Operacion
+              <select name="operation_type">
+                <option value="sale">Venta</option>
+                <option value="rent">Alquiler</option>
+                <option value="both">Venta y alquiler</option>
+              </select>
+            </label>
+            <label>Estado
+              <select name="status">
+                <option value="draft">Borrador</option>
+                <option value="available">Disponible</option>
+                <option value="reserved">Reservada</option>
+                <option value="sold">Vendida</option>
+                <option value="rented">Alquilada</option>
+                <option value="private">Privada</option>
+                <option value="archived">Archivada</option>
+              </select>
+            </label>
+            <label>Promocion padre (legacy_code) <input name="parent_legacy_code" type="text" placeholder="Vacio para quitar padre" /></label>
+            <label>Precio venta <input name="price_sale" type="number" min="0" step="0.0001" /></label>
+            <label>Precio alquiler mensual <input name="price_rent_monthly" type="number" min="0" step="0.0001" /></label>
+            <label>Moneda <input name="currency" type="text" maxlength="5" /></label>
+            <label>Superficie construida (m2) <input name="area_m2" type="number" min="0" step="0.0001" /></label>
+            <label>Superficie construida total (m2) <input name="built_area_total_m2" type="number" min="0" step="0.0001" /></label>
+            <label>Superficie util (m2) <input name="usable_area_m2" type="number" min="0" step="0.0001" /></label>
+            <label>Terraza (m2) <input name="terrace_m2" type="number" min="0" step="0.0001" /></label>
+            <label>Exterior privado (m2) <input name="exterior_area_m2" type="number" min="0" step="0.0001" /></label>
+            <label>Jardin (m2) <input name="garden_m2" type="number" min="0" step="0.0001" /></label>
+            <label>Parcela (m2) <input name="plot_m2" type="number" min="0" step="0.0001" /></label>
+            <label>Dormitorios <input name="bedrooms" type="number" min="0" step="0.0001" /></label>
+            <label>Banos <input name="bathrooms" type="number" min="0" step="0.0001" /></label>
+            <label>Garajes <input name="garages" type="number" min="0" step="0.0001" /></label>
+            <label>Trasteros <input name="storage_rooms" type="number" min="0" step="0.0001" /></label>
+            <label>Ano construccion <input name="year_built" type="number" min="1800" step="0.0001" /></label>
+            <label>Orientacion <input name="orientation" type="text" placeholder="Sur, Suroeste..." /></label>
+            <label>Estado inmueble <input name="condition" type="text" placeholder="new, renovated, good..." /></label>
+            <label>Certificado energetico
+              <select name="energy_rating">
+                <option value="">Sin definir</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+              </select>
+            </label>
+            <label>Referencia catastral <input name="cadastral_ref" type="text" /></label>
+            <label>Cuota comunidad (mes) <input name="community_fees_monthly" type="number" min="0" step="0.0001" /></label>
+            <label>IBI anual <input name="ibi_yearly" type="number" min="0" step="0.0001" /></label>
+            <label>Bloque <input name="building_block" type="text" placeholder="Bloque A" /></label>
+            <label>Portal <input name="building_portal" type="text" placeholder="Portal 2" /></label>
+            <label>Puerta <input name="building_door" type="text" placeholder="A" /></label>
+            <label>Planta (numero) <input name="floor_level" type="number" step="0.0001" /></label>
+            <label>Planta (texto) <input name="floor_label" type="text" placeholder="Bajo, Entreplanta, Atico..." /></label>
+            <label>Nombre edificio <input name="building_name" type="text" placeholder="Edificio Almitak" /></label>
+            <label class="crm-checkbox-label"><input name="rent_price_on_request" type="checkbox" /> Alquiler con precio a consultar</label>
+            <label class="crm-checkbox-label"><input name="elevator" type="checkbox" /> Tiene ascensor</label>
+            <label class="crm-checkbox-label"><input name="is_public" type="checkbox" /> Visible en web</label>
+            <label class="crm-checkbox-label"><input name="is_featured" type="checkbox" /> Destacada</label>
+            <label class="crm-col-2">Notas de comercializacion <textarea name="commercialization_notes"></textarea></label>
+          </fieldset>
+          <div class="crm-col-2 crm-actions-row"><button type="submit" class="crm-button">Guardar cambios</button></div>
+        </form>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Portada, galeria y planos</h3>
+        <form id="property-media-form" class="crm-form">
+          <fieldset id="property-media-fieldset" class="crm-fieldset" disabled>
+            <label>Categoria
+              <select name="category">
+                <option value="living">Salon</option>
+                <option value="bedroom">Dormitorio</option>
+                <option value="kitchen">Cocina</option>
+                <option value="bathroom">Bano</option>
+                <option value="exterior">Exterior</option>
+                <option value="interior">Interior</option>
+                <option value="views">Vistas</option>
+                <option value="floorplan">Plano</option>
+              </select>
+            </label>
+            <label>Archivo (PNG, JPG, WEBP)
+              <input name="file" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" />
+            </label>
+            <label>URL archivo <input name="url" type="url" placeholder="https://..." /></label>
+            <label>Etiqueta <input name="label" type="text" placeholder="Salon, plano tipo A..." /></label>
+            <label>Alt ES <input name="alt_es" type="text" placeholder="Texto alternativo en espanol" /></label>
+            <label class="crm-checkbox-label crm-col-2"><input name="set_as_cover" type="checkbox" /> Poner como portada al subir</label>
+            <p class="crm-inline-note crm-col-2">
+              Si seleccionas archivo se sube a Supabase Storage. Si no, se usa la URL manual.
+            </p>
+          </fieldset>
+          <div class="crm-col-2 crm-actions-row"><button type="submit" class="crm-button">Agregar archivo</button></div>
+        </form>
+        <div id="property-cover-box" class="crm-cover-box">
+          <p>Selecciona una propiedad para gestionar portada y galeria.</p>
+        </div>
+        <div id="property-media-board" class="crm-media-board"></div>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="properties-feedback" class="crm-feedback">Listo para operar.</p>
+    </section>
+  </div>
+  <script is:inline src="/crm/properties.js"></script>
+</CrmLayout>

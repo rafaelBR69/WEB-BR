@@ -2,8 +2,9 @@
 export const prerender = false;
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import properties from "@/data/properties";
+import fallbackProperties from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard.astro";
+import { getPublicPropertiesWithFallback } from "@/utils/publicPropertiesSource";
 
 import { normalizePropertyCard } from "@/utils/normalizePropertyCard";
 import { normalizePropertyList } from "@/utils/normalizePropertyList";
@@ -23,6 +24,9 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const { properties } = await getPublicPropertiesWithFallback({
+  fallbackProperties,
+});
 
 const copyByLang = {
   es: {

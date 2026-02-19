@@ -6,10 +6,24 @@ export function normalizeProperty(property: any, lang: string) {
   const rawLocation = property.location ?? {};
   const rawMedia = property.media ?? {};
   const rawGallery = rawMedia.gallery ?? {};
+  const asList = (value: any) => (Array.isArray(value) ? value : []);
+  const living = asList(rawGallery.living);
+  const bedroom = asList(rawGallery.bedroom);
+  const kitchen = asList(rawGallery.kitchen);
+  const bathroom = asList(rawGallery.bathroom);
+  const exterior = asList(rawGallery.exterior);
+  const interior = asList(rawGallery.interior);
+  const views = asList(rawGallery.views);
+  const floorplan = asList(rawGallery.floorplan);
   const fallbackCover =
-    rawGallery.exterior?.[0] ??
-    rawGallery.interior?.[0] ??
-    rawGallery.views?.[0] ??
+    exterior[0] ??
+    interior[0] ??
+    living[0] ??
+    bedroom[0] ??
+    kitchen[0] ??
+    bathroom[0] ??
+    views[0] ??
+    floorplan[0] ??
     null;
 
   const seoRaw = translations.seo ?? {};
@@ -81,10 +95,14 @@ export function normalizeProperty(property: any, lang: string) {
     media: {
       cover: rawMedia.cover ?? fallbackCover ?? null,
       gallery: {
-        exterior: rawGallery.exterior ?? [],
-        interior: rawGallery.interior ?? [],
-        views: rawGallery.views ?? [],
-        floorplan: rawGallery.floorplan ?? [],
+        living,
+        bedroom,
+        kitchen,
+        bathroom,
+        exterior,
+        interior,
+        views,
+        floorplan,
       },
     },
   };

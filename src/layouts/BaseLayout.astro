@@ -13,6 +13,7 @@ import { DEFAULT_LANG, LANG_LABELS, SUPPORTED_LANGS } from "@/i18n/languages";
 import { getUiCopy } from "@/i18n/ui";
 
 import lightboxUrl from "@/scripts/lightbox.js?url";
+import publicCrmRealtimeUrl from "@/scripts/public-crm-realtime.ts?url";
 
 const {
   title = "BlancaReal",
@@ -72,6 +73,28 @@ const ogLocaleMap = {
   de: "de_DE",
   nl: "nl_NL",
 };
+
+const hasPublicCatalogRoute =
+  canonicalPath.includes("/properties") ||
+  canonicalPath.includes("/property/") ||
+  canonicalPath.includes("/projects/");
+
+const realtimeOrganizationId =
+  String(import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? "").trim() || null;
+
+const publicRealtimeConfig = {
+  enabled: hasPublicCatalogRoute,
+  supabaseUrl: String(import.meta.env.PUBLIC_SUPABASE_URL ?? "").trim(),
+  anonKey: String(import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? "").trim(),
+  organizationId: realtimeOrganizationId,
+  debounceMs: 900,
+  refreshTimeoutMs: 10000,
+};
+
+const shouldLoadPublicRealtime =
+  publicRealtimeConfig.enabled &&
+  Boolean(publicRealtimeConfig.supabaseUrl) &&
+  Boolean(publicRealtimeConfig.anonKey);
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -351,6 +374,14 @@ const ogLocaleMap = {
       <slot />
     </main>
 
+    {shouldLoadPublicRealtime && (
+      <>
+        <script is:inline define:vars={{ publicRealtimeConfig }}>
+          window.__blancarealPublicRealtime = publicRealtimeConfig;
+        </script>
+        <script type="module" src={publicCrmRealtimeUrl}></script>
+      </>
+    )}
     <script type="module" src={lightboxUrl}></script>
   </body>
 </html>

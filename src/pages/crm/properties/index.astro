@@ -1,0 +1,54 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Propiedades | Resumen" section="properties">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between">
+        <div>
+          <h2>Modulo de propiedades</h2>
+          <p>
+            El modulo ahora esta separado por funciones para trabajar mas rapido: dashboard,
+            listado, alta y ficha.
+          </p>
+        </div>
+        <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
+          <a class="crm-link" href="/crm/properties/dashboard/">Dashboard</a>
+          <a class="crm-link" href="/crm/properties/listado/">Listado</a>
+          <a class="crm-link" href="/crm/properties/nueva/">Nueva propiedad</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Dashboard operativo</h3>
+        <p>Vista por bloques: obra nueva, segunda mano y promociones propias.</p>
+        <div class="crm-actions-row">
+          <a class="crm-link" href="/crm/properties/dashboard/">Abrir dashboard</a>
+        </div>
+      </article>
+      <article class="crm-card crm-half">
+        <h3>Listado total</h3>
+        <p>Busqueda, filtros y navegacion por promociones y viviendas.</p>
+        <div class="crm-actions-row">
+          <a class="crm-link" href="/crm/properties/listado/">Abrir listado</a>
+        </div>
+      </article>
+      <article class="crm-card crm-half">
+        <h3>Alta de propiedad</h3>
+        <p>Formulario dedicado para crear promociones, unidades o viviendas sueltas.</p>
+        <div class="crm-actions-row">
+          <a class="crm-link" href="/crm/properties/nueva/">Crear propiedad</a>
+        </div>
+      </article>
+      <article class="crm-card crm-half">
+        <h3>Ficha y media</h3>
+        <p>Edicion operativa dentro de la propiedad: datos, estado, portada y galeria.</p>
+        <div class="crm-actions-row">
+          <a class="crm-link" href="/crm/properties/ficha/">Editar propiedades</a>
+        </div>
+      </article>
+    </section>
+  </div>
+</CrmLayout>
