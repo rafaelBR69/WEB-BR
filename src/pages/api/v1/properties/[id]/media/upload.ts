@@ -3,6 +3,7 @@ import { jsonResponse, methodNotAllowed } from "@/utils/crmApi";
 import { getSupabaseServerClient, hasSupabaseServerClient } from "@/utils/supabaseServer";
 import { mapPropertyRow, MEDIA_CATEGORIES, normalizeMediaModel, type MediaCategory } from "@/utils/crmProperties";
 import { uploadPropertyMediaFile } from "@/utils/crmPropertyStorage";
+import { enqueueMediaOptimizeJob, triggerMediaOptimizeQueueWorker } from "@/utils/crmMediaOptimizeQueue";
 
 const SELECT_COLUMNS = [
   "id",
@@ -185,9 +186,21 @@ export const POST: APIRoute = async ({ params, request }) => {
     );
   }
 
+  const mappedData = data as Record<string, unknown>;
+  const queueResult = await enqueueMediaOptimizeJob(client, {
+    organizationId: scopedOrganizationId,
+    propertyId: id,
+    legacyCode: toOptionalText(mappedData.legacy_code),
+    reason: "media_upload",
+    payload: { source: "api_upload", category },
+  });
+  const kickResult = queueResult.enqueued
+    ? triggerMediaOptimizeQueueWorker({ maxJobs: 1 })
+    : { kicked: false, reason: "not_enqueued" };
+
   return jsonResponse({
     ok: true,
-    data: mapPropertyRow(data as Record<string, unknown>),
+    data: mapPropertyRow(mappedData),
     meta: {
       persisted: true,
       storage: "supabase.crm.properties",
@@ -196,6 +209,11 @@ export const POST: APIRoute = async ({ params, request }) => {
       storage_url: uploaded.publicUrl,
       file_size: uploaded.bytes,
       mime_type: uploaded.mimeType,
+      media_optimize_queue: {
+        ...queueResult,
+        worker_kicked: kickResult.kicked,
+        worker_kick_reason: kickResult.reason,
+      },
     },
   });
 };

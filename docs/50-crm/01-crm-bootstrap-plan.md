@@ -66,6 +66,17 @@ Lanzar un CRM minimo dentro del mismo repo, separado de la web publica, con:
 
 ## Migrar JSON de propiedades al CRM
 
+Archivo que ejecuta la sincronizacion:
+- `scripts/migrate-properties-json-to-crm.mjs`
+
+Comando recomendado (directo con Node):
+`node scripts/migrate-properties-json-to-crm.mjs --organization-id <ORG_UUID>`
+
+Comando equivalente via npm script:
+`npm run properties:migrate-crm -- -- --organization-id <ORG_UUID>`
+
+Nota: en npm debes pasar `-- --` antes de los flags del script para que npm no los interprete como flags propios.
+
 1. Definir variables de entorno:
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
@@ -73,13 +84,40 @@ Lanzar un CRM minimo dentro del mismo repo, separado de la web publica, con:
 - `CRM_WEBSITE_ID` (opcional, UUID de `crm.websites.id`)
 
 2. Validar mapeo sin escribir:
+`node scripts/migrate-properties-json-to-crm.mjs --dry-run --organization-id <ORG_UUID>`
+
+o via npm:
 `npm run properties:migrate-crm -- -- --dry-run --organization-id <ORG_UUID>`
 
 3. Ejecutar migracion real:
+`node scripts/migrate-properties-json-to-crm.mjs --organization-id <ORG_UUID>`
+
+o via npm:
 `npm run properties:migrate-crm -- -- --organization-id <ORG_UUID>`
 
 4. (Opcional) migrar solo una muestra inicial:
+`node scripts/migrate-properties-json-to-crm.mjs --organization-id <ORG_UUID> --limit 20`
+
+o via npm:
 `npm run properties:migrate-crm -- -- --organization-id <ORG_UUID> --limit 20`
+
+## Optimizar imagenes CRM con Sharp
+
+Archivo:
+- `scripts/optimize-crm-property-media.mjs`
+
+Job por directorio:
+- `scripts/media-optimizer/jobs/default.json`
+
+Dry-run:
+`npm run properties:media-optimize -- -- --dry-run`
+
+Aplicar:
+`npm run properties:media-optimize -- -- --apply`
+
+Guia completa:
+- `docs/50-crm/04-media-optimizer-sharp.md`
+- `docs/50-crm/05-media-optimizer-operativa-diaria.md`
 
 ## Orden recomendado de despliegue
 

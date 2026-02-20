@@ -122,6 +122,12 @@
     coverBox: document.getElementById("property-cover-box"),
     workspace: document.getElementById("property-workspace"),
     selectedPropertyContext: document.getElementById("selected-property-context"),
+    propertyPageTitle: document.getElementById("property-page-title"),
+    propertyPageSubtitle: document.getElementById("property-page-subtitle"),
+    propertyPageMeta: document.getElementById("property-page-meta"),
+    projectPageTitle: document.getElementById("project-page-title"),
+    projectPageSubtitle: document.getElementById("project-page-subtitle"),
+    projectPageMeta: document.getElementById("project-page-meta"),
     wizardSteps: document.getElementById("property-create-steps"),
     wizardPrev: document.getElementById("property-create-prev"),
     wizardNext: document.getElementById("property-create-next"),
@@ -418,6 +424,107 @@
     return code || fallback;
   };
 
+  const statusLabel = (status) => statusLabels[status] || status || "-";
+
+  const formatPercent = (value, total) => {
+    const numerator = Number(value ?? 0);
+    const denominator = Number(total ?? 0);
+    if (!Number.isFinite(numerator) || !Number.isFinite(denominator) || denominator <= 0) return 0;
+    return Math.round((numerator / denominator) * 100);
+  };
+
+  const resolveParentLegacyCode = (item) => {
+    const parentId = toText(item?.parent_property_id);
+    if (!parentId) return null;
+    return state.parentLegacyById.get(parentId) || toText(findKnownPropertyById(parentId)?.legacy_code);
+  };
+
+  const renderSelectedPropertyContext = (item) => {
+    if (!el.selectedPropertyContext) return;
+    if (!item) {
+      el.selectedPropertyContext.innerHTML = `
+        <p class="crm-selected-context-kicker">Contexto activo</p>
+        <h4 class="crm-selected-context-title">Sin propiedad seleccionada</h4>
+        <p class="crm-selected-context-meta">Selecciona una propiedad del listado para editar la ficha.</p>
+      `;
+      return;
+    }
+
+    const parentLegacyCode = resolveParentLegacyCode(item);
+    const priceLabel = money(item);
+    const badges = [
+      `<span class="crm-selected-context-badge">${esc(recordTypeLabel(item.record_type))}</span>`,
+      `<span class="crm-selected-context-badge">${esc(statusLabel(item.status))}</span>`,
+    ];
+    if (priceLabel !== "-") badges.push(`<span class="crm-selected-context-badge">${esc(priceLabel)}</span>`);
+    if (parentLegacyCode) {
+      badges.push(`<span class="crm-selected-context-badge">Padre: ${esc(parentLegacyCode)}</span>`);
+    }
+
+    el.selectedPropertyContext.innerHTML = `
+      <p class="crm-selected-context-kicker">Contexto activo</p>
+      <h4 class="crm-selected-context-title">${esc(propertyLabel(item, "Propiedad sin nombre"))}</h4>
+      <p class="crm-selected-context-meta">Ref: ${esc(propertyRef(item))}</p>
+      <div class="crm-selected-context-badges">${badges.join("")}</div>
+    `;
+  };
+
+  const syncPropertyPageContext = (item) => {
+    if (!el.propertyPageTitle) return;
+    if (!item) {
+      el.propertyPageTitle.textContent = "Ficha de propiedad";
+      if (el.propertyPageSubtitle) {
+        el.propertyPageSubtitle.textContent =
+          "Gestion completa de datos comerciales, estado e imagenes en una sola vista.";
+      }
+      if (el.propertyPageMeta) {
+        el.propertyPageMeta.textContent = "Cargando contexto de la propiedad...";
+      }
+      return;
+    }
+
+    const parentLegacyCode = resolveParentLegacyCode(item);
+    const priceLabel = money(item);
+    const subtitleParts = [recordTypeLabel(item.record_type), statusLabel(item.status)];
+    const metaParts = [`Ref: ${propertyRef(item)}`];
+    if (priceLabel !== "-") metaParts.push(priceLabel);
+    if (parentLegacyCode) metaParts.push(`Padre: ${parentLegacyCode}`);
+
+    el.propertyPageTitle.textContent = propertyLabel(item, "Propiedad sin nombre");
+    if (el.propertyPageSubtitle) el.propertyPageSubtitle.textContent = subtitleParts.join(" | ");
+    if (el.propertyPageMeta) el.propertyPageMeta.textContent = metaParts.join(" | ");
+  };
+
+  const syncProjectPageContext = (project, units = []) => {
+    if (!el.projectPageTitle) return;
+    if (!project) {
+      el.projectPageTitle.textContent = "Vista de promocion";
+      if (el.projectPageSubtitle) {
+        el.projectPageSubtitle.textContent =
+          "Seguimiento operativo de una promocion concreta con KPIs y estado de viviendas.";
+      }
+      if (el.projectPageMeta) {
+        el.projectPageMeta.textContent = "Selecciona una promocion para cargar su contexto.";
+      }
+      return;
+    }
+
+    const totalUnits = Array.isArray(units) ? units.length : 0;
+    const availableUnits = Array.isArray(units) ? units.filter((item) => isAvailable(item)).length : 0;
+    const priceLabel = money(project);
+    const businessType = project?.project_business_type || project?.business_type;
+    const subtitleParts = [
+      businessLabels[businessType] || businessType || "Promocion",
+      totalUnits ? `${availableUnits}/${totalUnits} disponibles` : "Sin viviendas hijas cargadas",
+    ];
+    const metaParts = [`Ref: ${propertyRef(project)}`, `Estado: ${statusLabel(project.status)}`];
+    if (priceLabel !== "-") metaParts.push(priceLabel);
+
+    el.projectPageTitle.textContent = projectLabel(project);
+    if (el.projectPageSubtitle) el.projectPageSubtitle.textContent = subtitleParts.join(" | ");
+    if (el.projectPageMeta) el.projectPageMeta.textContent = metaParts.join(" | ");
+  };
+
   const isAvailable = (item) => item?.status === "available";
 
   const availabilityBadge = (item) => {
@@ -434,19 +541,43 @@
       return;
     }
 
+    const total = Number(stats.total ?? 0);
+    const available = Number(stats.available_total ?? 0);
+    const projects = Number(stats.projects_total ?? 0);
+    const units = Number(stats.units_total ?? 0);
+    const singles = Number(stats.singles_total ?? 0);
+    const availabilityRate = formatPercent(available, total);
+
     const cards = [
-      { label: "Total propiedades", value: stats.total ?? 0 },
-      { label: "Disponibles", value: stats.available_total ?? 0 },
-      { label: "Promociones", value: stats.projects_total ?? 0 },
-      { label: "Viviendas de promocion", value: stats.units_total ?? 0 },
+      {
+        label: "Total propiedades",
+        value: total,
+        hint: "Inventario total del CRM",
+      },
+      {
+        label: "Disponibles",
+        value: available,
+        hint: `${availabilityRate}% del inventario`,
+      },
+      {
+        label: "Promociones",
+        value: projects,
+        hint: `${singles} viviendas sueltas`,
+      },
+      {
+        label: "Viviendas de promocion",
+        value: units,
+        hint: "Unidades hijas cargadas",
+      },
     ];
 
     el.kpiGrid.innerHTML = cards
       .map(
-        (card) => `
-          <article class="crm-card crm-kpi">
+        (card, index) => `
+          <article class="crm-card crm-kpi ${index === 0 ? "crm-kpi-highlight" : ""}">
             <strong>${esc(card.value)}</strong>
             <p>${esc(card.label)}</p>
+            <small class="crm-kpi-hint">${esc(card.hint)}</small>
           </article>
         `
       )
@@ -461,10 +592,19 @@
       return;
     }
 
+    const total = Number(stats.total ?? 0);
     el.statusBoard.innerHTML = propertyStatuses
       .map((status) => {
         const count = Number(stats.by_status?.[status] ?? 0);
-        return `<span class="crm-status-chip">${esc(statusLabels[status] || status)}: ${esc(count)}</span>`;
+        const percentage = formatPercent(count, total);
+        const chipClass = statusClass[status] || "warn";
+        return `
+          <span class="crm-status-chip ${chipClass}">
+            <span class="crm-status-chip-label">${esc(statusLabels[status] || status)}</span>
+            <strong>${esc(count)}</strong>
+            <small>${esc(percentage)}%</small>
+          </span>
+        `;
       })
       .join("");
   };
@@ -477,19 +617,30 @@
       return;
     }
 
-    el.promotionsTbody.innerHTML = promotions
+    const ordered = [...promotions].sort((a, b) => {
+      const availableDiff = Number(b.available_units ?? 0) - Number(a.available_units ?? 0);
+      if (availableDiff !== 0) return availableDiff;
+      const totalDiff = Number(b.total_units ?? 0) - Number(a.total_units ?? 0);
+      if (totalDiff !== 0) return totalDiff;
+      return projectLabel(a).localeCompare(projectLabel(b), "es");
+    });
+
+    el.promotionsTbody.innerHTML = ordered
       .slice(0, 20)
-      .map((promo) => `
-        <tr>
-          <td><strong>${esc(projectLabel(promo))}</strong><br /><small>${esc(propertyRef(promo))}</small></td>
-          <td>${esc(businessLabels[promo.business_type] || promo.business_type || "-")}</td>
-          <td><span class="crm-badge ${statusClass[promo.status] || "warn"}">${esc(promo.status || "-")}</span></td>
-          <td>${esc(promo.total_units ?? 0)}</td>
-          <td>${esc(promo.available_units ?? 0)}</td>
-          <td>${esc(promo.reserved_units ?? 0)}</td>
-          <td>${esc((promo.sold_units ?? 0) + (promo.rented_units ?? 0))}</td>
-        </tr>
-      `)
+      .map((promo) => {
+        const businessType = promo.business_type || promo.project_business_type;
+        return `
+          <tr>
+            <td><strong>${esc(projectLabel(promo))}</strong><br /><small>${esc(propertyRef(promo))}</small></td>
+            <td>${esc(businessLabels[businessType] || businessType || "-")}</td>
+            <td><span class="crm-badge ${statusClass[promo.status] || "warn"}">${esc(statusLabel(promo.status))}</span></td>
+            <td>${esc(promo.total_units ?? 0)}</td>
+            <td>${esc(promo.available_units ?? 0)}</td>
+            <td>${esc(promo.reserved_units ?? 0)}</td>
+            <td>${esc((promo.sold_units ?? 0) + (promo.rented_units ?? 0))}</td>
+          </tr>
+        `;
+      })
       .join("");
   };
 
@@ -499,33 +650,62 @@
     const promotions = Array.isArray(state.stats?.promotions) ? state.stats.promotions : [];
     const grouped = new Map(dashboardBuckets.map((bucket) => [bucket.key, []]));
     promotions.forEach((promo) => {
-      if (!grouped.has(promo.business_type)) return;
-      grouped.get(promo.business_type).push(promo);
+      const businessType = promo.business_type || promo.project_business_type;
+      if (!grouped.has(businessType)) return;
+      grouped.get(businessType).push(promo);
     });
 
     el.dashboardGroups.innerHTML = dashboardBuckets
       .map((bucket) => {
-        const rows = grouped.get(bucket.key) || [];
-        const rowsHtml = rows.length
-          ? rows
-              .map((entry) => `
-                <li class="crm-dashboard-promo-item">
-                  <div>
-                    <strong>${esc(projectLabel(entry))}</strong>
-                    <small>Ref: ${esc(propertyRef(entry))}</small>
-                    <small>${esc(entry.available_units ?? 0)} / ${esc(entry.total_units ?? 0)} disponibles</small>
-                  </div>
-                  <span class="crm-badge ${entry.available_units > 0 ? "ok" : "warn"}">${esc(entry.total_units ?? 0)} viviendas</span>
-                  <button type="button" class="crm-mini-btn" data-dashboard-action="open-project" data-project-id="${esc(entry.id)}">Abrir</button>
-                </li>
-              `)
-              .join("")
+        const rows = [...(grouped.get(bucket.key) || [])].sort((a, b) => {
+          const availableDiff = Number(b.available_units ?? 0) - Number(a.available_units ?? 0);
+          if (availableDiff !== 0) return availableDiff;
+          const totalDiff = Number(b.total_units ?? 0) - Number(a.total_units ?? 0);
+          if (totalDiff !== 0) return totalDiff;
+          return projectLabel(a).localeCompare(projectLabel(b), "es");
+        });
+        const totalUnits = rows.reduce((sum, item) => sum + Number(item.total_units ?? 0), 0);
+        const availableUnits = rows.reduce((sum, item) => sum + Number(item.available_units ?? 0), 0);
+        const visibleRows = rows.slice(0, 8);
+        const overflowCount = rows.length - visibleRows.length;
+        const rowsHtml = visibleRows.length
+          ? `${visibleRows
+              .map((entry) => {
+                const entryTotalUnits = Number(entry.total_units ?? 0);
+                const entryAvailableUnits = Number(entry.available_units ?? 0);
+                const availabilityPercent = formatPercent(entryAvailableUnits, entryTotalUnits);
+                return `
+                  <li class="crm-dashboard-promo-item">
+                    <div>
+                      <strong>${esc(projectLabel(entry))}</strong>
+                      <small>Ref: ${esc(propertyRef(entry))}</small>
+                      <small>${esc(entryAvailableUnits)} / ${esc(entryTotalUnits)} disponibles (${esc(
+                        availabilityPercent
+                      )}%)</small>
+                    </div>
+                    <span class="crm-badge ${entryAvailableUnits > 0 ? "ok" : "warn"}">${esc(
+                      entryTotalUnits
+                    )} viviendas</span>
+                    <button type="button" class="crm-mini-btn" data-dashboard-action="open-project" data-project-id="${esc(
+                      entry.id
+                    )}">Abrir</button>
+                  </li>
+                `;
+              })
+              .join("")}${
+              overflowCount > 0
+                ? `<li class='crm-dashboard-promo-item-empty'>+${esc(overflowCount)} promociones mas...</li>`
+                : ""
+            }`
           : "<li class='crm-dashboard-promo-item-empty'>Sin promociones con los filtros actuales.</li>";
 
         return `
           <article class="crm-dashboard-column">
             <h3>${esc(bucket.title)}</h3>
             <p class="crm-inline-note">${esc(bucket.helper)}</p>
+            <p class="crm-dashboard-column-summary">${esc(rows.length)} promociones | ${esc(
+              availableUnits
+            )} de ${esc(totalUnits)} disponibles</p>
             <ul class="crm-dashboard-promo-list">${rowsHtml}</ul>
           </article>
         `;
@@ -537,16 +717,19 @@
       if (!stats) {
         el.dashboardSummary.textContent = "Sin datos de dashboard.";
       } else {
+        const total = Number(stats.total ?? 0);
+        const available = Number(stats.available_total ?? 0);
+        const projects = Number(stats.projects_total ?? 0);
+        const units = Number(stats.units_total ?? 0);
         const singles = Number(stats.singles_total ?? 0);
+        const availabilityRate = formatPercent(available, total);
         if (isCompactViewport()) {
           el.dashboardSummary.textContent =
-            `${stats.total || 0} registros | ${stats.projects_total || 0} promociones | ` +
-            `${stats.available_total || 0} disponibles`;
+            `${total} registros | ${available} disponibles (${availabilityRate}%) | ${projects} promociones`;
         } else {
           el.dashboardSummary.textContent =
-            `Total ${stats.total || 0} registros | ${stats.projects_total || 0} promociones | ` +
-            `${stats.units_total || 0} viviendas en promociones | ${singles} viviendas sueltas | ` +
-            `${stats.available_total || 0} disponibles`;
+            `Inventario: ${total} registros | ${available} disponibles (${availabilityRate}%) | ` +
+            `${projects} promociones | ${units} viviendas en promociones | ${singles} viviendas sueltas`;
         }
       }
     }
@@ -800,10 +983,15 @@
     if (!el.projectDetail) return;
     if (!state.selectedProjectId) {
       el.projectDetail.innerHTML = "<p class='crm-inline-note'>Selecciona una promocion para ver sus viviendas.</p>";
+      syncProjectPageContext(null, []);
       renderProjectKpis(null, []);
       renderProjectExecutive(null, []);
       return;
     }
+    const previewProject =
+      state.stats?.promotions?.find((entry) => entry.id === state.selectedProjectId) ||
+      findKnownPropertyById(state.selectedProjectId);
+    syncProjectPageContext(previewProject || null, []);
     el.projectDetail.innerHTML = "<p class='crm-inline-note'>Cargando viviendas de la promocion...</p>";
     renderProjectKpis(null, []);
     renderProjectExecutive(null, []);
@@ -844,6 +1032,7 @@
     if (!el.projectDetail) return;
     if (!state.selectedProjectId) {
       el.projectDetail.innerHTML = "<p class='crm-inline-note'>Selecciona una promocion para ver sus viviendas.</p>";
+      syncProjectPageContext(null, []);
       return;
     }
 
@@ -857,11 +1046,13 @@
     const units = detail.units;
     if (!project) {
       el.projectDetail.innerHTML = "<p class='crm-inline-note'>No se pudo cargar la promocion seleccionada.</p>";
+      syncProjectPageContext(null, []);
       renderProjectKpis(null, []);
       renderProjectExecutive(null, []);
       return;
     }
 
+    syncProjectPageContext(project, units);
     const availability = availabilityBadge(project);
     const availableUnits = units.filter((item) => isAvailable(item)).length;
     const projectSelectedClass = state.selectedId === project.id ? "is-selected" : "";
@@ -1010,6 +1201,22 @@
     if (el.mediaFieldset) el.mediaFieldset.disabled = !enabled;
   };
 
+  const syncParentLegacyFieldRules = (form) => {
+    if (!form) return;
+    const recordTypeField = form.elements?.record_type;
+    const parentField = form.elements?.parent_legacy_code;
+    if (!(recordTypeField instanceof HTMLSelectElement)) return;
+    if (!(parentField instanceof HTMLInputElement)) return;
+
+    const isUnit = recordTypeField.value === "unit";
+    parentField.required = isUnit;
+    parentField.disabled = !isUnit;
+    parentField.placeholder = isUnit
+      ? "Obligatorio para unit"
+      : "Solo aplica a viviendas de promocion";
+    if (!isUnit && parentField.value) parentField.value = "";
+  };
+
   const renderMedia = (item) => {
     if (!el.coverBox || !el.mediaBoard) return;
     const cover = item?.media?.cover || null;
@@ -1062,28 +1269,26 @@
     if (!item) {
       setFormsEnabled(false);
       el.editForm.reset();
-      if (el.selectedPropertyContext) {
-        el.selectedPropertyContext.textContent =
-          "Selecciona una propiedad del listado para editar la ficha.";
-      }
+      syncParentLegacyFieldRules(el.editForm);
+      renderSelectedPropertyContext(null);
+      syncPropertyPageContext(null);
       if (el.coverBox) el.coverBox.innerHTML = "<p>Selecciona una propiedad para gestionar portada y galeria.</p>";
       if (el.mediaBoard) el.mediaBoard.innerHTML = "";
       return;
     }
 
     setFormsEnabled(true);
-    if (el.selectedPropertyContext) {
-      el.selectedPropertyContext.textContent =
-        `Propiedad activa: ${propertyLabel(item, "sin nombre")} | Ref: ${propertyRef(item)} | ${item.record_type || "-"}`;
-    }
+    renderSelectedPropertyContext(item);
+    syncPropertyPageContext(item);
 
     el.editForm.elements.id.value = item.id;
     el.editForm.elements.legacy_code.value = item.legacy_code || "";
     el.editForm.elements.record_type.value = item.record_type || "single";
+    syncParentLegacyFieldRules(el.editForm);
     el.editForm.elements.project_business_type.value = item.project_business_type || "external_listing";
     el.editForm.elements.operation_type.value = item.operation_type || "sale";
     el.editForm.elements.status.value = item.status || "draft";
-    const parentId = toText(item.parent_property_id);
+    const parentId = item.record_type === "unit" ? toText(item.parent_property_id) : null;
     const cachedParentLegacyCode = parentId
       ? state.parentLegacyById.get(parentId) || findKnownPropertyById(parentId)?.legacy_code || ""
       : "";
@@ -1128,15 +1333,16 @@
 
   const payloadFromForm = (form) => {
     const formData = new FormData(form);
-    const parentLegacyCode = toText(formData.get("parent_legacy_code"));
+    const recordType = toText(formData.get("record_type"));
+    const parentLegacyCode = recordType === "unit" ? toText(formData.get("parent_legacy_code")) : null;
     return {
       organization_id: state.organizationId || null,
       legacy_code: toText(formData.get("legacy_code")),
-      record_type: toText(formData.get("record_type")),
+      record_type: recordType,
       project_business_type: toText(formData.get("project_business_type")),
       operation_type: toText(formData.get("operation_type")),
       status: toText(formData.get("status")),
-      ...(parentLegacyCode ? { parent_legacy_code: parentLegacyCode } : {}),
+      ...(recordType === "unit" ? { parent_legacy_code: parentLegacyCode } : {}),
       price_sale: toNumber(formData.get("price_sale")),
       price_rent_monthly: toNumber(formData.get("price_rent_monthly")),
       currency: toText(formData.get("currency")),
@@ -1409,6 +1615,22 @@
     }
   };
 
+  const createRecordTypeField = el.createForm?.elements?.record_type;
+  if (createRecordTypeField instanceof HTMLSelectElement) {
+    createRecordTypeField.addEventListener("change", () => {
+      syncParentLegacyFieldRules(el.createForm);
+    });
+    syncParentLegacyFieldRules(el.createForm);
+  }
+
+  const editRecordTypeField = el.editForm?.elements?.record_type;
+  if (editRecordTypeField instanceof HTMLSelectElement) {
+    editRecordTypeField.addEventListener("change", () => {
+      syncParentLegacyFieldRules(el.editForm);
+    });
+    syncParentLegacyFieldRules(el.editForm);
+  }
+
   el.orgForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const manualValue = String(el.orgInput?.value || "").trim();
@@ -1586,7 +1808,11 @@
 
       await loadProperties({ preserveSelection: true });
     } catch (error) {
-      setFeedback(`Error al crear: ${error.message}`, "error", { toast: true });
+      const rawMessage = String(error?.message || "db_insert_error");
+      const friendly = rawMessage.includes("parent_legacy_code_required_for_unit")
+        ? "Para una vivienda de promocion debes indicar la promocion padre (legacy_code)."
+        : rawMessage;
+      setFeedback(`Error al crear: ${friendly}`, "error", { toast: true });
     }
   });
 
@@ -1617,7 +1843,11 @@
       );
       await loadProperties({ preserveSelection: true });
     } catch (error) {
-      setFeedback(`Error al actualizar: ${error.message}`, "error", { toast: true });
+      const rawMessage = String(error?.message || "db_update_error");
+      const friendly = rawMessage.includes("parent_legacy_code_required_for_unit")
+        ? "Para una vivienda de promocion debes indicar la promocion padre (legacy_code)."
+        : rawMessage;
+      setFeedback(`Error al actualizar: ${friendly}`, "error", { toast: true });
     }
   });
 
@@ -1642,6 +1872,7 @@
     setFeedback(hasFile ? "Subiendo archivo..." : "Guardando media...", "ok");
 
     try {
+      let mediaResponse = null;
       if (hasFile) {
         const uploadPayload = new FormData();
         uploadPayload.set("organization_id", state.organizationId || "");
@@ -1650,7 +1881,7 @@
         uploadPayload.set("alt_es", String(formData.get("alt_es") || ""));
         uploadPayload.set("set_as_cover", formData.get("set_as_cover") === "on" ? "true" : "false");
         uploadPayload.set("file", file);
-        await request(`${apiBase}/${encodeURIComponent(current.id)}/media/upload`, {
+        mediaResponse = await request(`${apiBase}/${encodeURIComponent(current.id)}/media/upload`, {
           method: "POST",
           body: uploadPayload,
         });
@@ -1663,14 +1894,24 @@
           alt_es: toText(formData.get("alt_es")),
           set_as_cover: formData.get("set_as_cover") === "on",
         };
-        await request(`${apiBase}/${encodeURIComponent(current.id)}/media`, {
+        mediaResponse = await request(`${apiBase}/${encodeURIComponent(current.id)}/media`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
       }
       el.mediaForm.reset();
-      setFeedback(hasFile ? "Archivo subido y vinculado." : "Media agregada.", "ok", { toast: true });
+      const queueMeta = mediaResponse?.meta?.media_optimize_queue || null;
+      const queueSuffix = queueMeta?.enqueued
+        ? " Optimizacion en cola."
+        : queueMeta?.error
+          ? " Media guardada, pero la cola de optimizacion no esta disponible."
+          : "";
+      setFeedback(
+        `${hasFile ? "Archivo subido y vinculado." : "Media agregada."}${queueSuffix}`,
+        "ok",
+        { toast: true }
+      );
       await loadProperties({ preserveSelection: true });
     } catch (error) {
       const rawMessage = String(error?.message || "error_subiendo_media");

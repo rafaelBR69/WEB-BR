@@ -8,8 +8,10 @@ const propertyId = String(Astro.params.id ?? "").trim();
     <section class="crm-card crm-full">
       <div class="crm-row-between">
         <div>
-          <h2>Ficha de propiedad</h2>
-          <p>Gestion completa de datos comerciales, estado e imagenes en una sola vista.</p>
+          <p class="crm-context-eyebrow">Vivienda</p>
+          <h2 id="property-page-title">Ficha de propiedad</h2>
+          <p id="property-page-subtitle">Gestion completa de datos comerciales, estado e imagenes en una sola vista.</p>
+          <p id="property-page-meta" class="crm-inline-note">Cargando contexto de la propiedad...</p>
         </div>
         <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
           <a class="crm-link" href="/crm/properties/dashboard/">Dashboard</a>
@@ -22,9 +24,11 @@ const propertyId = String(Astro.params.id ?? "").trim();
     <section id="property-workspace" class="crm-grid">
       <article class="crm-card crm-half">
         <h3>Edicion de ficha operativa</h3>
-        <p id="selected-property-context" class="crm-inline-note">
-          Cargando propiedad...
-        </p>
+        <div id="selected-property-context" class="crm-selected-context">
+          <p class="crm-selected-context-kicker">Contexto activo</p>
+          <h4 class="crm-selected-context-title">Cargando propiedad...</h4>
+          <p class="crm-selected-context-meta">Esperando datos para cargar ficha.</p>
+        </div>
         <form id="property-edit-form" class="crm-form">
           <fieldset id="property-edit-fieldset" class="crm-fieldset" disabled>
             <input type="hidden" name="id" />

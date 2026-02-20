@@ -109,9 +109,11 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
     <section id="property-workspace" class="crm-grid">
       <article class="crm-card crm-half">
         <h3>Edicion de ficha operativa</h3>
-        <p id="selected-property-context" class="crm-inline-note">
-          Selecciona una propiedad del listado para editar la ficha.
-        </p>
+        <div id="selected-property-context" class="crm-selected-context">
+          <p class="crm-selected-context-kicker">Contexto activo</p>
+          <h4 class="crm-selected-context-title">Sin propiedad seleccionada</h4>
+          <p class="crm-selected-context-meta">Selecciona una propiedad del listado para editar la ficha.</p>
+        </div>
         <form id="property-edit-form" class="crm-form">
           <fieldset id="property-edit-fieldset" class="crm-fieldset" disabled>
             <input type="hidden" name="id" />

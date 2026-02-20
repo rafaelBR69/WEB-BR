@@ -40,3 +40,7 @@ Esta documentacion esta pensada para alguien que entra por primera vez al proyec
 - Paginas de posts: `src/pages/[lang]/posts/index.astro` y `src/pages/[lang]/post/[slug].astro`
 - Equipo: `src/data/team/*.json` y `src/data/team/index.ts`
 - Navegacion global: `src/layouts/BaseLayout.astro`
+- Sincronizar propiedades JSON -> CRM: `scripts/migrate-properties-json-to-crm.mjs` (`npm run properties:migrate-crm -- -- --organization-id <ORG_UUID>`)
+- Optimizar media CRM con Sharp: `scripts/optimize-crm-property-media.mjs` (`npm run properties:media-optimize -- -- --dry-run`)
+- Procesar cola automatica de optimizacion media: `scripts/process-media-optimize-queue.mjs` (`npm run properties:media-optimize-queue -- --max-jobs 5`)
+- Operativa diaria media optimizada: `docs/50-crm/05-media-optimizer-operativa-diaria.md`

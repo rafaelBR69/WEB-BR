@@ -225,13 +225,16 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     if (!current) return jsonResponse({ ok: false, error: "property_not_found" }, { status: 404 });
 
     const patch: Record<string, unknown> = {};
+    const nextRecordType = hasOwn(body, "record_type")
+      ? normalizeRecordType(body.record_type)
+      : normalizeRecordType(current.record_type);
 
     if (hasOwn(body, "legacy_code")) {
       const legacyCode = toOptionalText(body.legacy_code);
       if (!legacyCode) return jsonResponse({ ok: false, error: "legacy_code_required" }, { status: 422 });
       patch.legacy_code = legacyCode;
     }
-    if (hasOwn(body, "record_type")) patch.record_type = normalizeRecordType(body.record_type);
+    if (hasOwn(body, "record_type")) patch.record_type = nextRecordType;
     if (hasOwn(body, "operation_type")) patch.operation_type = normalizeOperationType(body.operation_type);
     if (hasOwn(body, "project_business_type")) {
       patch.project_business_type = normalizeProjectBusinessType(body.project_business_type);
@@ -246,17 +249,23 @@ export const PATCH: APIRoute = async ({ params, request }) => {
       patch.commercialization_notes = toOptionalText(body.commercialization_notes);
     }
 
-    if (hasOwn(body, "parent_legacy_code")) {
-      const parentLegacyCode = toOptionalText(body.parent_legacy_code);
-      if (!parentLegacyCode) {
-        patch.parent_property_id = null;
-      } else {
+    if (nextRecordType === "unit") {
+      if (hasOwn(body, "parent_legacy_code")) {
+        const parentLegacyCode = toOptionalText(body.parent_legacy_code);
+        if (!parentLegacyCode) {
+          return jsonResponse({ ok: false, error: "parent_legacy_code_required_for_unit" }, { status: 422 });
+        }
         const resolved = findMockPropertyByLegacyCode(current.organization_id, parentLegacyCode);
         if (!resolved?.id) {
           return jsonResponse({ ok: false, error: "parent_property_not_found" }, { status: 422 });
         }
         patch.parent_property_id = resolved.id;
+      } else if (!current.parent_property_id) {
+        return jsonResponse({ ok: false, error: "parent_legacy_code_required_for_unit" }, { status: 422 });
       }
+    } else if (current.parent_property_id) {
+      // "single" y "project" no pueden colgar de padre.
+      patch.parent_property_id = null;
     }
 
     const hasOperationalPatch =
@@ -351,7 +360,9 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   let currentQuery = client
     .schema("crm")
     .from("properties")
-    .select("id, organization_id, status, property_data, is_featured, is_public, price_currency")
+    .select(
+      "id, organization_id, status, property_data, is_featured, is_public, price_currency, record_type, parent_property_id"
+    )
     .eq("id", id)
     .maybeSingle();
 
@@ -375,13 +386,16 @@ export const PATCH: APIRoute = async ({ params, request }) => {
 
   const organizationId = String(current.organization_id);
   const updatePayload: Record<string, unknown> = {};
+  const nextRecordType = hasOwn(body, "record_type")
+    ? normalizeRecordType(body.record_type)
+    : normalizeRecordType(current.record_type);
 
   if (hasOwn(body, "legacy_code")) {
     const legacyCode = toOptionalText(body.legacy_code);
     if (!legacyCode) return jsonResponse({ ok: false, error: "legacy_code_required" }, { status: 422 });
     updatePayload.legacy_code = legacyCode;
   }
-  if (hasOwn(body, "record_type")) updatePayload.record_type = normalizeRecordType(body.record_type);
+  if (hasOwn(body, "record_type")) updatePayload.record_type = nextRecordType;
   if (hasOwn(body, "operation_type")) updatePayload.operation_type = normalizeOperationType(body.operation_type);
   if (hasOwn(body, "project_business_type")) {
     updatePayload.project_business_type = normalizeProjectBusinessType(body.project_business_type);
@@ -402,11 +416,12 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     updatePayload.commercialization_notes = toOptionalText(body.commercialization_notes);
   }
 
-  if (hasOwn(body, "parent_legacy_code")) {
-    const parentLegacyCode = toOptionalText(body.parent_legacy_code);
-    if (!parentLegacyCode) {
-      updatePayload.parent_property_id = null;
-    } else {
+  if (nextRecordType === "unit") {
+    if (hasOwn(body, "parent_legacy_code")) {
+      const parentLegacyCode = toOptionalText(body.parent_legacy_code);
+      if (!parentLegacyCode) {
+        return jsonResponse({ ok: false, error: "parent_legacy_code_required_for_unit" }, { status: 422 });
+      }
       const parentResult = await resolveParentPropertyId(organizationId, parentLegacyCode);
       if (parentResult.error || !parentResult.id) {
         return jsonResponse(
@@ -419,7 +434,12 @@ export const PATCH: APIRoute = async ({ params, request }) => {
         );
       }
       updatePayload.parent_property_id = parentResult.id;
+    } else if (!current.parent_property_id) {
+      return jsonResponse({ ok: false, error: "parent_legacy_code_required_for_unit" }, { status: 422 });
     }
+  } else if (current.parent_property_id) {
+    // "single" y "project" no pueden colgar de padre.
+    updatePayload.parent_property_id = null;
   }
 
   const hasOperationalPatch =

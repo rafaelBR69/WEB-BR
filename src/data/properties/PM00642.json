@@ -1,0 +1,158 @@
+{
+  "id": "PM00642",
+  "priority": 89,
+  "slugs": {
+    "es": "obra-nueva-luminal-home-fuengirola-torreblanca",
+    "en": "new-build-luminal-home-fuengirola-torreblanca",
+    "de": "neubau-luminal-home-fuengirola-torreblanca",
+    "fr": "programme-neuf-luminal-home-fuengirola-torreblanca",
+    "it": "nuova-costruzione-luminal-home-fuengirola-torreblanca",
+    "nl": "nieuwbouw-luminal-home-fuengirola-torreblanca"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 249000,
+  "currency": "EUR",
+  "pricing": {
+    "from": 249000,
+    "currency": "EUR"
+  },
+  "phase": "Comercializacion",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Torreblanca",
+    "coordinates": {
+      "lat": 36.56473642835458,
+      "lng": -4.6208777879849805
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": null,
+    "usable_area_m2": null,
+    "terrace_m2": null,
+    "garden_m2": null,
+    "bedrooms": null,
+    "bathrooms": null,
+    "garages": null,
+    "provider_name": "Rosso",
+    "provider_phone": "952562867",
+    "provider_email": "info@rossoinmobiliaria.com",
+    "commercial_agency": "BlancaReal",
+    "taxes_notes": "3% Residentes Espana, 5% No residentes, 6.5% viviendas premium",
+    "delivery_date": "2028-12-01",
+    "property_group": "UNIFAMILIARES"
+  },
+  "features": [
+    "new_build",
+    "pool",
+    "private_parking"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/cover/home.jpg",
+      "alt": {
+        "es": "Luminal Home en Fuengirola",
+        "en": "Luminal Home in Fuengirola",
+        "de": "Luminal Home in Fuengirola",
+        "fr": "Luminal Home a Fuengirola",
+        "it": "Luminal Home a Fuengirola",
+        "nl": "Luminal Home in Fuengirola"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home11.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home13.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home14.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home4.jpg"
+        }
+      ],
+      "interior": [],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home11.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home3.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home8.jpg"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "obra nueva luminal home fuengirola torreblanca",
+      "en": "luminal home new build fuengirola torreblanca",
+      "de": "luminal home neubau fuengirola torreblanca",
+      "fr": "programme neuf luminal home fuengirola torreblanca",
+      "it": "nuova costruzione luminal home fuengirola torreblanca",
+      "nl": "luminal home nieuwbouw fuengirola torreblanca"
+    },
+    "meta_description": {
+      "es": "Luminal Home en Fuengirola - Torreblanca. Promocion de unifamiliares en comercializacion desde 249.000 EUR.",
+      "en": "Luminal Home in Fuengirola - Torreblanca. Family homes under commercialization from EUR 249,000.",
+      "de": "Luminal Home in Fuengirola - Torreblanca. Einfamilienhaeuser in Vermarktung ab 249.000 EUR.",
+      "fr": "Luminal Home a Fuengirola - Torreblanca. Maisons familiales en commercialisation a partir de 249 000 EUR.",
+      "it": "Luminal Home a Fuengirola - Torreblanca. Case unifamiliari in commercializzazione da 249.000 EUR.",
+      "nl": "Luminal Home in Fuengirola - Torreblanca. Eengezinswoningen in verkoop vanaf EUR 249.000."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Luminal Home: obra nueva en Fuengirola - Torreblanca",
+      "intro": "Promocion de viviendas unifamiliares en fase de comercializacion.",
+      "description": []
+    },
+    "en": {
+      "title": "Luminal Home: new build in Fuengirola - Torreblanca",
+      "intro": "Family-home development currently under commercialization.",
+      "description": []
+    },
+    "de": {
+      "title": "Luminal Home: Neubau in Fuengirola - Torreblanca",
+      "intro": "Neubauprojekt mit Einfamilienhaeusern in Vermarktung.",
+      "description": []
+    },
+    "fr": {
+      "title": "Luminal Home : programme neuf a Fuengirola - Torreblanca",
+      "intro": "Programme de maisons familiales en phase de commercialisation.",
+      "description": []
+    },
+    "it": {
+      "title": "Luminal Home: nuova costruzione a Fuengirola - Torreblanca",
+      "intro": "Progetto di abitazioni unifamiliari in fase di commercializzazione.",
+      "description": []
+    },
+    "nl": {
+      "title": "Luminal Home: nieuwbouw in Fuengirola - Torreblanca",
+      "intro": "Project met eengezinswoningen in verkoopfase.",
+      "description": []
+    }
+  }
+}

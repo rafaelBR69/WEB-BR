@@ -1,0 +1,145 @@
+{
+  "id": "PM00642-U3",
+  "priority": 68,
+  "listing_type": "unit",
+  "parent_id": "PM00642",
+  "slugs": {
+    "es": "vivienda-u3-luminal-home",
+    "en": "unit-u3-luminal-home",
+    "de": "einheit-u3-luminal-home",
+    "fr": "unite-u3-luminal-home",
+    "it": "unita-u3-luminal-home",
+    "nl": "unit-u3-luminal-home"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 429000,
+  "currency": "EUR",
+  "phase": "Comercializacion",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Torreblanca",
+    "coordinates": {
+      "lat": 36.56473642835458,
+      "lng": -4.6208777879849805
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "year_built": 2028,
+    "area_m2": 132.66,
+    "usable_area_m2": null,
+    "terrace_m2": 17.12,
+    "garden_m2": null,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "garages": 1,
+    "floor_level": 2,
+    "floor_label": "BL4, Planta2",
+    "unit_code": "BL4-P2-U3",
+    "parking_type": "privado_descubierto",
+    "community_pool": true,
+    "sales_stage": "Comercializacion",
+    "delivery_date": "2028-12-01",
+    "source_import_date": "2026-02-11",
+    "property_group": "UNIFAMILIARES"
+  },
+  "features": [
+    "new_build",
+    "pool",
+    "private_parking",
+    "terrace"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/cover/home.jpg",
+      "alt": {
+        "es": "Luminal Home vivienda U3",
+        "en": "Luminal Home unit U3"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home11.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home13.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home14.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home4.jpg"
+        }
+      ],
+      "interior": [],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home11.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home3.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home8.jpg"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "vivienda u3 luminal home",
+      "en": "unit u3 luminal home"
+    },
+    "meta_description": {
+      "es": "Vivienda U3 en Luminal Home. 3 dormitorios, 2 banos, 132.66 m2 y terraza de 17.12 m2. Precio: 429.000 EUR.",
+      "en": "Unit U3 at Luminal Home. 3 bedrooms, 2 bathrooms, 132.66 m2 and 17.12 m2 terrace. Price: EUR 429,000."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Vivienda U3 en Luminal Home",
+      "intro": "Unidad disponible en BL4, Planta 2.",
+      "description": []
+    },
+    "en": {
+      "title": "Unit U3 at Luminal Home",
+      "intro": "Available unit in BL4, Floor 2.",
+      "description": []
+    },
+    "de": {
+      "title": "Einheit U3 in Luminal Home",
+      "intro": "Verfuegbare Einheit in BL4, Etage 2.",
+      "description": []
+    },
+    "fr": {
+      "title": "Unite U3 a Luminal Home",
+      "intro": "Unite disponible en BL4, Etage 2.",
+      "description": []
+    },
+    "it": {
+      "title": "Unita U3 a Luminal Home",
+      "intro": "Unita disponibile in BL4, Piano 2.",
+      "description": []
+    },
+    "nl": {
+      "title": "Unit U3 in Luminal Home",
+      "intro": "Beschikbare unit in BL4, verdieping 2.",
+      "description": []
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-02-19T11:00:19.568Z",
+  "summary": {
+    "mode": "dry-run",
+    "organizationId": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+    "bucket": "properties",
+    "targetBucket": "properties",
+    "targetPrefix": "optimized/v1",
+    "variants": [
+      {
+        "name": "card",
+        "width": 960,
+        "quality": 72
+      },
+      {
+        "name": "hero",
+        "width": 1600,
+        "quality": 76
+      }
+    ],
+    "primaryVariant": "hero",
+    "overwrite": false,
+    "filter": {
+      "property_ids": [],
+      "legacy_codes": [],
+      "limit": 1
+    },
+    "properties_scanned": 1,
+    "media_entries_scanned": 24,
+    "unique_urls_seen": 24,
+    "unique_urls_eligible": 20,
+    "unique_urls_optimized": 0,
+    "reused_from_cache": 0,
+    "skipped_non_supabase": 0,
+    "skipped_bucket_mismatch": 0,
+    "skipped_non_image": 4,
+    "skipped_already_optimized": 0,
+    "skipped_too_large": 0,
+    "db_rows_updated": 0,
+    "db_rows_unchanged": 1,
+    "errors": []
+  },
+  "optimized_samples": [],
+  "changed_properties": []
+}

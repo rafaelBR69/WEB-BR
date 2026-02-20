@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-02-19T11:31:48.276Z",
+  "summary": {
+    "mode": "dry-run",
+    "organizationId": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+    "bucket": "properties",
+    "targetBucket": "properties",
+    "targetPrefix": "optimized/v1",
+    "path_strategy": "project_scoped",
+    "variant_placement": "folder",
+    "variants": [
+      {
+        "name": "mobile",
+        "width": 480,
+        "quality": 68
+      },
+      {
+        "name": "tablet",
+        "width": 1024,
+        "quality": 72
+      },
+      {
+        "name": "desktop",
+        "width": 2000,
+        "quality": 76
+      }
+    ],
+    "primaryVariant": "desktop",
+    "overwrite": false,
+    "source_map_report": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\media-optimizer\\reports\\media-optimize-2026-02-19T11-20-43-296Z.json",
+    "source_map_entries": 285,
+    "filter": {
+      "property_ids": [],
+      "legacy_codes": [],
+      "limit": 2
+    },
+    "properties_scanned": 2,
+    "media_entries_scanned": 24,
+    "unique_urls_seen": 24,
+    "unique_urls_eligible": 20,
+    "unique_urls_optimized": 0,
+    "reused_from_cache": 0,
+    "skipped_non_supabase": 0,
+    "skipped_bucket_mismatch": 0,
+    "skipped_non_image": 4,
+    "skipped_already_optimized": 0,
+    "skipped_too_large": 0,
+    "db_rows_updated": 0,
+    "db_rows_unchanged": 2,
+    "errors": []
+  },
+  "optimized_samples": [],
+  "changed_properties": []
+}

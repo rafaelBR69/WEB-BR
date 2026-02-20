@@ -573,7 +573,17 @@ export const POST: APIRoute = async ({ request }) => {
 
   let parentPropertyId: string | null = null;
   const parentLegacyCode = toOptionalText(body.parent_legacy_code);
-  if (parentLegacyCode) {
+  if (recordType === "unit" && !parentLegacyCode) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "parent_legacy_code_required_for_unit",
+      },
+      { status: 422 }
+    );
+  }
+
+  if (recordType === "unit" && parentLegacyCode) {
     const parentResult = await resolveParentPropertyId(organizationId, parentLegacyCode);
     if (parentResult.error || !parentResult.id) {
       return jsonResponse(

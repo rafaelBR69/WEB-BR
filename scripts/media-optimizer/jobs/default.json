@@ -1,0 +1,20 @@
+{
+  "organization_id": "",
+  "bucket": "properties",
+  "target_bucket": "properties",
+  "target_prefix": "optimized/v1",
+  "path_strategy": "project_scoped",
+  "variant_placement": "folder",
+  "source_map_report": "latest",
+  "apply": false,
+  "overwrite": false,
+  "limit": null,
+  "legacy_codes": [],
+  "property_ids": [],
+  "variants": [
+    { "name": "mobile", "width": 420, "quality": 68 },
+    { "name": "tablet", "width": 1020, "quality": 72 },
+    { "name": "desktop", "width": 1800, "quality": 76 }
+  ],
+  "primary_variant": "desktop"
+}

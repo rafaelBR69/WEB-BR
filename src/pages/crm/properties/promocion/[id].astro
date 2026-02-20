@@ -8,8 +8,10 @@ const projectId = String(Astro.params.id ?? "").trim();
     <section class="crm-card crm-full">
       <div class="crm-row-between">
         <div>
-          <h2>Vista de promocion</h2>
-          <p>Seguimiento operativo de una promocion concreta con KPIs y estado de viviendas.</p>
+          <p class="crm-context-eyebrow">Promocion</p>
+          <h2 id="project-page-title">Vista de promocion</h2>
+          <p id="project-page-subtitle">Seguimiento operativo de una promocion concreta con KPIs y estado de viviendas.</p>
+          <p id="project-page-meta" class="crm-inline-note">Selecciona una promocion para cargar su contexto.</p>
         </div>
         <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
           <a class="crm-link" href="/crm/properties/dashboard/">Dashboard</a>

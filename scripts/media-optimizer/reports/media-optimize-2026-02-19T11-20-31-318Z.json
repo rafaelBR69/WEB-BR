@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-02-19T11:20:32.317Z",
+  "summary": {
+    "mode": "dry-run",
+    "organizationId": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+    "bucket": "properties",
+    "targetBucket": "properties",
+    "targetPrefix": "optimized/v1",
+    "variants": [
+      {
+        "name": "mobile",
+        "width": 480,
+        "quality": 68
+      },
+      {
+        "name": "tablet",
+        "width": 1024,
+        "quality": 72
+      },
+      {
+        "name": "desktop",
+        "width": 2000,
+        "quality": 76
+      }
+    ],
+    "primaryVariant": "desktop",
+    "overwrite": false,
+    "filter": {
+      "property_ids": [],
+      "legacy_codes": [],
+      "limit": null
+    },
+    "properties_scanned": 202,
+    "media_entries_scanned": 3832,
+    "unique_urls_seen": 221,
+    "unique_urls_eligible": 95,
+    "unique_urls_optimized": 0,
+    "reused_from_cache": 3611,
+    "skipped_non_supabase": 0,
+    "skipped_bucket_mismatch": 0,
+    "skipped_non_image": 126,
+    "skipped_already_optimized": 0,
+    "skipped_too_large": 0,
+    "db_rows_updated": 0,
+    "db_rows_unchanged": 202,
+    "errors": []
+  },
+  "optimized_samples": [],
+  "changed_properties": []
+}

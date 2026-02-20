@@ -1,0 +1,3497 @@
+{
+  "generated_at": "2026-02-19T12:32:18.505Z",
+  "summary": {
+    "mode": "apply",
+    "organizationId": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+    "bucket": "properties",
+    "targetBucket": "properties",
+    "targetPrefix": "optimized/v1",
+    "path_strategy": "project_scoped",
+    "variant_placement": "folder",
+    "variants": [
+      {
+        "name": "mobile",
+        "width": 420,
+        "quality": 68
+      },
+      {
+        "name": "tablet",
+        "width": 1020,
+        "quality": 72
+      },
+      {
+        "name": "desktop",
+        "width": 1800,
+        "quality": 76
+      }
+    ],
+    "primaryVariant": "desktop",
+    "overwrite": false,
+    "source_map_report": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\media-optimizer\\reports\\media-optimize-2026-02-19T11-46-08-487Z.json",
+    "source_map_reports_used": 6,
+    "source_map_entries": 939,
+    "filter": {
+      "property_ids": [],
+      "legacy_codes": [],
+      "limit": null
+    },
+    "properties_scanned": 202,
+    "media_entries_scanned": 3832,
+    "unique_urls_seen": 221,
+    "unique_urls_eligible": 95,
+    "unique_urls_optimized": 95,
+    "reused_from_cache": 3611,
+    "skipped_non_supabase": 0,
+    "skipped_bucket_mismatch": 0,
+    "skipped_non_image": 126,
+    "skipped_already_optimized": 0,
+    "skipped_too_large": 0,
+    "db_rows_updated": 5,
+    "db_rows_unchanged": 197,
+    "errors": []
+  },
+  "optimized_samples": [
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/cover/1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/cover/desktop/1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/cover/mobile/1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/cover/mobile/1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 13158
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/cover/tablet/1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/cover/tablet/1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 71712
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/cover/desktop/1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/cover/desktop/1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 221068
+        }
+      ],
+      "metadata": {
+        "width": 2116,
+        "height": 820,
+        "format": "jpeg",
+        "source_bytes": 345232
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/sea-view-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/sea-view-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/views/mobile/sea-view-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/mobile/sea-view-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 10306
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/views/tablet/sea-view-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/tablet/sea-view-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 49340
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/views/desktop/sea-view-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/sea-view-01.webp",
+          "width": 1603,
+          "quality": 76,
+          "bytes": 113176
+        }
+      ],
+      "metadata": {
+        "width": 1603,
+        "height": 820,
+        "format": "jpeg",
+        "source_bytes": 163832
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/sport-area-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/sport-area-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/views/mobile/sport-area-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/mobile/sport-area-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 15488
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/views/tablet/sport-area-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/tablet/sport-area-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 87764
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/views/desktop/sport-area-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/sport-area-01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 271032
+        }
+      ],
+      "metadata": {
+        "width": 2114,
+        "height": 820,
+        "format": "jpeg",
+        "source_bytes": 403187
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/urbanization-view-render-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/urbanization-view-render-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/views/mobile/urbanization-view-render-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/mobile/urbanization-view-render-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 20266
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/views/tablet/urbanization-view-render-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/tablet/urbanization-view-render-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 111786
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/views/desktop/urbanization-view-render-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/urbanization-view-render-01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 345184
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1358,
+        "format": "jpeg",
+        "source_bytes": 576351
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/urbanization-view-render-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/urbanization-view-render-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/views/mobile/urbanization-view-render-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/mobile/urbanization-view-render-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 15162
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/views/tablet/urbanization-view-render-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/tablet/urbanization-view-render-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 83454
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/views/desktop/urbanization-view-render-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/urbanization-view-render-02.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 252178
+        }
+      ],
+      "metadata": {
+        "width": 2116,
+        "height": 820,
+        "format": "jpeg",
+        "source_bytes": 374007
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/views/urbanization-view-render-03.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/urbanization-view-render-03.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/views/mobile/urbanization-view-render-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/mobile/urbanization-view-render-03.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 20960
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/views/tablet/urbanization-view-render-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/tablet/urbanization-view-render-03.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 118208
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/views/desktop/urbanization-view-render-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/views/desktop/urbanization-view-render-03.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 390270
+        }
+      ],
+      "metadata": {
+        "width": 3893,
+        "height": 1841,
+        "format": "jpeg",
+        "source_bytes": 1406513
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/facade-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/facade-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/exterior/mobile/facade-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/mobile/facade-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 11510
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/exterior/tablet/facade-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/tablet/facade-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 55504
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/exterior/desktop/facade-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/facade-02.webp",
+          "width": 1379,
+          "quality": 76,
+          "bytes": 103940
+        }
+      ],
+      "metadata": {
+        "width": 1379,
+        "height": 819,
+        "format": "jpeg",
+        "source_bytes": 159981
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/facade-03.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/facade-03.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/exterior/mobile/facade-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/mobile/facade-03.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 13686
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/exterior/tablet/facade-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/tablet/facade-03.webp",
+          "width": 1017,
+          "quality": 72,
+          "bytes": 70694
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/exterior/desktop/facade-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/facade-03.webp",
+          "width": 1017,
+          "quality": 76,
+          "bytes": 76376
+        }
+      ],
+      "metadata": {
+        "width": 1017,
+        "height": 746,
+        "format": "jpeg",
+        "source_bytes": 120633
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/garden-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/garden-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/exterior/mobile/garden-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/mobile/garden-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 11510
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/exterior/tablet/garden-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/tablet/garden-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 55504
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/exterior/desktop/garden-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/garden-01.webp",
+          "width": 1379,
+          "quality": 76,
+          "bytes": 103940
+        }
+      ],
+      "metadata": {
+        "width": 1379,
+        "height": 819,
+        "format": "jpeg",
+        "source_bytes": 159981
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/pool-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/pool-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/exterior/mobile/pool-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/mobile/pool-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 11018
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/exterior/tablet/pool-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/tablet/pool-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 53878
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/exterior/desktop/pool-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/pool-01.webp",
+          "width": 1059,
+          "quality": 76,
+          "bytes": 66350
+        }
+      ],
+      "metadata": {
+        "width": 1059,
+        "height": 819,
+        "format": "jpeg",
+        "source_bytes": 115709
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/exterior/terrace-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/terrace-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/exterior/mobile/terrace-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/mobile/terrace-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 11730
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/exterior/tablet/terrace-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/tablet/terrace-01.webp",
+          "width": 963,
+          "quality": 72,
+          "bytes": 47326
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/exterior/desktop/terrace-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/exterior/desktop/terrace-01.webp",
+          "width": 963,
+          "quality": 76,
+          "bytes": 50798
+        }
+      ],
+      "metadata": {
+        "width": 963,
+        "height": 768,
+        "format": "jpeg",
+        "source_bytes": 97851
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bathroom-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bathroom-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/bathroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/bathroom-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7458
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/bathroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/bathroom-01.webp",
+          "width": 731,
+          "quality": 72,
+          "bytes": 20220
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/bathroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bathroom-01.webp",
+          "width": 731,
+          "quality": 76,
+          "bytes": 22360
+        }
+      ],
+      "metadata": {
+        "width": 731,
+        "height": 722,
+        "format": "jpeg",
+        "source_bytes": 63049
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bathroom-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bathroom-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/bathroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/bathroom-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 5094
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/bathroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/bathroom-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 19444
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/bathroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bathroom-02.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 51514
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1091,
+        "format": "jpeg",
+        "source_bytes": 193647
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bathroom-03.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bathroom-03.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/bathroom-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/bathroom-03.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7152
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/bathroom-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/bathroom-03.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 35930
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/bathroom-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bathroom-03.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 126818
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1279,
+        "format": "jpeg",
+        "source_bytes": 325272
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bedroom-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bedroom-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/bedroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/bedroom-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 10932
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/bedroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/bedroom-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 42926
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/bedroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bedroom-01.webp",
+          "width": 1332,
+          "quality": 76,
+          "bytes": 71678
+        }
+      ],
+      "metadata": {
+        "width": 1332,
+        "height": 819,
+        "format": "jpeg",
+        "source_bytes": 125752
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/bedroom-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bedroom-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/bedroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/bedroom-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7930
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/bedroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/bedroom-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 26012
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/bedroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/bedroom-02.webp",
+          "width": 1060,
+          "quality": 76,
+          "bytes": 31414
+        }
+      ],
+      "metadata": {
+        "width": 1060,
+        "height": 820,
+        "format": "jpeg",
+        "source_bytes": 73511
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/kitchen-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/kitchen-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/kitchen-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/kitchen-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 6300
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/kitchen-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/kitchen-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 23284
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/kitchen-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/kitchen-01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 54656
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 951,
+        "format": "jpeg",
+        "source_bytes": 152696
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/living-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/living-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/living-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/living-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9052
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/living-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/living-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 34382
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/living-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/living-01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 78354
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1104,
+        "format": "jpeg",
+        "source_bytes": 196820
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/living-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/living-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/living-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/living-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7298
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/living-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/living-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 29868
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/living-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/living-02.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 75334
+        }
+      ],
+      "metadata": {
+        "width": 2115,
+        "height": 819,
+        "format": "jpeg",
+        "source_bytes": 160018
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/interior/living-03.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/living-03.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "1747/optimized/v1/interior/mobile/living-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/mobile/living-03.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 10900
+        },
+        {
+          "name": "tablet",
+          "path": "1747/optimized/v1/interior/tablet/living-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/tablet/living-03.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 43080
+        },
+        {
+          "name": "desktop",
+          "path": "1747/optimized/v1/interior/desktop/living-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/1747/optimized/v1/interior/desktop/living-03.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 113878
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1081,
+        "format": "jpeg",
+        "source_bytes": 266669
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/cover/desktop/home.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/cover/mobile/home.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/cover/mobile/home.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 40060
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/cover/tablet/home.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/cover/tablet/home.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 179798
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/cover/desktop/home.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/cover/desktop/home.webp",
+          "width": 1078,
+          "quality": 76,
+          "bytes": 218182
+        }
+      ],
+      "metadata": {
+        "width": 1078,
+        "height": 891,
+        "format": "png",
+        "source_bytes": 2758913
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas-03.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/vistas-03.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/vistas-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/vistas-03.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 12780
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/vistas-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/vistas-03.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 61432
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/vistas-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/vistas-03.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 182226
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "png",
+        "source_bytes": 13577784
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/vistas1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/vistas1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/vistas1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 16198
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/vistas1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/vistas1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 85046
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/vistas1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/vistas1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 271112
+        }
+      ],
+      "metadata": {
+        "width": 5464,
+        "height": 3070,
+        "format": "jpeg",
+        "source_bytes": 12065032
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas2.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/vistas2.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/vistas2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/vistas2.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 13090
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/vistas2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/vistas2.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 56632
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/vistas2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/vistas2.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 152944
+        }
+      ],
+      "metadata": {
+        "width": 2560,
+        "height": 1377,
+        "format": "png",
+        "source_bytes": 6053704
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/edificio.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/edificio.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/edificio.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/edificio.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 12864
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/edificio.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/edificio.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 66814
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/edificio.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/edificio.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 206192
+        }
+      ],
+      "metadata": {
+        "width": 5000,
+        "height": 1548,
+        "format": "jpeg",
+        "source_bytes": 8850567
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/facade-01.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/facade-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/facade-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/facade-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 13862
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/facade-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/facade-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 57576
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/facade-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/facade-01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 160042
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "png",
+        "source_bytes": 13892929
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/frontal.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/frontal.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/frontal.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/frontal.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 25324
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/frontal.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/frontal.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 137304
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/frontal.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/frontal.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 434786
+        }
+      ],
+      "metadata": {
+        "width": 10928,
+        "height": 6140,
+        "format": "jpeg",
+        "source_bytes": 46050893
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/terraza.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/terraza.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/terraza.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 11230
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/terraza.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/terraza.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 49540
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/terraza.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/terraza.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 147130
+        }
+      ],
+      "metadata": {
+        "width": 4000,
+        "height": 2690,
+        "format": "jpeg",
+        "source_bytes": 2326325
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza2.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/terraza2.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/terraza2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/terraza2.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 11234
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/terraza2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/terraza2.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 45272
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/terraza2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/terraza2.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 117598
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "png",
+        "source_bytes": 12348814
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza3.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/terraza3.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/exterior/mobile/terraza3.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/mobile/terraza3.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 12066
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/exterior/tablet/terraza3.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/tablet/terraza3.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 52350
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/exterior/desktop/terraza3.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/exterior/desktop/terraza3.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 155328
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "png",
+        "source_bytes": 13783961
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/bano.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/bano.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/interior/mobile/bano.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/mobile/bano.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 12040
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/interior/tablet/bano.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/tablet/bano.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 48402
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/interior/desktop/bano.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/bano.webp",
+          "width": 1440,
+          "quality": 76,
+          "bytes": 99972
+        }
+      ],
+      "metadata": {
+        "width": 1440,
+        "height": 1440,
+        "format": "jpeg",
+        "source_bytes": 1337120
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/cocina.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/cocina.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/interior/mobile/cocina.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/mobile/cocina.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 5572
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/interior/tablet/cocina.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/tablet/cocina.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 18488
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/interior/desktop/cocina.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/cocina.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 41560
+        }
+      ],
+      "metadata": {
+        "width": 2560,
+        "height": 1725,
+        "format": "jpeg",
+        "source_bytes": 533087
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/comedor.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/comedor.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/interior/mobile/comedor.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/mobile/comedor.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9526
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/interior/tablet/comedor.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/tablet/comedor.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 47980
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/interior/desktop/comedor.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/comedor.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 128870
+        }
+      ],
+      "metadata": {
+        "width": 2000,
+        "height": 1504,
+        "format": "png",
+        "source_bytes": 2657169
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/dormitorio1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/interior/mobile/dormitorio1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/mobile/dormitorio1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9276
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/interior/tablet/dormitorio1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/tablet/dormitorio1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 35080
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/interior/desktop/dormitorio1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/dormitorio1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 91388
+        }
+      ],
+      "metadata": {
+        "width": 2560,
+        "height": 2560,
+        "format": "jpeg",
+        "source_bytes": 1030746
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio2.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/dormitorio2.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/interior/mobile/dormitorio2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/mobile/dormitorio2.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 10564
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/interior/tablet/dormitorio2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/tablet/dormitorio2.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 55328
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/interior/desktop/dormitorio2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/dormitorio2.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 183360
+        }
+      ],
+      "metadata": {
+        "width": 2560,
+        "height": 2560,
+        "format": "jpeg",
+        "source_bytes": 4977859
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/salon.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/interior/mobile/salon.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/mobile/salon.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9000
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/interior/tablet/salon.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/tablet/salon.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 42376
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/interior/desktop/salon.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/salon.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 115970
+        }
+      ],
+      "metadata": {
+        "width": 1964,
+        "height": 1504,
+        "format": "jpeg",
+        "source_bytes": 1110618
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon2.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/salon2.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0011/optimized/v1/interior/mobile/salon2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/mobile/salon2.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8034
+        },
+        {
+          "name": "tablet",
+          "path": "pm0011/optimized/v1/interior/tablet/salon2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/tablet/salon2.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 37784
+        },
+        {
+          "name": "desktop",
+          "path": "pm0011/optimized/v1/interior/desktop/salon2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0011/optimized/v1/interior/desktop/salon2.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 112876
+        }
+      ],
+      "metadata": {
+        "width": 2000,
+        "height": 1504,
+        "format": "jpeg",
+        "source_bytes": 1254502
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/cover/desktop/01_ext_aerea-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/cover/mobile/01_ext_aerea-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/cover/mobile/01_ext_aerea-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 19968
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/cover/tablet/01_ext_aerea-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/cover/tablet/01_ext_aerea-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 91786
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/cover/desktop/01_ext_aerea-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/cover/desktop/01_ext_aerea-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 268710
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 1969,
+        "format": "jpeg",
+        "source_bytes": 4024585
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/02_EXT_PERGOLA-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/zonas-comunes/desktop/02_ext_pergola-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/zonas-comunes/mobile/02_ext_pergola-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/zonas-comunes/mobile/02_ext_pergola-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 16208
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/zonas-comunes/tablet/02_ext_pergola-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/zonas-comunes/tablet/02_ext_pergola-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 77506
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/zonas-comunes/desktop/02_ext_pergola-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/zonas-comunes/desktop/02_ext_pergola-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 244338
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 2475,
+        "format": "jpeg",
+        "source_bytes": 6612535
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/04_EXT_PISCINA-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/zonas-comunes/desktop/04_ext_piscina-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/zonas-comunes/mobile/04_ext_piscina-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/zonas-comunes/mobile/04_ext_piscina-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 14882
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/zonas-comunes/tablet/04_ext_piscina-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/zonas-comunes/tablet/04_ext_piscina-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 63748
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/zonas-comunes/desktop/04_ext_piscina-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/zonas-comunes/desktop/04_ext_piscina-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 179028
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 1969,
+        "format": "jpeg",
+        "source_bytes": 2960302
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/02_EXT_PERGOLA-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/02_ext_pergola-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/exterior/mobile/02_ext_pergola-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/mobile/02_ext_pergola-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 16208
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/exterior/tablet/02_ext_pergola-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/tablet/02_ext_pergola-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 77506
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/exterior/desktop/02_ext_pergola-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/02_ext_pergola-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 244338
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 2475,
+        "format": "jpeg",
+        "source_bytes": 6612535
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/03_EXT_TERRAZAS--v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/03_ext_terrazas-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/exterior/mobile/03_ext_terrazas-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/mobile/03_ext_terrazas-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 15494
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/exterior/tablet/03_ext_terrazas-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/tablet/03_ext_terrazas-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 64552
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/exterior/desktop/03_ext_terrazas-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/03_ext_terrazas-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 183682
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 1969,
+        "format": "jpeg",
+        "source_bytes": 2962626
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/04_EXT_PISCINA-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/04_ext_piscina-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/exterior/mobile/04_ext_piscina-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/mobile/04_ext_piscina-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 14882
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/exterior/tablet/04_ext_piscina-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/tablet/04_ext_piscina-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 63748
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/exterior/desktop/04_ext_piscina-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/04_ext_piscina-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 179028
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 1969,
+        "format": "jpeg",
+        "source_bytes": 2960302
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/05_EXT_AGUA-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/05_ext_agua-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/exterior/mobile/05_ext_agua-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/mobile/05_ext_agua-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 11106
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/exterior/tablet/05_ext_agua-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/tablet/05_ext_agua-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 47834
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/exterior/desktop/05_ext_agua-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/05_ext_agua-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 131390
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 2475,
+        "format": "jpeg",
+        "source_bytes": 5243431
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/12_EXT_AEREA_NOCTURNA-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/12_ext_aerea_nocturna-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/exterior/mobile/12_ext_aerea_nocturna-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/mobile/12_ext_aerea_nocturna-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 14278
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/exterior/tablet/12_ext_aerea_nocturna-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/tablet/12_ext_aerea_nocturna-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 54662
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/exterior/desktop/12_ext_aerea_nocturna-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/12_ext_aerea_nocturna-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 135288
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 1969,
+        "format": "jpeg",
+        "source_bytes": 4222728
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/street-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/exterior/mobile/street-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/mobile/street-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 14578
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/exterior/tablet/street-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/tablet/street-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 70686
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/exterior/desktop/street-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/street-01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 180822
+        }
+      ],
+      "metadata": {
+        "width": 4963,
+        "height": 2840,
+        "format": "jpeg",
+        "source_bytes": 8676965
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/street-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/exterior/mobile/street-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/mobile/street-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 10846
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/exterior/tablet/street-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/tablet/street-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 47896
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/exterior/desktop/street-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/exterior/desktop/street-02.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 135906
+        }
+      ],
+      "metadata": {
+        "width": 4963,
+        "height": 2847,
+        "format": "jpeg",
+        "source_bytes": 7734103
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/06_INT_SALON_sin-fondo-mar-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/desktop/06_int_salon_sin-fondo-mar-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/interior/mobile/06_int_salon_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/mobile/06_int_salon_sin-fondo-mar-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9756
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/interior/tablet/06_int_salon_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/tablet/06_int_salon_sin-fondo-mar-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 44214
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/interior/desktop/06_int_salon_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/desktop/06_int_salon_sin-fondo-mar-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 129306
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 1966,
+        "format": "jpeg",
+        "source_bytes": 2393931
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/07_INT_COCINA_sin-fondo-mar-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/desktop/07_int_cocina_sin-fondo-mar-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/interior/mobile/07_int_cocina_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/mobile/07_int_cocina_sin-fondo-mar-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9454
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/interior/tablet/07_int_cocina_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/tablet/07_int_cocina_sin-fondo-mar-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 51234
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/interior/desktop/07_int_cocina_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/desktop/07_int_cocina_sin-fondo-mar-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 146776
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 2631,
+        "format": "jpeg",
+        "source_bytes": 2433941
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/08_TERRAZA_PISCINA_sin-fondo-mar-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/desktop/08_terraza_piscina_sin-fondo-mar-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/interior/mobile/08_terraza_piscina_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/mobile/08_terraza_piscina_sin-fondo-mar-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9184
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/interior/tablet/08_terraza_piscina_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/tablet/08_terraza_piscina_sin-fondo-mar-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 39636
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/interior/desktop/08_terraza_piscina_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/desktop/08_terraza_piscina_sin-fondo-mar-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 100894
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 1750,
+        "format": "jpeg",
+        "source_bytes": 1766112
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/10_TERRAZA_FACHADA_sin-fondo-mar-v1.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/desktop/10_terraza_fachada_sin-fondo-mar-v1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0074/optimized/v1/interior/mobile/10_terraza_fachada_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/mobile/10_terraza_fachada_sin-fondo-mar-v1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8652
+        },
+        {
+          "name": "tablet",
+          "path": "pm0074/optimized/v1/interior/tablet/10_terraza_fachada_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/tablet/10_terraza_fachada_sin-fondo-mar-v1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 34478
+        },
+        {
+          "name": "desktop",
+          "path": "pm0074/optimized/v1/interior/desktop/10_terraza_fachada_sin-fondo-mar-v1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0074/optimized/v1/interior/desktop/10_terraza_fachada_sin-fondo-mar-v1.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 92362
+        }
+      ],
+      "metadata": {
+        "width": 3500,
+        "height": 2430,
+        "format": "jpeg",
+        "source_bytes": 2250811
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/cover/desktop/1.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/cover/mobile/1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/cover/mobile/1.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9972
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/cover/tablet/1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/cover/tablet/1.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 42302
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/cover/desktop/1.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/cover/desktop/1.webp",
+          "width": 1440,
+          "quality": 76,
+          "bytes": 86768
+        }
+      ],
+      "metadata": {
+        "width": 1440,
+        "height": 720,
+        "format": "webp",
+        "source_bytes": 89340
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-1-Nylva-Homes0.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/desktop/vistas-atico-edificio-1-nylva-homes0.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/views/mobile/vistas-atico-edificio-1-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/mobile/vistas-atico-edificio-1-nylva-homes0.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8154
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/views/tablet/vistas-atico-edificio-1-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/tablet/vistas-atico-edificio-1-nylva-homes0.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 41398
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/views/desktop/vistas-atico-edificio-1-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/desktop/vistas-atico-edificio-1-nylva-homes0.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 122040
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "format": "jpeg",
+        "source_bytes": 1305253
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-2-Nylva-Homes0.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/desktop/vistas-atico-edificio-2-nylva-homes0.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/views/mobile/vistas-atico-edificio-2-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/mobile/vistas-atico-edificio-2-nylva-homes0.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8362
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/views/tablet/vistas-atico-edificio-2-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/tablet/vistas-atico-edificio-2-nylva-homes0.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 42144
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/views/desktop/vistas-atico-edificio-2-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/desktop/vistas-atico-edificio-2-nylva-homes0.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 142070
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "format": "jpeg",
+        "source_bytes": 1434223
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-3-Nylva-Homes0.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/desktop/vistas-atico-edificio-3-nylva-homes0.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/views/mobile/vistas-atico-edificio-3-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/mobile/vistas-atico-edificio-3-nylva-homes0.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8392
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/views/tablet/vistas-atico-edificio-3-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/tablet/vistas-atico-edificio-3-nylva-homes0.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 44880
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/views/desktop/vistas-atico-edificio-3-nylva-homes0.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/views/desktop/vistas-atico-edificio-3-nylva-homes0.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 160444
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "format": "jpeg",
+        "source_bytes": 1447565
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 30490
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 173498
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 510254
+        }
+      ],
+      "metadata": {
+        "width": 4000,
+        "height": 3000,
+        "format": "jpeg",
+        "source_bytes": 8921902
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9028
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 46212
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-02.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 145482
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "jpeg",
+        "source_bytes": 938286
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-03.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-03.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-03.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 14210
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-03.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 63612
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-03.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 200206
+        }
+      ],
+      "metadata": {
+        "width": 2553,
+        "height": 1662,
+        "format": "png",
+        "source_bytes": 6932788
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-04.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-04.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-04.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-04.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 23384
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-04.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-04.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 122116
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-04.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-04.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 360480
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "jpeg",
+        "source_bytes": 1773857
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-05.webp",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-05.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-05.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-05.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 17510
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-05.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-05.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 91426
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-05.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-05.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 248776
+        }
+      ],
+      "metadata": {
+        "width": 2560,
+        "height": 1440,
+        "format": "webp",
+        "source_bytes": 768612
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-06.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-06.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-06.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-06.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7992
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-06.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-06.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 41386
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-06.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-06.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 127096
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "jpeg",
+        "source_bytes": 869840
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-07.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-07.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-07.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-07.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 20856
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-07.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-07.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 108984
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-07.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-07.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 329386
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "jpeg",
+        "source_bytes": 1687558
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-08.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-08.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-08.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-08.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 14248
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-08.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-08.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 66794
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-08.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-08.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 184972
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "jpeg",
+        "source_bytes": 1030112
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-09.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-09.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/exterior/mobile/facade-09.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/mobile/facade-09.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 14998
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/exterior/tablet/facade-09.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/tablet/facade-09.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 74622
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/exterior/desktop/facade-09.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/exterior/desktop/facade-09.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 224074
+        }
+      ],
+      "metadata": {
+        "width": 3840,
+        "height": 2160,
+        "format": "jpeg",
+        "source_bytes": 1282346
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-01.JPG",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/desktop/obra-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/obras/fase-01/mobile/obra-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/mobile/obra-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 16820
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/obras/fase-01/tablet/obra-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/tablet/obra-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 94440
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/obras/fase-01/desktop/obra-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/desktop/obra-01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 318136
+        }
+      ],
+      "metadata": {
+        "width": 5472,
+        "height": 3078,
+        "format": "jpeg",
+        "source_bytes": 6989765
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-02.JPG",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/desktop/obra-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/obras/fase-01/mobile/obra-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/mobile/obra-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7460
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/obras/fase-01/tablet/obra-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/tablet/obra-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 46310
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/obras/fase-01/desktop/obra-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/desktop/obra-02.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 170392
+        }
+      ],
+      "metadata": {
+        "width": 5472,
+        "height": 3078,
+        "format": "jpeg",
+        "source_bytes": 7619294
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-03.JPG",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/desktop/obra-03.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/obras/fase-01/mobile/obra-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/mobile/obra-03.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 24006
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/obras/fase-01/tablet/obra-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/tablet/obra-03.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 139446
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/obras/fase-01/desktop/obra-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-01/desktop/obra-03.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 484640
+        }
+      ],
+      "metadata": {
+        "width": 5472,
+        "height": 3078,
+        "format": "jpeg",
+        "source_bytes": 7435116
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/obras/fase-02/mobile/obra-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/mobile/obra-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 26932
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/obras/fase-02/tablet/obra-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/tablet/obra-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 178614
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/obras/fase-02/desktop/obra-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-02.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 526826
+        }
+      ],
+      "metadata": {
+        "width": 2720,
+        "height": 1530,
+        "format": "jpeg",
+        "source_bytes": 3772597
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-03.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-03.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/obras/fase-02/mobile/obra-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/mobile/obra-03.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 26296
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/obras/fase-02/tablet/obra-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/tablet/obra-03.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 164844
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/obras/fase-02/desktop/obra-03.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-03.webp",
+          "width": 1600,
+          "quality": 76,
+          "bytes": 397986
+        }
+      ],
+      "metadata": {
+        "width": 1600,
+        "height": 1204,
+        "format": "jpeg",
+        "source_bytes": 446227
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-04.jpeg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-04.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/obras/fase-02/mobile/obra-04.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/mobile/obra-04.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 32728
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/obras/fase-02/tablet/obra-04.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/tablet/obra-04.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 170582
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/obras/fase-02/desktop/obra-04.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-04.webp",
+          "width": 1600,
+          "quality": 76,
+          "bytes": 369074
+        }
+      ],
+      "metadata": {
+        "width": 1600,
+        "height": 1200,
+        "format": "jpeg",
+        "source_bytes": 432396
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-05.jpeg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-05.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/obras/fase-02/mobile/obra-05.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/mobile/obra-05.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 19348
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/obras/fase-02/tablet/obra-05.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/tablet/obra-05.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 91104
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/obras/fase-02/desktop/obra-05.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-05.webp",
+          "width": 1600,
+          "quality": 76,
+          "bytes": 183578
+        }
+      ],
+      "metadata": {
+        "width": 1600,
+        "height": 1200,
+        "format": "jpeg",
+        "source_bytes": 259339
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-06.jpeg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-06.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/obras/fase-02/mobile/obra-06.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/mobile/obra-06.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 24232
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/obras/fase-02/tablet/obra-06.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/tablet/obra-06.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 138338
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/obras/fase-02/desktop/obra-06.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/obras/fase-02/desktop/obra-06.webp",
+          "width": 1600,
+          "quality": 76,
+          "bytes": 288746
+        }
+      ],
+      "metadata": {
+        "width": 1600,
+        "height": 1200,
+        "format": "jpeg",
+        "source_bytes": 348337
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bathroom-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/bathroom-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/interior/mobile/bathroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/mobile/bathroom-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 4356
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/interior/tablet/bathroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/tablet/bathroom-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 16500
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/interior/desktop/bathroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/bathroom-01.webp",
+          "width": 1600,
+          "quality": 76,
+          "bytes": 46268
+        }
+      ],
+      "metadata": {
+        "width": 1600,
+        "height": 1066,
+        "format": "jpeg",
+        "source_bytes": 160150
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bedroom-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/bedroom-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/interior/mobile/bedroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/mobile/bedroom-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 4976
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/interior/tablet/bedroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/tablet/bedroom-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 23946
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/interior/desktop/bedroom-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/bedroom-01.webp",
+          "width": 1700,
+          "quality": 76,
+          "bytes": 71598
+        }
+      ],
+      "metadata": {
+        "width": 1700,
+        "height": 850,
+        "format": "jpeg",
+        "source_bytes": 799582
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bedroom-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/bedroom-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/interior/mobile/bedroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/mobile/bedroom-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7756
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/interior/tablet/bedroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/tablet/bedroom-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 37746
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/interior/desktop/bedroom-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/bedroom-02.webp",
+          "width": 1700,
+          "quality": 76,
+          "bytes": 110454
+        }
+      ],
+      "metadata": {
+        "width": 1700,
+        "height": 850,
+        "format": "jpeg",
+        "source_bytes": 884836
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/kitchen-01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/kitchen-01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/interior/mobile/kitchen-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/mobile/kitchen-01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 6686
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/interior/tablet/kitchen-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/tablet/kitchen-01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 26750
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/interior/desktop/kitchen-01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/kitchen-01.webp",
+          "width": 1600,
+          "quality": 76,
+          "bytes": 59532
+        }
+      ],
+      "metadata": {
+        "width": 1600,
+        "height": 721,
+        "format": "jpeg",
+        "source_bytes": 202397
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/kitchen-02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/kitchen-02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0079/optimized/v1/interior/mobile/kitchen-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/mobile/kitchen-02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7582
+        },
+        {
+          "name": "tablet",
+          "path": "pm0079/optimized/v1/interior/tablet/kitchen-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/tablet/kitchen-02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 29778
+        },
+        {
+          "name": "desktop",
+          "path": "pm0079/optimized/v1/interior/desktop/kitchen-02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0079/optimized/v1/interior/desktop/kitchen-02.webp",
+          "width": 1562,
+          "quality": 76,
+          "bytes": 61758
+        }
+      ],
+      "metadata": {
+        "width": 1562,
+        "height": 705,
+        "format": "jpeg",
+        "source_bytes": 692496
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/cover/desktop/og-home.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/cover/mobile/og-home.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/cover/mobile/og-home.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 17424
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/cover/tablet/og-home.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/cover/tablet/og-home.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 87640
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/cover/desktop/og-home.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/cover/desktop/og-home.webp",
+          "width": 1200,
+          "quality": 76,
+          "bytes": 129690
+        }
+      ],
+      "metadata": {
+        "width": 1200,
+        "height": 675,
+        "format": "jpeg",
+        "source_bytes": 306892
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_1_Whitehills.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/exterior-facade_1_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/exterior/mobile/exterior-facade_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/mobile/exterior-facade_1_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 19700
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/exterior/tablet/exterior-facade_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/tablet/exterior-facade_1_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 144914
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/exterior/desktop/exterior-facade_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/exterior-facade_1_whitehills.webp",
+          "width": 1536,
+          "quality": 76,
+          "bytes": 370550
+        }
+      ],
+      "metadata": {
+        "width": 1536,
+        "height": 1024,
+        "format": "png",
+        "source_bytes": 3533067
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_2_Whitehills.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/exterior-facade_2_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/exterior/mobile/exterior-facade_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/mobile/exterior-facade_2_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 18136
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/exterior/tablet/exterior-facade_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/tablet/exterior-facade_2_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 102260
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/exterior/desktop/exterior-facade_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/exterior-facade_2_whitehills.webp",
+          "width": 1536,
+          "quality": 76,
+          "bytes": 244712
+        }
+      ],
+      "metadata": {
+        "width": 1536,
+        "height": 1024,
+        "format": "png",
+        "source_bytes": 3131100
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/exterior%20facade_3_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/exterior-facade_3_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/exterior/mobile/exterior-facade_3_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/mobile/exterior-facade_3_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 22154
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/exterior/tablet/exterior-facade_3_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/tablet/exterior-facade_3_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 137298
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/exterior/desktop/exterior-facade_3_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/exterior-facade_3_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 478882
+        }
+      ],
+      "metadata": {
+        "width": 3200,
+        "height": 1800,
+        "format": "jpeg",
+        "source_bytes": 7042721
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/garden_Whitehills.png",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/garden_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/exterior/mobile/garden_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/mobile/garden_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 25086
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/exterior/tablet/garden_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/tablet/garden_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 167772
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/exterior/desktop/garden_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/garden_whitehills.webp",
+          "width": 1536,
+          "quality": 76,
+          "bytes": 426462
+        }
+      ],
+      "metadata": {
+        "width": 1536,
+        "height": 1024,
+        "format": "png",
+        "source_bytes": 3779395
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/master%20plan_2_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/master-plan_2_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/exterior/mobile/master-plan_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/mobile/master-plan_2_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 30280
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/exterior/tablet/master-plan_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/tablet/master-plan_2_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 177500
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/exterior/desktop/master-plan_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/master-plan_2_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 601462
+        }
+      ],
+      "metadata": {
+        "width": 4000,
+        "height": 3000,
+        "format": "jpeg",
+        "source_bytes": 17985912
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/exterior/WhiteHills%20A4_EXT.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/whitehills-a4_ext.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/exterior/mobile/whitehills-a4_ext.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/mobile/whitehills-a4_ext.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 15302
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/exterior/tablet/whitehills-a4_ext.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/tablet/whitehills-a4_ext.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 84968
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/exterior/desktop/whitehills-a4_ext.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/exterior/desktop/whitehills-a4_ext.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 260870
+        }
+      ],
+      "metadata": {
+        "width": 2560,
+        "height": 2560,
+        "format": "jpeg",
+        "source_bytes": 1278670
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/basement_1_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/basement_1_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/basement_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/basement_1_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 11178
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/basement_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/basement_1_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 49750
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/basement_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/basement_1_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 162662
+        }
+      ],
+      "metadata": {
+        "width": 3200,
+        "height": 1800,
+        "format": "jpeg",
+        "source_bytes": 3861512
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/bedroom_1_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/bedroom_1_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/bedroom_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/bedroom_1_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8294
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/bedroom_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/bedroom_1_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 33142
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/bedroom_1_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/bedroom_1_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 117082
+        }
+      ],
+      "metadata": {
+        "width": 3200,
+        "height": 1800,
+        "format": "jpeg",
+        "source_bytes": 4136812
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/bedroom_2_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/bedroom_2_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/bedroom_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/bedroom_2_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8526
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/bedroom_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/bedroom_2_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 31794
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/bedroom_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/bedroom_2_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 81742
+        }
+      ],
+      "metadata": {
+        "width": 3124,
+        "height": 2440,
+        "format": "jpeg",
+        "source_bytes": 4466243
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/kitchen_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/kitchen_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/kitchen_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/kitchen_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 14092
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/kitchen_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/kitchen_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 80232
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/kitchen_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/kitchen_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 294312
+        }
+      ],
+      "metadata": {
+        "width": 3200,
+        "height": 3200,
+        "format": "jpeg",
+        "source_bytes": 6975012
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_2_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/living-room_2_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/living-room_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/living-room_2_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8964
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/living-room_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/living-room_2_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 37022
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/living-room_2_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/living-room_2_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 127376
+        }
+      ],
+      "metadata": {
+        "width": 3124,
+        "height": 2440,
+        "format": "jpeg",
+        "source_bytes": 4828251
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_3_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/living-room_3_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/living-room_3_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/living-room_3_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8626
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/living-room_3_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/living-room_3_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 33612
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/living-room_3_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/living-room_3_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 106004
+        }
+      ],
+      "metadata": {
+        "width": 3200,
+        "height": 1800,
+        "format": "jpeg",
+        "source_bytes": 3451268
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/Living%20room_4_Whitehills.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/living-room_4_whitehills.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/living-room_4_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/living-room_4_whitehills.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 9374
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/living-room_4_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/living-room_4_whitehills.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 37932
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/living-room_4_whitehills.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/living-room_4_whitehills.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 123628
+        }
+      ],
+      "metadata": {
+        "width": 3200,
+        "height": 1800,
+        "format": "jpeg",
+        "source_bytes": 3762130
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Cocina%20mostrar_01.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/wh4-int-cocina-mostrar_01.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/wh4-int-cocina-mostrar_01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/wh4-int-cocina-mostrar_01.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8722
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/wh4-int-cocina-mostrar_01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/wh4-int-cocina-mostrar_01.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 33574
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/wh4-int-cocina-mostrar_01.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/wh4-int-cocina-mostrar_01.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 88426
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "format": "jpeg",
+        "source_bytes": 1035396
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Dorm1%20mostrar%202.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/wh4-int-dorm1-mostrar-2.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/wh4-int-dorm1-mostrar-2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/wh4-int-dorm1-mostrar-2.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 7766
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/wh4-int-dorm1-mostrar-2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/wh4-int-dorm1-mostrar-2.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 28152
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/wh4-int-dorm1-mostrar-2.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/wh4-int-dorm1-mostrar-2.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 70632
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "format": "jpeg",
+        "source_bytes": 944488
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20Salon%20mostrar_02.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/wh4-int-salon-mostrar_02.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/wh4-int-salon-mostrar_02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/wh4-int-salon-mostrar_02.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 10510
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/wh4-int-salon-mostrar_02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/wh4-int-salon-mostrar_02.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 37852
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/wh4-int-salon-mostrar_02.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/wh4-int-salon-mostrar_02.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 93626
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "format": "jpeg",
+        "source_bytes": 1064229
+      }
+    },
+    {
+      "source_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/interior/WH4%20Int%20sotano%203%20mostrar.jpg",
+      "new_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/wh4-int-sotano-3-mostrar.webp",
+      "uploaded": [
+        {
+          "name": "mobile",
+          "path": "pm0084/optimized/v1/interior/mobile/wh4-int-sotano-3-mostrar.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/mobile/wh4-int-sotano-3-mostrar.webp",
+          "width": 420,
+          "quality": 68,
+          "bytes": 8150
+        },
+        {
+          "name": "tablet",
+          "path": "pm0084/optimized/v1/interior/tablet/wh4-int-sotano-3-mostrar.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/tablet/wh4-int-sotano-3-mostrar.webp",
+          "width": 1020,
+          "quality": 72,
+          "bytes": 35448
+        },
+        {
+          "name": "desktop",
+          "path": "pm0084/optimized/v1/interior/desktop/wh4-int-sotano-3-mostrar.webp",
+          "public_url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/pm0084/optimized/v1/interior/desktop/wh4-int-sotano-3-mostrar.webp",
+          "width": 1800,
+          "quality": 76,
+          "bytes": 94780
+        }
+      ],
+      "metadata": {
+        "width": 1920,
+        "height": 1080,
+        "format": "jpeg",
+        "source_bytes": 1080674
+      }
+    }
+  ],
+  "changed_properties": [
+    {
+      "id": "a38c571b-bbae-4339-bf4f-7481c4e86a5e",
+      "legacy_code": "1747"
+    },
+    {
+      "id": "36e6172c-5b57-4773-871d-d563945d1408",
+      "legacy_code": "PM0011"
+    },
+    {
+      "id": "cb0123dc-8712-4cc8-93f0-563c44e20ef4",
+      "legacy_code": "PM0074"
+    },
+    {
+      "id": "2a898c8e-8018-4f5c-95d3-7011f81ada28",
+      "legacy_code": "PM0079"
+    },
+    {
+      "id": "31eeade6-c4e8-4157-92b2-62feef14872a",
+      "legacy_code": "PM0084"
+    }
+  ]
+}

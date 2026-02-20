@@ -1,0 +1,144 @@
+{
+  "id": "PM00642-U1",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM00642",
+  "slugs": {
+    "es": "vivienda-u1-luminal-home",
+    "en": "unit-u1-luminal-home",
+    "de": "einheit-u1-luminal-home",
+    "fr": "unite-u1-luminal-home",
+    "it": "unita-u1-luminal-home",
+    "nl": "unit-u1-luminal-home"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 249000,
+  "currency": "EUR",
+  "phase": "Comercializacion",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Torreblanca",
+    "coordinates": {
+      "lat": 36.56473642835458,
+      "lng": -4.6208777879849805
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "year_built": 2028,
+    "area_m2": 66.93,
+    "usable_area_m2": null,
+    "terrace_m2": null,
+    "garden_m2": null,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "garages": 1,
+    "floor_level": 1,
+    "floor_label": "BL5, Planta1",
+    "unit_code": "BL5-P1-U1",
+    "parking_type": "privado_descubierto",
+    "community_pool": true,
+    "sales_stage": "Comercializacion",
+    "delivery_date": "2028-12-01",
+    "source_import_date": "2026-02-11",
+    "property_group": "UNIFAMILIARES"
+  },
+  "features": [
+    "new_build",
+    "pool",
+    "private_parking"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/cover/home.jpg",
+      "alt": {
+        "es": "Luminal Home vivienda U1",
+        "en": "Luminal Home unit U1"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home11.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home13.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home14.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/exterior/Luminal%20Home4.jpg"
+        }
+      ],
+      "interior": [],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home11.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home3.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/zonas_comunes/Luminal%20Home8.jpg"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "vivienda u1 luminal home",
+      "en": "unit u1 luminal home"
+    },
+    "meta_description": {
+      "es": "Vivienda U1 en Luminal Home. 1 dormitorio, 1 bano y 66.93 m2. Precio: 249.000 EUR.",
+      "en": "Unit U1 at Luminal Home. 1 bedroom, 1 bathroom and 66.93 m2. Price: EUR 249,000."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Vivienda U1 en Luminal Home",
+      "intro": "Unidad disponible en BL5, Planta 1.",
+      "description": []
+    },
+    "en": {
+      "title": "Unit U1 at Luminal Home",
+      "intro": "Available unit in BL5, Floor 1.",
+      "description": []
+    },
+    "de": {
+      "title": "Einheit U1 in Luminal Home",
+      "intro": "Verfuegbare Einheit in BL5, Etage 1.",
+      "description": []
+    },
+    "fr": {
+      "title": "Unite U1 a Luminal Home",
+      "intro": "Unite disponible en BL5, Etage 1.",
+      "description": []
+    },
+    "it": {
+      "title": "Unita U1 a Luminal Home",
+      "intro": "Unita disponibile in BL5, Piano 1.",
+      "description": []
+    },
+    "nl": {
+      "title": "Unit U1 in Luminal Home",
+      "intro": "Beschikbare unit in BL5, verdieping 1.",
+      "description": []
+    }
+  }
+}

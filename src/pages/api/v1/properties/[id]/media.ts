@@ -5,6 +5,7 @@ import {
   deleteStorageObjectsByPublicUrls,
   ensurePropertyStorageScaffold,
 } from "@/utils/crmPropertyStorage";
+import { enqueueMediaOptimizeJob, triggerMediaOptimizeQueueWorker } from "@/utils/crmMediaOptimizeQueue";
 import {
   type MediaCategory,
   MEDIA_CATEGORIES,
@@ -313,10 +314,30 @@ export const POST: APIRoute = async ({ params, request }) => {
     );
   }
 
+  const mappedData = data as Record<string, unknown>;
+  const queueResult = await enqueueMediaOptimizeJob(client, {
+    organizationId: scopedOrganizationId,
+    propertyId: id,
+    legacyCode: toOptionalText(mappedData.legacy_code),
+    reason: "media_add",
+    payload: { source: "api_media_post", category: body.category ?? null },
+  });
+  const kickResult = queueResult.enqueued
+    ? triggerMediaOptimizeQueueWorker({ maxJobs: 1 })
+    : { kicked: false, reason: "not_enqueued" };
+
   return jsonResponse({
     ok: true,
-    data: mapPropertyRow(data as Record<string, unknown>),
-    meta: { storage: "supabase.crm.properties", persisted: true },
+    data: mapPropertyRow(mappedData),
+    meta: {
+      storage: "supabase.crm.properties",
+      persisted: true,
+      media_optimize_queue: {
+        ...queueResult,
+        worker_kicked: kickResult.kicked,
+        worker_kick_reason: kickResult.reason,
+      },
+    },
   });
 };
 
