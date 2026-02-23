@@ -1,0 +1,713 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Clientes | Dashboard KPI" section="clients">
+  <div class="crm-stack crm-clients-dashboard">
+    <section class="crm-card crm-full">
+      <h2>Dashboard KPI por promocion</h2>
+      <p class="crm-inline-note">
+        Vista operativa con datos reales de reservas importadas, centrada en cada promocion.
+      </p>
+      <form id="clients-kpi-org-form" class="crm-form crm-form-compact">
+        <label>Organization ID
+          <input
+            id="clients-kpi-organization-id"
+            type="text"
+            placeholder="UUID de crm.organizations"
+          />
+        </label>
+        <label>Promocion activa
+          <select id="clients-kpi-promotion-select">
+            <option value="">Cargando promociones...</option>
+          </select>
+        </label>
+        <label>Filtro por estado
+          <select id="clients-kpi-status-filter">
+            <option value="">Todos los estados</option>
+            <option value="pre_registered">Preinscrito</option>
+            <option value="reservation_sent">Reserva enviada</option>
+            <option value="reserved">Reservado</option>
+            <option value="adhesion_paid">Adhesion pagada</option>
+            <option value="contract_signed">Contrato firmado</option>
+            <option value="cancelled">Cancelado</option>
+            <option value="discarded">Descartado</option>
+            <option value="other">Otro</option>
+          </select>
+        </label>
+        <label class="crm-checkbox-label crm-toggle-label">
+          <input id="clients-kpi-only-active" type="checkbox" />
+          <span>Solo promociones activas</span>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar</button>
+          <button id="clients-kpi-select-top" type="button" class="crm-button crm-button-soft">
+            Ir a promocion top
+          </button>
+        </div>
+      </form>
+      <p id="clients-kpi-org-meta" class="crm-inline-note"></p>
+      <p id="clients-kpi-promo-meta" class="crm-inline-note"></p>
+    </section>
+
+    <section class="crm-grid crm-promo-kpi-grid" aria-live="polite">
+      <article class="crm-card crm-kpi crm-kpi-highlight">
+        <div class="crm-kpi-head">
+          <p>Reservas registradas</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Total de filas en crm.client_project_reservations para la promocion seleccionada."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-reservations-total">-</strong>
+        <small class="crm-kpi-sub">Registros reales importados</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Reservas activas</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Conteo de reservas en estados activos (preinscrito, reserva enviada, reservado, adhesion pagada, contrato firmado). Excluye canceladas y descartadas."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-active-reservations">-</strong>
+        <small class="crm-kpi-sub">En curso sobre el total historico</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Clientes unicos</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Conteo de client_id distintos asociados a la promocion seleccionada."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-clients-total">-</strong>
+        <small class="crm-kpi-sub">Sin duplicar por reservas repetidas</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Reservas por cliente</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Formula: reservas_total / clientes_unicos de la promocion."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-ratio">-</strong>
+        <small class="crm-kpi-sub">Intensidad comercial por cliente</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Ticket medio sin IVA</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Promedio de price_without_vat en las reservas de la promocion con valor numerico valido."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-ticket">-</strong>
+        <small class="crm-kpi-sub">Base economica por operacion</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Ciclo medio (dias)</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Promedio de transaction_cycle_days en reservas con valor conocido para la promocion."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-cycle">-</strong>
+        <small class="crm-kpi-sub">Velocidad de cierre</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Reserva pagada</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Porcentaje: is_reservation_paid = true sobre reservas con is_reservation_paid informado."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-reservation-paid">-</strong>
+        <small class="crm-kpi-sub">Madurez de pago inicial</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Adhesion pagada</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Porcentaje: is_adhesion_paid = true sobre reservas con is_adhesion_paid informado."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-adhesion-paid">-</strong>
+        <small class="crm-kpi-sub">Avance contractual</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Documentacion completa</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Porcentaje de checks documentales marcados como true (DNI/Pasaporte, AML y subida) sobre los campos informados."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-docs">-</strong>
+        <small class="crm-kpi-sub">Cumplimiento documental</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Canal directo</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Porcentaje de reservas con is_direct_sale=true y is_agency_sale!=true sobre total de reservas de la promocion."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-direct">-</strong>
+        <small class="crm-kpi-sub">Peso de venta directa</small>
+      </article>
+
+      <article class="crm-card crm-kpi">
+        <div class="crm-kpi-head">
+          <p>Estado lider</p>
+          <button
+            class="crm-kpi-help"
+            type="button"
+            data-help="Estado con mayor numero de reservas en la promocion segun reservation_status."
+          >
+            ?
+          </button>
+        </div>
+        <strong id="promo-kpi-top-status">-</strong>
+        <small class="crm-kpi-sub">Punto dominante del embudo</small>
+      </article>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Canal comercial de la promocion</h3>
+        <p class="crm-inline-note">
+          Distribucion de reservas por canal de venta para la promocion seleccionada.
+        </p>
+        <div class="crm-channel-layout">
+          <div class="crm-channel-donut-wrap">
+            <div id="clients-kpi-channel-donut" class="crm-channel-donut">
+              <div class="crm-channel-donut-hole">
+                <strong id="clients-kpi-channel-total">0</strong>
+                <small>reservas</small>
+              </div>
+            </div>
+          </div>
+          <ul id="clients-kpi-channel-legend" class="crm-metric-list">
+            <li>Sin datos</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Estado de reservas en la promocion</h3>
+        <p class="crm-inline-note">Ranking de estados para medir avance comercial de la promocion.</p>
+        <ul id="clients-kpi-status-bars" class="crm-bar-list">
+          <li class="crm-bar-list-empty">Sin datos de estado.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Evolucion mensual de la promocion</h3>
+      <p class="crm-inline-note">
+        Conteo mensual segun reservation_date o fechas de pago registradas.
+      </p>
+      <div id="clients-kpi-monthly" class="crm-monthly-chart">
+        <p class="crm-inline-note">Sin datos mensuales.</p>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h2>Comparativa entre promociones</h2>
+      <p class="crm-inline-note">
+        Ranking para detectar que promociones concentran mayor actividad y calidad de cierre.
+      </p>
+      <div id="clients-kpi-compare" class="crm-promo-compare">
+        <p class="crm-inline-note">Sin datos de promociones.</p>
+      </div>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Promocion</th>
+              <th>Reservas</th>
+              <th>Activas</th>
+              <th>% activa</th>
+              <th>Clientes</th>
+              <th>Res/cliente</th>
+              <th>Directo</th>
+              <th>Reserva pagada</th>
+              <th>Adhesion pagada</th>
+              <th>Docs OK</th>
+              <th>Ticket</th>
+              <th>Ciclo</th>
+              <th>Estado lider</th>
+            </tr>
+          </thead>
+          <tbody id="clients-kpi-promotions-tbody">
+            <tr>
+              <td colspan="13">Cargando dashboard...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="clients-kpi-feedback" class="crm-feedback">Dashboard listo.</p>
+    </section>
+  </div>
+
+  <style>
+    .crm-clients-dashboard .crm-form.crm-form-compact {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: end;
+    }
+
+    .crm-toggle-label {
+      min-height: 2.55rem;
+      align-content: center;
+      border: 1px solid #cfd8e8;
+      border-radius: 11px;
+      padding: 0.4rem 0.58rem;
+      background: #fff;
+    }
+
+    .crm-toggle-label span {
+      font-size: 0.82rem;
+      color: var(--crm-primary);
+    }
+
+    .crm-promo-kpi-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.62rem;
+    }
+
+    .crm-promo-kpi-grid .crm-kpi {
+      grid-column: span 1;
+      min-height: 104px;
+      padding: 0.72rem 0.75rem;
+    }
+
+    .crm-promo-kpi-grid .crm-kpi strong {
+      font-size: 1.25rem;
+      margin-bottom: 0.08rem;
+      line-height: 1.05;
+    }
+
+    .crm-kpi-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.34rem;
+    }
+
+    .crm-kpi-head p {
+      margin: 0;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--crm-muted);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .crm-kpi-help {
+      width: 1.3rem;
+      height: 1.3rem;
+      border: 1px solid #c4d3e7;
+      border-radius: 999px;
+      background: #f2f6fd;
+      color: var(--crm-primary);
+      font-size: 0.8rem;
+      font-weight: 800;
+      line-height: 1;
+      cursor: help;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .crm-kpi-help:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(20, 50, 77, 0.18);
+    }
+
+    .crm-kpi-help::before {
+      content: "";
+      position: absolute;
+      top: calc(100% + 0.18rem);
+      right: 0.34rem;
+      border-width: 0.3rem;
+      border-style: solid;
+      border-color: transparent transparent #0f1f33 transparent;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    .crm-kpi-help::after {
+      content: attr(data-help);
+      position: absolute;
+      top: calc(100% + 0.75rem);
+      right: 0;
+      width: min(320px, 78vw);
+      padding: 0.55rem 0.64rem;
+      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: #0f1f33;
+      color: #f5f8ff;
+      font-size: 0.74rem;
+      font-weight: 600;
+      line-height: 1.35;
+      text-align: left;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      pointer-events: none;
+      z-index: 14;
+      white-space: normal;
+    }
+
+    .crm-kpi-help:hover::before,
+    .crm-kpi-help:hover::after,
+    .crm-kpi-help:focus-visible::before,
+    .crm-kpi-help:focus-visible::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .crm-kpi-sub {
+      color: var(--crm-muted);
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .crm-channel-layout {
+      margin-top: 0.85rem;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .crm-channel-donut-wrap {
+      display: grid;
+      place-items: center;
+    }
+
+    .crm-channel-donut {
+      --seg-direct: #0f8a56;
+      --seg-agency: #f97316;
+      --seg-mixed: #1d4ed8;
+      --seg-unknown: #7a889a;
+      width: 190px;
+      height: 190px;
+      border-radius: 999px;
+      background: conic-gradient(
+        var(--seg-direct) 0deg 90deg,
+        var(--seg-agency) 90deg 180deg,
+        var(--seg-mixed) 180deg 240deg,
+        var(--seg-unknown) 240deg 360deg
+      );
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 0 1px rgba(18, 38, 58, 0.06);
+    }
+
+    .crm-channel-donut-hole {
+      width: 122px;
+      height: 122px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--crm-border);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--crm-primary);
+      font-family: "Sora", "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+    }
+
+    .crm-channel-donut-hole strong {
+      display: block;
+      font-size: 1.25rem;
+      line-height: 1.1;
+    }
+
+    .crm-channel-donut-hole small {
+      color: var(--crm-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+
+    .crm-metric-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .crm-metric-list li {
+      border: 1px solid var(--crm-border);
+      border-radius: 10px;
+      background: var(--crm-surface-soft);
+      padding: 0.55rem 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.6rem;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--crm-text);
+      font-weight: 600;
+    }
+
+    .crm-metric-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-right: 0.45rem;
+      vertical-align: middle;
+    }
+
+    .crm-bar-list {
+      margin: 0.85rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .crm-bar-list-empty {
+      color: var(--crm-muted);
+      font-size: 0.85rem;
+      padding: 0.4rem 0;
+    }
+
+    .crm-bar-row {
+      border: 1px solid var(--crm-border);
+      border-radius: 10px;
+      padding: 0.5rem 0.55rem;
+      background: #fff;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .crm-bar-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: var(--crm-primary);
+    }
+
+    .crm-bar-track {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: #e8eef6;
+      overflow: hidden;
+    }
+
+    .crm-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #1d4ed8 0%, #0ea5e9 100%);
+    }
+
+    .crm-monthly-chart {
+      margin-top: 0.75rem;
+      min-height: 250px;
+      border: 1px solid var(--crm-border);
+      border-radius: 12px;
+      background: var(--crm-surface-soft);
+      padding: 0.7rem;
+      display: flex;
+      align-items: flex-end;
+      gap: 0.45rem;
+      overflow-x: auto;
+    }
+
+    .crm-monthly-item {
+      min-width: 52px;
+      display: grid;
+      gap: 0.3rem;
+      justify-items: center;
+      color: var(--crm-muted);
+      font-size: 0.67rem;
+      font-weight: 700;
+    }
+
+    .crm-monthly-value {
+      font-size: 0.72rem;
+      color: var(--crm-primary);
+    }
+
+    .crm-monthly-bar {
+      width: 36px;
+      border-radius: 10px 10px 4px 4px;
+      background: linear-gradient(180deg, #0ea5e9 0%, #1d4ed8 100%);
+      border: 1px solid rgba(29, 78, 216, 0.34);
+      min-height: 10px;
+    }
+
+    .crm-promo-compare {
+      margin-top: 0.85rem;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .crm-promo-compare-row {
+      border: 1px solid var(--crm-border);
+      border-radius: 10px;
+      background: #fff;
+      padding: 0.48rem 0.58rem;
+      display: grid;
+      gap: 0.32rem;
+    }
+
+    .crm-promo-compare-row.is-selected {
+      border-color: #97acd2;
+      background: #edf3ff;
+    }
+
+    .crm-promo-compare-row small {
+      color: var(--crm-muted);
+      font-size: 0.74rem;
+    }
+
+    .crm-promo-compare-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: var(--crm-primary);
+    }
+
+    .crm-promo-compare-head button {
+      border: 1px solid #bfd1ea;
+      border-radius: 8px;
+      background: #eff5ff;
+      color: var(--crm-primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.45rem;
+      cursor: pointer;
+    }
+
+    .crm-cell-meter {
+      min-width: 120px;
+      display: grid;
+      gap: 0.22rem;
+    }
+
+    .crm-cell-meter > span {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--crm-primary);
+    }
+
+    @media (max-width: 1300px) {
+      .crm-clients-dashboard .crm-form.crm-form-compact {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .crm-promo-kpi-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .crm-clients-dashboard .crm-form.crm-form-compact {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .crm-promo-kpi-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .crm-channel-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .crm-clients-dashboard .crm-form.crm-form-compact {
+        grid-template-columns: 1fr;
+      }
+
+      .crm-promo-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .crm-channel-donut {
+        width: 170px;
+        height: 170px;
+      }
+
+      .crm-channel-donut-hole {
+        width: 108px;
+        height: 108px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .crm-promo-kpi-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <script is:inline src="/crm/clients-dashboard.js"></script>
+</CrmLayout>

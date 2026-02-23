@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "generated_at": "2026-02-20T13:05:35.161Z",
+  "organization_id": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+  "csv_file": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\reference\\property-client-links-draft.csv",
+  "stats": {
+    "dry_run": true,
+    "rows_total": 251,
+    "rows_processed": 5,
+    "rows_skipped_not_ready": 2,
+    "rows_skipped_invalid_ids": 0,
+    "links_upserted": 5,
+    "errors": 0
+  },
+  "errors": []
+}

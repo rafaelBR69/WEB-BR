@@ -383,6 +383,9 @@ const resolveParentPropertyId = async (
   if (!hasSupabaseServerClient()) {
     const row = findMockPropertyByLegacyCode(organizationId, parentLegacyCode);
     if (!row) return { id: null, error: "parent_property_not_found" };
+    if (normalizeRecordType(row.record_type) !== "project") {
+      return { id: null, error: "parent_property_must_be_project" };
+    }
     return { id: String(row.id), error: null };
   }
 
@@ -392,13 +395,16 @@ const resolveParentPropertyId = async (
   const { data, error } = await client
     .schema("crm")
     .from("properties")
-    .select("id")
+    .select("id, record_type")
     .eq("organization_id", organizationId)
     .eq("legacy_code", parentLegacyCode)
     .maybeSingle();
 
   if (error) return { id: null, error: error.message };
   if (!data?.id) return { id: null, error: "parent_property_not_found" };
+  if (normalizeRecordType(data.record_type) !== "project") {
+    return { id: null, error: "parent_property_must_be_project" };
+  }
   return { id: String(data.id), error: null };
 };
 
@@ -589,8 +595,7 @@ export const POST: APIRoute = async ({ request }) => {
       return jsonResponse(
         {
           ok: false,
-          error: "parent_property_not_found",
-          details: parentResult.error,
+          error: parentResult.error || "parent_property_not_found",
         },
         { status: 422 }
       );

@@ -1,0 +1,1530 @@
+﻿[
+    {
+        "file":  "Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+        "header_row":  1,
+        "data_rows":  1011,
+        "columns":  [
+                        {
+                            "idx":  0,
+                            "header":  "IL",
+                            "non_empty":  0,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+
+                                       ]
+                        },
+                        {
+                            "idx":  1,
+                            "header":  "d",
+                            "non_empty":  62,
+                            "true_like":  1,
+                            "false_like":  0,
+                            "sample":  [
+                                           "1",
+                                           "2",
+                                           "3",
+                                           "4"
+                                       ]
+                        },
+                        {
+                            "idx":  2,
+                            "header":  "Fecha de reserva",
+                            "non_empty":  54,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "26/09/2023",
+                                           "29/09/2023",
+                                           "30/09/2023",
+                                           "18/10/2023"
+                                       ]
+                        },
+                        {
+                            "idx":  3,
+                            "header":  "COMPRADOR /ES",
+                            "non_empty":  55,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Marcos José de Miguel Luken y Aurélie Francine Madeleine Leroy",
+                                           "José Manuel Medina Macías y Clara Consuegra Moreno",
+                                           "Abderrahim El Hamouti",
+                                           "Nido"
+                                       ]
+                        },
+                        {
+                            "idx":  4,
+                            "header":  "DNI",
+                            "non_empty":  44,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "PAI425355 / 15AZ69420",
+                                           "26237695-P / 26242020-D",
+                                           "Y0473416K",
+                                           "NV091HHL9 / Z0919766-R"
+                                       ]
+                        },
+                        {
+                            "idx":  5,
+                            "header":  "Unidad Vivienda Portal",
+                            "non_empty":  37,
+                            "true_like":  14,
+                            "false_like":  0,
+                            "sample":  [
+                                           "2",
+                                           "1",
+                                           "3"
+                                       ]
+                        },
+                        {
+                            "idx":  6,
+                            "header":  "Unidad Vivienda Piso",
+                            "non_empty":  37,
+                            "true_like":  8,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Atico",
+                                           "Bajo",
+                                           "1",
+                                           "2"
+                                       ]
+                        },
+                        {
+                            "idx":  7,
+                            "header":  "Unidad Vivienda Letra",
+                            "non_empty":  37,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "A",
+                                           "B",
+                                           "C"
+                                       ]
+                        },
+                        {
+                            "idx":  8,
+                            "header":  "Unidad Vivienda",
+                            "non_empty":  54,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "2-ÁticoA",
+                                           "1-BajoB",
+                                           "1-1ºA",
+                                           "1-1ºB"
+                                       ]
+                        },
+                        {
+                            "idx":  9,
+                            "header":  "Nº Parking",
+                            "non_empty":  53,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "P24",
+                                           "P45",
+                                           "P19",
+                                           "P31"
+                                       ]
+                        },
+                        {
+                            "idx":  10,
+                            "header":  "Nº Trastero",
+                            "non_empty":  53,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "T-10",
+                                           "T-45",
+                                           "T-01",
+                                           "T-39"
+                                       ]
+                        },
+                        {
+                            "idx":  11,
+                            "header":  "Precio sin IVA",
+                            "non_empty":  49,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "385.000,00 €",
+                                           "139.900,00 €",
+                                           "275.000,00 €",
+                                           "205.000,00 €"
+                                       ]
+                        },
+                        {
+                            "idx":  12,
+                            "header":  "Precio con IVA",
+                            "non_empty":  41,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "423.500,00 €",
+                                           "153.890,00 €",
+                                           "302.500,00 €",
+                                           "0,00 €"
+                                       ]
+                        },
+                        {
+                            "idx":  13,
+                            "header":  "PRECIO SIN IVA CON INCREMENTO DIC 25",
+                            "non_empty":  25,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "407.701,69 €",
+                                           "153.728,32 €",
+                                           "304.052,66 €",
+                                           "194.323,57 €"
+                                       ]
+                        },
+                        {
+                            "idx":  14,
+                            "header":  "INCREMENTO DIC 25",
+                            "non_empty":  31,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "22.701,69 €",
+                                           "13.828,32 €",
+                                           "29.052,66 €",
+                                           "194.323,57 €"
+                                       ]
+                        },
+                        {
+                            "idx":  15,
+                            "header":  "PRECIO CON IVA INCREMENTO DIC 25",
+                            "non_empty":  29,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "448.471,86 €",
+                                           "169.101,15 €",
+                                           "334.457,93 €",
+                                           "213.755,93 €"
+                                       ]
+                        },
+                        {
+                            "idx":  16,
+                            "header":  "IDIOMA",
+                            "non_empty":  46,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Español",
+                                           "Francés",
+                                           "Inglés",
+                                           "Ingles"
+                                       ]
+                        },
+                        {
+                            "idx":  17,
+                            "header":  "Mail",
+                            "non_empty":  47,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "mmluken@gmail.com",
+                                           "jmed19_82@hotmail.com",
+                                           "ict-services@hotmail.com",
+                                           "marieke.r@live.nl"
+                                       ]
+                        },
+                        {
+                            "idx":  18,
+                            "header":  "Telefono",
+                            "non_empty":  47,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "629277496",
+                                           "651764732",
+                                           "0031 641924797",
+                                           "0031 626460058"
+                                       ]
+                        },
+                        {
+                            "idx":  19,
+                            "header":  "Domicilio de notificaciones",
+                            "non_empty":  33,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "CALLE RAFAELA, 60, 29009, MÁLAGA",
+                                           "CALLE HOLANDA 1, 4ºC, 23700, LINARES (JAÉN)",
+                                           "KAMVAREN 5, 2498 CL, LA HAYA (PAÍSES BAJOS)",
+                                           "Pr. Margrietstraat 207031 ZP Wehl, Países Bajos"
+                                       ]
+                        },
+                        {
+                            "idx":  20,
+                            "header":  "Representante Abogado",
+                            "non_empty":  46,
+                            "true_like":  10,
+                            "false_like":  26,
+                            "sample":  [
+                                           "NO",
+                                           "Wilma van Den Boogaard",
+                                           "Ana María Vázquez",
+                                           "Si"
+                                       ]
+                        },
+                        {
+                            "idx":  21,
+                            "header":  "Contacto abogado",
+                            "non_empty":  34,
+                            "true_like":  0,
+                            "false_like":  21,
+                            "sample":  [
+                                           "No",
+                                           "NO",
+                                           "676118136  /  wilmavdboogaard@gmail.com",
+                                           "661641792 amvazquez@urbalexabogados.com"
+                                       ]
+                        },
+                        {
+                            "idx":  22,
+                            "header":  "Persona o Empresa",
+                            "non_empty":  34,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Persona física",
+                                           "Persona jurídica"
+                                       ]
+                        },
+                        {
+                            "idx":  23,
+                            "header":  "Datos de la empresa NIF, Domicilio",
+                            "non_empty":  3,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "MORMUL CAPITAL SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ (PATRYK LUKASZ MORMUL)",
+                                           "Las Lagunas OÜ (17158662)",
+                                           "FAN FLAT MALAGA SL (B93463370)"
+                                       ]
+                        },
+                        {
+                            "idx":  24,
+                            "header":  "¿Comprador directo o representado por agencia?",
+                            "non_empty":  46,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Directo",
+                                           "Representado por agencia"
+                                       ]
+                        },
+                        {
+                            "idx":  25,
+                            "header":  "Contacto Agencia",
+                            "non_empty":  29,
+                            "true_like":  0,
+                            "false_like":  13,
+                            "sample":  [
+                                           "NO",
+                                           "Pippa",
+                                           "Tanya (agencia Bromley Estates)",
+                                           "Jane LOISTAWA HOMES"
+                                       ]
+                        },
+                        {
+                            "idx":  26,
+                            "header":  "Contacto agencia",
+                            "non_empty":  37,
+                            "true_like":  0,
+                            "false_like":  15,
+                            "sample":  [
+                                           "NO",
+                                           "No",
+                                           "633742094 info@jonesinmarbella.com",
+                                           "654053633 tanyaf@bromleyestatesmarbella.com"
+                                       ]
+                        },
+                        {
+                            "idx":  27,
+                            "header":  "Contrato colaboración firmado",
+                            "non_empty":  1009,
+                            "true_like":  16,
+                            "false_like":  993,
+                            "sample":  [
+                                           "FALSE",
+                                           "TRUE"
+                                       ]
+                        },
+                        {
+                            "idx":  28,
+                            "header":  "Comisión firmada con la agencia",
+                            "non_empty":  15,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "3%"
+                                       ]
+                        },
+                        {
+                            "idx":  29,
+                            "header":  "COMISIÓN BLANCAREAL sin IVA",
+                            "non_empty":  34,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "10.760,98 €",
+                                           "13.602,65 €",
+                                           "0,00 €",
+                                           "14.227,92 €"
+                                       ]
+                        },
+                        {
+                            "idx":  30,
+                            "header":  "COMISIÓN AGENCIA 3% sin IVA",
+                            "non_empty":  25,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "0,00 €",
+                                           "12.805,55 €",
+                                           "10.137,52 €",
+                                           "12.300,00 €"
+                                       ]
+                        },
+                        {
+                            "idx":  31,
+                            "header":  "",
+                            "non_empty":  7,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "6.402,78 €",
+                                           "0,00 €",
+                                           "5.068,76 €",
+                                           "10.587,50 €"
+                                       ]
+                        },
+                        {
+                            "idx":  32,
+                            "header":  "Tramite documento",
+                            "non_empty":  45,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "DNI",
+                                           "NIE",
+                                           "Pasaporte"
+                                       ]
+                        },
+                        {
+                            "idx":  33,
+                            "header":  "Estado civil compradores",
+                            "non_empty":  27,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Soltero",
+                                           "En gananciales",
+                                           "Separacion bienes",
+                                           "divorciado"
+                                       ]
+                        },
+                        {
+                            "idx":  34,
+                            "header":  "Estado",
+                            "non_empty":  46,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Cancelación firmada",
+                                           "Contrato firmado",
+                                           "Reserva firmado",
+                                           "Contrato compraventa enviado"
+                                       ]
+                        },
+                        {
+                            "idx":  35,
+                            "header":  "Reservada pagada",
+                            "non_empty":  45,
+                            "true_like":  44,
+                            "false_like":  1,
+                            "sample":  [
+                                           "Si",
+                                           "No"
+                                       ]
+                        },
+                        {
+                            "idx":  36,
+                            "header":  "Contrato compraventa abonado",
+                            "non_empty":  186,
+                            "true_like":  19,
+                            "false_like":  167,
+                            "sample":  [
+                                           "FALSE",
+                                           "TRUE"
+                                       ]
+                        },
+                        {
+                            "idx":  37,
+                            "header":  "10% PPC con incremento",
+                            "non_empty":  1000,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "40.770 €",
+                                           "15.373 €",
+                                           "30.405 €",
+                                           "22.375 €"
+                                       ]
+                        },
+                        {
+                            "idx":  38,
+                            "header":  "PPC 10%  con incremento+ IVA 10% + IVA Reserva - Reserva 5000",
+                            "non_empty":  963,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "39.847 €",
+                                           "11.910 €",
+                                           "28.446 €",
+                                           "19.612 €"
+                                       ]
+                        },
+                        {
+                            "idx":  39,
+                            "header":  "Verificación Documentos",
+                            "non_empty":  15,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Tienen representante abogada que no sabemos quien es.",
+                                           "No corresponde la cantidad con IVA de compraventa en el contrato de reserva. No sabemos su estado civil",
+                                           "SOLICTAN CAMBIO EN PPC https://docs.google.com/document/d/1NpOjKlCPIfeUKWf_ZvEKrZDKhSc2YaIzftxzQ19lp38/edit?tab=t.0",
+                                           "TODO CORRECTO"
+                                       ]
+                        },
+                        {
+                            "idx":  40,
+                            "header":  "Fotocopia del DNI/Pasaporte",
+                            "non_empty":  117,
+                            "true_like":  45,
+                            "false_like":  72,
+                            "sample":  [
+                                           "TRUE",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  41,
+                            "header":  "Formulario de Blanqueo firmado",
+                            "non_empty":  117,
+                            "true_like":  19,
+                            "false_like":  98,
+                            "sample":  [
+                                           "FALSE",
+                                           "TRUE"
+                                       ]
+                        },
+                        {
+                            "idx":  42,
+                            "header":  "¿Subido a nuestra carpeta?",
+                            "non_empty":  60,
+                            "true_like":  46,
+                            "false_like":  14,
+                            "sample":  [
+                                           "TRUE",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  43,
+                            "header":  "Comentarios comerciales",
+                            "non_empty":  20,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "quiere piscina privada",
+                                           "Este cliente de los dos áticos tiene un contrato de reserva especial diferente y aprobado por Nido que incluye un 1,5% descuento en cada unidad. Siempre y cuando mantengan dos unidades compradas, si sólo proceden con una, vuelve el precio original.  LA COMISIÓN FINAL TANTO DE BR COMO DEL AGENTE YA ESTA CALCULADA CON ESTE DESCUENTO",
+                                           "Esta unidad se trató como venta directa pero por cortesía aceptamos colaborar con la agencia Efortless Living aunque a día 4/09/2025 no tenemos colaboración firmada, con lo cual lo dejamos pendiente de que ellos mismos se pongan en contacto con nosotros si les interesa",
+                                           "Patryk mismo es agente de IIM (International Investment Marbella), en lugar del 3% como descuento en su propia casa, preferiría que se le incluya la piscina privada en el precio. Hay que confirmarselo y decidir. Pendiente conversación en persona entre él y Xavier.  SE VA A TRATAR COMO VENTA DIRECTA DADO QUE EL AGENTE NO RECIBIRÁ SU 3% ( QUIERE 3 % EN MEJORAS Y NO EN SU VIVIENDA)"
+                                       ]
+                        },
+                        {
+                            "idx":  44,
+                            "header":  "Comentario Seguimiento",
+                            "non_empty":  34,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Esperando respuesta de Jose, Contraoferta de su unidad a la 3,3ºA en 385K. 19/01/26 Solicitan la devolucion de la reserva.21/01/26 Enviada Cancelacion",
+                                           "07/01/2026 Contrato enviado. 08/01/26 Errores en el contrato 09/01/26 Contrato firmado y pagado21/01/26 Contrato PPC firmado ambas partes",
+                                           "7/1/26 Marcelo contactar: Quiere seguir y acepta 50% de subida. 14/01/2025 Enviado ultimo aviso, esperando respuesta. 19/01/26 Dice que sigue, preparar su PPC. 23/01/26 PAGA Y FIRMA ESTA NOCHE 28/01/26 Me comunica que no sigue.",
+                                           "07/01 Marcelo: enviar PPC a su abogada Wilma. 12/01/26 Repreguntado y esperando respuesta. 14/01/2025 Enviado ultimo aviso, esperando respuesta. QUIERE EL PPC final. 19-01-26 PPC enviado"
+                                       ]
+                        },
+                        {
+                            "idx":  45,
+                            "header":  "Pendiente",
+                            "non_empty":  9,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "21/01/26 Espera devolucion",
+                                           "Esperando devolucion 27/01/2026",
+                                           "Esperando devolución - Cancelacion enviada",
+                                           "Esperando devolucion"
+                                       ]
+                        },
+                        {
+                            "idx":  46,
+                            "header":  "Fecha firma PPC",
+                            "non_empty":  19,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "09/01/2026",
+                                           "21/01/2026",
+                                           "28/01/2026",
+                                           "29/01/2026"
+                                       ]
+                        },
+                        {
+                            "idx":  47,
+                            "header":  "Pedir a NIDO avales - Fecha Aprox",
+                            "non_empty":  14,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "09/03/2026",
+                                           "21/03/2026",
+                                           "28/03/2026",
+                                           "29/03/2026"
+                                       ]
+                        },
+                        {
+                            "idx":  48,
+                            "header":  "BAJA",
+                            "non_empty":  17,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "21/01/2026",
+                                           "28/01/2026",
+                                           "17/02/2026",
+                                           "19/01/2026"
+                                       ]
+                        },
+                        {
+                            "idx":  49,
+                            "header":  "Motivo de compra",
+                            "non_empty":  34,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "2º residencia e inversión",
+                                           "Inversión",
+                                           "N/D",
+                                           "1º residencia"
+                                       ]
+                        },
+                        {
+                            "idx":  50,
+                            "header":  "¿Cuándo se interesa por Orion?",
+                            "non_empty":  37,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "21/09/2023",
+                                           "25/09/2023",
+                                           "28/09/2023",
+                                           "13/10/2023"
+                                       ]
+                        },
+                        {
+                            "idx":  51,
+                            "header":  "Transaction cycle time (días)",
+                            "non_empty":  51,
+                            "true_like":  5,
+                            "false_like":  11,
+                            "sample":  [
+                                           "5",
+                                           "1",
+                                           "19",
+                                           "6"
+                                       ]
+                        },
+                        {
+                            "idx":  52,
+                            "header":  "",
+                            "non_empty":  1,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "No acpeta cambio de 411 a 450"
+                                       ]
+                        },
+                        {
+                            "idx":  53,
+                            "header":  "",
+                            "non_empty":  3,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "/",
+                                           "Esperando formalizar reserva"
+                                       ]
+                        }
+                    ]
+    },
+    {
+        "file":  "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+        "header_row":  2,
+        "data_rows":  1002,
+        "columns":  [
+                        {
+                            "idx":  0,
+                            "header":  "",
+                            "non_empty":  0,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+
+                                       ]
+                        },
+                        {
+                            "idx":  1,
+                            "header":  "",
+                            "non_empty":  143,
+                            "true_like":  2,
+                            "false_like":  0,
+                            "sample":  [
+                                           "1",
+                                           "2",
+                                           "3",
+                                           "4"
+                                       ]
+                        },
+                        {
+                            "idx":  2,
+                            "header":  "Fecha preinscripción",
+                            "non_empty":  135,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "8/04/2024",
+                                           "30/01/2024",
+                                           "29/02/2024",
+                                           "1/03/2024"
+                                       ]
+                        },
+                        {
+                            "idx":  3,
+                            "header":  "COMERCIAL",
+                            "non_empty":  137,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Begoña",
+                                           "Natascha",
+                                           "Marcelo",
+                                           "Daphné"
+                                       ]
+                        },
+                        {
+                            "idx":  4,
+                            "header":  "COMPRADOR /ES",
+                            "non_empty":  137,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "OHLA - Ana Góngora",
+                                           "Jasmin Rümker y Zahra Haddadzadeh",
+                                           "Elias Hermez",
+                                           "Elias Hermez (Liljeviken SL)"
+                                       ]
+                        },
+                        {
+                            "idx":  5,
+                            "header":  "DNI o  DNIS",
+                            "non_empty":  113,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "DNI: 01181613B",
+                                           "NIE: X5119198L (Jasmin)",
+                                           "NIE: Y5705295-K",
+                                           "NIE: Y8096405M"
+                                       ]
+                        },
+                        {
+                            "idx":  6,
+                            "header":  "Unidad Vivienda",
+                            "non_empty":  137,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Edif. 3  | Portal 1  | P2  |  Letra B  | 2D",
+                                           "Edif. 1  | Portal 2  | Atico B | 1D",
+                                           "Edif. 3 | Portal 1 | Ático A | 3D",
+                                           "Edif. 3 | Portal 1 | P2 | Letra A | 3D"
+                                       ]
+                        },
+                        {
+                            "idx":  7,
+                            "header":  "Nº Parking comentarios",
+                            "non_empty":  38,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "quiere jacuzzi y si puede pagar con credito",
+                                           "quiere 2ª plaza de parking",
+                                           "quiere el ático de P1 -3D del bloque 3 si se libera",
+                                           "2 bici electrica + 6000€ por su 2ª compra"
+                                       ]
+                        },
+                        {
+                            "idx":  8,
+                            "header":  "Precio sin IVA",
+                            "non_empty":  132,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "285.825 €",
+                                           "192.116 €",
+                                           "407.455 €",
+                                           "309.202 €"
+                                       ]
+                        },
+                        {
+                            "idx":  9,
+                            "header":  "Mail",
+                            "non_empty":  132,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "agongorah@gmail.com",
+                                           "marbella_jasmin@yahoo.de",
+                                           "elias@lintelsales.se\neborredat@gmlawyers.es (abogado)",
+                                           "elias@lintelsales.se"
+                                       ]
+                        },
+                        {
+                            "idx":  10,
+                            "header":  "Telefono",
+                            "non_empty":  118,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "697463922",
+                                           "46735012773",
+                                           "952 826 973",
+                                           "47 909 99 425"
+                                       ]
+                        },
+                        {
+                            "idx":  11,
+                            "header":  "IDIOMA",
+                            "non_empty":  127,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Español",
+                                           "English",
+                                           "español / ingles",
+                                           "ingles"
+                                       ]
+                        },
+                        {
+                            "idx":  12,
+                            "header":  "NACIONALIDAD",
+                            "non_empty":  128,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Español",
+                                           "Alemana",
+                                           "Sueco",
+                                           "Norwega"
+                                       ]
+                        },
+                        {
+                            "idx":  13,
+                            "header":  "Abogado",
+                            "non_empty":  36,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Daniel Gomez de MLH",
+                                           "Luis Jimenez de Martinez Echevarría",
+                                           "Laura Garcia Dierckx\nde Cotta Law",
+                                           "Fedra Mauriño de MLH"
+                                       ]
+                        },
+                        {
+                            "idx":  14,
+                            "header":  "Agente",
+                            "non_empty":  123,
+                            "true_like":  0,
+                            "false_like":  32,
+                            "sample":  [
+                                           "NO",
+                                           "Eduardo Borredat Terol",
+                                           "Deborah Whitehart (MLH)",
+                                           "Raimonda Butkuviene"
+                                       ]
+                        },
+                        {
+                            "idx":  15,
+                            "header":  "Email Agencia",
+                            "non_empty":  65,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "deborah@marbellaluxuryhomes.es",
+                                           "eszter@marbellaluxuryhomes.es",
+                                           "Natasja@marbellaluxuryhomes.be",
+                                           "meri@affinityspain.com"
+                                       ]
+                        },
+                        {
+                            "idx":  16,
+                            "header":  "Tel del agente",
+                            "non_empty":  83,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "952 826 973",
+                                           "953 826 973",
+                                           "954 826 973",
+                                           "955 826 973"
+                                       ]
+                        },
+                        {
+                            "idx":  17,
+                            "header":  "¿Comprador directo o representado por agencia?",
+                            "non_empty":  129,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Directo",
+                                           "Representado por agencia",
+                                           "Directo pero comisionista"
+                                       ]
+                        },
+                        {
+                            "idx":  18,
+                            "header":  "COMISION",
+                            "non_empty":  93,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "6,00%",
+                                           "2,00%",
+                                           "2,50%",
+                                           "3,00%"
+                                       ]
+                        },
+                        {
+                            "idx":  19,
+                            "header":  "COMISION A PAGAR A AGENCIAS SIN IVA",
+                            "non_empty":  71,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "5.384 €",
+                                           "6.187 €",
+                                           "7.629 €",
+                                           "4.169 €"
+                                       ]
+                        },
+                        {
+                            "idx":  20,
+                            "header":  "COMISION BLANCAREAL SIN IVA",
+                            "non_empty":  89,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "17.150 €",
+                                           "11.527 €",
+                                           "24.447 €",
+                                           "18.552 €"
+                                       ]
+                        },
+                        {
+                            "idx":  21,
+                            "header":  "Preinscripción pagada",
+                            "non_empty":  127,
+                            "true_like":  127,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Si"
+                                       ]
+                        },
+                        {
+                            "idx":  22,
+                            "header":  "Tramite documento",
+                            "non_empty":  99,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "DNI",
+                                           "Pasaporte",
+                                           "Permiso de Residencia",
+                                           "ID nacional"
+                                       ]
+                        },
+                        {
+                            "idx":  23,
+                            "header":  "Fotocopia DNI/Pasaporte",
+                            "non_empty":  983,
+                            "true_like":  121,
+                            "false_like":  862,
+                            "sample":  [
+                                           "TRUE",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  24,
+                            "header":  "Formulario de Blanqueo",
+                            "non_empty":  892,
+                            "true_like":  0,
+                            "false_like":  818,
+                            "sample":  [
+                                           "Serprocol",
+                                           "Recibido",
+                                           "Enviado email",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  25,
+                            "header":  "Fecha de pago de reserva",
+                            "non_empty":  101,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "08/06/2024",
+                                           "06/03/2024",
+                                           "10/06/2024",
+                                           "22/03/2024"
+                                       ]
+                        },
+                        {
+                            "idx":  26,
+                            "header":  "Reserva pagada",
+                            "non_empty":  974,
+                            "true_like":  96,
+                            "false_like":  878,
+                            "sample":  [
+                                           "TRUE",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  27,
+                            "header":  "Contrato de reserva firmado por el cliente",
+                            "non_empty":  940,
+                            "true_like":  6,
+                            "false_like":  934,
+                            "sample":  [
+                                           "FALSE",
+                                           "TRUE"
+                                       ]
+                        },
+                        {
+                            "idx":  28,
+                            "header":  "Fecha de pago de Adhesion",
+                            "non_empty":  952,
+                            "true_like":  0,
+                            "false_like":  877,
+                            "sample":  [
+                                           "16/11/2024",
+                                           "23/01/2025",
+                                           "26/02/2025",
+                                           "07/02/2025"
+                                       ]
+                        },
+                        {
+                            "idx":  29,
+                            "header":  "Adhesion pagada",
+                            "non_empty":  973,
+                            "true_like":  76,
+                            "false_like":  897,
+                            "sample":  [
+                                           "TRUE",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  30,
+                            "header":  "IMPORTE ADHESION CON PREINSCR.",
+                            "non_empty":  85,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "84.101,88 €",
+                                           "58.331,90 €",
+                                           "117.550,13 €",
+                                           "90.530,55 €"
+                                       ]
+                        },
+                        {
+                            "idx":  31,
+                            "header":  "COMENTARIO",
+                            "non_empty":  891,
+                            "true_like":  0,
+                            "false_like":  887,
+                            "sample":  [
+                                           "con 2ª plaza de parking\nha pagado 8250€ junto a la adhesion",
+                                           "con 2ª plaza de parking\nhan pagado 2750€ de parking",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  32,
+                            "header":  "Contrato de adhesión firmado",
+                            "non_empty":  963,
+                            "true_like":  5,
+                            "false_like":  958,
+                            "sample":  [
+                                           "FALSE",
+                                           "TRUE"
+                                       ]
+                        },
+                        {
+                            "idx":  33,
+                            "header":  "AG 24/02/2025 online",
+                            "non_empty":  898,
+                            "true_like":  10,
+                            "false_like":  888,
+                            "sample":  [
+                                           "1",
+                                           "FALSE",
+                                           "0"
+                                       ]
+                        },
+                        {
+                            "idx":  34,
+                            "header":  "AG 24/02/2025 presencial",
+                            "non_empty":  890,
+                            "true_like":  2,
+                            "false_like":  888,
+                            "sample":  [
+                                           "1",
+                                           "FALSE",
+                                           "0"
+                                       ]
+                        },
+                        {
+                            "idx":  35,
+                            "header":  "Justificante pago siguiente",
+                            "non_empty":  941,
+                            "true_like":  0,
+                            "false_like":  941,
+                            "sample":  [
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  36,
+                            "header":  "Comentarios",
+                            "non_empty":  27,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "2% en mejoras",
+                                           "6000€  en total en mejoras como electro domesticos o muebles",
+                                           "bicicleta electrica",
+                                           "Aun no hemos establecido las mejoras por el numero de amigos traidos"
+                                       ]
+                        },
+                        {
+                            "idx":  37,
+                            "header":  "Motivo de compra",
+                            "non_empty":  49,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "N/D",
+                                           "Inversión",
+                                           "1º residencia",
+                                           "2º residencia e inversión"
+                                       ]
+                        },
+                        {
+                            "idx":  38,
+                            "header":  "¿Cuándo se interesa por Sunset?",
+                            "non_empty":  80,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "19/12/2023",
+                                           "26/01/2024",
+                                           "30/01/2024",
+                                           "02/02/2024"
+                                       ]
+                        },
+                        {
+                            "idx":  39,
+                            "header":  "Transaction cycle time (días)",
+                            "non_empty":  78,
+                            "true_like":  8,
+                            "false_like":  5,
+                            "sample":  [
+                                           "4",
+                                           "30",
+                                           "28",
+                                           "45"
+                                       ]
+                        },
+                        {
+                            "idx":  40,
+                            "header":  "",
+                            "non_empty":  4,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "NO ESTÁ EN MOBILIA NI ÉL NI DEBORAH",
+                                           "NO ESTÁ EN MOBILIA",
+                                           "3ª compra"
+                                       ]
+                        }
+                    ]
+    },
+    {
+        "file":  "Reservas Control Nylva Homes - RESERVAS.csv",
+        "header_row":  1,
+        "data_rows":  183,
+        "columns":  [
+                        {
+                            "idx":  0,
+                            "header":  "N° CLIENTE",
+                            "non_empty":  29,
+                            "true_like":  1,
+                            "false_like":  0,
+                            "sample":  [
+                                           "1",
+                                           "2",
+                                           "3",
+                                           "4"
+                                       ]
+                        },
+                        {
+                            "idx":  1,
+                            "header":  "Fecha de reserva",
+                            "non_empty":  31,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "24/07/2024",
+                                           "01/08/2024",
+                                           "18/9/2024",
+                                           "1/10/2024"
+                                       ]
+                        },
+                        {
+                            "idx":  2,
+                            "header":  "COMPRADOR /ES",
+                            "non_empty":  31,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Colin McGeary \u0026 Carolyne Bews",
+                                           "Michel Jeanne P. Vancabeke \u0026 Kathy Yvette G. Voituron",
+                                           "Itai \u0026 Limor Becker",
+                                           "Cindy Stollenberg \u0026 Pierre Yves Philippe"
+                                       ]
+                        },
+                        {
+                            "idx":  3,
+                            "header":  "ID",
+                            "non_empty":  31,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "X6029261H/X6029271M",
+                                           "595-2320563-50/595-1800709-19",
+                                           "31405856-CC486504",
+                                           "GA8606820-GC6044437"
+                                       ]
+                        },
+                        {
+                            "idx":  4,
+                            "header":  "Unidad Vivienda",
+                            "non_empty":  31,
+                            "true_like":  1,
+                            "false_like":  0,
+                            "sample":  [
+                                           "23",
+                                           "33",
+                                           "9",
+                                           "18"
+                                       ]
+                        },
+                        {
+                            "idx":  5,
+                            "header":  "Nº Parking",
+                            "non_empty":  31,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "14*",
+                                           "23",
+                                           "47",
+                                           "34"
+                                       ]
+                        },
+                        {
+                            "idx":  6,
+                            "header":  "Nº Trastero",
+                            "non_empty":  31,
+                            "true_like":  1,
+                            "false_like":  0,
+                            "sample":  [
+                                           "14",
+                                           "23",
+                                           "37",
+                                           "30"
+                                       ]
+                        },
+                        {
+                            "idx":  7,
+                            "header":  "Precio sin IVA",
+                            "non_empty":  27,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "408.075 €",
+                                           "474.518 €",
+                                           "297.235 €",
+                                           "296.035 €"
+                                       ]
+                        },
+                        {
+                            "idx":  8,
+                            "header":  "Mail",
+                            "non_empty":  58,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "colinmcgeary@hotmail.com",
+                                           "katvoituron@hotmail.com",
+                                           "itai@zvic.co.il",
+                                           "cindystollenberg@gmail.com"
+                                       ]
+                        },
+                        {
+                            "idx":  9,
+                            "header":  "Telefono",
+                            "non_empty":  30,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "633 33 13 39",
+                                           "0032 473840188",
+                                           "972544706401",
+                                           "971506834972"
+                                       ]
+                        },
+                        {
+                            "idx":  10,
+                            "header":  "Representante",
+                            "non_empty":  22,
+                            "true_like":  9,
+                            "false_like":  13,
+                            "sample":  [
+                                           "NO",
+                                           "SI"
+                                       ]
+                        },
+                        {
+                            "idx":  11,
+                            "header":  "Directo / Agencia",
+                            "non_empty":  29,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Directo",
+                                           "Representado por agencia",
+                                           "Faltan 32 € reserva",
+                                           "Faltan 41,96 € reserva"
+                                       ]
+                        },
+                        {
+                            "idx":  12,
+                            "header":  "Agencia y Nombre agente",
+                            "non_empty":  22,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Sandra Romo (legal) 651417331 / Patrick Pagnanini (info@inmo-duquesa.com) agente",
+                                           "HI HOMES",
+                                           "VIVAVISTA",
+                                           "CDS Property"
+                                       ]
+                        },
+                        {
+                            "idx":  13,
+                            "header":  "Contacto agencia",
+                            "non_empty":  3,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Sandra Napolitano - sandra@affinityspain.com - 625841481",
+                                           "Barbara Pascual",
+                                           "Adriana Robles ME"
+                                       ]
+                        },
+                        {
+                            "idx":  14,
+                            "header":  "IDIOMA",
+                            "non_empty":  31,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Inglés",
+                                           "Inglés y Hebreo",
+                                           "Español",
+                                           "Polaco"
+                                       ]
+                        },
+                        {
+                            "idx":  15,
+                            "header":  "Estado",
+                            "non_empty":  27,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Reserva firmado",
+                                           "Reserva enviado"
+                                       ]
+                        },
+                        {
+                            "idx":  16,
+                            "header":  "Reservada pagada",
+                            "non_empty":  31,
+                            "true_like":  31,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Si"
+                                       ]
+                        },
+                        {
+                            "idx":  17,
+                            "header":  "Contrato compraventa abonado",
+                            "non_empty":  182,
+                            "true_like":  0,
+                            "false_like":  182,
+                            "sample":  [
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  18,
+                            "header":  "Tramite documento",
+                            "non_empty":  0,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+
+                                       ]
+                        },
+                        {
+                            "idx":  19,
+                            "header":  "Verificación Documento",
+                            "non_empty":  31,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "NIE",
+                                           "Pasaporte",
+                                           "DNI"
+                                       ]
+                        },
+                        {
+                            "idx":  20,
+                            "header":  "Fotocopia del DNI/Pasaporte",
+                            "non_empty":  113,
+                            "true_like":  30,
+                            "false_like":  83,
+                            "sample":  [
+                                           "TRUE",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  21,
+                            "header":  "Formulario de Blanqueo",
+                            "non_empty":  113,
+                            "true_like":  0,
+                            "false_like":  113,
+                            "sample":  [
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  22,
+                            "header":  "¿Subido a nuestra carpeta?",
+                            "non_empty":  50,
+                            "true_like":  30,
+                            "false_like":  20,
+                            "sample":  [
+                                           "TRUE",
+                                           "FALSE"
+                                       ]
+                        },
+                        {
+                            "idx":  23,
+                            "header":  "Comentarios",
+                            "non_empty":  1,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+                                           "Parking changed \u0026 include Andres at PPC"
+                                       ]
+                        },
+                        {
+                            "idx":  24,
+                            "header":  "Motivo de compra",
+                            "non_empty":  0,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+
+                                       ]
+                        },
+                        {
+                            "idx":  25,
+                            "header":  "¿Cuándo se interesa por Nylva?",
+                            "non_empty":  0,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+
+                                       ]
+                        },
+                        {
+                            "idx":  26,
+                            "header":  "Transaction cycle time (días)",
+                            "non_empty":  0,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+
+                                       ]
+                        },
+                        {
+                            "idx":  27,
+                            "header":  "BAJA",
+                            "non_empty":  0,
+                            "true_like":  0,
+                            "false_like":  0,
+                            "sample":  [
+
+                                       ]
+                        }
+                    ]
+    }
+]

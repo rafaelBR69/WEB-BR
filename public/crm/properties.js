@@ -37,6 +37,17 @@
     archived: "Archivada",
   };
 
+  const reservationFlowLabels = {
+    pre_registered: "Preinscrito",
+    reservation_sent: "Reserva enviada",
+    reserved: "Reservado",
+    adhesion_paid: "Adhesion pagada",
+    contract_signed: "Contrato firmado",
+    cancelled: "Cancelado",
+    discarded: "Descartado",
+    other: "Otro",
+  };
+
   const statusClass = {
     draft: "warn",
     available: "ok",
@@ -75,8 +86,18 @@
     requestedProjectId: null,
     source: "",
     stats: null,
+    clientProjectRows: [],
+    clientProjectGeneratedAt: null,
+    clientProjectError: null,
+    propertyClientData: null,
+    propertyClientMeta: null,
+    propertyClientError: null,
+    propertyClientLoading: false,
+    propertyClientPropertyId: null,
+    activePropertyTab: "client",
     projectDetailsCache: new Map(),
     parentLegacyById: new Map(),
+    createPrefillApplied: false,
     pagination: {
       page: 1,
       perPage: 24,
@@ -109,6 +130,8 @@
     kpiGrid: document.getElementById("properties-kpi-grid"),
     statusBoard: document.getElementById("properties-status-board"),
     promotionsTbody: document.getElementById("properties-promotions-tbody"),
+    clientLinkSummary: document.getElementById("properties-client-link-summary"),
+    clientLinkTbody: document.getElementById("properties-client-link-tbody"),
     projectsList: document.getElementById("projects-list"),
     projectKpiGrid: document.getElementById("project-kpi-grid"),
     projectExecBoard: document.getElementById("project-exec-board"),
@@ -125,6 +148,12 @@
     propertyPageTitle: document.getElementById("property-page-title"),
     propertyPageSubtitle: document.getElementById("property-page-subtitle"),
     propertyPageMeta: document.getElementById("property-page-meta"),
+    propertyPresentationGrid: document.getElementById("property-presentation-grid"),
+    propertyTabbar: document.getElementById("property-tabbar"),
+    propertyClientSummary: document.getElementById("property-client-summary"),
+    propertyClientVerifiedList: document.getElementById("property-client-verified-list"),
+    propertyClientCandidateList: document.getElementById("property-client-candidate-list"),
+    propertyClientRefresh: document.getElementById("property-client-refresh"),
     projectPageTitle: document.getElementById("project-page-title"),
     projectPageSubtitle: document.getElementById("project-page-subtitle"),
     projectPageMeta: document.getElementById("project-page-meta"),
@@ -266,6 +295,20 @@
     if (options.toast) pushToast(message, kind);
   };
 
+  const friendlyPropertyError = (rawMessage) => {
+    const message = String(rawMessage || "");
+    if (message.includes("parent_legacy_code_required_for_unit")) {
+      return "Para una vivienda hija debes elegir una promocion padre o indicar su legacy_code.";
+    }
+    if (message.includes("parent_property_not_found")) {
+      return "No se encontro la promocion padre indicada.";
+    }
+    if (message.includes("parent_property_must_be_project")) {
+      return "La referencia padre debe ser una promocion, no una vivienda hija.";
+    }
+    return message;
+  };
+
   const request = async (url, init) => {
     const response = await fetch(url, init);
     const raw = await response.text();
@@ -351,6 +394,23 @@
     navigateTo(`/crm/properties/promocion/${encodeURIComponent(projectId)}/`);
   };
 
+  const openCreateUnitForProject = (id) => {
+    const projectId = toText(id);
+    if (!projectId) return;
+    const project =
+      findKnownPropertyById(projectId) ||
+      (Array.isArray(state.stats?.promotions)
+        ? state.stats.promotions.find((entry) => entry.id === projectId)
+        : null);
+    const parentLegacyCode = toText(project?.legacy_code);
+
+    navigateTo("/crm/properties/nueva/", {
+      record_type: "unit",
+      project_id: projectId,
+      ...(parentLegacyCode ? { parent_legacy_code: parentLegacyCode } : {}),
+    });
+  };
+
   const money = (item) => {
     const currency = item?.pricing?.currency || "EUR";
     if (item.operation_type === "sale") {
@@ -390,6 +450,44 @@
     }
   };
 
+  const formatInt = (value) => {
+    const safe = asFiniteNumber(value);
+    if (safe == null) return "0";
+    return new Intl.NumberFormat("es-ES", { maximumFractionDigits: 0 }).format(safe);
+  };
+
+  const formatDecimal = (value, digits = 2) => {
+    const safe = asFiniteNumber(value);
+    if (safe == null) return "-";
+    return new Intl.NumberFormat("es-ES", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: digits,
+    }).format(safe);
+  };
+
+  const formatPctValue = (value) => {
+    const safe = asFiniteNumber(value);
+    if (safe == null) return "-";
+    return `${new Intl.NumberFormat("es-ES", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 1,
+    }).format(safe)}%`;
+  };
+
+  const formatDate = (value) => {
+    const text = toText(value);
+    if (!text) return "-";
+    const parsed = new Date(text);
+    if (Number.isNaN(parsed.getTime())) {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(text)) {
+        const [y, m, d] = text.split("-");
+        return `${d}/${m}/${y}`;
+      }
+      return text;
+    }
+    return parsed.toLocaleDateString("es-ES");
+  };
+
   const recordTypeLabel = (recordType) => {
     if (recordType === "project") return "Promocion";
     if (recordType === "unit") return "Vivienda de promocion";
@@ -417,6 +515,148 @@
     const label =
       toText(item?.project_name) || toText(item?.display_name) || toText(item?.legacy_code);
     return label || fallback;
+  };
+
+  const normalizeKey = (value) => String(value ?? "").trim().toLowerCase();
+
+  const listParentProjectCandidates = () => {
+    const byId = new Map();
+    const register = (candidate) => {
+      const id = toText(candidate?.id);
+      if (!id) return;
+      const recordType = toText(candidate?.record_type);
+      if (recordType && recordType !== "project") return;
+      const legacyCode = toText(candidate?.legacy_code);
+      const label = projectLabel(candidate, legacyCode || "Promocion sin nombre");
+      const normalized = {
+        id,
+        legacy_code: legacyCode,
+        label,
+        status: toText(candidate?.status),
+        total_units: Number(candidate?.total_units ?? 0),
+        available_units: Number(candidate?.available_units ?? 0),
+      };
+      const previous = byId.get(id);
+      if (!previous) {
+        byId.set(id, normalized);
+        return;
+      }
+      byId.set(id, {
+        ...previous,
+        ...normalized,
+        legacy_code: normalized.legacy_code || previous.legacy_code,
+      });
+    };
+
+    const promotions = Array.isArray(state.stats?.promotions) ? state.stats.promotions : [];
+    promotions.forEach((promo) => register(promo));
+    state.items.forEach((item) => {
+      if (item?.record_type === "project") register(item);
+    });
+    for (const detail of state.projectDetailsCache.values()) {
+      if (detail?.project) register(detail.project);
+    }
+
+    return Array.from(byId.values()).sort((a, b) => a.label.localeCompare(b.label, "es"));
+  };
+
+  const findParentProjectByLegacyCode = (legacyCode) => {
+    const normalized = normalizeKey(legacyCode);
+    if (!normalized) return null;
+    return (
+      listParentProjectCandidates().find((entry) => normalizeKey(entry.legacy_code) === normalized) || null
+    );
+  };
+
+  const renderParentProjectOptions = () => {
+    const forms = [el.createForm, el.editForm].filter(Boolean);
+    if (!forms.length) return;
+
+    const projects = listParentProjectCandidates();
+    const hasProjects = projects.length > 0;
+
+    forms.forEach((form) => {
+      const parentSelect = form.querySelector("select[data-parent-project-select]");
+      const parentField = form.elements?.parent_legacy_code;
+      const helper = form.querySelector("[data-parent-link-helper]");
+      if (!(parentSelect instanceof HTMLSelectElement)) return;
+      if (!(parentField instanceof HTMLInputElement)) return;
+
+      const currentSelectValue = toText(parentSelect.value);
+      const currentLegacyCode = toText(parentField.value);
+
+      const optionRows = projects
+        .map((project) => {
+          const legacySuffix = project.legacy_code ? ` - ${project.legacy_code}` : "";
+          const stockSuffix =
+            project.total_units > 0
+              ? ` - ${project.available_units}/${project.total_units} disponibles`
+              : "";
+          return `<option value="${esc(project.id)}" data-legacy-code="${esc(
+            project.legacy_code || ""
+          )}">${esc(`${project.label}${legacySuffix}${stockSuffix}`)}</option>`;
+        })
+        .join("");
+
+      parentSelect.innerHTML = `
+        <option value="">Selecciona una promocion...</option>
+        ${optionRows}
+      `;
+
+      if (currentSelectValue && projects.some((entry) => entry.id === currentSelectValue)) {
+        parentSelect.value = currentSelectValue;
+      } else {
+        const matchByLegacy = currentLegacyCode ? findParentProjectByLegacyCode(currentLegacyCode) : null;
+        parentSelect.value = matchByLegacy?.id || "";
+      }
+
+      if (helper instanceof HTMLElement) {
+        helper.textContent = hasProjects
+          ? "Selecciona la promocion para autocompletar el codigo padre. Si no aparece, escribe el codigo manual."
+          : "No hay promociones cargadas para seleccionar. Puedes escribir el codigo manual de la promocion padre.";
+      }
+    });
+  };
+
+  const syncParentProjectSelection = (form, preferredProjectId = null) => {
+    if (!form) return;
+    const parentSelect = form.querySelector("select[data-parent-project-select]");
+    const parentField = form.elements?.parent_legacy_code;
+    if (!(parentSelect instanceof HTMLSelectElement)) return;
+    if (!(parentField instanceof HTMLInputElement)) return;
+
+    const preferredId = toText(preferredProjectId);
+    if (preferredId && listParentProjectCandidates().some((entry) => entry.id === preferredId)) {
+      parentSelect.value = preferredId;
+      const option = parentSelect.selectedOptions[0];
+      const legacyCode = toText(option?.getAttribute("data-legacy-code"));
+      if (legacyCode) parentField.value = legacyCode;
+      return;
+    }
+
+    const legacyCode = toText(parentField.value);
+    const matchByLegacy = legacyCode ? findParentProjectByLegacyCode(legacyCode) : null;
+    parentSelect.value = matchByLegacy?.id || "";
+  };
+
+  const bindParentProjectForm = (form) => {
+    if (!form) return;
+    const parentSelect = form.querySelector("select[data-parent-project-select]");
+    const parentField = form.elements?.parent_legacy_code;
+    if (!(parentSelect instanceof HTMLSelectElement)) return;
+    if (!(parentField instanceof HTMLInputElement)) return;
+    if (parentSelect.dataset.bound === "1") return;
+
+    parentSelect.dataset.bound = "1";
+    parentSelect.addEventListener("change", () => {
+      const option = parentSelect.selectedOptions[0];
+      const legacyCode = toText(option?.getAttribute("data-legacy-code"));
+      if (legacyCode) parentField.value = legacyCode;
+    });
+
+    parentField.addEventListener("input", () => {
+      syncParentProjectSelection(form);
+    });
   };
 
   const propertyRef = (item, fallback = "sin codigo") => {
@@ -493,6 +733,77 @@
     el.propertyPageTitle.textContent = propertyLabel(item, "Propiedad sin nombre");
     if (el.propertyPageSubtitle) el.propertyPageSubtitle.textContent = subtitleParts.join(" | ");
     if (el.propertyPageMeta) el.propertyPageMeta.textContent = metaParts.join(" | ");
+  };
+
+  const renderPropertyPresentation = (item) => {
+    if (!el.propertyPresentationGrid) return;
+    if (!item) {
+      el.propertyPresentationGrid.innerHTML = `
+        <article class="crm-property-metric"><small>Estado comercial</small><strong>-</strong></article>
+        <article class="crm-property-metric"><small>Tipo</small><strong>-</strong></article>
+        <article class="crm-property-metric"><small>Precio objetivo</small><strong>-</strong></article>
+        <article class="crm-property-metric"><small>Superficie</small><strong>-</strong></article>
+        <article class="crm-property-metric"><small>Dormitorios</small><strong>-</strong></article>
+        <article class="crm-property-metric"><small>Banos</small><strong>-</strong></article>
+      `;
+      return;
+    }
+
+    const area = asFiniteNumber(item?.operational?.area_m2);
+    const bedrooms = asFiniteNumber(item?.operational?.bedrooms);
+    const bathrooms = asFiniteNumber(item?.operational?.bathrooms);
+    const totalMedia = mediaCategories.reduce((acc, category) => {
+      const list = Array.isArray(item?.media?.gallery?.[category]) ? item.media.gallery[category] : [];
+      return acc + list.length;
+    }, item?.media?.cover ? 1 : 0);
+
+    const metrics = [
+      { label: "Estado comercial", value: statusLabel(item.status) },
+      { label: "Tipo", value: recordTypeLabel(item.record_type) },
+      { label: "Precio objetivo", value: money(item) },
+      { label: "Superficie", value: area == null ? "-" : `${formatDecimal(area, 2)} m2` },
+      { label: "Dormitorios", value: bedrooms == null ? "-" : formatDecimal(bedrooms, 0) },
+      { label: "Banos", value: bathrooms == null ? "-" : formatDecimal(bathrooms, 0) },
+      { label: "Media total", value: formatInt(totalMedia) },
+      { label: "Ultima actualizacion", value: formatDate(item.updated_at) },
+    ];
+
+    el.propertyPresentationGrid.innerHTML = metrics
+      .map(
+        (metric) => `
+          <article class="crm-property-metric">
+            <small>${esc(metric.label)}</small>
+            <strong>${esc(metric.value || "-")}</strong>
+          </article>
+        `
+      )
+      .join("");
+  };
+
+  const setPropertyTab = (tabName) => {
+    const requested = toText(tabName) || "client";
+    const panelNodes = Array.from(document.querySelectorAll("[data-property-tab-panel]"));
+    const hasRequested = panelNodes.some(
+      (node) =>
+        node instanceof HTMLElement && node.getAttribute("data-property-tab-panel") === requested
+    );
+    const normalized = hasRequested ? requested : "client";
+    state.activePropertyTab = normalized;
+
+    const buttons = document.querySelectorAll("button[data-property-tab-trigger]");
+    buttons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      const isActive = button.getAttribute("data-property-tab-trigger") === normalized;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+
+    panelNodes.forEach((panel) => {
+      if (!(panel instanceof HTMLElement)) return;
+      const isActive = panel.getAttribute("data-property-tab-panel") === normalized;
+      panel.classList.toggle("is-active", isActive);
+      panel.hidden = !isActive;
+    });
   };
 
   const syncProjectPageContext = (project, units = []) => {
@@ -644,6 +955,376 @@
       .join("");
   };
 
+  const renderProjectClientLinks = () => {
+    if (!el.clientLinkTbody) return;
+
+    if (state.clientProjectError) {
+      el.clientLinkTbody.innerHTML = `<tr><td colspan="9">Error cargando vinculacion: ${esc(
+        state.clientProjectError
+      )}</td></tr>`;
+      if (el.clientLinkSummary) {
+        el.clientLinkSummary.textContent = "No se pudo cargar la conexion proyecto-cliente.";
+      }
+      return;
+    }
+
+    const rows = Array.isArray(state.clientProjectRows) ? state.clientProjectRows : [];
+    if (!rows.length) {
+      el.clientLinkTbody.innerHTML =
+        "<tr><td colspan='9'>Sin vinculacion de clientes para las promociones filtradas.</td></tr>";
+      if (el.clientLinkSummary) {
+        el.clientLinkSummary.textContent = "Sin datos de vinculacion proyecto-cliente en este contexto.";
+      }
+      return;
+    }
+
+    const linkedPromotions = rows.filter((row) => Number(row.reservations_total ?? 0) > 0).length;
+    const generatedAtDate = state.clientProjectGeneratedAt ? new Date(state.clientProjectGeneratedAt) : null;
+    const generatedAtText =
+      generatedAtDate && !Number.isNaN(generatedAtDate.getTime())
+        ? generatedAtDate.toLocaleString("es-ES")
+        : "sin fecha";
+
+    if (el.clientLinkSummary) {
+      el.clientLinkSummary.textContent =
+        `${linkedPromotions} promociones con clientes vinculados | ${rows.length} promociones evaluadas | Actualizado: ${generatedAtText}`;
+    }
+
+    el.clientLinkTbody.innerHTML = rows
+      .slice(0, 30)
+      .map((row) => `
+        <tr>
+          <td>
+            <strong>${esc(row.project_label)}</strong><br />
+            <small>${esc(row.project_ref)}</small>
+          </td>
+          <td>${esc(formatInt(row.total_units))}</td>
+          <td>${esc(formatInt(row.available_units))}</td>
+          <td>${esc(formatInt(row.clients_total))}</td>
+          <td>${esc(formatInt(row.reservations_total))}</td>
+          <td>${esc(formatInt(row.active_reservations_total))}</td>
+          <td>${esc(formatPctValue(row.active_reservations_pct))}</td>
+          <td>${esc(formatDecimal(row.reservations_per_client, 2))}</td>
+          <td>${esc(row.top_status_label)}</td>
+        </tr>
+      `)
+      .join("");
+  };
+
+  const loadProjectClientLinks = async () => {
+    if (!el.clientLinkTbody && !el.clientLinkSummary) return;
+
+    if (!state.organizationId) {
+      state.clientProjectRows = [];
+      state.clientProjectGeneratedAt = null;
+      state.clientProjectError = "organization_id_required";
+      renderProjectClientLinks();
+      return;
+    }
+
+    try {
+      const params = new URLSearchParams({ organization_id: state.organizationId });
+      const payload = await request(`/api/v1/clients/kpis?${params.toString()}`);
+      const clientPromotions = Array.isArray(payload?.data?.promotions) ? payload.data.promotions : [];
+      const propertyPromotions = Array.isArray(state.stats?.promotions) ? state.stats.promotions : [];
+
+      const clientByProjectId = new Map();
+      clientPromotions.forEach((row) => {
+        const key = toText(row?.project_id);
+        if (!key) return;
+        clientByProjectId.set(key, row);
+      });
+
+      const propertyByProjectId = new Map();
+      propertyPromotions.forEach((row) => {
+        const key = toText(row?.id);
+        if (!key) return;
+        propertyByProjectId.set(key, row);
+      });
+
+      const projectIds =
+        propertyByProjectId.size > 0
+          ? new Set(propertyByProjectId.keys())
+          : new Set(clientByProjectId.keys());
+      const mergedRows = Array.from(projectIds)
+        .map((projectId) => {
+          const propertyPromo = propertyByProjectId.get(projectId);
+          const clientPromo = clientByProjectId.get(projectId);
+
+          const reservationsTotal = Number(clientPromo?.reservations_total ?? 0);
+          const activeReservationsTotal = Number(clientPromo?.active_reservations_total ?? 0);
+          const clientsTotal = Number(clientPromo?.clients_total ?? 0);
+          const activeReservationsPct = Number(clientPromo?.active_reservations_pct ?? 0);
+
+          return {
+            project_id: projectId,
+            project_label:
+              propertyPromo?.project_name ||
+              propertyPromo?.display_name ||
+              propertyPromo?.legacy_code ||
+              clientPromo?.project_name ||
+              clientPromo?.project_legacy_code ||
+              "Promocion",
+            project_ref:
+              propertyPromo?.legacy_code || toText(clientPromo?.project_legacy_code) || "sin codigo",
+            total_units: Number(propertyPromo?.total_units ?? 0),
+            available_units: Number(propertyPromo?.available_units ?? 0),
+            clients_total: clientsTotal,
+            reservations_total: reservationsTotal,
+            active_reservations_total: activeReservationsTotal,
+            active_reservations_pct: activeReservationsPct,
+            reservations_per_client: clientsTotal > 0 ? reservationsTotal / clientsTotal : null,
+            top_status: toText(clientPromo?.top_status) || null,
+            top_status_label:
+              reservationFlowLabels[toText(clientPromo?.top_status)] ||
+              toText(clientPromo?.top_status) ||
+              "-",
+          };
+        })
+        .sort((a, b) => {
+          if (b.clients_total !== a.clients_total) return b.clients_total - a.clients_total;
+          if (b.active_reservations_total !== a.active_reservations_total) {
+            return b.active_reservations_total - a.active_reservations_total;
+          }
+          if (b.reservations_total !== a.reservations_total) return b.reservations_total - a.reservations_total;
+          return String(a.project_label).localeCompare(String(b.project_label), "es");
+        });
+
+      state.clientProjectRows = mergedRows;
+      state.clientProjectGeneratedAt = toText(payload?.data?.generated_at);
+      state.clientProjectError = null;
+    } catch (error) {
+      state.clientProjectRows = [];
+      state.clientProjectGeneratedAt = null;
+      state.clientProjectError = String(error?.message || "client_project_links_error");
+    }
+
+    renderProjectClientLinks();
+  };
+
+  const buyerRoleLabel = (value) => {
+    if (value === "primary") return "Titular";
+    if (value === "co_buyer") return "Cotitular";
+    if (value === "legal_representative") return "Representante";
+    return "Otro";
+  };
+
+  const matchConfidenceLabel = (value) => {
+    if (value === "high") return "Alta";
+    if (value === "medium") return "Media";
+    return "Baja";
+  };
+
+  const reservationStatusLabel = (value) => {
+    const normalized = toText(value);
+    return reservationFlowLabels[normalized] || normalized || "Otro";
+  };
+
+  const renderClientCardBody = (client, extraBadges = []) => {
+    if (!client) return "<p class='crm-inline-note'>Cliente no disponible.</p>";
+    const title = client.full_name || client.client_code || "Cliente";
+    const badges = [];
+    if (client.client_status) badges.push(client.client_status);
+    if (client.client_type) badges.push(client.client_type === "company" ? "Empresa" : "Particular");
+    badges.push(...extraBadges.filter(Boolean));
+    return `
+      <h5>${esc(title)}</h5>
+      <p class="crm-property-client-meta">
+        ${esc(client.email || "-")} | ${esc(client.phone || "-")}
+      </p>
+      <p class="crm-property-client-meta">
+        ID fiscal: ${esc(client.tax_id || "-")} | Codigo: ${esc(client.client_code || "-")}
+      </p>
+      <div class="crm-property-client-badges">
+        ${badges.map((badge) => `<span class="crm-selected-context-badge">${esc(badge)}</span>`).join("")}
+      </div>
+    `;
+  };
+
+  const renderPropertyClientLinks = () => {
+    if (!el.propertyClientSummary || !el.propertyClientVerifiedList || !el.propertyClientCandidateList) return;
+
+    if (state.propertyClientLoading) {
+      el.propertyClientSummary.textContent = "Cargando vinculacion vivienda-cliente...";
+      el.propertyClientVerifiedList.innerHTML = "<p class='crm-inline-note'>Cargando vinculos verificados...</p>";
+      el.propertyClientCandidateList.innerHTML = "<p class='crm-inline-note'>Cargando candidatos...</p>";
+      return;
+    }
+
+    if (state.propertyClientError) {
+      el.propertyClientSummary.textContent = `Error cargando vinculacion: ${state.propertyClientError}`;
+      el.propertyClientVerifiedList.innerHTML = "<p class='crm-inline-note'>No disponible.</p>";
+      el.propertyClientCandidateList.innerHTML = "<p class='crm-inline-note'>No disponible.</p>";
+      return;
+    }
+
+    const payload = state.propertyClientData;
+    const summary = payload?.summary || {};
+    const verified = Array.isArray(payload?.verified_links) ? payload.verified_links : [];
+    const candidates = Array.isArray(payload?.reservation_candidates) ? payload.reservation_candidates : [];
+    const linkStatus = toText(payload?.link_status) || "not_linked";
+    const warnings = Array.isArray(state.propertyClientMeta?.warnings)
+      ? state.propertyClientMeta.warnings.filter((entry) => toText(entry))
+      : [];
+    const candidatesDisabled = warnings.includes("reservation_candidates_disabled");
+    const statusLabel =
+      linkStatus === "verified"
+        ? "Verificado"
+        : linkStatus === "pending_verification"
+          ? "Pendiente de verificacion"
+          : "Sin vinculo";
+
+    el.propertyClientSummary.textContent =
+      `${statusLabel} | Verificados: ${formatInt(summary.verified_active_buyers_total || 0)} compradores activos | ` +
+      `Candidatos: ${formatInt(summary.reservation_candidates_total || 0)}`;
+    if (warnings.length) {
+      el.propertyClientSummary.textContent += ` | Avisos: ${warnings.join(", ")}`;
+    }
+
+    if (!verified.length) {
+      el.propertyClientVerifiedList.innerHTML =
+        "<p class='crm-inline-note'>Sin vinculo legal verificado para esta vivienda.</p>";
+    } else {
+      el.propertyClientVerifiedList.innerHTML = verified
+        .map((entry) => {
+          const buyerBadges = [
+            buyerRoleLabel(entry.buyer_role),
+            entry.is_active ? "Activo" : "Inactivo",
+            entry.civil_status ? `Estado civil: ${entry.civil_status}` : null,
+            entry.marital_regime ? `Regimen: ${entry.marital_regime}` : null,
+            entry.ownership_share != null ? `Titularidad ${formatDecimal(entry.ownership_share, 2)}%` : null,
+          ];
+          return `
+            <article class="crm-property-client-card">
+              ${renderClientCardBody(entry.client, buyerBadges)}
+              <div class="crm-property-client-card-footer">
+              <small>Fuente: ${esc(entry.link_source || "manual")} | Alta: ${esc(formatDate(entry.created_at))}</small>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    if (candidatesDisabled) {
+      el.propertyClientCandidateList.innerHTML =
+        "<p class='crm-inline-note'>Candidatos automaticos anulados. Relaciona clientes-viviendas con CSV controlado.</p>";
+      return;
+    }
+
+    if (!candidates.length) {
+      el.propertyClientCandidateList.innerHTML =
+        "<p class='crm-inline-note'>Sin candidatos en reservas importadas para esta vivienda.</p>";
+      return;
+    }
+
+    el.propertyClientCandidateList.innerHTML = candidates
+      .map((entry) => {
+        const candidateBadges = [
+          `Confianza ${matchConfidenceLabel(entry.match_confidence)}`,
+          reservationStatusLabel(entry.reservation_status),
+          entry.buyer_civil_status ? `Estado civil: ${entry.buyer_civil_status}` : null,
+        ];
+        const reasons = Array.isArray(entry.match_reasons) ? entry.match_reasons : [];
+        return `
+          <article class="crm-property-client-card">
+            ${renderClientCardBody(entry.client, candidateBadges)}
+            <p class="crm-property-client-meta">
+              Reserva: ${esc(formatDate(entry.reservation_date))} | Unidad: ${esc(entry.unit_reference || "-")}
+            </p>
+            <p class="crm-property-client-meta">
+              Match: ${esc(formatInt(entry.match_score || 0))} | ${esc(reasons.join(", ") || "sin detalle")}
+            </p>
+            <div class="crm-actions-row">
+              <button
+                type="button"
+                class="crm-mini-btn"
+                data-property-client-action="link-primary"
+                data-client-id="${esc(entry.client_id)}"
+              >Vincular titular</button>
+              <button
+                type="button"
+                class="crm-mini-btn"
+                data-property-client-action="link-co-buyer"
+                data-client-id="${esc(entry.client_id)}"
+              >Vincular cotitular</button>
+            </div>
+          </article>
+        `;
+      })
+      .join("");
+  };
+
+  const loadPropertyClientLinks = async (item, { force = false } = {}) => {
+    if (!el.propertyClientSummary || !el.propertyClientVerifiedList || !el.propertyClientCandidateList) return;
+
+    const propertyId = toText(item?.id);
+    if (!propertyId) {
+      state.propertyClientData = null;
+      state.propertyClientMeta = null;
+      state.propertyClientError = null;
+      state.propertyClientLoading = false;
+      state.propertyClientPropertyId = null;
+      renderPropertyClientLinks();
+      return;
+    }
+
+    if (
+      !force &&
+      state.propertyClientPropertyId === propertyId &&
+      !state.propertyClientLoading &&
+      !state.propertyClientError &&
+      state.propertyClientData
+    ) {
+      renderPropertyClientLinks();
+      return;
+    }
+
+    state.propertyClientLoading = true;
+    state.propertyClientError = null;
+    state.propertyClientPropertyId = propertyId;
+    renderPropertyClientLinks();
+
+    try {
+      const params = new URLSearchParams();
+      if (state.organizationId) params.set("organization_id", state.organizationId);
+      params.set("max_candidates", "30");
+      const payload = await request(
+        `${apiBase}/${encodeURIComponent(propertyId)}/clients?${params.toString()}`
+      );
+      state.propertyClientData = payload?.data || null;
+      state.propertyClientMeta = payload?.meta || null;
+      state.propertyClientError = null;
+    } catch (error) {
+      state.propertyClientData = null;
+      state.propertyClientMeta = null;
+      state.propertyClientError = String(error?.message || "property_client_links_error");
+    } finally {
+      state.propertyClientLoading = false;
+      renderPropertyClientLinks();
+    }
+  };
+
+  const upsertPropertyClientLink = async ({ propertyId, clientId, buyerRole }) => {
+    const normalizedPropertyId = toText(propertyId);
+    const normalizedClientId = toText(clientId);
+    if (!normalizedPropertyId || !normalizedClientId) return;
+
+    const payload = {
+      organization_id: state.organizationId || null,
+      client_id: normalizedClientId,
+      buyer_role: buyerRole,
+      is_active: true,
+      link_source: "manual",
+    };
+
+    await request(`${apiBase}/${encodeURIComponent(normalizedPropertyId)}/clients`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  };
+
   const renderDashboardGroups = () => {
     if (!el.dashboardGroups) return;
 
@@ -686,9 +1367,14 @@
                     <span class="crm-badge ${entryAvailableUnits > 0 ? "ok" : "warn"}">${esc(
                       entryTotalUnits
                     )} viviendas</span>
-                    <button type="button" class="crm-mini-btn" data-dashboard-action="open-project" data-project-id="${esc(
-                      entry.id
-                    )}">Abrir</button>
+                    <div class="crm-actions-row">
+                      <button type="button" class="crm-mini-btn" data-dashboard-action="open-project" data-project-id="${esc(
+                        entry.id
+                      )}">Abrir</button>
+                      <button type="button" class="crm-mini-btn" data-dashboard-action="create-unit" data-project-id="${esc(
+                        entry.id
+                      )}">Nueva hija</button>
+                    </div>
                   </li>
                 `;
               })
@@ -740,6 +1426,7 @@
     renderStatusBoard();
     renderDashboardGroups();
     renderPromotionTable();
+    renderProjectClientLinks();
   };
 
   const renderPropertyCard = (item) => {
@@ -780,7 +1467,14 @@
               <small class="crm-project-meta crm-project-meta-stock">${esc(promo.total_units ?? 0)} viviendas | ${esc(promo.available_units ?? 0)} disponibles</small>
               <small class="crm-project-meta crm-project-meta-status">Estado: ${esc(promo.status || "-")}</small>
             </button>
-            <button type="button" class="crm-mini-btn" data-action="open-project-page" data-id="${esc(promo.id)}">Pagina</button>
+            <div class="crm-actions-row">
+              <button type="button" class="crm-mini-btn" data-action="open-project-page" data-id="${esc(
+                promo.id
+              )}">Pagina</button>
+              <button type="button" class="crm-mini-btn" data-action="create-unit" data-project-id="${esc(
+                promo.id
+              )}">Nueva hija</button>
+            </div>
           </article>
         `;
       })
@@ -1078,6 +1772,7 @@
         <p class="crm-unit-price">${esc(money(project))}</p>
         <div class="crm-actions-row">
           <button type="button" class="crm-mini-btn" data-action="open-project-page" data-id="${esc(project.id)}">Abrir ficha promocion</button>
+          <button type="button" class="crm-mini-btn" data-action="create-unit" data-project-id="${esc(project.id)}">Crear vivienda hija</button>
         </div>
       </section>
       <section>
@@ -1205,6 +1900,8 @@
     if (!form) return;
     const recordTypeField = form.elements?.record_type;
     const parentField = form.elements?.parent_legacy_code;
+    const parentSelect = form.querySelector("select[data-parent-project-select]");
+    const parentLinkFields = form.querySelectorAll("[data-parent-link-field], [data-parent-link-helper]");
     if (!(recordTypeField instanceof HTMLSelectElement)) return;
     if (!(parentField instanceof HTMLInputElement)) return;
 
@@ -1212,9 +1909,24 @@
     parentField.required = isUnit;
     parentField.disabled = !isUnit;
     parentField.placeholder = isUnit
-      ? "Obligatorio para unit"
+      ? "Se autocompleta al elegir promocion"
       : "Solo aplica a viviendas de promocion";
-    if (!isUnit && parentField.value) parentField.value = "";
+
+    if (parentSelect instanceof HTMLSelectElement) {
+      const hasProjects = parentSelect.options.length > 1;
+      parentSelect.disabled = !isUnit || !hasProjects;
+    }
+
+    parentLinkFields.forEach((node) => {
+      if (node instanceof HTMLElement) node.hidden = !isUnit;
+    });
+
+    if (!isUnit) {
+      if (parentField.value) parentField.value = "";
+      if (parentSelect instanceof HTMLSelectElement && parentSelect.value) {
+        parentSelect.value = "";
+      }
+    }
   };
 
   const renderMedia = (item) => {
@@ -1259,7 +1971,16 @@
               .join("")
           : "<li class='crm-media-item-empty'>Sin archivos</li>";
 
-        return `<section class="crm-media-category"><h3>${esc(mediaCategoryLabel(category))}</h3><ul class="crm-media-list">${rows}</ul></section>`;
+        const summaryCount = list.length;
+        return `
+          <details class="crm-media-category" ${summaryCount > 0 ? "open" : ""}>
+            <summary>
+              <span>${esc(mediaCategoryLabel(category))}</span>
+              <span class="crm-media-count">${esc(formatInt(summaryCount))} archivos</span>
+            </summary>
+            <ul class="crm-media-list">${rows}</ul>
+          </details>
+        `;
       })
       .join("");
   };
@@ -1272,6 +1993,13 @@
       syncParentLegacyFieldRules(el.editForm);
       renderSelectedPropertyContext(null);
       syncPropertyPageContext(null);
+      renderPropertyPresentation(null);
+      state.propertyClientData = null;
+      state.propertyClientMeta = null;
+      state.propertyClientError = null;
+      state.propertyClientLoading = false;
+      state.propertyClientPropertyId = null;
+      renderPropertyClientLinks();
       if (el.coverBox) el.coverBox.innerHTML = "<p>Selecciona una propiedad para gestionar portada y galeria.</p>";
       if (el.mediaBoard) el.mediaBoard.innerHTML = "";
       return;
@@ -1280,10 +2008,12 @@
     setFormsEnabled(true);
     renderSelectedPropertyContext(item);
     syncPropertyPageContext(item);
+    renderPropertyPresentation(item);
 
     el.editForm.elements.id.value = item.id;
     el.editForm.elements.legacy_code.value = item.legacy_code || "";
     el.editForm.elements.record_type.value = item.record_type || "single";
+    renderParentProjectOptions();
     syncParentLegacyFieldRules(el.editForm);
     el.editForm.elements.project_business_type.value = item.project_business_type || "external_listing";
     el.editForm.elements.operation_type.value = item.operation_type || "sale";
@@ -1293,6 +2023,7 @@
       ? state.parentLegacyById.get(parentId) || findKnownPropertyById(parentId)?.legacy_code || ""
       : "";
     el.editForm.elements.parent_legacy_code.value = cachedParentLegacyCode;
+    syncParentProjectSelection(el.editForm, parentId);
     if (parentId && !cachedParentLegacyCode) {
       void resolveParentLegacyCodeForEditor(item);
     }
@@ -1329,6 +2060,7 @@
     el.editForm.elements.is_featured.checked = item.is_featured === true;
     el.editForm.elements.commercialization_notes.value = item.commercialization_notes || "";
     renderMedia(item);
+    void loadPropertyClientLinks(item);
   };
 
   const payloadFromForm = (form) => {
@@ -1403,6 +2135,43 @@
     if (el.wizardSubmit) el.wizardSubmit.hidden = state.wizard.step < state.wizard.totalSteps;
   };
 
+  const applyCreateFormPrefill = ({ recordType = null, projectId = null, parentLegacyCode = null } = {}) => {
+    if (!el.createForm) return;
+    if (state.createPrefillApplied) return;
+
+    const recordTypeField = el.createForm.elements?.record_type;
+    const parentField = el.createForm.elements?.parent_legacy_code;
+    const normalizedRecordType = toText(recordType);
+
+    if (
+      recordTypeField instanceof HTMLSelectElement &&
+      (normalizedRecordType === "project" ||
+        normalizedRecordType === "unit" ||
+        normalizedRecordType === "single")
+    ) {
+      recordTypeField.value = normalizedRecordType;
+    } else if (recordTypeField instanceof HTMLSelectElement && toText(projectId)) {
+      recordTypeField.value = "unit";
+    }
+
+    if (parentField instanceof HTMLInputElement) {
+      const normalizedParentLegacy = toText(parentLegacyCode);
+      if (normalizedParentLegacy) parentField.value = normalizedParentLegacy;
+    }
+
+    renderParentProjectOptions();
+    syncParentLegacyFieldRules(el.createForm);
+
+    const normalizedProjectId = toText(projectId);
+    if (normalizedProjectId) {
+      syncParentProjectSelection(el.createForm, normalizedProjectId);
+    } else {
+      syncParentProjectSelection(el.createForm);
+    }
+
+    state.createPrefillApplied = true;
+  };
+
   const validateWizardStep = (step) => {
     if (!el.createForm) return true;
 
@@ -1416,9 +2185,13 @@
       const recordType = toText(el.createForm.elements.record_type?.value);
       const parentLegacyCode = toText(el.createForm.elements.parent_legacy_code?.value);
       if (recordType === "unit" && !parentLegacyCode) {
-        setFeedback("Para una vivienda de promocion debes indicar la promocion padre (legacy_code).", "error", {
-          toast: true,
-        });
+        setFeedback(
+          "Para una vivienda hija debes elegir una promocion padre o indicar su legacy_code.",
+          "error",
+          {
+            toast: true,
+          }
+        );
         return false;
       }
     }
@@ -1499,6 +2272,7 @@
     const currentPropertyId = toText(el.editForm.elements.id?.value);
     if (!currentPropertyId || currentPropertyId !== propertyId) return;
     el.editForm.elements.parent_legacy_code.value = parentLegacyCode;
+    syncParentProjectSelection(el.editForm, parentId);
   };
 
   const loadProperties = async ({ preserveSelection = false, resetPage = false } = {}) => {
@@ -1511,7 +2285,9 @@
           el.kpiGrid ||
           el.promotionsTbody ||
           el.projectKpiGrid ||
-          el.projectExecBoard
+          el.projectExecBoard ||
+          el.createForm?.querySelector("select[data-parent-project-select]") ||
+          el.editForm?.querySelector("select[data-parent-project-select]")
       );
       const params = buildQuery({
         includeStats,
@@ -1537,6 +2313,12 @@
       }
 
       state.projectDetailsCache.clear();
+      renderParentProjectOptions();
+      applyCreateFormPrefill({
+        recordType: queryRecordTypePrefill,
+        projectId: queryProjectId,
+        parentLegacyCode: queryParentLegacyCodePrefill,
+      });
 
       if (state.requestedPropertyId && !state.items.some((item) => item.id === state.requestedPropertyId)) {
         try {
@@ -1583,6 +2365,10 @@
         }
       }
 
+      if (el.clientLinkTbody || el.clientLinkSummary) {
+        await loadProjectClientLinks();
+      }
+
       renderTable();
       updateMeta();
       renderPagination();
@@ -1615,10 +2401,14 @@
     }
   };
 
+  bindParentProjectForm(el.createForm);
+  bindParentProjectForm(el.editForm);
+
   const createRecordTypeField = el.createForm?.elements?.record_type;
   if (createRecordTypeField instanceof HTMLSelectElement) {
     createRecordTypeField.addEventListener("change", () => {
       syncParentLegacyFieldRules(el.createForm);
+      syncParentProjectSelection(el.createForm);
     });
     syncParentLegacyFieldRules(el.createForm);
   }
@@ -1627,9 +2417,63 @@
   if (editRecordTypeField instanceof HTMLSelectElement) {
     editRecordTypeField.addEventListener("change", () => {
       syncParentLegacyFieldRules(el.editForm);
+      syncParentProjectSelection(el.editForm);
     });
     syncParentLegacyFieldRules(el.editForm);
   }
+
+  el.propertyTabbar?.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const button = target.closest("button[data-property-tab-trigger]");
+    if (!button) return;
+    setPropertyTab(button.getAttribute("data-property-tab-trigger"));
+  });
+
+  el.propertyClientRefresh?.addEventListener("click", async () => {
+    const current = selected();
+    if (!current) {
+      setFeedback("Selecciona una propiedad para cargar clientes.", "error", { toast: true });
+      return;
+    }
+    await loadPropertyClientLinks(current, { force: true });
+    setFeedback("Vinculacion vivienda-cliente actualizada.", "ok", { toast: true });
+  });
+
+  el.propertyClientCandidateList?.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const button = target.closest("button[data-property-client-action]");
+    if (!button) return;
+
+    const current = selected();
+    if (!current) {
+      setFeedback("Selecciona una propiedad para vincular clientes.", "error", { toast: true });
+      return;
+    }
+
+    const clientId = button.getAttribute("data-client-id");
+    const action = button.getAttribute("data-property-client-action");
+    const buyerRole = action === "link-co-buyer" ? "co_buyer" : "primary";
+
+    try {
+      await upsertPropertyClientLink({
+        propertyId: current.id,
+        clientId,
+        buyerRole,
+      });
+      setFeedback(
+        buyerRole === "primary"
+          ? "Cliente vinculado como titular."
+          : "Cliente vinculado como cotitular.",
+        "ok",
+        { toast: true }
+      );
+      await loadPropertyClientLinks(current, { force: true });
+    } catch (error) {
+      setFeedback(`Error vinculando cliente: ${error.message}`, "error", { toast: true });
+    }
+  });
 
   el.orgForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -1703,6 +2547,11 @@
   el.projectsList?.addEventListener("click", async (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
+    const createUnitButton = target.closest("button[data-action='create-unit']");
+    if (createUnitButton) {
+      openCreateUnitForProject(createUnitButton.getAttribute("data-project-id"));
+      return;
+    }
     const pageButton = target.closest("button[data-action='open-project-page']");
     if (pageButton) {
       openProjectPage(pageButton.getAttribute("data-id"));
@@ -1721,6 +2570,11 @@
       openPropertyPage(pageButton.getAttribute("data-id"));
       return;
     }
+    const createUnitButton = target.closest("button[data-action='create-unit']");
+    if (createUnitButton) {
+      openCreateUnitForProject(createUnitButton.getAttribute("data-project-id"));
+      return;
+    }
     const projectPageButton = target.closest("button[data-action='open-project-page']");
     if (projectPageButton) {
       openProjectPage(projectPageButton.getAttribute("data-id"));
@@ -1734,6 +2588,12 @@
   el.dashboardGroups?.addEventListener("click", async (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
+
+    const createUnitButton = target.closest("button[data-dashboard-action='create-unit']");
+    if (createUnitButton) {
+      openCreateUnitForProject(createUnitButton.getAttribute("data-project-id"));
+      return;
+    }
 
     const projectButton = target.closest("button[data-dashboard-action='open-project']");
     if (projectButton) {
@@ -1799,6 +2659,8 @@
       state.selectedId = response.data?.id || null;
       el.createForm.reset();
       setWizardStep(1);
+      syncParentLegacyFieldRules(el.createForm);
+      syncParentProjectSelection(el.createForm);
       setFeedback("Propiedad creada correctamente.", "ok", { toast: true });
 
       if (!el.editForm && state.selectedId) {
@@ -1809,9 +2671,7 @@
       await loadProperties({ preserveSelection: true });
     } catch (error) {
       const rawMessage = String(error?.message || "db_insert_error");
-      const friendly = rawMessage.includes("parent_legacy_code_required_for_unit")
-        ? "Para una vivienda de promocion debes indicar la promocion padre (legacy_code)."
-        : rawMessage;
+      const friendly = friendlyPropertyError(rawMessage);
       setFeedback(`Error al crear: ${friendly}`, "error", { toast: true });
     }
   });
@@ -1844,9 +2704,7 @@
       await loadProperties({ preserveSelection: true });
     } catch (error) {
       const rawMessage = String(error?.message || "db_update_error");
-      const friendly = rawMessage.includes("parent_legacy_code_required_for_unit")
-        ? "Para una vivienda de promocion debes indicar la promocion padre (legacy_code)."
-        : rawMessage;
+      const friendly = friendlyPropertyError(rawMessage);
       setFeedback(`Error al actualizar: ${friendly}`, "error", { toast: true });
     }
   });
@@ -1973,6 +2831,9 @@
   const defaultOrganizationId = toText(window.__crmDefaultOrganizationId);
   const queryPropertyId = toText(search.get("property_id"));
   const queryProjectId = toText(search.get("project_id"));
+  const queryPropertyTab = toText(search.get("tab"));
+  const queryRecordTypePrefill = toText(search.get("record_type"));
+  const queryParentLegacyCodePrefill = toText(search.get("parent_legacy_code"));
   const bootPropertyId = toText(window.__crmPropertyId);
   const bootProjectId = toText(window.__crmProjectId);
   const queryPage = toInt(search.get("page"), 1, 1, 10000);
@@ -1993,6 +2854,7 @@
   if (state.organizationId) localStorage.setItem("crm.organization_id", state.organizationId);
 
   renderOrganizationContext();
+  setPropertyTab(queryPropertyTab || state.activePropertyTab);
   if (el.perPageSelect) el.perPageSelect.value = String(state.pagination.perPage);
   if (el.createForm) setWizardStep(1);
 

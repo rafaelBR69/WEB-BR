@@ -33,9 +33,25 @@ const propertiesSubNav: SubNavItem[] = [
   { href: "/crm/properties/dashboard/", label: "Dashboard" },
   { href: "/crm/properties/listado/", label: "Listado" },
   { href: "/crm/properties/nueva/", label: "Nueva propiedad" },
+  { href: "/crm/properties/ficha/", label: "Ficha y media" },
 ];
 
+const clientsSubNav: SubNavItem[] = [
+  { href: "/crm/clients/dashboard", label: "Dashboard KPI", exact: true },
+  { href: "/crm/clients/", label: "Gestion clientes", exact: true },
+  { href: "/crm/clients/?view=new", label: "Nuevo cliente", exact: true },
+  { href: "/crm/clients/?view=promotion", label: "Clientes por promocion", exact: true },
+  { href: "/crm/clients/?client_role=provider", label: "Proveedores", exact: true },
+  { href: "/crm/clients/?client_role=agency", label: "Agencias", exact: true },
+];
+
+const subNavBySection: Record<string, SubNavItem[]> = {
+  properties: propertiesSubNav,
+  clients: clientsSubNav,
+};
+
 const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const currentSearchParams = Astro.url.searchParams;
 
 const isActive = (href: string) => {
   const normalizedHref = href.replace(/\/+$/, "") || "/";
@@ -43,13 +59,23 @@ const isActive = (href: string) => {
   return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
 };
 
-const showPropertiesSubNav =
-  currentPath === "/crm/properties" || currentPath.startsWith("/crm/properties/");
-
 const isSubActive = (item: SubNavItem) => {
-  const normalizedHref = item.href.replace(/\/+$/, "") || "/";
-  if (item.exact) return currentPath === normalizedHref;
-  return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+  const itemUrl = new URL(item.href, Astro.url);
+  const normalizedHref = itemUrl.pathname.replace(/\/+$/, "") || "/";
+  const pathMatches = item.exact
+    ? currentPath === normalizedHref
+    : currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+
+  if (!pathMatches) return false;
+  if (!itemUrl.searchParams.size) return true;
+
+  for (const [key, value] of itemUrl.searchParams.entries()) {
+    if (currentSearchParams.get(key) !== value) {
+      return false;
+    }
+  }
+
+  return true;
 };
 
 const sectionLabel = navItems.find((item) => item.key === section)?.label ?? "CRM";
@@ -78,9 +104,9 @@ const sectionLabel = navItems.find((item) => item.key === section)?.label ?? "CR
                 <a href={item.href} class={isActive(item.href) ? "is-active" : ""}>
                   {item.label}
                 </a>
-                {item.key === "properties" && showPropertiesSubNav && (
+                {(subNavBySection[item.key]?.length ?? 0) > 0 && isActive(item.href) && (
                   <ul class="crm-subnav">
-                    {propertiesSubNav.map((subItem) => (
+                    {subNavBySection[item.key].map((subItem) => (
                       <li>
                         <a href={subItem.href} class={isSubActive(subItem) ? "is-active" : ""}>
                           {subItem.label}

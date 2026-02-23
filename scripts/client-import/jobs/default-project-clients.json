@@ -1,0 +1,41 @@
+{
+  "organization_id": "00000000-0000-0000-0000-000000000001",
+  "defaults": {
+    "client_type": "company",
+    "client_status": "active",
+    "contact_type": "vendor",
+    "provider_type": "promoter",
+    "provider_status": "active",
+    "provider_is_billable": true,
+    "responsibility_role": "promoter",
+    "is_primary": false,
+    "commercial_terms": {}
+  },
+  "projects": [
+    {
+      "project_legacy_code": "PM9000",
+      "is_primary": true,
+      "clients": [
+        {
+          "full_name": "Promotora Costa Example SL",
+          "email": "info@promotoracosta.com",
+          "phone": "+34 600 000 000",
+          "tax_id": "B11111111",
+          "client_code": "CLI-PROV-001",
+          "provider_code": "PROV-001",
+          "provider_notes": "Proveedor principal de la promocion",
+          "responsibility_role": "promoter",
+          "link_notes": "Contrato marco 2026",
+          "commercial_terms": {
+            "commission_pct": 2.5
+          }
+        },
+        {
+          "client_id": "00000000-0000-0000-0000-000000000030",
+          "provider_id": "00000000-0000-0000-0000-000000000050",
+          "responsibility_role": "developer"
+        }
+      ]
+    }
+  ]
+}

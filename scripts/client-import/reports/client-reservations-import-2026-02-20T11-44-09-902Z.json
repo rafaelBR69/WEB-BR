@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "generated_at": "2026-02-20T11:44:09.901Z",
+  "job_file": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\jobs\\default-client-reservations.json",
+  "organization_id": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+  "stats": {
+    "dry_run": false,
+    "update_existing": false,
+    "rows_processed": 222,
+    "rows_skipped": 0,
+    "clients_created": 204,
+    "clients_reused": 0,
+    "clients_updated": 0,
+    "contacts_created": 204,
+    "reservations_inserted": 222,
+    "reservations_updated": 0,
+    "reservations_skipped_duplicate": 0,
+    "errors": 1
+  },
+  "sources": [
+    {
+      "file": "scripts/client-import/input/Reservas Control Nylva Homes - RESERVAS.csv",
+      "header_row": 1,
+      "project_id": "2a898c8e-8018-4f5c-95d3-7011f81ada28",
+      "rows": 31,
+      "processed": 31,
+      "skipped": 0,
+      "errors": 0
+    },
+    {
+      "file": "scripts/client-import/input/Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "header_row": 2,
+      "project_id": "36e6172c-5b57-4773-871d-d563945d1408",
+      "rows": 137,
+      "processed": 136,
+      "skipped": 0,
+      "errors": 1
+    },
+    {
+      "file": "scripts/client-import/input/Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "header_row": 1,
+      "project_id": "cb0123dc-8712-4cc8-93f0-563c44e20ef4",
+      "rows": 55,
+      "processed": 55,
+      "skipped": 0,
+      "errors": 0
+    }
+  ],
+  "errors": [
+    {
+      "file": "scripts/client-import/input/Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "row": 38,
+      "message": "db_reservation_insert_error:new row for relation \"client_project_reservations\" violates check constraint \"client_project_reservations_transaction_cycle_days_check\""
+    }
+  ]
+}

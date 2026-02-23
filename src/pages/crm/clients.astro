@@ -4,36 +4,295 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
 <CrmLayout title="CRM | Clientes" section="clients">
   <div class="crm-stack">
     <section class="crm-card crm-full">
-      <h2>Clientes activos</h2>
+      <h2>Contexto de organizacion</h2>
+      <form id="crm-org-form" class="crm-form crm-form-compact">
+        <label>Organization ID
+          <input id="crm-organization-id" type="text" placeholder="UUID de tu organizacion en crm.organizations" />
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar</button>
+        </div>
+      </form>
+      <p id="crm-org-source" class="crm-inline-note"></p>
+      <p id="crm-org-help" class="crm-inline-note"></p>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h2>Ficha de cliente</h2>
+        <p class="crm-inline-note">
+          Campos operativos fase 1 + fase 2: perfil comercial completo y vinculacion fuerte como
+          proveedor/agencia.
+        </p>
+        <form id="client-form" class="crm-form">
+          <input name="id" type="hidden" />
+          <label>Fecha alta
+            <input name="intake_date" type="date" />
+          </label>
+          <label>Tipo cliente
+            <select name="client_type">
+              <option value="individual">Persona fisica</option>
+              <option value="company">Persona juridica</option>
+            </select>
+          </label>
+          <label>Canal entrada
+            <select name="entry_channel">
+              <option value="website">Web</option>
+              <option value="agency">Agencia</option>
+              <option value="phone">Telefono</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="email">Email</option>
+              <option value="provider">Proveedor</option>
+              <option value="walkin">Oficina</option>
+              <option value="portal">Portal</option>
+              <option value="other">Otro</option>
+            </select>
+          </label>
+          <label>Estado
+            <select name="client_status">
+              <option value="active">Activo</option>
+              <option value="inactive">Inactivo</option>
+              <option value="discarded">Descartado</option>
+              <option value="blacklisted">Blacklisted</option>
+            </select>
+          </label>
+          <label>Agencia <input name="agency_name" type="text" placeholder="Nombre agencia" /></label>
+          <label>Agente <input name="agent_name" type="text" placeholder="Asesor responsable" /></label>
+          <label>Nombre <input name="full_name" type="text" required placeholder="Nombre o razon social" /></label>
+          <label>Telefono <input name="phone" type="tel" placeholder="+34..." /></label>
+          <label>Email <input name="email" type="email" placeholder="cliente@email.com" /></label>
+          <label>Nacionalidad <input name="nationality" type="text" placeholder="ES, NL, UK..." /></label>
+          <label>Presupuesto <input name="budget_amount" type="number" min="0" step="0.01" placeholder="430000" /></label>
+          <label>Tipologia <input name="typology" type="text" placeholder="Apartamento 2D, Villa, inversion..." /></label>
+          <label>Localizacion <input name="preferred_location" type="text" placeholder="Mijas, Estepona..." /></label>
+          <label>Tipo documento fiscal
+            <select name="tax_id_type">
+              <option value="">Sin definir</option>
+              <option value="dni">DNI</option>
+              <option value="nie">NIE</option>
+              <option value="cif">CIF</option>
+              <option value="passport">Pasaporte</option>
+              <option value="other">Otro</option>
+            </select>
+          </label>
+          <label>Documento fiscal (DNI/NIE/CIF)
+            <input name="tax_id" type="text" placeholder="Numero de identificacion" />
+          </label>
+          <label class="crm-checkbox-label"><input name="as_provider" type="checkbox" /> Marcar como proveedor</label>
+          <label class="crm-checkbox-label"><input name="as_agency" type="checkbox" /> Marcar como agencia</label>
+          <label>Codigo proveedor
+            <input name="provider_code" type="text" placeholder="PRV-0001" />
+          </label>
+          <label>Tipo proveedor
+            <select name="provider_type">
+              <option value="developer">Developer</option>
+              <option value="promoter">Promotor</option>
+              <option value="constructor">Constructor</option>
+              <option value="architect">Arquitecto</option>
+              <option value="agency">Agencia</option>
+              <option value="owner">Propietario</option>
+              <option value="other" selected>Otro</option>
+            </select>
+          </label>
+          <label>Estado proveedor
+            <select name="provider_status">
+              <option value="active">Activo</option>
+              <option value="inactive">Inactivo</option>
+            </select>
+          </label>
+          <label class="crm-checkbox-label"><input name="provider_is_billable" type="checkbox" checked /> Proveedor facturable</label>
+          <label class="crm-col-2">Notas proveedor
+            <textarea name="provider_notes" placeholder="Condiciones, responsabilidades o alcance del proveedor"></textarea>
+          </label>
+          <label>Codigo agencia
+            <input name="agency_code" type="text" placeholder="AG-0001" />
+          </label>
+          <label>Scope agencia
+            <select name="agency_scope">
+              <option value="buyer">Comprador</option>
+              <option value="seller">Vendedor</option>
+              <option value="rental">Alquiler</option>
+              <option value="mixed" selected>Mixto</option>
+            </select>
+          </label>
+          <label>Estado agencia
+            <select name="agency_status">
+              <option value="active">Activo</option>
+              <option value="inactive">Inactivo</option>
+              <option value="discarded">Descartado</option>
+            </select>
+          </label>
+          <label class="crm-checkbox-label"><input name="agency_is_referral_source" type="checkbox" checked /> Fuente de referidos</label>
+          <label class="crm-col-2">Notas agencia
+            <textarea name="agency_notes" placeholder="Contactos, acuerdo comercial y observaciones"></textarea>
+          </label>
+          <label class="crm-col-2">Comentarios
+            <textarea name="comments" placeholder="Contexto del cliente y necesidades"></textarea>
+          </label>
+          <label class="crm-col-2">Reporte
+            <textarea name="report_notes" placeholder="Reporte interno o comercial"></textarea>
+          </label>
+          <label class="crm-col-2">Visita
+            <textarea name="visit_notes" placeholder="Notas de visita"></textarea>
+          </label>
+          <label class="crm-col-2">Reserva
+            <textarea name="reservation_notes" placeholder="Estado/nota de reserva"></textarea>
+          </label>
+          <label>Descartado por <input name="discarded_by" type="text" placeholder="Motivo o persona" /></label>
+          <label class="crm-col-2">Otros
+            <textarea name="other_notes" placeholder="Cualquier otro dato relevante"></textarea>
+          </label>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="button" id="client-new" class="crm-button crm-button-soft">Nuevo</button>
+            <button type="submit" class="crm-button">Guardar cliente</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h2>Documentacion cliente</h2>
+        <div id="client-selected-context" class="crm-selected-context">
+          <p class="crm-selected-context-kicker">Cliente activo</p>
+          <h4 class="crm-selected-context-title">Sin cliente seleccionado</h4>
+          <p class="crm-selected-context-meta">Selecciona un cliente para subir DNI/NIE/CIF o justificantes.</p>
+        </div>
+
+        <form id="client-doc-form" class="crm-form">
+          <fieldset id="client-doc-fieldset" class="crm-fieldset" disabled>
+            <label>Tipo documento
+              <select name="document_kind">
+                <option value="dni_front">DNI anverso</option>
+                <option value="dni_back">DNI reverso</option>
+                <option value="nie_front">NIE anverso</option>
+                <option value="nie_back">NIE reverso</option>
+                <option value="passport">Pasaporte</option>
+                <option value="cif">CIF</option>
+                <option value="bank_proof">Justificante bancario</option>
+                <option value="reservation">Reserva</option>
+                <option value="contract">Contrato</option>
+                <option value="authorization">Autorizacion</option>
+                <option value="other">Otro</option>
+              </select>
+            </label>
+            <label>Contexto
+              <select name="subject_type">
+                <option value="client">Cliente</option>
+                <option value="provider">Proveedor</option>
+                <option value="agency">Agencia</option>
+                <option value="other">Otro</option>
+              </select>
+            </label>
+            <label>Titulo <input name="title" type="text" placeholder="DNI cliente - marzo 2026" /></label>
+            <label class="crm-checkbox-label"><input name="is_private" type="checkbox" checked /> Documento privado</label>
+            <label class="crm-col-2">Archivo
+              <input name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,application/pdf,image/png,image/jpeg,image/webp,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+            </label>
+          </fieldset>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="submit" class="crm-button">Subir documento</button>
+          </div>
+        </form>
+
+        <div class="crm-cover-box">
+          <strong>Documentos cargados</strong>
+          <ul id="client-docs-list" class="crm-list">
+            <li>Selecciona un cliente para ver su documentacion.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h2>Listado clientes</h2>
+      <form id="client-filter-form" class="crm-form crm-form-compact">
+        <label>Buscar
+          <input name="q" type="search" placeholder="Nombre, email, telefono, CIF..." />
+        </label>
+        <label>Tipo
+          <select name="client_type">
+            <option value="">Todos</option>
+            <option value="individual">Persona fisica</option>
+            <option value="company">Persona juridica</option>
+          </select>
+        </label>
+        <label>Estado
+          <select name="client_status">
+            <option value="">Todos</option>
+            <option value="active">Activo</option>
+            <option value="inactive">Inactivo</option>
+            <option value="discarded">Descartado</option>
+            <option value="blacklisted">Blacklisted</option>
+          </select>
+        </label>
+        <label>Canal
+          <select name="entry_channel">
+            <option value="">Todos</option>
+            <option value="website">Web</option>
+            <option value="agency">Agencia</option>
+            <option value="phone">Telefono</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="email">Email</option>
+            <option value="provider">Proveedor</option>
+            <option value="walkin">Oficina</option>
+            <option value="portal">Portal</option>
+            <option value="other">Otro</option>
+          </select>
+        </label>
+        <label>Rol Fase 2
+          <select name="client_role">
+            <option value="">Todos</option>
+            <option value="provider">Solo proveedor</option>
+            <option value="agency">Solo agencia</option>
+            <option value="provider_or_agency">Proveedor o agencia</option>
+            <option value="client_only">Solo cliente base</option>
+          </select>
+        </label>
+        <label>Promocion (UUID)
+          <input name="project_id" type="text" placeholder="project_property_id de crm.properties" />
+        </label>
+        <label>Por pagina
+          <select name="per_page" id="clients-per-page">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="clients-filter-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+
+      <p id="clients-meta" class="crm-inline-note"></p>
       <div class="crm-table-wrap">
         <table class="crm-table">
           <thead>
             <tr>
-              <th>Cliente</th>
-              <th>Email</th>
-              <th>Telefono</th>
+              <th>Fecha</th>
+              <th>Nombre</th>
               <th>Tipo</th>
+              <th>Canal</th>
+              <th>Rol Fase 2</th>
+              <th>Agencia/Agente</th>
+              <th>Contacto</th>
+              <th>Presupuesto</th>
               <th>Estado</th>
+              <th>Accion</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="clients-tbody">
             <tr>
-              <td>Arancha Molina</td>
-              <td>arancha@example.com</td>
-              <td>+34 600 100 100</td>
-              <td>particular</td>
-              <td><span class="crm-badge ok">active</span></td>
-            </tr>
-            <tr>
-              <td>North Sea Capital BV</td>
-              <td>ops@northsea-capital.com</td>
-              <td>+31 20 000 000</td>
-              <td>empresa</td>
-              <td><span class="crm-badge ok">active</span></td>
+              <td colspan="10">Cargando clientes...</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
+
+    <section class="crm-card crm-full">
+      <p id="clients-feedback" class="crm-feedback">Listo para operar.</p>
+    </section>
   </div>
+  <script is:inline src="/crm/clients.js"></script>
 </CrmLayout>

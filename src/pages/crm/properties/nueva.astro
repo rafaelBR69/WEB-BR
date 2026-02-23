@@ -54,7 +54,23 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
                 <option value="archived">Archivada</option>
               </select>
             </label>
-            <label class="crm-col-2">Promocion padre (legacy_code) <input name="parent_legacy_code" type="text" placeholder="Obligatorio para unit" /></label>
+            <label class="crm-col-2" data-parent-link-field>
+              Promocion padre (seleccion guiada)
+              <select data-parent-project-select>
+                <option value="">Selecciona una promocion...</option>
+              </select>
+            </label>
+            <label class="crm-col-2" data-parent-link-field>
+              Codigo promocion padre (legacy_code)
+              <input
+                name="parent_legacy_code"
+                type="text"
+                placeholder="Se autocompleta al elegir promocion"
+              />
+            </label>
+            <p class="crm-inline-note crm-col-2" data-parent-link-helper>
+              Si la promocion no aparece en la lista, puedes escribir su codigo manualmente.
+            </p>
           </div>
         </fieldset>
 

@@ -82,6 +82,36 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
     </section>
 
     <section class="crm-card crm-full">
+      <h3>Conexion real proyecto-cliente</h3>
+      <p class="crm-inline-note">
+        Cruce entre propiedades CRM y reservas de clientes por promocion (clientes vinculados reales).
+      </p>
+      <p id="properties-client-link-summary" class="crm-inline-note">
+        Cargando conexion proyecto-cliente...
+      </p>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Promocion</th>
+              <th>Viviendas</th>
+              <th>Disponibles</th>
+              <th>Clientes</th>
+              <th>Reservas</th>
+              <th>Activas</th>
+              <th>% activa</th>
+              <th>Res/cliente</th>
+              <th>Estado lider</th>
+            </tr>
+          </thead>
+          <tbody id="properties-client-link-tbody">
+            <tr><td colspan="9">Cargando vinculacion...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
       <p id="properties-feedback" class="crm-feedback">Listo para operar.</p>
     </section>
   </div>

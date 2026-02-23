@@ -1,0 +1,561 @@
+{
+  "ok": true,
+  "generated_at": "2026-02-20T14:06:25.250Z",
+  "organization_id": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+  "csv_file": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\reference\\property-client-links-draft.csv",
+  "stats": {
+    "dry_run": false,
+    "rows_total": 251,
+    "rows_processed": 48,
+    "rows_skipped_not_ready": 95,
+    "rows_skipped_low_confidence": 0,
+    "rows_skipped_invalid_ids": 0,
+    "primary_conflicts_detected": 0,
+    "existing_primaries_deactivated": 0,
+    "incoming_marked_inactive": 0,
+    "links_upserted": 48,
+    "errors": 108
+  },
+  "errors": [
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "2",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "3",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "4",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "5",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "6",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "7",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "8",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "9",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "10",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "11",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "12",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "13",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "14",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "15",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "16",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "18",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "19",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "20",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "21",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "22",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "23",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "24",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "25",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "26",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "27",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "28",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "30",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "31",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Control Nylva Homes - RESERVAS.csv",
+      "source_row_number": "32",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "3",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "6",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "8",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "11",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "12",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "14",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "15",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "16",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "17",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "18",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "21",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "25",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "26",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "27",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "28",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "29",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "30",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "31",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "32",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "34",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "36",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "37",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "38",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "39",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "40",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "41",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "42",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "43",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "44",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "45",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "47",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "48",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "49",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "51",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "52",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "54",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "55",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "57",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "63",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "66",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "69",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "70",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "75",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "79",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "81",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "82",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "84",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "85",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "87",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "106",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "112",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "113",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "117",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "119",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "125",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "126",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "127",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "131",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "132",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "133",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "134",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "135",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "138",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "140",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "141",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "142",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "144",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "145",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "146",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "147",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "149",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "source_row_number": "150",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "source_row_number": "40",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "source_row_number": "53",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "source_row_number": "55",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "source_row_number": "59",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "source_row_number": "60",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "source_row_number": "62",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    },
+    {
+      "source_file": "Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "source_row_number": "63",
+      "error": "db_property_client_link_upsert_error:Only 1 active primary buyer is allowed per property"
+    }
+  ]
+}

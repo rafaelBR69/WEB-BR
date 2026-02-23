@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "generated_at": "2026-02-20T13:51:15.378Z",
+  "job_file": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\jobs\\default-client-reservations.json",
+  "properties_reference_csv": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\reference\\properties-reference.csv",
+  "clients_reference_csv": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\reference\\clients-reference.csv",
+  "output_csv": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\reference\\property-client-links-draft.csv",
+  "output_csv_snapshot": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\reference\\property-client-links-draft-2026-02-20T13-51-15-376Z.csv",
+  "stats": {
+    "rows_processed": 251,
+    "rows_ready_to_apply": 48,
+    "rows_with_client_match": 249,
+    "rows_with_property_match": 156,
+    "rows_missing_client": 2,
+    "rows_missing_property": 95
+  },
+  "sources": [
+    {
+      "file": "scripts/client-import/input/Reservas Control Nylva Homes - RESERVAS.csv",
+      "header_row": 1,
+      "rows": 59,
+      "processed": 59,
+      "ready": 31,
+      "missing_client": 2,
+      "missing_property": 28
+    },
+    {
+      "file": "scripts/client-import/input/Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "header_row": 2,
+      "rows": 137,
+      "processed": 137,
+      "ready": 0,
+      "missing_client": 0,
+      "missing_property": 29
+    },
+    {
+      "file": "scripts/client-import/input/Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "header_row": 1,
+      "rows": 55,
+      "processed": 55,
+      "ready": 17,
+      "missing_client": 0,
+      "missing_property": 38
+    }
+  ]
+}

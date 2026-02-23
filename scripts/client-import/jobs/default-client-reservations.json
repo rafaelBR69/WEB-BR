@@ -1,0 +1,21 @@
+{
+  "organization_id": "00000000-0000-0000-0000-000000000001",
+  "sources": [
+    {
+      "file": "scripts/client-import/input/Reservas Control Nylva Homes - RESERVAS.csv",
+      "project_legacy_code": "PM0079",
+      "project_label": "Nylva Homes"
+    },
+    {
+      "file": "scripts/client-import/input/Reservas Clientes Calahonda Sunset - Reservas Calahonda Sunset.csv",
+      "project_legacy_code": "PM0011",
+      "project_label": "Calahonda Sunset",
+      "header_row": 2
+    },
+    {
+      "file": "scripts/client-import/input/Reservas Clientes - Orion Collection - Almitak - Registro de reservas Orion Collection - Almitak.csv",
+      "project_legacy_code": "PM0074",
+      "project_label": "Orion Collection - Almitak"
+    }
+  ]
+}

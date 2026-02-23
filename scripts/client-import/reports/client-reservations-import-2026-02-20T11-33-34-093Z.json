@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "generated_at": "2026-02-20T11:33:34.092Z",
+  "job_file": "C:\\Users\\elena\\Desktop\\WEB-BR\\scripts\\client-import\\jobs\\default-client-reservations.json",
+  "organization_id": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+  "stats": {
+    "dry_run": true,
+    "update_existing": false,
+    "rows_processed": 10,
+    "rows_skipped": 0,
+    "clients_created": 10,
+    "clients_reused": 0,
+    "clients_updated": 0,
+    "contacts_created": 0,
+    "reservations_inserted": 10,
+    "reservations_updated": 0,
+    "reservations_skipped_duplicate": 0,
+    "errors": 0
+  },
+  "sources": [
+    {
+      "file": "scripts/client-import/input/Reservas Control Nylva Homes - RESERVAS.csv",
+      "header_row": 1,
+      "project_id": "2a898c8e-8018-4f5c-95d3-7011f81ada28",
+      "rows": 31,
+      "processed": 10,
+      "skipped": 0,
+      "errors": 0
+    }
+  ],
+  "errors": []
+}
