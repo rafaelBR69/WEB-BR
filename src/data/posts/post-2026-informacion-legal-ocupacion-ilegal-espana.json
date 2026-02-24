@@ -1,0 +1,278 @@
+{
+  "id": "post-2026-informacion-legal-ocupacion-ilegal-espana",
+  "status": "published",
+  "category": "legal",
+  "featured": false,
+  "published_at": "2026-02-23",
+  "updated_at": "2026-02-23",
+  "reading_time_min": 5,
+  "slugs": {
+    "es": "informacion-legal-sobre-la-ocupacion-ilegal-en-espana",
+    "en": "legal-information-illegal-occupation-spain",
+    "de": "rechtliche-information-illegale-besetzung-spanien",
+    "fr": "informations-juridiques-occupation-illegale-espagne",
+    "it": "informazioni-legali-occupazione-illegale-spagna",
+    "nl": "juridische-informatie-illegale-bezetting-spanje"
+  },
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/posts/post-2026-informacion-legal-ocupacion-ilegal-espana/real-estate-agents-visiting-building.webp",
+      "alt": {
+        "es": "Edificio residencial y proteccion legal frente a ocupacion ilegal",
+        "en": "Residential building and legal protection against illegal occupation",
+        "de": "Wohngebaeude und rechtlicher Schutz gegen illegale Besetzung",
+        "fr": "Immeuble residentiel et protection juridique contre l occupation illegale",
+        "it": "Edificio residenziale e tutela legale contro l occupazione illegale",
+        "nl": "Woongebouw en juridische bescherming tegen illegale bezetting"
+      }
+    }
+  },
+  "author": {
+    "name": "Equipo BlancaReal",
+    "role": {
+      "es": "Departamento legal in-house",
+      "en": "In-house legal team",
+      "de": "Internes Rechtsteam",
+      "fr": "Equipe juridique interne",
+      "it": "Team legale interno",
+      "nl": "Intern juridisch team"
+    }
+  },
+  "seo": {
+    "meta_description": {
+      "es": "¿Estan protegidos los proyectos de obra nueva frente a la ocupacion en España? Guia legal: allanamiento vs usurpacion, actuacion policial y via judicial.",
+      "en": "Are new-build developments protected against illegal occupation in Spain? Legal guide: trespass vs usurpation, police action and court procedures.",
+      "de": "Sind Neubauprojekte in Spanien gegen illegale Besetzung geschuetzt? Rechtlicher Leitfaden: Hausfriedensbruch vs Usurpation, Polizei und Gerichtsweg.",
+      "fr": "Les programmes neufs sont-ils proteges contre l occupation illegale en Espagne ? Guide juridique : domicile vs usurpation, police et voie judiciaire.",
+      "it": "I progetti di nuova costruzione sono protetti contro l occupazione illegale in Spagna? Guida legale: violazione di domicilio vs usurpazione, polizia e tribunali.",
+      "nl": "Zijn nieuwbouwprojecten in Spanje beschermd tegen illegale bezetting? Juridische gids: huisvredebreuk vs usurpatie, politie en gerechtelijke route."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Información legal sobre la ocupación ilegal en España",
+      "excerpt": "Diferencias penales (allanamiento vs usurpación) y como actuar si ocurre una ocupación, con especial enfoque en promociones de obra nueva.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Ante el creciente interes y preocupacion social por la ocupación ilegal en España, desde BlancaReal compartimos una guia clara sobre el marco legal y la proteccion aplicable, especialmente en proyectos de obra nueva."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Situacion actual: por que preocupa"
+        },
+        {
+          "type": "paragraph",
+          "content": "La ocupacion ilegal genera incertidumbre porque puede derivar en procedimientos largos y costes relevantes para los propietarios. Factores como tension en el mercado del alquiler y falta de vivienda asequible agravan el debate social, pero la respuesta legal depende del tipo de inmueble y del caso concreto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Consideraciones legales clave"
+        },
+        {
+          "type": "paragraph",
+          "content": "La ocupacion puede constituir delito en el ordenamiento penal español. La calificacion depende principalmente de si el inmueble es morada (vivienda) o no."
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "content": "2.1. Allanamiento de morada (art. 202 Codigo Penal)"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Afecta a inmuebles que constituyen morada: donde una persona reside, sea propietaria, inquilina o ocupante legitima, de forma permanente o temporal."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "content": "2.2. Usurpacion (art. 245.2 Codigo Penal)"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Afecta a inmuebles que no constituyen morada: por ejemplo, vivienda vacia, inmueble destinado a inversion o deshabitado."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "En el caso de ocupacion durante las obras, una promocion en construccion sigue siendo propiedad privada y esta juridicamente protegida. La proteccion se fundamenta en la titularidad y posesion legitima del inmueble, aunque no este finalizado ni habitado."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Como actuar: vias de solucion"
+        },
+        {
+          "type": "paragraph",
+          "content": "Existen dos vias principales: la judicial (segura, pero normalmente mas lenta) y la actuacion policial en supuestos de delito flagrante (mas rapida). La estrategia concreta depende del momento en que se detecte la ocupacion y de la prueba disponible."
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "content": "3.1. Via policial (delito flagrante)"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Cuando la ocupacion se detecta de forma inmediata y puede acreditarse la inmediatez, la intervencion policial puede ser la via mas rapida.",
+            "Es recomendable contar con medidas de deteccion y evidencia (por ejemplo, alarmas con camaras y registro de avisos) para facilitar la actuacion."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "content": "3.2. Via judicial"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Si la ocupacion se consolida y los ocupantes comienzan a hacer vida normal, suele ser necesario acudir a los tribunales.",
+            "Los tiempos varian por circunstancias del caso, carga del juzgado y territorio."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Conclusion"
+        },
+        {
+          "type": "paragraph",
+          "content": "Aunque la ocupacion ilegal es una preocupacion real, los proyectos de obra nueva cuentan con respaldo legal para protegerse y, si ocurre un incidente, facilitar una respuesta eficaz. En BlancaReal le asesoramos para actuar con rapidez, con prueba y con la via adecuada segun el caso."
+        },
+        {
+          "type": "paragraph",
+          "content": "Nota: Este contenido es informativo y no sustituye el asesoramiento juridico personalizado."
+        }
+      ]
+    },
+    "en": {
+      "title": "Legal information about illegal occupation in Spain",
+      "excerpt": "Key criminal-law distinctions (trespass vs usurpation) and how to react, with a focus on new-build developments.",
+      "content": [
+        { "type": "paragraph", "content": "Given the growing public concern about illegal occupation in Spain, BlancaReal shares a clear legal overview—especially relevant for new-build projects." },
+        { "type": "heading", "level": 3, "content": "1. Why this is a concern" },
+        { "type": "paragraph", "content": "Illegal occupation creates uncertainty because recovering possession can involve long procedures and meaningful costs. The legal response depends on the type of property and the specific facts." },
+        { "type": "heading", "level": 3, "content": "2. Key legal concepts" },
+        { "type": "paragraph", "content": "Occupation may constitute a criminal offence under Spanish law. Classification largely depends on whether the property is considered a dwelling (morada) or not." },
+        { "type": "heading", "level": 4, "content": "2.1. Trespass into a dwelling (art. 202 Spanish Criminal Code)" },
+        { "type": "list", "items": [ "Applies when the property is a dwelling: where someone lives, as owner, tenant or lawful occupier, permanently or temporarily." ] },
+        { "type": "heading", "level": 4, "content": "2.2. Usurpation (art. 245.2 Spanish Criminal Code)" },
+        { "type": "list", "items": [ "Applies when the property is not a dwelling: e.g., vacant investment property or otherwise uninhabited premises." ] },
+        { "type": "paragraph", "content": "If occupation occurs during construction works, a development under construction remains private property and is legally protected even if units are not completed or inhabited." },
+        { "type": "heading", "level": 3, "content": "3. How to act: main routes" },
+        { "type": "paragraph", "content": "There are two main routes: court action (reliable but usually slower) and police action in cases of flagrante delicto (faster). The right approach depends on timing and evidence." },
+        { "type": "heading", "level": 4, "content": "3.1. Police route (flagrante delicto)" },
+        { "type": "list", "items": [ "If detected immediately and the immediacy can be evidenced, police intervention may be the fastest route.", "Practical detection and evidence tools (e.g., alarms with cameras and incident logs) can help." ] },
+        { "type": "heading", "level": 4, "content": "3.2. Court route" },
+        { "type": "list", "items": [ "If occupation becomes established, court proceedings are commonly required.", "Timeframes vary depending on the case, court workload and territory." ] },
+        { "type": "heading", "level": 3, "content": "Conclusion" },
+        { "type": "paragraph", "content": "While illegal occupation is a real concern, new-build projects have legal protection and can respond effectively if an incident occurs. BlancaReal can advise on the fastest and safest route for your specific case." },
+        { "type": "paragraph", "content": "Note: This article is for general information and does not replace personalised legal advice." }
+      ]
+    },
+    "de": {
+      "title": "Rechtliche Informationen zur illegalen Besetzung in Spanien",
+      "excerpt": "Wichtige strafrechtliche Unterschiede (Hausfriedensbruch vs Usurpation) und Vorgehen, mit Fokus auf Neubauprojekte.",
+      "content": [
+        { "type": "paragraph", "content": "Angesichts der zunehmenden Sorge ueber illegale Besetzungen in Spanien stellt BlancaReal einen klaren rechtlichen Ueberblick bereit – insbesondere fuer Neubauprojekte." },
+        { "type": "heading", "level": 3, "content": "1. Warum das Thema belastet" },
+        { "type": "paragraph", "content": "Illegale Besetzung kann zu langen Verfahren und erheblichen Kosten fuehren. Die rechtliche Einordnung haengt vom Immobilientyp und den konkreten Umstaenden ab." },
+        { "type": "heading", "level": 3, "content": "2. Zentrale rechtliche Punkte" },
+        { "type": "paragraph", "content": "Besetzung kann strafbar sein. Entscheidend ist oft, ob es sich um eine „Morada“ (Wohnung als Wohnsitz) handelt oder nicht." },
+        { "type": "heading", "level": 4, "content": "2.1. Hausfriedensbruch (Art. 202 Strafgesetzbuch)" },
+        { "type": "list", "items": [ "Wenn die Immobilie als Wohnung/ Wohnsitz dient (Eigentuemer, Mieter oder rechtmaessiger Bewohner), dauerhaft oder voruebergehend." ] },
+        { "type": "heading", "level": 4, "content": "2.2. Usurpation (Art. 245.2 Strafgesetzbuch)" },
+        { "type": "list", "items": [ "Wenn die Immobilie keine Wohnung ist, z.B. leerstehende Investmentimmobilie oder unbewohntes Objekt." ] },
+        { "type": "paragraph", "content": "Auch waehrend der Bauphase bleibt ein Projekt Privateigentum und ist rechtlich geschuetzt, selbst wenn Einheiten noch nicht fertiggestellt oder bewohnt sind." },
+        { "type": "heading", "level": 3, "content": "3. Vorgehen: Loesungswege" },
+        { "type": "paragraph", "content": "Hauptsaechlich gibt es den Gerichtsweg (zuverlaessig, aber meist langsamer) und polizeiliches Einschreiten bei „flagrante delicto“ (schneller). Die Wahl haengt von Zeitpunkt und Beweisen ab." },
+        { "type": "heading", "level": 4, "content": "3.1. Polizei (flagrante delicto)" },
+        { "type": "list", "items": [ "Bei sofortiger Feststellung und nachweisbarer Unmittelbarkeit kann die Polizei der schnellste Weg sein.", "Technische Massnahmen (Alarm, Kameras, Protokolle) helfen bei der Beweisfuehrung." ] },
+        { "type": "heading", "level": 4, "content": "3.2. Gericht" },
+        { "type": "list", "items": [ "Wenn sich die Besetzung verfestigt, sind Verfahren vor Gericht haeufig erforderlich.", "Dauer variiert nach Fall, Gerichtsauslastung und Region." ] },
+        { "type": "heading", "level": 3, "content": "Fazit" },
+        { "type": "paragraph", "content": "Neubauprojekte verfuegen ueber rechtlichen Schutz und koennen im Ernstfall wirksam reagieren. BlancaReal beraet zur passenden Strategie fuer Ihren konkreten Fall." },
+        { "type": "paragraph", "content": "Hinweis: Allgemeine Information, keine individuelle Rechtsberatung." }
+      ]
+    },
+    "fr": {
+      "title": "Informations juridiques sur l occupation illegale en Espagne",
+      "excerpt": "Differences cles (domicile vs usurpation) et comment agir, avec un focus sur les projets neufs.",
+      "content": [
+        { "type": "paragraph", "content": "Face a l inquietude croissante sur l occupation illegale en Espagne, BlancaReal propose un rappel juridique clair, notamment pour les projets de construction neuve." },
+        { "type": "heading", "level": 3, "content": "1. Pourquoi cela inquiète" },
+        { "type": "paragraph", "content": "L occupation illegale peut entrainer des procedures longues et des couts importants. La reponse juridique depend du type de bien et des faits du dossier." },
+        { "type": "heading", "level": 3, "content": "2. Notions juridiques essentielles" },
+        { "type": "paragraph", "content": "Selon les cas, l occupation peut constituer une infraction. La qualification depend notamment du caractere de domicile (morada) ou non." },
+        { "type": "heading", "level": 4, "content": "2.1. Violation de domicile (art. 202 Code penal espagnol)" },
+        { "type": "list", "items": [ "Concerne un bien qui constitue un domicile : residence de l occupant legitime (proprietaire, locataire, etc.), permanente ou temporaire." ] },
+        { "type": "heading", "level": 4, "content": "2.2. Usurpation (art. 245.2 Code penal espagnol)" },
+        { "type": "list", "items": [ "Concerne un bien qui n est pas un domicile : par exemple un logement vide ou un bien d investissement inhabite." ] },
+        { "type": "paragraph", "content": "En cas d occupation pendant les travaux, une promotion en construction reste une propriete privee protegee juridiquement, meme si les logements ne sont pas termines ni habites." },
+        { "type": "heading", "level": 3, "content": "3. Comment agir" },
+        { "type": "paragraph", "content": "Deux voies principales existent : la voie judiciaire (fiable mais souvent plus lente) et l intervention policiere en cas de flagrance (plus rapide). Le choix depend du moment et des preuves disponibles." },
+        { "type": "heading", "level": 4, "content": "3.1. Police (flagrance)" },
+        { "type": "list", "items": [ "Si l occupation est detectee immediatement et que l immediatete peut etre etablie, l intervention policiere peut etre la plus rapide.", "Des dispositifs de preuve (alarme, cameras, journaux d alertes) peuvent faciliter l intervention." ] },
+        { "type": "heading", "level": 4, "content": "3.2. Justice" },
+        { "type": "list", "items": [ "Si l occupation se consolide, un recours aux tribunaux est souvent necessaire.", "Les delais varient selon le dossier, la charge des juridictions et le territoire." ] },
+        { "type": "heading", "level": 3, "content": "Conclusion" },
+        { "type": "paragraph", "content": "Bien que la question soit reelle, les projets neufs disposent d un cadre de protection et peuvent reagir efficacement. BlancaReal vous conseille sur la strategie adaptee a votre situation." },
+        { "type": "paragraph", "content": "Note : Information generale, ne remplace pas un conseil juridique personnalise." }
+      ]
+    },
+    "it": {
+      "title": "Informazioni legali sull occupazione illegale in Spagna",
+      "excerpt": "Differenze chiave (violazione di domicilio vs usurpazione) e come agire, con focus su progetti di nuova costruzione.",
+      "content": [
+        { "type": "paragraph", "content": "Dato il crescente interesse e la preoccupazione per l occupazione illegale in Spagna, BlancaReal offre una guida legale chiara, particolarmente utile per i progetti di nuova costruzione." },
+        { "type": "heading", "level": 3, "content": "1. Perche preoccupa" },
+        { "type": "paragraph", "content": "L occupazione illegale puo comportare procedure lunghe e costi rilevanti. La risposta legale dipende dal tipo di immobile e dalle circostanze concrete." },
+        { "type": "heading", "level": 3, "content": "2. Aspetti legali da conoscere" },
+        { "type": "paragraph", "content": "A seconda dei casi, l occupazione puo essere un reato. La qualificazione dipende soprattutto dal fatto che l immobile sia o meno considerato domicilio (morada)." },
+        { "type": "heading", "level": 4, "content": "2.1. Violazione di domicilio (art. 202 Codice Penale spagnolo)" },
+        { "type": "list", "items": [ "Riguarda immobili che sono domicilio: dove una persona vive legittimamente (proprietario, inquilino, ecc.), in modo permanente o temporaneo." ] },
+        { "type": "heading", "level": 4, "content": "2.2. Usurpazione (art. 245.2 Codice Penale spagnolo)" },
+        { "type": "list", "items": [ "Riguarda immobili che non sono domicilio, ad esempio casa vuota o immobile d investimento non abitato." ] },
+        { "type": "paragraph", "content": "Se l occupazione avviene durante i lavori, un complesso in costruzione resta proprieta privata ed e tutelato giuridicamente anche se le unita non sono finite o abitate." },
+        { "type": "heading", "level": 3, "content": "3. Come intervenire" },
+        { "type": "paragraph", "content": "Le vie principali sono: quella giudiziaria (sicura ma spesso piu lenta) e l intervento della polizia nei casi di flagranza (piu rapido). La scelta dipende da tempi e prove." },
+        { "type": "heading", "level": 4, "content": "3.1. Via della polizia (flagranza)" },
+        { "type": "list", "items": [ "Se l occupazione viene rilevata subito e l immediatezza e dimostrabile, l intervento della polizia puo essere la via piu rapida.", "Sistemi di allarme e prove (camere, log) possono facilitare l intervento." ] },
+        { "type": "heading", "level": 4, "content": "3.2. Via giudiziaria" },
+        { "type": "list", "items": [ "Se l occupazione si consolida, spesso e necessario ricorrere ai tribunali.", "I tempi variano in base al caso, al carico giudiziario e al territorio." ] },
+        { "type": "heading", "level": 3, "content": "Conclusione" },
+        { "type": "paragraph", "content": "L occupazione illegale e una preoccupazione reale, ma i progetti di nuova costruzione hanno tutela legale e possono reagire in modo efficace. BlancaReal puo supportarti nella strategia corretta per il tuo caso." },
+        { "type": "paragraph", "content": "Nota: Contenuto informativo, non sostituisce consulenza legale personalizzata." }
+      ]
+    },
+    "nl": {
+      "title": "Juridische informatie over illegale bezetting in Spanje",
+      "excerpt": "Belangrijke verschillen (huisvredebreuk vs usurpatie) en hoe te handelen, met focus op nieuwbouwprojecten.",
+      "content": [
+        { "type": "paragraph", "content": "Door de groeiende bezorgdheid over illegale bezetting in Spanje deelt BlancaReal een heldere juridische uitleg, met bijzondere aandacht voor nieuwbouwprojecten." },
+        { "type": "heading", "level": 3, "content": "1. Waarom dit onderwerp speelt" },
+        { "type": "paragraph", "content": "Illegale bezetting kan leiden tot lange procedures en aanzienlijke kosten. De juridische aanpak hangt af van het type woning en de concrete feiten." },
+        { "type": "heading", "level": 3, "content": "2. Kernbegrippen" },
+        { "type": "paragraph", "content": "Bezetting kan strafbaar zijn. De kwalificatie hangt vooral af van de vraag of het pand een woning/domicilie (morada) is of niet." },
+        { "type": "heading", "level": 4, "content": "2.1. Huisvredebreuk (art. 202 Spaans Strafwetboek)" },
+        { "type": "list", "items": [ "Geldt wanneer het pand een woning is waar iemand rechtmatig verblijft (eigenaar, huurder, enz.), permanent of tijdelijk." ] },
+        { "type": "heading", "level": 4, "content": "2.2. Usurpatie (art. 245.2 Spaans Strafwetboek)" },
+        { "type": "list", "items": [ "Geldt wanneer het pand geen woning is, bijvoorbeeld een leegstaand investeringspand." ] },
+        { "type": "paragraph", "content": "Als bezetting tijdens bouwwerkzaamheden plaatsvindt, blijft een project in aanbouw privé-eigendom en juridisch beschermd, ook als de woningen nog niet klaar of bewoond zijn." },
+        { "type": "heading", "level": 3, "content": "3. Hoe te handelen" },
+        { "type": "paragraph", "content": "Er zijn twee hoofdwegen: de gerechtelijke route (zeker maar meestal langzamer) en politieoptreden bij heterdaad (sneller). De juiste keuze hangt af van timing en bewijs." },
+        { "type": "heading", "level": 4, "content": "3.1. Politie (heterdaad)" },
+        { "type": "list", "items": [ "Bij onmiddellijke detectie en aantoonbare ‘heterdaad’ kan politieoptreden de snelste route zijn.", "Bewijsmiddelen (alarm, camera’s, meldlogboeken) kunnen de interventie ondersteunen." ] },
+        { "type": "heading", "level": 4, "content": "3.2. Gerechtelijke route" },
+        { "type": "list", "items": [ "Als bezetting zich heeft ‘genesteld’, is een procedure via de rechtbank vaak noodzakelijk.", "Doorlooptijden verschillen per zaak, rechtbankdrukte en regio." ] },
+        { "type": "heading", "level": 3, "content": "Conclusie" },
+        { "type": "paragraph", "content": "Illegale bezetting is een reële zorg, maar nieuwbouwprojecten hebben juridische bescherming en kunnen bij incidenten effectief reageren. BlancaReal adviseert over de beste aanpak voor jouw specifieke situatie." },
+        { "type": "paragraph", "content": "Let op: Algemene informatie en geen vervanging voor persoonlijk juridisch advies." }
+      ]
+    }
+  }
+}

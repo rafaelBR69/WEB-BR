@@ -1,0 +1,455 @@
+{
+  "id": "post-2026-costa-del-sol-property-taxes-andalucia",
+  "status": "published",
+  "category": "guide",
+  "featured": false,
+  "published_at": "2026-02-08",
+  "updated_at": "2026-02-23",
+  "reading_time_min": 4,
+  "slugs": {
+    "es": "impuestos-pagar-propiedad-costa-del-sol",
+    "en": "taxes-pay-costa-del-sol-property",
+    "de": "steuern-zahlen-costa-del-sol-immobilie",
+    "fr": "taxes-payer-propriete-costa-del-sol",
+    "it": "tasse-pagare-proprieta-costa-del-sol",
+    "nl": "belastingen-betalen-costa-del-sol-woning"
+  },
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/posts/post-2026-costa-del-sol-taxes/taxes.jpg",
+      "alt": {
+        "es": "Vista exterior de una promocion en Costa del Sol",
+        "en": "Exterior view of a Costa del Sol development",
+        "de": "Aussenansicht einer Wohnanlage an der Costa del Sol",
+        "fr": "Vue exterieure d un programme sur la Costa del Sol",
+        "it": "Vista esterna di un complesso in Costa del Sol",
+        "nl": "Buitenaanzicht van een project aan de Costa del Sol"
+      }
+    }
+  },
+  "author": {
+    "name": "Equipo BlancaReal",
+    "role": {
+      "es": "Asesoria inmobiliaria",
+      "en": "Property advisory",
+      "de": "Immobilienberatung",
+      "fr": "Conseil immobilier",
+      "it": "Consulenza immobiliare",
+      "nl": "Vastgoedadvies"
+    }
+  },
+  "seo": {
+    "meta_description": {
+      "es": "Si IVA, ITP o AJD te suenan a siglas de un codigo desconocido, en este articulo resolveras tus dudas sobre los impuestos a pagar al comprar una vivienda en Costa del Sol (Andalucia).",
+      "en": "If VAT, ITP, AJD sounds like acronyms of an unknown code, in this article you will solve all your doubts about the taxes to be paid when buying a property in Costa del Sol (Andalucía).",
+      "de": "Wenn IVA, ITP oder AJD wie Kuerzel eines unbekannten Codes klingen, klaert dieser Artikel Ihre Fragen zu den Steuern beim Immobilienkauf an der Costa del Sol (Andalusien).",
+      "fr": "Si TVA, ITP ou AJD ressemblent a des sigles d un code inconnu, cet article repond a toutes vos questions sur les taxes a payer lors de l achat d un bien sur la Costa del Sol (Andalousie).",
+      "it": "Se IVA, ITP o AJD ti sembrano sigle di un codice sconosciuto, in questo articolo chiarirai tutti i dubbi sulle tasse da pagare acquistando un immobile in Costa del Sol (Andalusia).",
+      "nl": "Als btw, ITP of AJD klinken als afkortingen van een onbekende code, dan beantwoordt dit artikel al je vragen over de belastingen bij aankoop van een woning aan de Costa del Sol (Andalusië)."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Impuestos al comprar vivienda en Costa del Sol (Andalucia): obra nueva vs segunda mano",
+      "excerpt": "Lo que realmente se paga en Andalucia: IVA o ITP segun el tipo de compra, AJD y los costes habituales de notaria y registro.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Los aspectos fiscales y legales suelen ser lo mas complejo en una compraventa o alquiler. En la Costa del Sol (Andalucia), lo primero es definir la naturaleza de la compra: obra nueva o segunda mano. A partir de ahi cambian los impuestos."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "IVA e ITP"
+        },
+        {
+          "type": "paragraph",
+          "content": "Obra nueva (obra nueva): se aplica IVA, generalmente el 10% del precio de compra en vivienda residencial estandar. Si se adquiere suelo/parcela (no una vivienda terminada), puede aplicar IVA del 21% segun la operacion y la condicion del vendedor."
+        },
+        {
+          "type": "paragraph",
+          "content": "Segunda mano (reventa): se paga ITP. En Andalucia, el tipo general es el 7% sobre el precio declarado, pudiendo existir tipos reducidos en supuestos concretos."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "AJD (Actos Juridicos Documentados)"
+        },
+        {
+          "type": "paragraph",
+          "content": "El AJD grava determinados documentos notariales (escrituras publicas). En Andalucia, con caracter general, aplica en obra nueva (y en ciertos documentos hipotecarios segun el caso) y el tipo general es el 1,2%."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Notaria"
+        },
+        {
+          "type": "paragraph",
+          "content": "Los honorarios de notaria estan regulados y dependen principalmente del precio y de la complejidad de la escritura. Como referencia realista, suelen situarse entre varios cientos y alrededor de un par de miles de euros en operaciones residenciales normales."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Registro de la Propiedad"
+        },
+        {
+          "type": "paragraph",
+          "content": "Inscribir la vivienda es altamente recomendable para proteger la titularidad y evitar problemas futuros. Los aranceles tambien estan regulados y suelen oscilar desde unos cientos de euros hasta alrededor de 1.500 euros, en funcion del precio y del documento."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nota importante"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Los porcentajes generales online son aproximaciones: el resultado final depende del tipo de inmueble y de la base imponible.",
+            "Si hay hipoteca, aparecen costes adicionales (por ejemplo, tasacion y, en su caso, gestoria).",
+            "Pueden existir reducciones o particularidades segun el perfil del comprador o la operacion."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "En BlancaReal ofrecemos soporte administrativo, legal y fiscal durante todo el proceso. Contacta con nosotros y calculamos los costes exactos de tu compra en Andalucia antes de firmar."
+        }
+      ]
+    },
+    "en": {
+      "title": "Costa del Sol property taxes (Andalucía): new build vs resale",
+      "excerpt": "What you actually pay in Andalucía: VAT or ITP depending on the purchase type, AJD, plus realistic notary and land registry fees.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Fiscal and legal matters are often the most complicated parts of a purchase, sale or lease. When buying in the Costa del Sol (Andalucía), the first step is to define the nature of the purchase: new build or resale. Taxes change depending on that choice."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "VAT (IVA) and ITP"
+        },
+        {
+          "type": "paragraph",
+          "content": "New build (obra nueva): VAT generally applies at 10% of the purchase price for standard residential property. If you buy land/plot (not a completed home), VAT may be 21% depending on the specific transaction and the seller status."
+        },
+        {
+          "type": "paragraph",
+          "content": "Resale property (segunda mano): ITP (Property Transfer Tax) applies. In Andalucía, the general rate is 7% of the declared purchase price, with reduced rates potentially available in specific cases."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "AJD (Stamp Duty)"
+        },
+        {
+          "type": "paragraph",
+          "content": "AJD applies to certain notarised public deeds. In Andalucía, it generally applies to new builds (and to certain mortgage-related deeds depending on the case). The general rate is 1.2%."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Notary fees"
+        },
+        {
+          "type": "paragraph",
+          "content": "Notary fees are regulated and depend mainly on the price and the complexity of the deed. As a realistic guide, they are usually a few hundred euros up to around a couple of thousand euros for standard residential transactions."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Land Registry fees"
+        },
+        {
+          "type": "paragraph",
+          "content": "Registering the property is strongly recommended to protect ownership and avoid future issues. Registry fees are also regulated and typically range from a few hundred euros up to around €1,500 depending on the property price and the deed."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Important note"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Online fixed percentages are estimates: the final total depends on taxable bases and the specific transaction.",
+            "If there is a mortgage, additional costs may apply (e.g., valuation and, in some cases, administrative handling).",
+            "Reduced rates or special rules may apply depending on the buyer profile and the deal structure."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "Blancareal provides administrative, legal and tax support throughout the process. Contact us and we will calculate the exact costs for your specific purchase in Andalucía before you sign."
+        }
+      ]
+    },
+    "de": {
+      "title": "Steuern beim Immobilienkauf an der Costa del Sol (Andalusien): Neubau vs Bestandsimmobilie",
+      "excerpt": "Was Sie in Andalusien tatsaechlich zahlen: IVA oder ITP je nach Kaufart, AJD sowie realistische Notar- und Grundbuchkosten.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Steuern und rechtliche Fragen sind oft der komplexeste Teil bei Kauf, Verkauf oder Miete. Beim Kauf an der Costa del Sol (Andalusien) sollten Sie zuerst klaeren, ob es sich um einen Neubau oder eine Bestandsimmobilie handelt. Davon haengen die Steuern ab."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "IVA (MwSt.) und ITP"
+        },
+        {
+          "type": "paragraph",
+          "content": "Neubau (obra nueva): In der Regel faellt IVA von 10% auf den Kaufpreis an (Standard-Wohnimmobilien). Beim Erwerb von Grundstueck/Parzelle (ohne fertige Immobilie) kann je nach Vorgang und Verkaeuferstatus IVA von 21% anfallen."
+        },
+        {
+          "type": "paragraph",
+          "content": "Bestandsimmobilie (segunda mano): Es gilt ITP (Grunderwerbsteuer). In Andalusien betraegt der allgemeine Satz 7% des deklarierten Kaufpreises; in bestimmten Faellen koennen ermaessigte Saetze gelten."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "AJD (Stempelsteuer)"
+        },
+        {
+          "type": "paragraph",
+          "content": "AJD betrifft bestimmte notarielle Urkunden (oeffentliche Kaufurkunden). In Andalusien gilt sie grundsaetzlich bei Neubauten (und je nach Fall auch bei bestimmten hypothekenbezogenen Urkunden). Der allgemeine Satz betraegt 1,2%."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Notarkosten"
+        },
+        {
+          "type": "paragraph",
+          "content": "Notarkosten sind gesetzlich geregelt und haengen vor allem vom Kaufpreis und der Komplexitaet der Urkunde ab. Realistisch bewegen sie sich bei Standardfaellen meist von einigen hundert Euro bis etwa in den Bereich von ein bis zwei tausend Euro."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Grundbuchkosten"
+        },
+        {
+          "type": "paragraph",
+          "content": "Die Eintragung ins Grundbuch wird dringend empfohlen, um Eigentum zu schuetzen und spaetere Probleme zu vermeiden. Die Gebuehren sind ebenfalls geregelt und liegen typischerweise von einigen hundert Euro bis etwa 1.500 Euro, je nach Kaufpreis und Urkunde."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Wichtiger Hinweis"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Feste Prozentangaben im Internet sind Schaetzungen: die Endsumme haengt von Bemessungsgrundlagen und dem konkreten Fall ab.",
+            "Bei einer Hypothek koennen zusaetzliche Kosten entstehen (z.B. Bewertung/Gutachten und ggf. Abwicklung).",
+            "Je nach Kaueferprofil und Struktur der Transaktion koennen Sonderregeln oder Ermaessigungen gelten."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "BlancaReal bietet administrative, rechtliche und steuerliche Begleitung waehrend des gesamten Prozesses. Kontaktieren Sie uns, und wir berechnen die exakten Kosten fuer Ihren Kauf in Andalusien vor der Unterzeichnung."
+        }
+      ]
+    },
+    "fr": {
+      "title": "Taxes a l achat sur la Costa del Sol (Andalousie) : neuf vs revente",
+      "excerpt": "Ce que vous payez vraiment en Andalousie : TVA ou ITP selon le type d achat, AJD, et frais realistes de notaire et de registre foncier.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Les aspects fiscaux et juridiques sont souvent les plus complexes lors d un achat, d une vente ou d une location. Sur la Costa del Sol (Andalousie), la premiere question est simple : achetez-vous dans le neuf ou dans l ancien ? Les taxes dependent de ce choix."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "TVA et ITP"
+        },
+        {
+          "type": "paragraph",
+          "content": "Neuf (obra nueva) : la TVA s applique generalement a 10% du prix pour un logement residentiel standard. En cas d achat de terrain/parcelle (sans logement termine), la TVA peut etre de 21% selon l operation et le statut du vendeur."
+        },
+        {
+          "type": "paragraph",
+          "content": "Ancien (segunda mano) : l ITP (taxe de transfert) s applique. En Andalousie, le taux general est de 7% du prix declare, avec des taux reduits possibles dans certains cas."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "AJD (Droits de timbre)"
+        },
+        {
+          "type": "paragraph",
+          "content": "L AJD concerne certains actes notaries (actes publics). En Andalousie, elle s applique en general au neuf (et a certains actes lies au credit selon le cas). Le taux general est de 1,2%."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Frais de notaire"
+        },
+        {
+          "type": "paragraph",
+          "content": "Les frais de notaire sont reglementes et dependent principalement du prix et de la complexite de l acte. A titre indicatif, ils se situent souvent entre quelques centaines d euros et environ un a deux milliers d euros pour des achats residentiels standards."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Frais de registre foncier"
+        },
+        {
+          "type": "paragraph",
+          "content": "L inscription au registre foncier est fortement recommandee pour proteger la propriete et eviter des complications futures. Les frais sont egalement reglementes et se situent typiquement entre quelques centaines d euros et environ 1.500 euros selon le prix et l acte."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Note importante"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Les pourcentages fixes en ligne sont des estimations : le total depend des bases imposables et du dossier.",
+            "Avec un credit, des couts supplementaires peuvent s ajouter (par exemple evaluation et, selon le cas, gestion administrative).",
+            "Des reductions ou regles specifiques peuvent s appliquer selon le profil de l acheteur et la structure de l operation."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "BlancaReal vous accompagne sur le plan administratif, juridique et fiscal tout au long du processus. Contactez-nous et nous calculerons les couts exacts de votre achat en Andalousie avant signature."
+        }
+      ]
+    },
+    "it": {
+      "title": "Tasse per acquistare casa in Costa del Sol (Andalusia): nuova costruzione vs usato",
+      "excerpt": "Cosa si paga davvero in Andalusia: IVA o ITP in base al tipo di acquisto, AJD, e costi realistici di notaio e registro.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Gli aspetti fiscali e legali sono spesso la parte piu complessa di un acquisto, una vendita o una locazione. In Costa del Sol (Andalusia), il primo punto e definire la natura dell acquisto: nuova costruzione o immobile usato. Le imposte cambiano in base a questa scelta."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "IVA e ITP"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nuova costruzione (obra nueva): in genere si applica IVA al 10% sul prezzo per immobili residenziali standard. Se si acquista terreno/lotto (non una casa completata), l IVA puo essere al 21% a seconda dell operazione e dello status del venditore."
+        },
+        {
+          "type": "paragraph",
+          "content": "Usato (segunda mano): si applica ITP (imposta di trasferimento). In Andalusia, l aliquota generale e il 7% del prezzo dichiarato, con possibili aliquote ridotte in casi specifici."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "AJD (Imposta di bollo)"
+        },
+        {
+          "type": "paragraph",
+          "content": "L AJD riguarda alcuni atti notarili (atti pubblici). In Andalusia, in generale si applica alle nuove costruzioni (e ad alcuni atti legati al mutuo, a seconda del caso). L aliquota generale e 1,2%."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Costi notarili"
+        },
+        {
+          "type": "paragraph",
+          "content": "I costi del notaio sono regolati e dipendono soprattutto dal prezzo e dalla complessita dell atto. Come guida realistica, spesso vanno da qualche centinaio di euro fino a circa uno o due mila euro per operazioni residenziali standard."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Costi del Registro"
+        },
+        {
+          "type": "paragraph",
+          "content": "Registrare la proprieta e fortemente consigliato per proteggere la titolarita ed evitare problemi futuri. Le tariffe sono regolamentate e tipicamente variano da alcune centinaia di euro fino a circa 1.500 euro in base al prezzo e all atto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nota importante"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Le percentuali fisse online sono stime: il totale dipende dalle basi imponibili e dal caso concreto.",
+            "Con un mutuo possono esserci costi aggiuntivi (ad esempio perizia e, in alcuni casi, gestione amministrativa).",
+            "Possono applicarsi riduzioni o regole speciali in base al profilo dell acquirente e alla struttura dell operazione."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "BlancaReal offre supporto amministrativo, legale e fiscale durante tutto il processo. Contattaci e calcoleremo i costi esatti del tuo acquisto in Andalusia prima della firma."
+        }
+      ]
+    },
+    "nl": {
+      "title": "Belastingen bij aankoop aan de Costa del Sol (Andalusië): nieuwbouw vs bestaande bouw",
+      "excerpt": "Wat je in Andalusië echt betaalt: btw of overdrachtsbelasting afhankelijk van het type aankoop, AJD, plus realistische notaris- en kadasterkosten.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "Fiscale en juridische zaken zijn vaak het meest complex bij koop, verkoop of huur. Bij aankoop aan de Costa del Sol (Andalusië) is de eerste stap: gaat het om nieuwbouw of een bestaande woning (resale)? De belastingen hangen af van die keuze."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "BTW (IVA) en ITP"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nieuwbouw (obra nueva): doorgaans geldt btw van 10% op de koopprijs voor standaard residentieel vastgoed. Bij aankoop van grond/perceel (geen afgewerkte woning) kan btw 21% zijn, afhankelijk van de transactie en de status van de verkoper."
+        },
+        {
+          "type": "paragraph",
+          "content": "Bestaande woning (segunda mano): ITP (overdrachtsbelasting) is van toepassing. In Andalusië is het algemene tarief 7% van de aangegeven koopprijs; in specifieke situaties kunnen lagere tarieven gelden."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "AJD (zegelrecht)"
+        },
+        {
+          "type": "paragraph",
+          "content": "AJD is van toepassing op bepaalde notariële aktes (openbare akten). In Andalusië geldt dit doorgaans bij nieuwbouw (en bij bepaalde hypotheekakten afhankelijk van het geval). Het algemene tarief is 1,2%."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Notariskosten"
+        },
+        {
+          "type": "paragraph",
+          "content": "Notariskosten zijn gereguleerd en hangen vooral af van de prijs en de complexiteit van de akte. Als realistische indicatie gaat het meestal om enkele honderden euro’s tot ongeveer één à twee duizend euro bij standaard woningaankopen."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Kadaster- en registratierechten"
+        },
+        {
+          "type": "paragraph",
+          "content": "Registratie wordt sterk aanbevolen om eigendom te beschermen en toekomstige problemen te voorkomen. Ook deze kosten zijn gereguleerd en liggen doorgaans tussen enkele honderden euro’s en ongeveer €1.500, afhankelijk van de koopprijs en de akte."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Belangrijke opmerking"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Vaste online percentages zijn schattingen: het eindtotaal hangt af van belastbare grondslagen en de specifieke transactie.",
+            "Bij een hypotheek kunnen extra kosten gelden (bijvoorbeeld taxatie en in sommige gevallen administratieve afhandeling).",
+            "Afhankelijk van koperprofiel en structuur van de deal kunnen er kortingen of speciale regels zijn."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "BlancaReal biedt administratieve, juridische en fiscale ondersteuning tijdens het hele proces. Neem contact met ons op en wij berekenen de exacte kosten voor jouw aankoop in Andalusië voordat je tekent."
+        }
+      ]
+    }
+  }
+}

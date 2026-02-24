@@ -1,0 +1,191 @@
+{
+  "id": "post-2026-alquilar-mi-vivienda-para-turistas",
+  "status": "published",
+  "category": "guide",
+  "featured": false,
+  "published_at": "2026-02-23",
+  "updated_at": "2026-02-23",
+  "reading_time_min": 4,
+  "slugs": {
+    "es": "alquilar-mi-vivienda-para-turistas",
+    "en": "rent-your-home-to-tourists-andalucia",
+    "de": "wohnung-an-touristen-vermieten-andalusien",
+    "fr": "louer-logement-aux-touristes-andalousie",
+    "it": "affittare-casa-ai-turisti-andalusia",
+    "nl": "woning-aan-toeristen-verhuren-andalusie"
+  },
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/posts/post-2026-alquilar-mi-vivienda-para-turistas/llaves.jpg",
+      "alt": {
+        "es": "Vivienda preparada para alquiler turistico en Andalucia",
+        "en": "Home prepared for tourist rental in Andalusia",
+        "de": "Wohnung fuer touristische Vermietung in Andalusien",
+        "fr": "Logement prepare pour la location touristique en Andalousie",
+        "it": "Casa pronta per affitto turistico in Andalusia",
+        "nl": "Woning klaar voor toeristische verhuur in Andalusië"
+      }
+    }
+  },
+  "author": {
+    "name": "Equipo BlancaReal",
+    "role": {
+      "es": "Asesoria inmobiliaria",
+      "en": "Property advisory",
+      "de": "Immobilienberatung",
+      "fr": "Conseil immobilier",
+      "it": "Consulenza immobiliare",
+      "nl": "Vastgoedadvies"
+    }
+  },
+  "seo": {
+    "meta_description": {
+      "es": "Guia rapida para alquilar su vivienda a turistas en Andalucia: autorizacion de la comunidad (3/5), DRCU urbanistica, registro en Turismo y obtencion del NRA para publicar en Airbnb o Booking.",
+      "en": "Quick guide to renting your home to tourists in Andalusia: owners’ community approval (3/5), urban compatibility certificate (DRCU), Andalusia Tourism Registry and the mandatory NRA for listings.",
+      "de": "Schnellguide zur touristischen Vermietung in Andalusien: Zustimmung der Eigentuemergemeinschaft (3/5), DRCU, Eintrag im Tourismusregister und der verpflichtende NRA fuer Inserate.",
+      "fr": "Guide rapide pour louer aux touristes en Andalousie : accord de la copropriete (3/5), DRCU urbanisme, registre du tourisme d Andalousie et numero NRA obligatoire pour les annonces.",
+      "it": "Guida rapida per affittare ai turisti in Andalusia: approvazione condominio (3/5), DRCU urbanistico, Registro Turismo Andalusia e NRA obbligatorio per gli annunci.",
+      "nl": "Snelle gids voor toeristische verhuur in Andalusië: toestemming VvE (3/5), DRCU, registratie bij Toerisme Andalusië en het verplichte NRA-nummer voor advertenties."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "¿Qué tengo que hacer para alquilar mi vivienda para turistas?",
+      "excerpt": "Checklist legal en Andalucia: comunidad de propietarios, DRCU, alta en Turismo y obtencion del NRA para publicar anuncios.",
+      "content": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Verifique la aprobacion de la comunidad de propietarios"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Si su vivienda esta en una comunidad de vecinos, necesita el acuerdo favorable de 3/5 partes de los propietarios (y cuotas) para permitir el alquiler turistico."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Obtener la Declaracion de Compatibilidad Urbanistica (DRCU)"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Este documento confirma que el uso turistico es compatible con la normativa urbanistica aplicable.",
+            "Puede obtenerlo en el ayuntamiento (departamento de urbanismo) o a traves de una Entidad Colaboradora Urbanistica (ECU) autorizada."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Registre su vivienda en el Registro de Turismo de Andalucia (Viviendas con Fines Turisticos)"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Acceda al portal oficial de la Junta de Andalucia (Registro de Turismo): https://www.juntadeandalucia.es/organismos/turismoyandaluciaexterior/areas/registro-turismo/establecimientos-servicios/paginas/viviendas-turisticas.html",
+            "Seleccione la opcion “Presentar Declaracion Responsable”.",
+            "Rellene el formulario online con certificado digital o Cl@ve.",
+            "Adjunte el documento DRCU.",
+            "Envie la solicitud y guarde el justificante de registro."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "4. Obtenga el Numero de Registro de Alquileres (NRA) para alquileres de corta duracion"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Este paso es obligatorio para obtener su Numero de Registro de Alquileres (NRA).",
+            "Acceda al portal del Ministerio de Vivienda: https://www.mivau.gob.es/vivienda/ventanilla-unica/alquiler-de-alojamientos-de-corta-duracion",
+            "Identifiquese con certificado digital o Cl@ve.",
+            "Rellene los datos de su vivienda y obtenga el NRA.",
+            "El NRA debe figurar obligatoriamente en todos los anuncios (Airbnb, Booking, etc.)."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "Alquilar su vivienda a turistas en Andalucia requiere cumplir con pasos legales concretos, pero con la documentacion adecuada y apoyo profesional, el proceso es mas sencillo de lo que parece. En BlancaReal le ayudamos a gestionarlo todo para que alquile con total tranquilidad y garantias."
+        }
+      ]
+    },
+    "en": {
+      "title": "What do I need to do to rent my home to tourists?",
+      "excerpt": "Legal checklist in Andalusia: owners’ community approval, DRCU, Tourism Registry registration and the NRA number for short-term rental listings.",
+      "content": [
+        { "type": "heading", "level": 3, "content": "1. Check your owners’ community approval" },
+        { "type": "list", "items": [ "If your property is within an owners’ community (building/HOA), you may need a favourable 3/5 approval (owners and quotas) to allow tourist rentals." ] },
+        { "type": "heading", "level": 3, "content": "2. Obtain the Urban Compatibility Certificate (DRCU)" },
+        { "type": "list", "items": [ "This document confirms that tourist use is compatible with local urban planning rules.", "You can request it from the town hall (urban planning department) or through an authorised Urban Planning Collaborating Entity (ECU)." ] },
+        { "type": "heading", "level": 3, "content": "3. Register the property in the Andalusia Tourism Registry (Tourist Housing)" },
+        { "type": "list", "items": [ "Use the official Andalusia Tourism Registry page: https://www.juntadeandalucia.es/organismos/turismoyandaluciaexterior/areas/registro-turismo/establecimientos-servicios/paginas/viviendas-turisticas.html", "Choose “Submit Responsible Declaration”.", "Complete the online form using a digital certificate or Cl@ve.", "Attach the DRCU.", "Submit and keep the registration receipt." ] },
+        { "type": "heading", "level": 3, "content": "4. Get the Short-Term Rental Registration Number (NRA)" },
+        { "type": "list", "items": [ "This step is mandatory to obtain your NRA number.", "Access the Ministry of Housing portal: https://www.mivau.gob.es/vivienda/ventanilla-unica/alquiler-de-alojamientos-de-corta-duracion", "Log in with a digital certificate or Cl@ve.", "Enter your property details and obtain the NRA.", "The NRA must appear on all listings (Airbnb, Booking, etc.)." ] },
+        { "type": "paragraph", "content": "Renting to tourists in Andalusia requires specific legal steps, but with the right documentation and professional support, it is simpler than it looks. BlancaReal can manage the process so you rent with full peace of mind." }
+      ]
+    },
+    "de": {
+      "title": "Was muss ich tun, um meine Wohnung an Touristen zu vermieten?",
+      "excerpt": "Rechtliche Checkliste in Andalusien: Zustimmung der Eigentuemergemeinschaft, DRCU, Eintrag im Tourismusregister und NRA fuer Kurzzeitvermietung.",
+      "content": [
+        { "type": "heading", "level": 3, "content": "1. Zustimmung der Eigentuemergemeinschaft pruefen" },
+        { "type": "list", "items": [ "Wenn Ihre Immobilie Teil einer Eigentuemergemeinschaft ist, kann eine Zustimmung von 3/5 (Eigentuemer und Miteigentumsanteile) erforderlich sein, um touristische Vermietung zu erlauben." ] },
+        { "type": "heading", "level": 3, "content": "2. DRCU (Staedtebauliche Vertraeglichkeit) einholen" },
+        { "type": "list", "items": [ "Dieses Dokument bestaetigt die Vertraeglichkeit der touristischen Nutzung mit dem Staedtebaurecht.", "Beantragung beim Rathaus (Stadtplanung) oder ueber eine autorisierte ECU." ] },
+        { "type": "heading", "level": 3, "content": "3. Eintragung im Tourismusregister Andalusiens (Touristische Wohnungen)" },
+        { "type": "list", "items": [ "Offizielle Seite der Junta de Andalucia: https://www.juntadeandalucia.es/organismos/turismoyandaluciaexterior/areas/registro-turismo/establecimientos-servicios/paginas/viviendas-turisticas.html", "Option „Verantwortliche Erklaerung einreichen“ waehlen.", "Online-Formular mit digitalem Zertifikat oder Cl@ve ausfuellen.", "DRCU beifuegen.", "Absenden und den Nachweis speichern." ] },
+        { "type": "heading", "level": 3, "content": "4. NRA (Registrierungsnummer fuer Kurzzeitvermietung) beantragen" },
+        { "type": "list", "items": [ "Dieser Schritt ist verpflichtend, um Ihre NRA zu erhalten.", "Portal des Wohnungsministeriums: https://www.mivau.gob.es/vivienda/ventanilla-unica/alquiler-de-alojamientos-de-corta-duracion", "Anmeldung mit digitalem Zertifikat oder Cl@ve.", "Objektdaten eintragen und NRA erhalten.", "Die NRA muss in allen Inseraten erscheinen (Airbnb, Booking usw.)." ] },
+        { "type": "paragraph", "content": "Touristische Vermietung in Andalusien erfordert konkrete rechtliche Schritte. Mit den richtigen Unterlagen und professioneller Begleitung ist es jedoch einfacher als gedacht. BlancaReal unterstuetzt Sie fuer eine sichere und stressfreie Abwicklung." }
+      ]
+    },
+    "fr": {
+      "title": "Que dois-je faire pour louer mon logement aux touristes ?",
+      "excerpt": "Checklist legale en Andalousie : accord de copropriete, DRCU, registre du tourisme et obtention du NRA pour les annonces.",
+      "content": [
+        { "type": "heading", "level": 3, "content": "1. Verifier l accord de la copropriete" },
+        { "type": "list", "items": [ "Si le logement est situe dans une copropriete, un accord favorable de 3/5 (proprietaires et tantiemes) peut etre requis pour autoriser la location touristique." ] },
+        { "type": "heading", "level": 3, "content": "2. Obtenir la DRCU (compatibilite urbanistique)" },
+        { "type": "list", "items": [ "Ce document confirme que l usage touristique est compatible avec les regles d urbanisme.", "Demande possible a la mairie (urbanisme) ou via une ECU autorisee." ] },
+        { "type": "heading", "level": 3, "content": "3. Inscrire le logement au Registre du Tourisme d Andalousie (Viviendas Turisticas)" },
+        { "type": "list", "items": [ "Portail officiel : https://www.juntadeandalucia.es/organismos/turismoyandaluciaexterior/areas/registro-turismo/establecimientos-servicios/paginas/viviendas-turisticas.html", "Choisir « Presenter une declaration responsable ».", "Remplir le formulaire en ligne avec certificat numerique ou Cl@ve.", "Joindre la DRCU.", "Envoyer et conserver le justificatif." ] },
+        { "type": "heading", "level": 3, "content": "4. Obtenir le numero NRA (location de courte duree)" },
+        { "type": "list", "items": [ "Etape obligatoire pour obtenir votre NRA.", "Portail du Ministere du Logement : https://www.mivau.gob.es/vivienda/ventanilla-unica/alquiler-de-alojamientos-de-corta-duracion", "S identifier avec certificat numerique ou Cl@ve.", "Renseigner les donnees du logement et obtenir le NRA.", "Le NRA doit apparaitre sur toutes les annonces (Airbnb, Booking, etc.)." ] },
+        { "type": "paragraph", "content": "Louer aux touristes en Andalousie implique des demarches legales precises. Avec la bonne documentation et un accompagnement professionnel, le processus est plus simple qu il n y parait. BlancaReal peut tout gerer pour vous." }
+      ]
+    },
+    "it": {
+      "title": "Cosa devo fare per affittare la mia casa ai turisti?",
+      "excerpt": "Checklist legale in Andalusia: approvazione condominiale, DRCU, Registro Turismo e ottenimento del NRA per pubblicare gli annunci.",
+      "content": [
+        { "type": "heading", "level": 3, "content": "1. Verifica l approvazione del condominio" },
+        { "type": "list", "items": [ "Se l immobile e in condominio, puo essere necessario un accordo favorevole di 3/5 (proprietari e quote) per consentire l affitto turistico." ] },
+        { "type": "heading", "level": 3, "content": "2. Ottieni la DRCU (compatibilita urbanistica)" },
+        { "type": "list", "items": [ "Questo documento conferma che l uso turistico e compatibile con la normativa urbanistica.", "Si puo richiedere al comune (urbanistica) o tramite una ECU autorizzata." ] },
+        { "type": "heading", "level": 3, "content": "3. Registra l immobile nel Registro Turismo dell Andalusia (Viviendas Turisticas)" },
+        { "type": "list", "items": [ "Portale ufficiale: https://www.juntadeandalucia.es/organismos/turismoyandaluciaexterior/areas/registro-turismo/establecimientos-servicios/paginas/viviendas-turisticas.html", "Seleziona “Presentare Dichiarazione Responsabile”.", "Compila il modulo online con certificato digitale o Cl@ve.", "Allega la DRCU.", "Invia e conserva la ricevuta." ] },
+        { "type": "heading", "level": 3, "content": "4. Ottieni il numero NRA (affitti di breve durata)" },
+        { "type": "list", "items": [ "Passo obbligatorio per ottenere il tuo NRA.", "Portale del Ministero: https://www.mivau.gob.es/vivienda/ventanilla-unica/alquiler-de-alojamientos-de-corta-duracion", "Accedi con certificato digitale o Cl@ve.", "Inserisci i dati dell immobile e ottieni il NRA.", "Il NRA deve essere indicato in tutti gli annunci (Airbnb, Booking, ecc.)." ] },
+        { "type": "paragraph", "content": "Affittare ai turisti in Andalusia richiede alcuni passaggi legali, ma con la documentazione giusta e supporto professionale e piu semplice di quanto sembri. BlancaReal puo gestire tutto per te." }
+      ]
+    },
+    "nl": {
+      "title": "Wat moet ik doen om mijn woning aan toeristen te verhuren?",
+      "excerpt": "Juridische checklist in Andalusië: toestemming VvE, DRCU, registratie bij Toerisme Andalusië en het NRA-nummer voor advertenties.",
+      "content": [
+        { "type": "heading", "level": 3, "content": "1. Controleer toestemming van de VvE (eigenaarsgemeenschap)" },
+        { "type": "list", "items": [ "Als je woning in een eigenaarsgemeenschap valt, kan een gunstige 3/5-toestemming (eigenaars en quota) vereist zijn om toeristische verhuur toe te staan." ] },
+        { "type": "heading", "level": 3, "content": "2. Verkrijg de DRCU (stedelijke compatibiliteit)" },
+        { "type": "list", "items": [ "Dit document bevestigt dat toeristisch gebruik past binnen de stedenbouwkundige regels.", "Aan te vragen bij het gemeentehuis (stedenbouw) of via een erkende ECU." ] },
+        { "type": "heading", "level": 3, "content": "3. Registreer de woning in het Toerismeregister van Andalusië" },
+        { "type": "list", "items": [ "Officiële pagina: https://www.juntadeandalucia.es/organismos/turismoyandaluciaexterior/areas/registro-turismo/establecimientos-servicios/paginas/viviendas-turisticas.html", "Kies “Verklaring op eer indienen”.", "Vul het online formulier in met digitaal certificaat of Cl@ve.", "Voeg de DRCU toe.", "Verzend en bewaar het ontvangstbewijs." ] },
+        { "type": "heading", "level": 3, "content": "4. Vraag het NRA-nummer aan voor kortdurende verhuur" },
+        { "type": "list", "items": [ "Deze stap is verplicht om je NRA te verkrijgen.", "Portaal van het Ministerie: https://www.mivau.gob.es/vivienda/ventanilla-unica/alquiler-de-alojamientos-de-corta-duracion", "Log in met digitaal certificaat of Cl@ve.", "Vul de woninggegevens in en verkrijg het NRA.", "Het NRA moet op alle advertenties staan (Airbnb, Booking, enz.)." ] },
+        { "type": "paragraph", "content": "Toeristische verhuur in Andalusië vraagt om specifieke juridische stappen, maar met de juiste documenten en professionele begeleiding is het eenvoudiger dan het lijkt. BlancaReal kan het volledige traject voor je beheren." }
+      ]
+    }
+  }
+}

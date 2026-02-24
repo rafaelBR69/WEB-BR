@@ -1,0 +1,290 @@
+{
+  "id": "post-2026-dorronsoro-calahonda-sunset",
+  "status": "published",
+  "category": "interview",
+  "featured": false,
+  "published_at": "2026-02-23",
+  "updated_at": "2026-02-23",
+  "reading_time_min": 7,
+  "slugs": {
+    "es": "dorronsoro-los-arquitectos-detras-de-calahonda-sunset",
+    "en": "dorronsoro-architects-behind-calahonda-sunset",
+    "de": "dorronsoro-architekten-hinter-calahonda-sunset",
+    "fr": "dorronsoro-les-architectes-derriere-calahonda-sunset",
+    "it": "dorronsoro-gli-architetti-dietro-calahonda-sunset",
+    "nl": "dorronsoro-de-architecten-achter-calahonda-sunset"
+  },
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/posts/post-2026-dorronsoro-calahonda-sunset/dorronsoro.webp",
+      "alt": {
+        "es": "Equipo Dorronsoro Arquitectos",
+        "en": "Dorronsoro Arquitectos team",
+        "de": "Team von Dorronsoro Arquitectos",
+        "fr": "Equipe Dorronsoro Arquitectos",
+        "it": "Team di Dorronsoro Arquitectos",
+        "nl": "Team van Dorronsoro Arquitectos"
+      }
+    }
+  },
+  "author": {
+    "name": "Equipo BlancaReal",
+    "role": {
+      "es": "Entrevistas y proyectos",
+      "en": "Interviews & projects",
+      "de": "Interviews & Projekte",
+      "fr": "Interviews et projets",
+      "it": "Interviste e progetti",
+      "nl": "Interviews & projecten"
+    }
+  },
+  "seo": {
+    "meta_description": {
+      "es": "Entrevista a Dorronsoro Arquitectos, el estudio detras de Calahonda Sunset: historia en la Costa del Sol, proyectos emblematicos y enfoque de sostenibilidad (SATE, eficiencia energetica).",
+      "en": "Interview with Dorronsoro Arquitectos, the studio behind Calahonda Sunset: Costa del Sol legacy, landmark projects and sustainability approach (ETICS/SATE, energy efficiency).",
+      "de": "Interview mit Dorronsoro Arquitectos, dem Buero hinter Calahonda Sunset: Costa-del-Sol-Tradition, praegende Projekte und Nachhaltigkeit (SATE/ETICS, Energieeffizienz).",
+      "fr": "Interview de Dorronsoro Arquitectos, le cabinet derriere Calahonda Sunset : parcours sur la Costa del Sol, projets phares et approche durable (SATE/ITE, efficacite energetique).",
+      "it": "Intervista a Dorronsoro Arquitectos, lo studio dietro Calahonda Sunset: storia in Costa del Sol, progetti iconici e sostenibilita (SATE/ETICS, efficienza energetica).",
+      "nl": "Interview met Dorronsoro Arquitectos, de studio achter Calahonda Sunset: Costa del Sol-erfgoed, toonaangevende projecten en duurzaamheid (SATE/ETICS, energie-efficiëntie)."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Dorronsoro: Los arquitectos detras de Calahonda Sunset",
+      "excerpt": "Entrevista a Dorronsoro Arquitectos, el estudio responsable del proyecto Calahonda Sunset: trayectoria, proyectos clave y sostenibilidad aplicada al residencial de obra nueva.",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "La firma de arquitectura Dorronsoro es el estudio encargado del proyecto de viviendas de obra nueva en Calahonda, denominado Calahonda Sunset."
+        },
+        {
+          "type": "paragraph",
+          "content": "Dorronsoro Arquitectos se ha consolidado como un referente en la Costa del Sol gracias a su herencia familiar y su constante evolucion tecnologica. Desde sus inicios en Madrid y su traslado a Malaga en 1965, el estudio ha sabido adaptarse al dinamico mundo de la arquitectura."
+        },
+        {
+          "type": "paragraph",
+          "content": "Tres de los cuatro hermanos de la familia Dorronsoro son arquitectos, influenciados por la pasion de su padre por la arquitectura y el arte, y la creatividad de su madre vinculada a la decoracion."
+        },
+        {
+          "type": "links",
+          "items": [
+            {
+              "label": "Web oficial de Dorronsoro Arquitectos",
+              "url": "https://dorronsoroarquitectos.es/"
+            },
+            {
+              "label": "Proyecto: Calahonda Sunset",
+              "url": "https://www.blancareal.com/es/propiedad/pisos-en-venta-123-habitaciones-vistas-al-mar-mijas/"
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "url": "https://www.blancareal.com/wp-content/uploads/2024/07/dorronsoro-calahonda-sunset-equipo.webp",
+          "alt": "Equipo Dorronsoro Arquitectos"
+        },
+        {
+          "type": "caption",
+          "content": "De izquierda a derecha: Miguel Dorronsoro, Santiago Dorronsoro, Ana Dorronsoro, Paloma Leal (BlancaReal), Jose Luis Dorronsoro."
+        },
+        {
+          "type": "paragraph",
+          "content": "En esta entrevista, exploramos la historia, los proyectos destacados y la vision sostenible de Dorronsoro. Participan Santiago y Ana Dorronsoro."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "P1: Historia y evolucion del estudio"
+        },
+        {
+          "type": "paragraph",
+          "content": "La historia del estudio se refleja en la de un estudio familiar y en la evolucion de la Costa del Sol. De los cuatro hermanos, tres son arquitectos y uno informatico, un perfil cada vez mas necesario por la importancia de las herramientas digitales en el sector."
+        },
+        {
+          "type": "paragraph",
+          "content": "La huella del padre es evidente: transmitio la pasion por la arquitectura y desperto la vocacion. En casa se respiraba arquitectura y arte, tambien por la influencia de la madre, aficionada a la pintura y vinculada a la decoracion."
+        },
+        {
+          "type": "paragraph",
+          "content": "El estudio se traslado a Malaga en 1965 desde Madrid tras obtener unas oposiciones como Arquitecto del edificio de Hacienda. Entre varios destinos, eligio Malaga por sus raices familiares y por las perspectivas de crecimiento de la ciudad."
+        },
+        {
+          "type": "paragraph",
+          "content": "Con el tiempo se incorporaron los hijos al estudio: primero Jose Luis, posteriormente Santiago y mas tarde Ana. Sus formaciones en escuelas distintas (Sevilla, Madrid o Pamplona) han enriquecido el trabajo conjunto y el debate continuo de ideas."
+        },
+        {
+          "type": "paragraph",
+          "content": "La actualizacion tecnologica ha sido constante: de los planos con rotring y papel vegetal a AutoCAD, y mas recientemente a Revit, incorporando multiples datos al proyecto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "P2: Proyectos destacados y aprendizajes"
+        },
+        {
+          "type": "paragraph",
+          "content": "Un proyecto clave fue el edificio Don Gonzalo en Marbella, cerca del paseo maritimo: un referente de arquitectura residencial turistica de calidad por su volumen, aplacados, cuidado de detalle e integracion en el entorno, con grandes terrazas orientadas a jardines y mar."
+        },
+        {
+          "type": "paragraph",
+          "content": "Tras ese proyecto, el estudio fue invitado a un concurso en Puerto Banus, que gano con Los Granados Banus, ampliando los conceptos aplicados en Don Gonzalo y consolidando conjuntos residenciales cerrados con servicios comunes."
+        },
+        {
+          "type": "paragraph",
+          "content": "Otro proyecto destacado es la actuacion en el sector de Martiricos (Malaga), premiada en los Premios de Andalucia de Urbanismo: una regeneracion urbana de 67.000 m2 con un parque central de unos 30.000 m2 y criterios de sostenibilidad ambiental y economica."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Regeneracion urbana",
+            "Proteccion ambiental",
+            "Eficiencia energetica",
+            "Cohesion social",
+            "Aumento de espacios libres"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "En la actualidad, el estudio trabaja en el Centro de Salud y Centro de Alta Resolucion de procesos de El Palo, un proyecto demandado por la zona y enfocado en eficiencia energetica."
+        },
+        {
+          "type": "image",
+          "url": "https://www.blancareal.com/wp-content/uploads/2024/07/dorronsoro-calahonda-sunset-decoracion-pared.webp",
+          "alt": "Estudio Dorronsoro arquitectos"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "P3: Sostenibilidad y eficiencia energetica en Calahonda Sunset"
+        },
+        {
+          "type": "paragraph",
+          "content": "Para el aislamiento de los edificios y el tratamiento de fachadas, se aplica el sistema SATE (Sistema de Aislamiento Termico por el Exterior)."
+        },
+        {
+          "type": "paragraph",
+          "content": "El SATE consiste en fijar material aislante adherido al muro para aislar termicamente el exterior de la fachada, reduciendo perdidas de energia. Es un sistema cada vez mas frecuente y contribuye a mejorar sostenibilidad y reducir emisiones de CO2."
+        },
+        {
+          "type": "paragraph",
+          "content": "Si quiere conocer mas detalles, puede visitar el sitio web oficial del proyecto Calahonda Sunset."
+        },
+        {
+          "type": "links",
+          "items": [
+            {
+              "label": "Web oficial de Calahonda Sunset",
+              "url": "https://calahondasunset.es"
+            }
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Dorronsoro: The architects behind Calahonda Sunset",
+      "excerpt": "Interview with Dorronsoro Arquitectos, the studio behind Calahonda Sunset: legacy, key projects and sustainability (SATE/ETICS, energy efficiency).",
+      "content": [
+        { "type": "paragraph", "content": "Dorronsoro Arquitectos is the architecture firm behind the new-build residential project in Calahonda known as Calahonda Sunset." },
+        { "type": "paragraph", "content": "The studio has become a well-known name on the Costa del Sol thanks to its family heritage and continuous technological evolution. After starting in Madrid, the firm moved to Malaga in 1965 and has continued to grow within a fast-changing architectural landscape." },
+        { "type": "paragraph", "content": "In this interview, we explore the studio’s story, landmark projects and sustainability approach, with Santiago and Ana Dorronsoro." },
+        { "type": "links", "items": [ { "label": "Dorronsoro Arquitectos official website", "url": "https://dorronsoroarquitectos.es/" }, { "label": "Project: Calahonda Sunset", "url": "https://www.blancareal.com/es/propiedad/pisos-en-venta-123-habitaciones-vistas-al-mar-mijas/" } ] },
+        { "type": "image", "url": "https://www.blancareal.com/wp-content/uploads/2024/07/dorronsoro-calahonda-sunset-equipo.webp", "alt": "Dorronsoro Arquitectos team" },
+        { "type": "caption", "content": "From left to right: Miguel Dorronsoro, Santiago Dorronsoro, Ana Dorronsoro, Paloma Leal (BlancaReal), Jose Luis Dorronsoro." },
+        { "type": "heading", "level": 3, "content": "Q1: The studio’s history and evolution" },
+        { "type": "paragraph", "content": "The firm’s story mirrors that of a family studio rooted in the Costa del Sol. Three of the four siblings are architects and one is an IT professional—an increasingly relevant profile in today’s digitalised industry." },
+        { "type": "paragraph", "content": "The studio’s move to Malaga in 1965 marked a key milestone. Over time, the next generation joined the practice, bringing diverse academic backgrounds (Seville, Madrid and Pamplona) and a culture of debate and collaboration." },
+        { "type": "paragraph", "content": "Technology has evolved from technical drawing tools and tracing paper to AutoCAD, and more recently to Revit with richer project data integration." },
+        { "type": "heading", "level": 3, "content": "Q2: Landmark projects" },
+        { "type": "paragraph", "content": "A major turning point was the Don Gonzalo building in Marbella, near the seafront—recognised for its architectural volume, attention to detail and integration into the local context, with large terraces oriented to gardens and sea views." },
+        { "type": "paragraph", "content": "Following that project, the studio won a competition in Puerto Banus and developed Los Granados Banus, extending the concepts into gated residential complexes with shared amenities." },
+        { "type": "paragraph", "content": "Another highlight is the Martiricos urban regeneration project in Malaga (67,000 m²) with a central park of around 30,000 m², recognised for sustainability-driven design." },
+        { "type": "list", "items": [ "Urban regeneration", "Environmental protection", "Energy efficiency", "Social cohesion", "More public open space" ] },
+        { "type": "heading", "level": 3, "content": "Q3: Sustainability and energy efficiency in Calahonda Sunset" },
+        { "type": "paragraph", "content": "For façade performance and building insulation, the project uses SATE (ETICS – External Thermal Insulation Composite System)." },
+        { "type": "paragraph", "content": "ETICS improves thermal insulation by fixing insulating material to the external wall surface, reducing energy losses through façades and supporting sustainability goals." },
+        { "type": "links", "items": [ { "label": "Calahonda Sunset official website", "url": "https://calahondasunset.es" } ] }
+      ]
+    },
+    "de": {
+      "title": "Dorronsoro: Die Architekten hinter Calahonda Sunset",
+      "excerpt": "Interview mit Dorronsoro Arquitectos: Historie an der Costa del Sol, praegende Projekte und Nachhaltigkeit (SATE/ETICS).",
+      "content": [
+        { "type": "paragraph", "content": "Dorronsoro Arquitectos ist das Architekturbüro hinter dem Neubauprojekt in Calahonda namens Calahonda Sunset." },
+        { "type": "paragraph", "content": "Das Studio gilt an der Costa del Sol als Referenz dank familiaerer Wurzeln und kontinuierlicher technologischer Weiterentwicklung. Nach dem Start in Madrid erfolgte 1965 der Umzug nach Malaga." },
+        { "type": "paragraph", "content": "In diesem Interview sprechen Santiago und Ana Dorronsoro ueber die Entwicklung des Büros, praegende Projekte und Nachhaltigkeit." },
+        { "type": "links", "items": [ { "label": "Dorronsoro Arquitectos (Website)", "url": "https://dorronsoroarquitectos.es/" }, { "label": "Projekt: Calahonda Sunset", "url": "https://www.blancareal.com/es/propiedad/pisos-en-venta-123-habitaciones-vistas-al-mar-mijas/" } ] },
+        { "type": "image", "url": "https://www.blancareal.com/wp-content/uploads/2024/07/dorronsoro-calahonda-sunset-equipo.webp", "alt": "Team von Dorronsoro Arquitectos" },
+        { "type": "heading", "level": 3, "content": "Frage 1: Geschichte und Entwicklung" },
+        { "type": "paragraph", "content": "Die Geschichte ist die eines Familienbüros mit enger Verbindung zur Costa del Sol. Drei der vier Geschwister sind Architekten, einer ist Informatiker – ein heute sehr relevantes Profil." },
+        { "type": "paragraph", "content": "Der Generationswechsel brachte unterschiedliche Ausbildungen (Sevilla, Madrid, Pamplona) und staendigen fachlichen Austausch. Auch die Technologisierung war konstant: von Handzeichnung zu AutoCAD und heute Revit." },
+        { "type": "heading", "level": 3, "content": "Frage 2: Praegende Projekte" },
+        { "type": "paragraph", "content": "Ein Meilenstein war Don Gonzalo in Marbella, nahe der Promenade – bekannt fuer klare Volumen, hochwertige Ausfuehrung und grosse Terrassen mit Bezug zu Gaerten und Meer." },
+        { "type": "paragraph", "content": "Es folgte der Wettbewerbgewinn in Puerto Banus mit Los Granados Banus: geschlossene Wohnanlagen mit Gemeinschaftsbereichen." },
+        { "type": "paragraph", "content": "Ein weiteres Highlight ist die Stadterneuerung Martiricos in Malaga (67.000 m²) mit einem zentralen Park von ca. 30.000 m² und Nachhaltigkeitskriterien." },
+        { "type": "list", "items": [ "Stadterneuerung", "Umweltschutz", "Energieeffizienz", "Soziale Kohäsion", "Mehr Freiflaechen" ] },
+        { "type": "heading", "level": 3, "content": "Frage 3: Nachhaltigkeit in Calahonda Sunset" },
+        { "type": "paragraph", "content": "Fuer Fassaden und Waermedaemmung wird SATE (ETICS) eingesetzt – ein System zur Waermedaemmung von aussen, das Energieverluste reduziert." },
+        { "type": "links", "items": [ { "label": "Calahonda Sunset (Website)", "url": "https://calahondasunset.es" } ] }
+      ]
+    },
+    "fr": {
+      "title": "Dorronsoro : les architectes derriere Calahonda Sunset",
+      "excerpt": "Interview de Dorronsoro Arquitectos : parcours sur la Costa del Sol, projets phares et durabilite (SATE/ETICS).",
+      "content": [
+        { "type": "paragraph", "content": "Dorronsoro Arquitectos est le cabinet charge du projet de logements neufs a Calahonda : Calahonda Sunset." },
+        { "type": "paragraph", "content": "Le studio s est impose sur la Costa del Sol grace a son heritage familial et a une evolution technologique constante. Apres des debuts a Madrid, il s installe a Malaga en 1965." },
+        { "type": "paragraph", "content": "Dans cette interview, Santiago et Ana Dorronsoro reviennent sur l histoire du cabinet, ses projets marquants et son approche de la durabilite." },
+        { "type": "links", "items": [ { "label": "Site officiel Dorronsoro Arquitectos", "url": "https://dorronsoroarquitectos.es/" }, { "label": "Projet : Calahonda Sunset", "url": "https://www.blancareal.com/es/propiedad/pisos-en-venta-123-habitaciones-vistas-al-mar-mijas/" } ] },
+        { "type": "image", "url": "https://www.blancareal.com/wp-content/uploads/2024/07/dorronsoro-calahonda-sunset-equipo.webp", "alt": "Equipe Dorronsoro Arquitectos" },
+        { "type": "heading", "level": 3, "content": "Q1 : histoire et evolution" },
+        { "type": "paragraph", "content": "Trois des quatre freres et sœurs sont architectes et un est informaticien. Les parcours academiques varies ont enrichi la maniere d aborder les projets en commun." },
+        { "type": "paragraph", "content": "La transition technologique va des plans manuels a AutoCAD, puis a Revit, avec integration de donnees plus riches dans les projets." },
+        { "type": "heading", "level": 3, "content": "Q2 : projets phares" },
+        { "type": "paragraph", "content": "Don Gonzalo (Marbella) a marque un tournant, suivi par Los Granados Banus (Puerto Banus). Un autre projet recent distingue : la regeneration urbaine de Martiricos a Malaga (67 000 m²) avec un parc central d environ 30 000 m²." },
+        { "type": "list", "items": [ "Regeneration urbaine", "Protection environnementale", "Efficacite energetique", "Cohesion sociale", "Plus d espaces libres" ] },
+        { "type": "heading", "level": 3, "content": "Q3 : durabilite dans Calahonda Sunset" },
+        { "type": "paragraph", "content": "Le projet applique le systeme SATE (ETICS) pour l isolation par l exterieur, reduisant les pertes d energie par les facades." },
+        { "type": "links", "items": [ { "label": "Site officiel Calahonda Sunset", "url": "https://calahondasunset.es" } ] }
+      ]
+    },
+    "it": {
+      "title": "Dorronsoro: gli architetti dietro Calahonda Sunset",
+      "excerpt": "Intervista a Dorronsoro Arquitectos: storia in Costa del Sol, progetti iconici e sostenibilita (SATE/ETICS).",
+      "content": [
+        { "type": "paragraph", "content": "Dorronsoro Arquitectos e lo studio incaricato del progetto residenziale di nuova costruzione a Calahonda chiamato Calahonda Sunset." },
+        { "type": "paragraph", "content": "Lo studio si e affermato sulla Costa del Sol grazie alle radici familiari e a un evoluzione tecnologica costante. Dopo gli inizi a Madrid, si trasferisce a Malaga nel 1965." },
+        { "type": "paragraph", "content": "In questa intervista, Santiago e Ana Dorronsoro raccontano storia, progetti principali e approccio alla sostenibilita." },
+        { "type": "links", "items": [ { "label": "Sito ufficiale Dorronsoro Arquitectos", "url": "https://dorronsoroarquitectos.es/" }, { "label": "Progetto: Calahonda Sunset", "url": "https://www.blancareal.com/es/propiedad/pisos-en-venta-123-habitaciones-vistas-al-mar-mijas/" } ] },
+        { "type": "image", "url": "https://www.blancareal.com/wp-content/uploads/2024/07/dorronsoro-calahonda-sunset-equipo.webp", "alt": "Team Dorronsoro Arquitectos" },
+        { "type": "heading", "level": 3, "content": "D1: storia ed evoluzione" },
+        { "type": "paragraph", "content": "Tre fratelli su quattro sono architetti e uno e informatico. Le diverse scuole di formazione hanno arricchito il lavoro condiviso e il confronto di idee." },
+        { "type": "paragraph", "content": "L evoluzione tecnologica e passata dai disegni manuali ad AutoCAD e poi a Revit, con maggiore integrazione di dati nel progetto." },
+        { "type": "heading", "level": 3, "content": "D2: progetti principali" },
+        { "type": "paragraph", "content": "Tra i progetti piu significativi: Don Gonzalo a Marbella, Los Granados Banus a Puerto Banus e la rigenerazione urbana di Martiricos a Malaga (67.000 m²) con un parco centrale di circa 30.000 m²." },
+        { "type": "list", "items": [ "Rigenerazione urbana", "Tutela ambientale", "Efficienza energetica", "Coesione sociale", "Piu spazi pubblici" ] },
+        { "type": "heading", "level": 3, "content": "D3: sostenibilita in Calahonda Sunset" },
+        { "type": "paragraph", "content": "Per facciate e isolamento termico viene applicato il sistema SATE (ETICS), che riduce le perdite di energia attraverso l involucro esterno." },
+        { "type": "links", "items": [ { "label": "Sito ufficiale Calahonda Sunset", "url": "https://calahondasunset.es" } ] }
+      ]
+    },
+    "nl": {
+      "title": "Dorronsoro: de architecten achter Calahonda Sunset",
+      "excerpt": "Interview met Dorronsoro Arquitectos: Costa del Sol-erfgoed, sleutelprojecten en duurzaamheid (SATE/ETICS).",
+      "content": [
+        { "type": "paragraph", "content": "Dorronsoro Arquitectos is het architectenbureau achter het nieuwbouwproject in Calahonda: Calahonda Sunset." },
+        { "type": "paragraph", "content": "De studio is een referentie geworden aan de Costa del Sol dankzij familie-erfgoed en voortdurende technologische ontwikkeling. Na een start in Madrid verhuisde het bureau in 1965 naar Malaga." },
+        { "type": "paragraph", "content": "In dit interview bespreken Santiago en Ana Dorronsoro de geschiedenis, toonaangevende projecten en hun visie op duurzaamheid." },
+        { "type": "links", "items": [ { "label": "Dorronsoro Arquitectos (website)", "url": "https://dorronsoroarquitectos.es/" }, { "label": "Project: Calahonda Sunset", "url": "https://www.blancareal.com/es/propiedad/pisos-en-venta-123-habitaciones-vistas-al-mar-mijas/" } ] },
+        { "type": "image", "url": "https://www.blancareal.com/wp-content/uploads/2024/07/dorronsoro-calahonda-sunset-equipo.webp", "alt": "Team van Dorronsoro Arquitectos" },
+        { "type": "heading", "level": 3, "content": "Vraag 1: geschiedenis en ontwikkeling" },
+        { "type": "paragraph", "content": "Drie van de vier broers en zussen zijn architect en een is IT-specialist. Verschillende opleidingsroutes hebben het gezamenlijke ontwerp- en denkproces verrijkt. De digitalisering liep van handtekeningen naar AutoCAD en later Revit." },
+        { "type": "heading", "level": 3, "content": "Vraag 2: sleutelprojecten" },
+        { "type": "paragraph", "content": "Belangrijke projecten zijn onder andere Don Gonzalo in Marbella en Los Granados Banus in Puerto Banus. Ook de stedelijke herontwikkeling van Martiricos in Malaga (67.000 m²) met een centraal park van circa 30.000 m² springt eruit." },
+        { "type": "list", "items": [ "Stedelijke herontwikkeling", "Milieubescherming", "Energie-efficiëntie", "Sociale cohesie", "Meer openbare ruimte" ] },
+        { "type": "heading", "level": 3, "content": "Vraag 3: duurzaamheid in Calahonda Sunset" },
+        { "type": "paragraph", "content": "Voor gevels en isolatie wordt SATE (ETICS) toegepast: buitengevelisolatie die energieverlies via de gevel vermindert." },
+        { "type": "links", "items": [ { "label": "Calahonda Sunset (officiële website)", "url": "https://calahondasunset.es" } ] }
+      ]
+    }
+  }
+}
