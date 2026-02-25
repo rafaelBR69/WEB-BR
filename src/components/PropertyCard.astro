@@ -17,6 +17,7 @@ const coverSrc = coverUrl
 const coverSrcSet = coverUrl
   ? buildSupabaseSrcSet(coverUrl, [320, 480, 640, 720], { quality: 72 })
   : "";
+const areaValue = formatArea(data.details.area_m2, lang);
 
 const ui = getUiCopy(lang);
 const label = ui.propertyCard.viewDetails;
@@ -76,20 +77,38 @@ const label = ui.propertyCard.viewDetails;
     {!data.isPromotion && (
       <ul class="meta">
         {data.details.bedrooms && (
-          <li>
-            <span class="icon">🛏</span> {data.details.bedrooms}
+          <li class="meta-item">
+            <span class="meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3 12h18v6H3z" />
+                <path d="M7 12V9a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3" />
+                <path d="M3 18v3M21 18v3" />
+              </svg>
+            </span>
+            <span class="meta-value">{data.details.bedrooms}</span>
           </li>
         )}
 
         {data.details.bathrooms && (
-          <li>
-            <span class="icon">🚿</span> {data.details.bathrooms}
+          <li class="meta-item">
+            <span class="meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3z" />
+                <path d="M8 12V8a2 2 0 0 1 4 0v4" />
+              </svg>
+            </span>
+            <span class="meta-value">{data.details.bathrooms}</span>
           </li>
         )}
 
-        {formatArea(data.details.area_m2, lang) && (
-          <li>
-            <span class="icon">📐</span> {formatArea(data.details.area_m2, lang)}
+        {areaValue && (
+          <li class="meta-item">
+            <span class="meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 5h5M5 5v5M19 5h-5M19 5v5M5 19h5M5 19v-5M19 19h-5M19 19v-5" />
+              </svg>
+            </span>
+            <span class="meta-value">{areaValue}</span>
           </li>
         )}
       </ul>

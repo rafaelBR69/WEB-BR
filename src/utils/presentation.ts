@@ -3,16 +3,15 @@ export function formatArea(
   lang: string = "es"
 ): string | null {
   if (!m2 || m2 <= 0) return null;
-
-  // En inmobiliaria europea NO se traduce a sqft salvo mercado USA
-  return `${m2} m²`;
+  void lang;
+  return `${m2} m2`;
 }
 
 const ORIENTATION_LABELS: Record<string, Record<string, string>> = {
   north: { es: "Norte", en: "North", de: "Nord", fr: "Nord", it: "Nord", nl: "Noord" },
   south: { es: "Sur", en: "South", de: "Süd", fr: "Sud", it: "Sud", nl: "Zuid" },
-  east:  { es: "Este", en: "East", de: "Ost", fr: "Est", it: "Est", nl: "Oost" },
-  west:  { es: "Oeste", en: "West", de: "West", fr: "Ouest", it: "Ovest", nl: "West" },
+  east: { es: "Este", en: "East", de: "Ost", fr: "Est", it: "Est", nl: "Oost" },
+  west: { es: "Oeste", en: "West", de: "West", fr: "Ouest", it: "Ovest", nl: "West" },
 };
 
 export function formatOrientation(

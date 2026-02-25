@@ -2,12 +2,12 @@
   "id": "PM0074",
   "priority": 89,
   "slugs": {
-    "es": "obra-nueva-orion-manilva",
-    "en": "new-build-orion-manilva",
-    "de": "neubau-orion-manilva",
-    "fr": "programme-neuf-orion-manilva",
-    "it": "nuova-costruzione-orion-manilva",
-    "nl": "nieuwbouw-orion-manilva"
+    "es": "obra-nueva-almitak-manilva",
+    "en": "new-build-almitak-manilva",
+    "de": "neubau-almitak-manilva",
+    "fr": "programme-neuf-almitak-manilva",
+    "it": "nuova-costruzione-almitak-manilva",
+    "nl": "nieuwbouw-almitak-manilva"
   },
   "status": "available",
   "listing_type": "promotion",
@@ -64,12 +64,12 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
       "alt": {
-        "es": "Orion en Mijas - obra nueva",
-        "en": "Orion in Mijas - new build",
-        "de": "Orion in Mijas - Neubau",
-        "fr": "Orion a Mijas - programme neuf",
-        "it": "Orion a Mijas - nuova costruzione",
-        "nl": "Orion in Mijas - nieuwbouw"
+        "es": "Almitak en Mijas - obra nueva",
+        "en": "Almitak in Mijas - new build",
+        "de": "Almitak in Mijas - Neubau",
+        "fr": "Almitak a Mijas - programme neuf",
+        "it": "Almitak a Mijas - nuova costruzione",
+        "nl": "Almitak in Mijas - nieuwbouw"
       }
     },
     "gallery": {
@@ -123,134 +123,134 @@
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "obra nueva orion mijas",
-      "en": "new build orion mijas",
-      "de": "neubau orion mijas",
-      "fr": "programme neuf orion mijas",
-      "it": "nuova costruzione orion mijas",
-      "nl": "nieuwbouw orion mijas"
+      "es": "obra nueva manilva almitak",
+      "en": "new build manilva almitak",
+      "de": "neubau manilva almitak",
+      "it": "nuova costruzione manilva almitak",
+      "nl": "nieuwbouw manilva almitak",
+      "fr": "programme neuf manilva almitak"
     },
     "meta_description": {
-      "es": "Promocion Orion en Mijas con viviendas de 1, 2 y 3 dormitorios y amplias terrazas.",
-      "en": "Orion development in Mijas with 1, 2 and 3-bedroom homes and large terraces.",
-      "de": "Orion in Mijas mit Wohnungen mit 1, 2 und 3 Schlafzimmern und grossen Terrassen.",
-      "fr": "Programme Orion a Mijas avec logements de 1, 2 et 3 chambres et grandes terrasses.",
-      "it": "Promozione Orion a Mijas con unita da 1, 2 e 3 camere e ampie terrazze.",
-      "nl": "Orion in Mijas met woningen met 1, 2 en 3 slaapkamers en grote terrassen."
+      "es": "Promoción Almitak en Manilva-Sotogrande con terrazas y vistas abiertas al mar, Gibraltar y África.",
+      "en": "Almitak development in Manilva-Sotogrande with terraces and open views to the sea, Gibraltar and Africa.",
+      "de": "Almitak in Manilva-Sotogrande mit Terrassen und offenen Blicken auf Meer, Gibraltar und Afrika.",
+      "it": "Promozione Almitak a Manilva-Sotogrande con terrazze e viste aperte su mare, Gibilterra e Africa.",
+      "nl": "Almitak in Manilva-Sotogrande met terrassen en open uitzicht op zee, Gibraltar en Afrika.",
+      "fr": "Programme Almitak à Manilva-Sotogrande avec terrasses et vues ouvertes sur la mer, Gibraltar et l'Afrique."
     }
   },
   "translations": {
     "es": {
-      "title": "Orion: obra nueva en Mijas",
-      "intro": "Promocion de 46 apartamentos en Mijas con terrazas amplias y zonas comunes.",
+      "title": "Almitak (Orion Collection): obra nueva en Manilva",
+      "intro": "Promoción de 45 apartamentos en Manilva-Sotogrande con diseño moderno y vistas abiertas al mar, Gibraltar y África.",
       "description": [
         {
           "type": "heading",
           "level": 3,
-          "content": "Orion, diseno y amplitud"
+          "content": "Almitak, calma y confort"
         },
         {
           "type": "paragraph",
-          "content": "Orion es una promocion de obra nueva distribuida en tres bloques, con tipologias de 1, 2 y 3 dormitorios, terrazas privadas y distribuciones pensadas para la vida diaria."
+          "content": "Almitak es una promoción de 45 exclusivos apartamentos en la zona de Manilva-Sotogrande con un diseño exterior moderno, donde poder disfrutar de sus magníficas terrazas que permiten gozar de vistas abiertas al mar, Gibraltar y África."
         },
         {
           "type": "paragraph",
-          "content": "La urbanizacion incorpora zonas comunes y piscina, con viviendas orientadas a maximizar luz natural y superficie exterior en Mijas."
+          "content": "Su arquitectura ofrece luz natural y privacidad en todas las viviendas, además de crear espacios exteriores muy amplios. El hogar que tanto deseó."
         }
       ]
     },
     "en": {
-      "title": "Orion: new build in Mijas",
-      "intro": "A 46-apartment development in Mijas with spacious terraces and communal areas.",
+      "title": "Almitak (Orion Collection): new build in Manilva",
+      "intro": "A 45-apartment development in Manilva-Sotogrande with modern design and open views to the sea, Gibraltar and Africa.",
       "description": [
         {
           "type": "heading",
           "level": 3,
-          "content": "Orion, design and comfort"
+          "content": "Almitak, calm and comfort"
         },
         {
           "type": "paragraph",
-          "content": "Orion is a new-build development across three blocks, offering 1, 2 and 3-bedroom homes with private terraces and practical layouts."
+          "content": "Almitak consists of 45 exclusive apartments in Manilva with a modern exterior design to enjoy its magnificent terraces, offering open views of the sea, Gibraltar and Africa."
         },
         {
           "type": "paragraph",
-          "content": "The project includes communal spaces and a pool, with homes designed to maximize natural light and outdoor living in Mijas."
+          "content": "Its architecture offers natural light and privacy in all its homes, while creating ample outdoor spaces. The home you have always dreamed of."
         }
       ]
     },
     "de": {
-      "title": "Orion: Neubau in Mijas",
-      "intro": "Wohnanlage mit 46 Apartments in Mijas mit grossen Terrassen und Gemeinschaftsbereichen.",
+      "title": "Almitak (Orion Collection): Neubau in Manilva",
+      "intro": "Eine Anlage mit 45 Apartments in Manilva-Sotogrande mit modernem Design und offenem Blick auf Meer, Gibraltar und Afrika.",
       "description": [
         {
           "type": "heading",
           "level": 3,
-          "content": "Orion, design und komfort"
+          "content": "Almitak, Ruhe und Komfort"
         },
         {
           "type": "paragraph",
-          "content": "Orion ist ein Neubauprojekt in drei Gebauden mit Wohnungen mit 1, 2 und 3 Schlafzimmern, privaten Terrassen und funktionalen Grundrissen."
+          "content": "Almitak ist eine Wohnanlage mit 45 exklusiven Apartments in der Region Manilva-Sotogrande mit modernem Außendesign und großzügigen Terrassen mit offenem Blick auf das Meer, Gibraltar und Afrika."
         },
         {
           "type": "paragraph",
-          "content": "Die Anlage bietet Gemeinschaftsbereiche und Pool und ist auf viel Tageslicht und grosszuegige Aussenflaechen in Mijas ausgelegt."
+          "content": "Die Architektur bietet in allen Wohnungen viel Tageslicht und Privatsphäre und schafft zugleich großzügige Außenbereiche. Das Zuhause, das Sie sich immer gewünscht haben."
         }
       ]
     },
     "fr": {
-      "title": "Orion : programme neuf a Mijas",
-      "intro": "Programme de 46 appartements a Mijas avec grandes terrasses et espaces communs.",
+      "title": "Almitak (Orion Collection) : programme neuf à Manilva",
+      "intro": "Programme de 45 appartements à Manilva-Sotogrande au design moderne avec vues ouvertes sur la mer, Gibraltar et l’Afrique.",
       "description": [
         {
           "type": "heading",
           "level": 3,
-          "content": "Orion, design et confort"
+          "content": "Almitak, calme et confort"
         },
         {
           "type": "paragraph",
-          "content": "Orion est un programme neuf compose de trois batiments avec des logements de 1, 2 et 3 chambres, des terrasses privees et des plans fonctionnels."
+          "content": "Almitak est un programme de 45 appartements exclusifs à Manilva-Sotogrande, au design extérieur moderne, avec de magnifiques terrasses offrant des vues ouvertes sur la mer, Gibraltar et l’Afrique."
         },
         {
           "type": "paragraph",
-          "content": "La residence inclut des espaces communs et piscine, avec des logements concus pour maximiser la lumiere naturelle et les surfaces exterieures a Mijas."
+          "content": "Son architecture offre une lumière naturelle et de l’intimité dans tous les logements, tout en créant de grands espaces extérieurs. La maison dont vous avez toujours rêvé."
         }
       ]
     },
     "it": {
-      "title": "Orion: nuova costruzione a Mijas",
-      "intro": "Complesso di 46 appartamenti a Mijas con ampie terrazze e aree comuni.",
+      "title": "Almitak (Orion Collection): nuova costruzione a Manilva",
+      "intro": "Complesso di 45 appartamenti a Manilva-Sotogrande con design moderno e viste aperte su mare, Gibilterra e Africa.",
       "description": [
         {
           "type": "heading",
           "level": 3,
-          "content": "Orion, design e comfort"
+          "content": "Almitak, calma e comfort"
         },
         {
           "type": "paragraph",
-          "content": "Orion e una promozione di nuova costruzione in tre blocchi con unita da 1, 2 e 3 camere, terrazze private e distribuzioni funzionali."
+          "content": "Almitak è una promozione di 45 esclusivi appartamenti a Manilva-Sotogrande con un design esterno moderno, dove poter godere di magnifiche terrazze con viste aperte sul mare, Gibilterra e Africa."
         },
         {
           "type": "paragraph",
-          "content": "Il complesso offre aree comuni e piscina, con abitazioni pensate per valorizzare luce naturale e spazi esterni a Mijas."
+          "content": "L’architettura offre luce naturale e privacy in tutte le abitazioni, creando al contempo ampi spazi esterni. La casa che hai sempre desiderato."
         }
       ]
     },
     "nl": {
-      "title": "Orion: nieuwbouw in Mijas",
-      "intro": "Project met 46 appartementen in Mijas met ruime terrassen en gemeenschappelijke zones.",
+      "title": "Almitak (Orion Collection): nieuwbouw in Manilva",
+      "intro": "Een project met 45 appartementen in Manilva-Sotogrande met modern design en open uitzicht op zee, Gibraltar en Afrika.",
       "description": [
         {
           "type": "heading",
           "level": 3,
-          "content": "Orion, ontwerp en comfort"
+          "content": "Almitak, rust en comfort"
         },
         {
           "type": "paragraph",
-          "content": "Orion is een nieuwbouwproject in drie gebouwen met woningen met 1, 2 en 3 slaapkamers, prive terrassen en functionele indelingen."
+          "content": "Almitak is een project met 45 exclusieve appartementen in Manilva-Sotogrande met een modern exterieur en prachtige terrassen met open uitzicht op zee, Gibraltar en Afrika."
         },
         {
           "type": "paragraph",
-          "content": "Het project biedt gemeenschappelijke ruimtes en een zwembad, met woningen die veel daglicht en buitenruimte in Mijas bieden."
+          "content": "De architectuur biedt natuurlijk licht en privacy in alle woningen en creëert tegelijk royale buitenruimtes. Het huis waar u altijd van heeft gedroomd."
         }
       ]
     }

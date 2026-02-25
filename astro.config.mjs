@@ -19,6 +19,8 @@ export default defineConfig({
         "@turf/helpers",
         "@turf/distance",
         "@turf/boolean-point-in-polygon",
+        "aria-query",
+        "axobject-query",
       ],
     },
   },

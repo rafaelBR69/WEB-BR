@@ -157,17 +157,44 @@ const featureCollection = {
   const poisUrl = mapEl.dataset.poisUrl || "/data/pois.geojson";
   const zonesUrl = mapEl.dataset.zonesUrl || "/data/zones.geojson";
   const poiFilters = JSON.parse(mapEl.dataset.poiFilters || "[]");
+  const parseMapboxStyleRef = (styleUrl) => {
+    const match = /^mapbox:\/\/styles\/([^/]+)\/([^/?#]+)/.exec(styleUrl);
+    if (!match) return null;
+    return { owner: match[1], styleId: match[2] };
+  };
+  const validateMapboxAccess = async (accessToken, styleUrl) => {
+    const styleRef = parseMapboxStyleRef(styleUrl);
+    if (!styleRef) return { ok: true, status: null };
+
+    const probeUrl = `https://api.mapbox.com/styles/v1/${styleRef.owner}/${styleRef.styleId}?access_token=${accessToken}`;
+    try {
+      const response = await fetch(probeUrl, { method: "GET" });
+      if (response.ok) return { ok: true, status: response.status };
+      return { ok: false, status: response.status };
+    } catch {
+      // If the probe fails for network reasons, keep current behavior and let the map try to load.
+      return { ok: true, status: null };
+    }
+  };
 
   if (!token) {
     mapEl.innerHTML = `<div class="map-empty">${emptyMessage} (falta PUBLIC_MAPBOX_TOKEN)</div>`;
   } else {
-    mapboxgl.accessToken = token;
+    const accessCheck = await validateMapboxAccess(token, style);
+    if (!accessCheck.ok) {
+      const reason =
+        accessCheck.status === 401 || accessCheck.status === 403
+          ? `Mapbox rechazo el token (${accessCheck.status}). Revisa permisos, dominio permitido y facturacion de la cuenta.`
+          : `Mapbox devolvio ${accessCheck.status ?? "error"}.`;
+      mapEl.innerHTML = `<div class="map-empty">${emptyMessage} (${reason})</div>`;
+    } else {
+      mapboxgl.accessToken = token;
 
-    const DETAIL_ZOOM = 16;
-    const PROPERTY_FOCUS_ZOOM = 17.4;
-    const ZONE_HIDE_ZOOM = 12.5;
-    const INITIAL_CENTER = [-4.92, 36.58];
-    const INITIAL_ZOOM = 9.6;
+      const DETAIL_ZOOM = 16;
+      const PROPERTY_FOCUS_ZOOM = 17.4;
+      const ZONE_HIDE_ZOOM = 12.5;
+      const INITIAL_CENTER = [-4.92, 36.58];
+      const INITIAL_ZOOM = 9.6;
 
     const withStableId = (rawFeatures, prefix) => {
       return (rawFeatures || []).map((feature, idx) => ({
@@ -1528,20 +1555,21 @@ const featureCollection = {
       });
     });
 
-    document.addEventListener("click", (event) => {
-      const target = event.target;
-      if (!(target instanceof HTMLElement)) return;
-      const startButton = target.closest(".popup-start-route-btn");
-      if (startButton instanceof HTMLButtonElement) {
-        const startLng = Number(startButton.dataset.lng);
-        const startLat = Number(startButton.dataset.lat);
-        const startName = startButton.dataset.name || "Propiedad";
-        if (Number.isFinite(startLng) && Number.isFinite(startLat)) {
-          setRouteOrigin([startLng, startLat], startName);
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const startButton = target.closest(".popup-start-route-btn");
+        if (startButton instanceof HTMLButtonElement) {
+          const startLng = Number(startButton.dataset.lng);
+          const startLat = Number(startButton.dataset.lat);
+          const startName = startButton.dataset.name || "Propiedad";
+          if (Number.isFinite(startLng) && Number.isFinite(startLat)) {
+            setRouteOrigin([startLng, startLat], startName);
+          }
+          return;
         }
-        return;
-      }
-    });
+      });
+    }
   }
 </script>
 

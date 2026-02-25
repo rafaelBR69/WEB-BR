@@ -4,12 +4,12 @@
   "listing_type": "unit",
   "parent_id": "PM0074",
   "slugs": {
-    "es": "unidad-25-orion-manilva",
-    "en": "unit-25-orion-manilva",
-    "de": "einheit-25-orion-manilva",
-    "fr": "unite-25-orion-manilva",
-    "it": "unita-25-orion-manilva",
-    "nl": "unit-25-orion-manilva"
+    "es": "unidad-25-almitak-manilva",
+    "en": "unit-25-almitak-manilva",
+    "de": "einheit-25-almitak-manilva",
+    "fr": "unite-25-almitak-manilva",
+    "it": "unita-25-almitak-manilva",
+    "nl": "unit-25-almitak-manilva"
   },
   "status": "sold",
   "featured": false,
@@ -64,12 +64,12 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
       "alt": {
-        "es": "Orion en Manilva - obra nueva",
-        "en": "Orion in Manilva - new build",
-        "de": "Orion in Manilva - Neubau",
-        "fr": "Orion a Manilva - programme neuf",
-        "it": "Orion a Manilva - nuova costruzione",
-        "nl": "Orion in Manilva - nieuwbouw"
+        "es": "Almitak en Manilva - obra nueva",
+        "en": "Almitak in Manilva - new build",
+        "de": "Almitak in Manilva - Neubau",
+        "fr": "Almitak a Manilva - programme neuf",
+        "it": "Almitak a Manilva - nuova costruzione",
+        "nl": "Almitak in Manilva - nieuwbouw"
       }
     },
     "gallery": {
@@ -127,51 +127,51 @@
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "apartamento orion manilva unidad 25",
-      "en": "orion manilva apartment unit 25",
-      "de": "orion manilva apartment einheit 25",
-      "fr": "appartement orion manilva unite 25",
-      "it": "appartamento orion manilva unita 25",
-      "nl": "orion manilva appartement unit 25"
+      "es": "apartamento almitak manilva unidad 25",
+      "en": "almitak manilva apartment unit 25",
+      "de": "almitak manilva apartment einheit 25",
+      "fr": "appartement almitak manilva unite 25",
+      "it": "appartamento almitak manilva unita 25",
+      "nl": "almitak manilva appartement unit 25"
     },
     "meta_description": {
-      "es": "Unidad en Orion, Manilva. Consulte disponibilidad y detalles.",
-      "en": "Unit at Orion, Manilva. Check availability and details.",
-      "de": "Einheit in Orion, Manilva. Verfuegbarkeit und Details.",
-      "fr": "Unite a Orion, Manilva. Consultez disponibilite et details.",
-      "it": "Unita in Orion, Manilva. Verifica disponibilita e dettagli.",
-      "nl": "Unit in Orion, Manilva. Bekijk beschikbaarheid en details."
+      "es": "Unidad en Almitak, Manilva. Consulte disponibilidad y detalles.",
+      "en": "Unit at Almitak, Manilva. Check availability and details.",
+      "de": "Einheit in Almitak, Manilva. Verfuegbarkeit und Details.",
+      "fr": "Unite a Almitak, Manilva. Consultez disponibilite et details.",
+      "it": "Unita in Almitak, Manilva. Verifica disponibilita e dettagli.",
+      "nl": "Unit in Almitak, Manilva. Bekijk beschikbaarheid en details."
     }
   },
   "translations": {
     "es": {
-      "title": "Unidad 25 en Orion (Manilva)",
-      "intro": "Unidad disponible en Orion con 2 dormitorios.",
+      "title": "Unidad 25 en Almitak (Manilva)",
+      "intro": "Unidad disponible en Almitak con 2 dormitorios.",
       "description": []
     },
     "en": {
-      "title": "Unit 25 at Orion (Manilva)",
-      "intro": "Available unit in Orion with 2 bedrooms.",
+      "title": "Unit 25 at Almitak (Manilva)",
+      "intro": "Available unit in Almitak with 2 bedrooms.",
       "description": []
     },
     "de": {
-      "title": "Einheit 25 in Orion (Manilva)",
-      "intro": "Verfuegbare Einheit in Orion mit 2 Schlafzimmern.",
+      "title": "Einheit 25 in Almitak (Manilva)",
+      "intro": "Verfuegbare Einheit in Almitak mit 2 Schlafzimmern.",
       "description": []
     },
     "fr": {
-      "title": "Unite 25 a Orion (Manilva)",
-      "intro": "Unite disponible a Orion avec 2 chambres.",
+      "title": "Unite 25 a Almitak (Manilva)",
+      "intro": "Unite disponible a Almitak avec 2 chambres.",
       "description": []
     },
     "it": {
-      "title": "Unita 25 a Orion (Manilva)",
-      "intro": "Unita disponibile in Orion con 2 camere.",
+      "title": "Unita 25 a Almitak (Manilva)",
+      "intro": "Unita disponibile in Almitak con 2 camere.",
       "description": []
     },
     "nl": {
-      "title": "Unit 25 in Orion (Manilva)",
-      "intro": "Beschikbare unit in Orion met 2 slaapkamers.",
+      "title": "Unit 25 in Almitak (Manilva)",
+      "intro": "Beschikbare unit in Almitak met 2 slaapkamers.",
       "description": []
     }
   }
