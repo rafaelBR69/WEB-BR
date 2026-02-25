@@ -1,0 +1,197 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import "@/styles/pages/service-pages.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/legal-services/`, 302);
+}
+
+const lang = langParam;
+
+const copyByLang = {
+  es: {
+    title: "Servicios Legales | BlancaReal",
+    description:
+      "Asistencia legal inmobiliaria para compraventa, alquiler, due diligence y proteccion contractual.",
+    eyebrow: "Servicios Legales",
+    heading: "Cobertura legal inmobiliaria integral",
+    intro:
+      "Acompanamos cada operacion con un equipo legal especializado para reducir riesgos y proteger cada decision.",
+    cta: "Contactar con el area legal",
+    blockTitleA: "Servicios clave",
+    blockTitleB: "Como trabajamos",
+    services: [
+      "Revision de contratos de compraventa y arrendamiento",
+      "Due diligence legal de inmuebles y promociones",
+      "Asistencia en notaria, registro y fiscalidad basica",
+      "Soporte en conflictos de ocupacion y cumplimiento",
+    ],
+    process: [
+      "Diagnostico legal inicial y objetivos del cliente",
+      "Plan de accion por fases y responsables",
+      "Ejecucion documental y coordinacion con agentes",
+      "Cierre con checklist y recomendaciones de seguimiento",
+    ],
+  },
+  en: {
+    title: "Legal Services | BlancaReal",
+    description:
+      "Real estate legal support for buying, renting, due diligence and contract protection.",
+    eyebrow: "Legal Services",
+    heading: "End-to-end legal real estate coverage",
+    intro:
+      "We support every transaction with a specialized legal team to reduce risk and protect decision making.",
+    cta: "Contact legal team",
+    blockTitleA: "Core services",
+    blockTitleB: "How we work",
+    services: [
+      "Review of sale and lease agreements",
+      "Legal due diligence for assets and developments",
+      "Notary, registry and basic tax process support",
+      "Support in occupation disputes and compliance",
+    ],
+    process: [
+      "Initial legal assessment and client objectives",
+      "Phase-based action plan with accountable owners",
+      "Document execution and agent coordination",
+      "Closing checklist and follow-up recommendations",
+    ],
+  },
+  de: {
+    title: "Rechtsservice | BlancaReal",
+    description:
+      "Rechtliche Immobilienberatung fuer Kauf, Miete, Due Diligence und Vertragsabsicherung.",
+    eyebrow: "Rechtsservice",
+    heading: "Ganzheitliche rechtliche Immobilienbegleitung",
+    intro:
+      "Wir begleiten jede Transaktion mit einem spezialisierten Rechtsteam, um Risiken zu reduzieren.",
+    cta: "Rechtsteam kontaktieren",
+    blockTitleA: "Leistungsschwerpunkte",
+    blockTitleB: "Unser Vorgehen",
+    services: [
+      "Pruefung von Kauf- und Mietvertraegen",
+      "Rechtliche Due Diligence fuer Objekte und Projekte",
+      "Unterstuetzung bei Notar, Register und Basissteuern",
+      "Begleitung bei Besetzungs- und Compliance-Themen",
+    ],
+    process: [
+      "Initiale Rechtsanalyse und Zieldefinition",
+      "Phasenplan mit klaren Verantwortlichkeiten",
+      "Dokumentenumsetzung und Koordination mit Agenten",
+      "Abschluss mit Checkliste und Folgemassnahmen",
+    ],
+  },
+  fr: {
+    title: "Services Juridiques | BlancaReal",
+    description:
+      "Assistance juridique immobiliere pour achat, location, due diligence et protection contractuelle.",
+    eyebrow: "Services Juridiques",
+    heading: "Couverture juridique immobiliere complete",
+    intro:
+      "Nous accompagnons chaque operation avec une equipe juridique specialisee pour reduire les risques.",
+    cta: "Contacter le pole juridique",
+    blockTitleA: "Services principaux",
+    blockTitleB: "Notre methode",
+    services: [
+      "Revision des contrats de vente et de location",
+      "Due diligence juridique des biens et projets",
+      "Assistance notaire, registre et fiscalite de base",
+      "Support en litiges d occupation et conformite",
+    ],
+    process: [
+      "Diagnostic juridique initial et objectifs client",
+      "Plan d action par phases et responsables",
+      "Execution documentaire et coordination commerciale",
+      "Cloture avec checklist et recommandations",
+    ],
+  },
+  it: {
+    title: "Servizi Legali | BlancaReal",
+    description:
+      "Assistenza legale immobiliare per acquisto, affitto, due diligence e protezione contrattuale.",
+    eyebrow: "Servizi Legali",
+    heading: "Copertura legale immobiliare completa",
+    intro:
+      "Supportiamo ogni operazione con un team legale specializzato per ridurre i rischi.",
+    cta: "Contatta il team legale",
+    blockTitleA: "Servizi principali",
+    blockTitleB: "Come lavoriamo",
+    services: [
+      "Revisione contratti di compravendita e locazione",
+      "Due diligence legale su immobili e promozioni",
+      "Supporto in notaio, registro e fiscalita base",
+      "Supporto su occupazione illegale e compliance",
+    ],
+    process: [
+      "Analisi legale iniziale e obiettivi del cliente",
+      "Piano di azione per fasi e responsabili",
+      "Esecuzione documentale e coordinamento agenti",
+      "Chiusura con checklist e raccomandazioni",
+    ],
+  },
+  nl: {
+    title: "Juridische Diensten | BlancaReal",
+    description:
+      "Juridische vastgoedbegeleiding voor aankoop, verhuur, due diligence en contractbescherming.",
+    eyebrow: "Juridische Diensten",
+    heading: "Volledige juridische vastgoeddekking",
+    intro:
+      "Wij begeleiden elke transactie met een gespecialiseerd juridisch team om risico te beperken.",
+    cta: "Contacteer juridisch team",
+    blockTitleA: "Kernservices",
+    blockTitleB: "Onze aanpak",
+    services: [
+      "Controle van koop- en huurcontracten",
+      "Juridische due diligence van assets en projecten",
+      "Ondersteuning bij notaris, register en basisfiscaliteit",
+      "Ondersteuning bij bezettings- en compliance dossiers",
+    ],
+    process: [
+      "Eerste juridische analyse en klantdoelen",
+      "Gefaseerd actieplan met eigenaarschap",
+      "Documentuitvoering en agentcoordinatie",
+      "Afsluiting met checklist en opvolgadvies",
+    ],
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="service-hero container">
+    <span class="service-eyebrow">{t.eyebrow}</span>
+    <h1>{t.heading}</h1>
+    <p>{t.intro}</p>
+    <a class="service-cta" href={`/${lang}/contact/`}>{t.cta}</a>
+  </section>
+
+  <section class="service-grid container">
+    <article class="service-panel">
+      <h2>{t.blockTitleA}</h2>
+      <ul>
+        {t.services.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </article>
+    <article class="service-panel">
+      <h2>{t.blockTitleB}</h2>
+      <ol>
+        {t.process.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ol>
+    </article>
+  </section>
+</BaseLayout>

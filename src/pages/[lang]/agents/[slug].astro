@@ -1,0 +1,223 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import teamMembers from "@/data/team";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import "@/styles/pages/agents.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+const slugParam = Astro.params.slug ?? "";
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/agents/`, 302);
+}
+
+const lang = langParam;
+
+const copyByLang = {
+  es: {
+    title: "Agente | BlancaReal",
+    description: "Ficha profesional del equipo BlancaReal.",
+    backLabel: "Volver al portal de agentes",
+    languagesLabel: "Idiomas",
+    emailLabel: "Email",
+    phoneLabel: "Telefono",
+  },
+  en: {
+    title: "Agent | BlancaReal",
+    description: "Professional profile in BlancaReal team.",
+    backLabel: "Back to agents portal",
+    languagesLabel: "Languages",
+    emailLabel: "Email",
+    phoneLabel: "Phone",
+  },
+  de: {
+    title: "Agent | BlancaReal",
+    description: "Professionelles Profil im BlancaReal Team.",
+    backLabel: "Zurueck zum Agentenportal",
+    languagesLabel: "Sprachen",
+    emailLabel: "E-Mail",
+    phoneLabel: "Telefon",
+  },
+  fr: {
+    title: "Agent | BlancaReal",
+    description: "Profil professionnel de l equipe BlancaReal.",
+    backLabel: "Retour au portail agents",
+    languagesLabel: "Langues",
+    emailLabel: "Email",
+    phoneLabel: "Telephone",
+  },
+  it: {
+    title: "Agente | BlancaReal",
+    description: "Profilo professionale nel team BlancaReal.",
+    backLabel: "Torna al portale agenti",
+    languagesLabel: "Lingue",
+    emailLabel: "Email",
+    phoneLabel: "Telefono",
+  },
+  nl: {
+    title: "Agent | BlancaReal",
+    description: "Professioneel profiel binnen het BlancaReal team.",
+    backLabel: "Terug naar agentenportaal",
+    languagesLabel: "Talen",
+    emailLabel: "Email",
+    phoneLabel: "Telefoon",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+
+const LANGUAGE_BADGES = {
+  es: { label: "Espanol", flagUrl: "/flags/es.svg" },
+  en: { label: "English", flagUrl: "/flags/gb.svg" },
+  fr: { label: "Francais", flagUrl: "/flags/fr.svg" },
+  de: { label: "Deutsch", flagUrl: "/flags/de.svg" },
+  nl: { label: "Nederlands", flagUrl: "/flags/nl.svg" },
+  it: { label: "Italiano", flagUrl: "/flags/it.svg" },
+};
+
+const slugify = (value) =>
+  String(value ?? "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+
+const toTelHref = (value) => `tel:${String(value ?? "").replace(/[^\d+]/g, "")}`;
+
+const normalizeEmailEntry = (entry, locale) => {
+  if (!entry) return null;
+  if (typeof entry === "string") {
+    const address = entry.trim();
+    if (!address) return null;
+    return { address, label: "" };
+  }
+
+  const address = String(entry.address ?? entry.email ?? entry.value ?? "").trim();
+  if (!address) return null;
+
+  let label = "";
+  if (typeof entry.label === "string") {
+    label = entry.label.trim();
+  } else if (entry.label && typeof entry.label === "object") {
+    label =
+      String(entry.label?.[locale] ?? entry.label?.en ?? entry.label?.es ?? "").trim();
+  }
+
+  return { address, label };
+};
+
+const memberRaw = teamMembers.find((member) => {
+  const baseSlug = member.id ?? slugify(member.name);
+  return baseSlug === slugParam;
+});
+
+if (!memberRaw) {
+  return Astro.redirect(`/${lang}/agents/`, 302);
+}
+
+const role = memberRaw.role?.[lang] ?? memberRaw.role?.en ?? memberRaw.role?.es ?? "";
+const bioRaw = memberRaw.bio?.[lang] ?? memberRaw.bio?.en ?? memberRaw.bio?.es ?? "";
+const bio = String(bioRaw)
+  .split(/\n\s*\n/g)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
+
+const photoUrl = memberRaw.photo?.url ?? null;
+const photoAlt = memberRaw.photo?.alt?.[lang] ?? memberRaw.photo?.alt?.en ?? memberRaw.name;
+const spokenLanguages = Array.isArray(memberRaw.spoken_languages)
+  ? memberRaw.spoken_languages.filter((code) => LANGUAGE_BADGES[code])
+  : [];
+
+const emailEntries = Array.isArray(memberRaw.emails)
+  ? memberRaw.emails
+      .map((entry) => normalizeEmailEntry(entry, lang))
+      .filter(Boolean)
+  : [];
+
+const fallbackEmail = String(memberRaw.email ?? "").trim();
+if (!emailEntries.length && fallbackEmail) {
+  emailEntries.push({ address: fallbackEmail, label: "" });
+}
+
+const member = {
+  ...memberRaw,
+  role,
+  bio,
+  photoUrl,
+  photoAlt,
+  spokenLanguages,
+  emails: emailEntries,
+  phone: String(memberRaw.phone ?? "").trim(),
+};
+
+const pageTitle = `${member.name} | ${t.title}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="agent-detail container">
+    <a class="agent-back" href={`/${lang}/agents/`}>{t.backLabel}</a>
+
+    <article class="agent-detail-card">
+      <div class="agent-detail-photo">
+        {member.photoUrl ? (
+          <img src={member.photoUrl} alt={member.photoAlt} loading="eager" />
+        ) : (
+          <span>{member.name.slice(0, 1)}</span>
+        )}
+      </div>
+
+      <div class="agent-detail-body">
+        <h1>{member.name}</h1>
+        <p class="agent-detail-role">{member.role}</p>
+
+        {member.spokenLanguages.length > 0 && (
+          <div class="agent-languages">
+            <span>{t.languagesLabel}</span>
+            <ul>
+              {member.spokenLanguages.map((langCode) => {
+                const badge = LANGUAGE_BADGES[langCode];
+                if (!badge) return null;
+                return (
+                  <li title={badge.label}>
+                    <img src={badge.flagUrl} alt={badge.label} loading="lazy" />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+
+        {member.bio.length > 0 && (
+          <div class="agent-detail-bio">
+            {member.bio.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        )}
+
+        <div class="agent-detail-contact">
+          {member.emails.map((emailItem) => (
+            <a href={`mailto:${emailItem.address}`}>
+              <span>{t.emailLabel}: </span>
+              {emailItem.label ? `${emailItem.label} - ` : ""}
+              {emailItem.address}
+            </a>
+          ))}
+          {member.phone && (
+            <a href={toTelHref(member.phone)}>
+              <span>{t.phoneLabel}: </span>
+              {member.phone}
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
+  </section>
+</BaseLayout>

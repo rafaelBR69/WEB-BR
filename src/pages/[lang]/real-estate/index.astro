@@ -1,0 +1,472 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import properties from "@/data/properties";
+import { normalizePropertyCard } from "@/utils/normalizePropertyCard";
+import { buildFilters } from "@/utils/buildFilters";
+import { displayLocation } from "@/utils/presentation";
+import { buildMapFeatures } from "@/utils/buildMapFeatures";
+import MapboxCostaMap from "@/components/MapboxCostaMap.astro";
+import PropertyCard from "@/components/PropertyCard.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/real-estate/`, 302);
+}
+
+const lang = langParam;
+
+const copyByLang = {
+  es: {
+    title: "BlancaReal | Real Estate Costa del Sol",
+    description:
+      "Propiedades y promociones exclusivas en Costa del Sol. Encuentre por referencia, ciudad o zona.",
+    eyebrow: "Costa del Sol",
+    heading: "Propiedades y proyectos exclusivos",
+    subtitle:
+      "Trabajamos directamente con promotoras para comercializar promociones seleccionadas y vivienda premium.",
+    searchTitle: "Buscador inteligente",
+    searchHint: "Busqueda por referencia, ciudad, zona o texto libre.",
+    queryLabel: "Que desea buscar",
+    queryPlaceholder: "Ej. atico con vistas en Manilva",
+    refLabel: "Referencia",
+    refPlaceholder: "Ej. PM0079-24",
+    zoneLabel: "Ciudad y zona",
+    zonePlaceholder: "Todas las zonas",
+    submit: "Buscar propiedades",
+    mapTitle: "Mapa de oportunidades en Costa del Sol",
+    mapText:
+      "Visualiza promociones y propiedades activas. Los proyectos se muestran una sola vez y solo con disponibilidad real.",
+    featuredTitle: "Propiedades destacadas",
+    featuredText: "Explora una seleccion ampliada con foto grande para comparar mejor cada vivienda.",
+    featuredCarouselLabel: "Carrusel de propiedades destacadas",
+    featuredPrev: "Propiedad anterior",
+    featuredNext: "Siguiente propiedad",
+    mapEmpty: "No hay ubicaciones disponibles en el mapa.",
+    resetMapView: "Reiniciar mapa",
+    zoomSpain: "Ver Espana",
+    poiFilters: [
+      { id: "restaurant", label: "Restaurantes" },
+      { id: "hospital", label: "Hospitales" },
+      { id: "school", label: "Colegios" },
+      { id: "pharmacy", label: "Farmacias" },
+      { id: "airport", label: "Aeropuertos" },
+      { id: "leisure", label: "Ocio" },
+    ],
+  },
+  en: {
+    title: "BlancaReal | Real Estate Costa del Sol",
+    description:
+      "Exclusive properties and developments on the Costa del Sol. Search by reference, city or area.",
+    eyebrow: "Costa del Sol",
+    heading: "Exclusive properties and projects",
+    subtitle:
+      "We work directly with developers to market selected developments and premium homes.",
+    searchTitle: "Smart search",
+    searchHint: "Search by reference, city, area or free text.",
+    queryLabel: "What are you looking for",
+    queryPlaceholder: "e.g. penthouse sea view in Manilva",
+    refLabel: "Reference",
+    refPlaceholder: "e.g. PM0079-24",
+    zoneLabel: "City and area",
+    zonePlaceholder: "All areas",
+    submit: "Search properties",
+    mapTitle: "Opportunity map on Costa del Sol",
+    mapText:
+      "Explore active projects and properties. Developments are shown once, with real-time available stock only.",
+    featuredTitle: "Featured properties",
+    featuredText: "Browse an expanded selection with large photos so each home is easier to compare.",
+    featuredCarouselLabel: "Featured properties carousel",
+    featuredPrev: "Previous property",
+    featuredNext: "Next property",
+    mapEmpty: "No map locations available.",
+    resetMapView: "Reset map",
+    zoomSpain: "View Spain",
+    poiFilters: [
+      { id: "restaurant", label: "Restaurants" },
+      { id: "hospital", label: "Hospitals" },
+      { id: "school", label: "Schools" },
+      { id: "pharmacy", label: "Pharmacies" },
+      { id: "airport", label: "Airports" },
+      { id: "leisure", label: "Leisure" },
+    ],
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+
+const cards = properties
+  .map((property) => normalizePropertyCard(property, lang))
+  .filter(Boolean)
+  .filter((card) => card.visible && card.status !== "sold");
+
+const filters = buildFilters(cards);
+
+const zoneOptions = filters.cities
+  .map((city) => {
+    const areas = filters.areas?.[city] ?? [];
+    return {
+      city,
+      areas,
+    };
+  })
+  .sort((a, b) => a.city.localeCompare(b.city));
+
+const HERO_VIDEO_URL = "/videos/home-hero-2025.mp4";
+const mapboxToken = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
+const mapboxStyle = import.meta.env.PUBLIC_MAPBOX_STYLE ?? "mapbox://styles/mapbox/streets-v12";
+const mapFeatures = buildMapFeatures(properties, lang);
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="home-hero">
+      <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        disablepictureinpicture
+        disableremoteplayback
+        tabindex="-1"
+        aria-hidden="true"
+        poster="https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp"
+      >
+        <source src={HERO_VIDEO_URL} type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content container">
+        <span class="hero-eyebrow">{t.eyebrow}</span>
+        <h1>{t.heading}</h1>
+        <p>{t.subtitle}</p>
+      </div>
+  </section>
+
+  <section class="home-search-wrap">
+      <div class="container">
+        <form class="home-search" method="get" action={`/${lang}/properties/`} id="homeSearchForm">
+          <div class="search-header">
+            <h2>{t.searchTitle}</h2>
+            <p>{t.searchHint}</p>
+          </div>
+
+          <div class="search-grid">
+            <label class="field">
+              <span>{t.queryLabel}</span>
+              <input
+                type="search"
+                name="q"
+                placeholder={t.queryPlaceholder}
+                autocomplete="off"
+              />
+            </label>
+
+            <label class="field">
+              <span>{t.refLabel}</span>
+              <input
+                type="text"
+                name="ref"
+                placeholder={t.refPlaceholder}
+                autocomplete="off"
+              />
+            </label>
+
+            <label class="field select-field">
+              <span>{t.zoneLabel}</span>
+              <div class="zone-picker" id="zonePicker">
+                <button
+                  type="button"
+                  class="zone-trigger"
+                  id="zoneTrigger"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-controls="zoneMenu"
+                >
+                  <span id="zoneLabel">{t.zonePlaceholder}</span>
+                </button>
+                <div class="zone-menu" id="zoneMenu" role="listbox" hidden>
+                  <button
+                    type="button"
+                    class="zone-option is-active"
+                    data-city=""
+                    data-area=""
+                    data-label={t.zonePlaceholder}
+                    role="option"
+                    aria-selected="true"
+                  >
+                    {t.zonePlaceholder}
+                  </button>
+                  {zoneOptions.map((zone) => (
+                    <>
+                      <p class="zone-group">{displayLocation(zone.city)}</p>
+                      <button
+                        type="button"
+                        class="zone-option"
+                        data-city={zone.city}
+                        data-area=""
+                        data-label={displayLocation(zone.city)}
+                        role="option"
+                      >
+                        {displayLocation(zone.city)}
+                      </button>
+                      {zone.areas.map((area) => (
+                        <button
+                          type="button"
+                          class="zone-option zone-option-area"
+                          data-city={zone.city}
+                          data-area={area}
+                          data-label={displayLocation(area)}
+                          role="option"
+                        >
+                          {displayLocation(area)}
+                        </button>
+                      ))}
+                    </>
+                  ))}
+                </div>
+              </div>
+            </label>
+
+            <button type="submit" class="search-btn">{t.submit}</button>
+          </div>
+
+          <input type="hidden" name="city" id="cityHidden" disabled />
+          <input type="hidden" name="area" id="areaHidden" disabled />
+        </form>
+      </div>
+  </section>
+
+  <section class="home-map-wrap">
+      <div class="container">
+        <div class="home-map-head">
+          <h2>{t.mapTitle}</h2>
+          <p>{t.mapText}</p>
+        </div>
+        <MapboxCostaMap
+          token={mapboxToken}
+          styleUrl={mapboxStyle}
+          features={mapFeatures}
+          poisUrl="/data/pois.geojson"
+          poiFilters={t.poiFilters}
+          emptyMessage={t.mapEmpty}
+          resetViewLabel={t.resetMapView}
+        />
+      </div>
+  </section>
+
+  <section class="home-properties-preview">
+    <div class="container">
+      <div class="home-properties-head">
+        <h2>{t.featuredTitle}</h2>
+        <p>{t.featuredText}</p>
+      </div>
+      <div class="home-properties-carousel" aria-label={t.featuredCarouselLabel}>
+        <div class="home-carousel-controls">
+          <button
+            type="button"
+            class="home-carousel-btn"
+            id="featuredPrevBtn"
+            aria-label={t.featuredPrev}
+          >
+            <svg
+              class="home-carousel-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M15 5l-7 7 7 7"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="home-carousel-btn"
+            id="featuredNextBtn"
+            aria-label={t.featuredNext}
+          >
+            <svg
+              class="home-carousel-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M9 5l7 7-7 7"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="home-carousel-track" id="featuredTrack">
+          {cards.slice(0, 8).map((card) => (
+            <div class="home-carousel-slide">
+              <PropertyCard data={card} lang={lang} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    const heroVideo = document.querySelector(".hero-video");
+
+    const keepHeroVideoPlaying = () => {
+      if (!(heroVideo instanceof HTMLVideoElement)) return;
+      if (heroVideo.paused) {
+        heroVideo.play().catch(() => {});
+      }
+    };
+
+    if (heroVideo instanceof HTMLVideoElement) {
+      heroVideo.addEventListener("pause", keepHeroVideoPlaying);
+      heroVideo.addEventListener("ended", keepHeroVideoPlaying);
+
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+          keepHeroVideoPlaying();
+        }
+      });
+    }
+
+    const form = document.getElementById("homeSearchForm");
+    const zonePicker = document.getElementById("zonePicker");
+    const zoneTrigger = document.getElementById("zoneTrigger");
+    const zoneMenu = document.getElementById("zoneMenu");
+    const zoneLabel = document.getElementById("zoneLabel");
+    const zoneOptions = zoneMenu?.querySelectorAll(".zone-option") ?? [];
+    const cityHidden = document.getElementById("cityHidden");
+    const areaHidden = document.getElementById("areaHidden");
+
+    const setSelection = (option) => {
+      if (!(option instanceof HTMLButtonElement)) return;
+      if (!(cityHidden instanceof HTMLInputElement)) return;
+      if (!(areaHidden instanceof HTMLInputElement)) return;
+      if (!zoneLabel) return;
+
+      zoneOptions.forEach((node) => {
+        node.classList.remove("is-active");
+        node.setAttribute("aria-selected", "false");
+      });
+
+      option.classList.add("is-active");
+      option.setAttribute("aria-selected", "true");
+
+      zoneLabel.textContent = option.dataset.label || "";
+
+      cityHidden.value = option.dataset.city || "";
+      areaHidden.value = option.dataset.area || "";
+      cityHidden.disabled = !cityHidden.value;
+      areaHidden.disabled = !areaHidden.value;
+    };
+
+    zoneTrigger?.addEventListener("click", () => {
+      if (!(zoneMenu instanceof HTMLDivElement)) return;
+      const isOpen = zoneMenu.hasAttribute("hidden");
+      if (isOpen) {
+        zoneMenu.removeAttribute("hidden");
+      } else {
+        zoneMenu.setAttribute("hidden", "");
+      }
+      zoneTrigger.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    zoneOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        setSelection(option);
+        if (zoneMenu instanceof HTMLDivElement) {
+          zoneMenu.setAttribute("hidden", "");
+        }
+        zoneTrigger?.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!(zonePicker instanceof HTMLElement)) return;
+      if (!(zoneMenu instanceof HTMLDivElement)) return;
+      if (zonePicker.contains(event.target)) return;
+      zoneMenu.setAttribute("hidden", "");
+      zoneTrigger?.setAttribute("aria-expanded", "false");
+    });
+
+    form?.addEventListener("submit", () => {
+      if (!(cityHidden instanceof HTMLInputElement)) return;
+      if (!(areaHidden instanceof HTMLInputElement)) return;
+      cityHidden.disabled = !cityHidden.value;
+      areaHidden.disabled = !areaHidden.value;
+    });
+
+    const featuredTrack = document.getElementById("featuredTrack");
+    const featuredPrevBtn = document.getElementById("featuredPrevBtn");
+    const featuredNextBtn = document.getElementById("featuredNextBtn");
+
+    if (
+      featuredTrack instanceof HTMLDivElement &&
+      featuredPrevBtn instanceof HTMLButtonElement &&
+      featuredNextBtn instanceof HTMLButtonElement
+    ) {
+      const getScrollStep = () => {
+        const firstSlide = featuredTrack.querySelector(".home-carousel-slide");
+        if (!(firstSlide instanceof HTMLElement)) {
+          return featuredTrack.clientWidth;
+        }
+        const trackStyles = window.getComputedStyle(featuredTrack);
+        const gapValue = trackStyles.columnGap || trackStyles.gap || "0";
+        const gap = Number.parseFloat(gapValue) || 0;
+        return firstSlide.offsetWidth + gap;
+      };
+
+      const updateFeaturedControls = () => {
+        const maxScrollLeft = featuredTrack.scrollWidth - featuredTrack.clientWidth - 2;
+        const canScroll = maxScrollLeft > 0;
+
+        if (!canScroll) {
+          featuredPrevBtn.disabled = true;
+          featuredNextBtn.disabled = true;
+          featuredPrevBtn.hidden = true;
+          featuredNextBtn.hidden = true;
+          return;
+        }
+
+        featuredPrevBtn.hidden = false;
+        featuredNextBtn.hidden = false;
+        featuredPrevBtn.disabled = featuredTrack.scrollLeft <= 2;
+        featuredNextBtn.disabled = featuredTrack.scrollLeft >= maxScrollLeft;
+      };
+
+      const scrollFeatured = (direction) => {
+        featuredTrack.scrollBy({
+          left: direction * getScrollStep(),
+          behavior: "smooth",
+        });
+      };
+
+      featuredPrevBtn.addEventListener("click", () => scrollFeatured(-1));
+      featuredNextBtn.addEventListener("click", () => scrollFeatured(1));
+
+      featuredTrack.addEventListener(
+        "scroll",
+        () => window.requestAnimationFrame(updateFeaturedControls),
+        { passive: true }
+      );
+      window.addEventListener("resize", updateFeaturedControls);
+      updateFeaturedControls();
+    }
+  </script>
+</BaseLayout>

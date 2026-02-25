@@ -1,0 +1,355 @@
+.landing-hero {
+  position: relative;
+  min-height: 54vh;
+  overflow: hidden;
+  background: #f7f8f8;
+}
+
+.landing-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  filter: saturate(0.96) contrast(0.95);
+}
+
+.landing-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(32, 47, 78, 0.12) 0%, rgba(32, 47, 78, 0.2) 100%);
+}
+
+.landing-pillars {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  background: #f7f8f8;
+}
+
+.landing-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100%;
+}
+
+.pillar-card {
+  min-height: 360px;
+  overflow: hidden;
+}
+
+.pillar-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.pillar-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 0.45s ease;
+}
+
+.pillar-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(32, 47, 78, 0.2) 0%, rgba(32, 47, 78, 0.58) 100%);
+}
+
+.pillar-content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.pillar-content h3 {
+  margin: 0;
+  color: #f7f8f8;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  line-height: 1.12;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  text-shadow: 0 6px 22px rgba(8, 13, 25, 0.55);
+}
+
+.pillar-link:hover img {
+  transform: scale(1.06);
+}
+
+.landing-about-z {
+  padding-top: clamp(2.6rem, 5vw, 4.6rem);
+  padding-bottom: clamp(2.6rem, 5vw, 4.8rem);
+  display: grid;
+  gap: clamp(2rem, 4vw, 4rem);
+  border-top: 1px solid rgba(32, 47, 78, 0.1);
+  border-bottom: 1px solid rgba(32, 47, 78, 0.1);
+}
+
+.z-row {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: clamp(1.2rem, 3vw, 2.8rem);
+  align-items: center;
+}
+
+.z-row.is-reverse .z-media {
+  order: 2;
+}
+
+.z-row.is-reverse .z-copy {
+  order: 1;
+}
+
+.z-media {
+  border-radius: 0;
+  overflow: hidden;
+  min-height: 340px;
+  position: relative;
+  border: 1px solid rgba(32, 47, 78, 0.08);
+}
+
+.z-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(32, 47, 78, 0.04) 0%, rgba(32, 47, 78, 0.2) 100%);
+}
+
+.z-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.z-copy {
+  padding: 0;
+  display: block;
+  background: transparent;
+  border: 0;
+}
+
+.z-copy::before {
+  content: "";
+  display: block;
+  width: 82px;
+  height: 2px;
+  background: #d32c43;
+  margin-bottom: 1rem;
+}
+
+.z-copy h2 {
+  margin: 0;
+  color: #202f4e;
+  font-size: clamp(1.6rem, 2.6vw, 2.35rem);
+  line-height: 1.04;
+  letter-spacing: 0.01em;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-weight: 600;
+}
+
+.z-copy p {
+  margin: 0.78rem 0 0;
+  color: rgba(32, 47, 78, 0.82);
+  max-width: 50ch;
+  font-size: clamp(0.98rem, 1.05vw, 1.08rem);
+  line-height: 1.8;
+}
+
+.landing-collaborators {
+  padding-top: 0.8rem;
+  padding-bottom: 1.8rem;
+  background: #f7f8f8;
+}
+
+.landing-collaborators h2 {
+  margin: 0 0 0.7rem;
+  color: #202f4e;
+  font-size: clamp(1.2rem, 2.1vw, 1.8rem);
+}
+
+.collaborators-marquee {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid rgba(32, 47, 78, 0.12);
+  border-bottom: 1px solid rgba(32, 47, 78, 0.12);
+  background: rgba(247, 248, 248, 0.98);
+}
+
+.collaborators-track {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: max-content;
+  padding: 0.85rem 0;
+  animation: collaborators-loop 28s linear infinite;
+}
+
+.collab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(32, 47, 78, 0.18);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.collab-dot {
+  width: 0.52rem;
+  height: 0.52rem;
+  border-radius: 999px;
+  background: #d32c43;
+  flex-shrink: 0;
+}
+
+.collab-pill p {
+  margin: 0;
+  color: #202f4e;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@keyframes collaborators-loop {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.landing-footer {
+  background: #202f4e;
+  color: #f7f8f8;
+}
+
+.landing-footer-grid {
+  padding-top: 1.8rem;
+  padding-bottom: 1.45rem;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr 0.8fr;
+  gap: 1.2rem;
+}
+
+.landing-footer h2,
+.landing-footer h3 {
+  margin: 0 0 0.65rem;
+  color: #f7f8f8;
+}
+
+.landing-footer h2 {
+  font-size: 1.45rem;
+  letter-spacing: 0.03em;
+}
+
+.landing-footer h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.landing-footer p {
+  margin: 0;
+  color: rgba(247, 248, 248, 0.88);
+}
+
+.landing-footer ul {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.landing-footer a {
+  color: #f7f8f8;
+  text-decoration: none;
+}
+
+.landing-footer a:hover {
+  color: #d32c43;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(247, 248, 248, 0.22);
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: rgba(247, 248, 248, 0.84);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 1080px) {
+  .landing-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .z-row {
+    grid-template-columns: 1fr;
+  }
+
+  .z-row.is-reverse .z-media,
+  .z-row.is-reverse .z-copy {
+    order: initial;
+  }
+
+  .landing-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .landing-hero {
+    min-height: 46vh;
+  }
+
+  .landing-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pillar-card {
+    min-height: 290px;
+  }
+
+  .landing-about-z {
+    padding-top: 1.8rem;
+    padding-bottom: 2rem;
+    gap: 2rem;
+  }
+
+  .z-media {
+    min-height: 280px;
+  }
+
+  .z-copy::before {
+    width: 62px;
+    margin-bottom: 0.8rem;
+  }
+
+  .z-copy h2 {
+    font-size: clamp(1.42rem, 7.1vw, 1.95rem);
+  }
+
+  .z-copy p {
+    margin-top: 0.62rem;
+    line-height: 1.72;
+  }
+
+  .landing-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

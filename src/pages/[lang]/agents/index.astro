@@ -1,0 +1,239 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import teamMembers, { TEAM_CATEGORY_ORDER } from "@/data/team";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import "@/styles/pages/agents.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/agents/`, 302);
+}
+
+const lang = langParam;
+
+const copyByLang = {
+  es: {
+    title: "Portal de Agentes | BlancaReal",
+    description:
+      "Directorio de agentes y especialistas de BlancaReal por area: comercial, legal, inversiones y marketing.",
+    eyebrow: "Portal de Agentes",
+    heading: "Equipo comercial y especialistas",
+    intro:
+      "Accede a cada agente, su perfil y su area para coordinar operaciones con el equipo adecuado.",
+    languagesLabel: "Idiomas",
+    viewProfile: "Ver perfil",
+    emptyCategory: "Sin perfiles activos en esta categoria.",
+    categoryLabels: {
+      ceo: "Direccion",
+      commercial: "Comercial",
+      legal: "Legal",
+      investments: "Inversiones",
+      marketing: "Marketing",
+    },
+  },
+  en: {
+    title: "Agents Portal | BlancaReal",
+    description:
+      "BlancaReal directory of agents and specialists by area: sales, legal, investments and marketing.",
+    eyebrow: "Agents Portal",
+    heading: "Sales team and specialists",
+    intro:
+      "Access each agent profile and expertise area to coordinate operations with the right team.",
+    languagesLabel: "Languages",
+    viewProfile: "View profile",
+    emptyCategory: "No active profiles in this category.",
+    categoryLabels: {
+      ceo: "Leadership",
+      commercial: "Sales",
+      legal: "Legal",
+      investments: "Investments",
+      marketing: "Marketing",
+    },
+  },
+  de: {
+    title: "Agentenportal | BlancaReal",
+    description:
+      "Verzeichnis der BlancaReal Agenten und Spezialisten nach Bereichen: Vertrieb, Recht, Investments, Marketing.",
+    eyebrow: "Agentenportal",
+    heading: "Vertriebsteam und Spezialisten",
+    intro:
+      "Greifen Sie auf jedes Agentenprofil und den jeweiligen Schwerpunkt fuer Ihre Operation zu.",
+    languagesLabel: "Sprachen",
+    viewProfile: "Profil ansehen",
+    emptyCategory: "Keine aktiven Profile in dieser Kategorie.",
+    categoryLabels: {
+      ceo: "Leitung",
+      commercial: "Vertrieb",
+      legal: "Recht",
+      investments: "Investments",
+      marketing: "Marketing",
+    },
+  },
+  fr: {
+    title: "Portail Agents | BlancaReal",
+    description:
+      "Annuaire des agents et specialistes BlancaReal par domaine : commercial, juridique, investissements et marketing.",
+    eyebrow: "Portail Agents",
+    heading: "Equipe commerciale et specialistes",
+    intro:
+      "Accedez au profil de chaque agent et a son expertise pour coordonner vos operations.",
+    languagesLabel: "Langues",
+    viewProfile: "Voir le profil",
+    emptyCategory: "Aucun profil actif dans cette categorie.",
+    categoryLabels: {
+      ceo: "Direction",
+      commercial: "Commercial",
+      legal: "Juridique",
+      investments: "Investissements",
+      marketing: "Marketing",
+    },
+  },
+  it: {
+    title: "Portale Agenti | BlancaReal",
+    description:
+      "Directory agenti e specialisti BlancaReal per area: commerciale, legale, investimenti e marketing.",
+    eyebrow: "Portale Agenti",
+    heading: "Team commerciale e specialisti",
+    intro:
+      "Accedi al profilo di ogni agente e alla sua area per coordinare le operazioni con il team giusto.",
+    languagesLabel: "Lingue",
+    viewProfile: "Vedi profilo",
+    emptyCategory: "Nessun profilo attivo in questa categoria.",
+    categoryLabels: {
+      ceo: "Direzione",
+      commercial: "Commerciale",
+      legal: "Legale",
+      investments: "Investimenti",
+      marketing: "Marketing",
+    },
+  },
+  nl: {
+    title: "Agentenportaal | BlancaReal",
+    description:
+      "Directory van BlancaReal agenten en specialisten per domein: sales, juridisch, investeringen en marketing.",
+    eyebrow: "Agentenportaal",
+    heading: "Salesteam en specialisten",
+    intro:
+      "Open elk agentprofiel en expertisegebied om operaties met het juiste team te coordineren.",
+    languagesLabel: "Talen",
+    viewProfile: "Bekijk profiel",
+    emptyCategory: "Geen actieve profielen in deze categorie.",
+    categoryLabels: {
+      ceo: "Directie",
+      commercial: "Sales",
+      legal: "Juridisch",
+      investments: "Investeringen",
+      marketing: "Marketing",
+    },
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+
+const LANGUAGE_BADGES = {
+  es: { label: "Espanol", flagUrl: "/flags/es.svg" },
+  en: { label: "English", flagUrl: "/flags/gb.svg" },
+  fr: { label: "Francais", flagUrl: "/flags/fr.svg" },
+  de: { label: "Deutsch", flagUrl: "/flags/de.svg" },
+  nl: { label: "Nederlands", flagUrl: "/flags/nl.svg" },
+  it: { label: "Italiano", flagUrl: "/flags/it.svg" },
+};
+
+const slugify = (value) =>
+  String(value ?? "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+
+const normalizedMembers = teamMembers.map((member) => {
+  const role = member.role?.[lang] ?? member.role?.en ?? member.role?.es ?? "";
+  const photoUrl = member.photo?.url ?? null;
+  const photoAlt = member.photo?.alt?.[lang] ?? member.photo?.alt?.en ?? member.name;
+  const spokenLanguages = Array.isArray(member.spoken_languages)
+    ? member.spoken_languages.filter((code) => LANGUAGE_BADGES[code])
+    : [];
+  const slug = member.id ?? slugify(member.name);
+
+  return {
+    ...member,
+    role,
+    photoUrl,
+    photoAlt,
+    spokenLanguages,
+    slug,
+  };
+});
+
+const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => ({
+  id: categoryId,
+  label: t.categoryLabels[categoryId] ?? categoryId,
+  members: normalizedMembers.filter((member) => member.category === categoryId),
+}));
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="agents-hero container">
+    <span class="agents-eyebrow">{t.eyebrow}</span>
+    <h1>{t.heading}</h1>
+    <p>{t.intro}</p>
+  </section>
+
+  <section class="agents-directory container">
+    {membersByCategory.map((section) => (
+      <section class="agents-section" aria-labelledby={`agents-section-${section.id}`}>
+        <h2 id={`agents-section-${section.id}`}>{section.label}</h2>
+        {section.members.length === 0 ? (
+          <div class="agents-empty">{t.emptyCategory}</div>
+        ) : (
+          <div class="agents-grid">
+            {section.members.map((member) => (
+              <article class="agent-card">
+                <a class="agent-photo" href={`/${lang}/agents/${member.slug}/`}>
+                  {member.photoUrl ? (
+                    <img src={member.photoUrl} alt={member.photoAlt} loading="lazy" />
+                  ) : (
+                    <span>{member.name.slice(0, 1)}</span>
+                  )}
+                </a>
+                <div class="agent-body">
+                  <h3>
+                    <a href={`/${lang}/agents/${member.slug}/`}>{member.name}</a>
+                  </h3>
+                  <p>{member.role}</p>
+                  {member.spokenLanguages.length > 0 && (
+                    <div class="agent-languages">
+                      <span>{t.languagesLabel}</span>
+                      <ul>
+                        {member.spokenLanguages.map((langCode) => {
+                          const badge = LANGUAGE_BADGES[langCode];
+                          if (!badge) return null;
+                          return (
+                            <li title={badge.label}>
+                              <img src={badge.flagUrl} alt={badge.label} loading="lazy" />
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
+                  <a class="agent-cta" href={`/${lang}/agents/${member.slug}/`}>
+                    {t.viewProfile}
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+    ))}
+  </section>
+</BaseLayout>

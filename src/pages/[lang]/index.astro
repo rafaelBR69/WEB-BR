@@ -1,13 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import properties from "@/data/properties";
-import { normalizePropertyCard } from "@/utils/normalizePropertyCard";
-import { buildFilters } from "@/utils/buildFilters";
-import { displayLocation } from "@/utils/presentation";
-import { buildMapFeatures } from "@/utils/buildMapFeatures";
-import MapboxCostaMap from "@/components/MapboxCostaMap.astro";
-import PropertyCard from "@/components/PropertyCard.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import "@/styles/pages/landing.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
 
@@ -19,104 +13,534 @@ const lang = langParam;
 
 const copyByLang = {
   es: {
-    title: "BlancaReal | Inmobiliaria Costa del Sol",
+    title: "BlancaReal | Home",
     description:
-      "Propiedades y promociones exclusivas en Costa del Sol. Encuentre por referencia, ciudad o zona.",
-    eyebrow: "Costa del Sol",
-    heading: "Propiedades y proyectos exclusivos",
-    subtitle:
-      "Trabajamos directamente con promotoras para comercializar promociones seleccionadas y vivienda premium.",
-    searchTitle: "Buscador inteligente",
-    searchHint: "Busqueda por referencia, ciudad, zona o texto libre.",
-    queryLabel: "Que desea buscar",
-    queryPlaceholder: "Ej. atico con vistas en Manilva",
-    refLabel: "Referencia",
-    refPlaceholder: "Ej. PM0079-24",
-    zoneLabel: "Ciudad y zona",
-    zonePlaceholder: "Todas las zonas",
-    submit: "Buscar propiedades",
-    mapTitle: "Mapa de oportunidades en Costa del Sol",
-    mapText:
-      "Visualiza promociones y propiedades activas. Los proyectos se muestran una sola vez y solo con disponibilidad real.",
-    featuredTitle: "Propiedades destacadas",
-    featuredText: "Explora una seleccion ampliada con foto grande para comparar mejor cada vivienda.",
-    featuredCarouselLabel: "Carrusel de propiedades destacadas",
-    featuredPrev: "Propiedad anterior",
-    featuredNext: "Siguiente propiedad",
-    mapEmpty: "No hay ubicaciones disponibles en el mapa.",
-    resetMapView: "Reiniciar mapa",
-    zoomSpain: "Ver Espana",
-    poiFilters: [
-      { id: "restaurant", label: "Restaurantes" },
-      { id: "hospital", label: "Hospitales" },
-      { id: "school", label: "Colegios" },
-      { id: "pharmacy", label: "Farmacias" },
-      { id: "airport", label: "Aeropuertos" },
-      { id: "leisure", label: "Ocio" },
-    ],
+      "BlancaReal integra Real Estate, servicios legales y comercializacion en un unico ecosistema.",
+    heroEyebrow: "BlancaReal Group",
+    heroHeading: "Real Estate, Legal y Comercializacion en un solo portal",
+    heroText:
+      "Estructura modular para clientes, inversores y promotoras en Costa del Sol.",
+    pillarsHeading: "Tres lineas de negocio conectadas",
+    pillarsText:
+      "Accede a cada area desde esta portada principal, con navegacion clara y experiencia unificada.",
+    navAgents: "Agentes",
+    navContact: "Contacto",
+    navPromoters: "Promotoras",
+    blocks: {
+      realEstate: {
+        title: "Real Estate",
+        text: "Mapa, propiedades, filtros y operaciones inmobiliarias.",
+        cta: "Entrar a Real Estate",
+        imageAlt: "Bloque de Real Estate BlancaReal",
+      },
+      legal: {
+        title: "Servicios Legales",
+        text: "Cobertura juridica para compraventa, alquiler e inversion.",
+        cta: "Entrar a Legal",
+        imageAlt: "Bloque de servicios legales BlancaReal",
+      },
+      commercialization: {
+        title: "Comercializacion",
+        text: "Estrategia comercial para promotoras y producto residencial.",
+        cta: "Entrar a Comercializacion",
+        imageAlt: "Bloque de comercializacion BlancaReal",
+      },
+    },
   },
   en: {
-    title: "BlancaReal | Costa del Sol Real Estate",
+    title: "BlancaReal | Home",
     description:
-      "Exclusive properties and developments on the Costa del Sol. Search by reference, city or area.",
-    eyebrow: "Costa del Sol",
-    heading: "Exclusive properties and projects",
-    subtitle:
-      "We work directly with developers to market selected developments and premium homes.",
-    searchTitle: "Smart search",
-    searchHint: "Search by reference, city, area or free text.",
-    queryLabel: "What are you looking for",
-    queryPlaceholder: "e.g. penthouse sea view in Manilva",
-    refLabel: "Reference",
-    refPlaceholder: "e.g. PM0079-24",
-    zoneLabel: "City and area",
-    zonePlaceholder: "All areas",
-    submit: "Search properties",
-    mapTitle: "Opportunity map on Costa del Sol",
-    mapText:
-      "Explore active projects and properties. Developments are shown once, with real-time available stock only.",
-    featuredTitle: "Featured properties",
-    featuredText: "Browse an expanded selection with large photos so each home is easier to compare.",
-    featuredCarouselLabel: "Featured properties carousel",
-    featuredPrev: "Previous property",
-    featuredNext: "Next property",
-    mapEmpty: "No map locations available.",
-    resetMapView: "Reset map",
-    zoomSpain: "View Spain",
-    poiFilters: [
-      { id: "restaurant", label: "Restaurants" },
-      { id: "hospital", label: "Hospitals" },
-      { id: "school", label: "Schools" },
-      { id: "pharmacy", label: "Pharmacies" },
-      { id: "airport", label: "Airports" },
-      { id: "leisure", label: "Leisure" },
-    ],
+      "BlancaReal combines Real Estate, legal services and commercialization in one ecosystem.",
+    heroEyebrow: "BlancaReal Group",
+    heroHeading: "Real Estate, Legal and Commercialization in one portal",
+    heroText:
+      "A modular structure for clients, investors and developers on Costa del Sol.",
+    pillarsHeading: "Three connected business lines",
+    pillarsText:
+      "Access each area from this main landing page with a clear and unified navigation.",
+    navAgents: "Agents",
+    navContact: "Contact",
+    navPromoters: "Developers",
+    blocks: {
+      realEstate: {
+        title: "Real Estate",
+        text: "Map, properties, filters and real estate operations.",
+        cta: "Enter Real Estate",
+        imageAlt: "BlancaReal Real Estate block",
+      },
+      legal: {
+        title: "Legal Services",
+        text: "Legal coverage for buying, renting and investment.",
+        cta: "Enter Legal Services",
+        imageAlt: "BlancaReal legal services block",
+      },
+      commercialization: {
+        title: "Commercialization",
+        text: "Sales strategy for developers and residential inventory.",
+        cta: "Enter Commercialization",
+        imageAlt: "BlancaReal commercialization block",
+      },
+    },
+  },
+  de: {
+    title: "BlancaReal | Start",
+    description:
+      "BlancaReal vereint Real Estate, Rechtsservice und Vermarktung in einem Portal.",
+    heroEyebrow: "BlancaReal Group",
+    heroHeading: "Real Estate, Recht und Vermarktung in einem Portal",
+    heroText:
+      "Modulare Struktur fuer Kunden, Investoren und Bautraeger an der Costa del Sol.",
+    pillarsHeading: "Drei vernetzte Geschaeftsbereiche",
+    pillarsText:
+      "Greifen Sie von dieser Startseite klar und einheitlich auf jeden Bereich zu.",
+    navAgents: "Agenten",
+    navContact: "Kontakt",
+    navPromoters: "Bautraeger",
+    blocks: {
+      realEstate: {
+        title: "Real Estate",
+        text: "Karte, Immobilien, Filter und Immobilien-Operationen.",
+        cta: "Zu Real Estate",
+        imageAlt: "Real Estate Bereich von BlancaReal",
+      },
+      legal: {
+        title: "Rechtsservice",
+        text: "Juristische Betreuung fuer Kauf, Miete und Investition.",
+        cta: "Zu Rechtsservice",
+        imageAlt: "Rechtsservice Bereich von BlancaReal",
+      },
+      commercialization: {
+        title: "Vermarktung",
+        text: "Vertriebsstrategie fuer Bautraeger und Wohnprojekte.",
+        cta: "Zu Vermarktung",
+        imageAlt: "Vermarktungsbereich von BlancaReal",
+      },
+    },
+  },
+  fr: {
+    title: "BlancaReal | Accueil",
+    description:
+      "BlancaReal reunit Real Estate, services juridiques et commercialisation en un seul portail.",
+    heroEyebrow: "BlancaReal Group",
+    heroHeading: "Real Estate, Juridique et Commercialisation sur un seul portail",
+    heroText:
+      "Structure modulaire pour clients, investisseurs et promoteurs sur la Costa del Sol.",
+    pillarsHeading: "Trois lignes d activite connectees",
+    pillarsText:
+      "Accedez a chaque pole depuis cette page principale avec une navigation claire.",
+    navAgents: "Agents",
+    navContact: "Contact",
+    navPromoters: "Promoteurs",
+    blocks: {
+      realEstate: {
+        title: "Real Estate",
+        text: "Carte, proprietes, filtres et operations immobilieres.",
+        cta: "Entrer dans Real Estate",
+        imageAlt: "Bloc Real Estate BlancaReal",
+      },
+      legal: {
+        title: "Services Juridiques",
+        text: "Couverture juridique pour achat, location et investissement.",
+        cta: "Entrer dans le service juridique",
+        imageAlt: "Bloc services juridiques BlancaReal",
+      },
+      commercialization: {
+        title: "Commercialisation",
+        text: "Strategie commerciale pour promoteurs et produit residentiel.",
+        cta: "Entrer dans Commercialisation",
+        imageAlt: "Bloc commercialisation BlancaReal",
+      },
+    },
+  },
+  it: {
+    title: "BlancaReal | Home",
+    description:
+      "BlancaReal unisce Real Estate, servizi legali e commercializzazione in un unico portale.",
+    heroEyebrow: "BlancaReal Group",
+    heroHeading: "Real Estate, Legale e Commercializzazione in un solo portale",
+    heroText:
+      "Struttura modulare per clienti, investitori e promotori in Costa del Sol.",
+    pillarsHeading: "Tre linee di business connesse",
+    pillarsText:
+      "Accedi a ogni area da questa home principale con navigazione chiara e unificata.",
+    navAgents: "Agenti",
+    navContact: "Contatto",
+    navPromoters: "Promotori",
+    blocks: {
+      realEstate: {
+        title: "Real Estate",
+        text: "Mappa, proprieta, filtri e operazioni immobiliari.",
+        cta: "Entra in Real Estate",
+        imageAlt: "Blocco Real Estate BlancaReal",
+      },
+      legal: {
+        title: "Servizi Legali",
+        text: "Copertura legale per acquisto, affitto e investimento.",
+        cta: "Entra nei Servizi Legali",
+        imageAlt: "Blocco servizi legali BlancaReal",
+      },
+      commercialization: {
+        title: "Commercializzazione",
+        text: "Strategia commerciale per promotori e prodotto residenziale.",
+        cta: "Entra in Commercializzazione",
+        imageAlt: "Blocco commercializzazione BlancaReal",
+      },
+    },
+  },
+  nl: {
+    title: "BlancaReal | Home",
+    description:
+      "BlancaReal combineert Real Estate, juridische diensten en commercialisatie in een portal.",
+    heroEyebrow: "BlancaReal Group",
+    heroHeading: "Real Estate, Juridisch en Commercialisatie in een portal",
+    heroText:
+      "Modulaire structuur voor klanten, investeerders en ontwikkelaars aan de Costa del Sol.",
+    pillarsHeading: "Drie verbonden businesslijnen",
+    pillarsText:
+      "Ga vanuit deze hoofdlanding naar elk domein met duidelijke en uniforme navigatie.",
+    navAgents: "Agenten",
+    navContact: "Contact",
+    navPromoters: "Projectontwikkelaars",
+    blocks: {
+      realEstate: {
+        title: "Real Estate",
+        text: "Kaart, woningen, filters en vastgoedoperaties.",
+        cta: "Ga naar Real Estate",
+        imageAlt: "Real Estate blok van BlancaReal",
+      },
+      legal: {
+        title: "Juridische Diensten",
+        text: "Juridische begeleiding bij aankoop, verhuur en investering.",
+        cta: "Ga naar Juridische Diensten",
+        imageAlt: "Juridische diensten blok van BlancaReal",
+      },
+      commercialization: {
+        title: "Commercialisatie",
+        text: "Commerciele strategie voor ontwikkelaars en residentieel aanbod.",
+        cta: "Ga naar Commercialisatie",
+        imageAlt: "Commercialisatie blok van BlancaReal",
+      },
+    },
   },
 };
 
 const t = copyByLang[lang] ?? copyByLang.es;
 
-const cards = properties
-  .map((property) => normalizePropertyCard(property, lang))
-  .filter(Boolean)
-  .filter((card) => card.visible && card.status !== "sold");
+const extraCopyByLang = {
+  es: {
+    aboutRows: [
+      {
+        title: "Trayectoria y confianza",
+        text: "BlancaReal trabaja en Costa del Sol desde 1959 y ha acompanado a mas de 1.000 familias en sus operaciones inmobiliarias.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        imageAlt: "Promocion residencial en Costa del Sol",
+      },
+      {
+        title: "Servicios integrados",
+        text: "Integramos Real Estate, comercializacion, asesoramiento legal-fiscal y gestion de patrimonio para cubrir todo el ciclo de una operacion.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        imageAlt: "Equipo y servicios inmobiliarios integrados",
+      },
+      {
+        title: "Cobertura local e internacional",
+        text: "Con sede en Calahonda, Mijas Costa, operamos con enfoque local y atencion multilingue para clientes nacionales e internacionales.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        imageAlt: "Vista de Costa del Sol con promociones residenciales",
+      },
+    ],
+    collaboratorsTitle: "Colaboradores estrategicos",
+    collaboratorsAria: "Ruleta de colaboradores de BlancaReal",
+    collaborators: [
+      "Promotoras asociadas",
+      "Despachos legales",
+      "Notarias locales",
+      "Tasadores homologados",
+      "Brokers hipotecarios",
+      "Arquitectos y tecnicos",
+      "Gestores patrimoniales",
+      "Especialistas de marketing",
+    ],
+    footerTagline: "Inmobiliaria y servicios integrados en Costa del Sol.",
+    footerSections: "Secciones",
+    footerContact: "Contacto",
+    footerLegal: "Legal",
+    footerRights: "Todos los derechos reservados.",
+    privacy: "Politica de privacidad",
+    cookies: "Cookies",
+  },
+  en: {
+    aboutRows: [
+      {
+        title: "Track record and trust",
+        text: "BlancaReal has operated on Costa del Sol since 1959 and has supported more than 1,000 families in real estate operations.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        imageAlt: "Residential development on Costa del Sol",
+      },
+      {
+        title: "Integrated services",
+        text: "We combine Real Estate, commercialization, legal-tax advisory and asset management to cover the full operation lifecycle.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        imageAlt: "Integrated real estate service model",
+      },
+      {
+        title: "Local and international reach",
+        text: "From our Calahonda office in Mijas Costa, we serve local and international clients with multilingual support.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        imageAlt: "Costa del Sol view with residential projects",
+      },
+    ],
+    collaboratorsTitle: "Strategic collaborators",
+    collaboratorsAria: "BlancaReal collaborators wheel",
+    collaborators: [
+      "Associated developers",
+      "Legal firms",
+      "Local notaries",
+      "Certified appraisers",
+      "Mortgage brokers",
+      "Architects and surveyors",
+      "Asset managers",
+      "Marketing specialists",
+    ],
+    footerTagline: "Real estate and integrated services on Costa del Sol.",
+    footerSections: "Sections",
+    footerContact: "Contact",
+    footerLegal: "Legal",
+    footerRights: "All rights reserved.",
+    privacy: "Privacy policy",
+    cookies: "Cookies",
+  },
+  de: {
+    aboutRows: [
+      {
+        title: "Erfahrung und Vertrauen",
+        text: "BlancaReal ist seit 1959 an der Costa del Sol taetig und hat mehr als 1.000 Familien bei Immobilienoperationen begleitet.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        imageAlt: "Wohnprojekt an der Costa del Sol",
+      },
+      {
+        title: "Integrierte Leistungen",
+        text: "Wir verbinden Real Estate, Vermarktung, Rechts- und Steuerberatung sowie Asset-Management in einem Modell.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        imageAlt: "Integriertes Immobilien-Servicemodell",
+      },
+      {
+        title: "Lokal und international",
+        text: "Vom Standort Calahonda in Mijas Costa betreuen wir lokale und internationale Kunden mit mehrsprachigem Team.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        imageAlt: "Blick auf die Costa del Sol mit Wohnprojekten",
+      },
+    ],
+    collaboratorsTitle: "Strategische Partner",
+    collaboratorsAria: "Partner-Rad von BlancaReal",
+    collaborators: [
+      "Partner-Bautraeger",
+      "Rechtskanzleien",
+      "Lokale Notare",
+      "Zertifizierte Gutachter",
+      "Hypothekenmakler",
+      "Architekten und Techniker",
+      "Asset Manager",
+      "Marketing-Spezialisten",
+    ],
+    footerTagline: "Immobilien und integrierte Services an der Costa del Sol.",
+    footerSections: "Bereiche",
+    footerContact: "Kontakt",
+    footerLegal: "Rechtliches",
+    footerRights: "Alle Rechte vorbehalten.",
+    privacy: "Datenschutz",
+    cookies: "Cookies",
+  },
+  fr: {
+    aboutRows: [
+      {
+        title: "Experience et confiance",
+        text: "BlancaReal opere sur la Costa del Sol depuis 1959 et a accompagne plus de 1 000 familles.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        imageAlt: "Programme residentiel sur la Costa del Sol",
+      },
+      {
+        title: "Services integres",
+        text: "Nous combinons Real Estate, commercialisation, conseil juridique-fiscal et gestion patrimoniale dans un seul modele.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        imageAlt: "Modele immobilier integre",
+      },
+      {
+        title: "Portee locale et internationale",
+        text: "Depuis Calahonda a Mijas Costa, nous accompagnons des clients locaux et internationaux en plusieurs langues.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        imageAlt: "Vue de la Costa del Sol avec projets residentiels",
+      },
+    ],
+    collaboratorsTitle: "Collaborateurs strategiques",
+    collaboratorsAria: "Roulette des collaborateurs BlancaReal",
+    collaborators: [
+      "Promoteurs associes",
+      "Cabinets juridiques",
+      "Notaires locaux",
+      "Experts agrees",
+      "Courtiers hypothecaires",
+      "Architectes et techniciens",
+      "Gestionnaires d actifs",
+      "Specialistes marketing",
+    ],
+    footerTagline: "Immobilier et services integres sur la Costa del Sol.",
+    footerSections: "Sections",
+    footerContact: "Contact",
+    footerLegal: "Legal",
+    footerRights: "Tous droits reserves.",
+    privacy: "Politique de confidentialite",
+    cookies: "Cookies",
+  },
+  it: {
+    aboutRows: [
+      {
+        title: "Esperienza e fiducia",
+        text: "BlancaReal opera in Costa del Sol dal 1959 e ha supportato oltre 1.000 famiglie nelle operazioni immobiliari.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        imageAlt: "Sviluppo residenziale in Costa del Sol",
+      },
+      {
+        title: "Servizi integrati",
+        text: "Uniamo Real Estate, commercializzazione, consulenza legale-fiscale e gestione patrimoniale in un unico modello operativo.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        imageAlt: "Modello integrato di servizi immobiliari",
+      },
+      {
+        title: "Copertura locale e internazionale",
+        text: "Dalla sede di Calahonda a Mijas Costa seguiamo clienti locali e internazionali con team multilingue.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        imageAlt: "Vista Costa del Sol con progetti residenziali",
+      },
+    ],
+    collaboratorsTitle: "Collaboratori strategici",
+    collaboratorsAria: "Ruota collaboratori BlancaReal",
+    collaborators: [
+      "Promotori associati",
+      "Studi legali",
+      "Notai locali",
+      "Periti certificati",
+      "Broker mutui",
+      "Architetti e tecnici",
+      "Asset manager",
+      "Specialisti marketing",
+    ],
+    footerTagline: "Real estate e servizi integrati in Costa del Sol.",
+    footerSections: "Sezioni",
+    footerContact: "Contatto",
+    footerLegal: "Legale",
+    footerRights: "Tutti i diritti riservati.",
+    privacy: "Privacy policy",
+    cookies: "Cookies",
+  },
+  nl: {
+    aboutRows: [
+      {
+        title: "Ervaring en vertrouwen",
+        text: "BlancaReal is sinds 1959 actief aan de Costa del Sol en begeleidde meer dan 1.000 families bij vastgoedoperaties.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        imageAlt: "Residentieel project aan de Costa del Sol",
+      },
+      {
+        title: "Geintegreerde diensten",
+        text: "Wij combineren Real Estate, commercialisatie, juridisch-fiscaal advies en vermogensbeheer in een integraal model.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        imageAlt: "Geintegreerd vastgoed servicemodel",
+      },
+      {
+        title: "Lokale en internationale dekking",
+        text: "Vanuit Calahonda in Mijas Costa bedienen we lokale en internationale klanten met meertalige ondersteuning.",
+        image:
+          "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        imageAlt: "Uitzicht op Costa del Sol met residentiele projecten",
+      },
+    ],
+    collaboratorsTitle: "Strategische samenwerkingen",
+    collaboratorsAria: "Samenwerkingsroulette BlancaReal",
+    collaborators: [
+      "Geassocieerde ontwikkelaars",
+      "Juridische kantoren",
+      "Lokale notarissen",
+      "Gecertificeerde taxateurs",
+      "Hypotheekmakelaars",
+      "Architecten en technici",
+      "Vermogensbeheerders",
+      "Marketing specialisten",
+    ],
+    footerTagline: "Vastgoed en geintegreerde diensten aan de Costa del Sol.",
+    footerSections: "Secties",
+    footerContact: "Contact",
+    footerLegal: "Juridisch",
+    footerRights: "Alle rechten voorbehouden.",
+    privacy: "Privacybeleid",
+    cookies: "Cookies",
+  },
+};
 
-const filters = buildFilters(cards);
-
-const zoneOptions = filters.cities
-  .map((city) => {
-    const areas = filters.areas?.[city] ?? [];
-    return {
-      city,
-      areas,
-    };
-  })
-  .sort((a, b) => a.city.localeCompare(b.city));
+const extra = extraCopyByLang[lang] ?? extraCopyByLang.es;
 
 const HERO_VIDEO_URL = "/videos/home-hero-2025.mp4";
-const mapboxToken = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
-const mapboxStyle = import.meta.env.PUBLIC_MAPBOX_STYLE ?? "mapbox://styles/mapbox/streets-v12";
-const mapFeatures = buildMapFeatures(properties, lang);
+
+const landingNavItems = [
+  { href: `/${lang}/agents/`, label: t.navAgents },
+  { href: `/${lang}/contact/`, label: t.navContact },
+  { href: `/${lang}/projects/`, label: t.navPromoters },
+];
+
+const blocks = [
+  {
+    id: "real-estate",
+    href: `/${lang}/real-estate/`,
+    image:
+      "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+    title: t.blocks.realEstate.title,
+    imageAlt: t.blocks.realEstate.imageAlt,
+  },
+  {
+    id: "legal",
+    href: `/${lang}/legal-services/`,
+    image:
+      "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+    title: t.blocks.legal.title,
+    imageAlt: t.blocks.legal.imageAlt,
+  },
+  {
+    id: "commercialization",
+    href: `/${lang}/commercialization/`,
+    image:
+      "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+    title: t.blocks.commercialization.title,
+    imageAlt: t.blocks.commercialization.imageAlt,
+  },
+];
+
+const collaboratorLoop = [...extra.collaborators, ...extra.collaborators];
+
+const footerLinks = [
+  { href: `/${lang}/real-estate/`, label: t.blocks.realEstate.title },
+  { href: `/${lang}/legal-services/`, label: t.blocks.legal.title },
+  { href: `/${lang}/commercialization/`, label: t.blocks.commercialization.title },
+  { href: `/${lang}/agents/`, label: t.navAgents },
+  { href: `/${lang}/contact/`, label: t.navContact },
+];
+
+const currentYear = new Date().getFullYear();
 ---
 
 <BaseLayout
@@ -124,208 +548,117 @@ const mapFeatures = buildMapFeatures(properties, lang);
   description={t.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  headerVariant="landing"
+  landingNavItems={landingNavItems}
+  showMobileStickyCta={false}
 >
-  <section class="home-hero">
-      <video
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        disablepictureinpicture
-        disableremoteplayback
-        tabindex="-1"
-        aria-hidden="true"
-        poster="https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp"
-      >
-        <source src={HERO_VIDEO_URL} type="video/mp4" />
-      </video>
-      <div class="hero-overlay"></div>
-
-      <div class="hero-content container">
-        <span class="hero-eyebrow">{t.eyebrow}</span>
-        <h1>{t.heading}</h1>
-        <p>{t.subtitle}</p>
-      </div>
+  <section class="landing-hero">
+    <video
+      class="landing-hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      disablepictureinpicture
+      disableremoteplayback
+      tabindex="-1"
+      aria-hidden="true"
+      poster="https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp"
+    >
+      <source src={HERO_VIDEO_URL} type="video/mp4" />
+    </video>
+    <div class="landing-hero-overlay"></div>
   </section>
 
-  <section class="home-search-wrap">
-      <div class="container">
-        <form class="home-search" method="get" action={`/${lang}/properties/`} id="homeSearchForm">
-          <div class="search-header">
-            <h2>{t.searchTitle}</h2>
-            <p>{t.searchHint}</p>
-          </div>
-
-          <div class="search-grid">
-            <label class="field">
-              <span>{t.queryLabel}</span>
-              <input
-                type="search"
-                name="q"
-                placeholder={t.queryPlaceholder}
-                autocomplete="off"
-              />
-            </label>
-
-            <label class="field">
-              <span>{t.refLabel}</span>
-              <input
-                type="text"
-                name="ref"
-                placeholder={t.refPlaceholder}
-                autocomplete="off"
-              />
-            </label>
-
-            <label class="field select-field">
-              <span>{t.zoneLabel}</span>
-              <div class="zone-picker" id="zonePicker">
-                <button
-                  type="button"
-                  class="zone-trigger"
-                  id="zoneTrigger"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                  aria-controls="zoneMenu"
-                >
-                  <span id="zoneLabel">{t.zonePlaceholder}</span>
-                </button>
-                <div class="zone-menu" id="zoneMenu" role="listbox" hidden>
-                  <button
-                    type="button"
-                    class="zone-option is-active"
-                    data-city=""
-                    data-area=""
-                    data-label={t.zonePlaceholder}
-                    role="option"
-                    aria-selected="true"
-                  >
-                    {t.zonePlaceholder}
-                  </button>
-                  {zoneOptions.map((zone) => (
-                    <>
-                      <p class="zone-group">{displayLocation(zone.city)}</p>
-                      <button
-                        type="button"
-                        class="zone-option"
-                        data-city={zone.city}
-                        data-area=""
-                        data-label={displayLocation(zone.city)}
-                        role="option"
-                      >
-                        {displayLocation(zone.city)}
-                      </button>
-                      {zone.areas.map((area) => (
-                        <button
-                          type="button"
-                          class="zone-option zone-option-area"
-                          data-city={zone.city}
-                          data-area={area}
-                          data-label={displayLocation(area)}
-                          role="option"
-                        >
-                          {displayLocation(area)}
-                        </button>
-                      ))}
-                    </>
-                  ))}
-                </div>
-              </div>
-            </label>
-
-            <button type="submit" class="search-btn">{t.submit}</button>
-          </div>
-
-          <input type="hidden" name="city" id="cityHidden" disabled />
-          <input type="hidden" name="area" id="areaHidden" disabled />
-        </form>
-      </div>
-  </section>
-
-  <section class="home-map-wrap">
-      <div class="container">
-        <div class="home-map-head">
-          <h2>{t.mapTitle}</h2>
-          <p>{t.mapText}</p>
-        </div>
-        <MapboxCostaMap
-          token={mapboxToken}
-          styleUrl={mapboxStyle}
-          features={mapFeatures}
-          poisUrl="/data/pois.geojson"
-          poiFilters={t.poiFilters}
-          emptyMessage={t.mapEmpty}
-          resetViewLabel={t.resetMapView}
-        />
-      </div>
-  </section>
-
-  <section class="home-properties-preview">
-    <div class="container">
-      <div class="home-properties-head">
-        <h2>{t.featuredTitle}</h2>
-        <p>{t.featuredText}</p>
-      </div>
-      <div class="home-properties-carousel" aria-label={t.featuredCarouselLabel}>
-        <div class="home-carousel-controls">
-          <button
-            type="button"
-            class="home-carousel-btn"
-            id="featuredPrevBtn"
-            aria-label={t.featuredPrev}
-          >
-            <svg
-              class="home-carousel-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M15 5l-7 7 7 7"
-                stroke="currentColor"
-                stroke-width="2.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="home-carousel-btn"
-            id="featuredNextBtn"
-            aria-label={t.featuredNext}
-          >
-            <svg
-              class="home-carousel-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M9 5l7 7-7 7"
-                stroke="currentColor"
-                stroke-width="2.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-        <div class="home-carousel-track" id="featuredTrack">
-          {cards.slice(0, 8).map((card) => (
-            <div class="home-carousel-slide">
-              <PropertyCard data={card} lang={lang} />
+  <section class="landing-pillars">
+    <div class="landing-pillars-grid">
+      {blocks.map((block) => (
+        <article class="pillar-card" data-id={block.id}>
+          <a class="pillar-link" href={block.href}>
+            <img src={block.image} alt={block.imageAlt} loading="lazy" decoding="async" />
+            <div class="pillar-overlay"></div>
+            <div class="pillar-content">
+              <h3>{block.title}</h3>
             </div>
-          ))}
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="landing-about-z container">
+    {extra.aboutRows.map((row, index) => (
+      <article class={`z-row ${index % 2 === 1 ? "is-reverse" : ""}`}>
+        <div class="z-media">
+          <img src={row.image} alt={row.imageAlt} loading="lazy" decoding="async" />
         </div>
+        <div class="z-copy">
+          <h2>{row.title}</h2>
+          <p>{row.text}</p>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="landing-collaborators" aria-label={extra.collaboratorsAria}>
+    <div class="container">
+      <h2>{extra.collaboratorsTitle}</h2>
+    </div>
+    <div class="collaborators-marquee">
+      <div class="collaborators-track">
+        {collaboratorLoop.map((item, index) => (
+          <article class="collab-pill" aria-hidden={index >= extra.collaborators.length ? "true" : undefined}>
+            <span class="collab-dot"></span>
+            <p>{item}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
+  <footer class="landing-footer">
+    <div class="container landing-footer-grid">
+      <section class="footer-brand">
+        <h2>BlancaReal</h2>
+        <p>{extra.footerTagline}</p>
+      </section>
+
+      <section class="footer-nav">
+        <h3>{extra.footerSections}</h3>
+        <ul>
+          {footerLinks.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="footer-contact">
+        <h3>{extra.footerContact}</h3>
+        <ul>
+          <li><a href="tel:+34952599159">+34 952 599 159</a></li>
+          <li><a href="mailto:info@blancareal.com">info@blancareal.com</a></li>
+          <li>Calle Monte Calahonda, 10 - 29649 Mijas Costa, Malaga</li>
+        </ul>
+      </section>
+
+      <section class="footer-legal">
+        <h3>{extra.footerLegal}</h3>
+        <ul>
+          <li><a href="#">{extra.privacy}</a></li>
+          <li><a href="#">{extra.cookies}</a></li>
+        </ul>
+      </section>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {currentYear} BlancaReal. {extra.footerRights}</p>
+    </div>
+  </footer>
+
   <script is:inline>
-    const heroVideo = document.querySelector(".hero-video");
+    const heroVideo = document.querySelector(".landing-hero-video");
 
     const keepHeroVideoPlaying = () => {
       if (!(heroVideo instanceof HTMLVideoElement)) return;
@@ -337,136 +670,11 @@ const mapFeatures = buildMapFeatures(properties, lang);
     if (heroVideo instanceof HTMLVideoElement) {
       heroVideo.addEventListener("pause", keepHeroVideoPlaying);
       heroVideo.addEventListener("ended", keepHeroVideoPlaying);
-
       document.addEventListener("visibilitychange", () => {
         if (!document.hidden) {
           keepHeroVideoPlaying();
         }
       });
-    }
-
-    const form = document.getElementById("homeSearchForm");
-    const zonePicker = document.getElementById("zonePicker");
-    const zoneTrigger = document.getElementById("zoneTrigger");
-    const zoneMenu = document.getElementById("zoneMenu");
-    const zoneLabel = document.getElementById("zoneLabel");
-    const zoneOptions = zoneMenu?.querySelectorAll(".zone-option") ?? [];
-    const cityHidden = document.getElementById("cityHidden");
-    const areaHidden = document.getElementById("areaHidden");
-
-    const setSelection = (option) => {
-      if (!(option instanceof HTMLButtonElement)) return;
-      if (!(cityHidden instanceof HTMLInputElement)) return;
-      if (!(areaHidden instanceof HTMLInputElement)) return;
-      if (!zoneLabel) return;
-
-      zoneOptions.forEach((node) => {
-        node.classList.remove("is-active");
-        node.setAttribute("aria-selected", "false");
-      });
-
-      option.classList.add("is-active");
-      option.setAttribute("aria-selected", "true");
-
-      zoneLabel.textContent = option.dataset.label || "";
-
-      cityHidden.value = option.dataset.city || "";
-      areaHidden.value = option.dataset.area || "";
-      cityHidden.disabled = !cityHidden.value;
-      areaHidden.disabled = !areaHidden.value;
-    };
-
-    zoneTrigger?.addEventListener("click", () => {
-      if (!(zoneMenu instanceof HTMLDivElement)) return;
-      const isOpen = zoneMenu.hasAttribute("hidden");
-      if (isOpen) {
-        zoneMenu.removeAttribute("hidden");
-      } else {
-        zoneMenu.setAttribute("hidden", "");
-      }
-      zoneTrigger.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    zoneOptions.forEach((option) => {
-      option.addEventListener("click", () => {
-        setSelection(option);
-        if (zoneMenu instanceof HTMLDivElement) {
-          zoneMenu.setAttribute("hidden", "");
-        }
-        zoneTrigger?.setAttribute("aria-expanded", "false");
-      });
-    });
-
-    document.addEventListener("click", (event) => {
-      if (!(zonePicker instanceof HTMLElement)) return;
-      if (!(zoneMenu instanceof HTMLDivElement)) return;
-      if (zonePicker.contains(event.target)) return;
-      zoneMenu.setAttribute("hidden", "");
-      zoneTrigger?.setAttribute("aria-expanded", "false");
-    });
-
-    form?.addEventListener("submit", () => {
-      if (!(cityHidden instanceof HTMLInputElement)) return;
-      if (!(areaHidden instanceof HTMLInputElement)) return;
-      cityHidden.disabled = !cityHidden.value;
-      areaHidden.disabled = !areaHidden.value;
-    });
-
-    const featuredTrack = document.getElementById("featuredTrack");
-    const featuredPrevBtn = document.getElementById("featuredPrevBtn");
-    const featuredNextBtn = document.getElementById("featuredNextBtn");
-
-    if (
-      featuredTrack instanceof HTMLDivElement &&
-      featuredPrevBtn instanceof HTMLButtonElement &&
-      featuredNextBtn instanceof HTMLButtonElement
-    ) {
-      const getScrollStep = () => {
-        const firstSlide = featuredTrack.querySelector(".home-carousel-slide");
-        if (!(firstSlide instanceof HTMLElement)) {
-          return featuredTrack.clientWidth;
-        }
-        const trackStyles = window.getComputedStyle(featuredTrack);
-        const gapValue = trackStyles.columnGap || trackStyles.gap || "0";
-        const gap = Number.parseFloat(gapValue) || 0;
-        return firstSlide.offsetWidth + gap;
-      };
-
-      const updateFeaturedControls = () => {
-        const maxScrollLeft = featuredTrack.scrollWidth - featuredTrack.clientWidth - 2;
-        const canScroll = maxScrollLeft > 0;
-
-        if (!canScroll) {
-          featuredPrevBtn.disabled = true;
-          featuredNextBtn.disabled = true;
-          featuredPrevBtn.hidden = true;
-          featuredNextBtn.hidden = true;
-          return;
-        }
-
-        featuredPrevBtn.hidden = false;
-        featuredNextBtn.hidden = false;
-        featuredPrevBtn.disabled = featuredTrack.scrollLeft <= 2;
-        featuredNextBtn.disabled = featuredTrack.scrollLeft >= maxScrollLeft;
-      };
-
-      const scrollFeatured = (direction) => {
-        featuredTrack.scrollBy({
-          left: direction * getScrollStep(),
-          behavior: "smooth",
-        });
-      };
-
-      featuredPrevBtn.addEventListener("click", () => scrollFeatured(-1));
-      featuredNextBtn.addEventListener("click", () => scrollFeatured(1));
-
-      featuredTrack.addEventListener(
-        "scroll",
-        () => window.requestAnimationFrame(updateFeaturedControls),
-        { passive: true }
-      );
-      window.addEventListener("resize", updateFeaturedControls);
-      updateFeaturedControls();
     }
   </script>
 </BaseLayout>

@@ -1,4 +1,4 @@
-﻿---
+---
 import "@/styles/base.css";
 import "@/styles/layout.css";
 import "@/styles/components/property-card.css";
@@ -22,6 +22,9 @@ const {
   lang = DEFAULT_LANG,
   og = {},
   availableLangs,
+  headerVariant = "default",
+  landingNavItems = [],
+  showMobileStickyCta = true,
 } = Astro.props;
 
 const SITE_URL = "https://blancareal.com";
@@ -29,7 +32,6 @@ const SITE_URL = "https://blancareal.com";
 const currentUrl = Astro.url;
 const canonicalPath = currentUrl.pathname;
 
-// Canonical SIEMPRE sin query params
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
 
 const resolveLangs = () => {
@@ -73,6 +75,66 @@ const ogLocaleMap = {
   de: "de_DE",
   nl: "nl_NL",
 };
+
+const isLandingHeader = headerVariant === "landing";
+
+const normalizePath = (value) => {
+  const path = String(value ?? "");
+  if (!path) return "/";
+  return path.endsWith("/") ? path : `${path}/`;
+};
+
+const isActiveHref = (href) => {
+  if (typeof href !== "string" || !href.startsWith("/")) return false;
+  const current = normalizePath(canonicalPath);
+  const cleanHref = href.split("?")[0]?.split("#")[0] ?? href;
+  const target = normalizePath(cleanHref);
+  if (target === `/${lang}/`) {
+    return current === target;
+  }
+  return current.startsWith(target);
+};
+
+const defaultLandingNavItems = [
+  { href: `/${lang}/agents/`, label: ui.layout.navAgents },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+  { href: `/${lang}/projects/`, label: ui.layout.navPromoters },
+];
+
+const resolvedLandingNavItems =
+  Array.isArray(landingNavItems) && landingNavItems.length
+    ? landingNavItems
+    : defaultLandingNavItems;
+
+const sideMenuSections = [
+  {
+    title: ui.layout.menuMain,
+    items: [
+      { href: `/${lang}/`, label: ui.layout.navHome },
+      { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+      { href: `/${lang}/agents/`, label: ui.layout.navAgents },
+      { href: `/${lang}/contact/`, label: ui.layout.navContact },
+      { href: `/${lang}/projects/`, label: ui.layout.navPromoters },
+    ],
+  },
+  {
+    title: ui.layout.menuServices,
+    items: [
+      { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices },
+      { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization },
+    ],
+  },
+  {
+    title: ui.layout.menuExplore,
+    items: [
+      { href: `/${lang}/properties/`, label: ui.layout.navProperties },
+      { href: `/${lang}/projects/`, label: ui.layout.navProjects },
+      { href: `/${lang}/map/`, label: ui.layout.navMap },
+      { href: `/${lang}/posts/`, label: ui.layout.navPosts },
+      { href: `/${lang}/about/`, label: ui.layout.navAbout },
+    ],
+  },
+];
 
 const hasPublicCatalogRoute =
   canonicalPath.includes("/properties") ||
@@ -143,98 +205,182 @@ const shouldLoadPublicRealtime =
     <meta name="twitter:card" content="summary_large_image" />
   </head>
 
-  <body>
+  <body class={showMobileStickyCta ? "has-mobile-sticky-cta" : ""}>
     <a class="skip-link" href="#mainContent">{ui.layout.skipToContent}</a>
     <div class="page-loader" aria-hidden="true">
       <div class="loader-ring"></div>
     </div>
-    <header class="main-header">
+    <header class={`main-header ${isLandingHeader ? "main-header-landing" : ""}`}>
       <div class="header-container">
         <div class="brand-logo">
           <a href={`/${lang}/`}>
             Blanca<span>Real</span>
           </a>
         </div>
-        
-        <!-- Desktop Nav -->
-        <nav class="main-nav desktop-only">
-          <ul class="nav-links">
-            <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? 'active' : ''}>{ui.layout.navHome}</a></li>
-            <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>{ui.layout.navProperties}</a></li>
-            <li><a href={`/${lang}/projects/`} class={canonicalPath.includes('/projects') ? 'active' : ''}>{ui.layout.navProjects}</a></li>
-            <li><a href={`/${lang}/posts/`} class={canonicalPath.includes('/posts') || canonicalPath.includes('/post/') ? 'active' : ''}>{ui.layout.navPosts}</a></li>
-            <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>{ui.layout.navAbout}</a></li>
-          </ul>
-        </nav>
 
-        <div class="header-actions">
-           <div class="lang-switcher desktop-only">
-             <span class="lang-switcher-label">{ui.layout.language}</span>
-             <div class="lang-picker" id="langPickerDesktop">
-               <button
-                 type="button"
-                 class="lang-trigger"
-                 id="langTriggerDesktop"
-                 aria-haspopup="listbox"
-                 aria-expanded="false"
-                 aria-controls="langMenuDesktop"
-               >
-                 <span id="langLabelDesktop">{activeLangLabel}</span>
-               </button>
-               <div class="lang-menu" id="langMenuDesktop" role="listbox" hidden>
-                 {langLinks.map((item) => (
-                   <button
-                     type="button"
-                     class={`lang-option ${item.isActive ? "is-active" : ""}`}
-                     data-href={item.href}
-                     data-label={item.label}
-                     role="option"
-                     aria-selected={item.isActive ? "true" : "false"}
-                   >
-                     {item.label}
-                   </button>
-                 ))}
-               </div>
-             </div>
-           </div>
-           <a href="tel:+34600123456" class="header-cta desktop-only">
-              {ui.layout.contact}
-           </a>
-           
-           <!-- Mobile Toggle -->
-           <button class="mobile-menu-toggle" aria-label={ui.layout.menu} aria-expanded="false" aria-controls="mobileMenu" id="menuToggle">
-              <span class="bar"></span>
-              <span class="bar"></span>
-              <span class="bar"></span>
-           </button>
-        </div>
+        {isLandingHeader ? (
+          <>
+            <nav class="main-nav desktop-only">
+              <ul class="nav-links nav-links-landing">
+                {resolvedLandingNavItems.map((item) => (
+                  <li>
+                    <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div class="header-actions header-actions-landing">
+              <div class="lang-switcher desktop-only">
+                <span class="lang-switcher-label">{ui.layout.language}</span>
+                <div class="lang-picker" id="langPickerDesktop">
+                  <button
+                    type="button"
+                    class="lang-trigger"
+                    id="langTriggerDesktop"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-controls="langMenuDesktop"
+                  >
+                    <span id="langLabelDesktop">{activeLangLabel}</span>
+                  </button>
+                  <div class="lang-menu" id="langMenuDesktop" role="listbox" hidden>
+                    {langLinks.map((item) => (
+                      <button
+                        type="button"
+                        class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                        data-href={item.href}
+                        data-label={item.label}
+                        role="option"
+                        aria-selected={item.isActive ? "true" : "false"}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                class="side-menu-toggle"
+                aria-label={ui.layout.openMenu}
+                aria-expanded="false"
+                aria-controls="sideMenu"
+                id="sideMenuToggle"
+              >
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <nav class="main-nav desktop-only">
+              <ul class="nav-links">
+                <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? "active" : ""}>{ui.layout.navHome}</a></li>
+                <li><a href={`/${lang}/real-estate/`} class={canonicalPath.includes("/real-estate") ? "active" : ""}>{ui.layout.navRealEstate}</a></li>
+                <li><a href={`/${lang}/properties/`} class={canonicalPath.includes("/properties") ? "active" : ""}>{ui.layout.navProperties}</a></li>
+                <li><a href={`/${lang}/projects/`} class={canonicalPath.includes("/projects") ? "active" : ""}>{ui.layout.navProjects}</a></li>
+                <li><a href={`/${lang}/posts/`} class={canonicalPath.includes("/posts") || canonicalPath.includes("/post/") ? "active" : ""}>{ui.layout.navPosts}</a></li>
+                <li><a href={`/${lang}/about/`} class={canonicalPath.includes("/about") ? "active" : ""}>{ui.layout.navAbout}</a></li>
+              </ul>
+            </nav>
+
+            <div class="header-actions">
+              <div class="lang-switcher desktop-only">
+                <span class="lang-switcher-label">{ui.layout.language}</span>
+                <div class="lang-picker" id="langPickerDesktop">
+                  <button
+                    type="button"
+                    class="lang-trigger"
+                    id="langTriggerDesktop"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-controls="langMenuDesktop"
+                  >
+                    <span id="langLabelDesktop">{activeLangLabel}</span>
+                  </button>
+                  <div class="lang-menu" id="langMenuDesktop" role="listbox" hidden>
+                    {langLinks.map((item) => (
+                      <button
+                        type="button"
+                        class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                        data-href={item.href}
+                        data-label={item.label}
+                        role="option"
+                        aria-selected={item.isActive ? "true" : "false"}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <a href="tel:+34600123456" class="header-cta desktop-only">
+                {ui.layout.contact}
+              </a>
+
+              <button
+                class="mobile-menu-toggle"
+                aria-label={ui.layout.menu}
+                aria-expanded="false"
+                aria-controls="mobileMenu"
+                id="menuToggle"
+              >
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </button>
+            </div>
+          </>
+        )}
       </div>
 
-      <!-- Mobile Nav Overlay -->
-      <div class="mobile-nav-overlay" id="mobileMenu">
-        <nav class="mobile-nav-content">
-          <ul class="mobile-nav-links">
-            <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? 'active' : ''}>{ui.layout.navHome}</a></li>
-            <li><a href={`/${lang}/properties/`} class={canonicalPath.includes('/properties') ? 'active' : ''}>{ui.layout.navProperties}</a></li>
-            <li><a href={`/${lang}/projects/`} class={canonicalPath.includes('/projects') ? 'active' : ''}>{ui.layout.navProjects}</a></li>
-            <li><a href={`/${lang}/posts/`} class={canonicalPath.includes('/posts') || canonicalPath.includes('/post/') ? 'active' : ''}>{ui.layout.navPosts}</a></li>
-            <li><a href={`/${lang}/about/`} class={canonicalPath.includes('/about') ? 'active' : ''}>{ui.layout.navAbout}</a></li>
-          </ul>
-          <div class="mobile-menu-utilities">
-            <div class="mobile-lang-switcher">
+      {isLandingHeader ? (
+        <>
+          <div class="side-menu-backdrop" id="sideMenuBackdrop" hidden></div>
+          <aside class="side-menu-drawer" id="sideMenu" aria-hidden="true">
+            <div class="side-menu-head">
+              <p>{ui.layout.menu}</p>
+              <button type="button" id="sideMenuClose" aria-label={ui.layout.closeMenu}>
+                {ui.layout.closeMenu}
+              </button>
+            </div>
+
+            <nav class="side-menu-nav" aria-label={ui.layout.menu}>
+              {sideMenuSections.map((section) => (
+                <section class="side-menu-section">
+                  <h2>{section.title}</h2>
+                  <ul>
+                    {section.items.map((item) => (
+                      <li>
+                        <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
+                          {item.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </nav>
+
+            <div class="side-menu-lang">
               <span class="lang-switcher-label">{ui.layout.language}</span>
-              <div class="lang-picker" id="langPickerMobile">
+              <div class="lang-picker" id="langPickerDrawer">
                 <button
                   type="button"
                   class="lang-trigger"
-                  id="langTriggerMobile"
+                  id="langTriggerDrawer"
                   aria-haspopup="listbox"
                   aria-expanded="false"
-                  aria-controls="langMenuMobile"
+                  aria-controls="langMenuDrawer"
                 >
-                  <span id="langLabelMobile">{activeLangLabel}</span>
+                  <span id="langLabelDrawer">{activeLangLabel}</span>
                 </button>
-                <div class="lang-menu" id="langMenuMobile" role="listbox" hidden>
+                <div class="lang-menu" id="langMenuDrawer" role="listbox" hidden>
                   {langLinks.map((item) => (
                     <button
                       type="button"
@@ -250,57 +396,216 @@ const shouldLoadPublicRealtime =
                 </div>
               </div>
             </div>
-            <div class="mobile-menu-contact">
-              <a href="tel:+34600123456" class="mobile-menu-cta">{ui.layout.callNow}</a>
+          </aside>
+        </>
+      ) : (
+        <div class="mobile-nav-overlay" id="mobileMenu">
+          <nav class="mobile-nav-content">
+            <ul class="mobile-nav-links">
+              <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? "active" : ""}>{ui.layout.navHome}</a></li>
+              <li><a href={`/${lang}/real-estate/`} class={canonicalPath.includes("/real-estate") ? "active" : ""}>{ui.layout.navRealEstate}</a></li>
+              <li><a href={`/${lang}/properties/`} class={canonicalPath.includes("/properties") ? "active" : ""}>{ui.layout.navProperties}</a></li>
+              <li><a href={`/${lang}/projects/`} class={canonicalPath.includes("/projects") ? "active" : ""}>{ui.layout.navProjects}</a></li>
+              <li><a href={`/${lang}/posts/`} class={canonicalPath.includes("/posts") || canonicalPath.includes("/post/") ? "active" : ""}>{ui.layout.navPosts}</a></li>
+              <li><a href={`/${lang}/about/`} class={canonicalPath.includes("/about") ? "active" : ""}>{ui.layout.navAbout}</a></li>
+            </ul>
+            <div class="mobile-menu-utilities">
+              <div class="mobile-lang-switcher">
+                <span class="lang-switcher-label">{ui.layout.language}</span>
+                <div class="lang-picker" id="langPickerMobile">
+                  <button
+                    type="button"
+                    class="lang-trigger"
+                    id="langTriggerMobile"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-controls="langMenuMobile"
+                  >
+                    <span id="langLabelMobile">{activeLangLabel}</span>
+                  </button>
+                  <div class="lang-menu" id="langMenuMobile" role="listbox" hidden>
+                    {langLinks.map((item) => (
+                      <button
+                        type="button"
+                        class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                        data-href={item.href}
+                        data-label={item.label}
+                        role="option"
+                        aria-selected={item.isActive ? "true" : "false"}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div class="mobile-menu-contact">
+                <a href="tel:+34600123456" class="mobile-menu-cta">{ui.layout.callNow}</a>
+              </div>
             </div>
-          </div>
-        </nav>
-      </div>
+          </nav>
+        </div>
+      )}
     </header>
 
-    <!-- MOBILE STICKY CONTACT BAR -->
-    <div class="mobile-sticky-cta">
+    {showMobileStickyCta && (
+      <div class="mobile-sticky-cta">
         <a href="tel:+34600123456" class="cta-item call">
-           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-           {ui.layout.call}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          {ui.layout.call}
         </a>
         <a href="#descContainer" class="cta-item contact" id="mobileContactBtn">
-           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-           {ui.layout.contact}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          {ui.layout.contact}
         </a>
-    </div>
+      </div>
+    )}
 
     <script is:inline>
-      const toggle = document.getElementById('menuToggle');
-      const menu = document.getElementById('mobileMenu');
       const body = document.body;
+      const toggle = document.getElementById("menuToggle");
+      const menu = document.getElementById("mobileMenu");
 
-      if (toggle && menu) {
-        toggle.addEventListener('click', () => {
-          const isOpen = menu.classList.toggle('is-open');
-          toggle.classList.toggle('is-active');
-          toggle.setAttribute('aria-expanded', String(isOpen));
-          body.style.overflow = isOpen ? 'hidden' : '';
+      const closeMobileMenu = () => {
+        if (!(toggle instanceof HTMLElement) || !(menu instanceof HTMLElement)) return;
+        menu.classList.remove("is-open");
+        toggle.classList.remove("is-active");
+        toggle.setAttribute("aria-expanded", "false");
+        body.style.overflow = "";
+      };
+
+      if (toggle instanceof HTMLElement && menu instanceof HTMLElement) {
+        toggle.addEventListener("click", () => {
+          const isOpen = menu.classList.toggle("is-open");
+          toggle.classList.toggle("is-active");
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          body.style.overflow = isOpen ? "hidden" : "";
         });
 
-        // Close on link click
-        menu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            menu.classList.remove('is-open');
-            toggle.classList.remove('is-active');
-            toggle.setAttribute('aria-expanded', 'false');
-            body.style.overflow = '';
-          });
+        menu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeMobileMenu);
         });
       }
 
-      // Smooth scroll for the contact button
-      document.getElementById('mobileContactBtn')?.addEventListener('click', (e) => {
-         e.preventDefault();
-         const target = document.querySelector('.concierge-card');
-         if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-         }
+      const sideMenuToggle = document.getElementById("sideMenuToggle");
+      const sideMenu = document.getElementById("sideMenu");
+      const sideMenuBackdrop = document.getElementById("sideMenuBackdrop");
+      const sideMenuClose = document.getElementById("sideMenuClose");
+      let sideMenuLastFocus = null;
+
+      const getSideMenuFocusable = () => {
+        if (!(sideMenu instanceof HTMLElement)) return [];
+        return Array.from(
+          sideMenu.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        );
+      };
+
+      const closeSideMenu = () => {
+        if (!(sideMenu instanceof HTMLElement)) return;
+        sideMenu.classList.remove("is-open");
+        sideMenu.setAttribute("aria-hidden", "true");
+
+        if (sideMenuBackdrop instanceof HTMLElement) {
+          sideMenuBackdrop.classList.remove("is-open");
+          sideMenuBackdrop.setAttribute("hidden", "");
+        }
+
+        if (sideMenuToggle instanceof HTMLElement) {
+          sideMenuToggle.classList.remove("is-active");
+          sideMenuToggle.setAttribute("aria-expanded", "false");
+        }
+
+        body.style.overflow = "";
+        document.removeEventListener("keydown", handleSideMenuKeydown);
+        if (sideMenuLastFocus instanceof HTMLElement) {
+          sideMenuLastFocus.focus();
+        }
+      };
+
+      const openSideMenu = () => {
+        if (!(sideMenu instanceof HTMLElement) || !(sideMenuToggle instanceof HTMLElement)) return;
+        sideMenuLastFocus = document.activeElement;
+        sideMenu.classList.add("is-open");
+        sideMenu.setAttribute("aria-hidden", "false");
+        sideMenuToggle.classList.add("is-active");
+        sideMenuToggle.setAttribute("aria-expanded", "true");
+
+        if (sideMenuBackdrop instanceof HTMLElement) {
+          sideMenuBackdrop.removeAttribute("hidden");
+          sideMenuBackdrop.classList.add("is-open");
+        }
+
+        body.style.overflow = "hidden";
+        const focusable = getSideMenuFocusable();
+        if (focusable[0] instanceof HTMLElement) {
+          focusable[0].focus();
+        }
+        document.addEventListener("keydown", handleSideMenuKeydown);
+      };
+
+      const handleSideMenuKeydown = (event) => {
+        if (!(sideMenu instanceof HTMLElement)) return;
+
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeSideMenu();
+          return;
+        }
+
+        if (event.key !== "Tab") return;
+
+        const focusable = getSideMenuFocusable();
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+          return;
+        }
+
+        if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      };
+
+      if (sideMenuToggle instanceof HTMLElement && sideMenu instanceof HTMLElement) {
+        sideMenuToggle.addEventListener("click", () => {
+          const isOpen = sideMenu.classList.contains("is-open");
+          if (isOpen) {
+            closeSideMenu();
+          } else {
+            closeSideMenu();
+            openSideMenu();
+          }
+        });
+      }
+
+      if (sideMenuClose instanceof HTMLElement) {
+        sideMenuClose.addEventListener("click", closeSideMenu);
+      }
+
+      if (sideMenuBackdrop instanceof HTMLElement) {
+        sideMenuBackdrop.addEventListener("click", closeSideMenu);
+      }
+
+      if (sideMenu instanceof HTMLElement) {
+        sideMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeSideMenu);
+        });
+      }
+
+      document.getElementById("mobileContactBtn")?.addEventListener("click", (event) => {
+        event.preventDefault();
+        const target = document.querySelector(".concierge-card");
+        if (target instanceof HTMLElement) {
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
       });
 
       const isSameOrigin = (link) => {
@@ -312,11 +617,11 @@ const shouldLoadPublicRealtime =
       };
 
       const shouldSkipTransition = (link) => {
-        if (!link || link.hasAttribute('download')) return true;
-        if (link.target && link.target !== '_self') return true;
-        if (link.rel && link.rel.includes('external')) return true;
-        const href = link.getAttribute('href') || '';
-        if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return true;
+        if (!link || link.hasAttribute("download")) return true;
+        if (link.target && link.target !== "_self") return true;
+        if (link.rel && link.rel.includes("external")) return true;
+        const href = link.getAttribute("href") || "";
+        if (href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return true;
         return !isSameOrigin(link);
       };
 
@@ -327,43 +632,46 @@ const shouldLoadPublicRealtime =
         const label = document.getElementById(labelId);
         if (!picker || !trigger || !menu || !label) return;
 
-        trigger.addEventListener('click', () => {
-          const willOpen = menu.hasAttribute('hidden');
+        trigger.addEventListener("click", () => {
+          const willOpen = menu.hasAttribute("hidden");
           if (willOpen) {
-            menu.removeAttribute('hidden');
+            menu.removeAttribute("hidden");
           } else {
-            menu.setAttribute('hidden', '');
+            menu.setAttribute("hidden", "");
           }
-          trigger.setAttribute('aria-expanded', String(willOpen));
+          trigger.setAttribute("aria-expanded", String(willOpen));
         });
 
-        menu.querySelectorAll('.lang-option').forEach((option) => {
-          option.addEventListener('click', () => {
-            const href = option.getAttribute('data-href');
-            const nextLabel = option.getAttribute('data-label');
+        menu.querySelectorAll(".lang-option").forEach((option) => {
+          option.addEventListener("click", () => {
+            const href = option.getAttribute("data-href");
+            const nextLabel = option.getAttribute("data-label");
             if (nextLabel) label.textContent = nextLabel;
             if (href) window.location.href = href;
           });
         });
 
-        document.addEventListener('click', (event) => {
+        document.addEventListener("click", (event) => {
           if (picker.contains(event.target)) return;
-          menu.setAttribute('hidden', '');
-          trigger.setAttribute('aria-expanded', 'false');
+          menu.setAttribute("hidden", "");
+          trigger.setAttribute("aria-expanded", "false");
         });
       };
 
-      initLangPicker('langPickerDesktop', 'langTriggerDesktop', 'langMenuDesktop', 'langLabelDesktop');
-      initLangPicker('langPickerMobile', 'langTriggerMobile', 'langMenuMobile', 'langLabelMobile');
+      initLangPicker("langPickerDesktop", "langTriggerDesktop", "langMenuDesktop", "langLabelDesktop");
+      initLangPicker("langPickerMobile", "langTriggerMobile", "langMenuMobile", "langLabelMobile");
+      initLangPicker("langPickerDrawer", "langTriggerDrawer", "langMenuDrawer", "langLabelDrawer");
 
-      document.addEventListener('click', (event) => {
-        const link = event.target.closest('a');
+      document.addEventListener("click", (event) => {
+        const link = event.target.closest("a");
         if (!link || shouldSkipTransition(link)) return;
         const href = link.href;
         if (!href) return;
 
         event.preventDefault();
-        document.body.classList.add('page-is-leaving');
+        closeMobileMenu();
+        closeSideMenu();
+        document.body.classList.add("page-is-leaving");
         setTimeout(() => {
           window.location.href = href;
         }, 180);
@@ -385,4 +693,3 @@ const shouldLoadPublicRealtime =
     <script type="module" src={lightboxUrl}></script>
   </body>
 </html>
-

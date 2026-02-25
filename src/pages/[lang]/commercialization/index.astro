@@ -1,0 +1,197 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import "@/styles/pages/service-pages.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/commercialization/`, 302);
+}
+
+const lang = langParam;
+
+const copyByLang = {
+  es: {
+    title: "Comercializacion | BlancaReal",
+    description:
+      "Estrategia comercial para promotoras y cartera residencial: posicionamiento, leads y conversion.",
+    eyebrow: "Comercializacion",
+    heading: "Comercializacion avanzada para producto residencial",
+    intro:
+      "Disenamos y operamos la estrategia comercial de cada promocion para acelerar ventas con datos reales.",
+    cta: "Hablar con comercializacion",
+    blockTitleA: "Que cubrimos",
+    blockTitleB: "Marco operativo",
+    services: [
+      "Definicion de posicionamiento y narrativa comercial",
+      "Plan de captacion de demanda nacional e internacional",
+      "Gestion de leads, visitas y pipeline comercial",
+      "Reporting de conversion y ajustes por rendimiento",
+    ],
+    process: [
+      "Kick-off con promotora y objetivos de negocio",
+      "Plan comercial por fases y canales prioritarios",
+      "Seguimiento semanal de KPI y calidad de lead",
+      "Optimizacion continua de funnel y mensajes",
+    ],
+  },
+  en: {
+    title: "Commercialization | BlancaReal",
+    description:
+      "Sales strategy for developers and residential inventory: positioning, lead generation and conversion.",
+    eyebrow: "Commercialization",
+    heading: "Advanced commercialization for residential product",
+    intro:
+      "We design and run the sales strategy of each development to accelerate sell-through with real data.",
+    cta: "Contact commercialization team",
+    blockTitleA: "Scope",
+    blockTitleB: "Operating model",
+    services: [
+      "Positioning definition and commercial narrative",
+      "Demand generation plan across domestic and international markets",
+      "Lead management, visits and sales pipeline control",
+      "Conversion reporting and performance-based adjustments",
+    ],
+    process: [
+      "Developer kick-off and business targets",
+      "Phase-based commercial plan and priority channels",
+      "Weekly KPI and lead quality tracking",
+      "Continuous optimization of funnel and messaging",
+    ],
+  },
+  de: {
+    title: "Vermarktung | BlancaReal",
+    description:
+      "Vertriebsstrategie fuer Bautraeger und Wohnportfolio: Positionierung, Leads und Conversion.",
+    eyebrow: "Vermarktung",
+    heading: "Moderne Vermarktung fuer Wohnprojekte",
+    intro:
+      "Wir planen und steuern die Vermarktung jeder Entwicklung, um den Abverkauf datenbasiert zu beschleunigen.",
+    cta: "Vermarktungsteam kontaktieren",
+    blockTitleA: "Leistungsumfang",
+    blockTitleB: "Arbeitsmodell",
+    services: [
+      "Positionierung und Vertriebsstory",
+      "Nachfrageplanung fuer nationale und internationale Maerkte",
+      "Lead-Management, Besichtigungen und Pipeline-Steuerung",
+      "Conversion-Reporting und Performance-Optimierung",
+    ],
+    process: [
+      "Kick-off mit Bautraeger und Zielen",
+      "Phasenplan mit priorisierten Kanaelen",
+      "Woechentliches KPI- und Leadqualitaets-Monitoring",
+      "Kontinuierliche Optimierung von Funnel und Botschaft",
+    ],
+  },
+  fr: {
+    title: "Commercialisation | BlancaReal",
+    description:
+      "Strategie commerciale pour promoteurs et portefeuille residentiel : positionnement, leads et conversion.",
+    eyebrow: "Commercialisation",
+    heading: "Commercialisation performante des programmes residentiels",
+    intro:
+      "Nous concevons et pilotons la strategie commerciale de chaque programme pour accelerer les ventes.",
+    cta: "Contacter la commercialisation",
+    blockTitleA: "Ce que nous couvrons",
+    blockTitleB: "Mode operatoire",
+    services: [
+      "Positionnement et narration commerciale",
+      "Plan de generation de demande national et international",
+      "Gestion des leads, visites et pipeline de vente",
+      "Reporting conversion et ajustements de performance",
+    ],
+    process: [
+      "Kick-off avec le promoteur et objectifs business",
+      "Plan commercial par phases et canaux prioritaires",
+      "Suivi hebdomadaire des KPI et de la qualite des leads",
+      "Optimisation continue du funnel et des messages",
+    ],
+  },
+  it: {
+    title: "Commercializzazione | BlancaReal",
+    description:
+      "Strategia commerciale per promotori e prodotto residenziale: posizionamento, lead e conversione.",
+    eyebrow: "Commercializzazione",
+    heading: "Commercializzazione avanzata per il residenziale",
+    intro:
+      "Progettiamo e gestiamo la strategia commerciale di ogni progetto per accelerare le vendite con dati reali.",
+    cta: "Parla con il team commerciale",
+    blockTitleA: "Cosa copriamo",
+    blockTitleB: "Modello operativo",
+    services: [
+      "Definizione del posizionamento e narrativa commerciale",
+      "Piano di generazione domanda nazionale e internazionale",
+      "Gestione lead, visite e pipeline commerciale",
+      "Reporting conversione e ottimizzazione performance",
+    ],
+    process: [
+      "Kick-off con promotore e obiettivi di business",
+      "Piano commerciale per fasi e canali prioritari",
+      "Monitoraggio settimanale KPI e qualita lead",
+      "Ottimizzazione continua di funnel e messaggi",
+    ],
+  },
+  nl: {
+    title: "Commercialisatie | BlancaReal",
+    description:
+      "Commerciele strategie voor ontwikkelaars en residentieel aanbod: positionering, leads en conversie.",
+    eyebrow: "Commercialisatie",
+    heading: "Geavanceerde commercialisatie voor residentieel aanbod",
+    intro:
+      "Wij ontwerpen en sturen de verkoopstrategie van elk project om verkoop te versnellen met echte data.",
+    cta: "Contacteer commercialisatieteam",
+    blockTitleA: "Dekking",
+    blockTitleB: "Werkmodel",
+    services: [
+      "Positionering en commercieel verhaal",
+      "Vraaggeneratieplan voor nationale en internationale markten",
+      "Leadbeheer, bezoeken en sales pipeline",
+      "Conversierapportage en performance-optimalisatie",
+    ],
+    process: [
+      "Kick-off met ontwikkelaar en businessdoelen",
+      "Gefaseerd commercieel plan met prioritaire kanalen",
+      "Wekelijkse KPI en leadkwaliteit opvolging",
+      "Continue optimalisatie van funnel en messaging",
+    ],
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="service-hero container">
+    <span class="service-eyebrow">{t.eyebrow}</span>
+    <h1>{t.heading}</h1>
+    <p>{t.intro}</p>
+    <a class="service-cta" href={`/${lang}/contact/`}>{t.cta}</a>
+  </section>
+
+  <section class="service-grid container">
+    <article class="service-panel">
+      <h2>{t.blockTitleA}</h2>
+      <ul>
+        {t.services.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </article>
+    <article class="service-panel">
+      <h2>{t.blockTitleB}</h2>
+      <ol>
+        {t.process.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ol>
+    </article>
+  </section>
+</BaseLayout>

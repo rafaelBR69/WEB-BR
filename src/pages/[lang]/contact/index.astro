@@ -1,0 +1,184 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import "@/styles/pages/service-pages.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/contact/`, 302);
+}
+
+const lang = langParam;
+
+const copyByLang = {
+  es: {
+    title: "Contacto | BlancaReal",
+    description: "Canales de contacto para Real Estate, Legal, Comercializacion y portal de agentes.",
+    eyebrow: "Contacto",
+    heading: "Hablemos de tu operacion",
+    intro:
+      "Selecciona el area que necesitas y te conecta nuestro equipo en menos de 24 horas laborables.",
+    phoneLabel: "Telefono",
+    emailLabel: "Email",
+    officeLabel: "Oficina",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Canales directos",
+    linksTitle: "Accesos rapidos",
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Servicios Legales", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Comercializacion", href: `/${lang}/commercialization/` },
+      { id: "agents", label: "Portal de Agentes", href: `/${lang}/agents/` },
+    ],
+  },
+  en: {
+    title: "Contact | BlancaReal",
+    description: "Contact channels for Real Estate, Legal, Commercialization and agent portal.",
+    eyebrow: "Contact",
+    heading: "Let us discuss your operation",
+    intro:
+      "Choose the area you need and our team will reply in less than 24 business hours.",
+    phoneLabel: "Phone",
+    emailLabel: "Email",
+    officeLabel: "Office",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Direct channels",
+    linksTitle: "Quick access",
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Legal Services", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Commercialization", href: `/${lang}/commercialization/` },
+      { id: "agents", label: "Agents Portal", href: `/${lang}/agents/` },
+    ],
+  },
+  de: {
+    title: "Kontakt | BlancaReal",
+    description: "Kontaktkanaele fuer Real Estate, Rechtsservice, Vermarktung und Agentenportal.",
+    eyebrow: "Kontakt",
+    heading: "Sprechen wir ueber Ihre Operation",
+    intro:
+      "Waehlen Sie den passenden Bereich und unser Team antwortet innerhalb von 24 Arbeitsstunden.",
+    phoneLabel: "Telefon",
+    emailLabel: "E-Mail",
+    officeLabel: "Buero",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Direkte Kanaele",
+    linksTitle: "Schnellzugriff",
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Rechtsservice", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Vermarktung", href: `/${lang}/commercialization/` },
+      { id: "agents", label: "Agentenportal", href: `/${lang}/agents/` },
+    ],
+  },
+  fr: {
+    title: "Contact | BlancaReal",
+    description: "Canaux de contact pour Real Estate, Juridique, Commercialisation et portail agents.",
+    eyebrow: "Contact",
+    heading: "Parlons de votre operation",
+    intro:
+      "Choisissez le pole souhaite et notre equipe repond en moins de 24 heures ouvrables.",
+    phoneLabel: "Telephone",
+    emailLabel: "Email",
+    officeLabel: "Bureau",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Canaux directs",
+    linksTitle: "Acces rapide",
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Services Juridiques", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Commercialisation", href: `/${lang}/commercialization/` },
+      { id: "agents", label: "Portail Agents", href: `/${lang}/agents/` },
+    ],
+  },
+  it: {
+    title: "Contatto | BlancaReal",
+    description: "Canali di contatto per Real Estate, Legale, Commercializzazione e portale agenti.",
+    eyebrow: "Contatto",
+    heading: "Parliamo della tua operazione",
+    intro:
+      "Seleziona l area necessaria e il team risponde entro 24 ore lavorative.",
+    phoneLabel: "Telefono",
+    emailLabel: "Email",
+    officeLabel: "Ufficio",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Canali diretti",
+    linksTitle: "Accesso rapido",
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Servizi Legali", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Commercializzazione", href: `/${lang}/commercialization/` },
+      { id: "agents", label: "Portale Agenti", href: `/${lang}/agents/` },
+    ],
+  },
+  nl: {
+    title: "Contact | BlancaReal",
+    description: "Contactkanalen voor Real Estate, Juridisch, Commercialisatie en agentenportaal.",
+    eyebrow: "Contact",
+    heading: "Laten we uw operatie bespreken",
+    intro:
+      "Kies het domein dat u nodig heeft en ons team antwoordt binnen 24 werkuren.",
+    phoneLabel: "Telefoon",
+    emailLabel: "Email",
+    officeLabel: "Kantoor",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Directe kanalen",
+    linksTitle: "Snelle toegang",
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Juridische Diensten", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Commercialisatie", href: `/${lang}/commercialization/` },
+      { id: "agents", label: "Agentenportaal", href: `/${lang}/agents/` },
+    ],
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="service-hero container">
+    <span class="service-eyebrow">{t.eyebrow}</span>
+    <h1>{t.heading}</h1>
+    <p>{t.intro}</p>
+  </section>
+
+  <section class="service-grid container">
+    <article class="service-panel">
+      <h2>{t.channelsTitle}</h2>
+      <ul class="contact-list">
+        <li>
+          <span>{t.phoneLabel}</span>
+          <a href="tel:+34600123456">+34 600 123 456</a>
+        </li>
+        <li>
+          <span>{t.emailLabel}</span>
+          <a href="mailto:info@blancareal.com">info@blancareal.com</a>
+        </li>
+        <li>
+          <span>{t.officeLabel}</span>
+          <strong>{t.officeValue}</strong>
+        </li>
+      </ul>
+    </article>
+
+    <article class="service-panel">
+      <h2>{t.linksTitle}</h2>
+      <ul class="quick-links">
+        {t.links.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </article>
+  </section>
+</BaseLayout>
