@@ -1,0 +1,369 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@/i18n/languages";
+import "@/styles/pages/portal.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/portal/`, 302);
+}
+
+const projectId = String(Astro.params.id ?? "").trim();
+if (!projectId) {
+  return Astro.redirect(`/${langParam}/portal/`, 302);
+}
+
+const lang = langParam;
+const defaultOrganizationId = String(
+  import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? ""
+).trim();
+
+const copyByLang = {
+  es: {
+    title: "Portal | Proyecto",
+    description: "Workspace profesional de promocion con contenido, documentos, leads y visitas.",
+    eyebrow: "Detalle de promocion",
+    heading: "Workspace operativo de promocion",
+    intro:
+      "Consulta contenido publicado, biblioteca documental y gestiona leads/visitas vinculadas a esta promocion.",
+    heroTagsLabel: "Bloques operativos del proyecto",
+    heroTagContent: "Contenido por idioma y audiencia",
+    heroTagDocs: "Documentacion comercial",
+    heroTagPipeline: "Pipeline de leads y visitas",
+    back: "Volver al dashboard portal",
+    projectIdLabel: "Proyecto ID",
+    projectScopeHint: "Solo se muestran promociones autorizadas para esta cuenta.",
+    contentTitle: "Contenido publicado",
+    contentHint: "Bloques activos para comunicacion comercial del proyecto.",
+    documentsTitle: "Documentos visibles",
+    documentsHint: "Biblioteca de documentos publicados para agentes/clientes autorizados.",
+    docsSearch: "Buscar en documentos",
+    docsSearchPlaceholder: "titulo, mime, storage_path",
+    leadFormTitle: "Alta de lead",
+    leadFormHint: "Registra un nuevo lead comercial asociado a esta promocion.",
+    leadNameLabel: "Nombre completo",
+    leadEmailLabel: "Email",
+    leadPhoneLabel: "Telefono",
+    leadLanguageLabel: "Idioma",
+    leadOperationLabel: "Operacion",
+    leadOperationSale: "Venta",
+    leadOperationRent: "Alquiler",
+    leadOperationBoth: "Venta y alquiler",
+    leadTimelineLabel: "Horizonte de compra",
+    leadTimelinePlaceholder: "0-3 meses, inmediato, 6 meses...",
+    leadBudgetMinLabel: "Presupuesto minimo",
+    leadBudgetMaxLabel: "Presupuesto maximo",
+    leadNotesLabel: "Notas",
+    leadNotesPlaceholder: "Contexto comercial, preferencias y origen del lead",
+    leadConsentLabel: "Consentimiento de contacto y tratamiento de datos",
+    leadRequiredHint: "Nombre obligatorio y al menos un canal de contacto (email o telefono).",
+    leadsTitle: "Tracking de leads del proyecto",
+    leadsHint: "Estado de atribucion de los leads asociados a esta promocion.",
+    leadDetailTitle: "Detalle de lead",
+    leadDetailEmpty: "Selecciona un lead del listado para ver timeline, visitas y comisiones.",
+    visitTitle: "Solicitar visita",
+    visitHint: "Coordina visitas del lead con franjas propuestas o reserva directa.",
+    visitLeadLabel: "Lead ID",
+    visitModeLabel: "Modo",
+    visitModeProposal: "Proponer horarios",
+    visitModeDirect: "Reserva directa",
+    visitModeHint: "Con propuesta de horarios, informa entre 2 y 3 opciones.",
+    visitSlot1: "Horario 1",
+    visitSlot2: "Horario 2",
+    visitSlot3: "Horario 3",
+    visitNotesLabel: "Notas",
+    visitNotesPlaceholder: "Observaciones para coordinacion de visita",
+    submitLead: "Crear lead",
+    submitVisit: "Enviar solicitud de visita",
+    tableDate: "Fecha",
+    tableLead: "Lead",
+    tableAttribution: "Atribucion",
+    tableAction: "Accion",
+    leadsTableLabel: "Tabla de leads del proyecto",
+    projectLoading: "Cargando datos del proyecto...",
+    noContent: "No hay bloques publicados para este idioma/audiencia.",
+    noDocuments: "No hay documentos visibles para este proyecto.",
+    noLeads: "No hay leads vinculados a este proyecto.",
+  },
+  en: {
+    title: "Portal | Project",
+    description: "Professional project workspace with content, documents, leads and visits.",
+    eyebrow: "Project detail",
+    heading: "Project operations workspace",
+    intro:
+      "Review published content, document library and manage project-linked leads/visits.",
+    heroTagsLabel: "Project operation blocks",
+    heroTagContent: "Language/audience content",
+    heroTagDocs: "Commercial documents",
+    heroTagPipeline: "Lead and visit pipeline",
+    back: "Back to portal dashboard",
+    projectIdLabel: "Project ID",
+    projectScopeHint: "Only projects authorized for this account are shown.",
+    contentTitle: "Published content",
+    contentHint: "Active blocks for project commercial communication.",
+    documentsTitle: "Visible documents",
+    documentsHint: "Published document library for authorized agents/clients.",
+    docsSearch: "Search documents",
+    docsSearchPlaceholder: "title, mime, storage_path",
+    leadFormTitle: "Create lead",
+    leadFormHint: "Register a new commercial lead linked to this project.",
+    leadNameLabel: "Full name",
+    leadEmailLabel: "Email",
+    leadPhoneLabel: "Phone",
+    leadLanguageLabel: "Language",
+    leadOperationLabel: "Operation",
+    leadOperationSale: "Sale",
+    leadOperationRent: "Rent",
+    leadOperationBoth: "Sale and rent",
+    leadTimelineLabel: "Purchase timeline",
+    leadTimelinePlaceholder: "0-3 months, immediate, 6 months...",
+    leadBudgetMinLabel: "Minimum budget",
+    leadBudgetMaxLabel: "Maximum budget",
+    leadNotesLabel: "Notes",
+    leadNotesPlaceholder: "Commercial context, preferences and lead source",
+    leadConsentLabel: "Contact and data processing consent",
+    leadRequiredHint: "Full name required and at least one contact channel (email or phone).",
+    leadsTitle: "Project lead tracking",
+    leadsHint: "Attribution status for leads linked to this project.",
+    leadDetailTitle: "Lead detail",
+    leadDetailEmpty: "Select a lead to inspect timeline, visits and commissions.",
+    visitTitle: "Request visit",
+    visitHint: "Coordinate lead visits with proposed slots or direct booking.",
+    visitLeadLabel: "Lead ID",
+    visitModeLabel: "Mode",
+    visitModeProposal: "Propose slots",
+    visitModeDirect: "Direct booking",
+    visitModeHint: "In proposal mode, submit between 2 and 3 time slots.",
+    visitSlot1: "Slot 1",
+    visitSlot2: "Slot 2",
+    visitSlot3: "Slot 3",
+    visitNotesLabel: "Notes",
+    visitNotesPlaceholder: "Notes for visit coordination",
+    submitLead: "Create lead",
+    submitVisit: "Submit visit request",
+    tableDate: "Date",
+    tableLead: "Lead",
+    tableAttribution: "Attribution",
+    tableAction: "Action",
+    leadsTableLabel: "Project leads table",
+    projectLoading: "Loading project data...",
+    noContent: "No published blocks for this language/audience.",
+    noDocuments: "No visible documents for this project.",
+    noLeads: "No leads linked to this project.",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.en;
+---
+
+<BaseLayout
+  title={`${t.title} | BlancaReal`}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+  showMobileStickyCta={false}
+>
+  <div class="portal-app">
+    <div class="portal-shell">
+      <section class="portal-hero">
+        <div class="portal-row">
+          <div>
+            <a class="portal-nav-link" href={`/${lang}/portal/`}>{t.back}</a>
+            <p class="portal-kicker">{t.eyebrow}</p>
+            <h1>{t.heading}</h1>
+            <p>{t.intro}</p>
+            <div class="portal-hero-tags" role="list" aria-label={t.heroTagsLabel}>
+              <span class="portal-tag" role="listitem">{t.heroTagContent}</span>
+              <span class="portal-tag" role="listitem">{t.heroTagDocs}</span>
+              <span class="portal-tag" role="listitem">{t.heroTagPipeline}</span>
+            </div>
+          </div>
+        </div>
+        <p id="portal-project-header" class="portal-note">
+          {t.projectIdLabel}:
+          {" "}
+          <span class="portal-inline-code">{projectId}</span>
+        </p>
+        <p class="portal-note">{t.projectScopeHint}</p>
+      </section>
+
+      <section class="portal-grid portal-grid-2">
+        <article class="portal-card">
+          <h2>{t.contentTitle}</h2>
+          <p class="portal-note">{t.contentHint}</p>
+          <ul id="portal-project-content" class="portal-list">
+            <li class="portal-empty">{t.noContent}</li>
+          </ul>
+        </article>
+
+        <article class="portal-card">
+          <h2>{t.documentsTitle}</h2>
+          <p class="portal-note">{t.documentsHint}</p>
+          <div class="portal-form">
+            <label class="portal-col-2">
+              {t.docsSearch}
+              <input
+                id="portal-documents-search"
+                type="search"
+                placeholder={t.docsSearchPlaceholder}
+                aria-label={t.docsSearch}
+              />
+            </label>
+          </div>
+          <ul id="portal-project-documents" class="portal-list">
+            <li class="portal-empty">{t.noDocuments}</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="portal-grid portal-grid-2">
+        <article class="portal-card">
+          <h2>{t.leadFormTitle}</h2>
+          <p class="portal-note">{t.leadFormHint}</p>
+          <form id="portal-project-lead-form" class="portal-form">
+            <label>
+              {t.leadNameLabel}
+              <input name="full_name" type="text" required autocomplete="name" />
+            </label>
+            <label>
+              {t.leadEmailLabel}
+              <input name="email" type="email" autocomplete="email" />
+            </label>
+            <label>
+              {t.leadPhoneLabel}
+              <input name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+            </label>
+            <label>
+              {t.leadLanguageLabel}
+              <select name="language">
+                <option value="es">es</option>
+                <option value="en">en</option>
+                <option value="de">de</option>
+                <option value="fr">fr</option>
+                <option value="it">it</option>
+                <option value="nl">nl</option>
+              </select>
+            </label>
+            <label>
+              {t.leadOperationLabel}
+              <select name="operation_interest">
+                <option value="sale">{t.leadOperationSale}</option>
+                <option value="rent">{t.leadOperationRent}</option>
+                <option value="both">{t.leadOperationBoth}</option>
+              </select>
+            </label>
+            <label>
+              {t.leadTimelineLabel}
+              <input name="timeline" type="text" placeholder={t.leadTimelinePlaceholder} />
+            </label>
+            <label>
+              {t.leadBudgetMinLabel}
+              <input name="budget_min" type="number" step="1" min="0" />
+            </label>
+            <label>
+              {t.leadBudgetMaxLabel}
+              <input name="budget_max" type="number" step="1" min="0" />
+            </label>
+            <label class="portal-col-2">
+              {t.leadNotesLabel}
+              <textarea name="notes" placeholder={t.leadNotesPlaceholder}></textarea>
+            </label>
+            <label class="portal-col-2 portal-checkbox">
+              <input name="consent" type="checkbox" />
+              {t.leadConsentLabel}
+            </label>
+            <p class="portal-col-2 portal-field-hint">{t.leadRequiredHint}</p>
+            <div class="portal-col-2 portal-actions">
+              <button type="submit" class="portal-button portal-button-primary">{t.submitLead}</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="portal-card">
+          <h2>{t.visitTitle}</h2>
+          <p class="portal-note">{t.visitHint}</p>
+          <form id="portal-project-visit-form" class="portal-form">
+            <label class="portal-col-2">
+              {t.visitLeadLabel}
+              <select name="lead_id" id="portal-visit-lead-select"></select>
+            </label>
+            <label>
+              {t.visitModeLabel}
+              <select name="request_mode" id="portal-visit-mode">
+                <option value="proposal_slots">{t.visitModeProposal}</option>
+                <option value="direct_booking">{t.visitModeDirect}</option>
+              </select>
+            </label>
+            <p class="portal-col-2 portal-field-hint">{t.visitModeHint}</p>
+            <label>
+              {t.visitSlot1}
+              <input name="slot_1" type="datetime-local" />
+            </label>
+            <label>
+              {t.visitSlot2}
+              <input name="slot_2" type="datetime-local" />
+            </label>
+            <label>
+              {t.visitSlot3}
+              <input name="slot_3" type="datetime-local" />
+            </label>
+            <label class="portal-col-2">
+              {t.visitNotesLabel}
+              <textarea name="notes" placeholder={t.visitNotesPlaceholder}></textarea>
+            </label>
+            <div class="portal-col-2 portal-actions">
+              <button type="submit" class="portal-button portal-button-primary">{t.submitVisit}</button>
+            </div>
+          </form>
+        </article>
+      </section>
+
+      <section class="portal-grid portal-grid-2">
+        <article class="portal-card">
+          <h2>{t.leadsTitle}</h2>
+          <p class="portal-note">{t.leadsHint}</p>
+          <div class="portal-table-wrap">
+            <table class="portal-table" aria-label={t.leadsTableLabel}>
+              <thead>
+                <tr>
+                  <th>{t.tableDate}</th>
+                  <th>{t.tableLead}</th>
+                  <th>{t.tableAttribution}</th>
+                  <th>{t.tableAction}</th>
+                </tr>
+              </thead>
+              <tbody id="portal-project-leads-tbody">
+                <tr>
+                  <td colspan="4">{t.noLeads}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="portal-card">
+          <h2>{t.leadDetailTitle}</h2>
+          <div id="portal-project-lead-detail" class="portal-empty">{t.leadDetailEmpty}</div>
+        </article>
+      </section>
+
+      <section class="portal-card">
+        <p id="portal-project-feedback" class="portal-feedback" role="status" aria-live="polite">
+          {t.projectLoading}
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ defaultOrganizationId, lang, projectId }}>
+    window.__portalBootstrap = {
+      ...(window.__portalBootstrap || {}),
+      lang,
+      projectId,
+      defaultOrganizationId,
+    };
+  </script>
+  <script type="module" src="/portal/project.js"></script>
+</BaseLayout>

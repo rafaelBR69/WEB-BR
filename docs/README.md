@@ -15,6 +15,9 @@ Esta documentacion esta pensada para alguien que entra por primera vez al proyec
 4. `docs/10-architecture/02-routing-i18n.md`
 5. `docs/20-content-models/01-properties.md`
 6. `docs/30-playbooks/01-add-new-project.md`
+7. `docs/50-crm/06-portal-agentes-clientes-plan.md` (plan del modulo portal)
+8. `docs/40-ops/03-portal-agentes-operativa-seguridad.md` (operativa y seguridad portal)
+9. `docs/50-crm/07-portal-api-fase-2.md` (backend API portal implementada)
 
 ## Estructura de esta documentacion
 
@@ -40,6 +43,9 @@ Esta documentacion esta pensada para alguien que entra por primera vez al proyec
 - Paginas de posts: `src/pages/[lang]/posts/index.astro` y `src/pages/[lang]/post/[slug].astro`
 - Equipo: `src/data/team/*.json` y `src/data/team/index.ts`
 - Navegacion global: `src/layouts/BaseLayout.astro`
+- Plan funcional/tecnico del portal agentes-clientes: `docs/50-crm/06-portal-agentes-clientes-plan.md`
+- Operativa diaria y seguridad portal: `docs/40-ops/03-portal-agentes-operativa-seguridad.md`
+- Endpoints backend del portal (Fase 2): `docs/50-crm/07-portal-api-fase-2.md`
 - Sincronizar propiedades JSON -> CRM: `scripts/migrate-properties-json-to-crm.mjs` (`npm run properties:migrate-crm -- -- --organization-id <ORG_UUID>`)
 - Optimizar media CRM con Sharp: `scripts/optimize-crm-property-media.mjs` (`npm run properties:media-optimize -- -- --dry-run`)
 - Procesar cola automatica de optimizacion media: `scripts/process-media-optimize-queue.mjs` (`npm run properties:media-optimize-queue -- --max-jobs 5`)

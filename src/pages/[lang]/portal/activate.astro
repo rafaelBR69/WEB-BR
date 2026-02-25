@@ -1,0 +1,170 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@/i18n/languages";
+import "@/styles/pages/portal.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/portal/activate/`, 302);
+}
+
+const lang = langParam;
+const defaultOrganizationId = String(
+  import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? ""
+).trim();
+
+const copyByLang = {
+  es: {
+    title: "Portal | Activacion",
+    description: "Activa una cuenta portal con email, codigo e password.",
+    eyebrow: "Activacion de cuenta",
+    heading: "Alta inicial del portal",
+    intro:
+      "Valida el codigo de invitacion y crea credenciales para acceder al dashboard del portal de agentes/clientes.",
+    formTitle: "Formulario de activacion",
+    organizationLabel: "Organization ID",
+    emailLabel: "Email invitado",
+    codeLabel: "Codigo de invitacion",
+    passwordLabel: "Password (min 8)",
+    nameLabel: "Nombre completo",
+    projectLabel: "Project Property ID (opcional)",
+    validateCta: "Validar codigo",
+    activateCta: "Activar cuenta",
+    resultTitle: "Resultado",
+    loginHint: "Si tu cuenta ya esta activa, usa el acceso de portal.",
+    loginLink: "Ir a login",
+  },
+  en: {
+    title: "Portal | Activation",
+    description: "Activate a portal account with email, code and password.",
+    eyebrow: "Account activation",
+    heading: "Initial portal onboarding",
+    intro:
+      "Validate invitation code and create credentials to access the agents/clients portal dashboard.",
+    formTitle: "Activation form",
+    organizationLabel: "Organization ID",
+    emailLabel: "Invited email",
+    codeLabel: "Invitation code",
+    passwordLabel: "Password (min 8)",
+    nameLabel: "Full name",
+    projectLabel: "Project Property ID (optional)",
+    validateCta: "Validate code",
+    activateCta: "Activate account",
+    resultTitle: "Result",
+    loginHint: "If your account is already active, use portal login.",
+    loginLink: "Go to login",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.en;
+---
+
+<BaseLayout
+  title={`${t.title} | BlancaReal`}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+  showMobileStickyCta={false}
+>
+  <div class="portal-app">
+    <div class="portal-shell">
+      <section class="portal-hero">
+        <p class="portal-kicker">{t.eyebrow}</p>
+        <h1>{t.heading}</h1>
+        <p>{t.intro}</p>
+      </section>
+
+      <section class="portal-grid portal-grid-2">
+        <article class="portal-card">
+          <h2>{t.formTitle}</h2>
+          <form id="portal-activate-form" class="portal-form">
+            <label>
+              {t.organizationLabel}
+              <input
+                id="portal-activate-organization"
+                name="organization_id"
+                type="text"
+                placeholder="UUID de crm.organizations"
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
+            </label>
+            <label>
+              {t.emailLabel}
+              <input id="portal-activate-email" name="email" type="email" autocomplete="email" required />
+            </label>
+            <label>
+              {t.codeLabel}
+              <input
+                id="portal-activate-code"
+                name="code"
+                type="text"
+                placeholder="ABC12345"
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
+            </label>
+            <label>
+              {t.passwordLabel}
+              <input
+                id="portal-activate-password"
+                name="password"
+                type="password"
+                minlength="8"
+                autocomplete="new-password"
+                required
+              />
+            </label>
+            <label class="portal-col-2">
+              {t.nameLabel}
+              <input id="portal-activate-name" name="full_name" type="text" autocomplete="name" />
+            </label>
+            <label class="portal-col-2">
+              {t.projectLabel}
+              <input
+                id="portal-activate-project"
+                name="project_property_id"
+                type="text"
+                placeholder="UUID de crm.properties (record_type=project)"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </label>
+            <div class="portal-col-2 portal-actions">
+              <button id="portal-activate-validate" type="button" class="portal-button portal-button-soft">
+                {t.validateCta}
+              </button>
+              <button type="submit" class="portal-button portal-button-primary">{t.activateCta}</button>
+            </div>
+          </form>
+          <p id="portal-activate-feedback" class="portal-feedback">Completa los campos para activar.</p>
+          <p class="portal-note">
+            {t.loginHint}
+            {" "}
+            <a class="portal-link" href={`/${lang}/portal/login/`}>{t.loginLink}</a>
+          </p>
+        </article>
+
+        <article class="portal-card">
+          <h2>{t.resultTitle}</h2>
+          <div id="portal-activate-result" class="portal-empty">
+            Aqui se mostraran los datos de cuenta activada y la sesion guardada.
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ defaultOrganizationId, lang }}>
+    window.__portalBootstrap = {
+      ...(window.__portalBootstrap || {}),
+      lang,
+      defaultOrganizationId,
+    };
+  </script>
+  <script type="module" src="/portal/activate.js"></script>
+</BaseLayout>

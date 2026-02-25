@@ -25,6 +25,7 @@ type CreatePropertyBody = {
   legacy_code?: string;
   record_type?: PropertyRecordType;
   project_business_type?: ProjectBusinessType;
+  portal_enabled?: boolean;
   operation_type?: OperationType;
   status?: PropertyStatus;
   parent_legacy_code?: string;
@@ -71,6 +72,9 @@ type PropertySummaryRow = {
   project_business_type: ProjectBusinessType;
   status: PropertyStatus;
   parent_property_id: string | null;
+  portal_enabled: boolean;
+  portal_published_at: string | null;
+  portal_updated_at: string | null;
 };
 
 type PropertyFilter = {
@@ -241,6 +245,9 @@ const toSummaryRow = (row: Record<string, unknown>): PropertySummaryRow => {
     project_business_type: mapped.project_business_type,
     status: mapped.status,
     parent_property_id: toOptionalText(mapped.parent_property_id),
+    portal_enabled: mapped.portal?.is_enabled !== false,
+    portal_published_at: toOptionalText(mapped.portal?.published_at),
+    portal_updated_at: toOptionalText(mapped.portal?.updated_at),
   };
 };
 
@@ -258,6 +265,9 @@ const buildStats = (rows: PropertySummaryRow[]) => {
       project_name: string | null;
       status: PropertyStatus;
       business_type: ProjectBusinessType;
+      portal_enabled: boolean;
+      portal_published_at: string | null;
+      portal_updated_at: string | null;
       total_units: number;
       available_units: number;
       reserved_units: number;
@@ -279,6 +289,9 @@ const buildStats = (rows: PropertySummaryRow[]) => {
         project_name: row.project_name,
         status: row.status,
         business_type: row.project_business_type,
+        portal_enabled: row.portal_enabled !== false,
+        portal_published_at: row.portal_published_at ?? null,
+        portal_updated_at: row.portal_updated_at ?? null,
         total_units: 0,
         available_units: 0,
         reserved_units: 0,
@@ -436,6 +449,11 @@ export const GET: APIRoute = async ({ url }) => {
         project_business_type: row.project_business_type,
         status: row.status,
         parent_property_id: row.parent_property_id,
+        property_data: {
+          portal_enabled: row.portal?.is_enabled !== false,
+          portal_published_at: row.portal?.published_at ?? null,
+          portal_updated_at: row.portal?.updated_at ?? null,
+        },
       })
     );
 
@@ -516,10 +534,10 @@ export const GET: APIRoute = async ({ url }) => {
   if (includeStats) {
     const statsQuery = applySupabaseFilters(
       client
-        .schema("crm")
-        .from("properties")
-        .select(
-          "id, legacy_code, translations, record_type, project_business_type, status, parent_property_id"
+      .schema("crm")
+      .from("properties")
+      .select(
+          "id, legacy_code, translations, record_type, project_business_type, status, parent_property_id, property_data"
         ),
       filters
     );
@@ -576,6 +594,8 @@ export const POST: APIRoute = async ({ request }) => {
   const projectBusinessType = normalizeProjectBusinessType(body.project_business_type);
   const status = normalizePropertyStatus(body.status);
   const currency = toOptionalText(body.currency) ?? "EUR";
+  const portalEnabled = recordType === "project" ? toBoolean(body.portal_enabled, true) : false;
+  const portalNow = new Date().toISOString();
 
   let parentPropertyId: string | null = null;
   const parentLegacyCode = toOptionalText(body.parent_legacy_code);
@@ -632,6 +652,10 @@ export const POST: APIRoute = async ({ request }) => {
       energy_rating: toOptionalText(body.energy_rating),
       elevator: body.elevator === undefined ? undefined : toBoolean(body.elevator, false),
       rent_price_on_request: body.rent_price_on_request ?? false,
+      portal_enabled: portalEnabled,
+      portal_published_at: portalEnabled ? portalNow : null,
+      portal_unpublished_at: portalEnabled ? null : portalNow,
+      portal_updated_at: portalNow,
     }
   );
 

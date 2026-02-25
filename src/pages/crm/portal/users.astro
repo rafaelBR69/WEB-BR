@@ -1,0 +1,198 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Portal | Usuarios" section="portal">
+  <div class="crm-stack" data-portal-page="users">
+    <section class="crm-card crm-full">
+      <h2>Usuarios y membresias portal</h2>
+      <p>Gestion operativa de cuentas portal y sus accesos por promocion.</p>
+      <form id="crm-portal-org-form" class="crm-form crm-form-compact">
+        <label for="crm-portal-organization-id">
+          Organization ID
+          <input
+            id="crm-portal-organization-id"
+            name="organization_id"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="UUID de crm.organizations"
+          />
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar</button>
+        </div>
+      </form>
+      <p id="crm-portal-org-source" class="crm-inline-note"></p>
+      <p id="crm-portal-org-help" class="crm-inline-note"></p>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Filtros de cuentas</h3>
+        <form id="portal-users-filter" class="crm-form">
+          <label for="portal-users-q">
+            Buscar
+            <input id="portal-users-q" name="q" type="search" placeholder="email, nombre, role, id..." />
+          </label>
+          <label for="portal-users-role">
+            Rol
+            <select id="portal-users-role" name="role">
+              <option value="">Todos</option>
+              <option value="portal_agent_admin">portal_agent_admin</option>
+              <option value="portal_agent_member">portal_agent_member</option>
+              <option value="portal_client">portal_client</option>
+            </select>
+          </label>
+          <label for="portal-users-status">
+            Estado
+            <select id="portal-users-status" name="status">
+              <option value="">Todos</option>
+              <option value="pending">pending</option>
+              <option value="active">active</option>
+              <option value="blocked">blocked</option>
+              <option value="revoked">revoked</option>
+            </select>
+          </label>
+          <label for="portal-users-per-page">
+            Por pagina
+            <select id="portal-users-per-page" name="per_page">
+              <option value="10">10</option>
+              <option value="25" selected>25</option>
+              <option value="50">50</option>
+            </select>
+          </label>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+            <button id="portal-users-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Alta/actualizacion de membresia</h3>
+        <form id="portal-membership-form" class="crm-form">
+          <label for="portal-membership-account-id">
+            Portal account ID
+            <input
+              id="portal-membership-account-id"
+              name="portal_account_id"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="UUID de crm.portal_accounts"
+              required
+            />
+          </label>
+          <label for="portal-membership-project-select" class="crm-col-2">
+            Promocion (Mis Propiedades)
+            <select id="portal-membership-project-select" name="project_property_id">
+              <option value="">Selecciona una promocion</option>
+            </select>
+            <small class="crm-field-help">Solo promociones reales (record_type=project).</small>
+          </label>
+          <label for="portal-membership-project-manual" class="crm-col-2">
+            UUID promocion (manual)
+            <input
+              id="portal-membership-project-manual"
+              name="project_property_id_manual"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Pegar UUID de promocion si no aparece en listado"
+            />
+          </label>
+          <label for="portal-membership-scope">
+            Access scope
+            <select id="portal-membership-scope" name="access_scope">
+              <option value="read">read</option>
+              <option value="read_write">read_write</option>
+              <option value="full">full</option>
+            </select>
+          </label>
+          <label for="portal-membership-status">
+            Estado
+            <select id="portal-membership-status" name="status">
+              <option value="active">active</option>
+              <option value="paused">paused</option>
+              <option value="revoked">revoked</option>
+            </select>
+          </label>
+          <label for="portal-membership-dispute-window">
+            Ventana disputa (horas)
+            <input id="portal-membership-dispute-window" name="dispute_window_hours" type="number" min="24" max="72" value="48" />
+          </label>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="submit" class="crm-button">Guardar membresia</button>
+          </div>
+        </form>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="portal-users-meta" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table" aria-describedby="portal-users-meta">
+          <caption class="sr-only">Listado de usuarios portal</caption>
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Membresias</th>
+              <th>Ultimo login</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody id="portal-users-tbody">
+            <tr><td colspan="6">Cargando usuarios portal...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Membresias por cuenta</h3>
+      <form id="portal-memberships-filter" class="crm-form crm-form-compact">
+        <label for="portal-memberships-account-filter">
+          Filtrar por account ID (opcional)
+          <input
+            id="portal-memberships-account-filter"
+            name="portal_account_id"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="UUID de crm.portal_accounts"
+          />
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Recargar membresias</button>
+        </div>
+      </form>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <caption class="sr-only">Listado de membresias por promocion</caption>
+          <thead>
+            <tr>
+              <th>Portal account</th>
+              <th>Proyecto</th>
+              <th>Scope</th>
+              <th>Estado</th>
+              <th>Disputa</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody id="portal-memberships-tbody">
+            <tr><td colspan="6">Cargando membresias...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-portal-feedback" class="crm-feedback" role="status" aria-live="polite">
+        Listo para operar.
+      </p>
+    </section>
+  </div>
+  <script is:inline src="/crm/portal.js"></script>
+</CrmLayout>

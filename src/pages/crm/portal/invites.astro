@@ -1,0 +1,181 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Portal | Invites" section="portal">
+  <div class="crm-stack" data-portal-page="invites">
+    <section class="crm-card crm-full">
+      <h2>Invites portal</h2>
+      <p>Alta y revocacion de invitaciones para agentes y clientes.</p>
+      <form id="crm-portal-org-form" class="crm-form crm-form-compact">
+        <label for="crm-portal-organization-id">
+          Organization ID
+          <input
+            id="crm-portal-organization-id"
+            name="organization_id"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="UUID de crm.organizations"
+          />
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar</button>
+        </div>
+      </form>
+      <p id="crm-portal-org-source" class="crm-inline-note"></p>
+      <p id="crm-portal-org-help" class="crm-inline-note"></p>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Crear invite</h3>
+        <form id="portal-invite-form" class="crm-form">
+          <label for="portal-invite-email">
+            Email
+            <input id="portal-invite-email" name="email" type="email" autocomplete="email" required />
+          </label>
+          <label for="portal-invite-type">
+            Tipo invite
+            <select id="portal-invite-type" name="invite_type">
+              <option value="agent">Agente</option>
+              <option value="client">Cliente</option>
+            </select>
+          </label>
+          <label for="portal-invite-role">
+            Rol portal
+            <select id="portal-invite-role" name="role">
+              <option value="portal_agent_member">portal_agent_member</option>
+              <option value="portal_agent_admin">portal_agent_admin</option>
+              <option value="portal_client">portal_client</option>
+            </select>
+          </label>
+          <label for="portal-invite-project-select" class="crm-col-2">
+            Promocion (opcional)
+            <select id="portal-invite-project-select" name="project_property_id">
+              <option value="">Sin vincular a promocion concreta</option>
+            </select>
+            <small class="crm-field-help">Solo promociones de Mis Propiedades.</small>
+          </label>
+          <label for="portal-invite-project-manual" class="crm-col-2">
+            UUID promocion (opcional, manual)
+            <input
+              id="portal-invite-project-manual"
+              name="project_property_id_manual"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Pegar UUID si no aparece en el selector"
+            />
+          </label>
+          <label for="portal-invite-expires">
+            Caduca en (horas)
+            <input id="portal-invite-expires" name="expires_hours" type="number" min="1" max="720" value="72" />
+          </label>
+          <label for="portal-invite-attempts">
+            Max intentos
+            <input id="portal-invite-attempts" name="max_attempts" type="number" min="1" max="20" value="5" />
+          </label>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="submit" class="crm-button">Generar invite</button>
+          </div>
+        </form>
+        <p id="portal-invite-code" class="crm-inline-note" role="status" aria-live="polite">
+          El codigo de un solo uso aparecera aqui tras crear la invitacion.
+        </p>
+        <div id="portal-invite-share" class="crm-share-card" hidden>
+          <p class="crm-share-title">Invite lista para enviar</p>
+          <p id="portal-invite-share-summary" class="crm-inline-note">
+            Genera una invitacion para desbloquear envio por WhatsApp o correo.
+          </p>
+          <div class="crm-actions-row">
+            <a
+              id="portal-invite-share-whatsapp"
+              class="crm-button crm-button-soft"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Enviar por WhatsApp
+            </a>
+            <a id="portal-invite-share-email" class="crm-button crm-button-soft" href="#">
+              Enviar por correo
+            </a>
+            <button id="portal-invite-copy-message" type="button" class="crm-button crm-button-soft">
+              Copiar mensaje
+            </button>
+            <button id="portal-invite-copy-code" type="button" class="crm-button crm-button-soft">
+              Copiar codigo
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Filtros</h3>
+        <form id="portal-invites-filter" class="crm-form">
+          <label for="portal-invites-status">
+            Estado
+            <select id="portal-invites-status" name="status">
+              <option value="">Todos</option>
+              <option value="pending">pending</option>
+              <option value="used">used</option>
+              <option value="expired">expired</option>
+              <option value="revoked">revoked</option>
+              <option value="blocked">blocked</option>
+            </select>
+          </label>
+          <label for="portal-invites-email">
+            Email
+            <input id="portal-invites-email" name="email" type="search" placeholder="filtro exacto por email" />
+          </label>
+          <label for="portal-invites-project">
+            Proyecto UUID
+            <input id="portal-invites-project" name="project_property_id" type="text" placeholder="opcional" />
+          </label>
+          <label for="portal-invites-per-page">
+            Por pagina
+            <select id="portal-invites-per-page" name="per_page">
+              <option value="10">10</option>
+              <option value="25" selected>25</option>
+              <option value="50">50</option>
+            </select>
+          </label>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+            <button id="portal-invites-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+          </div>
+        </form>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="portal-invites-meta" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table" aria-describedby="portal-invites-meta">
+          <caption class="sr-only">Listado de invitaciones portal</caption>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Tipo/Rol</th>
+              <th>Proyecto</th>
+              <th>Estado</th>
+              <th>Caduca</th>
+              <th>Intentos</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody id="portal-invites-tbody">
+            <tr><td colspan="7">Cargando invitaciones...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-portal-feedback" class="crm-feedback" role="status" aria-live="polite">
+        Listo para operar.
+      </p>
+    </section>
+  </div>
+  <script is:inline src="/crm/portal.js"></script>
+</CrmLayout>

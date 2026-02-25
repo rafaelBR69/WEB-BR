@@ -36,6 +36,14 @@ export type PropertyMediaModel = {
   gallery: Record<MediaCategory, PropertyMediaItem[]>;
 };
 
+export type PropertyPortalModel = {
+  is_enabled: boolean;
+  is_explicit: boolean;
+  published_at: string | null;
+  unpublished_at: string | null;
+  updated_at: string | null;
+};
+
 export const MEDIA_CATEGORIES: MediaCategory[] = [
   "living",
   "bedroom",
@@ -203,6 +211,8 @@ export const mapPropertyRow = (row: Record<string, unknown>) => {
   const media = normalizeMediaModel(row.media);
   const translations = asRecord(row.translations);
   const recordType = normalizeRecordType(row.record_type);
+  const portalEnabledRaw = asBoolean(propertyData.portal_enabled);
+  const isPortalProject = recordType === "project";
   const legacyCode = asString(row.legacy_code);
   const title = getPreferredTranslationTitle(translations);
   const displayName = title ?? legacyCode;
@@ -256,6 +266,13 @@ export const mapPropertyRow = (row: Record<string, unknown>) => {
       ibi_yearly: asNumber(propertyData.ibi_yearly),
       elevator: asBoolean(propertyData.elevator),
     },
+    portal: {
+      is_enabled: isPortalProject ? portalEnabledRaw !== false : false,
+      is_explicit: portalEnabledRaw !== null,
+      published_at: asString(propertyData.portal_published_at),
+      unpublished_at: asString(propertyData.portal_unpublished_at),
+      updated_at: asString(propertyData.portal_updated_at),
+    } as PropertyPortalModel,
     translations,
     location: asRecord(row.location),
     media,
@@ -293,6 +310,10 @@ export const mergeOperationalData = (
     energy_rating?: string | null;
     elevator?: boolean | null;
     rent_price_on_request?: boolean | null;
+    portal_enabled?: boolean | null;
+    portal_published_at?: string | null;
+    portal_unpublished_at?: string | null;
+    portal_updated_at?: string | null;
   }
 ) => {
   const next = {
@@ -329,5 +350,9 @@ export const mergeOperationalData = (
   if (updates.rent_price_on_request !== undefined) {
     next.rent_price_on_request = Boolean(updates.rent_price_on_request);
   }
+  if (updates.portal_enabled !== undefined) next.portal_enabled = updates.portal_enabled;
+  if (updates.portal_published_at !== undefined) next.portal_published_at = updates.portal_published_at;
+  if (updates.portal_unpublished_at !== undefined) next.portal_unpublished_at = updates.portal_unpublished_at;
+  if (updates.portal_updated_at !== undefined) next.portal_updated_at = updates.portal_updated_at;
   return next;
 };

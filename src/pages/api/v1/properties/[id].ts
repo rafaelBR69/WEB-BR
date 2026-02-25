@@ -24,6 +24,7 @@ type UpdatePropertyBody = {
   legacy_code?: string;
   record_type?: PropertyRecordType;
   project_business_type?: ProjectBusinessType;
+  portal_enabled?: boolean;
   operation_type?: OperationType;
   status?: PropertyStatus;
   parent_legacy_code?: string | null;
@@ -109,6 +110,48 @@ const toOptionalText = (value: unknown): string | null => {
   if (typeof value !== "string") return null;
   const trimmed = value.trim();
   return trimmed.length ? trimmed : null;
+};
+
+const asRecord = (value: unknown): Record<string, unknown> =>
+  value && typeof value === "object" && !Array.isArray(value)
+    ? ({ ...(value as Record<string, unknown>) } as Record<string, unknown>)
+    : {};
+
+const resolvePortalStatePatch = (
+  currentPropertyData: unknown,
+  previousRecordType: PropertyRecordType,
+  nextRecordType: PropertyRecordType,
+  portalEnabledPatch: boolean | null
+) => {
+  const next = asRecord(currentPropertyData);
+  const now = new Date().toISOString();
+  let changed = false;
+
+  if (nextRecordType !== "project") {
+    if (previousRecordType === "project" || portalEnabledPatch !== null) {
+      next.portal_enabled = false;
+      next.portal_updated_at = now;
+      next.portal_unpublished_at = now;
+      changed = true;
+    }
+    return { changed, data: next };
+  }
+
+  if (portalEnabledPatch === null) {
+    return { changed, data: next };
+  }
+
+  next.portal_enabled = portalEnabledPatch;
+  next.portal_updated_at = now;
+  if (portalEnabledPatch) {
+    const previousPublishedAt = toOptionalText(next.portal_published_at);
+    next.portal_published_at = previousPublishedAt ?? now;
+    next.portal_unpublished_at = null;
+  } else {
+    next.portal_unpublished_at = now;
+  }
+  changed = true;
+  return { changed, data: next };
 };
 
 const getPropertyIdFromParams = (params: Record<string, string | undefined>): string | null => {
@@ -231,9 +274,13 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     if (!current) return jsonResponse({ ok: false, error: "property_not_found" }, { status: 404 });
 
     const patch: Record<string, unknown> = {};
+    const previousRecordType = normalizeRecordType(current.record_type);
     const nextRecordType = hasOwn(body, "record_type")
       ? normalizeRecordType(body.record_type)
-      : normalizeRecordType(current.record_type);
+      : previousRecordType;
+    const portalEnabledPatch = hasOwn(body, "portal_enabled")
+      ? toBoolean(body.portal_enabled, nextRecordType === "project")
+      : null;
 
     if (hasOwn(body, "legacy_code")) {
       const legacyCode = toOptionalText(body.legacy_code);
@@ -305,8 +352,9 @@ export const PATCH: APIRoute = async ({ params, request }) => {
       hasOwn(body, "elevator") ||
       hasOwn(body, "rent_price_on_request");
 
+    let mergedPropertyData = current.property_data;
     if (hasOperationalPatch) {
-      patch.property_data = mergeOperationalData(current.property_data, {
+      mergedPropertyData = mergeOperationalData(current.property_data, {
         area_m2: hasOwn(body, "area_m2") ? toNumberOrNull(body.area_m2) : undefined,
         usable_area_m2: hasOwn(body, "usable_area_m2")
           ? toNumberOrNull(body.usable_area_m2)
@@ -348,6 +396,16 @@ export const PATCH: APIRoute = async ({ params, request }) => {
           ? toBoolean(body.rent_price_on_request, false)
           : undefined,
       });
+    }
+
+    const portalState = resolvePortalStatePatch(
+      mergedPropertyData,
+      previousRecordType,
+      nextRecordType,
+      portalEnabledPatch
+    );
+    if (hasOperationalPatch || portalState.changed) {
+      patch.property_data = portalState.data;
     }
 
     const next = patchMockPropertyRow(id, patch);
@@ -394,10 +452,14 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   if (!current) return jsonResponse({ ok: false, error: "property_not_found" }, { status: 404 });
 
   const organizationId = String(current.organization_id);
+  const previousRecordType = normalizeRecordType(current.record_type);
   const updatePayload: Record<string, unknown> = {};
   const nextRecordType = hasOwn(body, "record_type")
     ? normalizeRecordType(body.record_type)
-    : normalizeRecordType(current.record_type);
+    : previousRecordType;
+  const portalEnabledPatch = hasOwn(body, "portal_enabled")
+    ? toBoolean(body.portal_enabled, nextRecordType === "project")
+    : null;
 
   if (hasOwn(body, "legacy_code")) {
     const legacyCode = toOptionalText(body.legacy_code);
@@ -478,8 +540,9 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     hasOwn(body, "elevator") ||
     hasOwn(body, "rent_price_on_request");
 
+  let mergedPropertyData = current.property_data;
   if (hasOperationalPatch) {
-    updatePayload.property_data = mergeOperationalData(current.property_data, {
+    mergedPropertyData = mergeOperationalData(current.property_data, {
       area_m2: hasOwn(body, "area_m2") ? toNumberOrNull(body.area_m2) : undefined,
       usable_area_m2: hasOwn(body, "usable_area_m2")
         ? toNumberOrNull(body.usable_area_m2)
@@ -521,6 +584,16 @@ export const PATCH: APIRoute = async ({ params, request }) => {
         ? toBoolean(body.rent_price_on_request, false)
         : undefined,
     });
+  }
+
+  const portalState = resolvePortalStatePatch(
+    mergedPropertyData,
+    previousRecordType,
+    nextRecordType,
+    portalEnabledPatch
+  );
+  if (hasOperationalPatch || portalState.changed) {
+    updatePayload.property_data = portalState.data;
   }
 
   if (!Object.keys(updatePayload).length) {

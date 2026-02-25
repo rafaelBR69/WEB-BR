@@ -666,6 +666,45 @@
 
   const statusLabel = (status) => statusLabels[status] || status || "-";
 
+  const resolveProjectPortalState = (project) => {
+    const row = project && typeof project === "object" ? project : {};
+    const portal = row.portal && typeof row.portal === "object" ? row.portal : {};
+    const propertyData =
+      row.property_data && typeof row.property_data === "object" ? row.property_data : {};
+    const legacyPortalEnabled = typeof row.portal_enabled === "boolean" ? row.portal_enabled : null;
+
+    const explicitFromPortal =
+      typeof portal.is_explicit === "boolean"
+        ? portal.is_explicit
+        : typeof propertyData.portal_enabled === "boolean" || typeof legacyPortalEnabled === "boolean";
+    const enabledFromPortal =
+      typeof portal.is_enabled === "boolean"
+        ? portal.is_enabled
+        : typeof propertyData.portal_enabled === "boolean"
+          ? propertyData.portal_enabled
+          : typeof legacyPortalEnabled === "boolean"
+            ? legacyPortalEnabled
+          : true;
+
+    const publishedAt =
+      toText(portal.published_at) ||
+      toText(propertyData.portal_published_at) ||
+      toText(row.portal_published_at);
+    const updatedAt =
+      toText(portal.updated_at) || toText(propertyData.portal_updated_at) || toText(row.portal_updated_at);
+
+    return {
+      enabled: enabledFromPortal,
+      explicit: explicitFromPortal,
+      publishedAt,
+      updatedAt,
+      badgeClass: enabledFromPortal ? "ok" : "warn",
+      badgeLabel: enabledFromPortal ? "Portal activo" : "Portal pausado",
+      actionLabel: enabledFromPortal ? "Quitar del portal" : "Subir al portal",
+      nextActionValue: enabledFromPortal ? "false" : "true",
+    };
+  };
+
   const formatPercent = (value, total) => {
     const numerator = Number(value ?? 0);
     const denominator = Number(total ?? 0);
@@ -699,6 +738,14 @@
     if (priceLabel !== "-") badges.push(`<span class="crm-selected-context-badge">${esc(priceLabel)}</span>`);
     if (parentLegacyCode) {
       badges.push(`<span class="crm-selected-context-badge">Padre: ${esc(parentLegacyCode)}</span>`);
+    }
+    if (item.record_type === "project") {
+      const portalState = resolveProjectPortalState(item);
+      badges.push(
+        `<span class="crm-selected-context-badge">Portal: ${esc(
+          portalState.enabled ? "Activo" : "Pausado"
+        )}</span>`
+      );
     }
 
     el.selectedPropertyContext.innerHTML = `
@@ -824,11 +871,13 @@
     const availableUnits = Array.isArray(units) ? units.filter((item) => isAvailable(item)).length : 0;
     const priceLabel = money(project);
     const businessType = project?.project_business_type || project?.business_type;
+    const portalState = resolveProjectPortalState(project);
     const subtitleParts = [
       businessLabels[businessType] || businessType || "Promocion",
       totalUnits ? `${availableUnits}/${totalUnits} disponibles` : "Sin viviendas hijas cargadas",
     ];
     const metaParts = [`Ref: ${propertyRef(project)}`, `Estado: ${statusLabel(project.status)}`];
+    metaParts.push(`Portal: ${portalState.enabled ? "Activo" : "Pausado"}`);
     if (priceLabel !== "-") metaParts.push(priceLabel);
 
     el.projectPageTitle.textContent = projectLabel(project);
@@ -1458,6 +1507,7 @@
     const rows = promotions
       .map((promo) => {
         const selectedClass = state.selectedProjectId === promo.id ? "is-selected" : "";
+        const portalState = resolveProjectPortalState(promo);
         return `
           <article class="crm-project-item ${selectedClass}">
             <button type="button" class="crm-project-select" data-project-id="${esc(promo.id)}">
@@ -1466,11 +1516,22 @@
               <small class="crm-project-meta crm-project-meta-model">${esc(businessLabels[promo.business_type] || promo.business_type || "-")}</small>
               <small class="crm-project-meta crm-project-meta-stock">${esc(promo.total_units ?? 0)} viviendas | ${esc(promo.available_units ?? 0)} disponibles</small>
               <small class="crm-project-meta crm-project-meta-status">Estado: ${esc(promo.status || "-")}</small>
+              <small class="crm-project-meta crm-project-meta-portal">
+                Portal:
+                <span class="crm-badge ${esc(portalState.badgeClass)}">${esc(portalState.badgeLabel)}</span>
+              </small>
             </button>
             <div class="crm-actions-row">
               <button type="button" class="crm-mini-btn" data-action="open-project-page" data-id="${esc(
                 promo.id
               )}">Pagina</button>
+              <button
+                type="button"
+                class="crm-mini-btn ${portalState.enabled ? "danger" : ""}"
+                data-action="toggle-project-portal"
+                data-project-id="${esc(promo.id)}"
+                data-next-portal-enabled="${esc(portalState.nextActionValue)}"
+              >${esc(portalState.actionLabel)}</button>
               <button type="button" class="crm-mini-btn" data-action="create-unit" data-project-id="${esc(
                 promo.id
               )}">Nueva hija</button>
@@ -1748,6 +1809,7 @@
 
     syncProjectPageContext(project, units);
     const availability = availabilityBadge(project);
+    const portalState = resolveProjectPortalState(project);
     const availableUnits = units.filter((item) => isAvailable(item)).length;
     const projectSelectedClass = state.selectedId === project.id ? "is-selected" : "";
     const unitsHtml = units.length
@@ -1765,6 +1827,9 @@
             <h3>${esc(projectLabel(project))}</h3>
             <p class="crm-project-head-ref">Ref: ${esc(propertyRef(project))}</p>
             <p class="crm-project-head-model">${esc(businessLabels[project.project_business_type] || project.project_business_type || "-")}</p>
+            <p class="crm-project-head-model">Portal: <span class="crm-badge ${esc(
+              portalState.badgeClass
+            )}">${esc(portalState.badgeLabel)}</span></p>
           </div>
           <span class="crm-badge ${availability.className}">${availability.label}</span>
         </div>
@@ -1772,6 +1837,13 @@
         <p class="crm-unit-price">${esc(money(project))}</p>
         <div class="crm-actions-row">
           <button type="button" class="crm-mini-btn" data-action="open-project-page" data-id="${esc(project.id)}">Abrir ficha promocion</button>
+          <button
+            type="button"
+            class="crm-mini-btn ${portalState.enabled ? "danger" : ""}"
+            data-action="toggle-project-portal"
+            data-project-id="${esc(project.id)}"
+            data-next-portal-enabled="${esc(portalState.nextActionValue)}"
+          >${esc(portalState.actionLabel)}</button>
           <button type="button" class="crm-mini-btn" data-action="create-unit" data-project-id="${esc(project.id)}">Crear vivienda hija</button>
         </div>
       </section>
@@ -1929,6 +2001,39 @@
     }
   };
 
+  const syncProjectPortalFieldRules = (form, item = null) => {
+    if (!form) return;
+    const recordTypeField = form.elements?.record_type;
+    const portalField = form.elements?.portal_enabled;
+    const portalNodes = form.querySelectorAll("[data-project-portal-field], [data-project-portal-helper]");
+    const statusNode = form.querySelector("[data-project-portal-status]");
+    if (!(recordTypeField instanceof HTMLSelectElement)) return;
+    if (!(portalField instanceof HTMLInputElement)) return;
+
+    const isProject = recordTypeField.value === "project";
+    portalField.disabled = !isProject;
+    portalNodes.forEach((node) => {
+      if (node instanceof HTMLElement) node.hidden = !isProject;
+    });
+
+    if (!isProject) {
+      portalField.checked = false;
+      if (statusNode instanceof HTMLElement) statusNode.textContent = "";
+      return;
+    }
+
+    const source = item && item.record_type === "project" ? item : null;
+    const portalState = resolveProjectPortalState(source ?? { portal: { is_enabled: portalField.checked } });
+    const effectiveEnabled = portalField.checked;
+    const statusText = effectiveEnabled ? "Activa en portal." : "Fuera de portal.";
+    const updatedSuffix = portalState.updatedAt
+      ? ` Ultima actualizacion: ${formatDate(portalState.updatedAt)}.`
+      : "";
+    if (statusNode instanceof HTMLElement) {
+      statusNode.textContent = `Estado actual: ${statusText}${updatedSuffix}`;
+    }
+  };
+
   const renderMedia = (item) => {
     if (!el.coverBox || !el.mediaBoard) return;
     const cover = item?.media?.cover || null;
@@ -1991,6 +2096,7 @@
       setFormsEnabled(false);
       el.editForm.reset();
       syncParentLegacyFieldRules(el.editForm);
+      syncProjectPortalFieldRules(el.editForm, null);
       renderSelectedPropertyContext(null);
       syncPropertyPageContext(null);
       renderPropertyPresentation(null);
@@ -2058,6 +2164,12 @@
     el.editForm.elements.rent_price_on_request.checked = item.pricing?.rent_price_on_request === true;
     el.editForm.elements.is_public.checked = item.is_public !== false;
     el.editForm.elements.is_featured.checked = item.is_featured === true;
+    const portalField = el.editForm.elements.portal_enabled;
+    if (portalField instanceof HTMLInputElement) {
+      const portalState = resolveProjectPortalState(item);
+      portalField.checked = item.record_type === "project" ? portalState.enabled : false;
+    }
+    syncProjectPortalFieldRules(el.editForm, item);
     el.editForm.elements.commercialization_notes.value = item.commercialization_notes || "";
     renderMedia(item);
     void loadPropertyClientLinks(item);
@@ -2067,11 +2179,14 @@
     const formData = new FormData(form);
     const recordType = toText(formData.get("record_type"));
     const parentLegacyCode = recordType === "unit" ? toText(formData.get("parent_legacy_code")) : null;
+    const portalField = form.elements?.portal_enabled;
+    const includePortalField = recordType === "project" && portalField instanceof HTMLInputElement;
     return {
       organization_id: state.organizationId || null,
       legacy_code: toText(formData.get("legacy_code")),
       record_type: recordType,
       project_business_type: toText(formData.get("project_business_type")),
+      ...(includePortalField ? { portal_enabled: portalField.checked } : {}),
       operation_type: toText(formData.get("operation_type")),
       status: toText(formData.get("status")),
       ...(recordType === "unit" ? { parent_legacy_code: parentLegacyCode } : {}),
@@ -2197,6 +2312,45 @@
     }
 
     return true;
+  };
+
+  const toggleProjectPortalVisibility = async (projectId, nextPortalEnabledRaw) => {
+    const normalizedProjectId = toText(projectId);
+    if (!normalizedProjectId) {
+      setFeedback("No se pudo identificar la promocion a actualizar.", "error", { toast: true });
+      return;
+    }
+
+    const nextPortalEnabled = String(nextPortalEnabledRaw ?? "")
+      .trim()
+      .toLowerCase() === "true";
+    const loadingMessage = nextPortalEnabled
+      ? "Publicando promocion en portal..."
+      : "Quitando promocion del portal...";
+    setFeedback(loadingMessage, "ok");
+
+    try {
+      await request(`${apiBase}/${encodeURIComponent(normalizedProjectId)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          organization_id: state.organizationId || null,
+          portal_enabled: nextPortalEnabled,
+        }),
+      });
+
+      state.projectDetailsCache.delete(normalizedProjectId);
+      await loadProperties({ preserveSelection: true });
+      setFeedback(
+        nextPortalEnabled
+          ? "Promocion publicada correctamente en portal."
+          : "Promocion retirada del portal.",
+        "ok",
+        { toast: true }
+      );
+    } catch (error) {
+      setFeedback(`Error actualizando publicacion portal: ${error.message}`, "error", { toast: true });
+    }
   };
 
   const handleProjectSelection = async (projectId) => {
@@ -2409,8 +2563,10 @@
     createRecordTypeField.addEventListener("change", () => {
       syncParentLegacyFieldRules(el.createForm);
       syncParentProjectSelection(el.createForm);
+      syncProjectPortalFieldRules(el.createForm);
     });
     syncParentLegacyFieldRules(el.createForm);
+    syncProjectPortalFieldRules(el.createForm);
   }
 
   const editRecordTypeField = el.editForm?.elements?.record_type;
@@ -2418,8 +2574,17 @@
     editRecordTypeField.addEventListener("change", () => {
       syncParentLegacyFieldRules(el.editForm);
       syncParentProjectSelection(el.editForm);
+      syncProjectPortalFieldRules(el.editForm, selected());
     });
     syncParentLegacyFieldRules(el.editForm);
+    syncProjectPortalFieldRules(el.editForm, selected());
+  }
+
+  const editPortalField = el.editForm?.elements?.portal_enabled;
+  if (editPortalField instanceof HTMLInputElement) {
+    editPortalField.addEventListener("change", () => {
+      syncProjectPortalFieldRules(el.editForm, selected());
+    });
   }
 
   el.propertyTabbar?.addEventListener("click", (event) => {
@@ -2547,6 +2712,14 @@
   el.projectsList?.addEventListener("click", async (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
+    const portalButton = target.closest("button[data-action='toggle-project-portal']");
+    if (portalButton) {
+      await toggleProjectPortalVisibility(
+        portalButton.getAttribute("data-project-id"),
+        portalButton.getAttribute("data-next-portal-enabled")
+      );
+      return;
+    }
     const createUnitButton = target.closest("button[data-action='create-unit']");
     if (createUnitButton) {
       openCreateUnitForProject(createUnitButton.getAttribute("data-project-id"));
@@ -2565,6 +2738,14 @@
   el.projectDetail?.addEventListener("click", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
+    const portalButton = target.closest("button[data-action='toggle-project-portal']");
+    if (portalButton) {
+      void toggleProjectPortalVisibility(
+        portalButton.getAttribute("data-project-id"),
+        portalButton.getAttribute("data-next-portal-enabled")
+      );
+      return;
+    }
     const pageButton = target.closest("button[data-action='open-property-page']");
     if (pageButton) {
       openPropertyPage(pageButton.getAttribute("data-id"));

@@ -1,0 +1,136 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@/i18n/languages";
+import "@/styles/pages/portal.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/portal/login/`, 302);
+}
+
+const lang = langParam;
+const defaultOrganizationId = String(
+  import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? ""
+).trim();
+
+const copyByLang = {
+  es: {
+    title: "Portal | Acceso",
+    description: "Acceso seguro al portal de agentes/clientes.",
+    eyebrow: "Portal autenticado",
+    heading: "Iniciar sesion en el portal",
+    intro: "Usa tu email y contrasena para abrir tu panel de trabajo con acceso seguro por token.",
+    sectionTitle: "Acceso con credenciales",
+    emailLabel: "Email",
+    passwordLabel: "Contrasena",
+    rememberLabel: "Guardar sesion en este navegador",
+    loginCta: "Entrar al portal",
+    clearCta: "Cerrar sesion guardada",
+    stateTitle: "Estado de sesion",
+    activateHint: "Si todavia no tienes cuenta activa, completa primero la activacion.",
+    activateLink: "Ir a activacion",
+  },
+  en: {
+    title: "Portal | Access",
+    description: "Secure access to the agents/clients portal.",
+    eyebrow: "Authenticated portal",
+    heading: "Sign in to portal",
+    intro: "Use your email and password to open your workspace with token-based secure access.",
+    sectionTitle: "Credentials access",
+    emailLabel: "Email",
+    passwordLabel: "Password",
+    rememberLabel: "Save session in this browser",
+    loginCta: "Open portal",
+    clearCta: "Clear stored session",
+    stateTitle: "Session state",
+    activateHint: "If you do not have an active account yet, activate first.",
+    activateLink: "Go to activation",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.en;
+---
+
+<BaseLayout
+  title={`${t.title} | BlancaReal`}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+  showMobileStickyCta={false}
+>
+  <div class="portal-app">
+    <div class="portal-shell">
+      <section class="portal-hero">
+        <p class="portal-kicker">{t.eyebrow}</p>
+        <h1>{t.heading}</h1>
+        <p>{t.intro}</p>
+      </section>
+
+      <section class="portal-grid portal-grid-2">
+        <article class="portal-card">
+          <h2>{t.sectionTitle}</h2>
+          <form id="portal-login-form" class="portal-form">
+            <label class="portal-col-2">
+              {t.emailLabel}
+              <input
+                id="portal-login-email"
+                name="email"
+                type="email"
+                placeholder="tu@email.com"
+                autocomplete="email"
+                required
+              />
+            </label>
+            <label class="portal-col-2">
+              {t.passwordLabel}
+              <input
+                id="portal-login-password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                minlength="8"
+                required
+              />
+            </label>
+            <label class="portal-col-2 portal-checkbox">
+              <input id="portal-login-remember" name="remember" type="checkbox" checked />
+              {t.rememberLabel}
+            </label>
+            <div class="portal-col-2 portal-actions">
+              <button type="submit" class="portal-button portal-button-primary">{t.loginCta}</button>
+              <button id="portal-login-clear" type="button" class="portal-button portal-button-soft">
+                {t.clearCta}
+              </button>
+            </div>
+          </form>
+          <p id="portal-login-feedback" class="portal-feedback" role="status" aria-live="polite">
+            Listo para iniciar sesion.
+          </p>
+          <p class="portal-note">
+            {t.activateHint}
+            {" "}
+            <a class="portal-link" href={`/${lang}/portal/activate/`}>{t.activateLink}</a>
+          </p>
+        </article>
+
+        <article class="portal-card">
+          <h2>{t.stateTitle}</h2>
+          <div id="portal-login-session-state" class="portal-empty" aria-live="polite">
+            No hay sesion local activa.
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ defaultOrganizationId, lang }}>
+    window.__portalBootstrap = {
+      ...(window.__portalBootstrap || {}),
+      lang,
+      defaultOrganizationId,
+    };
+  </script>
+  <script type="module" src="/portal/login.js"></script>
+</BaseLayout>

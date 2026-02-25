@@ -1,0 +1,82 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Portal | Dashboard" section="portal">
+  <div class="crm-stack" data-portal-page="dashboard">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between">
+        <div>
+          <p class="crm-context-eyebrow">Portal agentes/clientes</p>
+          <h2>Dashboard operativo</h2>
+          <p>Resumen de invites, cuentas activas, bloques de contenido y eventos de acceso.</p>
+        </div>
+        <div class="crm-actions-row">
+          <a class="crm-link" href="/crm/portal/invites/">Operar invites</a>
+          <a class="crm-link" href="/crm/portal/content/">Gestionar contenido</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Contexto de organizacion</h3>
+      <form id="crm-portal-org-form" class="crm-form crm-form-compact">
+        <label for="crm-portal-organization-id">
+          Organization ID
+          <input
+            id="crm-portal-organization-id"
+            name="organization_id"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="UUID de crm.organizations"
+          />
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar</button>
+        </div>
+      </form>
+      <p id="crm-portal-org-source" class="crm-inline-note"></p>
+      <p id="crm-portal-org-help" class="crm-inline-note"></p>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-kpi">
+        <strong id="portal-kpi-invites">-</strong>
+        <p>Invites registradas</p>
+        <small class="crm-kpi-hint">Total historico de invitaciones.</small>
+      </article>
+      <article class="crm-card crm-kpi">
+        <strong id="portal-kpi-users">-</strong>
+        <p>Cuentas portal</p>
+        <small class="crm-kpi-hint">Usuarios portal en la organizacion.</small>
+      </article>
+      <article class="crm-card crm-kpi">
+        <strong id="portal-kpi-content">-</strong>
+        <p>Bloques de contenido</p>
+        <small class="crm-kpi-hint">Bloques gestionables por idioma y audiencia.</small>
+      </article>
+      <article class="crm-card crm-kpi">
+        <strong id="portal-kpi-logs">-</strong>
+        <p>Eventos de acceso</p>
+        <small class="crm-kpi-hint">Trazabilidad de actividad portal.</small>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Atajos operativos</h3>
+      <div class="crm-links">
+        <a class="crm-link" href="/crm/portal/invites/">Invites y altas</a>
+        <a class="crm-link" href="/crm/portal/users/">Usuarios y membresias</a>
+        <a class="crm-link" href="/crm/portal/content/">Contenido por idioma/audiencia</a>
+        <a class="crm-link" href="/crm/portal/logs/">Auditoria de accesos</a>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-portal-feedback" class="crm-feedback" role="status" aria-live="polite">
+        Listo para operar.
+      </p>
+    </section>
+  </div>
+  <script is:inline src="/crm/portal.js"></script>
+</CrmLayout>

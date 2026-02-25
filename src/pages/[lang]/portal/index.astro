@@ -1,0 +1,272 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@/i18n/languages";
+import "@/styles/pages/portal.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/portal/`, 302);
+}
+
+const lang = langParam;
+const defaultOrganizationId = String(
+  import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? ""
+).trim();
+
+const copyByLang = {
+  es: {
+    title: "Portal | Dashboard",
+    description: "Portal profesional para operativa comercial de promociones, leads, visitas y comisiones.",
+    eyebrow: "Portal dashboard",
+    heading: "Panel operativo profesional",
+    intro:
+      "Vista consolidada de tus promociones (Mis Propiedades), leads, visitas y comisiones en una sola pantalla.",
+    heroTagsLabel: "Fortalezas del portal",
+    heroTagPortfolio: "Promociones sincronizadas",
+    heroTagPipeline: "Pipeline comercial en tiempo real",
+    heroTagCompliance: "Sesion segura por rol",
+    refreshCta: "Actualizar panel",
+    logoutCta: "Cerrar sesion",
+    activateCta: "Activar otra cuenta",
+    workflowTitle: "Flujo recomendado",
+    workflowHint: "Secuencia breve para trabajar mas rapido y con menos errores de operacion.",
+    workflowStep1: "Valida cuenta activa y promociones autorizadas.",
+    workflowStep2: "Abre la promocion para registrar leads o visitas.",
+    workflowStep3: "Revisa timeline y comisiones desde el detalle de lead.",
+    accountTitle: "Cuenta portal",
+    accountHint: "Acceso activo con permisos por rol y promociones asignadas.",
+    accountLoading: "Cargando sesion...",
+    kpiProjects: "Promociones",
+    kpiLeads: "Leads",
+    kpiVisits: "Visitas pendientes",
+    kpiCommissions: "Comisiones activas",
+    projectsTitle: "Promociones autorizadas",
+    projectsHint: "Listado de promociones vinculadas desde Mis Propiedades.",
+    projectsListLabel: "Listado de promociones autorizadas",
+    leadsTitle: "Leads recientes",
+    leadsCaption: "Ultimos leads detectados para promociones autorizadas.",
+    leadDetailTitle: "Detalle y timeline",
+    leadDetailEmpty: "Selecciona un lead para ver timeline, visitas y comisiones asociadas.",
+    commissionsTitle: "Comisiones",
+    commissionsCaption: "Comisiones vinculadas a leads o cierres recientes.",
+    tableDate: "Fecha",
+    tableLead: "Lead",
+    tableAttribution: "Atribucion",
+    tableProject: "Promocion",
+    tableAction: "Accion",
+    commissionStatus: "Estado",
+    commissionAmount: "Comision",
+    commissionProject: "Promocion",
+    commissionLeadDeal: "Lead / Deal",
+    commissionPaid: "Pago",
+    leadsTableLabel: "Tabla de leads recientes",
+    commissionsTableLabel: "Tabla de comisiones",
+    noLeads: "Aun no hay leads registrados para esta cuenta.",
+    noProjects: "No hay promociones activas asignadas.",
+    noCommissions: "No hay comisiones registradas.",
+    dashboardLoading: "Cargando panel...",
+  },
+  en: {
+    title: "Portal | Dashboard",
+    description: "Professional workspace for project portfolio, leads, visits and commissions.",
+    eyebrow: "Portal dashboard",
+    heading: "Professional operations panel",
+    intro:
+      "Consolidated view of your projects (My Properties), leads, visits and commissions in one workspace.",
+    heroTagsLabel: "Portal highlights",
+    heroTagPortfolio: "Projects synced from My Properties",
+    heroTagPipeline: "Real-time commercial pipeline",
+    heroTagCompliance: "Secure role-based session",
+    refreshCta: "Refresh dashboard",
+    logoutCta: "Sign out",
+    activateCta: "Activate another account",
+    workflowTitle: "Recommended flow",
+    workflowHint: "Short sequence to work faster and reduce day-to-day operating mistakes.",
+    workflowStep1: "Validate active account and authorized projects.",
+    workflowStep2: "Open a project to create leads or visit requests.",
+    workflowStep3: "Use lead detail to track timeline and commission status.",
+    accountTitle: "Portal account",
+    accountHint: "Active access with role-based permissions and assigned projects.",
+    accountLoading: "Loading session...",
+    kpiProjects: "Projects",
+    kpiLeads: "Leads",
+    kpiVisits: "Pending visits",
+    kpiCommissions: "Active commissions",
+    projectsTitle: "Authorized projects",
+    projectsHint: "Projects linked from My Properties.",
+    projectsListLabel: "Authorized project list",
+    leadsTitle: "Recent leads",
+    leadsCaption: "Latest leads detected for assigned projects.",
+    leadDetailTitle: "Detail and timeline",
+    leadDetailEmpty: "Select a lead to inspect timeline, visits and related commissions.",
+    commissionsTitle: "Commissions",
+    commissionsCaption: "Commissions tied to leads and recent deals.",
+    tableDate: "Date",
+    tableLead: "Lead",
+    tableAttribution: "Attribution",
+    tableProject: "Project",
+    tableAction: "Action",
+    commissionStatus: "Status",
+    commissionAmount: "Commission",
+    commissionProject: "Project",
+    commissionLeadDeal: "Lead / Deal",
+    commissionPaid: "Paid",
+    leadsTableLabel: "Recent leads table",
+    commissionsTableLabel: "Commissions table",
+    noLeads: "No leads registered yet for this account.",
+    noProjects: "No active projects assigned yet.",
+    noCommissions: "No commission records found.",
+    dashboardLoading: "Loading dashboard...",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.en;
+---
+
+<BaseLayout
+  title={`${t.title} | BlancaReal`}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+  showMobileStickyCta={false}
+>
+  <div class="portal-app">
+    <div class="portal-shell">
+      <section class="portal-hero">
+        <div class="portal-row">
+          <div>
+            <p class="portal-kicker">{t.eyebrow}</p>
+            <h1>{t.heading}</h1>
+            <p>{t.intro}</p>
+            <div class="portal-hero-tags" role="list" aria-label={t.heroTagsLabel}>
+              <span class="portal-tag" role="listitem">{t.heroTagPortfolio}</span>
+              <span class="portal-tag" role="listitem">{t.heroTagPipeline}</span>
+              <span class="portal-tag" role="listitem">{t.heroTagCompliance}</span>
+            </div>
+          </div>
+          <div class="portal-actions">
+            <button id="portal-dashboard-refresh" type="button" class="portal-button portal-button-soft">
+              {t.refreshCta}
+            </button>
+            <button id="portal-dashboard-logout" type="button" class="portal-button portal-button-danger">
+              {t.logoutCta}
+            </button>
+            <a class="portal-button portal-button-soft" href={`/${lang}/portal/activate/`}>{t.activateCta}</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="portal-card portal-card-soft">
+        <h2>{t.workflowTitle}</h2>
+        <p class="portal-note">{t.workflowHint}</p>
+        <ol class="portal-checklist">
+          <li>{t.workflowStep1}</li>
+          <li>{t.workflowStep2}</li>
+          <li>{t.workflowStep3}</li>
+        </ol>
+      </section>
+
+      <section class="portal-card">
+        <h2>{t.accountTitle}</h2>
+        <p class="portal-note">{t.accountHint}</p>
+        <div id="portal-dashboard-account" class="portal-empty" aria-live="polite">{t.accountLoading}</div>
+        <div class="portal-stat-grid" id="portal-dashboard-kpis">
+          <article class="portal-stat">
+            <small>{t.kpiProjects}</small>
+            <strong id="portal-kpi-projects">0</strong>
+          </article>
+          <article class="portal-stat">
+            <small>{t.kpiLeads}</small>
+            <strong id="portal-kpi-leads">0</strong>
+          </article>
+          <article class="portal-stat">
+            <small>{t.kpiVisits}</small>
+            <strong id="portal-kpi-visits">0</strong>
+          </article>
+          <article class="portal-stat">
+            <small>{t.kpiCommissions}</small>
+            <strong id="portal-kpi-commissions">0</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="portal-grid portal-grid-2">
+        <article class="portal-card">
+          <h2>{t.projectsTitle}</h2>
+          <p class="portal-note">{t.projectsHint}</p>
+          <ul id="portal-dashboard-projects" class="portal-list" aria-label={t.projectsListLabel}>
+            <li class="portal-empty">{t.noProjects}</li>
+          </ul>
+        </article>
+
+        <article class="portal-card">
+          <h2>{t.leadDetailTitle}</h2>
+          <div id="portal-dashboard-lead-detail" class="portal-empty">{t.leadDetailEmpty}</div>
+        </article>
+      </section>
+
+      <section class="portal-card">
+        <h2>{t.leadsTitle}</h2>
+        <p class="portal-note">{t.leadsCaption}</p>
+        <div class="portal-table-wrap">
+          <table class="portal-table" aria-label={t.leadsTableLabel}>
+            <thead>
+              <tr>
+                <th>{t.tableDate}</th>
+                <th>{t.tableLead}</th>
+                <th>{t.tableAttribution}</th>
+                <th>{t.tableProject}</th>
+                <th>{t.tableAction}</th>
+              </tr>
+            </thead>
+            <tbody id="portal-dashboard-leads-tbody">
+              <tr>
+                <td colspan="5">{t.noLeads}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="portal-card">
+        <h2>{t.commissionsTitle}</h2>
+        <p class="portal-note">{t.commissionsCaption}</p>
+        <div class="portal-table-wrap">
+          <table class="portal-table" aria-label={t.commissionsTableLabel}>
+            <thead>
+              <tr>
+                <th>{t.commissionStatus}</th>
+                <th>{t.commissionAmount}</th>
+                <th>{t.commissionProject}</th>
+                <th>{t.commissionLeadDeal}</th>
+                <th>{t.commissionPaid}</th>
+              </tr>
+            </thead>
+            <tbody id="portal-dashboard-commissions-tbody">
+              <tr>
+                <td colspan="5">{t.noCommissions}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="portal-card">
+        <p id="portal-dashboard-feedback" class="portal-feedback" role="status" aria-live="polite">
+          {t.dashboardLoading}
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ defaultOrganizationId, lang }}>
+    window.__portalBootstrap = {
+      ...(window.__portalBootstrap || {}),
+      lang,
+      defaultOrganizationId,
+    };
+  </script>
+  <script type="module" src="/portal/dashboard.js"></script>
+</BaseLayout>

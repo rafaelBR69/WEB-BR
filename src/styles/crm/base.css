@@ -36,6 +36,18 @@ body.crm-body {
     linear-gradient(180deg, #f7fbfd 0%, var(--crm-bg) 52%, #ecf3f8 100%);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 a {
   color: inherit;
 }
@@ -651,6 +663,10 @@ a {
   border-radius: 9px;
   padding: 0.6rem 0.85rem;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .crm-button.crm-button-soft {
@@ -692,6 +708,34 @@ a {
   margin-top: 0.65rem;
   color: var(--crm-muted);
   font-size: 0.86rem;
+}
+
+.crm-field-help {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--crm-muted);
+  font-weight: 600;
+}
+
+.crm-share-card {
+  margin-top: 0.7rem;
+  border: 1px solid #cdd9e8;
+  border-radius: 12px;
+  background: #f5f9ff;
+  padding: 0.68rem;
+  display: grid;
+  gap: 0.56rem;
+}
+
+.crm-share-title {
+  margin: 0;
+  color: var(--crm-primary);
+  font-weight: 800;
+  font-size: 0.84rem;
+}
+
+.crm-share-card .crm-actions-row {
+  flex-wrap: wrap;
 }
 
 .crm-selected-context {

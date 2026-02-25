@@ -25,6 +25,7 @@ const navItems: NavItem[] = [
   { key: "leads", label: "Leads", href: "/crm/leads/" },
   { key: "properties", label: "Propiedades", href: "/crm/properties/" },
   { key: "clients", label: "Clientes", href: "/crm/clients/" },
+  { key: "portal", label: "Portal", href: "/crm/portal/" },
   { key: "contracts", label: "Contratos", href: "/crm/contracts/" },
   { key: "invoices", label: "Facturacion", href: "/crm/invoices/" },
 ];
@@ -45,9 +46,18 @@ const clientsSubNav: SubNavItem[] = [
   { href: "/crm/clients/?client_role=agency", label: "Agencias", exact: true },
 ];
 
+const portalSubNav: SubNavItem[] = [
+  { href: "/crm/portal/", label: "Dashboard", exact: true },
+  { href: "/crm/portal/invites/", label: "Invites", exact: true },
+  { href: "/crm/portal/users/", label: "Usuarios", exact: true },
+  { href: "/crm/portal/content/", label: "Contenido", exact: true },
+  { href: "/crm/portal/logs/", label: "Logs", exact: true },
+];
+
 const subNavBySection: Record<string, SubNavItem[]> = {
   properties: propertiesSubNav,
   clients: clientsSubNav,
+  portal: portalSubNav,
 };
 
 const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";

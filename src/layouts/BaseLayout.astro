@@ -58,6 +58,18 @@ const buildLangPath = (targetLang) => {
   return `/${targetLang}/`;
 };
 
+const buildLangCanonicalPath = (targetLang) => {
+  const parts = canonicalPath.split("/").filter(Boolean);
+  const hasLangPrefix = parts.length > 0 && SUPPORTED_LANGS.includes(parts[0]);
+  if (hasLangPrefix) {
+    parts[0] = targetLang;
+    const base = `/${parts.join("/")}`;
+    const suffix = canonicalPath.endsWith("/") ? "/" : "";
+    return `${base}${suffix}`;
+  }
+  return `/${targetLang}/`;
+};
+
 const langLinks = resolveLangs().map((code) => ({
   code,
   label: LANG_LABELS[code] ?? String(code).toUpperCase(),
@@ -66,6 +78,11 @@ const langLinks = resolveLangs().map((code) => ({
 }));
 const activeLangLabel = langLinks.find((item) => item.isActive)?.label ?? "ES";
 const ui = getUiCopy(lang);
+const langAlternateLinks = resolveLangs().map((code) => ({
+  code,
+  href: `${SITE_URL}${buildLangCanonicalPath(code)}`,
+}));
+const defaultLangAlternateHref = `${SITE_URL}${buildLangCanonicalPath(DEFAULT_LANG)}`;
 
 const ogLocaleMap = {
   es: "es_ES",
@@ -96,7 +113,7 @@ const isActiveHref = (href) => {
 };
 
 const defaultLandingNavItems = [
-  { href: `/${lang}/agents/`, label: ui.layout.navAgents },
+  { href: `/${lang}/portal/`, label: ui.layout.navAgents },
   { href: `/${lang}/contact/`, label: ui.layout.navContact },
   { href: `/${lang}/projects/`, label: ui.layout.navPromoters },
 ];
@@ -112,7 +129,7 @@ const sideMenuSections = [
     items: [
       { href: `/${lang}/`, label: ui.layout.navHome },
       { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
-      { href: `/${lang}/agents/`, label: ui.layout.navAgents },
+      { href: `/${lang}/portal/`, label: ui.layout.navAgents },
       { href: `/${lang}/contact/`, label: ui.layout.navContact },
       { href: `/${lang}/projects/`, label: ui.layout.navPromoters },
     ],
@@ -178,6 +195,10 @@ const shouldLoadPublicRealtime =
     {canonicalUrl && (
       <link rel="canonical" href={canonicalUrl} />
     )}
+    {langAlternateLinks.map((item) => (
+      <link rel="alternate" hreflang={item.code} href={item.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={defaultLangAlternateHref} />
 
     <meta property="og:type" content={og.type ?? "website"} />
 

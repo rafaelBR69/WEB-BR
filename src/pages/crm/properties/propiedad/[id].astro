@@ -205,6 +205,14 @@ const propertyId = String(Astro.params.id ?? "").trim();
               <label class="crm-checkbox-label"><input name="elevator" type="checkbox" /> Tiene ascensor</label>
               <label class="crm-checkbox-label"><input name="is_public" type="checkbox" /> Visible en web</label>
               <label class="crm-checkbox-label"><input name="is_featured" type="checkbox" /> Destacada</label>
+              <label class="crm-checkbox-label crm-col-2" data-project-portal-field hidden>
+                <input name="portal_enabled" type="checkbox" />
+                Publicada en portal de agentes/clientes
+              </label>
+              <p class="crm-inline-note crm-col-2" data-project-portal-helper hidden>
+                Activa este switch para mostrar la promocion en el portal externo.
+                <span data-project-portal-status></span>
+              </p>
               <label class="crm-col-2">Notas de comercializacion <textarea name="commercialization_notes"></textarea></label>
             </fieldset>
             <div class="crm-col-2 crm-actions-row"><button type="submit" class="crm-button">Guardar cambios</button></div>

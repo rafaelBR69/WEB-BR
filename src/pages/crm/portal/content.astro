@@ -1,0 +1,147 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Portal | Contenido" section="portal">
+  <div class="crm-stack" data-portal-page="content">
+    <section class="crm-card crm-full">
+      <h2>Contenido portal por idioma y audiencia</h2>
+      <p>CRUD operativo para bloques de contenido en `crm.portal_content_blocks`.</p>
+      <form id="crm-portal-org-form" class="crm-form crm-form-compact">
+        <label for="crm-portal-organization-id">
+          Organization ID
+          <input
+            id="crm-portal-organization-id"
+            name="organization_id"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="UUID de crm.organizations"
+          />
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar</button>
+        </div>
+      </form>
+      <p id="crm-portal-org-source" class="crm-inline-note"></p>
+      <p id="crm-portal-org-help" class="crm-inline-note"></p>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Filtros</h3>
+        <form id="portal-content-filter" class="crm-form">
+          <label for="portal-content-filter-project">
+            Proyecto UUID
+            <input id="portal-content-filter-project" name="project_property_id" type="text" placeholder="requerido para foco de proyecto" />
+          </label>
+          <label for="portal-content-filter-language">
+            Idioma
+            <input id="portal-content-filter-language" name="language" type="text" maxlength="10" placeholder="es, en..." />
+          </label>
+          <label for="portal-content-filter-audience">
+            Audiencia
+            <select id="portal-content-filter-audience" name="audience">
+              <option value="">Todas</option>
+              <option value="agent">agent</option>
+              <option value="client">client</option>
+              <option value="both">both</option>
+            </select>
+          </label>
+          <label for="portal-content-filter-search">
+            Buscar texto
+            <input id="portal-content-filter-search" name="q" type="search" placeholder="titulo, seccion, markdown..." />
+          </label>
+          <label for="portal-content-filter-published">
+            Publicacion
+            <select id="portal-content-filter-published" name="is_published">
+              <option value="">Todos</option>
+              <option value="true">Publicado</option>
+              <option value="false">Borrador</option>
+            </select>
+          </label>
+          <div class="crm-actions-row">
+            <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+            <button id="portal-content-filter-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Crear / editar bloque</h3>
+        <form id="portal-content-form" class="crm-form">
+          <input type="hidden" id="portal-content-id" name="id" />
+          <label for="portal-content-project">
+            Proyecto UUID
+            <input id="portal-content-project" name="project_property_id" type="text" required />
+          </label>
+          <label for="portal-content-language">
+            Idioma
+            <input id="portal-content-language" name="language" type="text" maxlength="10" value="es" required />
+          </label>
+          <label for="portal-content-audience">
+            Audiencia
+            <select id="portal-content-audience" name="audience">
+              <option value="agent">agent</option>
+              <option value="client">client</option>
+              <option value="both" selected>both</option>
+            </select>
+          </label>
+          <label for="portal-content-section-key">
+            Section key
+            <input id="portal-content-section-key" name="section_key" type="text" maxlength="80" placeholder="agency_kit, faq, updates..." required />
+          </label>
+          <label for="portal-content-title" class="crm-col-2">
+            Titulo
+            <input id="portal-content-title" name="title" type="text" />
+          </label>
+          <label for="portal-content-body" class="crm-col-2">
+            Markdown
+            <textarea id="portal-content-body" name="body_markdown" placeholder="Texto markdown del bloque..."></textarea>
+          </label>
+          <label for="portal-content-sort-order">
+            Sort order
+            <input id="portal-content-sort-order" name="sort_order" type="number" value="0" />
+          </label>
+          <label class="crm-checkbox-label" for="portal-content-published">
+            <input id="portal-content-published" name="is_published" type="checkbox" />
+            Publicado
+          </label>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="submit" class="crm-button">Guardar bloque</button>
+            <button id="portal-content-new" type="button" class="crm-button crm-button-soft">Nuevo</button>
+          </div>
+        </form>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="portal-content-meta" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table" aria-describedby="portal-content-meta">
+          <caption class="sr-only">Listado de bloques de contenido portal</caption>
+          <thead>
+            <tr>
+              <th>Proyecto</th>
+              <th>Idioma/Audiencia</th>
+              <th>Seccion</th>
+              <th>Titulo</th>
+              <th>Orden</th>
+              <th>Publicacion</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody id="portal-content-tbody">
+            <tr><td colspan="7">Cargando bloques...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-portal-feedback" class="crm-feedback" role="status" aria-live="polite">
+        Listo para operar.
+      </p>
+    </section>
+  </div>
+  <script is:inline src="/crm/portal.js"></script>
+</CrmLayout>
