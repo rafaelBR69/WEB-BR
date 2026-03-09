@@ -331,7 +331,7 @@ export const mapClientRow = (
     provider_status: isProvider ? normalizeProviderStatus(provider.provider_status) : null,
     provider_is_billable: isProvider ? (asBoolean(provider.is_billable) ?? true) : null,
     provider_notes: asText(provider.notes),
-    is_provider_for_project: isProvider ? Boolean(relations.isProviderForProject) : null,
+    is_provider_for_project: Boolean(relations.isProviderForProject),
     is_agency: isAgency,
     agency_id: agencyId,
     agency_code: asText(agency.agency_code),

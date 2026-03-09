@@ -43,6 +43,8 @@ export const GET: APIRoute = async ({ url, request }) => {
 
   const portalAccountId = auth.data.portal_account.id;
   const organizationId = auth.data.organization_id;
+  const portalRole = auth.data.portal_account.role;
+  const isAdmin = portalRole === "portal_agent_admin";
   if (!portalAccountId) return jsonResponse({ ok: false, error: "portal_account_id_missing" }, { status: 500 });
 
   const from = (page - 1) * perPage;
@@ -52,11 +54,11 @@ export const GET: APIRoute = async ({ url, request }) => {
     .schema("crm")
     .from("portal_lead_tracking")
     .select(TRACKING_SELECT_COLUMNS, { count: "exact" })
-    .eq("portal_account_id", portalAccountId)
     .order("created_at", { ascending: false })
     .range(from, to);
 
   if (organizationId) trackingQuery = trackingQuery.eq("organization_id", organizationId);
+  if (!isAdmin) trackingQuery = trackingQuery.eq("portal_account_id", portalAccountId);
   if (projectId) trackingQuery = trackingQuery.eq("project_property_id", projectId);
   if (attributionStatus) trackingQuery = trackingQuery.eq("attribution_status", attributionStatus);
 
@@ -150,6 +152,8 @@ export const GET: APIRoute = async ({ url, request }) => {
       page,
       per_page: perPage,
       total_pages: totalPages,
+      role: portalRole,
+      implicit_admin_scope: isAdmin,
       storage: "supabase.crm.portal_lead_tracking + crm.leads",
     },
   });

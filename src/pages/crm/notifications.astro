@@ -1,0 +1,180 @@
+﻿---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Notificaciones" section="notifications">
+  <div class="crm-stack" data-crm-notifications="true">
+    <section class="crm-card crm-full">
+      <h2>Modulo de notificaciones admin</h2>
+      <p>
+        Centro de avisos para mensajes, correos y recordatorios de seguimiento (volver a contactar leads).
+      </p>
+      <p class="crm-inline-note">
+        Acceso limitado a admin autorizado con sesion portal <code>portal_agent_admin</code>
+        (admin principal: <strong>rafael@blancareal.com</strong>).
+      </p>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Nueva notificacion</h3>
+        <form id="crm-notification-create-form" class="crm-form">
+          <label>
+            Titulo
+            <input name="title" type="text" minlength="4" maxlength="140" required />
+          </label>
+          <label>
+            Tipo
+            <select name="notification_type" data-dictionary="notification-type">
+              <option value="in_app_message">in_app_message</option>
+              <option value="email_outreach">email_outreach</option>
+              <option value="lead_follow_up">lead_follow_up</option>
+              <option value="call_reminder">call_reminder</option>
+              <option value="system_alert">system_alert</option>
+            </select>
+          </label>
+          <label>
+            Canal
+            <select name="channel" data-dictionary="notification-channel">
+              <option value="in_app">in_app</option>
+              <option value="email">email</option>
+              <option value="whatsapp">whatsapp</option>
+              <option value="phone">phone</option>
+            </select>
+          </label>
+          <label>
+            Prioridad
+            <select name="priority" data-dictionary="notification-priority">
+              <option value="normal">normal</option>
+              <option value="low">low</option>
+              <option value="high">high</option>
+              <option value="urgent">urgent</option>
+            </select>
+          </label>
+          <label>
+            Email destinatario
+            <input name="recipient_email" type="email" autocomplete="email" placeholder="cliente@email.com" />
+          </label>
+          <label>
+            Telefono destinatario
+            <input name="recipient_phone" type="tel" autocomplete="tel" placeholder="+34..." />
+          </label>
+          <label>
+            Lead ID (opcional)
+            <input name="lead_id" type="text" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            Promocion ID (opcional)
+            <input name="project_property_id" type="text" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            Vencimiento / recordatorio
+            <input name="due_at" type="datetime-local" />
+          </label>
+          <label class="crm-col-2">
+            Mensaje
+            <textarea name="body" rows="4" placeholder="Contexto para el equipo comercial..."></textarea>
+          </label>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="submit" class="crm-button">Crear notificacion</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Filtros de bandeja</h3>
+        <form id="crm-notifications-filter-form" class="crm-form">
+          <label>
+            Estado
+            <select name="status" data-dictionary="notification-status">
+              <option value="">Todos</option>
+              <option value="pending">pending</option>
+              <option value="scheduled">scheduled</option>
+              <option value="sent">sent</option>
+              <option value="done">done</option>
+              <option value="cancelled">cancelled</option>
+              <option value="failed">failed</option>
+            </select>
+          </label>
+          <label>
+            Tipo
+            <select name="notification_type" data-dictionary="notification-type">
+              <option value="">Todos</option>
+              <option value="in_app_message">in_app_message</option>
+              <option value="email_outreach">email_outreach</option>
+              <option value="lead_follow_up">lead_follow_up</option>
+              <option value="call_reminder">call_reminder</option>
+              <option value="system_alert">system_alert</option>
+            </select>
+          </label>
+          <label>
+            Canal
+            <select name="channel" data-dictionary="notification-channel">
+              <option value="">Todos</option>
+              <option value="in_app">in_app</option>
+              <option value="email">email</option>
+              <option value="whatsapp">whatsapp</option>
+              <option value="phone">phone</option>
+            </select>
+          </label>
+          <label>
+            Buscar
+            <input name="q" type="search" placeholder="titulo, email, texto..." />
+          </label>
+          <label>
+            Vence desde
+            <input name="due_from" type="date" />
+          </label>
+          <label>
+            Vence hasta
+            <input name="due_to" type="date" />
+          </label>
+          <label>
+            Por pagina
+            <select name="per_page">
+              <option value="25" selected>25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </label>
+          <div class="crm-actions-row crm-col-2">
+            <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+            <button id="crm-notifications-filter-clear" type="button" class="crm-button crm-button-soft">
+              Limpiar
+            </button>
+          </div>
+        </form>
+        <p id="crm-notifications-summary" class="crm-inline-note"></p>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-notifications-meta" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table" aria-describedby="crm-notifications-meta">
+          <caption class="sr-only">Listado de notificaciones CRM</caption>
+          <thead>
+            <tr>
+              <th>Creada</th>
+              <th>Tipo / Canal</th>
+              <th>Titulo</th>
+              <th>Destino</th>
+              <th>Vence</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="crm-notifications-tbody">
+            <tr><td colspan="7">Cargando notificaciones...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-notifications-feedback" class="crm-feedback" role="status" aria-live="polite">
+        Listo para operar notificaciones.
+      </p>
+    </section>
+  </div>
+  <script is:inline src="/crm/notifications.js"></script>
+</CrmLayout>

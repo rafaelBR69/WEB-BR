@@ -1,0 +1,42 @@
+---
+const props = Astro.props as {
+  variant?: "wordmark" | "stacked" | "icon";
+  href?: string | null;
+  alt?: string;
+  class?: string;
+  loading?: "eager" | "lazy" | "auto";
+};
+
+const variant = props.variant ?? "wordmark";
+const href = props.href ?? null;
+const alt = props.alt ?? "BlancaReal";
+const className = props.class ?? "";
+const loading = props.loading ?? "eager";
+const classList = ["brand-logo-element", `brand-logo-${variant}`, className].filter(Boolean).join(" ");
+
+const srcByVariant: Record<string, string> = {
+  wordmark: "/logos/blanca_real_logo_principal.png",
+  stacked: "/logos/blanca_real_logo_secundario.png",
+  icon: "/logos/blanca_real_icono.png",
+};
+
+const sizeByVariant: Record<string, { width: number; height: number }> = {
+  wordmark: { width: 182, height: 44 },
+  stacked: { width: 118, height: 114 },
+  icon: { width: 42, height: 42 },
+};
+
+const imageSrc = srcByVariant[variant] ?? srcByVariant.wordmark;
+const { width, height } = sizeByVariant[variant] ?? sizeByVariant.wordmark;
+---
+{
+  href === null || href === undefined ? (
+    <span class={classList} aria-label={alt} data-logo-variant={variant}>
+      <img src={imageSrc} alt={alt} width={width} height={height} loading={loading} />
+    </span>
+  ) : (
+    <a href={href} class={classList} aria-label={alt} data-logo-variant={variant}>
+      <img src={imageSrc} alt={alt} width={width} height={height} loading={loading} />
+    </a>
+  )
+}

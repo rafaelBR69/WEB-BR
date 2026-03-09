@@ -2,21 +2,14 @@
 import CrmLayout from "@/layouts/CrmLayout.astro";
 ---
 <CrmLayout title="CRM | Clientes | Dashboard KPI" section="clients">
-  <div class="crm-stack crm-clients-dashboard">
+  <div id="clients-dashboard-root" class="crm-stack crm-clients-dashboard">
     <section class="crm-card crm-full">
-      <h2>Dashboard KPI por promocion</h2>
+      <h2>Dashboard KPI de promociones</h2>
       <p class="crm-inline-note">
-        Vista operativa con datos reales de reservas importadas, centrada en cada promocion.
+        Vista operativa con datos reales de reservas importadas, tanto en modo global como por promocion concreta.
       </p>
       <form id="clients-kpi-org-form" class="crm-form crm-form-compact">
-        <label>Organization ID
-          <input
-            id="clients-kpi-organization-id"
-            type="text"
-            placeholder="UUID de crm.organizations"
-          />
-        </label>
-        <label>Promocion activa
+        <label>Ambito
           <select id="clients-kpi-promotion-select">
             <option value="">Cargando promociones...</option>
           </select>
@@ -47,10 +40,101 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
       </form>
       <p id="clients-kpi-org-meta" class="crm-inline-note"></p>
       <p id="clients-kpi-promo-meta" class="crm-inline-note"></p>
+      <div class="crm-dashboard-toolbar">
+        <div class="crm-dashboard-toolbar-copy">
+          <strong>Vista personalizable</strong>
+          <p>
+            Activa el modo edicion para mostrar solo lo que necesitas, reordenar bloques y guardar tu vista automaticamente.
+          </p>
+        </div>
+        <div class="crm-dashboard-toolbar-actions">
+          <button
+            id="clients-kpi-customize-toggle"
+            type="button"
+            class="crm-button crm-button-primary"
+            aria-expanded="false"
+            aria-controls="clients-kpi-layout-panel"
+          >
+            Personalizar vista
+          </button>
+          <button id="clients-kpi-customize-reset" type="button" class="crm-button crm-button-soft">
+            Restaurar vista
+          </button>
+        </div>
+      </div>
+      <section id="clients-kpi-layout-panel" class="crm-layout-panel" hidden>
+        <div class="crm-layout-panel-head">
+          <div>
+            <h3>Editar dashboard</h3>
+            <p class="crm-inline-note">
+              Cambia tu vista sin tocar codigo. Los cambios se guardan solos para tu usuario dentro de esta organizacion.
+            </p>
+          </div>
+          <button id="clients-kpi-customize-close" type="button" class="crm-button crm-button-soft">
+            Cerrar editor
+          </button>
+        </div>
+
+        <div class="crm-layout-presets">
+          <div>
+            <strong>Vistas rapidas</strong>
+            <p class="crm-inline-note">Empieza por un modelo base y luego ajusta detalle a detalle.</p>
+          </div>
+          <div class="crm-layout-presets-actions">
+            <button type="button" class="crm-layout-preset-button" data-layout-preset="full">
+              Vista completa
+            </button>
+            <button type="button" class="crm-layout-preset-button" data-layout-preset="executive">
+              Vista ejecutiva
+            </button>
+            <button type="button" class="crm-layout-preset-button" data-layout-preset="commercial">
+              Seguimiento comercial
+            </button>
+          </div>
+        </div>
+
+        <div class="crm-layout-guide">
+          <div class="crm-layout-tip">
+            <strong>1. Mostrar u ocultar</strong>
+            <p>Usa los botones Mostrar u Ocultar en cada fila para decidir que entra en tu vista.</p>
+          </div>
+          <div class="crm-layout-tip">
+            <strong>2. Cambiar orden</strong>
+            <p>Pulsa Subir o Bajar y el dashboard se recoloca al instante.</p>
+          </div>
+          <div class="crm-layout-tip">
+            <strong>3. Revisar el lienzo</strong>
+            <p>Mientras editas, los bloques se remarcan en azul y los ocultos quedan atenuados.</p>
+          </div>
+        </div>
+
+        <div class="crm-layout-grid">
+          <section class="crm-layout-column">
+            <div class="crm-layout-column-head">
+              <h3>Tarjetas KPI</h3>
+              <p class="crm-inline-note">Ordena de izquierda a derecha dentro del bloque superior.</p>
+            </div>
+            <div id="clients-kpi-layout-kpis" class="crm-layout-list"></div>
+          </section>
+
+          <section class="crm-layout-column">
+            <div class="crm-layout-column-head">
+              <h3>Bloques del dashboard</h3>
+              <p class="crm-inline-note">Controla el orden vertical de los graficos y comparativas.</p>
+            </div>
+            <div id="clients-kpi-layout-panels" class="crm-layout-list"></div>
+          </section>
+        </div>
+      </section>
     </section>
 
     <section class="crm-grid crm-promo-kpi-grid" aria-live="polite">
-      <article class="crm-card crm-kpi crm-kpi-highlight">
+      <article
+        class="crm-card crm-kpi crm-kpi-highlight crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="reservations_total"
+        data-customize-label="Reservas registradas"
+      >
         <div class="crm-kpi-head">
           <p>Reservas registradas</p>
           <button
@@ -65,7 +149,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Registros reales importados</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="active_reservations"
+        data-customize-label="Reservas activas"
+      >
         <div class="crm-kpi-head">
           <p>Reservas activas</p>
           <button
@@ -80,7 +169,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">En curso sobre el total historico</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="clients_total"
+        data-customize-label="Clientes unicos"
+      >
         <div class="crm-kpi-head">
           <p>Clientes unicos</p>
           <button
@@ -95,7 +189,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Sin duplicar por reservas repetidas</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="ratio"
+        data-customize-label="Reservas por cliente"
+      >
         <div class="crm-kpi-head">
           <p>Reservas por cliente</p>
           <button
@@ -110,7 +209,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Intensidad comercial por cliente</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="ticket"
+        data-customize-label="Ticket medio sin IVA"
+      >
         <div class="crm-kpi-head">
           <p>Ticket medio sin IVA</p>
           <button
@@ -125,7 +229,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Base economica por operacion</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="cycle"
+        data-customize-label="Ciclo medio"
+      >
         <div class="crm-kpi-head">
           <p>Ciclo medio (dias)</p>
           <button
@@ -140,7 +249,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Velocidad de cierre</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="reservation_paid"
+        data-customize-label="Reserva pagada"
+      >
         <div class="crm-kpi-head">
           <p>Reserva pagada</p>
           <button
@@ -155,7 +269,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Madurez de pago inicial</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="adhesion_paid"
+        data-customize-label="Adhesion pagada"
+      >
         <div class="crm-kpi-head">
           <p>Adhesion pagada</p>
           <button
@@ -170,7 +289,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Avance contractual</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="docs"
+        data-customize-label="Documentacion completa"
+      >
         <div class="crm-kpi-head">
           <p>Documentacion completa</p>
           <button
@@ -185,7 +309,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Cumplimiento documental</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="direct"
+        data-customize-label="Canal directo"
+      >
         <div class="crm-kpi-head">
           <p>Canal directo</p>
           <button
@@ -200,7 +329,12 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <small class="crm-kpi-sub">Peso de venta directa</small>
       </article>
 
-      <article class="crm-card crm-kpi">
+      <article
+        class="crm-card crm-kpi crm-dashboard-widget"
+        data-dashboard-section="kpis"
+        data-widget-id="top_status"
+        data-customize-label="Estado lider"
+      >
         <div class="crm-kpi-head">
           <p>Estado lider</p>
           <button
@@ -216,81 +350,105 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
       </article>
     </section>
 
-    <section class="crm-grid">
-      <article class="crm-card crm-half">
-        <h3>Canal comercial de la promocion</h3>
-        <p class="crm-inline-note">
-          Distribucion de reservas por canal de venta para la promocion seleccionada.
-        </p>
-        <div class="crm-channel-layout">
-          <div class="crm-channel-donut-wrap">
-            <div id="clients-kpi-channel-donut" class="crm-channel-donut">
-              <div class="crm-channel-donut-hole">
-                <strong id="clients-kpi-channel-total">0</strong>
-                <small>reservas</small>
+    <div id="clients-kpi-layout-stack" class="crm-dashboard-layout-stack">
+      <section
+        class="crm-grid crm-dashboard-widget"
+        data-dashboard-section="panels"
+        data-widget-id="overview"
+        data-customize-label="Canal comercial y estados"
+      >
+        <article class="crm-card crm-half">
+          <h3>Canal comercial de la promocion</h3>
+          <p class="crm-inline-note">
+            Distribucion de reservas por canal de venta para la promocion seleccionada.
+          </p>
+          <div class="crm-channel-layout">
+            <div class="crm-chart-wrap">
+              <div id="clients-kpi-channel-donut" class="crm-chart-surface crm-chart-surface-compact">
+                <p class="crm-inline-note">Cargando grafico de canales...</p>
               </div>
             </div>
+            <ul id="clients-kpi-channel-legend" class="crm-metric-list">
+              <li>Sin datos</li>
+            </ul>
           </div>
-          <ul id="clients-kpi-channel-legend" class="crm-metric-list">
-            <li>Sin datos</li>
-          </ul>
+        </article>
+
+        <article class="crm-card crm-half">
+          <h3>Estado de reservas en la promocion</h3>
+          <p class="crm-inline-note">Ranking de estados para medir avance comercial de la promocion.</p>
+          <div id="clients-kpi-status-bars" class="crm-chart-surface">
+            <p class="crm-inline-note">Sin datos de estado.</p>
+          </div>
+        </article>
+      </section>
+
+      <section
+        class="crm-card crm-full crm-dashboard-widget"
+        data-dashboard-section="panels"
+        data-widget-id="monthly"
+        data-customize-label="Evolucion mensual"
+      >
+        <h3>Evolucion mensual de la promocion</h3>
+        <p class="crm-inline-note">
+          Conteo mensual segun reservation_date o fechas de pago registradas.
+        </p>
+        <div id="clients-kpi-monthly" class="crm-chart-surface crm-chart-surface-wide">
+          <p class="crm-inline-note">Sin datos mensuales.</p>
         </div>
-      </article>
+      </section>
 
-      <article class="crm-card crm-half">
-        <h3>Estado de reservas en la promocion</h3>
-        <p class="crm-inline-note">Ranking de estados para medir avance comercial de la promocion.</p>
-        <ul id="clients-kpi-status-bars" class="crm-bar-list">
-          <li class="crm-bar-list-empty">Sin datos de estado.</li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="crm-card crm-full">
-      <h3>Evolucion mensual de la promocion</h3>
-      <p class="crm-inline-note">
-        Conteo mensual segun reservation_date o fechas de pago registradas.
-      </p>
-      <div id="clients-kpi-monthly" class="crm-monthly-chart">
-        <p class="crm-inline-note">Sin datos mensuales.</p>
-      </div>
-    </section>
-
-    <section class="crm-card crm-full">
-      <h2>Comparativa entre promociones</h2>
-      <p class="crm-inline-note">
-        Ranking para detectar que promociones concentran mayor actividad y calidad de cierre.
-      </p>
-      <div id="clients-kpi-compare" class="crm-promo-compare">
-        <p class="crm-inline-note">Sin datos de promociones.</p>
-      </div>
-      <div class="crm-table-wrap">
-        <table class="crm-table">
-          <thead>
-            <tr>
-              <th>Promocion</th>
-              <th>Reservas</th>
-              <th>Activas</th>
-              <th>% activa</th>
-              <th>Clientes</th>
-              <th>Res/cliente</th>
-              <th>Directo</th>
-              <th>Reserva pagada</th>
-              <th>Adhesion pagada</th>
-              <th>Docs OK</th>
-              <th>Ticket</th>
-              <th>Ciclo</th>
-              <th>Estado lider</th>
-            </tr>
-          </thead>
-          <tbody id="clients-kpi-promotions-tbody">
-            <tr>
-              <td colspan="13">Cargando dashboard...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <section
+        class="crm-card crm-full crm-compare-card crm-dashboard-widget"
+        data-dashboard-section="panels"
+        data-widget-id="compare"
+        data-customize-label="Comparativa entre promociones"
+      >
+        <div class="crm-compare-headline">
+          <div>
+            <h2>Comparativa entre promociones</h2>
+            <p class="crm-inline-note">
+              Ranking para detectar que promociones concentran mayor actividad y calidad de cierre.
+            </p>
+          </div>
+          <p class="crm-compare-hint">Pulsa en una barra o en un resumen para abrir su KPI.</p>
+        </div>
+        <div id="clients-kpi-compare-summary" class="crm-compare-summary">
+          <p class="crm-inline-note">Calculando resumen de promociones...</p>
+        </div>
+        <div class="crm-compare-chart-wrap">
+          <div id="clients-kpi-compare" class="crm-chart-surface crm-chart-surface-wide">
+            <p class="crm-inline-note">Sin datos de promociones.</p>
+          </div>
+        </div>
+        <div class="crm-table-wrap crm-compare-table-wrap">
+          <table class="crm-table">
+            <thead>
+              <tr>
+                <th>Promocion</th>
+                <th>Reservas</th>
+                <th>Activas</th>
+                <th>% activa</th>
+                <th>Clientes</th>
+                <th>Res/cliente</th>
+                <th>Directo</th>
+                <th>Reserva pagada</th>
+                <th>Adhesion pagada</th>
+                <th>Docs OK</th>
+                <th>Ticket</th>
+                <th>Ciclo</th>
+                <th>Estado lider</th>
+              </tr>
+            </thead>
+            <tbody id="clients-kpi-promotions-tbody">
+              <tr>
+                <td colspan="13">Cargando dashboard...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
 
     <section class="crm-card crm-full">
       <p id="clients-kpi-feedback" class="crm-feedback">Dashboard listo.</p>
@@ -301,6 +459,248 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
     .crm-clients-dashboard .crm-form.crm-form-compact {
       grid-template-columns: repeat(5, minmax(0, 1fr));
       align-items: end;
+    }
+
+    .crm-dashboard-toolbar {
+      margin-top: 1rem;
+      padding: 0.95rem 1rem;
+      border: 1px solid #d4e0ef;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f6faff 0%, #eef5ff 100%);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .crm-dashboard-toolbar-copy {
+      display: grid;
+      gap: 0.18rem;
+    }
+
+    .crm-dashboard-toolbar-copy strong {
+      color: var(--crm-primary);
+      font-size: 0.95rem;
+    }
+
+    .crm-dashboard-toolbar-copy p {
+      margin: 0;
+      color: #56708d;
+      font-size: 0.8rem;
+      max-width: 58rem;
+    }
+
+    .crm-dashboard-toolbar-actions {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+    }
+
+    .crm-dashboard-toolbar-actions .crm-button {
+      min-width: 168px;
+      justify-content: center;
+      box-shadow: 0 12px 22px -22px rgba(15, 42, 72, 0.86);
+    }
+
+    .crm-layout-panel {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid #ccd9ea;
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 20px 34px -28px rgba(15, 42, 72, 0.6);
+      display: grid;
+      gap: 1rem;
+    }
+
+    .crm-layout-panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .crm-layout-panel-head h3 {
+      margin-bottom: 0.2rem;
+    }
+
+    .crm-layout-presets {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.85rem 0.95rem;
+      border-radius: 14px;
+      background: #f7faff;
+      border: 1px solid #dbe6f4;
+    }
+
+    .crm-layout-presets strong {
+      display: block;
+      color: var(--crm-primary);
+      margin-bottom: 0.12rem;
+    }
+
+    .crm-layout-presets-actions {
+      display: flex;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .crm-layout-preset-button,
+    .crm-layout-action-button {
+      border: 1px solid #c8d6e8;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--crm-primary);
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.48rem 0.8rem;
+      cursor: pointer;
+      transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease,
+        background-color 0.16s ease;
+    }
+
+    .crm-layout-preset-button:hover,
+    .crm-layout-action-button:hover {
+      transform: translateY(-1px);
+      border-color: #91a9c8;
+      box-shadow: 0 14px 20px -22px rgba(15, 42, 72, 0.92);
+    }
+
+    .crm-layout-action-button[disabled] {
+      opacity: 0.42;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .crm-layout-action-button.is-toggle {
+      background: #edf4ff;
+      border-color: #b6c8e0;
+    }
+
+    .crm-layout-guide {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .crm-layout-tip {
+      padding: 0.85rem 0.9rem;
+      border-radius: 14px;
+      border: 1px solid #dde6f2;
+      background: linear-gradient(180deg, #fdfefe 0%, #f7fbff 100%);
+    }
+
+    .crm-layout-tip strong {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--crm-primary);
+      font-size: 0.82rem;
+    }
+
+    .crm-layout-tip p {
+      margin: 0;
+      color: #5c738d;
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+
+    .crm-layout-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 1fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .crm-layout-column {
+      min-width: 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .crm-layout-column-head h3 {
+      margin-bottom: 0.16rem;
+    }
+
+    .crm-layout-list {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .crm-layout-row {
+      padding: 0.78rem 0.85rem;
+      border-radius: 14px;
+      border: 1px solid #d5e0ee;
+      background: #f8fbff;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .crm-layout-row.is-hidden {
+      background: #fff8ef;
+      border-color: #f0d2a1;
+    }
+
+    .crm-layout-row-copy {
+      min-width: 0;
+      display: grid;
+      gap: 0.18rem;
+    }
+
+    .crm-layout-row-copy strong {
+      color: var(--crm-primary);
+      font-size: 0.84rem;
+      line-height: 1.28;
+    }
+
+    .crm-layout-row-copy small {
+      color: #61768e;
+      font-size: 0.74rem;
+      line-height: 1.4;
+    }
+
+    .crm-layout-row-actions {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      flex: 0 0 auto;
+    }
+
+    .crm-layout-status {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.32rem 0.62rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #315274;
+      background: #eaf2ff;
+      border: 1px solid #c9daf1;
+    }
+
+    .crm-layout-row.is-hidden .crm-layout-status {
+      color: #8a5a16;
+      background: #fff0d7;
+      border-color: #f0cf96;
+    }
+
+    .crm-dashboard-layout-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .crm-toggle-label {
@@ -332,6 +732,39 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
       font-size: 1.25rem;
       margin-bottom: 0.08rem;
       line-height: 1.05;
+    }
+
+    .crm-dashboard-widget {
+      min-width: 0;
+    }
+
+    .crm-clients-dashboard.is-customizing [data-dashboard-section][data-widget-id] {
+      position: relative;
+      outline: 2px dashed rgba(29, 78, 216, 0.28);
+      outline-offset: 4px;
+      transition: opacity 0.18s ease, filter 0.18s ease, transform 0.18s ease;
+    }
+
+    .crm-clients-dashboard.is-customizing [data-dashboard-section][data-widget-id]::before {
+      content: attr(data-customize-label) " · " attr(data-layout-state) " · #" attr(data-layout-order);
+      position: absolute;
+      top: -0.78rem;
+      left: 0.75rem;
+      z-index: 12;
+      padding: 0.24rem 0.5rem;
+      border-radius: 999px;
+      background: #12324d;
+      color: #f7fbff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: 0 10px 18px -16px rgba(15, 42, 72, 0.9);
+      pointer-events: none;
+    }
+
+    .crm-clients-dashboard.is-customizing [data-dashboard-section][data-widget-id].is-layout-hidden {
+      opacity: 0.5;
+      filter: saturate(0.75);
     }
 
     .crm-kpi-head {
@@ -427,60 +860,179 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
     .crm-channel-layout {
       margin-top: 0.85rem;
       display: grid;
-      grid-template-columns: 240px 1fr;
+      grid-template-columns: minmax(280px, 1fr) minmax(260px, 1fr);
       gap: 1rem;
-      align-items: center;
+      align-items: stretch;
     }
 
-    .crm-channel-donut-wrap {
-      display: grid;
-      place-items: center;
+    .crm-chart-wrap {
+      min-width: 0;
     }
 
-    .crm-channel-donut {
-      --seg-direct: #0f8a56;
-      --seg-agency: #f97316;
-      --seg-mixed: #1d4ed8;
-      --seg-unknown: #7a889a;
-      width: 190px;
-      height: 190px;
-      border-radius: 999px;
-      background: conic-gradient(
-        var(--seg-direct) 0deg 90deg,
-        var(--seg-agency) 90deg 180deg,
-        var(--seg-mixed) 180deg 240deg,
-        var(--seg-unknown) 240deg 360deg
-      );
-      display: grid;
-      place-items: center;
-      box-shadow: inset 0 0 0 1px rgba(18, 38, 58, 0.06);
-    }
-
-    .crm-channel-donut-hole {
-      width: 122px;
-      height: 122px;
-      border-radius: 999px;
-      background: #fff;
+    .crm-chart-surface {
+      margin-top: 0.85rem;
+      min-height: 290px;
       border: 1px solid var(--crm-border);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      color: var(--crm-primary);
-      font-family: "Sora", "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+      border-radius: 12px;
+      background: var(--crm-surface-soft);
+      padding: 0.65rem;
+      box-shadow: inset 0 0 0 1px rgba(18, 38, 58, 0.04);
     }
 
-    .crm-channel-donut-hole strong {
-      display: block;
-      font-size: 1.25rem;
-      line-height: 1.1;
+    .crm-chart-surface-compact {
+      min-height: 250px;
     }
 
-    .crm-channel-donut-hole small {
-      color: var(--crm-muted);
+    .crm-chart-surface-wide {
+      min-height: 320px;
+    }
+
+    .crm-compare-card {
+      border: 1px solid rgba(17, 47, 74, 0.16);
+      background: linear-gradient(180deg, #f8fbff 0%, #f2f7ff 100%);
+      box-shadow: 0 16px 30px -24px rgba(15, 44, 78, 0.46);
+    }
+
+    .crm-compare-headline {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+
+    .crm-compare-headline h2 {
+      margin-bottom: 0.18rem;
+    }
+
+    .crm-compare-hint {
+      margin: 0;
       font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      color: #46617f;
       font-weight: 700;
+      padding: 0.35rem 0.62rem;
+      border: 1px solid rgba(53, 89, 126, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      white-space: nowrap;
+    }
+
+    .crm-compare-summary {
+      margin-top: 0.8rem;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+
+    .crm-compare-summary-card {
+      border: 1px solid #c8d6ea;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
+      padding: 0.7rem 0.72rem;
+      text-align: left;
+      display: grid;
+      gap: 0.2rem;
+      cursor: pointer;
+      color: var(--crm-primary);
+      box-shadow: 0 9px 16px -16px rgba(15, 42, 72, 0.7);
+      transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .crm-compare-summary-card:hover {
+      transform: translateY(-1px);
+      border-color: #8aa7cd;
+      box-shadow: 0 16px 18px -18px rgba(15, 42, 72, 0.88);
+    }
+
+    .crm-compare-summary-card.is-selected {
+      border-color: #0f8a56;
+      background: linear-gradient(180deg, #f4fff9 0%, #ecfdf3 100%);
+      box-shadow: inset 0 0 0 1px rgba(15, 138, 86, 0.2);
+    }
+
+    .crm-compare-summary-eyebrow {
+      color: #5b7190;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      font-size: 0.68rem;
+      line-height: 1.2;
+    }
+
+    .crm-compare-summary-card strong {
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+
+    .crm-compare-summary-card small {
+      color: #21405f;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .crm-compare-summary-volume {
+      border-top: 3px solid #2563eb;
+    }
+
+    .crm-compare-summary-active-rate {
+      border-top: 3px solid #0ea5e9;
+    }
+
+    .crm-compare-summary-ticket {
+      border-top: 3px solid #1d4ed8;
+    }
+
+    .crm-compare-summary-docs {
+      border-top: 3px solid #0f8a56;
+    }
+
+    .crm-compare-chart-wrap {
+      margin-top: 0.28rem;
+      padding: 0.16rem 0.2rem;
+      border: 1px solid rgba(95, 123, 158, 0.2);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .crm-compare-chart-wrap .crm-chart-surface {
+      margin-top: 0;
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .crm-compare-table-wrap {
+      margin-top: 0.84rem;
+      border: 1px solid rgba(95, 123, 158, 0.24);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 16px 26px -22px rgba(15, 42, 72, 0.6);
+    }
+
+    .crm-compare-table-wrap .crm-table {
+      min-width: 1180px;
+    }
+
+    .crm-compare-table-wrap .crm-table thead th {
+      background: #eef4fd;
+      color: #38567a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.69rem;
+      font-weight: 800;
+    }
+
+    .crm-compare-table-wrap .crm-table tbody tr {
+      transition: background-color 0.16s ease;
+    }
+
+    .crm-compare-table-wrap .crm-table tbody tr:hover {
+      background: #f4f8ff;
+    }
+
+    .crm-compare-table-wrap .crm-table tbody tr.crm-row-selected {
+      background: linear-gradient(90deg, rgba(15, 138, 86, 0.14) 0%, rgba(15, 138, 86, 0.02) 62%);
+      box-shadow: inset 4px 0 0 #0f8a56;
     }
 
     .crm-metric-list {
@@ -514,39 +1066,6 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
       vertical-align: middle;
     }
 
-    .crm-bar-list {
-      margin: 0.85rem 0 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .crm-bar-list-empty {
-      color: var(--crm-muted);
-      font-size: 0.85rem;
-      padding: 0.4rem 0;
-    }
-
-    .crm-bar-row {
-      border: 1px solid var(--crm-border);
-      border-radius: 10px;
-      padding: 0.5rem 0.55rem;
-      background: #fff;
-      display: grid;
-      gap: 0.35rem;
-    }
-
-    .crm-bar-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.79rem;
-      font-weight: 700;
-      color: var(--crm-primary);
-    }
-
     .crm-bar-track {
       position: relative;
       height: 10px;
@@ -562,88 +1081,6 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
       bottom: 0;
       border-radius: 999px;
       background: linear-gradient(90deg, #1d4ed8 0%, #0ea5e9 100%);
-    }
-
-    .crm-monthly-chart {
-      margin-top: 0.75rem;
-      min-height: 250px;
-      border: 1px solid var(--crm-border);
-      border-radius: 12px;
-      background: var(--crm-surface-soft);
-      padding: 0.7rem;
-      display: flex;
-      align-items: flex-end;
-      gap: 0.45rem;
-      overflow-x: auto;
-    }
-
-    .crm-monthly-item {
-      min-width: 52px;
-      display: grid;
-      gap: 0.3rem;
-      justify-items: center;
-      color: var(--crm-muted);
-      font-size: 0.67rem;
-      font-weight: 700;
-    }
-
-    .crm-monthly-value {
-      font-size: 0.72rem;
-      color: var(--crm-primary);
-    }
-
-    .crm-monthly-bar {
-      width: 36px;
-      border-radius: 10px 10px 4px 4px;
-      background: linear-gradient(180deg, #0ea5e9 0%, #1d4ed8 100%);
-      border: 1px solid rgba(29, 78, 216, 0.34);
-      min-height: 10px;
-    }
-
-    .crm-promo-compare {
-      margin-top: 0.85rem;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .crm-promo-compare-row {
-      border: 1px solid var(--crm-border);
-      border-radius: 10px;
-      background: #fff;
-      padding: 0.48rem 0.58rem;
-      display: grid;
-      gap: 0.32rem;
-    }
-
-    .crm-promo-compare-row.is-selected {
-      border-color: #97acd2;
-      background: #edf3ff;
-    }
-
-    .crm-promo-compare-row small {
-      color: var(--crm-muted);
-      font-size: 0.74rem;
-    }
-
-    .crm-promo-compare-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.79rem;
-      font-weight: 700;
-      color: var(--crm-primary);
-    }
-
-    .crm-promo-compare-head button {
-      border: 1px solid #bfd1ea;
-      border-radius: 8px;
-      background: #eff5ff;
-      color: var(--crm-primary);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.2rem 0.45rem;
-      cursor: pointer;
     }
 
     .crm-cell-meter {
@@ -663,14 +1100,40 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
+      .crm-layout-guide,
+      .crm-layout-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .crm-promo-kpi-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .crm-compare-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 1024px) {
       .crm-clients-dashboard .crm-form.crm-form-compact {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .crm-dashboard-toolbar,
+      .crm-layout-panel-head,
+      .crm-layout-presets {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .crm-layout-guide,
+      .crm-layout-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .crm-layout-presets-actions,
+      .crm-dashboard-toolbar-actions {
+        justify-content: flex-start;
       }
 
       .crm-promo-kpi-grid {
@@ -680,6 +1143,15 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
       .crm-channel-layout {
         grid-template-columns: 1fr;
       }
+
+      .crm-compare-headline {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .crm-compare-hint {
+        white-space: normal;
+      }
     }
 
     @media (max-width: 760px) {
@@ -687,18 +1159,33 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         grid-template-columns: 1fr;
       }
 
+      .crm-dashboard-toolbar-actions .crm-button {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .crm-layout-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .crm-layout-row-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .crm-clients-dashboard.is-customizing [data-dashboard-section][data-widget-id]::before {
+        position: static;
+        display: inline-flex;
+        margin: 0 0 0.55rem;
+      }
+
       .crm-promo-kpi-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .crm-channel-donut {
-        width: 170px;
-        height: 170px;
-      }
-
-      .crm-channel-donut-hole {
-        width: 108px;
-        height: 108px;
+      .crm-compare-summary {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -709,5 +1196,6 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
     }
   </style>
 
+  <script is:inline src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script is:inline src="/crm/clients-dashboard.js"></script>
 </CrmLayout>

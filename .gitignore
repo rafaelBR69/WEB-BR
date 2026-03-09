@@ -45,3 +45,21 @@ temp.txt
 *.ico
 imagenes_post/
 videos/
+
+# Local CRM import data
+scripts/agency-import/input/*.csv
+scripts/agency-import/input/*.json
+scripts/agency-import/reference/*.csv
+scripts/agency-import/reference/*.json
+scripts/agency-import/reports/*.csv
+scripts/agency-import/reports/*.json
+!scripts/agency-import/input/.gitkeep
+!scripts/agency-import/reference/.gitkeep
+!scripts/agency-import/reports/.gitkeep
+
+scripts/lead-import/input/*.csv
+scripts/lead-import/input/*.json
+scripts/lead-import/reports/*.csv
+scripts/lead-import/reports/*.json
+!scripts/lead-import/input/.gitkeep
+!scripts/lead-import/reports/.gitkeep

@@ -6,24 +6,6 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
     <section class="crm-card crm-full">
       <h2>Contenido portal por idioma y audiencia</h2>
       <p>CRUD operativo para bloques de contenido en `crm.portal_content_blocks`.</p>
-      <form id="crm-portal-org-form" class="crm-form crm-form-compact">
-        <label for="crm-portal-organization-id">
-          Organization ID
-          <input
-            id="crm-portal-organization-id"
-            name="organization_id"
-            type="text"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="UUID de crm.organizations"
-          />
-        </label>
-        <div class="crm-actions-row">
-          <button type="submit" class="crm-button crm-button-soft">Aplicar</button>
-        </div>
-      </form>
-      <p id="crm-portal-org-source" class="crm-inline-note"></p>
-      <p id="crm-portal-org-help" class="crm-inline-note"></p>
     </section>
 
     <section class="crm-grid">
@@ -31,8 +13,8 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <h3>Filtros</h3>
         <form id="portal-content-filter" class="crm-form">
           <label for="portal-content-filter-project">
-            Proyecto UUID
-            <input id="portal-content-filter-project" name="project_property_id" type="text" placeholder="requerido para foco de proyecto" />
+            Promocion (filtro avanzado)
+            <input id="portal-content-filter-project" name="project_property_id" type="text" placeholder="opcional para enfocar proyecto" />
           </label>
           <label for="portal-content-filter-language">
             Idioma
@@ -40,7 +22,7 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
           </label>
           <label for="portal-content-filter-audience">
             Audiencia
-            <select id="portal-content-filter-audience" name="audience">
+            <select id="portal-content-filter-audience" name="audience" data-dictionary="audience">
               <option value="">Todas</option>
               <option value="agent">agent</option>
               <option value="client">client</option>
@@ -71,7 +53,7 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         <form id="portal-content-form" class="crm-form">
           <input type="hidden" id="portal-content-id" name="id" />
           <label for="portal-content-project">
-            Proyecto UUID
+            Promocion
             <input id="portal-content-project" name="project_property_id" type="text" required />
           </label>
           <label for="portal-content-language">
@@ -80,7 +62,7 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
           </label>
           <label for="portal-content-audience">
             Audiencia
-            <select id="portal-content-audience" name="audience">
+            <select id="portal-content-audience" name="audience" data-dictionary="audience">
               <option value="agent">agent</option>
               <option value="client">client</option>
               <option value="both" selected>both</option>

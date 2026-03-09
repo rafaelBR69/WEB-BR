@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { jsonResponse, methodNotAllowed } from "@/utils/crmApi";
+import { getProjectNameFromRow } from "@/utils/crmProperties";
 import { getSupabaseServerClient, hasSupabaseServerClient } from "@/utils/supabaseServer";
 
 type ReservationStatus =
@@ -149,24 +150,7 @@ const emptyStatusMap = () =>
   }) as Record<ReservationStatus, number>;
 
 const getProjectName = (row: Record<string, unknown>) => {
-  const propertyData = asObject(row.property_data);
-  const translations = asObject(row.translations);
-  const languagePriority = ["es", "en", "de", "fr", "it", "nl"];
-
-  for (const language of languagePriority) {
-    const scoped = asObject(translations[language]);
-    const title = asText(scoped.title) ?? asText(scoped.name);
-    if (title) return title;
-  }
-
-  return (
-    asText(propertyData.project_name) ??
-    asText(propertyData.commercial_name) ??
-    asText(propertyData.name) ??
-    asText(propertyData.title) ??
-    asText(row.legacy_code) ??
-    "Promocion"
-  );
+  return getProjectNameFromRow(row) ?? "Promocion";
 };
 
 const getOrganizationId = (url: URL) =>
@@ -175,7 +159,7 @@ const getOrganizationId = (url: URL) =>
   asText(import.meta.env.PUBLIC_CRM_ORGANIZATION_ID);
 
 const fetchAllReservations = async (
-  client: ReturnType<typeof getSupabaseServerClient>,
+  client: NonNullable<ReturnType<typeof getSupabaseServerClient>>,
   organizationId: string
 ) => {
   const rows: ReservationRow[] = [];
@@ -196,7 +180,7 @@ const fetchAllReservations = async (
       .range(from, to);
 
     if (error) throw error;
-    const chunk = (data ?? []) as ReservationRow[];
+    const chunk = (data ?? []) as unknown as ReservationRow[];
     rows.push(...chunk);
     if (chunk.length < pageSize) break;
     from += pageSize;
@@ -206,7 +190,7 @@ const fetchAllReservations = async (
 };
 
 const fetchProjects = async (
-  client: ReturnType<typeof getSupabaseServerClient>,
+  client: NonNullable<ReturnType<typeof getSupabaseServerClient>>,
   organizationId: string,
   projectIds: string[]
 ) => {

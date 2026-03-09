@@ -1,0 +1,89 @@
+{
+  "organization_id": "90b38d37-b5c7-458d-b946-6b1185c1557e",
+  "source_catalog_file": "scripts/lead-import/reference/lead-source-catalog.csv",
+  "defaults": {
+    "source": "csv_import",
+    "origin_type": "other",
+    "lead_kind": "buyer",
+    "operation_interest": "sale",
+    "status": "new",
+    "skip_status_tokens": ["cliente", "client", "customer", "baja", "convertido", "converted", "ya ha comprado"]
+  },
+  "sources": [
+    {
+      "file": "scripts/lead-import/input/Gestion de LEADS - NYLVA HOMES - LEADS (1).csv",
+      "header_row": 1,
+      "defaults": {
+        "property_legacy_code": "PM0079",
+        "source": "csv_nylva_homes"
+      },
+      "columns": {
+        "full_name": ["Nombre", "Nombre completo"],
+        "email": ["Email", "Correo", "Mail"],
+        "phone": ["TELEFONO", "Telefono", "Movil", "Whatsapp"],
+        "nationality": ["NACIONALIDAD", "Nacionalidad", "Pais", "País", "Country"],
+        "tax_id": ["DNI", "NIF", "NIE", "CIF"],
+        "status": ["ESTADO", "Estado"],
+        "origin_type": ["CANAL DE ENTRADA", "Origen", "Canal"],
+        "operation_interest": ["TIPOLOGIA", "Interes", "Operacion"],
+        "property_legacy_code": ["PROYECTO", "Promocion", "Codigo promocion"],
+        "message": ["CLIENT ENQUIRIES", "COMENTARIO LEGAL", "REPORTE 1", "REPORTE 2", "REPORTE 3"]
+      }
+    },
+    {
+      "file": "scripts/lead-import/input/Gestion de LEADS - Calahonda Sunset - Leads.csv",
+      "header_row": 1,
+      "defaults": {
+        "property_legacy_code": "PM0011",
+        "source": "csv_calahonda_sunset"
+      },
+      "columns": {
+        "full_name": ["NOMBRE", "Nombre"],
+        "email": ["EMAIL", "Email", "Correo", "Mail"],
+        "phone": ["TLF", "TELEFONO", "Telefono", "Movil"],
+        "nationality": ["NACIONALIDAD", "Nacionalidad", "Pais", "País", "Country"],
+        "tax_id": ["DNI", "NIF", "NIE", "CIF"],
+        "status": ["ESTADO", "Estado"],
+        "origin_type": ["CANAL DE ENTRADA", "Origen", "Canal"],
+        "operation_interest": ["TIPO PROPIEDAD INTERESADO", "Interes", "Operacion"],
+        "message": ["COMENTARIOS", "REPORTE 1", "REPORTE 2", "REPORTE 3", "DESCARTADO POR"]
+      }
+    },
+    {
+      "file": "scripts/lead-import/input/Gestion de LEADS - Orion Collection - Fase Almitak - Leads.csv",
+      "header_row": 1,
+      "defaults": {
+        "property_legacy_code": "PM0074",
+        "source": "csv_orion_almitak"
+      },
+      "columns": {
+        "full_name": ["NOMBRE", "Nombre"],
+        "email": ["EMAIL", "Email", "Correo", "Mail"],
+        "phone": ["TLF", "TELEFONO", "Telefono", "Movil"],
+        "nationality": ["NACIONALIDAD", "Nacionalidad", "Pais", "País", "Country"],
+        "status": ["ESTADO", "Estado"],
+        "origin_type": ["CANAL DE ENTRADA", "ORIGEN", "Origen", "Canal"],
+        "operation_interest": ["TIPO PROPIEDAD INTERESADO", "Interes", "Operacion"],
+        "message": ["COMENTARIOS/ACCIONES CON FECHA", "REPORTE 1", "REPORTE 2", "REPORTE 3", "DESCARTADO POR"]
+      }
+    },
+    {
+      "file": "scripts/lead-import/input/Gestión de Leads WhiteHills Villas - Leads.csv",
+      "header_row": 1,
+      "defaults": {
+        "property_legacy_code": "PM0084",
+        "source": "csv_whitehills"
+      },
+      "columns": {
+        "full_name": ["NOMBRE", "Nombre"],
+        "email": ["EMAIL", "Email", "Correo", "Mail"],
+        "phone": ["TELEFONO", "Telefono", "Movil", "Whatsapp"],
+        "nationality": ["NACIONALIDAD", "Nacionalidad", "Pais", "País", "Country"],
+        "status": ["ESTADO", "Estado"],
+        "origin_type": ["CANAL DE ENTRADA", "Origen", "Canal"],
+        "operation_interest": ["TIPOLOGIA", "Interes", "Operacion"],
+        "message": ["COMENTARIOS", "REPORTE", "DESCARTADO POR", "OTROS"]
+      }
+    }
+  ]
+}

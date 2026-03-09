@@ -19,6 +19,41 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
     </section>
 
     <section class="crm-card crm-full">
+      <form id="property-filter-form" class="crm-form crm-form-compact">
+        <label>Buscar promocion o referencia <input name="q" type="search" placeholder="White Hills o PM0084" /></label>
+        <label>Modelo negocio
+          <select name="project_business_type">
+            <option value="">Todos</option>
+            <option value="owned_and_commercialized">Propia y comercializada</option>
+            <option value="provider_and_commercialized_by_us">Proveedor + comercializamos</option>
+            <option value="external_listing">Captacion externa</option>
+          </select>
+        </label>
+        <label>Estado
+          <select name="status">
+            <option value="">Todos</option>
+            <option value="draft">Borrador</option>
+            <option value="available">Disponible</option>
+            <option value="reserved">Reservada</option>
+            <option value="sold">Vendida</option>
+            <option value="rented">Alquilada</option>
+            <option value="private">Privada</option>
+            <option value="archived">Archivada</option>
+          </select>
+        </label>
+        <label>Portal
+          <select name="portal_enabled">
+            <option value="">Todas</option>
+            <option value="enabled">Publicadas en portal</option>
+            <option value="disabled">Fuera de portal</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="property-filters-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+      <p id="properties-meta" class="crm-inline-note"></p>
       <p id="properties-dashboard-summary" class="crm-inline-note">
         Cargando distribucion por obra nueva, segunda mano y promociones propias...
       </p>
@@ -67,6 +102,7 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
             <tr>
               <th>Promocion</th>
               <th>Modelo negocio</th>
+              <th>Portal</th>
               <th>Estado promocion</th>
               <th>Total viviendas</th>
               <th>Disponibles</th>
@@ -75,7 +111,7 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
             </tr>
           </thead>
           <tbody id="properties-promotions-tbody">
-            <tr><td colspan="7">Cargando promociones...</td></tr>
+            <tr><td colspan="8">Cargando promociones...</td></tr>
           </tbody>
         </table>
       </div>

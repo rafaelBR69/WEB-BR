@@ -221,6 +221,20 @@ const hasAgencyPatch = (body: UpdateClientBody) =>
   hasOwn(body, "agency_is_referral_source") ||
   hasOwn(body, "agency_notes");
 
+const isMissingTableError = (error: unknown, table: string): boolean => {
+  if (!error || typeof error !== "object") return false;
+  const row = error as Record<string, unknown>;
+  const code = String(row.code ?? "");
+  const message = String(row.message ?? "").toLowerCase();
+  const details = String(row.details ?? "").toLowerCase();
+  const tableName = table.toLowerCase();
+  return (
+    code === "PGRST205" ||
+    (message.includes(tableName) && message.includes("could not find")) ||
+    details.includes(tableName)
+  );
+};
+
 export const GET: APIRoute = async ({ params, url }) => {
   const id = getClientIdFromParams(params);
   if (!id) return jsonResponse({ ok: false, error: "client_id_required" }, { status: 400 });
@@ -683,6 +697,224 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   });
 };
 
-export const POST: APIRoute = async () => methodNotAllowed(["GET", "PATCH"]);
-export const PUT: APIRoute = async () => methodNotAllowed(["GET", "PATCH"]);
-export const DELETE: APIRoute = async () => methodNotAllowed(["GET", "PATCH"]);
+export const DELETE: APIRoute = async ({ params, url }) => {
+  const id = getClientIdFromParams(params);
+  if (!id) return jsonResponse({ ok: false, error: "client_id_required" }, { status: 400 });
+
+  if (!hasSupabaseServerClient()) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "mock_client_delete_not_implemented",
+        details: "Activa Supabase para eliminar cliente.",
+      },
+      { status: 501 }
+    );
+  }
+
+  const client = getSupabaseServerClient();
+  if (!client) return jsonResponse({ ok: false, error: "supabase_not_configured" }, { status: 500 });
+
+  const requestedOrganizationId = asText(url.searchParams.get("organization_id"));
+  const currentRead = await fetchClientRowWithProfileFallback(client, id, requestedOrganizationId);
+  if (currentRead.error) {
+    return jsonResponse(
+      { ok: false, error: "db_read_error", details: currentRead.error.message },
+      { status: 500 }
+    );
+  }
+  if (!currentRead.data) return jsonResponse({ ok: false, error: "client_not_found" }, { status: 404 });
+
+  const currentRow = currentRead.data as Record<string, unknown>;
+  const effectiveOrgId = requestedOrganizationId ?? asText(currentRow.organization_id);
+  if (!effectiveOrgId) {
+    return jsonResponse({ ok: false, error: "organization_scope_required" }, { status: 422 });
+  }
+
+  const [contractsProbe, invoicesProbe] = await Promise.all([
+    client
+      .schema("crm")
+      .from("contracts")
+      .select("id", { head: true, count: "exact" })
+      .eq("organization_id", effectiveOrgId)
+      .eq("client_id", id),
+    client
+      .schema("crm")
+      .from("invoices")
+      .select("id", { head: true, count: "exact" })
+      .eq("organization_id", effectiveOrgId)
+      .eq("client_id", id),
+  ]);
+
+  if (contractsProbe.error) {
+    return jsonResponse(
+      { ok: false, error: "db_contracts_probe_error", details: contractsProbe.error.message },
+      { status: 500 }
+    );
+  }
+  if (invoicesProbe.error) {
+    return jsonResponse(
+      { ok: false, error: "db_invoices_probe_error", details: invoicesProbe.error.message },
+      { status: 500 }
+    );
+  }
+
+  const contractsCount = Number(contractsProbe.count ?? 0);
+  const invoicesCount = Number(invoicesProbe.count ?? 0);
+  if (contractsCount > 0 || invoicesCount > 0) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "client_has_blocking_dependencies",
+        details: "El cliente tiene contratos o facturas vinculadas y no se puede eliminar.",
+        meta: {
+          contracts_total: contractsCount,
+          invoices_total: invoicesCount,
+        },
+      },
+      { status: 409 }
+    );
+  }
+
+  const { data: providerRows, error: providersReadError } = await client
+    .schema("crm")
+    .from("providers")
+    .select("id")
+    .eq("organization_id", effectiveOrgId)
+    .eq("client_id", id);
+
+  if (providersReadError) {
+    return jsonResponse(
+      { ok: false, error: "db_providers_read_error", details: providersReadError.message },
+      { status: 500 }
+    );
+  }
+
+  const providerIds = (providerRows ?? [])
+    .map((row) => asText((row as Record<string, unknown>).id))
+    .filter((value): value is string => Boolean(value));
+
+  if (providerIds.length) {
+    const { error: projectProvidersDeleteError } = await client
+      .schema("crm")
+      .from("project_providers")
+      .delete()
+      .eq("organization_id", effectiveOrgId)
+      .in("provider_id", providerIds);
+
+    if (projectProvidersDeleteError) {
+      return jsonResponse(
+        {
+          ok: false,
+          error: "db_project_providers_delete_error",
+          details: projectProvidersDeleteError.message,
+        },
+        { status: 500 }
+      );
+    }
+  }
+
+  const { error: providersDeleteError } = await client
+    .schema("crm")
+    .from("providers")
+    .delete()
+    .eq("organization_id", effectiveOrgId)
+    .eq("client_id", id);
+
+  if (providersDeleteError) {
+    return jsonResponse(
+      { ok: false, error: "db_providers_delete_error", details: providersDeleteError.message },
+      { status: 500 }
+    );
+  }
+
+  const { error: agenciesDeleteError } = await client
+    .schema("crm")
+    .from("agencies")
+    .delete()
+    .eq("organization_id", effectiveOrgId)
+    .eq("client_id", id);
+
+  if (agenciesDeleteError) {
+    return jsonResponse(
+      { ok: false, error: "db_agencies_delete_error", details: agenciesDeleteError.message },
+      { status: 500 }
+    );
+  }
+
+  const propertyLinksDelete = await client
+    .schema("crm")
+    .from("property_client_links")
+    .delete()
+    .eq("organization_id", effectiveOrgId)
+    .eq("client_id", id);
+
+  if (propertyLinksDelete.error && !isMissingTableError(propertyLinksDelete.error, "property_client_links")) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "db_property_links_delete_error",
+        details: propertyLinksDelete.error.message,
+      },
+      { status: 500 }
+    );
+  }
+
+  const { error: clientDeleteError } = await client
+    .schema("crm")
+    .from("clients")
+    .delete()
+    .eq("organization_id", effectiveOrgId)
+    .eq("id", id);
+
+  if (clientDeleteError) {
+    const code = String((clientDeleteError as Record<string, unknown>).code ?? "");
+    const message = String(clientDeleteError.message ?? "");
+    const isBlockedByDependency =
+      code === "23503" ||
+      message.toLowerCase().includes("violates foreign key constraint");
+    return jsonResponse(
+      {
+        ok: false,
+        error: isBlockedByDependency ? "client_delete_blocked_by_dependency" : "db_client_delete_error",
+        details: message,
+      },
+      { status: isBlockedByDependency ? 409 : 500 }
+    );
+  }
+
+  let contactDeleted = false;
+  let contactDeleteWarning: string | null = null;
+  const contactId = asText(currentRow.contact_id);
+  if (contactId) {
+    const { error: contactDeleteError } = await client
+      .schema("crm")
+      .from("contacts")
+      .delete()
+      .eq("organization_id", effectiveOrgId)
+      .eq("id", contactId);
+
+    if (contactDeleteError) {
+      contactDeleteWarning = contactDeleteError.message;
+    } else {
+      contactDeleted = true;
+    }
+  }
+
+  return jsonResponse({
+    ok: true,
+    data: {
+      id,
+      organization_id: effectiveOrgId,
+      deleted: true,
+    },
+    meta: {
+      storage: "supabase.crm.clients",
+      contact_deleted: contactDeleted,
+      ...(contactDeleteWarning ? { contact_delete_warning: contactDeleteWarning } : {}),
+    },
+  });
+};
+
+export const POST: APIRoute = async () => methodNotAllowed(["GET", "PATCH", "DELETE"]);
+export const PUT: APIRoute = async () => methodNotAllowed(["GET", "PATCH", "DELETE"]);

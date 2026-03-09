@@ -1,8 +1,9 @@
----
+﻿---
 export const prerender = false;
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@/i18n/languages";
+import BrandLogo from "@/components/BrandLogo.astro";
 import "@/styles/pages/portal.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -23,139 +24,163 @@ const defaultOrganizationId = String(
 const copyByLang = {
   es: {
     title: "Portal | Proyecto",
-    description: "Workspace profesional de promocion con contenido, documentos, leads y visitas.",
+    description: "Workspace de promocion con contenido visual y documentos.",
     eyebrow: "Detalle de promocion",
-    heading: "Workspace operativo de promocion",
-    intro:
-      "Consulta contenido publicado, biblioteca documental y gestiona leads/visitas vinculadas a esta promocion.",
-    heroTagsLabel: "Bloques operativos del proyecto",
-    heroTagContent: "Contenido por idioma y audiencia",
+    heading: "Material comercial de la promocion",
+    intro: "Consulta el material visual publicado y descarga documentacion autorizada.",
+    heroTagsLabel: "Bloques del proyecto",
+    heroTagContent: "Contenido visual",
     heroTagDocs: "Documentacion comercial",
-    heroTagPipeline: "Pipeline de leads y visitas",
-    back: "Volver al dashboard portal",
-    projectIdLabel: "Proyecto ID",
+    heroTagUnits: "Viviendas disponibles",
+    back: "Volver al dashboard",
     projectScopeHint: "Solo se muestran promociones autorizadas para esta cuenta.",
     contentTitle: "Contenido publicado",
     contentHint: "Bloques activos para comunicacion comercial del proyecto.",
     documentsTitle: "Documentos visibles",
-    documentsHint: "Biblioteca de documentos publicados para agentes/clientes autorizados.",
+    documentsHint: "Biblioteca documental publicada para usuarios autorizados.",
+    unitsTitle: "Viviendas disponibles",
+    unitsHint: "Listado en tiempo real de unidades disponibles en esta promocion.",
     docsSearch: "Buscar en documentos",
-    docsSearchPlaceholder: "titulo, mime, storage_path",
-    leadFormTitle: "Alta de lead",
-    leadFormHint: "Registra un nuevo lead comercial asociado a esta promocion.",
-    leadNameLabel: "Nombre completo",
-    leadEmailLabel: "Email",
-    leadPhoneLabel: "Telefono",
-    leadLanguageLabel: "Idioma",
-    leadOperationLabel: "Operacion",
-    leadOperationSale: "Venta",
-    leadOperationRent: "Alquiler",
-    leadOperationBoth: "Venta y alquiler",
-    leadTimelineLabel: "Horizonte de compra",
-    leadTimelinePlaceholder: "0-3 meses, inmediato, 6 meses...",
-    leadBudgetMinLabel: "Presupuesto minimo",
-    leadBudgetMaxLabel: "Presupuesto maximo",
-    leadNotesLabel: "Notas",
-    leadNotesPlaceholder: "Contexto comercial, preferencias y origen del lead",
-    leadConsentLabel: "Consentimiento de contacto y tratamiento de datos",
-    leadRequiredHint: "Nombre obligatorio y al menos un canal de contacto (email o telefono).",
-    leadsTitle: "Tracking de leads del proyecto",
-    leadsHint: "Estado de atribucion de los leads asociados a esta promocion.",
-    leadDetailTitle: "Detalle de lead",
-    leadDetailEmpty: "Selecciona un lead del listado para ver timeline, visitas y comisiones.",
-    visitTitle: "Solicitar visita",
-    visitHint: "Coordina visitas del lead con franjas propuestas o reserva directa.",
-    visitLeadLabel: "Lead ID",
-    visitModeLabel: "Modo",
-    visitModeProposal: "Proponer horarios",
-    visitModeDirect: "Reserva directa",
-    visitModeHint: "Con propuesta de horarios, informa entre 2 y 3 opciones.",
-    visitSlot1: "Horario 1",
-    visitSlot2: "Horario 2",
-    visitSlot3: "Horario 3",
-    visitNotesLabel: "Notas",
-    visitNotesPlaceholder: "Observaciones para coordinacion de visita",
-    submitLead: "Crear lead",
-    submitVisit: "Enviar solicitud de visita",
-    tableDate: "Fecha",
-    tableLead: "Lead",
-    tableAttribution: "Atribucion",
-    tableAction: "Accion",
-    leadsTableLabel: "Tabla de leads del proyecto",
+    docsSearchPlaceholder: "titulo, formato",
     projectLoading: "Cargando datos del proyecto...",
     noContent: "No hay bloques publicados para este idioma/audiencia.",
     noDocuments: "No hay documentos visibles para este proyecto.",
-    noLeads: "No hay leads vinculados a este proyecto.",
+    noUnits: "No hay viviendas disponibles en este momento.",
+    logoutCta: "Cerrar sesión",
   },
   en: {
     title: "Portal | Project",
-    description: "Professional project workspace with content, documents, leads and visits.",
+    description: "Project workspace with visual content and documents.",
     eyebrow: "Project detail",
-    heading: "Project operations workspace",
-    intro:
-      "Review published content, document library and manage project-linked leads/visits.",
-    heroTagsLabel: "Project operation blocks",
-    heroTagContent: "Language/audience content",
+    heading: "Project commercial material",
+    intro: "Review published visual material and download authorized documentation.",
+    heroTagsLabel: "Project blocks",
+    heroTagContent: "Visual content",
     heroTagDocs: "Commercial documents",
-    heroTagPipeline: "Lead and visit pipeline",
-    back: "Back to portal dashboard",
-    projectIdLabel: "Project ID",
+    heroTagUnits: "Available units",
+    back: "Back to dashboard",
     projectScopeHint: "Only projects authorized for this account are shown.",
     contentTitle: "Published content",
     contentHint: "Active blocks for project commercial communication.",
     documentsTitle: "Visible documents",
-    documentsHint: "Published document library for authorized agents/clients.",
+    documentsHint: "Published document library for authorized users.",
+    unitsTitle: "Available units",
+    unitsHint: "Live list of available units in this project.",
     docsSearch: "Search documents",
-    docsSearchPlaceholder: "title, mime, storage_path",
-    leadFormTitle: "Create lead",
-    leadFormHint: "Register a new commercial lead linked to this project.",
-    leadNameLabel: "Full name",
-    leadEmailLabel: "Email",
-    leadPhoneLabel: "Phone",
-    leadLanguageLabel: "Language",
-    leadOperationLabel: "Operation",
-    leadOperationSale: "Sale",
-    leadOperationRent: "Rent",
-    leadOperationBoth: "Sale and rent",
-    leadTimelineLabel: "Purchase timeline",
-    leadTimelinePlaceholder: "0-3 months, immediate, 6 months...",
-    leadBudgetMinLabel: "Minimum budget",
-    leadBudgetMaxLabel: "Maximum budget",
-    leadNotesLabel: "Notes",
-    leadNotesPlaceholder: "Commercial context, preferences and lead source",
-    leadConsentLabel: "Contact and data processing consent",
-    leadRequiredHint: "Full name required and at least one contact channel (email or phone).",
-    leadsTitle: "Project lead tracking",
-    leadsHint: "Attribution status for leads linked to this project.",
-    leadDetailTitle: "Lead detail",
-    leadDetailEmpty: "Select a lead to inspect timeline, visits and commissions.",
-    visitTitle: "Request visit",
-    visitHint: "Coordinate lead visits with proposed slots or direct booking.",
-    visitLeadLabel: "Lead ID",
-    visitModeLabel: "Mode",
-    visitModeProposal: "Propose slots",
-    visitModeDirect: "Direct booking",
-    visitModeHint: "In proposal mode, submit between 2 and 3 time slots.",
-    visitSlot1: "Slot 1",
-    visitSlot2: "Slot 2",
-    visitSlot3: "Slot 3",
-    visitNotesLabel: "Notes",
-    visitNotesPlaceholder: "Notes for visit coordination",
-    submitLead: "Create lead",
-    submitVisit: "Submit visit request",
-    tableDate: "Date",
-    tableLead: "Lead",
-    tableAttribution: "Attribution",
-    tableAction: "Action",
-    leadsTableLabel: "Project leads table",
+    docsSearchPlaceholder: "title, format",
     projectLoading: "Loading project data...",
     noContent: "No published blocks for this language/audience.",
     noDocuments: "No visible documents for this project.",
-    noLeads: "No leads linked to this project.",
+    noUnits: "No available units right now.",
+    logoutCta: "Sign out",
+  },
+  de: {
+    title: "Portal | Projekt",
+    description: "Projektstruktur mit visuellem Inhalt und Dokumenten.",
+    eyebrow: "Projektdetail",
+    heading: "Kommerzielles Material des Projekts",
+    intro: "Überprüfen Sie veröffentlichtes Bildmaterial und laden Sie autorisierte Dokumente herunter.",
+    heroTagsLabel: "Projektblöcke",
+    heroTagContent: "Visueller Inhalt",
+    heroTagDocs: "Kommerzielle Dokumente",
+    heroTagUnits: "Verfügbare Einheiten",
+    back: "Zurück zum Dashboard",
+    projectScopeHint: "Es werden nur für dieses Konto autorisierte Projekte angezeigt.",
+    contentTitle: "Veröffentlichte Inhalte",
+    contentHint: "Aktive Blöcke für die kommerzielle Projektkommunikation.",
+    documentsTitle: "Sichtbare Dokumente",
+    documentsHint: "Veröffentlichte Dokumentbibliothek für autorisierte Benutzer.",
+    unitsTitle: "Verfügbare Einheiten",
+    unitsHint: "Live-Liste der verfügbaren Einheiten in diesem Projekt.",
+    docsSearch: "Dokumente suchen",
+    docsSearchPlaceholder: "Titel, Format",
+    projectLoading: "Projektdaten werden geladen...",
+    noContent: "Keine veröffentlichten Blöcke für diese Sprache/Zielgruppe.",
+    noDocuments: "Keine sichtbaren Dokumente für dieses Projekt.",
+    noUnits: "Momentan keine verfügbaren Einheiten.",
+    logoutCta: "Abmelden",
+  },
+  fr: {
+    title: "Portail | Projet",
+    description: "Espace de travail du projet avec contenu visuel et documents.",
+    eyebrow: "Détail du projet",
+    heading: "Matériel commercial du projet",
+    intro: "Consultez le matériel visuel publié et téléchargez la documentation autorisée.",
+    heroTagsLabel: "Blocs de projet",
+    heroTagContent: "Contenu visuel",
+    heroTagDocs: "Documents commerciaux",
+    heroTagUnits: "Unités disponibles",
+    back: "Retour au tableau de bord",
+    projectScopeHint: "Seuls les projets autorisés pour ce compte sont affichés.",
+    contentTitle: "Contenu publié",
+    contentHint: "Blocs actifs pour la communication commerciale du projet.",
+    documentsTitle: "Documents visibles",
+    documentsHint: "Bibliothèque de documents publiés pour les utilisateurs autorisés.",
+    unitsTitle: "Unités disponibles",
+    unitsHint: "Liste en direct des unités disponibles dans ce projet.",
+    docsSearch: "Rechercher des documents",
+    docsSearchPlaceholder: "titre, format",
+    projectLoading: "Chargement des données du projet...",
+    noContent: "Aucun bloc publié pour cette langue/audience.",
+    noDocuments: "Aucun document visible pour ce projet.",
+    noUnits: "Aucune unité disponible pour le moment.",
+    logoutCta: "Se déconnecter",
+  },
+  it: {
+    title: "Portale | Progetto",
+    description: "Spazio di lavoro del progetto con contenuti visivi e documenti.",
+    eyebrow: "Dettagli del progetto",
+    heading: "Materiale commerciale del progetto",
+    intro: "Consulta il materiale visivo pubblicato e scarica la documentazione autorizzata.",
+    heroTagsLabel: "Blocchi del progetto",
+    heroTagContent: "Contenuto visivo",
+    heroTagDocs: "Documenti commerciali",
+    heroTagUnits: "Unità disponibili",
+    back: "Torna al dashboard",
+    projectScopeHint: "Vengono mostrati solo i progetti autorizzati per questo account.",
+    contentTitle: "Contenuto pubblicato",
+    contentHint: "Blocchi attivi per la comunicazione commerciale del progetto.",
+    documentsTitle: "Documenti visibili",
+    documentsHint: "Biblioteca di documenti pubblicati per gli utenti autorizzati.",
+    unitsTitle: "Unità disponibili",
+    unitsHint: "Elenco in tempo reale delle unità disponibili in questo progetto.",
+    docsSearch: "Cerca documenti",
+    docsSearchPlaceholder: "titolo, formato",
+    projectLoading: "Caricamento dati del progetto...",
+    noContent: "Nessun blocco pubblicato per questa lingua/pubblico.",
+    noDocuments: "Nessun documento visibile per questo progetto.",
+    noUnits: "Nessuna unità disponibile al momento.",
+    logoutCta: "Esci",
+  },
+  nl: {
+    title: "Portaal | Project",
+    description: "Projectwerkruimte met visuele inhoud en documenten.",
+    eyebrow: "Projectdetail",
+    heading: "Commercieel materiaal van het project",
+    intro: "Bekijk gepubliceerd visueel materiaal en download geautoriseerde documentatie.",
+    heroTagsLabel: "Projectblokken",
+    heroTagContent: "Visuele inhoud",
+    heroTagDocs: "Commerciële documenten",
+    heroTagUnits: "Beschikbare eenheden",
+    back: "Terug naar dashboard",
+    projectScopeHint: "Alleen projecten die voor dit account zijn geautoriseerd, worden getoond.",
+    contentTitle: "Gepubliceerde inhoud",
+    contentHint: "Actieve blokken voor commerciële projectcommunicatie.",
+    documentsTitle: "Zichtbare documenten",
+    documentsHint: "Gepubliceerde documentenbibliotheek voor geautoriseerde gebruikers.",
+    unitsTitle: "Beschikbare eenheden",
+    unitsHint: "Live overzicht van beschikbare eenheden in dit project.",
+    docsSearch: "Documenten zoeken",
+    docsSearchPlaceholder: "titel, formaat",
+    projectLoading: "Projectgegevens laden...",
+    noContent: "Geen gepubliceerde blokken voor deze taal/doelgroep.",
+    noDocuments: "Geen zichtbare documenten voor dit project.",
+    noUnits: "Geen beschikbare eenheden op dit moment.",
+    logoutCta: "Uitloggen",
   },
 };
 
-const t = copyByLang[lang] ?? copyByLang.en;
+const t = (copyByLang as any)[lang] || copyByLang.en;
 ---
 
 <BaseLayout
@@ -165,197 +190,308 @@ const t = copyByLang[lang] ?? copyByLang.en;
   availableLangs={SUPPORTED_LANGS}
   showMobileStickyCta={false}
 >
-  <div class="portal-app">
-    <div class="portal-shell">
-      <section class="portal-hero">
-        <div class="portal-row">
-          <div>
-            <a class="portal-nav-link" href={`/${lang}/portal/`}>{t.back}</a>
-            <p class="portal-kicker">{t.eyebrow}</p>
-            <h1>{t.heading}</h1>
+  <div class="portal-scene">
+    <!-- SIDEBAR (Consistent with Dashboard) -->
+    <aside class="portal-sidebar desktop-only">
+      <div class="sidebar-brand">
+        <BrandLogo variant="wordmark" href={`/${lang}/`} />
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href={`/${lang}/portal/`} class="nav-item active">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Dashboard
+        </a>
+        <a href={`/${lang}/properties/`} class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Properties
+        </a>
+        <a href="#" class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Documents
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="portal-dashboard-logout" class="logout-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          {t.logoutCta || 'Sign out'}
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <main class="portal-main">
+      <header class="portal-header">
+        <div class="header-welcome">
+          <a class="luxury-back-link" href={`/${lang}/portal/`}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            {t.back}
+          </a>
+          <h1 id="portal-project-title-heading">{t.heading}</h1>
+          <div id="portal-project-header" class="project-meta-stats">
             <p>{t.intro}</p>
-            <div class="portal-hero-tags" role="list" aria-label={t.heroTagsLabel}>
-              <span class="portal-tag" role="listitem">{t.heroTagContent}</span>
-              <span class="portal-tag" role="listitem">{t.heroTagDocs}</span>
-              <span class="portal-tag" role="listitem">{t.heroTagPipeline}</span>
-            </div>
           </div>
         </div>
-        <p id="portal-project-header" class="portal-note">
-          {t.projectIdLabel}:
-          {" "}
-          <span class="portal-inline-code">{projectId}</span>
-        </p>
-        <p class="portal-note">{t.projectScopeHint}</p>
-      </section>
+      </header>
 
-      <section class="portal-grid portal-grid-2">
-        <article class="portal-card">
-          <h2>{t.contentTitle}</h2>
-          <p class="portal-note">{t.contentHint}</p>
-          <ul id="portal-project-content" class="portal-list">
-            <li class="portal-empty">{t.noContent}</li>
-          </ul>
-        </article>
+      <div class="portal-content-grid">
+        <div class="project-sections-layout">
+          <div class="main-sections">
+            <section class="luxury-card">
+              <div class="card-head">
+                <div class="icon-box luxury-blue">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                </div>
+                <h3>{t.contentTitle}</h3>
+              </div>
+              <p class="card-desc">{t.contentHint}</p>
+              <ul id="portal-project-content" class="portal-list dynamic-content-list">
+                <li class="portal-empty">{t.noContent}</li>
+              </ul>
+            </section>
 
-        <article class="portal-card">
-          <h2>{t.documentsTitle}</h2>
-          <p class="portal-note">{t.documentsHint}</p>
-          <div class="portal-form">
-            <label class="portal-col-2">
-              {t.docsSearch}
-              <input
-                id="portal-documents-search"
-                type="search"
-                placeholder={t.docsSearchPlaceholder}
-                aria-label={t.docsSearch}
-              />
-            </label>
+            <section class="luxury-card">
+              <div class="card-head">
+                <div class="icon-box luxury-gold">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <h3>{t.documentsTitle}</h3>
+              </div>
+              <div class="search-filter-box">
+                <input
+                  id="portal-documents-search"
+                  type="search"
+                  placeholder={t.docsSearchPlaceholder}
+                  class="luxury-search-input"
+                />
+              </div>
+              <ul id="portal-project-documents" class="portal-list dynamic-docs-list">
+                <li class="portal-empty">{t.noDocuments}</li>
+              </ul>
+            </section>
           </div>
-          <ul id="portal-project-documents" class="portal-list">
-            <li class="portal-empty">{t.noDocuments}</li>
-          </ul>
-        </article>
-      </section>
 
-      <section class="portal-grid portal-grid-2">
-        <article class="portal-card">
-          <h2>{t.leadFormTitle}</h2>
-          <p class="portal-note">{t.leadFormHint}</p>
-          <form id="portal-project-lead-form" class="portal-form">
-            <label>
-              {t.leadNameLabel}
-              <input name="full_name" type="text" required autocomplete="name" />
-            </label>
-            <label>
-              {t.leadEmailLabel}
-              <input name="email" type="email" autocomplete="email" />
-            </label>
-            <label>
-              {t.leadPhoneLabel}
-              <input name="phone" type="tel" autocomplete="tel" inputmode="tel" />
-            </label>
-            <label>
-              {t.leadLanguageLabel}
-              <select name="language">
-                <option value="es">es</option>
-                <option value="en">en</option>
-                <option value="de">de</option>
-                <option value="fr">fr</option>
-                <option value="it">it</option>
-                <option value="nl">nl</option>
-              </select>
-            </label>
-            <label>
-              {t.leadOperationLabel}
-              <select name="operation_interest">
-                <option value="sale">{t.leadOperationSale}</option>
-                <option value="rent">{t.leadOperationRent}</option>
-                <option value="both">{t.leadOperationBoth}</option>
-              </select>
-            </label>
-            <label>
-              {t.leadTimelineLabel}
-              <input name="timeline" type="text" placeholder={t.leadTimelinePlaceholder} />
-            </label>
-            <label>
-              {t.leadBudgetMinLabel}
-              <input name="budget_min" type="number" step="1" min="0" />
-            </label>
-            <label>
-              {t.leadBudgetMaxLabel}
-              <input name="budget_max" type="number" step="1" min="0" />
-            </label>
-            <label class="portal-col-2">
-              {t.leadNotesLabel}
-              <textarea name="notes" placeholder={t.leadNotesPlaceholder}></textarea>
-            </label>
-            <label class="portal-col-2 portal-checkbox">
-              <input name="consent" type="checkbox" />
-              {t.leadConsentLabel}
-            </label>
-            <p class="portal-col-2 portal-field-hint">{t.leadRequiredHint}</p>
-            <div class="portal-col-2 portal-actions">
-              <button type="submit" class="portal-button portal-button-primary">{t.submitLead}</button>
-            </div>
-          </form>
-        </article>
+          <aside class="project-side-column">
+            <section class="luxury-card compact">
+              <div class="card-head">
+                <div class="icon-box luxury-red">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                </div>
+                <h3>{t.unitsTitle}</h3>
+              </div>
+              <ul id="portal-project-units" class="portal-list compact-list">
+                <li class="portal-empty">{t.noUnits}</li>
+              </ul>
+            </section>
+          </aside>
+        </div>
+      </div>
 
-        <article class="portal-card">
-          <h2>{t.visitTitle}</h2>
-          <p class="portal-note">{t.visitHint}</p>
-          <form id="portal-project-visit-form" class="portal-form">
-            <label class="portal-col-2">
-              {t.visitLeadLabel}
-              <select name="lead_id" id="portal-visit-lead-select"></select>
-            </label>
-            <label>
-              {t.visitModeLabel}
-              <select name="request_mode" id="portal-visit-mode">
-                <option value="proposal_slots">{t.visitModeProposal}</option>
-                <option value="direct_booking">{t.visitModeDirect}</option>
-              </select>
-            </label>
-            <p class="portal-col-2 portal-field-hint">{t.visitModeHint}</p>
-            <label>
-              {t.visitSlot1}
-              <input name="slot_1" type="datetime-local" />
-            </label>
-            <label>
-              {t.visitSlot2}
-              <input name="slot_2" type="datetime-local" />
-            </label>
-            <label>
-              {t.visitSlot3}
-              <input name="slot_3" type="datetime-local" />
-            </label>
-            <label class="portal-col-2">
-              {t.visitNotesLabel}
-              <textarea name="notes" placeholder={t.visitNotesPlaceholder}></textarea>
-            </label>
-            <div class="portal-col-2 portal-actions">
-              <button type="submit" class="portal-button portal-button-primary">{t.submitVisit}</button>
-            </div>
-          </form>
-        </article>
-      </section>
-
-      <section class="portal-grid portal-grid-2">
-        <article class="portal-card">
-          <h2>{t.leadsTitle}</h2>
-          <p class="portal-note">{t.leadsHint}</p>
-          <div class="portal-table-wrap">
-            <table class="portal-table" aria-label={t.leadsTableLabel}>
-              <thead>
-                <tr>
-                  <th>{t.tableDate}</th>
-                  <th>{t.tableLead}</th>
-                  <th>{t.tableAttribution}</th>
-                  <th>{t.tableAction}</th>
-                </tr>
-              </thead>
-              <tbody id="portal-project-leads-tbody">
-                <tr>
-                  <td colspan="4">{t.noLeads}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <article class="portal-card">
-          <h2>{t.leadDetailTitle}</h2>
-          <div id="portal-project-lead-detail" class="portal-empty">{t.leadDetailEmpty}</div>
-        </article>
-      </section>
-
-      <section class="portal-card">
-        <p id="portal-project-feedback" class="portal-feedback" role="status" aria-live="polite">
+      <footer class="portal-footer">
+        <p id="portal-project-feedback" class="status-indicator" role="status" aria-live="polite">
           {t.projectLoading}
         </p>
-      </section>
-    </div>
+      </footer>
+    </main>
   </div>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap');
+
+    .portal-scene {
+      display: flex;
+      min-height: 100vh;
+      background: #f8fafc;
+      font-family: 'Outfit', sans-serif;
+      color: #0f172a;
+    }
+
+    /* SIDEBAR (SHARED) */
+    .portal-sidebar {
+      width: 260px;
+      background: #00152e;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      border-right: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .sidebar-brand {
+      padding: 0 32px 40px;
+    }
+
+    .sidebar-brand a {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .sidebar-brand span { color: #de1f38; }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-grow: 1;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 32px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      font-weight: 500;
+      font-size: 0.9rem;
+      border-left: 3px solid transparent;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-item:hover {
+      color: white;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .nav-item.active {
+      color: white;
+      background: rgba(212, 175, 55, 0.05);
+      border-left-color: #D4AF37;
+    }
+
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s;
+    }
+
+    .nav-item:hover svg {
+      transform: translateX(2px);
+    }
+
+    .sidebar-footer {
+      padding: 24px 32px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .logout-link {
+      display: flex; align-items: center; gap: 10px; background: transparent;
+      border: 0; color: rgba(255,255,255,0.6); cursor: pointer; font-family: inherit;
+    }
+
+    /* PROJECT DETAIL SPECIFIC */
+    .portal-main { flex-grow: 1; padding: 40px 60px; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+    .luxury-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #64748b;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+    .luxury-back-link:hover { color: #001E44; }
+
+    .header-welcome h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      color: #001E44;
+      margin: 0 0 0.5rem;
+    }
+
+    .project-meta-stats {
+      color: #64748b;
+      font-size: 1.1rem;
+      font-weight: 300;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .project-meta-stats strong { color: #001E44; font-weight: 600; }
+
+    .project-sections-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+    }
+
+    .main-sections { display: grid; gap: 30px; }
+
+    .luxury-card {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      border: 1px solid rgba(0,30,68,0.05);
+      box-shadow: 0 4px 20px rgba(0,30,68,0.02);
+    }
+
+    .luxury-card.compact { padding: 24px; }
+
+    .card-head { display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem; }
+    .card-head h3 { font-size: 1.25rem; font-weight: 600; color: #001E44; margin: 0; }
+
+    .icon-box {
+      width: 40px; height: 40px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .luxury-blue { background: rgba(0, 30, 68, 0.05); color: #001E44; }
+    .luxury-gold { background: rgba(212, 175, 55, 0.1); color: #D4AF37; }
+    .luxury-red { background: rgba(222, 31, 56, 0.05); color: #de1f38; }
+
+    .card-desc { color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; }
+
+    .luxury-search-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .luxury-search-input:focus { border-color: #001E44; }
+
+    /* DYNAMIC CONTENT STYLES */
+    :global(.dynamic-content-list), :global(.dynamic-docs-list) {
+      list-style: none; padding: 0; display: grid; gap: 15px;
+    }
+
+    :global(.portal-item) {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid #f1f5f9;
+    }
+
+    :global(.portal-item-title) {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #001E44;
+      margin-bottom: 5px;
+    }
+
+    :global(.status-indicator) { font-size: 0.8rem; color: #94a3b8; text-align: right; margin-top: 40px; }
+
+    @media (max-width: 1100px) {
+      .project-sections-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .portal-sidebar { display: none; }
+      .portal-main { padding: 30px 20px; }
+    }
+  </style>
 
   <script is:inline define:vars={{ defaultOrganizationId, lang, projectId }}>
     window.__portalBootstrap = {

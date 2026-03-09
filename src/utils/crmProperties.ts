@@ -89,7 +89,7 @@ const asBoolean = (value: unknown): boolean | null => {
   return null;
 };
 
-const getPreferredTranslationTitle = (value: unknown): string | null => {
+export const getPreferredTranslationTitle = (value: unknown): string | null => {
   const translations = asRecord(value);
   const preferredLanguages = ["es", "en", "de", "fr", "it", "nl"];
 
@@ -106,6 +106,19 @@ const getPreferredTranslationTitle = (value: unknown): string | null => {
   return null;
 };
 
+const getPropertyDataTitle = (value: unknown): string | null => {
+  const propertyData = asRecord(value);
+  return (
+    asString(propertyData.display_name) ??
+    asString(propertyData.project_name) ??
+    asString(propertyData.promotion_name) ??
+    asString(propertyData.commercial_name) ??
+    asString(propertyData.name) ??
+    asString(propertyData.title) ??
+    asString(propertyData.building_name)
+  );
+};
+
 const toProjectName = (title: string | null): string | null => {
   if (!title) return null;
   const trimmed = title.trim();
@@ -114,6 +127,38 @@ const toProjectName = (title: string | null): string | null => {
   if (colonIndex <= 0) return trimmed;
   const beforeColon = trimmed.slice(0, colonIndex).trim();
   return beforeColon.length ? beforeColon : trimmed;
+};
+
+export const getPropertyDisplayNameFromRow = (row: Record<string, unknown>): string | null =>
+  getPreferredTranslationTitle(row.translations) ??
+  getPropertyDataTitle(row.property_data) ??
+  asString(row.legacy_code);
+
+export const getProjectNameFromRow = (row: Record<string, unknown>): string | null =>
+  toProjectName(getPropertyDisplayNameFromRow(row));
+
+export const mergeDisplayNameIntoTranslations = (
+  currentRaw: unknown,
+  displayName: string | null
+): Record<string, unknown> => {
+  const next = asRecord(currentRaw);
+  const es = asRecord(next.es);
+
+  if (displayName) {
+    es.title = displayName;
+    es.name = displayName;
+  } else {
+    delete es.title;
+    delete es.name;
+  }
+
+  if (Object.keys(es).length) {
+    next.es = es;
+  } else {
+    delete next.es;
+  }
+
+  return next;
 };
 
 const normalizeAlt = (value: unknown): Record<string, string> => {
@@ -214,9 +259,8 @@ export const mapPropertyRow = (row: Record<string, unknown>) => {
   const portalEnabledRaw = asBoolean(propertyData.portal_enabled);
   const isPortalProject = recordType === "project";
   const legacyCode = asString(row.legacy_code);
-  const title = getPreferredTranslationTitle(translations);
-  const displayName = title ?? legacyCode;
-  const projectName = recordType === "project" ? toProjectName(title ?? legacyCode) : null;
+  const displayName = getPropertyDisplayNameFromRow(row) ?? legacyCode;
+  const projectName = recordType === "project" ? getProjectNameFromRow(row) ?? legacyCode : null;
 
   return {
     id: row.id ?? null,

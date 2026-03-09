@@ -25,6 +25,20 @@ const copy = {
   sessionCleared: isSpanish ? "Sesion cerrada en este navegador." : "Session cleared on this browser.",
   loadingSession: isSpanish ? "Sesion activa detectada." : "Active session detected.",
   expiredSession: isSpanish ? "La sesion almacenada habia expirado y se elimino." : "Stored session had expired and was removed.",
+  requestReady: isSpanish ? "Listo para enviar solicitud de registro." : "Ready to submit registration request.",
+  requestSending: isSpanish ? "Enviando solicitud..." : "Submitting request...",
+  requestCreated:
+    isSpanish
+      ? "Solicitud enviada. Te contactaremos cuando el equipo CRM apruebe el alta."
+      : "Request sent. We will contact you once CRM approves your onboarding.",
+  requestPending:
+    isSpanish
+      ? "Ya existe una solicitud pendiente para este email. Te avisaremos tras revisarla."
+      : "A pending request already exists for this email. We will notify you after review.",
+  requestInviteExists:
+    isSpanish
+      ? "Ya existe una invitacion pendiente para este email. Revisa tu canal de recepcion."
+      : "There is already a pending invite for this email. Check your delivery channel.",
 };
 
 const form = document.getElementById("portal-login-form");
@@ -34,6 +48,12 @@ const rememberInput = document.getElementById("portal-login-remember");
 const clearButton = document.getElementById("portal-login-clear");
 const feedback = document.getElementById("portal-login-feedback");
 const sessionState = document.getElementById("portal-login-session-state");
+const requestForm = document.getElementById("portal-access-request-form");
+const requestFullNameInput = document.getElementById("portal-access-request-full-name");
+const requestEmailInput = document.getElementById("portal-access-request-email");
+const requestPhoneInput = document.getElementById("portal-access-request-phone");
+const requestNotesInput = document.getElementById("portal-access-request-notes");
+const requestFeedback = document.getElementById("portal-access-request-feedback");
 
 const query = new URLSearchParams(window.location.search);
 const nextTarget = (() => {
@@ -49,6 +69,15 @@ const setFeedback = (message, kind = "warn") => {
   if (kind === "ok") feedback.classList.add("is-ok");
   else if (kind === "error") feedback.classList.add("is-error");
   else feedback.classList.add("is-warn");
+};
+
+const setRequestFeedback = (message, kind = "warn") => {
+  if (!(requestFeedback instanceof HTMLElement)) return;
+  requestFeedback.textContent = message;
+  requestFeedback.classList.remove("is-ok", "is-warn", "is-error");
+  if (kind === "ok") requestFeedback.classList.add("is-ok");
+  else if (kind === "error") requestFeedback.classList.add("is-error");
+  else requestFeedback.classList.add("is-warn");
 };
 
 const renderSessionState = (session) => {
@@ -73,9 +102,6 @@ const renderSessionState = (session) => {
 
   sessionState.innerHTML = `
     <p><strong>email:</strong> ${escapeHtml(session.email ?? "-")}</p>
-    <p><strong>auth_user_id:</strong> <span class="portal-inline-code">${escapeHtml(session.authUserId ?? "-")}</span></p>
-    <p><strong>organization_id:</strong> <span class="portal-inline-code">${escapeHtml(session.organizationId ?? "-")}</span></p>
-    <p><strong>portal_account_id:</strong> <span class="portal-inline-code">${escapeHtml(session.portalAccountId ?? "-")}</span></p>
     <p><strong>role:</strong> ${escapeHtml(roleLabel(session.role, lang))}</p>
     <p><strong>token_status:</strong> ${escapeHtml(authState)}</p>
     <p><strong>expires_at:</strong> ${escapeHtml(expiresText)}</p>
@@ -179,4 +205,65 @@ clearButton?.addEventListener("click", () => {
   setFeedback(copy.sessionCleared, "ok");
 });
 
+requestForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const fullName = toText(requestFullNameInput?.value);
+  const email = toText(requestEmailInput?.value)?.toLowerCase() ?? null;
+  const phone = toText(requestPhoneInput?.value);
+  const notes = toText(requestNotesInput?.value);
+
+  if (!fullName) {
+    setRequestFeedback(
+      isSpanish ? "Debes indicar tu nombre completo." : "Full name is required.",
+      "error"
+    );
+    return;
+  }
+
+  if (!email) {
+    setRequestFeedback(
+      isSpanish ? "Debes indicar un email valido." : "A valid email is required.",
+      "error"
+    );
+    return;
+  }
+
+  setRequestFeedback(copy.requestSending, "warn");
+
+  try {
+    const payload = await requestJson(buildPortalApiUrl("/auth/request-access"), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        full_name: fullName,
+        email,
+        phone,
+        notes,
+        language: lang,
+      }),
+    });
+
+    const requestStatus = toText(payload?.meta?.request_status);
+    if (requestStatus === "already_pending") {
+      setRequestFeedback(copy.requestPending, "ok");
+    } else if (requestStatus === "invite_already_pending") {
+      setRequestFeedback(copy.requestInviteExists, "ok");
+    } else {
+      setRequestFeedback(copy.requestCreated, "ok");
+    }
+
+    if (requestNotesInput instanceof HTMLTextAreaElement) requestNotesInput.value = "";
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    setRequestFeedback(
+      isSpanish ? `No se pudo enviar la solicitud: ${message}` : `Could not submit request: ${message}`,
+      "error"
+    );
+  }
+});
+
 restoreFromSession();
+setRequestFeedback(copy.requestReady, "warn");

@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { jsonResponse, methodNotAllowed, parseJsonBody } from "@/utils/crmApi";
 import { getSupabaseServerClient, hasSupabaseServerClient } from "@/utils/supabaseServer";
+import { CRM_EDITOR_ROLES, resolveCrmOrgAccess } from "@/utils/crmAccess";
 import { asBoolean, asNumber, asObject, asText, asUuid, normalizePortalAudience, toPositiveInt } from "@/utils/crmPortal";
 
 type CreatePortalContentBody = {
@@ -69,7 +70,7 @@ const mapPortalContentRow = (row: Record<string, unknown>) => ({
   updated_at: asText(row.updated_at),
 });
 
-export const GET: APIRoute = async ({ url }) => {
+export const GET: APIRoute = async ({ url, cookies }) => {
   const organizationId = asText(url.searchParams.get("organization_id"));
   const id = asUuid(url.searchParams.get("id"));
   const projectId = asUuid(url.searchParams.get("project_property_id"));
@@ -82,6 +83,20 @@ export const GET: APIRoute = async ({ url }) => {
   const perPage = toPositiveInt(url.searchParams.get("per_page"), 30, 1, 200);
 
   if (!organizationId) return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
+  const access = await resolveCrmOrgAccess(cookies, {
+    organizationIdHint: organizationId,
+    allowedPermissions: ["crm.portal.read"],
+  });
+  if (access.error || !access.data) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: access.error?.error ?? "crm_auth_required",
+        details: access.error?.details,
+      },
+      { status: access.error?.status ?? 401 }
+    );
+  }
 
   if (!hasSupabaseServerClient()) {
     return jsonResponse({
@@ -151,7 +166,7 @@ export const GET: APIRoute = async ({ url }) => {
   });
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
   const body = await parseJsonBody<CreatePortalContentBody>(request);
   if (!body) return jsonResponse({ ok: false, error: "invalid_json_body" }, { status: 400 });
 
@@ -172,6 +187,21 @@ export const POST: APIRoute = async ({ request }) => {
   if (!projectId) return jsonResponse({ ok: false, error: "project_property_id_required" }, { status: 422 });
   if (!language) return jsonResponse({ ok: false, error: "language_required" }, { status: 422 });
   if (!sectionKey) return jsonResponse({ ok: false, error: "section_key_required" }, { status: 422 });
+  const access = await resolveCrmOrgAccess(cookies, {
+    organizationIdHint: organizationId,
+    allowedRoles: CRM_EDITOR_ROLES,
+    allowedPermissions: ["crm.portal.write"],
+  });
+  if (access.error || !access.data) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: access.error?.error ?? "crm_auth_required",
+        details: access.error?.details,
+      },
+      { status: access.error?.status ?? 401 }
+    );
+  }
 
   if (!hasSupabaseServerClient()) {
     return jsonResponse(
@@ -247,7 +277,7 @@ export const POST: APIRoute = async ({ request }) => {
   );
 };
 
-export const PATCH: APIRoute = async ({ request }) => {
+export const PATCH: APIRoute = async ({ request, cookies }) => {
   const body = await parseJsonBody<UpdatePortalContentBody>(request);
   if (!body) return jsonResponse({ ok: false, error: "invalid_json_body" }, { status: 400 });
 
@@ -256,6 +286,21 @@ export const PATCH: APIRoute = async ({ request }) => {
 
   if (!organizationId) return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
   if (!contentId) return jsonResponse({ ok: false, error: "id_required" }, { status: 422 });
+  const access = await resolveCrmOrgAccess(cookies, {
+    organizationIdHint: organizationId,
+    allowedRoles: CRM_EDITOR_ROLES,
+    allowedPermissions: ["crm.portal.write"],
+  });
+  if (access.error || !access.data) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: access.error?.error ?? "crm_auth_required",
+        details: access.error?.details,
+      },
+      { status: access.error?.status ?? 401 }
+    );
+  }
 
   const updatePayload: Record<string, unknown> = {};
   if (body.language != null) updatePayload.language = normalizeLanguage(body.language);
@@ -319,13 +364,28 @@ export const PATCH: APIRoute = async ({ request }) => {
   });
 };
 
-export const DELETE: APIRoute = async ({ request, url }) => {
+export const DELETE: APIRoute = async ({ request, url, cookies }) => {
   const body = await parseJsonBody<{ organization_id?: string; id?: string }>(request);
   const organizationId = asText(body?.organization_id) ?? asText(url.searchParams.get("organization_id"));
   const contentId = asUuid(body?.id) ?? asUuid(url.searchParams.get("id"));
 
   if (!organizationId) return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
   if (!contentId) return jsonResponse({ ok: false, error: "id_required" }, { status: 422 });
+  const access = await resolveCrmOrgAccess(cookies, {
+    organizationIdHint: organizationId,
+    allowedRoles: CRM_EDITOR_ROLES,
+    allowedPermissions: ["crm.portal.write"],
+  });
+  if (access.error || !access.data) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: access.error?.error ?? "crm_auth_required",
+        details: access.error?.details,
+      },
+      { status: access.error?.status ?? 401 }
+    );
+  }
 
   if (!hasSupabaseServerClient()) {
     return jsonResponse({

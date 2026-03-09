@@ -8,6 +8,7 @@ import {
   type PropertyRecordType,
   type PropertyStatus,
   mapPropertyRow,
+  mergeDisplayNameIntoTranslations,
   mergeOperationalData,
   normalizeOperationType,
   normalizeProjectBusinessType,
@@ -23,6 +24,7 @@ import {
 type CreatePropertyBody = {
   organization_id?: string;
   legacy_code?: string;
+  display_name?: string | null;
   record_type?: PropertyRecordType;
   project_business_type?: ProjectBusinessType;
   portal_enabled?: boolean;
@@ -83,6 +85,7 @@ type PropertyFilter = {
   recordType: PropertyRecordType | null;
   projectBusinessType: ProjectBusinessType | null;
   status: PropertyStatus | null;
+  portalStatus: "enabled" | "disabled" | null;
   q: string;
   projectId: string | null;
 };
@@ -201,6 +204,7 @@ const parseFilterParams = (url: URL): PropertyFilter => {
   const recordTypeParam = url.searchParams.get("record_type");
   const projectBusinessTypeParam = url.searchParams.get("project_business_type");
   const statusParam = url.searchParams.get("status");
+  const portalStatusParam = url.searchParams.get("portal_enabled");
   const projectId = asUuidOrNull(url.searchParams.get("project_id"));
 
   return {
@@ -228,6 +232,10 @@ const parseFilterParams = (url: URL): PropertyFilter => {
       statusParam === "private" ||
       statusParam === "archived"
         ? statusParam
+        : null,
+    portalStatus:
+      portalStatusParam === "enabled" || portalStatusParam === "disabled"
+        ? portalStatusParam
         : null,
     q: url.searchParams.get("q")?.trim().toLowerCase() ?? "",
     projectId,
@@ -345,13 +353,24 @@ const applySupabaseFilters = (query: any, filters: PropertyFilter) => {
     next = next.eq("project_business_type", filters.projectBusinessType);
   }
   if (filters.status) next = next.eq("status", filters.status);
+  if (filters.portalStatus === "enabled") {
+    next = next.eq("record_type", "project").not("property_data", "cs", '{"portal_enabled":false}');
+  } else if (filters.portalStatus === "disabled") {
+    next = next.eq("record_type", "project").filter("property_data", "cs", '{"portal_enabled":false}');
+  }
   if (filters.q) {
     const term = normalizeFilterTerm(filters.q);
     if (term) {
       orFilters.push(
         `legacy_code.ilike.%${term}%`,
         `translations->es->>title.ilike.%${term}%`,
-        `translations->en->>title.ilike.%${term}%`
+        `translations->en->>title.ilike.%${term}%`,
+        `property_data->>display_name.ilike.%${term}%`,
+        `property_data->>project_name.ilike.%${term}%`,
+        `property_data->>commercial_name.ilike.%${term}%`,
+        `property_data->>name.ilike.%${term}%`,
+        `property_data->>title.ilike.%${term}%`,
+        `property_data->>building_name.ilike.%${term}%`
       );
     }
   }
@@ -381,6 +400,15 @@ const applyMappedFilters = (
         ? item.id === filters.projectId || item.parent_property_id === filters.projectId
         : true
     )
+    .filter((item) => {
+      if (filters.portalStatus === "enabled") {
+        return item.record_type === "project" && item.portal?.is_enabled !== false;
+      }
+      if (filters.portalStatus === "disabled") {
+        return item.record_type === "project" && item.portal?.is_enabled === false;
+      }
+      return true;
+    })
     .filter((item) =>
       filters.q
         ? [item.legacy_code, item.display_name, item.project_name]
@@ -470,6 +498,7 @@ export const GET: APIRoute = async ({ url }) => {
         supports: {
           operation_type: ["sale", "rent", "both"],
           record_type: ["project", "unit", "single"],
+          portal_enabled: ["enabled", "disabled"],
           project_business_type: [
             "owned_and_commercialized",
             "provider_and_commercialized_by_us",
@@ -530,7 +559,7 @@ export const GET: APIRoute = async ({ url }) => {
     );
   }
 
-  let statsPayload: ReturnType<typeof buildStats> | null = null;
+  let statsPayload: PropertySummaryRow[] | null = null;
   if (includeStats) {
     const statsQuery = applySupabaseFilters(
       client
@@ -552,12 +581,14 @@ export const GET: APIRoute = async ({ url }) => {
         { status: 500 }
       );
     }
-    statsPayload = (statsRows ?? []).map((row) => toSummaryRow(row as Record<string, unknown>));
+    statsPayload = (statsRows ?? []).map((row: unknown) =>
+      toSummaryRow(row as Record<string, unknown>)
+    );
   }
 
   const total = typeof count === "number" ? count : (data ?? []).length;
   const totalPages = Math.max(1, Math.ceil(total / perPage));
-  const mapped = (data ?? []).map((row) => mapPropertyRow(row as Record<string, unknown>));
+  const mapped = (data ?? []).map((row: unknown) => mapPropertyRow(row as Record<string, unknown>));
   return jsonResponse({
     ok: true,
     data: mapped,
@@ -594,8 +625,10 @@ export const POST: APIRoute = async ({ request }) => {
   const projectBusinessType = normalizeProjectBusinessType(body.project_business_type);
   const status = normalizePropertyStatus(body.status);
   const currency = toOptionalText(body.currency) ?? "EUR";
+  const displayName = toOptionalText(body.display_name);
   const portalEnabled = recordType === "project" ? toBoolean(body.portal_enabled, true) : false;
   const portalNow = new Date().toISOString();
+  const translations = mergeDisplayNameIntoTranslations({}, displayName);
 
   let parentPropertyId: string | null = null;
   const parentLegacyCode = toOptionalText(body.parent_legacy_code);
@@ -664,6 +697,7 @@ export const POST: APIRoute = async ({ request }) => {
       organization_id: organizationId,
       website_id: null,
       legacy_code: legacyCode,
+      translations,
       record_type: recordType,
       project_business_type: projectBusinessType,
       commercialization_notes: toOptionalText(body.commercialization_notes),
@@ -720,6 +754,7 @@ export const POST: APIRoute = async ({ request }) => {
     id: propertyId,
     organization_id: organizationId,
     legacy_code: legacyCode,
+    translations,
     record_type: recordType,
     project_business_type: projectBusinessType,
     operation_type: operationType,
@@ -756,10 +791,11 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
+  const insertedRow = data as unknown as Record<string, unknown>;
   return jsonResponse(
     {
       ok: true,
-      data: mapPropertyRow(data as Record<string, unknown>),
+      data: mapPropertyRow(insertedRow),
       meta: {
         persisted: true,
         storage: "supabase.crm.properties",

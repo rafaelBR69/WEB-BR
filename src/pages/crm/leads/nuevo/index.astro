@@ -1,0 +1,118 @@
+---
+import CrmLayout from "@/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Leads | Nuevo" section="leads">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <h2>Alta manual de lead</h2>
+      <p class="crm-inline-note">
+        Crea leads desde CRM y asignalos a su promocion. Incluye nacionalidad y canal de entrada.
+      </p>
+    </section>
+
+    <section class="crm-card crm-full">
+      <form id="leads-create-form" class="crm-form">
+        <label>Nombre completo
+          <input name="full_name" type="text" required />
+        </label>
+        <label>Email
+          <input name="email" type="email" placeholder="cliente@dominio.com" />
+        </label>
+        <label>Telefono
+          <input name="phone" type="tel" placeholder="+34..." />
+        </label>
+        <label>Nacionalidad
+          <input name="nationality" type="text" placeholder="ES, FR, NL..." />
+        </label>
+        <label>Promocion asignada
+          <select id="leads-create-project-select" name="project_id">
+            <option value="">Sin asignar</option>
+          </select>
+        </label>
+        <label>Fuente
+          <input name="source" type="text" placeholder="crm_manual" />
+        </label>
+        <label>Estado inicial
+          <select name="status">
+            <option value="new">Nuevo</option>
+            <option value="in_process">En proceso</option>
+            <option value="qualified">Cualificado</option>
+            <option value="visit_scheduled">Visita programada</option>
+            <option value="offer_sent">Oferta enviada</option>
+            <option value="negotiation">Negociacion</option>
+            <option value="discarded">Descartado</option>
+          </select>
+        </label>
+        <label>Origen
+          <select name="origin_type">
+            <option value="other">Otros</option>
+            <option value="website">Web corporativa</option>
+            <option value="portal">Portal inmobiliario</option>
+            <option value="agency">Agencia colaboradora</option>
+            <option value="provider">Proveedor</option>
+            <option value="phone">Llamada telefonica</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="email">Email</option>
+            <option value="direct">Directo</option>
+          </select>
+        </label>
+        <label id="leads-create-agency-field" hidden>
+          Agencia referente
+          <input
+            id="leads-create-agency-search"
+            type="text"
+            list="leads-create-agency-options"
+            placeholder="Busca por nombre, codigo o scope"
+            autocomplete="off"
+          />
+          <input id="leads-create-agency-id" name="agency_id" type="hidden" />
+          <datalist id="leads-create-agency-options"></datalist>
+          <small class="crm-inline-note">Escribe parte del nombre de la agencia y selecciona una opcion.</small>
+        </label>
+        <label id="leads-create-agency-contact-field" hidden>
+          Contacto de agencia
+          <input
+            id="leads-create-agency-contact-search"
+            type="text"
+            list="leads-create-agency-contact-options"
+            placeholder="Busca agente o contacto"
+            autocomplete="off"
+          />
+          <input id="leads-create-agency-contact-id" name="agency_contact_id" type="hidden" />
+          <datalist id="leads-create-agency-contact-options"></datalist>
+          <small class="crm-inline-note">Opcional. Sirve para guardar el agente concreto que trae el lead.</small>
+        </label>
+        <label>Interes
+          <select name="operation_interest">
+            <option value="sale">Compra</option>
+            <option value="rent">Alquiler</option>
+            <option value="both">Compra y alquiler</option>
+          </select>
+        </label>
+        <label>Tipo lead
+          <select name="lead_kind">
+            <option value="buyer">Comprador</option>
+            <option value="seller">Vendedor</option>
+            <option value="investor">Inversor</option>
+            <option value="agency">Agencia</option>
+            <option value="provider">Proveedor</option>
+            <option value="other">Otro</option>
+          </select>
+        </label>
+        <label class="crm-col-2">Mensaje
+          <textarea name="message" rows="3" placeholder="Necesidad, presupuesto, notas..."></textarea>
+        </label>
+        <p class="crm-inline-note crm-col-2" style="margin:0">
+          Regla operativa: si la agencia todavia no existe en CRM, crea el lead con tipo `Agencia` y usa el canal real
+          de entrada (`website`, `phone`, `email`, etc.). Usa origen `agency` solo cuando ya existe una agencia dada de
+          alta y esta refiriendo el lead.
+        </p>
+        <div class="crm-col-2 crm-actions-row">
+          <button type="submit" class="crm-button">Guardar lead</button>
+        </div>
+      </form>
+      <p id="leads-create-feedback" class="crm-feedback">Completa los datos y guarda.</p>
+    </section>
+  </div>
+  <script is:inline src="/crm/leads-create.js"></script>
+</CrmLayout>

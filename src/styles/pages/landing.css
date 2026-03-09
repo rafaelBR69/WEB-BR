@@ -343,6 +343,15 @@
   color: #f7f8f8;
 }
 
+.footer-brand-logo {
+  margin-bottom: 0.65rem;
+  display: inline-block;
+}
+
+.footer-brand-logo .brand-logo-stacked {
+  max-width: 150px;
+}
+
 .landing-footer h2 {
   font-size: 1.45rem;
   letter-spacing: 0.03em;

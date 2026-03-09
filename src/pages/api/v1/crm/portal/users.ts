@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { jsonResponse, methodNotAllowed, parseJsonBody } from "@/utils/crmApi";
 import { getSupabaseServerClient, hasSupabaseServerClient } from "@/utils/supabaseServer";
+import { CRM_ADMIN_ROLES, resolveCrmOrgAccess } from "@/utils/crmAccess";
 import {
   PORTAL_ACCOUNT_SELECT_COLUMNS,
   asText,
@@ -22,7 +23,7 @@ const asPortalAccountStatus = (value: unknown) => {
   return null;
 };
 
-export const GET: APIRoute = async ({ url }) => {
+export const GET: APIRoute = async ({ url, cookies }) => {
   const organizationId = asText(url.searchParams.get("organization_id"));
   const role = asText(url.searchParams.get("role"));
   const status = asPortalAccountStatus(asText(url.searchParams.get("status")));
@@ -32,6 +33,21 @@ export const GET: APIRoute = async ({ url }) => {
 
   if (!organizationId) {
     return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
+  }
+  const access = await resolveCrmOrgAccess(cookies, {
+    organizationIdHint: organizationId,
+    allowedRoles: CRM_ADMIN_ROLES,
+    allowedPermissions: ["crm.users.manage"],
+  });
+  if (access.error || !access.data) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: access.error?.error ?? "crm_auth_required",
+        details: access.error?.details,
+      },
+      { status: access.error?.status ?? 401 }
+    );
   }
 
   if (!hasSupabaseServerClient()) {
@@ -173,7 +189,7 @@ export const GET: APIRoute = async ({ url }) => {
   });
 };
 
-export const PATCH: APIRoute = async ({ request }) => {
+export const PATCH: APIRoute = async ({ request, cookies }) => {
   const body = await parseJsonBody<PatchPortalAccountBody>(request);
   if (!body) return jsonResponse({ ok: false, error: "invalid_json_body" }, { status: 400 });
 
@@ -184,6 +200,21 @@ export const PATCH: APIRoute = async ({ request }) => {
   if (!organizationId) return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
   if (!portalAccountId) return jsonResponse({ ok: false, error: "portal_account_id_required" }, { status: 422 });
   if (!status) return jsonResponse({ ok: false, error: "status_required" }, { status: 422 });
+  const access = await resolveCrmOrgAccess(cookies, {
+    organizationIdHint: organizationId,
+    allowedRoles: CRM_ADMIN_ROLES,
+    allowedPermissions: ["crm.users.manage"],
+  });
+  if (access.error || !access.data) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: access.error?.error ?? "crm_auth_required",
+        details: access.error?.details,
+      },
+      { status: access.error?.status ?? 401 }
+    );
+  }
 
   if (!hasSupabaseServerClient()) {
     return jsonResponse(

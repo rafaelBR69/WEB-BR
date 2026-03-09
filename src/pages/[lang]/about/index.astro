@@ -4,6 +4,7 @@ export const prerender = false;
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import teamMembers, { TEAM_CATEGORY_ORDER } from "@/data/team";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import BrandLogo from "@/components/BrandLogo.astro";
 import "@/styles/pages/about.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -290,7 +291,7 @@ const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => {
                     </div>
 
                     <div class="team-brand">
-                      <img src="/logo.png" alt="BlancaReal logo" loading="lazy" />
+                      <BrandLogo variant="icon" loading="lazy" />
                     </div>
                   </article>
                 );

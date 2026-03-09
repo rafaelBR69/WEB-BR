@@ -11,6 +11,7 @@ import "@/styles/components/filters.css";
 import "@/styles/pages/home.css";
 import { DEFAULT_LANG, LANG_LABELS, SUPPORTED_LANGS } from "@/i18n/languages";
 import { getUiCopy } from "@/i18n/ui";
+import BrandLogo from "@/components/BrandLogo.astro";
 
 import lightboxUrl from "@/scripts/lightbox.js?url";
 import publicCrmRealtimeUrl from "@/scripts/public-crm-realtime.ts?url";
@@ -234,9 +235,8 @@ const shouldLoadPublicRealtime =
     <header class={`main-header ${isLandingHeader ? "main-header-landing" : ""}`}>
       <div class="header-container">
         <div class="brand-logo">
-          <a href={`/${lang}/`}>
-            Blanca<span>Real</span>
-          </a>
+          <BrandLogo variant="wordmark" href={`/${lang}/`} class="brand-logo-main" />
+          <BrandLogo variant="icon" href={`/${lang}/`} class="brand-logo-mobile-only" />
         </div>
 
         {isLandingHeader ? (
@@ -364,6 +364,9 @@ const shouldLoadPublicRealtime =
         <>
           <div class="side-menu-backdrop" id="sideMenuBackdrop" hidden></div>
           <aside class="side-menu-drawer" id="sideMenu" aria-hidden="true">
+            <div class="side-menu-brand-watermark" aria-hidden="true">
+              <BrandLogo variant="stacked" />
+            </div>
             <div class="side-menu-head">
               <p>{ui.layout.menu}</p>
               <button type="button" id="sideMenuClose" aria-label={ui.layout.closeMenu}>

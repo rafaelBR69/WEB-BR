@@ -34,6 +34,8 @@ export const GET: APIRoute = async ({ params, url, request }) => {
 
   const portalAccountId = auth.data.portal_account.id;
   const organizationId = auth.data.organization_id;
+  const portalRole = auth.data.portal_account.role;
+  const isAdmin = portalRole === "portal_agent_admin";
   if (!portalAccountId) return jsonResponse({ ok: false, error: "portal_account_id_missing" }, { status: 500 });
 
   let trackingQuery = client
@@ -41,9 +43,9 @@ export const GET: APIRoute = async ({ params, url, request }) => {
     .from("portal_lead_tracking")
     .select("*")
     .eq("lead_id", leadId)
-    .eq("portal_account_id", portalAccountId)
     .maybeSingle();
   if (organizationId) trackingQuery = trackingQuery.eq("organization_id", organizationId);
+  if (!isAdmin) trackingQuery = trackingQuery.eq("portal_account_id", portalAccountId);
 
   const { data: trackingRow, error: trackingError } = await trackingQuery;
   if (trackingError) {
@@ -92,9 +94,9 @@ export const GET: APIRoute = async ({ params, url, request }) => {
     .from("portal_visit_requests")
     .select("*")
     .eq("lead_id", leadId)
-    .eq("portal_account_id", portalAccountId)
     .order("created_at", { ascending: false });
   if (organizationId) visitsQuery = visitsQuery.eq("organization_id", organizationId);
+  if (!isAdmin) visitsQuery = visitsQuery.eq("portal_account_id", portalAccountId);
   const { data: visitsRows, error: visitsError } = await visitsQuery;
   if (visitsError) {
     return jsonResponse(
@@ -112,9 +114,9 @@ export const GET: APIRoute = async ({ params, url, request }) => {
     .from("portal_commission_status")
     .select("*")
     .eq("lead_id", leadId)
-    .eq("portal_account_id", portalAccountId)
     .order("updated_at", { ascending: false });
   if (organizationId) commissionsQuery = commissionsQuery.eq("organization_id", organizationId);
+  if (!isAdmin) commissionsQuery = commissionsQuery.eq("portal_account_id", portalAccountId);
   const { data: commissionsRows, error: commissionsError } = await commissionsQuery;
   if (commissionsError) {
     return jsonResponse(
@@ -137,6 +139,8 @@ export const GET: APIRoute = async ({ params, url, request }) => {
       commissions: (commissionsRows ?? []) as Array<Record<string, unknown>>,
     },
     meta: {
+      role: portalRole,
+      implicit_admin_scope: isAdmin,
       storage: "supabase.crm.portal_lead_tracking + crm.leads + crm.portal_visit_requests + crm.portal_commission_status",
     },
   });

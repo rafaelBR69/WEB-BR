@@ -86,6 +86,7 @@ type RelationBundle = {
   providersByClientId: Map<string, Record<string, unknown>>;
   agenciesByClientId: Map<string, Record<string, unknown>>;
   projectLinkedClientIds: Set<string>;
+  activeAssignedClientIds: Set<string>;
 };
 
 const UUID_RX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -406,6 +407,14 @@ const isMissingClientProjectReservationsTableError = (error: unknown): boolean =
   );
 };
 
+const isMissingPropertyClientLinksTableError = (error: unknown): boolean => {
+  if (!error || typeof error !== "object") return false;
+  const row = error as Record<string, unknown>;
+  const code = String(row.code ?? "");
+  const message = String(row.message ?? "").toLowerCase();
+  return code === "PGRST205" || (message.includes("property_client_links") && message.includes("could not find"));
+};
+
 const fetchClientRelations = async (
   client: ReturnType<typeof getSupabaseServerClient>,
   organizationId: string | null,
@@ -416,6 +425,7 @@ const fetchClientRelations = async (
     providersByClientId: new Map<string, Record<string, unknown>>(),
     agenciesByClientId: new Map<string, Record<string, unknown>>(),
     projectLinkedClientIds: new Set<string>(),
+    activeAssignedClientIds: new Set<string>(),
   };
 
   if (!client || !clientIds.length) return empty;
@@ -460,6 +470,31 @@ const fetchClientRelations = async (
   });
 
   const projectLinkedClientIds = new Set<string>();
+  const activeAssignedClientIds = new Set<string>();
+
+  let propertyLinks: Array<Record<string, unknown>> = [];
+  {
+    let propertyLinksQuery = client
+      .schema("crm")
+      .from("property_client_links")
+      .select("client_id, property_id")
+      .eq("is_active", true)
+      .in("client_id", clientIds);
+
+    if (organizationId) propertyLinksQuery = propertyLinksQuery.eq("organization_id", organizationId);
+
+    const { data: propertyLinkRows, error: propertyLinksError } = await propertyLinksQuery;
+    if (propertyLinksError && !isMissingPropertyClientLinksTableError(propertyLinksError)) {
+      throw new Error(`db_property_client_links_read_error:${propertyLinksError.message}`);
+    }
+
+    propertyLinks = Array.isArray(propertyLinkRows) ? (propertyLinkRows as Array<Record<string, unknown>>) : [];
+    propertyLinks.forEach((row) => {
+      const linkedClientId = asText(row.client_id);
+      if (!linkedClientId) return;
+      activeAssignedClientIds.add(linkedClientId);
+    });
+  }
   if (projectId && providerIds.size > 0) {
     let projectProviderQuery = client
       .schema("crm")
@@ -510,12 +545,62 @@ const fetchClientRelations = async (
         projectLinkedClientIds.add(clientId);
       });
     }
+
+    const linkedPropertyIds = Array.from(
+      new Set(
+        propertyLinks
+          .map((row) => asText(row.property_id))
+          .filter((value): value is string => Boolean(value))
+      )
+    );
+
+    if (linkedPropertyIds.length) {
+      let linkedPropertiesQuery = client
+        .schema("crm")
+        .from("properties")
+        .select("id, parent_property_id, record_type")
+        .in("id", linkedPropertyIds);
+
+      if (organizationId) linkedPropertiesQuery = linkedPropertiesQuery.eq("organization_id", organizationId);
+
+      const { data: linkedPropertyRows, error: linkedPropertiesError } = await linkedPropertiesQuery;
+      if (linkedPropertiesError) {
+        throw new Error(`db_linked_properties_read_error:${linkedPropertiesError.message}`);
+      }
+
+      const linkedPropertiesById = new Map<string, Record<string, unknown>>();
+      (linkedPropertyRows ?? []).forEach((row) => {
+        const propertyId = asText((row as Record<string, unknown>).id);
+        if (!propertyId) return;
+        linkedPropertiesById.set(propertyId, row as Record<string, unknown>);
+      });
+
+      propertyLinks.forEach((row) => {
+        const linkedClientId = asText(row.client_id);
+        const linkedPropertyId = asText(row.property_id);
+        if (!linkedClientId || !linkedPropertyId) return;
+
+        if (linkedPropertyId === projectId) {
+          projectLinkedClientIds.add(linkedClientId);
+          return;
+        }
+
+        const linkedProperty = linkedPropertiesById.get(linkedPropertyId);
+        if (!linkedProperty) return;
+        const recordType = asText(linkedProperty.record_type);
+        const parentPropertyId = asText(linkedProperty.parent_property_id);
+        if (recordType === "unit" && parentPropertyId === projectId) {
+          projectLinkedClientIds.add(linkedClientId);
+        }
+      });
+    }
   }
 
   return {
     providersByClientId,
     agenciesByClientId,
     projectLinkedClientIds,
+    activeAssignedClientIds,
   };
 };
 
@@ -533,7 +618,6 @@ const buildClientsListQuery = (
 
   if (filters.organizationId) query = query.eq("organization_id", filters.organizationId);
   if (filters.clientType) query = query.eq("client_type", filters.clientType);
-  if (filters.clientStatus) query = query.eq("client_status", filters.clientStatus);
 
   return query;
 };
@@ -674,6 +758,7 @@ export const GET: APIRoute = async ({ url }) => {
     providersByClientId: new Map<string, Record<string, unknown>>(),
     agenciesByClientId: new Map<string, Record<string, unknown>>(),
     projectLinkedClientIds: new Set<string>(),
+    activeAssignedClientIds: new Set<string>(),
   };
 
   try {
@@ -695,12 +780,23 @@ export const GET: APIRoute = async ({ url }) => {
     const clientId = asText(row.id);
     const provider = clientId ? relations.providersByClientId.get(clientId) ?? null : null;
     const agency = clientId ? relations.agenciesByClientId.get(clientId) ?? null : null;
-
-    return mapClientRow(row, contact, {
+    const mappedRow = mapClientRow(row, contact, {
       provider,
       agency,
       isProviderForProject: clientId ? relations.projectLinkedClientIds.has(clientId) : false,
     });
+    const hasAssignedProperty = clientId ? relations.activeAssignedClientIds.has(clientId) : false;
+    const shouldBeExClient =
+      !hasAssignedProperty &&
+      mappedRow.client_status !== "discarded" &&
+      mappedRow.client_status !== "blacklisted";
+
+    return {
+      ...mappedRow,
+      client_status: shouldBeExClient ? "inactive" : mappedRow.client_status,
+      has_assigned_property: hasAssignedProperty,
+      is_ex_client: !hasAssignedProperty,
+    };
   });
 
   const filtered = applyMappedFilters(mapped, filters);

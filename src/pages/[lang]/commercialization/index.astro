@@ -21,21 +21,77 @@ const copyByLang = {
     eyebrow: "Comercializacion",
     heading: "Comercializacion avanzada para producto residencial",
     intro:
-      "Disenamos y operamos la estrategia comercial de cada promocion para acelerar ventas con datos reales.",
+      "Disenamos y operamos la estrategia comercial de cada promocion para acelerar ventas con control real del lead, del stock y de la conversion.",
     cta: "Hablar con comercializacion",
-    blockTitleA: "Que cubrimos",
+    blockTitleA: "Zona que cubrimos",
     blockTitleB: "Marco operativo",
+    portfolioTitle: "Promociones destacadas",
+    historyDesde: "Desde 1969",
+    portfolio: [
+      {
+        name: "Nylva Homes",
+        location: "Manilva",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        slug: "obra-nueva-nylva-homes-manilva",
+      },
+      {
+        name: "Calahonda Sunset",
+        location: "Mijas Costa",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+        slug: "unidad-bloque-1-portal-1-planta-1-a-calahonda-sunset",
+      },
+      {
+        name: "Orion Collection: ALMITAK",
+        location: "Mijas",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        slug: "obra-nueva-almitak-manilva",
+      },
+      {
+        name: "WhiteHills Fuengirola",
+        location: "Reserva del Higueron",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        slug: "obra-nueva-white-hills-fuengirola-mijas",
+      },
+    ],
+    coverageTitle: "Costa del Sol y Malaga",
+    coverageAreas: [
+      { name: "Malaga capital", highlight: true },
+      { name: "Torremolinos" },
+      { name: "Benalmadena" },
+      { name: "Fuengirola" },
+      { name: "Mijas / La Cala", highlight: true },
+      { name: "Marbella / Puerto Banus", highlight: true },
+      { name: "Estepona", highlight: true },
+      { name: "Casares / Manilva" },
+    ],
     services: [
-      "Definicion de posicionamiento y narrativa comercial",
-      "Plan de captacion de demanda nacional e internacional",
-      "Gestion de leads, visitas y pipeline comercial",
-      "Reporting de conversion y ajustes por rendimiento",
+      "Definicion de posicionamiento, pricing y narrativa comercial.",
+      "Plan de captacion de demanda nacional e internacional.",
+      "Gestion diaria de leads, visitas y embudo comercial.",
+      "Reporting de conversion, velocidad de venta y siguientes ajustes.",
     ],
     process: [
-      "Kick-off con promotora y objetivos de negocio",
-      "Plan comercial por fases y canales prioritarios",
-      "Seguimiento semanal de KPI y calidad de lead",
-      "Optimizacion continua de funnel y mensajes",
+      {
+        title: "Estrategia",
+        desc: "Kick-off con promotora, competidores, pricing y objetivo real de absorcion.",
+      },
+      {
+        title: "Activacion",
+        desc: "Calendario de salida, activacion de canales y coordinacion del equipo comercial.",
+      },
+      {
+        title: "Operativa",
+        desc: "Seguimiento semanal del pipeline, visitas, ratios y calidad del lead.",
+      },
+      {
+        title: "Escala",
+        desc: "Ajuste continuo del funnel, del mensaje y del ritmo de comercializacion.",
+      },
+    ],
+    stats: [
+      { value: "+150", label: "Promociones gestionadas" },
+      { value: "94%", label: "Control de respuesta" },
+      { value: "+12", label: "Anos afinando funnels" },
     ],
   },
   en: {
@@ -45,21 +101,77 @@ const copyByLang = {
     eyebrow: "Commercialization",
     heading: "Advanced commercialization for residential product",
     intro:
-      "We design and run the sales strategy of each development to accelerate sell-through with real data.",
-    cta: "Contact commercialization team",
-    blockTitleA: "Scope",
-    blockTitleB: "Operating model",
+      "We design and run the sales strategy of each development to accelerate sell-through with real control over leads, stock and conversion.",
+    cta: "Contact commercialization",
+    blockTitleA: "Coverage area",
+    blockTitleB: "Operating framework",
+    portfolioTitle: "Featured developments",
+    historyDesde: "Since 1969",
+    portfolio: [
+      {
+        name: "Nylva Homes",
+        location: "Manilva",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        slug: "new-build-nylva-homes-manilva",
+      },
+      {
+        name: "Calahonda Sunset",
+        location: "Mijas Costa",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+        slug: "unit-bloque-1-portal-1-planta-1-a-calahonda-sunset",
+      },
+      {
+        name: "Orion Collection: ALMITAK",
+        location: "Mijas",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        slug: "new-build-almitak-manilva",
+      },
+      {
+        name: "WhiteHills Fuengirola",
+        location: "Fuengirola",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        slug: "new-build-white-hills-fuengirola-mijas",
+      },
+    ],
+    coverageTitle: "Costa del Sol and Malaga",
+    coverageAreas: [
+      { name: "Malaga city", highlight: true },
+      { name: "Torremolinos" },
+      { name: "Benalmadena" },
+      { name: "Fuengirola" },
+      { name: "Mijas / La Cala", highlight: true },
+      { name: "Marbella / Puerto Banus", highlight: true },
+      { name: "Estepona", highlight: true },
+      { name: "Casares / Manilva" },
+    ],
     services: [
-      "Positioning definition and commercial narrative",
-      "Demand generation plan across domestic and international markets",
-      "Lead management, visits and sales pipeline control",
-      "Conversion reporting and performance-based adjustments",
+      "Positioning, pricing and commercial narrative definition.",
+      "Demand generation plan across domestic and international markets.",
+      "Daily lead handling, visits and pipeline execution.",
+      "Conversion reporting, sell-through speed and tactical adjustments.",
     ],
     process: [
-      "Developer kick-off and business targets",
-      "Phase-based commercial plan and priority channels",
-      "Weekly KPI and lead quality tracking",
-      "Continuous optimization of funnel and messaging",
+      {
+        title: "Strategy",
+        desc: "Developer kick-off, competitive landscape, pricing and realistic absorption targets.",
+      },
+      {
+        title: "Activation",
+        desc: "Launch calendar, channel mix and coordination of the sales floor.",
+      },
+      {
+        title: "Operation",
+        desc: "Weekly control of pipeline, visits, ratios and lead quality.",
+      },
+      {
+        title: "Scale",
+        desc: "Continuous funnel, messaging and commercialization pace optimization.",
+      },
+    ],
+    stats: [
+      { value: "+150", label: "Developments managed" },
+      { value: "94%", label: "Response control" },
+      { value: "+12", label: "Years refining funnels" },
     ],
   },
   de: {
@@ -71,19 +183,75 @@ const copyByLang = {
     intro:
       "Wir planen und steuern die Vermarktung jeder Entwicklung, um den Abverkauf datenbasiert zu beschleunigen.",
     cta: "Vermarktungsteam kontaktieren",
-    blockTitleA: "Leistungsumfang",
-    blockTitleB: "Arbeitsmodell",
+    blockTitleA: "Abgedeckte Gebiete",
+    blockTitleB: "Operativer Rahmen",
+    portfolioTitle: "Ausgewaehlte Projekte",
+    historyDesde: "Seit 1969",
+    portfolio: [
+      {
+        name: "Nylva Homes",
+        location: "Manilva",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        slug: "neubau-nylva-homes-manilva",
+      },
+      {
+        name: "Calahonda Sunset",
+        location: "Mijas Costa",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+        slug: "einheit-bloque-1-portal-1-planta-1-a-calahonda-sunset",
+      },
+      {
+        name: "Orion Collection: ALMITAK",
+        location: "Mijas",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        slug: "neubau-almitak-manilva",
+      },
+      {
+        name: "WhiteHills Fuengirola",
+        location: "Fuengirola",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        slug: "neubau-white-hills-fuengirola-mijas",
+      },
+    ],
+    coverageTitle: "Costa del Sol und Malaga",
+    coverageAreas: [
+      { name: "Malaga Stadt", highlight: true },
+      { name: "Torremolinos" },
+      { name: "Benalmadena" },
+      { name: "Fuengirola" },
+      { name: "Mijas / La Cala", highlight: true },
+      { name: "Marbella / Puerto Banus", highlight: true },
+      { name: "Estepona", highlight: true },
+      { name: "Casares / Manilva" },
+    ],
     services: [
-      "Positionierung und Vertriebsstory",
-      "Nachfrageplanung fuer nationale und internationale Maerkte",
-      "Lead-Management, Besichtigungen und Pipeline-Steuerung",
-      "Conversion-Reporting und Performance-Optimierung",
+      "Positionierung, Pricing und Vertriebsnarrativ.",
+      "Nachfrageplanung fuer nationale und internationale Maerkte.",
+      "Taegliches Lead-Management, Besuche und Pipeline-Steuerung.",
+      "Conversion-Reporting, Abverkaufsgeschwindigkeit und Optimierung.",
     ],
     process: [
-      "Kick-off mit Bautraeger und Zielen",
-      "Phasenplan mit priorisierten Kanaelen",
-      "Woechentliches KPI- und Leadqualitaets-Monitoring",
-      "Kontinuierliche Optimierung von Funnel und Botschaft",
+      {
+        title: "Strategie",
+        desc: "Kick-off mit Bautraeger, Wettbewerb, Pricing und realistischem Vertriebsziel.",
+      },
+      {
+        title: "Aktivierung",
+        desc: "Launch-Kalender, Kanalplan und Koordination des Vertriebsteams.",
+      },
+      {
+        title: "Betrieb",
+        desc: "Woechentliche Kontrolle von Pipeline, Besuchen, Quoten und Lead-Qualitaet.",
+      },
+      {
+        title: "Skalierung",
+        desc: "Kontinuierliche Optimierung von Funnel, Botschaft und Vertriebsgeschwindigkeit.",
+      },
+    ],
+    stats: [
+      { value: "+150", label: "Betreute Projekte" },
+      { value: "94%", label: "Antwortkontrolle" },
+      { value: "+12", label: "Jahre Funnel-Erfahrung" },
     ],
   },
   fr: {
@@ -93,21 +261,77 @@ const copyByLang = {
     eyebrow: "Commercialisation",
     heading: "Commercialisation performante des programmes residentiels",
     intro:
-      "Nous concevons et pilotons la strategie commerciale de chaque programme pour accelerer les ventes.",
+      "Nous concevons et pilotons la strategie commerciale de chaque programme pour accelerer les ventes avec une lecture claire du lead et de la conversion.",
     cta: "Contacter la commercialisation",
-    blockTitleA: "Ce que nous couvrons",
-    blockTitleB: "Mode operatoire",
+    blockTitleA: "Zone de couverture",
+    blockTitleB: "Cadre operationnel",
+    portfolioTitle: "Programmes en avant",
+    historyDesde: "Depuis 1969",
+    portfolio: [
+      {
+        name: "Nylva Homes",
+        location: "Manilva",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        slug: "programme-neuf-nylva-homes-manilva",
+      },
+      {
+        name: "Calahonda Sunset",
+        location: "Mijas Costa",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+        slug: "unite-bloque-1-portal-1-planta-1-a-calahonda-sunset",
+      },
+      {
+        name: "Orion Collection: ALMITAK",
+        location: "Mijas",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        slug: "programme-neuf-almitak-manilva",
+      },
+      {
+        name: "WhiteHills Fuengirola",
+        location: "Fuengirola",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        slug: "programme-neuf-white-hills-fuengirola-mijas",
+      },
+    ],
+    coverageTitle: "Costa del Sol et Malaga",
+    coverageAreas: [
+      { name: "Malaga ville", highlight: true },
+      { name: "Torremolinos" },
+      { name: "Benalmadena" },
+      { name: "Fuengirola" },
+      { name: "Mijas / La Cala", highlight: true },
+      { name: "Marbella / Puerto Banus", highlight: true },
+      { name: "Estepona", highlight: true },
+      { name: "Casares / Manilva" },
+    ],
     services: [
-      "Positionnement et narration commerciale",
-      "Plan de generation de demande national et international",
-      "Gestion des leads, visites et pipeline de vente",
-      "Reporting conversion et ajustements de performance",
+      "Positionnement, pricing et narration commerciale.",
+      "Plan de generation de demande nationale et internationale.",
+      "Gestion quotidienne des leads, visites et pipeline.",
+      "Reporting de conversion, vitesse de vente et ajustements.",
     ],
     process: [
-      "Kick-off avec le promoteur et objectifs business",
-      "Plan commercial par phases et canaux prioritaires",
-      "Suivi hebdomadaire des KPI et de la qualite des leads",
-      "Optimisation continue du funnel et des messages",
+      {
+        title: "Strategie",
+        desc: "Kick-off promoteur, concurrence, pricing et objectif d absorption realiste.",
+      },
+      {
+        title: "Activation",
+        desc: "Calendrier de lancement, canaux prioritaires et coordination commerciale.",
+      },
+      {
+        title: "Operations",
+        desc: "Lecture hebdomadaire du pipeline, des visites, des ratios et de la qualite du lead.",
+      },
+      {
+        title: "Acceleration",
+        desc: "Optimisation continue du funnel, du message et du rythme de vente.",
+      },
+    ],
+    stats: [
+      { value: "+150", label: "Programmes geres" },
+      { value: "94%", label: "Controle de reponse" },
+      { value: "+12", label: "Ans sur les funnels" },
     ],
   },
   it: {
@@ -117,21 +341,77 @@ const copyByLang = {
     eyebrow: "Commercializzazione",
     heading: "Commercializzazione avanzata per il residenziale",
     intro:
-      "Progettiamo e gestiamo la strategia commerciale di ogni progetto per accelerare le vendite con dati reali.",
+      "Progettiamo e gestiamo la strategia commerciale di ogni progetto per accelerare le vendite con controllo reale su lead, stock e conversione.",
     cta: "Parla con il team commerciale",
-    blockTitleA: "Cosa copriamo",
-    blockTitleB: "Modello operativo",
+    blockTitleA: "Zona di copertura",
+    blockTitleB: "Quadro operativo",
+    portfolioTitle: "Promozioni in evidenza",
+    historyDesde: "Dal 1969",
+    portfolio: [
+      {
+        name: "Nylva Homes",
+        location: "Manilva",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        slug: "nuova-costruzione-nylva-homes-manilva",
+      },
+      {
+        name: "Calahonda Sunset",
+        location: "Mijas Costa",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+        slug: "unita-bloque-1-portal-1-planta-1-a-calahonda-sunset",
+      },
+      {
+        name: "Orion Collection: ALMITAK",
+        location: "Mijas",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        slug: "nuova-costruzione-almitak-manilva",
+      },
+      {
+        name: "WhiteHills Fuengirola",
+        location: "Fuengirola",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        slug: "nuova-costruzione-white-hills-fuengirola-mijas",
+      },
+    ],
+    coverageTitle: "Costa del Sol e Malaga",
+    coverageAreas: [
+      { name: "Malaga citta", highlight: true },
+      { name: "Torremolinos" },
+      { name: "Benalmadena" },
+      { name: "Fuengirola" },
+      { name: "Mijas / La Cala", highlight: true },
+      { name: "Marbella / Puerto Banus", highlight: true },
+      { name: "Estepona", highlight: true },
+      { name: "Casares / Manilva" },
+    ],
     services: [
-      "Definizione del posizionamento e narrativa commerciale",
-      "Piano di generazione domanda nazionale e internazionale",
-      "Gestione lead, visite e pipeline commerciale",
-      "Reporting conversione e ottimizzazione performance",
+      "Definizione di posizionamento, pricing e narrativa commerciale.",
+      "Piano di domanda nazionale e internazionale.",
+      "Gestione quotidiana di lead, visite e pipeline.",
+      "Reporting conversione, velocita di vendita e aggiustamenti.",
     ],
     process: [
-      "Kick-off con promotore e obiettivi di business",
-      "Piano commerciale per fasi e canali prioritari",
-      "Monitoraggio settimanale KPI e qualita lead",
-      "Ottimizzazione continua di funnel e messaggi",
+      {
+        title: "Strategia",
+        desc: "Kick-off con promotore, competitor, pricing e target reale di assorbimento.",
+      },
+      {
+        title: "Attivazione",
+        desc: "Calendario di lancio, canali prioritari e coordinamento commerciale.",
+      },
+      {
+        title: "Operativita",
+        desc: "Lettura settimanale di pipeline, visite, ratio e qualita del lead.",
+      },
+      {
+        title: "Scala",
+        desc: "Ottimizzazione continua di funnel, messaggio e ritmo di commercializzazione.",
+      },
+    ],
+    stats: [
+      { value: "+150", label: "Progetti gestiti" },
+      { value: "94%", label: "Controllo risposta" },
+      { value: "+12", label: "Anni sui funnel" },
     ],
   },
   nl: {
@@ -141,26 +421,104 @@ const copyByLang = {
     eyebrow: "Commercialisatie",
     heading: "Geavanceerde commercialisatie voor residentieel aanbod",
     intro:
-      "Wij ontwerpen en sturen de verkoopstrategie van elk project om verkoop te versnellen met echte data.",
+      "Wij ontwerpen en sturen de verkoopstrategie van elk project om verkoop te versnellen met echte controle over leads, voorraad en conversie.",
     cta: "Contacteer commercialisatieteam",
-    blockTitleA: "Dekking",
-    blockTitleB: "Werkmodel",
+    blockTitleA: "Dekkingsgebied",
+    blockTitleB: "Operationeel kader",
+    portfolioTitle: "Uitgelichte projecten",
+    historyDesde: "Sinds 1969",
+    portfolio: [
+      {
+        name: "Nylva Homes",
+        location: "Manilva",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+        slug: "nieuwbouw-nylva-homes-manilva",
+      },
+      {
+        name: "Calahonda Sunset",
+        location: "Mijas Costa",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
+        slug: "unit-bloque-1-portal-1-planta-1-a-calahonda-sunset",
+      },
+      {
+        name: "Orion Collection: ALMITAK",
+        location: "Mijas",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+        slug: "nieuwbouw-almitak-manilva",
+      },
+      {
+        name: "WhiteHills Fuengirola",
+        location: "Fuengirola",
+        image: "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
+        slug: "nieuwbouw-white-hills-fuengirola-mijas",
+      },
+    ],
+    coverageTitle: "Costa del Sol en Malaga",
+    coverageAreas: [
+      { name: "Malaga stad", highlight: true },
+      { name: "Torremolinos" },
+      { name: "Benalmadena" },
+      { name: "Fuengirola" },
+      { name: "Mijas / La Cala", highlight: true },
+      { name: "Marbella / Puerto Banus", highlight: true },
+      { name: "Estepona", highlight: true },
+      { name: "Casares / Manilva" },
+    ],
     services: [
-      "Positionering en commercieel verhaal",
-      "Vraaggeneratieplan voor nationale en internationale markten",
-      "Leadbeheer, bezoeken en sales pipeline",
-      "Conversierapportage en performance-optimalisatie",
+      "Positionering, pricing en commercieel verhaal.",
+      "Vraaggeneratie voor nationale en internationale markten.",
+      "Dagelijks beheer van leads, bezoeken en pipeline.",
+      "Conversierapportage, verkoopsnelheid en optimalisatie.",
     ],
     process: [
-      "Kick-off met ontwikkelaar en businessdoelen",
-      "Gefaseerd commercieel plan met prioritaire kanalen",
-      "Wekelijkse KPI en leadkwaliteit opvolging",
-      "Continue optimalisatie van funnel en messaging",
+      {
+        title: "Strategie",
+        desc: "Kick-off met ontwikkelaar, concurrenten, pricing en realistische absorptiedoelen.",
+      },
+      {
+        title: "Activatie",
+        desc: "Lancering, kanaalmix en coordinatie van het verkoopteam.",
+      },
+      {
+        title: "Operatie",
+        desc: "Wekelijkse controle van pipeline, bezoeken, ratio en leadkwaliteit.",
+      },
+      {
+        title: "Schaal",
+        desc: "Doorlopende optimalisatie van funnel, boodschap en verkoopsnelheid.",
+      },
+    ],
+    stats: [
+      { value: "+150", label: "Beheerde projecten" },
+      { value: "94%", label: "Responscontrole" },
+      { value: "+12", label: "Jaar funnel-ervaring" },
     ],
   },
 };
 
 const t = copyByLang[lang] ?? copyByLang.es;
+
+const showcaseBodyByLang = {
+  es: "Posicionamiento premium, lectura del mercado y una experiencia comercial alineada con el producto.",
+  en: "Premium positioning, market reading and a sales experience aligned with the product.",
+  de: "Premium-Positionierung, Marktlesung und ein Vertriebserlebnis passend zum Produkt.",
+  fr: "Positionnement premium, lecture du marche et experience commerciale alignee sur le produit.",
+  it: "Posizionamento premium, lettura del mercato ed esperienza commerciale coerente con il prodotto.",
+  nl: "Premium positionering, marktinzichten en een verkoopervaring die bij het product past.",
+};
+
+const showcaseBody = showcaseBodyByLang[lang] ?? showcaseBodyByLang.en;
+
+const projectCtaByLang = {
+  es: "Ver proyecto",
+  en: "View project",
+  de: "Projekt ansehen",
+  fr: "Voir le projet",
+  it: "Vedi progetto",
+  nl: "Bekijk project",
+};
+
+const projectCta = projectCtaByLang[lang] ?? projectCtaByLang.en;
 ---
 
 <BaseLayout
@@ -169,29 +527,137 @@ const t = copyByLang[lang] ?? copyByLang.es;
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
 >
-  <section class="service-hero container">
-    <span class="service-eyebrow">{t.eyebrow}</span>
-    <h1>{t.heading}</h1>
-    <p>{t.intro}</p>
-    <a class="service-cta" href={`/${lang}/contact/?service=commercialization`}>{t.cta}</a>
-  </section>
+  <div class="comm-page">
+    <section class="comm-hero">
+      <div class="container comm-hero__layout">
+        <div class="comm-hero__copy">
+          <span class="service-eyebrow">{t.eyebrow}</span>
+          <h1>{t.heading}</h1>
+          <p>{t.intro}</p>
+          <div class="comm-hero__actions">
+            <a class="service-cta comm-hero__cta" href={`/${lang}/contact/?service=commercialization`}>
+              {t.cta}
+            </a>
+            <span class="comm-hero__badge">{t.historyDesde}</span>
+          </div>
+        </div>
 
-  <section class="service-grid container">
-    <article class="service-panel">
-      <h2>{t.blockTitleA}</h2>
-      <ul>
-        {t.services.map((item) => (
-          <li>{item}</li>
-        ))}
-      </ul>
-    </article>
-    <article class="service-panel">
-      <h2>{t.blockTitleB}</h2>
-      <ol>
-        {t.process.map((item) => (
-          <li>{item}</li>
-        ))}
-      </ol>
-    </article>
-  </section>
+        <aside class="comm-kpis" aria-label={t.portfolioTitle}>
+          {t.stats.map((item) => (
+            <div class="comm-kpi">
+              <span class="comm-kpi__value">{item.value}</span>
+              <span class="comm-kpi__label">{item.label}</span>
+            </div>
+          ))}
+        </aside>
+      </div>
+    </section>
+
+    <div class="service-shell">
+      <section class="comm-section container">
+        <div class="service-section-heading">
+          <span class="service-mini-eyebrow">{t.blockTitleB}</span>
+          <h2>{t.blockTitleB}</h2>
+          <p>{t.description}</p>
+        </div>
+
+        <div class="comm-card-grid">
+          {t.process.map((step, index) => (
+            <article class="comm-card">
+              <span class="comm-card__index">0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+              {t.services[index] && (
+                <ul>
+                  <li>{t.services[index]}</li>
+                </ul>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="comm-section container">
+        <div class="comm-dual">
+          <article class="comm-coverage">
+            <div class="service-section-heading">
+              <span class="service-mini-eyebrow">{t.blockTitleA}</span>
+              <h2>{t.coverageTitle}</h2>
+              <p>{t.intro}</p>
+            </div>
+            <div class="comm-coverage__grid">
+              {t.coverageAreas.map((area) => (
+                <div class:list={["comm-area", { "is-highlight": area.highlight }]}>
+                  {area.name}
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <aside class="comm-service-panel">
+            <h3>{t.blockTitleB}</h3>
+            <p>{t.description}</p>
+            <ul class="comm-check-list">
+              {t.services.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="comm-section container">
+        <div class="service-section-heading">
+          <span class="service-mini-eyebrow">{t.portfolioTitle}</span>
+          <h2>{t.portfolioTitle}</h2>
+          <p>{t.intro}</p>
+        </div>
+
+        <div class="comm-showcase">
+          {t.portfolio.map((project) => (
+            <article class="comm-property-card">
+              <img src={project.image} alt={project.name} loading="lazy" />
+              <div class="comm-property-card__overlay">
+                <span class="comm-property-card__location">{project.location}</span>
+                <h3 class="comm-property-card__title">{project.name}</h3>
+                <p class="comm-property-card__body">{showcaseBody}</p>
+                <a class="comm-property-card__cta" href={`/${lang}/properties/${project.slug}/`}>
+                  {projectCta}
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="comm-section container">
+        <div class="service-section-heading">
+          <span class="service-mini-eyebrow">{t.blockTitleB}</span>
+          <h2>{t.blockTitleB}</h2>
+          <p>{t.intro}</p>
+        </div>
+
+        <div class="comm-flow">
+          {t.process.map((step, index) => (
+            <article class="comm-flow__step">
+              <span class="comm-flow__num">{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="comm-cta-band">
+          <div class="service-section-heading">
+            <span class="service-mini-eyebrow">{t.eyebrow}</span>
+            <h2>{t.heading}</h2>
+            <p>{t.description}</p>
+          </div>
+          <a class="service-cta comm-hero__cta" href={`/${lang}/contact/?service=commercialization`}>
+            {t.cta}
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
 </BaseLayout>

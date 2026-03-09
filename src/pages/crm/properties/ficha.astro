@@ -57,6 +57,13 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
             <option value="archived">Archivada</option>
           </select>
         </label>
+        <label>Portal
+          <select name="portal_enabled">
+            <option value="">Todas</option>
+            <option value="enabled">Publicadas en portal</option>
+            <option value="disabled">Fuera de portal</option>
+          </select>
+        </label>
         <label>Por pagina
           <select name="per_page" id="properties-per-page">
             <option value="12">12</option>
@@ -118,6 +125,10 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
           <fieldset id="property-edit-fieldset" class="crm-fieldset" disabled>
             <input type="hidden" name="id" />
             <label>Codigo interno <input name="legacy_code" type="text" required /></label>
+            <label class="crm-col-2">
+              Nombre comercial / promocion
+              <input name="display_name" type="text" placeholder="White Hills, Orion, Condesa Hills..." />
+            </label>
             <label>Tipo registro
               <select name="record_type">
                 <option value="project">Promocion</option>

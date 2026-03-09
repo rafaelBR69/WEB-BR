@@ -30,6 +30,8 @@ export const GET: APIRoute = async ({ url, request }) => {
 
   const portalAccountId = auth.data.portal_account.id;
   const organizationId = auth.data.organization_id;
+  const portalRole = auth.data.portal_account.role;
+  const isAdmin = portalRole === "portal_agent_admin";
   if (!portalAccountId) return jsonResponse({ ok: false, error: "portal_account_id_missing" }, { status: 500 });
 
   const from = (page - 1) * perPage;
@@ -39,11 +41,11 @@ export const GET: APIRoute = async ({ url, request }) => {
     .schema("crm")
     .from("portal_commission_status")
     .select("*", { count: "exact" })
-    .eq("portal_account_id", portalAccountId)
     .order("updated_at", { ascending: false })
     .range(from, to);
 
   if (organizationId) query = query.eq("organization_id", organizationId);
+  if (!isAdmin) query = query.eq("portal_account_id", portalAccountId);
   if (projectId) query = query.eq("project_property_id", projectId);
   if (leadId) query = query.eq("lead_id", leadId);
   if (dealId) query = query.eq("deal_id", dealId);
@@ -74,6 +76,8 @@ export const GET: APIRoute = async ({ url, request }) => {
       page,
       per_page: perPage,
       total_pages: totalPages,
+      role: portalRole,
+      implicit_admin_scope: isAdmin,
       storage: "supabase.crm.portal_commission_status",
     },
   });

@@ -1,0 +1,70 @@
+---
+import "@/styles/crm/base.css";
+
+const rawNext = String(Astro.url.searchParams.get("next") ?? "/crm/").trim();
+const safeNext = rawNext.startsWith("/crm") ? rawNext : "/crm/";
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CRM | Registro</title>
+    <meta name="robots" content="noindex,nofollow" />
+  </head>
+  <body class="crm-body crm-auth-page">
+    <main class="crm-auth-shell">
+      <section class="crm-auth-card">
+        <div>
+          <p class="crm-auth-kicker">Alta de usuario</p>
+          <h1>Registro CRM</h1>
+          <p>Crea tu cuenta para acceder al CRM interno.</p>
+        </div>
+
+        <form id="crm-register-form" class="crm-form">
+          <input id="crm-register-next" name="next" type="hidden" value={safeNext} />
+          <label for="crm-register-full-name">
+            Nombre completo
+            <input id="crm-register-full-name" name="full_name" type="text" required autocomplete="name" />
+          </label>
+          <label for="crm-register-email">
+            Email
+            <input id="crm-register-email" name="email" type="email" required autocomplete="email" />
+          </label>
+          <label for="crm-register-password">
+            Contrasena
+            <input id="crm-register-password" name="password" type="password" required autocomplete="new-password" />
+          </label>
+          <label for="crm-register-password-confirm">
+            Repetir contrasena
+            <input
+              id="crm-register-password-confirm"
+              name="password_confirm"
+              type="password"
+              required
+              autocomplete="new-password"
+            />
+          </label>
+          <p class="crm-inline-note">Minimo 8 caracteres.</p>
+          <div class="crm-actions-row">
+            <button id="crm-register-submit" type="submit" class="crm-button">Crear cuenta</button>
+          </div>
+        </form>
+
+        <p id="crm-register-feedback" class="crm-inline-note" role="status" aria-live="polite">
+          Completa los datos para registrarte.
+        </p>
+
+        <div class="crm-auth-links">
+          <a href="/crm/login/">Ya tengo cuenta</a>
+          <a href="/es/">Volver a web publica</a>
+        </div>
+      </section>
+    </main>
+
+    <script is:inline define:vars={{ safeNext }}>
+      window.__crmAuthNext = safeNext;
+    </script>
+    <script type="module" src="/crm/auth-register.js"></script>
+  </body>
+</html>

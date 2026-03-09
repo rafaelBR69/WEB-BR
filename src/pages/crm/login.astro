@@ -1,0 +1,56 @@
+---
+import "@/styles/crm/base.css";
+
+const rawNext = String(Astro.url.searchParams.get("next") ?? "/crm/").trim();
+const safeNext = rawNext.startsWith("/crm") ? rawNext : "/crm/";
+const presetEmail = String(Astro.url.searchParams.get("email") ?? "").trim();
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CRM | Iniciar sesion</title>
+    <meta name="robots" content="noindex,nofollow" />
+  </head>
+  <body class="crm-body crm-auth-page">
+    <main class="crm-auth-shell">
+      <section class="crm-auth-card">
+        <div>
+          <p class="crm-auth-kicker">Acceso interno</p>
+          <h1>Iniciar sesion en CRM</h1>
+          <p>Accede con tu cuenta interna para entrar al CRM.</p>
+        </div>
+
+        <form id="crm-login-form" class="crm-form">
+          <input id="crm-login-next" name="next" type="hidden" value={safeNext} />
+          <label for="crm-login-email">
+            Email
+            <input id="crm-login-email" name="email" type="email" required autocomplete="email" value={presetEmail} />
+          </label>
+          <label for="crm-login-password">
+            Contrasena
+            <input id="crm-login-password" name="password" type="password" required autocomplete="current-password" />
+          </label>
+          <div class="crm-actions-row">
+            <button id="crm-login-submit" type="submit" class="crm-button">Entrar al CRM</button>
+          </div>
+        </form>
+
+        <p id="crm-login-feedback" class="crm-inline-note" role="status" aria-live="polite">
+          Introduce tus credenciales.
+        </p>
+
+        <div class="crm-auth-links">
+          <a href="/crm/register/">Crear cuenta CRM</a>
+          <a href="/es/">Volver a web publica</a>
+        </div>
+      </section>
+    </main>
+
+    <script is:inline define:vars={{ safeNext }}>
+      window.__crmAuthNext = safeNext;
+    </script>
+    <script type="module" src="/crm/auth-login.js"></script>
+  </body>
+</html>

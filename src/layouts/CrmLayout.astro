@@ -18,13 +18,19 @@ const {
   description = "Panel interno para gestion de clientes, propiedades y operaciones.",
   section = "dashboard",
 } = Astro.props;
-const defaultOrganizationId = String(import.meta.env.CRM_ORGANIZATION_ID ?? "").trim();
+const defaultOrganizationId = String(
+  import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? ""
+).trim();
 
 const navItems: NavItem[] = [
   { key: "dashboard", label: "Dashboard", href: "/crm/" },
-  { key: "leads", label: "Leads", href: "/crm/leads/" },
+  { key: "profile", label: "Perfil", href: "/crm/profile/" },
+  { key: "admin", label: "Permisos", href: "/crm/admin/permisos/" },
+  { key: "leads", label: "Leads", href: "/crm/leads/dashboard/" },
+  { key: "agencies", label: "Agencias", href: "/crm/agencies/dashboard/" },
+  { key: "notifications", label: "Notificaciones", href: "/crm/notifications/" },
   { key: "properties", label: "Propiedades", href: "/crm/properties/" },
-  { key: "clients", label: "Clientes", href: "/crm/clients/" },
+  { key: "clients", label: "Clientes", href: "/crm/clients/dashboard/" },
   { key: "portal", label: "Portal", href: "/crm/portal/" },
   { key: "contracts", label: "Contratos", href: "/crm/contracts/" },
   { key: "invoices", label: "Facturacion", href: "/crm/invoices/" },
@@ -38,23 +44,45 @@ const propertiesSubNav: SubNavItem[] = [
 ];
 
 const clientsSubNav: SubNavItem[] = [
-  { href: "/crm/clients/dashboard", label: "Dashboard KPI", exact: true },
-  { href: "/crm/clients/", label: "Gestion clientes", exact: true },
-  { href: "/crm/clients/?view=new", label: "Nuevo cliente", exact: true },
-  { href: "/crm/clients/?view=promotion", label: "Clientes por promocion", exact: true },
+  { href: "/crm/clients/dashboard/", label: "Dashboard KPI", exact: true },
+  { href: "/crm/clients/", label: "Listado clientes", exact: true },
   { href: "/crm/clients/?client_role=provider", label: "Proveedores", exact: true },
-  { href: "/crm/clients/?client_role=agency", label: "Agencias", exact: true },
+  { href: "/crm/agencies/", label: "Agencias", exact: true },
+];
+
+const agenciesSubNav: SubNavItem[] = [
+  { href: "/crm/agencies/dashboard/", label: "Dashboard", exact: true },
+  { href: "/crm/agencies/", label: "Listado", exact: true },
+  { href: "/crm/agencies/contacts/", label: "Contactos", exact: true },
+  { href: "/crm/agencies/duplicates/", label: "Duplicados", exact: true },
+  { href: "/crm/leads/nuevo/?lead_kind=agency", label: "Nuevo lead agencia", exact: true },
 ];
 
 const portalSubNav: SubNavItem[] = [
   { href: "/crm/portal/", label: "Dashboard", exact: true },
   { href: "/crm/portal/invites/", label: "Invites", exact: true },
   { href: "/crm/portal/users/", label: "Usuarios", exact: true },
+  { href: "/crm/portal/operations/", label: "Operativa", exact: true },
   { href: "/crm/portal/content/", label: "Contenido", exact: true },
+  { href: "/crm/portal/documents/", label: "Documentos", exact: true },
   { href: "/crm/portal/logs/", label: "Logs", exact: true },
 ];
 
+const adminSubNav: SubNavItem[] = [
+  { href: "/crm/admin/permisos/", label: "Usuarios internos", exact: true },
+];
+
+const leadsSubNav: SubNavItem[] = [
+  { href: "/crm/leads/dashboard/", label: "Dashboard", exact: true },
+  { href: "/crm/leads/", label: "Listado y ficha", exact: true },
+  { href: "/crm/leads/nuevo/", label: "Nuevo lead", exact: true },
+  { href: "/crm/leads/comunicaciones/", label: "Comunicaciones", exact: true },
+];
+
 const subNavBySection: Record<string, SubNavItem[]> = {
+  admin: adminSubNav,
+  leads: leadsSubNav,
+  agencies: agenciesSubNav,
   properties: propertiesSubNav,
   clients: clientsSubNav,
   portal: portalSubNav,
@@ -68,6 +96,8 @@ const isActive = (href: string) => {
   if (normalizedHref === "/crm") return currentPath === "/crm";
   return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
 };
+
+const isTopLevelActive = (item: NavItem) => section === item.key || isActive(item.href);
 
 const isSubActive = (item: SubNavItem) => {
   const itemUrl = new URL(item.href, Astro.url);
@@ -89,6 +119,7 @@ const isSubActive = (item: SubNavItem) => {
 };
 
 const sectionLabel = navItems.find((item) => item.key === section)?.label ?? "CRM";
+const currentPathWithSearch = `${currentPath}${Astro.url.search}`;
 ---
 <!doctype html>
 <html lang="es">
@@ -98,6 +129,7 @@ const sectionLabel = navItems.find((item) => item.key === section)?.label ?? "CR
     <meta name="robots" content="noindex,nofollow" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <script is:inline src="/crm/dictionaries.js"></script>
   </head>
   <body class="crm-body">
     <div class="crm-shell">
@@ -111,10 +143,10 @@ const sectionLabel = navItems.find((item) => item.key === section)?.label ?? "CR
           <ul class="crm-nav">
             {navItems.map((item) => (
               <li>
-                <a href={item.href} class={isActive(item.href) ? "is-active" : ""}>
+                <a href={item.href} class={isTopLevelActive(item) ? "is-active" : ""}>
                   {item.label}
                 </a>
-                {(subNavBySection[item.key]?.length ?? 0) > 0 && isActive(item.href) && (
+                {(subNavBySection[item.key]?.length ?? 0) > 0 && isTopLevelActive(item) && (
                   <ul class="crm-subnav">
                     {subNavBySection[item.key].map((subItem) => (
                       <li>
@@ -142,7 +174,9 @@ const sectionLabel = navItems.find((item) => item.key === section)?.label ?? "CR
             <p class="crm-eyebrow">CRM</p>
             <h1>{sectionLabel}</h1>
           </div>
-          <code class="crm-path">{currentPath}/</code>
+          <div class="crm-topbar-right">
+            <code class="crm-path">{currentPath}/</code>
+          </div>
         </header>
 
         <main class="crm-content">
@@ -152,6 +186,26 @@ const sectionLabel = navItems.find((item) => item.key === section)?.label ?? "CR
     </div>
     <script is:inline define:vars={{ defaultOrganizationId }}>
       window.__crmDefaultOrganizationId = defaultOrganizationId;
+    </script>
+    <script is:inline>
+      (() => {
+        const key = "crm.organization_id";
+        const defaultOrgId = String(window.__crmDefaultOrganizationId || "").trim();
+        if (!defaultOrgId) return;
+        try {
+          const current = String(window.localStorage.getItem(key) || "").trim();
+          if (!current) {
+            window.localStorage.setItem(key, defaultOrgId);
+          }
+        } catch {
+          // no-op
+        }
+      })();
+    </script>
+    <script is:inline>
+      (() => {
+        window.crmLabels?.applySelectDictionaries?.(document);
+      })();
     </script>
     <script is:inline>
       (() => {

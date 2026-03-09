@@ -11,6 +11,7 @@ type MockPropertyRow = {
   organization_id: string;
   website_id: string | null;
   legacy_code: string;
+  translations: Record<string, unknown>;
   record_type: MockPropertyRecordType;
   project_business_type: MockProjectBusinessType;
   commercialization_notes: string | null;
@@ -45,6 +46,7 @@ const createSeed = (): MockPropertyRow[] => {
       organization_id: "org_mock",
       website_id: null,
       legacy_code: "PM0084",
+      translations: {},
       record_type: "project",
       project_business_type: "provider_and_commercialized_by_us",
       commercialization_notes: "Promocion de proveedor comercializada por nosotros.",
@@ -72,6 +74,7 @@ const createSeed = (): MockPropertyRow[] => {
       organization_id: "org_mock",
       website_id: null,
       legacy_code: "PM0084-B2",
+      translations: {},
       record_type: "unit",
       project_business_type: "provider_and_commercialized_by_us",
       commercialization_notes: null,

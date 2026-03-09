@@ -16,6 +16,12 @@ Convertir el estado actual del portal en un MVP publicable y operable desde CRM,
 - `P0` Bloqueante: no se publica Sprint 4 sin esto.
 - `P1` Importante: debe entrar en Sprint 4 o primer hotfix inmediato.
 
+## Estado rapido (2026-02-26)
+
+- Portal externo movido a modo lectura: solo contenido visual y documentos.
+- Desactivada en API la creacion de lead y solicitud de visita desde portal externo.
+- Logs CRM portal restringidos a sesion `portal_agent_admin` autorizada (admin principal: `rafael@blancareal.com`).
+
 ---
 
 ## T01 (P0) Publicar acceso al portal en navegacion publica
@@ -70,12 +76,12 @@ Dependencias:
 Estado actual: sesion temporal manual con `organization_id` + `portal_account_id` via storage.
 
 Subtareas:
-- [ ] Reemplazar login temporal por flujo real con Supabase Auth (email/password).
-- [ ] Eliminar necesidad de cargar `portal_account_id` manual en frontend.
-- [ ] Guardar sesion mediante cookie/token oficial (sin identificadores manuales).
-- [ ] Implementar logout limpio (token + cache local).
-- [ ] Manejar errores de auth: credenciales invalidas, usuario bloqueado, invite no activada.
-- [ ] Cubrir flujo de activacion de cuenta y primer acceso.
+- [x] Reemplazar login temporal por flujo real con Supabase Auth (email/password).
+- [x] Eliminar necesidad de cargar `portal_account_id` manual en frontend.
+- [x] Guardar sesion mediante cookie/token oficial (sin identificadores manuales).
+- [x] Implementar logout limpio (token + cache local).
+- [x] Manejar errores de auth: credenciales invalidas, usuario bloqueado, invite no activada.
+- [x] Cubrir flujo de activacion de cuenta y primer acceso.
 
 Criterio de cierre:
 - Un usuario portal puede iniciar/cerrar sesion sin tocar storage manual.
@@ -95,10 +101,10 @@ Dependencias:
 Estado actual: APIs portal exigen `portal_account_id` en query/body.
 
 Subtareas:
-- [ ] Cambiar resolucion de identidad en endpoints portal para tomar usuario autenticado del JWT.
-- [ ] Eliminar `portal_account_id` de query/body en contratos API portal.
-- [ ] Validar `organization_id` y membresias desde identidad servidor (no desde cliente).
-- [ ] Ajustar frontend portal al nuevo contrato API.
+- [x] Cambiar resolucion de identidad en endpoints portal para tomar usuario autenticado del JWT.
+- [x] Eliminar `portal_account_id` de query/body en contratos API portal.
+- [x] Validar `organization_id` y membresias desde identidad servidor (no desde cliente).
+- [x] Ajustar frontend portal al nuevo contrato API.
 - [ ] Actualizar tests/fixtures de API para nuevo flujo.
 
 Criterio de cierre:
@@ -191,11 +197,11 @@ Dependencias:
 Estado actual: portal solo tiene GET de documentos; endpoint CRM generico de documentos sigue mock.
 
 Subtareas:
-- [ ] Definir API CRM real para documentos portal (alta, update metadatos, publicar, ocultar, borrar).
-- [ ] Implementar reglas de visibilidad por rol/audiencia y promocion.
-- [ ] Soportar categorias/tipos de documento (Agency Kit vs Client Kit).
-- [ ] UI CRM para subir, editar metadatos y cambiar estado de publicacion.
-- [ ] Eliminar/migrar comportamiento mock del endpoint generico.
+- [x] Definir API CRM real para documentos portal (alta, update metadatos, publicar, ocultar, borrar).
+- [x] Implementar reglas de visibilidad por rol/audiencia y promocion.
+- [x] Soportar categorias/tipos de documento (Agency Kit vs Client Kit).
+- [x] UI CRM para subir, editar metadatos y cambiar estado de publicacion.
+- [x] Eliminar/migrar comportamiento mock del endpoint generico.
 
 Criterio de cierre:
 - Documentos portal se gestionan desde CRM con control de visibilidad real.
@@ -215,11 +221,16 @@ Estado actual: API devuelve `storage_bucket/storage_path`; no signed URL efimera
 
 Subtareas:
 - [ ] Migrar documentos sensibles a bucket privado.
-- [ ] Crear endpoint de descarga segura que emita signed URL de corta duracion.
-- [ ] Validar permiso en servidor antes de firmar URL (rol, organizacion, promocion, audiencia).
-- [ ] Invalidar links expuestos directos a `storage_path`.
-- [ ] Registrar eventos de acceso/descarga en log de seguridad.
-- [ ] Ajustar frontend portal para consumir solo URL firmadas.
+- [x] Crear endpoint de descarga segura que emita signed URL de corta duracion.
+- [x] Validar permiso en servidor antes de firmar URL (rol, organizacion, promocion, audiencia).
+- [x] Invalidar links expuestos directos a `storage_path`.
+- [x] Registrar eventos de acceso/descarga en log de seguridad.
+- [x] Ajustar frontend portal para consumir solo URL firmadas.
+
+Nota de avance:
+- La subida nueva de documentos portal ya se fuerza a bucket privado (`crm-portal-documents` por defecto).
+- Falta ejecutar migracion de historicos sensibles que ya estaban en buckets previos.
+- Script listo para ejecutar migracion: `node scripts/migrate-portal-documents-private-bucket.mjs --organization-id <uuid> --apply`.
 
 Criterio de cierre:
 - Ningun documento sensible se descarga por URL publica permanente.
@@ -263,10 +274,10 @@ Dependencias:
 Estado actual: portal lee comisiones/visitas; falta gestion diaria CRM (confirmar/rechazar/actualizar comision).
 
 Subtareas:
-- [ ] Panel CRM de solicitudes de visita (pendiente/confirmada/rechazada/reprogramada).
-- [ ] Acciones de confirmacion/rechazo con motivo y logging.
-- [ ] Panel CRM de comisiones por lead/deal (pendiente/aprobada/pagada).
-- [ ] Acciones para actualizar importe/estado/comentario de comision.
+- [x] Panel CRM de solicitudes de visita (pendiente/confirmada/rechazada/reprogramada).
+- [x] Acciones de confirmacion/rechazo con motivo y logging.
+- [x] Panel CRM de comisiones por lead/deal (pendiente/aprobada/pagada).
+- [x] Acciones para actualizar importe/estado/comentario de comision.
 - [ ] Exponer resumen claro al portal externo sincronizado con CRM.
 
 Criterio de cierre:
@@ -287,7 +298,7 @@ Estado actual: logs/access endpoint exige `organization_id`, pero no rol interno
 
 Subtareas:
 - [ ] Definir matriz de permisos para logs y acciones sensibles.
-- [ ] Restringir endpoints de auditoria a roles internos autorizados.
+- [x] Restringir endpoint de auditoria (`/api/v1/portal/access-logs`) a `portal_agent_admin` autorizado por email.
 - [ ] Guardar actor interno y razon en acciones sensibles.
 - [ ] Asegurar que usuarios portal externos no pueden consultar logs internos.
 - [ ] Añadir pruebas de autorizacion por rol.
@@ -301,6 +312,33 @@ Archivos base:
 
 Dependencias:
 - T04, T05.
+
+---
+
+## T13 (P0) Portal externo en modo lectura (sin operativa comercial directa)
+
+Estado actual: definido que el externo solo consume contenido visual y documentos; no crea leads ni visitas.
+
+Subtareas:
+- [x] Eliminar en UI portal formularios y tablas de leads/visitas.
+- [x] Mantener dashboard centrado en promociones y biblioteca documental.
+- [x] Bloquear POST `/api/v1/portal/projects/[id]/leads` con respuesta controlada.
+- [x] Bloquear POST `/api/v1/portal/leads/[id]/visit-requests` con respuesta controlada.
+- [x] Revisar textos/copy final del portal para reflejar experiencia solo lectura.
+
+Criterio de cierre:
+- Ningun usuario externo puede enviar leads o visitas desde portal; solo consulta y descarga material publicado.
+
+Archivos base:
+- `src/pages/[lang]/portal/index.astro`
+- `src/pages/[lang]/portal/project/[id].astro`
+- `public/portal/dashboard.js`
+- `public/portal/project.js`
+- `src/pages/api/v1/portal/projects/[id]/leads.ts`
+- `src/pages/api/v1/portal/leads/[id]/visit-requests.ts`
+
+Dependencias:
+- T02, T08, T09.
 
 ---
 
@@ -330,7 +368,7 @@ Nota:
 
 ## Definicion de Done global Sprint 4
 
-- [ ] Login portal real en produccion sin sesion manual.
+- [x] Login portal real en produccion sin sesion manual.
 - [ ] Identidad servidor basada en `auth.uid()` y RLS efectiva.
 - [ ] CRM portal operativo para invites, membresias, contenido y documentos.
 - [ ] Descarga documental segura con bucket privado y signed URLs cortas.

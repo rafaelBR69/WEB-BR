@@ -28,7 +28,8 @@ export type PortalAccessEventType =
   | "duplicate_detected"
   | "visit_requested"
   | "visit_confirmed"
-  | "commission_updated";
+  | "commission_updated"
+  | "document_downloaded";
 
 export const UUID_RX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -355,19 +356,10 @@ export const getActivePortalMembershipForProject = async (
   projectPropertyId: string,
   organizationId: string | null = null
 ) => {
-  let query = client
-    .schema("crm")
-    .from("portal_memberships")
-    .select(PORTAL_MEMBERSHIP_SELECT_COLUMNS)
-    .eq("portal_account_id", portalAccountId)
-    .eq("project_property_id", projectPropertyId)
-    .eq("status", "active")
-    .maybeSingle();
-
-  if (organizationId) query = query.eq("organization_id", organizationId);
-  const { data, error } = await query;
-  if (error) return { data: null, error };
-  if (!data) return { data: null, error: null };
+  const accountLookup = await getPortalAccountById(client, portalAccountId, organizationId);
+  if (accountLookup.error) return { data: null, error: accountLookup.error };
+  const portalAccount = accountLookup.data;
+  if (!portalAccount || portalAccount.status !== "active") return { data: null, error: null };
 
   let projectQuery = client
     .schema("crm")
@@ -388,7 +380,42 @@ export const getActivePortalMembershipForProject = async (
     return { data: null, error: null };
   }
 
-  return { data: mapPortalMembershipRow(data as Record<string, unknown>), error: null };
+  if (portalAccount.role === "portal_agent_admin") {
+    const implicitMembership = mapPortalMembershipRow({
+      id: `implicit_admin:${portalAccountId}:${projectPropertyId}`,
+      organization_id: organizationId ?? portalAccount.organization_id,
+      portal_account_id: portalAccountId,
+      project_property_id: projectPropertyId,
+      access_scope: "full",
+      status: "active",
+      dispute_window_hours: 48,
+      permissions: {
+        implicit_admin_access: true,
+        source: "portal_agent_admin_role",
+      },
+      revoked_at: null,
+      created_by: null,
+      created_at: null,
+      updated_at: null,
+    });
+    return { data: implicitMembership, error: null };
+  }
+
+  let query = client
+    .schema("crm")
+    .from("portal_memberships")
+    .select(PORTAL_MEMBERSHIP_SELECT_COLUMNS)
+    .eq("portal_account_id", portalAccountId)
+    .eq("project_property_id", projectPropertyId)
+    .maybeSingle();
+
+  if (organizationId) query = query.eq("organization_id", organizationId);
+  const { data, error } = await query;
+  if (error) return { data: null, error };
+  if (!data) return { data: null, error: null };
+  const membership = mapPortalMembershipRow(data as Record<string, unknown>);
+  if (membership.status !== "active") return { data: null, error: null };
+  return { data: membership, error: null };
 };
 
 export const getPortalInviteById = async (client: SupabaseClient, inviteId: string) => {

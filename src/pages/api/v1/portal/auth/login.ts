@@ -67,9 +67,15 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  const accounts = (accountRows ?? []).map((row) => mapPortalAccountRow(row as Record<string, unknown>));
+  let accounts = (accountRows ?? []).map((row) => mapPortalAccountRow(row as Record<string, unknown>));
   if (!accounts.length) {
-    return jsonResponse({ ok: false, error: "portal_account_not_found" }, { status: 403 });
+    return jsonResponse(
+      {
+        ok: false,
+        error: "portal_account_not_found",
+      },
+      { status: 403 }
+    );
   }
 
   const account = accounts.find((entry) => entry.status === "active") ?? accounts[0];

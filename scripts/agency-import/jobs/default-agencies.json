@@ -1,0 +1,59 @@
+{
+  "defaults": {
+    "agency_status": "active",
+    "agency_scope": "mixed",
+    "is_referral_source": true
+  },
+  "sources": [
+    {
+      "file": "scripts/agency-import/input/Gestion de LEADS - Calahonda Sunset - Agencias colaboradoras.csv",
+      "project_label": "Calahonda Sunset",
+      "project_legacy_code": "PM0011",
+      "header_row": 1
+    },
+    {
+      "file": "scripts/agency-import/input/Gestion de LEADS - NYLVA HOMES - AGENCIAS COLABORADORAS (1).csv",
+      "project_label": "NylvaHomes",
+      "project_legacy_code": "PM0079",
+      "header_row": 1
+    },
+    {
+      "file": "scripts/agency-import/input/Gestion de LEADS - Orion Collection - Fase Almitak - Agencias colaboradoras.csv",
+      "project_label": "Orion Collection - Fase Almitak",
+      "project_legacy_code": "PM0074",
+      "header_row": 1
+    },
+    {
+      "file": "scripts/agency-import/input/Gestión de Leads WhiteHills Villas - Agencias.csv",
+      "project_label": "WhiteHills",
+      "project_legacy_code": "PM0084",
+      "header_row": 1
+    }
+  ],
+  "lead_sources": [
+    {
+      "file": "scripts/lead-import/input/Gestion de LEADS - Calahonda Sunset - Leads.csv",
+      "project_label": "Calahonda Sunset",
+      "project_legacy_code": "PM0011",
+      "header_row": 1
+    },
+    {
+      "file": "scripts/lead-import/input/Gestion de LEADS - NYLVA HOMES - LEADS (1).csv",
+      "project_label": "NylvaHomes",
+      "project_legacy_code": "PM0079",
+      "header_row": 1
+    },
+    {
+      "file": "scripts/lead-import/input/Gestion de LEADS - Orion Collection - Fase Almitak - Leads.csv",
+      "project_label": "Orion Collection - Fase Almitak",
+      "project_legacy_code": "PM0074",
+      "header_row": 1
+    },
+    {
+      "file": "scripts/lead-import/input/Gestión de Leads WhiteHills Villas - Leads.csv",
+      "project_label": "WhiteHills",
+      "project_legacy_code": "PM0084",
+      "header_row": 1
+    }
+  ]
+}

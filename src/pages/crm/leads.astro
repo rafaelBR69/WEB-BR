@@ -1,79 +1,217 @@
 ---
 import CrmLayout from "@/layouts/CrmLayout.astro";
 ---
-<CrmLayout title="CRM | Leads" section="leads">
+<CrmLayout title="CRM | Leads | Listado" section="leads">
   <div class="crm-stack">
     <section class="crm-card crm-full">
-      <h2>Entrada rapida de lead</h2>
-      <form class="crm-form">
-        <label>
-          Nombre completo
-          <input type="text" placeholder="Nombre y apellidos" />
-        </label>
-        <label>
-          Email
-          <input type="email" placeholder="cliente@email.com" />
-        </label>
-        <label>
-          Telefono
-          <input type="tel" placeholder="+34..." />
-        </label>
-        <label>
-          Interes
-          <select>
-            <option>Compra</option>
-            <option>Alquiler</option>
-            <option>Compra y alquiler</option>
-          </select>
-        </label>
-        <label class="crm-col-2">
-          Mensaje
-          <textarea placeholder="Necesidad del cliente, zona, presupuesto..."></textarea>
-        </label>
-        <div class="crm-col-2">
-          <button type="button" class="crm-button">Guardar lead (mock)</button>
-        </div>
-      </form>
+      <h2>Listado y ficha de leads</h2>
+      <p class="crm-inline-note">
+        Gestion operativa de leads con filtros por promocion, canal, estado tratado y nacionalidad.
+      </p>
     </section>
 
     <section class="crm-card crm-full">
-      <h2>Pipeline inicial</h2>
+      <form id="leads-filter-form" class="crm-form crm-form-compact">
+        <label>Buscar
+          <input name="q" type="search" placeholder="Nombre, email, telefono, fuente..." />
+        </label>
+        <label>Estado
+          <select name="status">
+            <option value="">Todos</option>
+            <option value="new">Nuevo</option>
+            <option value="in_process">En proceso</option>
+            <option value="qualified">Cualificado</option>
+            <option value="visit_scheduled">Visita programada</option>
+            <option value="offer_sent">Oferta enviada</option>
+            <option value="negotiation">Negociacion</option>
+            <option value="converted">Convertido</option>
+            <option value="won">Ganado</option>
+            <option value="lost">Perdido</option>
+            <option value="discarded">Descartado</option>
+            <option value="junk">No valido</option>
+          </select>
+        </label>
+        <label>Origen
+          <select name="origin_type">
+            <option value="">Todos</option>
+            <option value="direct">Directo</option>
+            <option value="website">Web corporativa</option>
+            <option value="portal">Portal inmobiliario</option>
+            <option value="agency">Agencia colaboradora</option>
+            <option value="provider">Proveedor</option>
+            <option value="phone">Llamada telefonica</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="email">Email</option>
+            <option value="other">Otros</option>
+          </select>
+        </label>
+        <label>Interes
+          <select name="operation_interest">
+            <option value="">Todos</option>
+            <option value="sale">Compra</option>
+            <option value="rent">Alquiler</option>
+            <option value="both">Compra y alquiler</option>
+          </select>
+        </label>
+        <label>Tipo de lead
+          <select name="lead_kind">
+            <option value="">Todos</option>
+            <option value="buyer">Comprador</option>
+            <option value="seller">Vendedor</option>
+            <option value="landlord">Propietario</option>
+            <option value="tenant">Inquilino</option>
+            <option value="investor">Inversor</option>
+            <option value="agency">Agencia</option>
+            <option value="provider">Proveedor</option>
+            <option value="other">Otro</option>
+          </select>
+        </label>
+        <label>Tratado
+          <select name="treated">
+            <option value="">Todos</option>
+            <option value="untreated">No tratado</option>
+            <option value="treated">Tratado</option>
+          </select>
+        </label>
+        <label>Nacionalidad
+          <input name="nationality" type="text" placeholder="ES, FR, NL..." />
+        </label>
+        <label>Promocion
+          <select id="leads-project-select" name="project_id">
+            <option value="">Todas</option>
+          </select>
+        </label>
+        <label>Por pagina
+          <select name="per_page" id="leads-per-page">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="leads-filter-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+      <p id="leads-meta" class="crm-inline-note"></p>
       <div class="crm-table-wrap">
         <table class="crm-table">
           <thead>
             <tr>
+              <th>Fecha</th>
               <th>Lead</th>
+              <th>Nacionalidad</th>
+              <th>Promocion</th>
               <th>Interes</th>
-              <th>Propiedad</th>
               <th>Estado</th>
               <th>Origen</th>
+              <th>Fuente</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="leads-tbody">
             <tr>
-              <td>Marta Ruiz</td>
-              <td>Compra</td>
-              <td>PM0084</td>
-              <td><span class="crm-badge warn">new</span></td>
-              <td>web_form</td>
-            </tr>
-            <tr>
-              <td>Tom van Dijk</td>
-              <td>Alquiler</td>
-              <td>PM0011-B2P2_2A</td>
-              <td><span class="crm-badge ok">qualified</span></td>
-              <td>whatsapp</td>
-            </tr>
-            <tr>
-              <td>Giulia Serra</td>
-              <td>Compra</td>
-              <td>PM0079</td>
-              <td><span class="crm-badge danger">lost</span></td>
-              <td>partner</td>
+              <td colspan="8">Cargando leads...</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div id="leads-pagination" class="crm-pagination">
+        <button type="button" class="crm-button crm-button-soft" data-page-action="prev">Anterior</button>
+        <p id="leads-page-info" class="crm-inline-note">Pagina 1 de 1</p>
+        <button type="button" class="crm-button crm-button-soft" data-page-action="next">Siguiente</button>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Ficha de lead</h3>
+      <p id="leads-detail-empty" class="crm-inline-note">Selecciona un lead del listado para ver su ficha.</p>
+      <div id="leads-detail" class="crm-lead-detail" hidden>
+        <div class="crm-lead-detail-head">
+          <p id="leads-detail-name" class="crm-lead-detail-title">-</p>
+          <span id="leads-detail-status" class="crm-badge warn">-</span>
+        </div>
+          <div class="crm-lead-actions">
+            <a id="leads-action-email" href="#" class="crm-button crm-button-soft is-disabled">Email</a>
+            <a id="leads-action-call" href="#" class="crm-button crm-button-soft is-disabled">Llamar</a>
+            <a id="leads-action-whatsapp" href="#" class="crm-button crm-button-soft is-disabled">WhatsApp</a>
+            <a id="lead-action-ficha" href="#" class="crm-button crm-button-primary">Ver Ficha Completa</a>
+          </div>
+        <dl class="crm-lead-detail-grid">
+          <div>
+            <dt>Lead ID</dt>
+            <dd id="leads-detail-id">-</dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd id="leads-detail-email">-</dd>
+          </div>
+          <div>
+            <dt>Telefono</dt>
+            <dd id="leads-detail-phone">-</dd>
+          </div>
+          <div>
+            <dt>Nacionalidad</dt>
+            <dd id="leads-detail-nationality">-</dd>
+          </div>
+          <div>
+            <dt>Promocion padre</dt>
+            <dd id="leads-detail-project">-</dd>
+          </div>
+          <div>
+            <dt>Propiedad</dt>
+            <dd id="leads-detail-property">-</dd>
+          </div>
+          <div>
+            <dt>Origen</dt>
+            <dd id="leads-detail-origin">-</dd>
+          </div>
+          <div>
+            <dt>Fuente</dt>
+            <dd id="leads-detail-source">-</dd>
+          </div>
+          <div>
+            <dt>Interes</dt>
+            <dd id="leads-detail-operation">-</dd>
+          </div>
+          <div>
+            <dt>Tipo lead</dt>
+            <dd id="leads-detail-kind">-</dd>
+          </div>
+          <div>
+            <dt>Importacion CSV</dt>
+            <dd id="leads-detail-import">-</dd>
+          </div>
+          <div>
+            <dt>Creado</dt>
+            <dd id="leads-detail-created">-</dd>
+          </div>
+          <div>
+            <dt>Actualizado</dt>
+            <dd id="leads-detail-updated">-</dd>
+          </div>
+          <div class="crm-lead-detail-full">
+            <dt>Mensaje</dt>
+            <dd id="leads-detail-message">-</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="leads-feedback" class="crm-feedback">Listo para operar.</p>
     </section>
   </div>
+  <style>
+    .crm-lead-link {
+      color: var(--crm-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .crm-lead-link:hover {
+      text-decoration: underline;
+      color: #1e40af; /* Slightly darker primary */
+    }
+  </style>
+  <script is:inline src="/crm/leads-list.js"></script>
 </CrmLayout>

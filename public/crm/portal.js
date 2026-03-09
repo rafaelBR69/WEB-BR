@@ -9,8 +9,12 @@
     organizationSource: "none",
     portalProjects: [],
     portalProjectsLoadedForOrg: null,
+    portalProjectsById: new Map(),
+    portalAccountsById: new Map(),
     lastInviteShare: null,
   };
+
+  const PORTAL_SESSION_KEY = "portal.session.v1";
 
   const el = {
     orgForm: document.getElementById("crm-portal-org-form"),
@@ -19,8 +23,10 @@
     orgHelp: document.getElementById("crm-portal-org-help"),
     feedback: document.getElementById("crm-portal-feedback"),
     kpiInvites: document.getElementById("portal-kpi-invites"),
+    kpiSignupRequests: document.getElementById("portal-kpi-signup-requests"),
     kpiUsers: document.getElementById("portal-kpi-users"),
     kpiContent: document.getElementById("portal-kpi-content"),
+    kpiDocuments: document.getElementById("portal-kpi-documents"),
     kpiLogs: document.getElementById("portal-kpi-logs"),
     inviteForm: document.getElementById("portal-invite-form"),
     inviteTypeInput: document.getElementById("portal-invite-type"),
@@ -37,6 +43,7 @@
     invitesFilterForm: document.getElementById("portal-invites-filter"),
     invitesClearBtn: document.getElementById("portal-invites-clear"),
     invitesMeta: document.getElementById("portal-invites-meta"),
+    registrationRequestsNote: document.getElementById("portal-registration-requests-note"),
     invitesTbody: document.getElementById("portal-invites-tbody"),
     usersFilterForm: document.getElementById("portal-users-filter"),
     usersClearBtn: document.getElementById("portal-users-clear"),
@@ -55,6 +62,19 @@
     contentNewBtn: document.getElementById("portal-content-new"),
     contentMeta: document.getElementById("portal-content-meta"),
     contentTbody: document.getElementById("portal-content-tbody"),
+    documentsFilterForm: document.getElementById("portal-documents-filter"),
+    documentsFilterClearBtn: document.getElementById("portal-documents-filter-clear"),
+    documentsFilterPropertySelect: document.getElementById("portal-documents-filter-property-select"),
+    documentsForm: document.getElementById("portal-documents-form"),
+    documentsIdInput: document.getElementById("portal-documents-id"),
+    documentsPropertySelect: document.getElementById("portal-documents-property-select"),
+    documentsPropertyResolution: document.getElementById("portal-documents-property-resolution"),
+    documentsTreeForm: document.getElementById("portal-documents-tree-form"),
+    documentsTreeProjectSelect: document.getElementById("portal-documents-tree-project-select"),
+    documentsTreeList: document.getElementById("portal-documents-tree-list"),
+    documentsNewBtn: document.getElementById("portal-documents-new"),
+    documentsMeta: document.getElementById("portal-documents-meta"),
+    documentsTbody: document.getElementById("portal-documents-tbody"),
     logsFilterForm: document.getElementById("portal-logs-filter"),
     logsClearBtn: document.getElementById("portal-logs-clear"),
     logsMeta: document.getElementById("portal-logs-meta"),
@@ -79,6 +99,106 @@
     return value;
   };
 
+  const crmLabels = window.crmLabels ?? null;
+  const dictLabel = (dictionary, value, fallback = "-") => {
+    const normalizedValue = toText(value);
+    if (!normalizedValue) return fallback;
+    return (
+      crmLabels?.label?.(dictionary, normalizedValue, null) ??
+      crmLabels?.labelAny?.(normalizedValue, null) ??
+      normalizedValue
+    );
+  };
+
+  const portalRoleLabel = (value) => dictLabel("portal-role", value, "-");
+  const portalStatusLabel = (value) => dictLabel("portal-status", value, "-");
+  const inviteTypeLabel = (value) => dictLabel("invite-type", value, "-");
+  const inviteStatusLabel = (value) => dictLabel("invite-status", value, portalStatusLabel(value));
+  const membershipScopeLabel = (value) => dictLabel("membership-scope", value, "-");
+  const audienceLabel = (value) => dictLabel("audience", value, "-");
+  const publicationLabel = (published) =>
+    published ? dictLabel("publication", "published", "Publicado") : dictLabel("publication", "draft", "Borrador");
+  const logEventTypeLabel = (value) => dictLabel("log-event-type", value, value || "-");
+
+  const parseJsonSafe = (raw) => {
+    try {
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const readPortalSessionFromStorage = (storage) => {
+    try {
+      const raw = storage.getItem(PORTAL_SESSION_KEY);
+      const parsed = parseJsonSafe(raw);
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+      return parsed;
+    } catch {
+      return null;
+    }
+  };
+
+  const loadPortalSession = () =>
+    readPortalSessionFromStorage(window.localStorage) ?? readPortalSessionFromStorage(window.sessionStorage);
+
+  const buildPortalAuthHeaders = () => {
+    const session = loadPortalSession();
+    const accessToken = toText(session?.accessToken ?? session?.access_token);
+    if (!accessToken) return null;
+
+    const tokenType = toText(session?.tokenType ?? session?.token_type) ?? "bearer";
+    return {
+      Authorization: `${tokenType} ${accessToken}`.trim(),
+    };
+  };
+
+  const createErrorWithCode = (code, details) => {
+    const error = new Error(details || code);
+    error.code = code;
+    return error;
+  };
+
+  const isLogsAccessErrorCode = (value) => {
+    const code = toText(value) || "";
+    return (
+      code === "portal_admin_session_required" ||
+      code === "portal_admin_role_required" ||
+      code === "portal_logs_admin_only" ||
+      code === "portal_logs_email_not_allowed" ||
+      code === "auth_token_required" ||
+      code === "invalid_auth_token" ||
+      code === "portal_account_not_found" ||
+      code === "portal_account_not_found_for_auth_user" ||
+      code === "portal_account_not_active"
+    );
+  };
+
+  const requestPortalAdmin = async (url, init = {}) => {
+    const session = loadPortalSession();
+    const role = toText(session?.role ?? session?.portalAccount?.role);
+    const headers = buildPortalAuthHeaders();
+    if (!headers?.Authorization) {
+      throw createErrorWithCode(
+        "portal_admin_session_required",
+        "Inicia sesion en /es/portal/login con cuenta admin para acceder a logs."
+      );
+    }
+    if (role && role !== "portal_agent_admin") {
+      throw createErrorWithCode(
+        "portal_admin_role_required",
+        "La sesion portal activa no tiene rol portal_agent_admin."
+      );
+    }
+    return request(url, {
+      ...init,
+      headers: {
+        ...(init.headers || {}),
+        ...headers,
+      },
+    });
+  };
+
   const statusClass = (value) => {
     const status = toText(value) || "";
     if (
@@ -86,7 +206,8 @@
       status === "approved" ||
       status === "paid" ||
       status === "used" ||
-      status === "confirmed"
+      status === "confirmed" ||
+      status === "document_downloaded"
     ) {
       return "ok";
     }
@@ -115,6 +236,18 @@
       hour: "2-digit",
       minute: "2-digit",
     });
+  };
+
+  const formatBytes = (value) => {
+    const bytes = Number(value);
+    if (!Number.isFinite(bytes) || bytes <= 0) return "-";
+    if (bytes < 1024) return `${Math.floor(bytes)} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
+  const portalVisibilityLabel = (value) => {
+    return dictLabel("portal-visibility", value, "Shared Kit (ambos)");
   };
 
   const copyTextToClipboard = async (value) => {
@@ -147,16 +280,36 @@
     }
   };
 
+  const getPropertyMainLabel = (project, fallback = "Propiedad") => {
+    const row = asObject(project);
+    return (
+      toText(row.display_name) ??
+      toText(row.project_name) ??
+      toText(row.legacy_code) ??
+      toText(row.id) ??
+      fallback
+    );
+  };
+
   const getProjectDisplayName = (project) => {
     const row = asObject(project);
-    const displayName = toText(row.display_name);
-    const projectName = toText(row.project_name);
-    const legacyCode = toText(row.legacy_code);
     const id = toText(row.id);
     const status = toText(row.status);
-    const main = displayName || projectName || legacyCode || id || "Promocion";
-    if (!status) return main;
-    return `${main} | ${status}`;
+    const recordType = toText(row.record_type) ?? "project";
+
+    if (recordType === "unit") {
+      const unitLabel = getPropertyMainLabel(row, "Unidad");
+      const parentId = toText(row.parent_property_id);
+      const parent = parentId ? state.portalProjectsById.get(parentId) : null;
+      const parentLabel = parent ? getPropertyMainLabel(parent, "Promocion") : parentId ?? "sin padre";
+      const typedLabel = `Unidad hija | ${unitLabel} | Padre: ${parentLabel}`;
+      return status ? `${typedLabel} | ${status}` : typedLabel;
+    }
+
+    const main = getPropertyMainLabel(row, "Promocion");
+    const typedLabel = recordType === "project" ? `Promocion | ${main}` : `Propiedad | ${main}`;
+    if (!status) return typedLabel;
+    return `${typedLabel} | ${status}`;
   };
 
   const isPortalEnabledProject = (project) => {
@@ -171,13 +324,72 @@
   const getProjectById = (projectId) => {
     const normalized = toText(projectId);
     if (!normalized) return null;
-    return state.portalProjects.find((item) => toText(item.id) === normalized) ?? null;
+    return state.portalProjectsById.get(normalized) ?? null;
+  };
+
+  const getPortalAccountLabel = (portalAccountId) => {
+    const normalized = toText(portalAccountId);
+    if (!normalized) return "Cuenta portal";
+    const label = state.portalAccountsById.get(normalized);
+    return label ?? "Cuenta portal";
   };
 
   const resolveProjectPropertyIdFromForm = (formData, selectFieldName, manualFieldName) => {
     const selected = toText(formData.get(selectFieldName));
     const manual = toText(formData.get(manualFieldName));
     return manual ?? selected ?? null;
+  };
+
+  const isSelfSignupInvite = (entry) => {
+    const row = asObject(entry);
+    const metadata = asObject(row.metadata);
+    return toText(metadata.request_type) === "self_signup";
+  };
+
+  const isPendingRegistrationRequest = (entry) => {
+    const row = asObject(entry);
+    const metadata = asObject(row.metadata);
+    const approvalStatus = toText(metadata.approval_status) ?? "requested";
+    const inviteStatus = toText(row.status) ?? "";
+    return isSelfSignupInvite(row) && approvalStatus === "requested" && inviteStatus === "pending";
+  };
+
+  const buildInviteSharePayload = ({ email, code, projectId }) => {
+    const inviteEmail = toText(email);
+    const inviteCode = toText(code);
+    if (!inviteEmail || !inviteCode) return null;
+
+    const activationUrl = new URL("/es/portal/activate/", window.location.origin);
+    activationUrl.searchParams.set("organization_id", state.organizationId);
+    activationUrl.searchParams.set("email", inviteEmail);
+    if (projectId) activationUrl.searchParams.set("project_property_id", projectId);
+
+    const linkedProject = getProjectById(projectId);
+    const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : projectId;
+    const activationUrlText = activationUrl.toString();
+    const subject = "Invitacion de acceso al portal de BlancaReal";
+    const message = [
+      "Hola,",
+      "",
+      "Te compartimos tu acceso al portal de BlancaReal.",
+      `Enlace de activacion: ${activationUrlText}`,
+      `Email invitado: ${inviteEmail}`,
+      `Codigo de un solo uso: ${inviteCode}`,
+      "",
+      projectLabel ? `Promocion asignada: ${projectLabel}` : "Promocion asignada: acceso general",
+      "",
+      "Si necesitas ayuda para activar, responde a este mensaje.",
+    ].join("\n");
+
+    return {
+      email: inviteEmail,
+      code: inviteCode,
+      activationUrl: activationUrlText,
+      projectLabel,
+      message,
+      whatsappUrl: `https://wa.me/?text=${encodeURIComponent(message)}`,
+      mailtoUrl: `mailto:${encodeURIComponent(inviteEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`,
+    };
   };
 
   const renderInviteShare = (share) => {
@@ -250,6 +462,21 @@
       state.portalProjects,
       "Selecciona una promocion"
     );
+    setProjectSelectOptions(
+      el.documentsFilterPropertySelect,
+      state.portalProjects,
+      "Todas las propiedades"
+    );
+    setProjectSelectOptions(
+      el.documentsPropertySelect,
+      state.portalProjects,
+      "Selecciona una propiedad"
+    );
+    setProjectSelectOptions(
+      el.documentsTreeProjectSelect,
+      state.portalProjects.filter((entry) => (toText(entry?.record_type) ?? "project") === "project"),
+      "Selecciona una promocion"
+    );
   };
 
   const loadPortalProjects = async ({ force = false } = {}) => {
@@ -258,21 +485,82 @@
       return state.portalProjects;
     }
 
-    const payload = await request(
+    const firstPagePayload = await request(
       buildApiUrl("/api/v1/properties", {
         organization_id: state.organizationId,
-        record_type: "project",
+        ...(page === "documents" ? {} : { record_type: "project" }),
         per_page: "200",
         page: "1",
       })
     );
 
-    const rows = Array.isArray(payload?.data) ? payload.data : [];
-    state.portalProjects = rows
-      .filter((entry) => toText(entry?.id) && isPortalEnabledProject(entry))
-      .sort((a, b) => getProjectDisplayName(a).localeCompare(getProjectDisplayName(b), "es"));
+    const firstRows = Array.isArray(firstPagePayload?.data) ? firstPagePayload.data : [];
+    const totalPages = Math.max(1, Number(firstPagePayload?.meta?.total_pages || 1));
+    const extraPayloads =
+      totalPages > 1
+        ? await Promise.all(
+            Array.from({ length: totalPages - 1 }, (_, index) =>
+              request(
+                buildApiUrl("/api/v1/properties", {
+                  organization_id: state.organizationId,
+                  ...(page === "documents" ? {} : { record_type: "project" }),
+                  per_page: "200",
+                  page: String(index + 2),
+                })
+              )
+            )
+          )
+        : [];
+
+    const rows = [
+      ...firstRows,
+      ...extraPayloads.flatMap((payload) => (Array.isArray(payload?.data) ? payload.data : [])),
+    ].filter((entry) => toText(entry?.id));
+
+    if (page === "documents") {
+      const allById = new Map();
+      rows.forEach((entry) => {
+        const id = toText(entry?.id);
+        if (!id) return;
+        allById.set(id, entry);
+      });
+
+      const projects = rows.filter(
+        (entry) => (toText(entry?.record_type) ?? "") === "project" && isPortalEnabledProject(entry)
+      );
+      const projectIds = new Set(projects.map((entry) => toText(entry?.id)).filter(Boolean));
+      const units = rows.filter((entry) => {
+        const recordType = toText(entry?.record_type) ?? "";
+        if (recordType !== "unit") return false;
+        const parentId = toText(entry?.parent_property_id);
+        return Boolean(parentId && projectIds.has(parentId));
+      });
+
+      state.portalProjects = [...projects, ...units]
+        .filter((entry) => {
+          const recordType = toText(entry?.record_type) ?? "project";
+          return recordType === "project" || recordType === "unit";
+        })
+        .sort((a, b) => getProjectDisplayName(a).localeCompare(getProjectDisplayName(b), "es"));
+      state.portalProjectsById = allById;
+    } else {
+      state.portalProjects = rows
+        .filter((entry) => toText(entry?.id) && isPortalEnabledProject(entry))
+        .sort((a, b) => getProjectDisplayName(a).localeCompare(getProjectDisplayName(b), "es"));
+      state.portalProjectsById = new Map(
+        state.portalProjects
+          .map((entry) => {
+            const id = toText(entry?.id);
+            return id ? [id, entry] : null;
+          })
+          .filter(Boolean)
+      );
+    }
+
     state.portalProjectsLoadedForOrg = state.organizationId;
     renderProjectSelectors();
+    renderDocumentsPropertyTree();
+    syncDocumentsPropertyResolution();
     return state.portalProjects;
   };
 
@@ -405,34 +693,48 @@
         .map((entry) => {
           const id = toText(entry.id) || "";
           const status = toText(entry.status) || "pending";
+          const statusText = inviteStatusLabel(status);
           const projectId = toText(entry.project_property_id);
           const linkedProject = getProjectById(projectId);
           const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : null;
           const maxAttempts = Number(entry.max_attempts || 0);
           const attemptCount = Number(entry.attempt_count || 0);
           const isRevokable = status === "pending" || status === "blocked";
-
-          return `
-            <tr>
-              <td>
-                <strong>${esc(entry.email || "-")}</strong>
-                <br />
-                <small>${esc(id)}</small>
-              </td>
-              <td>
-                ${esc(entry.invite_type || "-")}
-                <br />
-                <small>${esc(entry.role || "-")}</small>
-              </td>
-              <td>${
-                projectLabel
-                  ? `<strong>${esc(projectLabel)}</strong><br /><small>${esc(projectId || "-")}</small>`
-                  : esc(projectId || "-")
-              }</td>
-              <td><span class="crm-badge ${statusClass(status)}">${esc(status)}</span></td>
-              <td>${esc(formatDateTime(entry.expires_at))}</td>
-              <td>${esc(`${attemptCount}/${maxAttempts}`)}</td>
-              <td>
+          const metadata = asObject(entry.metadata);
+          const isRegistrationRequest = isSelfSignupInvite(entry);
+          const isPendingRequest = isPendingRegistrationRequest(entry);
+          const approvalStatus = toText(metadata.approval_status);
+          const requester = asObject(metadata.requester);
+          const requesterName = toText(requester.full_name);
+          const requesterPhone = toText(requester.phone);
+          const requesterHint = requesterName || requesterPhone;
+          const reviewLabel = isRegistrationRequest
+            ? `Solicitud de alta | ${dictLabel("registration-approval", approvalStatus ?? "requested", approvalStatus ?? "requested")}`
+            : null;
+          const inviteTypeText = inviteTypeLabel(entry.invite_type);
+          const roleText = portalRoleLabel(entry.role);
+          const actionHtml = isPendingRequest
+            ? `
+                <div class="crm-actions-row">
+                  <button
+                    type="button"
+                    class="crm-mini-btn"
+                    data-action="approve-registration-request"
+                    data-request-id="${esc(id)}"
+                  >
+                    Aprobar
+                  </button>
+                  <button
+                    type="button"
+                    class="crm-mini-btn danger"
+                    data-action="reject-registration-request"
+                    data-request-id="${esc(id)}"
+                  >
+                    Rechazar
+                  </button>
+                </div>
+              `
+            : `
                 <button
                   type="button"
                   class="crm-mini-btn danger"
@@ -442,7 +744,31 @@
                 >
                   Revocar
                 </button>
+              `;
+
+          return `
+            <tr>
+              <td>
+                <strong>${esc(entry.email || "-")}</strong>
+                ${requesterHint ? `<br /><small>${esc(requesterHint)}</small>` : ""}
               </td>
+              <td>
+                ${esc(inviteTypeText)}
+                <br />
+                <small>${esc(roleText)}</small>
+                ${reviewLabel ? `<br /><small>${esc(reviewLabel)}</small>` : ""}
+              </td>
+              <td>${
+                projectLabel
+                  ? `<strong>${esc(projectLabel)}</strong>`
+                  : projectId
+                    ? "Promocion vinculada"
+                    : "Acceso general"
+              }</td>
+              <td><span class="crm-badge ${statusClass(status)}">${esc(statusText)}</span></td>
+              <td>${esc(formatDateTime(entry.expires_at))}</td>
+              <td>${esc(`${attemptCount}/${maxAttempts}`)}</td>
+              <td>${actionHtml}</td>
             </tr>
           `;
         })
@@ -456,14 +782,25 @@
       const totalPages = Number(meta.total_pages || 1);
       el.invitesMeta.textContent = `${count} filas visibles | total ${total} | pagina ${pageValue}/${totalPages}`;
     }
+
+    if (el.registrationRequestsNote instanceof HTMLElement) {
+      const pendingRequests = rows.filter((entry) => isPendingRegistrationRequest(entry)).length;
+      el.registrationRequestsNote.textContent =
+        pendingRequests > 0
+          ? `Notificaciones: ${pendingRequests} solicitudes de registro pendientes de aprobacion.`
+          : "Notificaciones: sin solicitudes de registro pendientes.";
+      el.registrationRequestsNote.className = `crm-inline-note ${pendingRequests > 0 ? "warn" : ""}`;
+    }
   };
 
   const loadInvites = async () => {
     if (!ensureOrganization()) return;
     const filterForm = el.invitesFilterForm instanceof HTMLFormElement ? new FormData(el.invitesFilterForm) : null;
+    const requestedStatus = toText(filterForm?.get("status"));
+    const apiStatus = requestedStatus === "request_pending" ? "pending" : requestedStatus;
     const params = {
       organization_id: state.organizationId,
-      status: toText(filterForm?.get("status")),
+      status: apiStatus,
       email: toText(filterForm?.get("email")),
       project_property_id: toText(filterForm?.get("project_property_id")),
       per_page: toText(filterForm?.get("per_page")) || "25",
@@ -471,7 +808,20 @@
     };
 
     const payload = await request(buildApiUrl("/api/v1/portal/invites", params));
-    renderInvites(Array.isArray(payload?.data) ? payload.data : [], asObject(payload?.meta));
+    let rows = Array.isArray(payload?.data) ? payload.data : [];
+    const meta = asObject(payload?.meta);
+    if (requestedStatus === "request_pending") {
+      rows = rows.filter((entry) => isPendingRegistrationRequest(entry));
+      renderInvites(rows, {
+        ...meta,
+        count: rows.length,
+        total: rows.length,
+        page: 1,
+        total_pages: 1,
+      });
+      return;
+    }
+    renderInvites(rows, meta);
   };
 
   const createInvite = async () => {
@@ -516,41 +866,11 @@
         : "Invite creada. No se recibio codigo visible en la respuesta.";
     }
 
-    if (code && inviteEmail) {
-      const activationUrl = new URL("/es/portal/activate/", window.location.origin);
-      activationUrl.searchParams.set("organization_id", state.organizationId);
-      activationUrl.searchParams.set("email", inviteEmail);
-      if (inviteProjectId) activationUrl.searchParams.set("project_property_id", inviteProjectId);
-
-      const linkedProject = getProjectById(inviteProjectId);
-      const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : inviteProjectId;
-      const activationUrlText = activationUrl.toString();
-      const subject = "Invitacion de acceso al portal de BlancaReal";
-      const message = [
-        "Hola,",
-        "",
-        "Te compartimos tu acceso al portal de BlancaReal.",
-        `Enlace de activacion: ${activationUrlText}`,
-        `Email invitado: ${inviteEmail}`,
-        `Codigo de un solo uso: ${code}`,
-        "",
-        projectLabel ? `Promocion asignada: ${projectLabel}` : "Promocion asignada: acceso general",
-        "",
-        "Si necesitas ayuda para activar, responde a este mensaje.",
-      ].join("\n");
-
-      state.lastInviteShare = {
-        email: inviteEmail,
-        code,
-        activationUrl: activationUrlText,
-        projectLabel,
-        message,
-        whatsappUrl: `https://wa.me/?text=${encodeURIComponent(message)}`,
-        mailtoUrl: `mailto:${encodeURIComponent(inviteEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`,
-      };
-    } else {
-      state.lastInviteShare = null;
-    }
+    state.lastInviteShare = buildInviteSharePayload({
+      email: inviteEmail,
+      code,
+      projectId: inviteProjectId,
+    });
     renderInviteShare(state.lastInviteShare);
 
     el.inviteForm.reset();
@@ -578,9 +898,74 @@
     setFeedback("Invite revocada.", "ok");
   };
 
+  const approveRegistrationRequest = async (requestId) => {
+    if (!ensureOrganization() || !requestId) return;
+
+    const response = await request("/api/v1/crm/portal/registration-requests", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        organization_id: state.organizationId,
+        request_id: requestId,
+        action: "approve",
+      }),
+    });
+
+    const approvedInvite = asObject(response?.data?.invite);
+    const code = toText(response?.data?.one_time_code);
+    const inviteEmail = toText(approvedInvite.email);
+    const inviteProjectId = toText(approvedInvite.project_property_id);
+
+    state.lastInviteShare = buildInviteSharePayload({
+      email: inviteEmail,
+      code,
+      projectId: inviteProjectId,
+    });
+    renderInviteShare(state.lastInviteShare);
+
+    if (el.inviteCode instanceof HTMLElement) {
+      el.inviteCode.textContent = code
+        ? `Solicitud aprobada. Codigo de un solo uso: ${code}.`
+        : "Solicitud aprobada, pero no se pudo recuperar codigo visible.";
+    }
+
+    await loadInvites();
+    setFeedback("Solicitud aprobada e invitacion generada.", "ok");
+  };
+
+  const rejectRegistrationRequest = async (requestId) => {
+    if (!ensureOrganization() || !requestId) return;
+    const confirmed = window.confirm("Se rechazara esta solicitud de registro. Continuar?");
+    if (!confirmed) return;
+
+    await request("/api/v1/crm/portal/registration-requests", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        organization_id: state.organizationId,
+        request_id: requestId,
+        action: "reject",
+      }),
+    });
+
+    await loadInvites();
+    setFeedback("Solicitud de registro rechazada.", "ok");
+  };
+
   // USERS + MEMBERSHIPS
   const renderUsers = (rows = [], meta = {}) => {
     if (!(el.usersTbody instanceof HTMLElement)) return;
+    state.portalAccountsById.clear();
+    rows.forEach((entry) => {
+      const id = toText(entry?.id);
+      if (!id) return;
+      const metadata = asObject(entry?.metadata);
+      const email = toText(metadata.email);
+      const fullName = toText(metadata.full_name);
+      const label = fullName && email ? `${fullName} | ${email}` : fullName || email || "Cuenta portal";
+      state.portalAccountsById.set(id, label);
+    });
+
     if (!rows.length) {
       el.usersTbody.innerHTML = '<tr><td colspan="6">No hay cuentas portal con este filtro.</td></tr>';
     } else {
@@ -591,6 +976,8 @@
           const email = toText(metadata.email) || "-";
           const fullName = toText(metadata.full_name) || "-";
           const status = toText(entry.status) || "pending";
+          const statusText = portalStatusLabel(status);
+          const roleText = portalRoleLabel(entry.role);
           const stats = asObject(entry.membership_stats);
           const membershipsActive = Number(stats.memberships_active || 0);
           const membershipsTotal = Number(stats.memberships_total || 0);
@@ -601,26 +988,24 @@
                 <strong>${esc(email)}</strong>
                 <br />
                 <small>${esc(fullName)}</small>
-                <br />
-                <small>${esc(id)}</small>
               </td>
-              <td>${esc(entry.role || "-")}</td>
-              <td><span class="crm-badge ${statusClass(status)}">${esc(status)}</span></td>
+              <td>${esc(roleText)}</td>
+              <td><span class="crm-badge ${statusClass(status)}">${esc(statusText)}</span></td>
               <td>${esc(`${membershipsActive}/${membershipsTotal}`)}</td>
               <td>${esc(formatDateTime(entry.last_login_at))}</td>
               <td>
                 <div class="crm-actions-row">
-                  <select data-account-status="${esc(id)}" aria-label="Estado de cuenta ${esc(email)}">
-                    <option value="pending" ${status === "pending" ? "selected" : ""}>pending</option>
-                    <option value="active" ${status === "active" ? "selected" : ""}>active</option>
-                    <option value="blocked" ${status === "blocked" ? "selected" : ""}>blocked</option>
-                    <option value="revoked" ${status === "revoked" ? "selected" : ""}>revoked</option>
+                  <select data-account-status="${esc(id)}" data-dictionary="portal-status" aria-label="Estado de cuenta ${esc(email)}">
+                    <option value="pending" ${status === "pending" ? "selected" : ""}>${esc(portalStatusLabel("pending"))}</option>
+                    <option value="active" ${status === "active" ? "selected" : ""}>${esc(portalStatusLabel("active"))}</option>
+                    <option value="blocked" ${status === "blocked" ? "selected" : ""}>${esc(portalStatusLabel("blocked"))}</option>
+                    <option value="revoked" ${status === "revoked" ? "selected" : ""}>${esc(portalStatusLabel("revoked"))}</option>
                   </select>
                   <button type="button" class="crm-mini-btn" data-action="save-account-status" data-account-id="${esc(id)}">
                     Guardar
                   </button>
                   <button type="button" class="crm-mini-btn" data-action="use-account-id" data-account-id="${esc(id)}">
-                    Usar
+                    Usar en membresia
                   </button>
                 </div>
               </td>
@@ -629,6 +1014,8 @@
         })
         .join("");
     }
+
+    crmLabels?.applySelectDictionaries?.(el.usersTbody);
 
     if (el.usersMeta instanceof HTMLElement) {
       const count = Number(meta.count || rows.length || 0);
@@ -650,19 +1037,19 @@
       .map((entry) => {
         const id = toText(entry.id) || "";
         const status = toText(entry.status) || "active";
+        const statusText = portalStatusLabel(status);
+        const accessScopeText = membershipScopeLabel(entry.access_scope);
         const projectId = toText(entry.project_property_id);
         const linkedProject = getProjectById(projectId);
         const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : null;
         return `
           <tr>
-            <td><small>${esc(entry.portal_account_id || "-")}</small></td>
+            <td>${esc(getPortalAccountLabel(entry.portal_account_id))}</td>
             <td>${
-              projectLabel
-                ? `<strong>${esc(projectLabel)}</strong><br /><small>${esc(projectId || "-")}</small>`
-                : `<small>${esc(projectId || "-")}</small>`
+              projectLabel ? `<strong>${esc(projectLabel)}</strong>` : "Promocion asignada"
             }</td>
-            <td>${esc(entry.access_scope || "-")}</td>
-            <td><span class="crm-badge ${statusClass(status)}">${esc(status)}</span></td>
+            <td>${esc(accessScopeText)}</td>
+            <td><span class="crm-badge ${statusClass(status)}">${esc(statusText)}</span></td>
             <td>${esc(String(entry.dispute_window_hours ?? "-"))} h</td>
             <td>
               <button
@@ -729,7 +1116,7 @@
     };
 
     if (!payload.portal_account_id || !payload.project_property_id) {
-      setFeedback("Debes indicar portal_account_id y una promocion valida.", "error");
+      setFeedback("Debes indicar una cuenta portal y una promocion valida.", "error");
       return;
     }
 
@@ -795,14 +1182,19 @@
         .map((entry) => {
           const id = toText(entry.id) || "";
           const published = Boolean(entry.is_published);
+          const publicationText = publicationLabel(published);
+          const projectId = toText(entry.project_property_id);
+          const linkedProject = getProjectById(projectId);
+          const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : "Promocion asignada";
+          const audienceText = audienceLabel(entry.audience);
           return `
             <tr>
-              <td><small>${esc(entry.project_property_id || "-")}</small></td>
-              <td>${esc(`${entry.language || "-"} / ${entry.audience || "-"}`)}</td>
+              <td>${esc(projectLabel)}</td>
+              <td>${esc(`${entry.language || "-"} / ${audienceText}`)}</td>
               <td>${esc(entry.section_key || "-")}</td>
               <td>${esc(entry.title || "-")}</td>
               <td>${esc(String(entry.sort_order ?? 0))}</td>
-              <td><span class="crm-badge ${published ? "ok" : "warn"}">${published ? "published" : "draft"}</span></td>
+              <td><span class="crm-badge ${published ? "ok" : "warn"}">${esc(publicationText)}</span></td>
               <td>
                 <div class="crm-actions-row">
                   <button type="button" class="crm-mini-btn" data-action="edit-content" data-content-id="${esc(id)}">Editar</button>
@@ -972,26 +1364,331 @@
     setFeedback("Bloque eliminado.", "ok");
   };
 
+  // DOCUMENTS
+  const getCurrentDocumentsPropertyId = () => {
+    if (!(el.documentsForm instanceof HTMLFormElement)) return null;
+    const formData = new FormData(el.documentsForm);
+    return toText(formData.get("property_id"));
+  };
+
+  const syncDocumentsPropertyResolution = () => {
+    if (!(el.documentsPropertyResolution instanceof HTMLElement)) return;
+    const selectedPropertyId = getCurrentDocumentsPropertyId();
+    if (!selectedPropertyId) {
+      el.documentsPropertyResolution.textContent =
+        "Selecciona una propiedad. Si eliges unidad hija, se vinculara automaticamente a su promocion padre.";
+      return;
+    }
+
+    const selectedProperty = getProjectById(selectedPropertyId);
+    const selectedType = toText(selectedProperty?.record_type) ?? "project";
+    const parentId =
+      selectedType === "unit"
+        ? toText(selectedProperty?.parent_property_id)
+        : toText(selectedProperty?.id) ?? selectedPropertyId;
+    const parentProject = parentId ? getProjectById(parentId) : null;
+
+    if (selectedType === "unit") {
+      el.documentsPropertyResolution.textContent = `Unidad hija seleccionada. El documento quedara publicado en la promocion padre: ${getProjectDisplayName(
+        parentProject ?? { id: parentId }
+      )}.`;
+      return;
+    }
+
+    el.documentsPropertyResolution.textContent = `Promocion padre seleccionada: ${getProjectDisplayName(
+      selectedProperty ?? { id: selectedPropertyId }
+    )}.`;
+  };
+
+  const renderDocumentsPropertyTree = () => {
+    if (!(el.documentsTreeList instanceof HTMLElement)) return;
+    const selectedProjectId =
+      el.documentsTreeProjectSelect instanceof HTMLSelectElement ? toText(el.documentsTreeProjectSelect.value) : null;
+
+    if (!selectedProjectId) {
+      el.documentsTreeList.innerHTML = "<li>Selecciona una promocion para ver las propiedades hijas.</li>";
+      return;
+    }
+
+    const project = getProjectById(selectedProjectId);
+    const units = state.portalProjects.filter((entry) => {
+      const recordType = toText(entry?.record_type) ?? "";
+      const parentId = toText(entry?.parent_property_id);
+      return recordType === "unit" && parentId === selectedProjectId;
+    });
+
+    const projectLabel = getProjectDisplayName(project ?? { id: selectedProjectId });
+    if (!units.length) {
+      el.documentsTreeList.innerHTML = `<li><strong>${esc(projectLabel)}</strong>: sin unidades hijas registradas.</li>`;
+      return;
+    }
+
+    el.documentsTreeList.innerHTML = [
+      `<li><strong>${esc(projectLabel)}</strong> (${units.length} unidades hijas)</li>`,
+      ...units.map((entry) => {
+        const unitId = toText(entry?.id) ?? "-";
+        const unitLabel = getProjectDisplayName(entry);
+        return `<li><small>${esc(unitId)}</small> | ${esc(unitLabel)}</li>`;
+      }),
+    ].join("");
+  };
+
+  const renderDocuments = (rows = [], meta = {}) => {
+    if (!(el.documentsTbody instanceof HTMLElement)) return;
+    if (!rows.length) {
+      el.documentsTbody.innerHTML = '<tr><td colspan="7">No hay documentos para el filtro actual.</td></tr>';
+    } else {
+      el.documentsTbody.innerHTML = rows
+        .map((entry) => {
+          const id = toText(entry.id) || "";
+          const projectId = toText(entry.project_property_id);
+          const sourcePropertyId = toText(entry.property_id) ?? projectId;
+          const sourceProperty = getProjectById(sourcePropertyId);
+          const linkedProject = getProjectById(projectId);
+          const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : "Promocion asignada";
+          const sourceLabel = sourceProperty ? getProjectDisplayName(sourceProperty) : sourcePropertyId ?? projectLabel;
+          const relationLabel =
+            sourcePropertyId && projectId && sourcePropertyId !== projectId
+              ? `${sourceLabel} -> Padre: ${projectLabel}`
+              : projectLabel;
+          const visibility = toText(entry.portal_visibility) || "both";
+          const published = Boolean(entry.portal_is_published);
+          const publicationText = publicationLabel(published);
+          const createdAt = toText(entry.portal_published_at) ?? toText(entry.created_at);
+          const downloadUrl = toText(entry.download_url);
+          const title = toText(entry.title) || "Documento";
+          const mimeType = toText(entry.mime_type) || "-";
+          const sizeText = formatBytes(entry.file_size_bytes);
+
+          return `
+            <tr>
+              <td>
+                <strong>${esc(title)}</strong><br />
+                <small>${esc(`${mimeType} | ${sizeText}`)}</small>
+              </td>
+              <td>${esc(relationLabel)}</td>
+              <td><span class="crm-badge ${statusClass(visibility)}">${esc(portalVisibilityLabel(visibility))}</span></td>
+              <td><span class="crm-badge ${published ? "ok" : "warn"}">${esc(publicationText)}</span></td>
+              <td>${esc(formatDateTime(createdAt))}</td>
+              <td>
+                ${
+                  downloadUrl
+                    ? `<a class="crm-mini-btn" href="${esc(downloadUrl)}" target="_blank" rel="noopener noreferrer">Descargar</a>`
+                    : '<small class="crm-inline-note">No disponible</small>'
+                }
+              </td>
+              <td>
+                <div class="crm-actions-row">
+                  <button type="button" class="crm-mini-btn" data-action="edit-document" data-document-id="${esc(id)}">Editar</button>
+                  <button type="button" class="crm-mini-btn" data-action="toggle-document-published" data-document-id="${esc(id)}" data-document-published="${published ? "1" : "0"}">
+                    ${published ? "Ocultar" : "Publicar"}
+                  </button>
+                  <button type="button" class="crm-mini-btn danger" data-action="delete-document" data-document-id="${esc(id)}">Borrar</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+    }
+
+    if (el.documentsMeta instanceof HTMLElement) {
+      const count = Number(meta.count || rows.length || 0);
+      const total = Number(meta.total || count);
+      const pageValue = Number(meta.page || 1);
+      const totalPages = Number(meta.total_pages || 1);
+      el.documentsMeta.textContent = `${count} filas visibles | total ${total} | pagina ${pageValue}/${totalPages}`;
+    }
+  };
+
+  const loadDocuments = async () => {
+    if (!ensureOrganization()) return;
+    const filterForm = el.documentsFilterForm instanceof HTMLFormElement ? new FormData(el.documentsFilterForm) : null;
+    const propertyId = filterForm ? toText(filterForm.get("property_id")) : null;
+    const params = {
+      organization_id: state.organizationId,
+      property_id: propertyId,
+      portal_visibility: toText(filterForm?.get("portal_visibility")),
+      portal_is_published: toText(filterForm?.get("portal_is_published")),
+      q: toText(filterForm?.get("q")),
+      page: "1",
+      per_page: toText(filterForm?.get("per_page")) || "25",
+    };
+
+    const payload = await request(buildApiUrl("/api/v1/crm/portal/documents", params));
+    const rows = Array.isArray(payload?.data) ? payload.data : [];
+    renderDocuments(rows, asObject(payload?.meta));
+    root.dataset.documentRows = JSON.stringify(rows);
+  };
+
+  const resetDocumentsForm = () => {
+    if (!(el.documentsForm instanceof HTMLFormElement)) return;
+    el.documentsForm.reset();
+    if (el.documentsIdInput instanceof HTMLInputElement) el.documentsIdInput.value = "";
+    if (el.documentsPropertySelect instanceof HTMLSelectElement) el.documentsPropertySelect.value = "";
+    const publishedField = el.documentsForm.elements.namedItem("portal_is_published");
+    if (publishedField instanceof HTMLInputElement) publishedField.checked = true;
+    syncDocumentsPropertyResolution();
+  };
+
+  const getCachedDocumentRows = () => {
+    const raw = toText(root.dataset.documentRows);
+    if (!raw) return [];
+    try {
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const fillDocumentForm = (documentId) => {
+    if (!documentId || !(el.documentsForm instanceof HTMLFormElement)) return;
+    const rows = getCachedDocumentRows();
+    const row = rows.find((entry) => toText(entry.id) === documentId);
+    if (!row) return;
+
+    const setFieldValue = (name, value) => {
+      const field = el.documentsForm.elements.namedItem(name);
+      if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) {
+        field.value = value == null ? "" : String(value);
+      }
+    };
+
+    const propertyId = toText(row.property_id) ?? toText(row.project_property_id);
+    if (el.documentsPropertySelect instanceof HTMLSelectElement && propertyId) {
+      const hasPropertyOption = Array.from(el.documentsPropertySelect.options).some(
+        (option) => toText(option.value) === propertyId
+      );
+      if (hasPropertyOption) {
+        el.documentsPropertySelect.value = propertyId;
+      } else {
+        el.documentsPropertySelect.value = "";
+      }
+    }
+
+    setFieldValue("id", row.id);
+    setFieldValue("title", row.title || "");
+    setFieldValue("portal_visibility", row.portal_visibility || "both");
+
+    const publishedField = el.documentsForm.elements.namedItem("portal_is_published");
+    if (publishedField instanceof HTMLInputElement) {
+      publishedField.checked = Boolean(row.portal_is_published);
+    }
+
+    syncDocumentsPropertyResolution();
+    const titleField = el.documentsForm.elements.namedItem("title");
+    if (titleField instanceof HTMLInputElement) titleField.focus();
+  };
+
+  const saveDocument = async () => {
+    if (!ensureOrganization() || !(el.documentsForm instanceof HTMLFormElement)) return;
+    const formData = new FormData(el.documentsForm);
+    const documentId = toText(formData.get("id"));
+    const propertyId = toText(formData.get("property_id"));
+    const title = toText(formData.get("title"));
+    const portalVisibility = toText(formData.get("portal_visibility")) || "both";
+    const portalIsPublished = formData.get("portal_is_published") === "on";
+
+    if (!propertyId || !title) {
+      setFeedback("Propiedad y titulo son obligatorios.", "error");
+      return;
+    }
+
+    if (documentId) {
+      await request("/api/v1/crm/portal/documents", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          organization_id: state.organizationId,
+          id: documentId,
+          property_id: propertyId,
+          title,
+          portal_visibility: portalVisibility,
+          portal_is_published: portalIsPublished,
+        }),
+      });
+
+      await loadDocuments();
+      setFeedback("Documento actualizado.", "ok");
+      return;
+    }
+
+    const fileValue = formData.get("file");
+    if (!(fileValue instanceof File) || fileValue.size <= 0) {
+      setFeedback("Debes seleccionar un archivo para subir.", "error");
+      return;
+    }
+
+    const uploadPayload = new FormData();
+    uploadPayload.set("organization_id", state.organizationId);
+    uploadPayload.set("property_id", propertyId);
+    uploadPayload.set("title", title);
+    uploadPayload.set("portal_visibility", portalVisibility);
+    uploadPayload.set("portal_is_published", portalIsPublished ? "true" : "false");
+    uploadPayload.set("is_private", "true");
+    uploadPayload.set("file", fileValue);
+
+    await request("/api/v1/crm/portal/documents/upload", {
+      method: "POST",
+      body: uploadPayload,
+    });
+
+    await loadDocuments();
+    resetDocumentsForm();
+    const titleField = el.documentsForm.elements.namedItem("title");
+    if (titleField instanceof HTMLInputElement) titleField.focus();
+    setFeedback("Documento subido y guardado.", "ok");
+  };
+
+  const toggleDocumentPublished = async (documentId, current) => {
+    if (!ensureOrganization() || !documentId) return;
+    await request("/api/v1/crm/portal/documents", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        organization_id: state.organizationId,
+        id: documentId,
+        portal_is_published: !current,
+      }),
+    });
+    await loadDocuments();
+    setFeedback(!current ? "Documento publicado." : "Documento ocultado.", "ok");
+  };
+
+  const deleteDocument = async (documentId) => {
+    if (!ensureOrganization() || !documentId) return;
+    const confirmed = window.confirm("Se eliminara este documento del portal. Continuar?");
+    if (!confirmed) return;
+
+    await request("/api/v1/crm/portal/documents", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        organization_id: state.organizationId,
+        id: documentId,
+      }),
+    });
+
+    await loadDocuments();
+    setFeedback("Documento eliminado.", "ok");
+  };
+
   // LOGS
   const renderLogs = (rows = [], meta = {}) => {
     if (!(el.logsTbody instanceof HTMLElement)) return;
     if (!rows.length) {
-      el.logsTbody.innerHTML = '<tr><td colspan="7">No hay eventos para el filtro aplicado.</td></tr>';
+      el.logsTbody.innerHTML = '<tr><td colspan="5">No hay eventos para el filtro aplicado.</td></tr>';
     } else {
       el.logsTbody.innerHTML = rows
         .map((entry) => {
           const eventType = toText(entry.event_type) || "-";
+          const eventTypeText = logEventTypeLabel(eventType);
           return `
             <tr>
               <td>${esc(formatDateTime(entry.created_at))}</td>
-              <td><span class="crm-badge ${statusClass(eventType)}">${esc(eventType)}</span></td>
+              <td><span class="crm-badge ${statusClass(eventType)}">${esc(eventTypeText)}</span></td>
               <td>${esc(entry.email || "-")}</td>
-              <td><small>${esc(entry.portal_account_id || "-")}</small></td>
-              <td>
-                <small>${esc(entry.project_property_id || "-")}</small>
-                <br />
-                <small>${esc(entry.lead_id || "-")}</small>
-              </td>
               <td>${esc(entry.ip || "-")}</td>
               <td><small>${esc(toText(entry.user_agent) || "-")}</small></td>
             </tr>
@@ -1023,9 +1720,26 @@
       per_page: toText(filterForm?.get("per_page")) || "50",
       page: "1",
     };
-
-    const payload = await request(buildApiUrl("/api/v1/portal/access-logs", params));
-    renderLogs(Array.isArray(payload?.data) ? payload.data : [], asObject(payload?.meta));
+    try {
+      const payload = await requestPortalAdmin(buildApiUrl("/api/v1/portal/access-logs", params));
+      renderLogs(Array.isArray(payload?.data) ? payload.data : [], asObject(payload?.meta));
+    } catch (error) {
+      if (!isLogsAccessErrorCode(error?.code)) throw error;
+      renderLogs([], {
+        count: 0,
+        total: 0,
+        page: 1,
+        total_pages: 1,
+      });
+      if (el.logsMeta instanceof HTMLElement) {
+        el.logsMeta.textContent =
+          "Acceso restringido: inicia sesion con portal_agent_admin autorizado (rafael@blancareal.com).";
+      }
+      setFeedback(
+        "Logs bloqueados para esta sesion. Solo admin autorizado puede acceder.",
+        "error"
+      );
+    }
   };
 
   // DASHBOARD
@@ -1033,15 +1747,34 @@
     if (!ensureOrganization()) return;
     const base = { organization_id: state.organizationId, page: "1", per_page: "1" };
 
-    const [invitesPayload, usersPayload, contentPayload, logsPayload] = await Promise.all([
+    const [invitesPayload, signupRequestsPayload, usersPayload, contentPayload, documentsPayload] = await Promise.all([
       request(buildApiUrl("/api/v1/portal/invites", base)),
+      request(
+        buildApiUrl("/api/v1/crm/portal/registration-requests", {
+          ...base,
+          approval_status: "requested",
+        })
+      ),
       request(buildApiUrl("/api/v1/crm/portal/users", base)),
       request(buildApiUrl("/api/v1/crm/portal/content", base)),
-      request(buildApiUrl("/api/v1/portal/access-logs", { ...base, per_page: "5" })),
+      request(buildApiUrl("/api/v1/crm/portal/documents", base)),
     ]);
+
+    let logsPayload = null;
+    try {
+      logsPayload = await requestPortalAdmin(buildApiUrl("/api/v1/portal/access-logs", { ...base, per_page: "5" }));
+    } catch (error) {
+      if (!isLogsAccessErrorCode(error?.code)) throw error;
+      logsPayload = null;
+    }
 
     if (el.kpiInvites instanceof HTMLElement) {
       el.kpiInvites.textContent = String(Number(invitesPayload?.meta?.total || invitesPayload?.meta?.count || 0));
+    }
+    if (el.kpiSignupRequests instanceof HTMLElement) {
+      el.kpiSignupRequests.textContent = String(
+        Number(signupRequestsPayload?.meta?.total || signupRequestsPayload?.meta?.count || 0)
+      );
     }
     if (el.kpiUsers instanceof HTMLElement) {
       el.kpiUsers.textContent = String(Number(usersPayload?.meta?.total || usersPayload?.meta?.count || 0));
@@ -1049,24 +1782,52 @@
     if (el.kpiContent instanceof HTMLElement) {
       el.kpiContent.textContent = String(Number(contentPayload?.meta?.total || contentPayload?.meta?.count || 0));
     }
+    if (el.kpiDocuments instanceof HTMLElement) {
+      el.kpiDocuments.textContent = String(
+        Number(documentsPayload?.meta?.total || documentsPayload?.meta?.count || 0)
+      );
+    }
     if (el.kpiLogs instanceof HTMLElement) {
-      el.kpiLogs.textContent = String(Number(logsPayload?.meta?.total || logsPayload?.meta?.count || 0));
+      if (logsPayload) {
+        el.kpiLogs.textContent = String(Number(logsPayload?.meta?.total || logsPayload?.meta?.count || 0));
+      } else {
+        el.kpiLogs.textContent = "Privado";
+      }
     }
   };
 
   const handleOrgSubmit = async (event) => {
     event.preventDefault();
     const nextId = toText(el.orgInput instanceof HTMLInputElement ? el.orgInput.value : "");
-    state.organizationId = nextId || "";
-    state.organizationSource = nextId ? "manual" : "none";
+    const defaultOrganizationId = toText(window.__crmDefaultOrganizationId);
+    const localOrganizationId = toText(window.localStorage.getItem("crm.organization_id"));
+    const fallbackOrganizationId = localOrganizationId || defaultOrganizationId || state.organizationId;
+    state.organizationId = nextId || fallbackOrganizationId || "";
+    state.organizationSource = nextId
+      ? "manual"
+      : state.organizationId && state.organizationId === defaultOrganizationId
+        ? "default"
+        : state.organizationId
+          ? "local"
+          : "none";
     state.portalProjects = [];
     state.portalProjectsLoadedForOrg = null;
+    state.portalProjectsById = new Map();
+    state.portalAccountsById.clear();
     state.lastInviteShare = null;
     persistOrganization();
     updateUrlOrganization();
     renderOrganizationContext();
     renderProjectSelectors();
     renderInviteShare(null);
+    setFeedback(
+      !nextId && fallbackOrganizationId
+        ? "Se mantiene la organizacion activa en CRM."
+        : state.organizationId
+          ? "Organizacion activa actualizada."
+          : "Sin organizacion configurada.",
+      state.organizationId ? "ok" : "error"
+    );
     await loadCurrentPage();
   };
 
@@ -1081,6 +1842,8 @@
     state.organizationSource = context.source;
     state.portalProjects = [];
     state.portalProjectsLoadedForOrg = null;
+    state.portalProjectsById = new Map();
+    state.portalAccountsById.clear();
     state.lastInviteShare = null;
     persistOrganization();
     updateUrlOrganization();
@@ -1093,8 +1856,10 @@
     if (!state.organizationId) {
       if (page === "dashboard") {
         if (el.kpiInvites instanceof HTMLElement) el.kpiInvites.textContent = "-";
+        if (el.kpiSignupRequests instanceof HTMLElement) el.kpiSignupRequests.textContent = "-";
         if (el.kpiUsers instanceof HTMLElement) el.kpiUsers.textContent = "-";
         if (el.kpiContent instanceof HTMLElement) el.kpiContent.textContent = "-";
+        if (el.kpiDocuments instanceof HTMLElement) el.kpiDocuments.textContent = "-";
         if (el.kpiLogs instanceof HTMLElement) el.kpiLogs.textContent = "-";
       }
       setFeedback("Define organization_id para cargar datos.", "error");
@@ -1111,6 +1876,7 @@
         } catch {
           state.portalProjects = [];
           state.portalProjectsLoadedForOrg = null;
+          state.portalProjectsById = new Map();
           renderProjectSelectors();
         }
         normalizeInviteRoleByType();
@@ -1121,11 +1887,33 @@
         } catch {
           state.portalProjects = [];
           state.portalProjectsLoadedForOrg = null;
+          state.portalProjectsById = new Map();
           renderProjectSelectors();
         }
-        await Promise.all([loadUsers(), loadMemberships()]);
+        await loadUsers();
+        await loadMemberships();
       } else if (page === "content") {
+        try {
+          await loadPortalProjects();
+        } catch {
+          state.portalProjects = [];
+          state.portalProjectsLoadedForOrg = null;
+          state.portalProjectsById = new Map();
+          renderProjectSelectors();
+        }
         await loadContent();
+      } else if (page === "documents") {
+        try {
+          await loadPortalProjects();
+        } catch {
+          state.portalProjects = [];
+          state.portalProjectsLoadedForOrg = null;
+          state.portalProjectsById = new Map();
+          renderProjectSelectors();
+          renderDocumentsPropertyTree();
+          syncDocumentsPropertyResolution();
+        }
+        await loadDocuments();
       } else if (page === "logs") {
         await loadLogs();
       }
@@ -1159,6 +1947,25 @@
       if (toText(el.membershipProjectSelect.value)) {
         el.membershipProjectManualInput.value = "";
       }
+    });
+  }
+
+  if (el.documentsPropertySelect instanceof HTMLSelectElement) {
+    el.documentsPropertySelect.addEventListener("change", () => {
+      syncDocumentsPropertyResolution();
+    });
+  }
+
+  if (el.documentsTreeForm instanceof HTMLFormElement) {
+    el.documentsTreeForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      renderDocumentsPropertyTree();
+    });
+  }
+
+  if (el.documentsTreeProjectSelect instanceof HTMLSelectElement) {
+    el.documentsTreeProjectSelect.addEventListener("change", () => {
+      renderDocumentsPropertyTree();
     });
   }
 
@@ -1240,6 +2047,37 @@
   el.invitesTbody?.addEventListener("click", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
+
+    const approveButton = target.closest("button[data-action='approve-registration-request']");
+    if (approveButton) {
+      const requestId = toText(approveButton.getAttribute("data-request-id"));
+      if (!requestId) return;
+      void (async () => {
+        try {
+          await approveRegistrationRequest(requestId);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`No se pudo aprobar solicitud: ${message}`, "error");
+        }
+      })();
+      return;
+    }
+
+    const rejectButton = target.closest("button[data-action='reject-registration-request']");
+    if (rejectButton) {
+      const requestId = toText(rejectButton.getAttribute("data-request-id"));
+      if (!requestId) return;
+      void (async () => {
+        try {
+          await rejectRegistrationRequest(requestId);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`No se pudo rechazar solicitud: ${message}`, "error");
+        }
+      })();
+      return;
+    }
+
     const button = target.closest("button[data-action='revoke-invite']");
     if (!button) return;
     const inviteId = toText(button.getAttribute("data-invite-id"));
@@ -1336,7 +2174,7 @@
       if (el.membershipAccountInput instanceof HTMLInputElement) {
         el.membershipAccountInput.value = accountId;
         el.membershipAccountInput.focus();
-        setFeedback("Portal account ID copiado al formulario de membresia.", "ok");
+        setFeedback("Cuenta portal preparada en el formulario de membresia.", "ok");
       }
     }
   });
@@ -1448,6 +2286,96 @@
     }
   });
 
+  if (el.documentsFilterForm instanceof HTMLFormElement) {
+    el.documentsFilterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void (async () => {
+        try {
+          await loadDocuments();
+          setFeedback("Documentos actualizados.", "ok");
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`Error cargando documentos: ${message}`, "error");
+        }
+      })();
+    });
+  }
+
+  el.documentsFilterClearBtn?.addEventListener("click", () => {
+    clearForm(el.documentsFilterForm);
+    void (async () => {
+      try {
+        await loadDocuments();
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        setFeedback(`Error limpiando filtros de documentos: ${message}`, "error");
+      }
+    })();
+  });
+
+  if (el.documentsForm instanceof HTMLFormElement) {
+    el.documentsForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void (async () => {
+        try {
+          await saveDocument();
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`No se pudo guardar documento: ${message}`, "error");
+        }
+      })();
+    });
+  }
+
+  el.documentsNewBtn?.addEventListener("click", () => {
+    resetDocumentsForm();
+    setFeedback("Formulario listo para subir un documento nuevo.", "ok");
+  });
+
+  el.documentsTbody?.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const editButton = target.closest("button[data-action='edit-document']");
+    if (editButton) {
+      const documentId = toText(editButton.getAttribute("data-document-id"));
+      if (!documentId) return;
+      fillDocumentForm(documentId);
+      setFeedback("Documento cargado en formulario para edicion.", "ok");
+      return;
+    }
+
+    const toggleButton = target.closest("button[data-action='toggle-document-published']");
+    if (toggleButton) {
+      const documentId = toText(toggleButton.getAttribute("data-document-id"));
+      const current = toText(toggleButton.getAttribute("data-document-published")) === "1";
+      if (!documentId) return;
+      void (async () => {
+        try {
+          await toggleDocumentPublished(documentId, current);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`No se pudo cambiar publicacion: ${message}`, "error");
+        }
+      })();
+      return;
+    }
+
+    const deleteButton = target.closest("button[data-action='delete-document']");
+    if (deleteButton) {
+      const documentId = toText(deleteButton.getAttribute("data-document-id"));
+      if (!documentId) return;
+      void (async () => {
+        try {
+          await deleteDocument(documentId);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`No se pudo borrar documento: ${message}`, "error");
+        }
+      })();
+    }
+  });
+
   if (el.logsFilterForm instanceof HTMLFormElement) {
     el.logsFilterForm.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -1475,6 +2403,7 @@
     })();
   });
 
+  crmLabels?.applySelectDictionaries?.(root);
   initContext();
   void loadCurrentPage();
 })();

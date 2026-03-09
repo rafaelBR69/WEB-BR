@@ -7,6 +7,7 @@ import {
   type PropertyRecordType,
   type PropertyStatus,
   mapPropertyRow,
+  mergeDisplayNameIntoTranslations,
   mergeOperationalData,
   normalizeOperationType,
   normalizeProjectBusinessType,
@@ -22,6 +23,7 @@ import {
 type UpdatePropertyBody = {
   organization_id?: string;
   legacy_code?: string;
+  display_name?: string | null;
   record_type?: PropertyRecordType;
   project_business_type?: ProjectBusinessType;
   portal_enabled?: boolean;
@@ -231,12 +233,12 @@ export const GET: APIRoute = async ({ params, url }) => {
   const client = getSupabaseServerClient();
   if (!client) return jsonResponse({ ok: false, error: "supabase_not_configured" }, { status: 500 });
 
-  let query = client.schema("crm").from("properties").select(SELECT_COLUMNS).eq("id", id).maybeSingle();
+  let query = client.schema("crm").from("properties").select(SELECT_COLUMNS).eq("id", id);
   if (organizationId) {
     query = query.eq("organization_id", organizationId);
   }
 
-  const { data, error } = await query;
+  const { data, error } = await query.maybeSingle();
   if (error) {
     return jsonResponse(
       {
@@ -249,9 +251,10 @@ export const GET: APIRoute = async ({ params, url }) => {
   }
   if (!data) return jsonResponse({ ok: false, error: "property_not_found" }, { status: 404 });
 
+  const propertyRow = data as unknown as Record<string, unknown>;
   return jsonResponse({
     ok: true,
-    data: mapPropertyRow(data as Record<string, unknown>),
+    data: mapPropertyRow(propertyRow),
     meta: {
       storage: "supabase.crm.properties",
     },
@@ -286,6 +289,12 @@ export const PATCH: APIRoute = async ({ params, request }) => {
       const legacyCode = toOptionalText(body.legacy_code);
       if (!legacyCode) return jsonResponse({ ok: false, error: "legacy_code_required" }, { status: 422 });
       patch.legacy_code = legacyCode;
+    }
+    if (hasOwn(body, "display_name")) {
+      patch.translations = mergeDisplayNameIntoTranslations(
+        current.translations,
+        toOptionalText(body.display_name)
+      );
     }
     if (hasOwn(body, "record_type")) patch.record_type = nextRecordType;
     if (hasOwn(body, "operation_type")) patch.operation_type = normalizeOperationType(body.operation_type);
@@ -428,17 +437,16 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     .schema("crm")
     .from("properties")
     .select(
-      "id, organization_id, status, property_data, is_featured, is_public, price_currency, record_type, parent_property_id"
+      "id, organization_id, status, property_data, translations, is_featured, is_public, price_currency, record_type, parent_property_id"
     )
-    .eq("id", id)
-    .maybeSingle();
+    .eq("id", id);
 
   const organizationIdForScope = toOptionalText(body.organization_id);
   if (organizationIdForScope) {
     currentQuery = currentQuery.eq("organization_id", organizationIdForScope);
   }
 
-  const { data: current, error: currentError } = await currentQuery;
+  const { data: current, error: currentError } = await currentQuery.maybeSingle();
   if (currentError) {
     return jsonResponse(
       {
@@ -465,6 +473,12 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     const legacyCode = toOptionalText(body.legacy_code);
     if (!legacyCode) return jsonResponse({ ok: false, error: "legacy_code_required" }, { status: 422 });
     updatePayload.legacy_code = legacyCode;
+  }
+  if (hasOwn(body, "display_name")) {
+    updatePayload.translations = mergeDisplayNameIntoTranslations(
+      current.translations,
+      toOptionalText(body.display_name)
+    );
   }
   if (hasOwn(body, "record_type")) updatePayload.record_type = nextRecordType;
   if (hasOwn(body, "operation_type")) updatePayload.operation_type = normalizeOperationType(body.operation_type);
@@ -614,9 +628,10 @@ export const PATCH: APIRoute = async ({ params, request }) => {
       );
     }
     if (!sameData) return jsonResponse({ ok: false, error: "property_not_found" }, { status: 404 });
+    const sameRow = sameData as unknown as Record<string, unknown>;
     return jsonResponse({
       ok: true,
-      data: mapPropertyRow(sameData as Record<string, unknown>),
+      data: mapPropertyRow(sameRow),
       meta: { storage: "supabase.crm.properties", unchanged: true },
     });
   }
@@ -643,8 +658,11 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     );
   }
 
+  const updatedRow = data as unknown as Record<string, unknown>;
   const updatedStatus =
-    typeof data.status === "string" ? normalizePropertyStatus(data.status) : ("draft" as PropertyStatus);
+    typeof updatedRow.status === "string"
+      ? normalizePropertyStatus(updatedRow.status)
+      : ("draft" as PropertyStatus);
   if (previousStatus !== updatedStatus) {
     await insertStatusHistory({
       organization_id: organizationId,
@@ -657,7 +675,7 @@ export const PATCH: APIRoute = async ({ params, request }) => {
 
   return jsonResponse({
     ok: true,
-    data: mapPropertyRow(data as Record<string, unknown>),
+    data: mapPropertyRow(updatedRow),
     meta: {
       storage: "supabase.crm.properties",
       persisted: true,

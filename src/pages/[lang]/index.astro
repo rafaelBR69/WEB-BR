@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
 import "@/styles/pages/landing.css";
+import BrandLogo from "@/components/BrandLogo.astro";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
 
@@ -231,7 +232,7 @@ const extraCopyByLang = {
     aboutRows: [
       {
         title: "Trayectoria y confianza",
-        text: "BlancaReal trabaja en Costa del Sol desde 1959 y ha acompanado a mas de 1.000 familias en sus operaciones inmobiliarias.",
+        text: "BlancaReal trabaja en Costa del Sol desde 1969 y ha acompanado a mas de 1.000 familias en sus operaciones inmobiliarias.",
         image:
           "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
         imageAlt: "Promocion residencial en Costa del Sol",
@@ -275,7 +276,7 @@ const extraCopyByLang = {
     aboutRows: [
       {
         title: "Track record and trust",
-        text: "BlancaReal has operated on Costa del Sol since 1959 and has supported more than 1,000 families in real estate operations.",
+        text: "BlancaReal has operated on Costa del Sol since 1969 and has supported more than 1,000 families in real estate operations.",
         image:
           "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
         imageAlt: "Residential development on Costa del Sol",
@@ -319,7 +320,7 @@ const extraCopyByLang = {
     aboutRows: [
       {
         title: "Erfahrung und Vertrauen",
-        text: "BlancaReal ist seit 1959 an der Costa del Sol taetig und hat mehr als 1.000 Familien bei Immobilienoperationen begleitet.",
+        text: "BlancaReal ist seit 1969 an der Costa del Sol taetig und hat mehr als 1.000 Familien bei Immobilienoperationen begleitet.",
         image:
           "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
         imageAlt: "Wohnprojekt an der Costa del Sol",
@@ -363,7 +364,7 @@ const extraCopyByLang = {
     aboutRows: [
       {
         title: "Experience et confiance",
-        text: "BlancaReal opere sur la Costa del Sol depuis 1959 et a accompagne plus de 1 000 familles.",
+        text: "BlancaReal opere sur la Costa del Sol depuis 1969 et a accompagne plus de 1 000 familles.",
         image:
           "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
         imageAlt: "Programme residentiel sur la Costa del Sol",
@@ -407,7 +408,7 @@ const extraCopyByLang = {
     aboutRows: [
       {
         title: "Esperienza e fiducia",
-        text: "BlancaReal opera in Costa del Sol dal 1959 e ha supportato oltre 1.000 famiglie nelle operazioni immobiliari.",
+        text: "BlancaReal opera in Costa del Sol dal 1969 e ha supportato oltre 1.000 famiglie nelle operazioni immobiliari.",
         image:
           "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
         imageAlt: "Sviluppo residenziale in Costa del Sol",
@@ -451,7 +452,7 @@ const extraCopyByLang = {
     aboutRows: [
       {
         title: "Ervaring en vertrouwen",
-        text: "BlancaReal is sinds 1959 actief aan de Costa del Sol en begeleidde meer dan 1.000 families bij vastgoedoperaties.",
+        text: "BlancaReal is sinds 1969 actief aan de Costa del Sol en begeleidde meer dan 1.000 families bij vastgoedoperaties.",
         image:
           "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
         imageAlt: "Residentieel project aan de Costa del Sol",
@@ -748,7 +749,7 @@ const currentYear = new Date().getFullYear();
   <footer class="landing-footer">
     <div class="container landing-footer-grid">
       <section class="footer-brand">
-        <h2>BlancaReal</h2>
+        <BrandLogo variant="stacked" href={`/${lang}/`} class="footer-brand-logo" loading="lazy" />
         <p>{extra.footerTagline}</p>
       </section>
 
@@ -805,4 +806,17 @@ const currentYear = new Date().getFullYear();
       });
     }
   </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+    
+    h2, .hero-heading, .pillar-card h3 {
+      font-family: 'Cormorant Garamond', serif !important;
+    }
+    
+    /* Ajuste para que se vea más premium */
+    h2 {
+      font-weight: 500;
+      font-style: italic;
+    }
+  </style>
 </BaseLayout>

@@ -20,12 +20,10 @@ const validateButton = document.getElementById("portal-activate-validate");
 const feedback = document.getElementById("portal-activate-feedback");
 const resultBox = document.getElementById("portal-activate-result");
 
-const organizationInput = document.getElementById("portal-activate-organization");
 const emailInput = document.getElementById("portal-activate-email");
 const codeInput = document.getElementById("portal-activate-code");
 const passwordInput = document.getElementById("portal-activate-password");
 const fullNameInput = document.getElementById("portal-activate-name");
-const projectInput = document.getElementById("portal-activate-project");
 
 const setFeedback = (message, kind = "warn") => {
   if (!(feedback instanceof HTMLElement)) return;
@@ -42,12 +40,15 @@ const setResult = (html) => {
 };
 
 const getFormState = () => {
-  const organizationId = toText(organizationInput?.value);
+  const query = new URLSearchParams(window.location.search);
+  const organizationId =
+    toText(query.get("organization_id")) ??
+    toText(bootstrap.defaultOrganizationId) ??
+    null;
   const email = toText(emailInput?.value)?.toLowerCase() ?? null;
   const code = toText(codeInput?.value)?.toUpperCase() ?? null;
   const password = toText(passwordInput?.value);
   const fullName = toText(fullNameInput?.value);
-  const projectPropertyId = toText(projectInput?.value);
 
   return {
     organizationId,
@@ -55,18 +56,10 @@ const getFormState = () => {
     code,
     password,
     fullName,
-    projectPropertyId,
   };
 };
 
 const validateMinimal = (state, mode = "activate") => {
-  if (!state.organizationId) {
-    setFeedback(
-      isSpanish ? "organization_id es obligatorio." : "organization_id is required.",
-      "error"
-    );
-    return false;
-  }
   if (!state.email) {
     setFeedback(isSpanish ? "Email es obligatorio." : "Email is required.", "error");
     return false;
@@ -93,7 +86,6 @@ const renderValidationResult = (payload) => {
   const invite = payload?.data?.invite || {};
   const remaining = payload?.data?.remaining_attempts;
   const lines = [
-    `<p><strong>invite_id:</strong> <span class="portal-inline-code">${escapeHtml(invite.id ?? "-")}</span></p>`,
     `<p><strong>email:</strong> ${escapeHtml(invite.email ?? "-")}</p>`,
     `<p><strong>role:</strong> ${escapeHtml(roleLabel(invite.role, lang))}</p>`,
     `<p><strong>status:</strong> ${escapeHtml(statusLabel(invite.status, lang))}</p>`,
@@ -107,22 +99,14 @@ const renderValidationResult = (payload) => {
 const renderActivationResult = (payload) => {
   const data = payload?.data || {};
   const account = data.portal_account || {};
-  const membership = data.membership || null;
   const invite = data.invite || {};
+  const activatedEmail = toText(invite.email) ?? toText(account?.metadata?.email) ?? "-";
   const lines = [
-    `<p><strong>auth_user_id:</strong> <span class="portal-inline-code">${escapeHtml(data.auth_user_id ?? "-")}</span></p>`,
-    `<p><strong>portal_account_id:</strong> <span class="portal-inline-code">${escapeHtml(account.id ?? "-")}</span></p>`,
+    `<p><strong>email:</strong> ${escapeHtml(activatedEmail)}</p>`,
     `<p><strong>role:</strong> ${escapeHtml(roleLabel(account.role, lang))}</p>`,
     `<p><strong>status:</strong> ${escapeHtml(statusLabel(account.status, lang))}</p>`,
     `<p><strong>invite_status:</strong> ${escapeHtml(statusLabel(invite.status, lang))}</p>`,
   ];
-  if (membership?.project_property_id) {
-    lines.push(
-      `<p><strong>membership_project:</strong> <span class="portal-inline-code">${escapeHtml(
-        membership.project_property_id
-      )}</span></p>`
-    );
-  }
   setResult(lines.join(""));
 };
 
@@ -139,10 +123,9 @@ validateButton?.addEventListener("click", async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        organization_id: state.organizationId,
         email: state.email,
         code: state.code,
-        project_property_id: state.projectPropertyId,
+        ...(state.organizationId ? { organization_id: state.organizationId } : {}),
       }),
     });
 
@@ -175,12 +158,11 @@ form?.addEventListener("submit", async (event) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        organization_id: state.organizationId,
         email: state.email,
         code: state.code,
         password: state.password,
         full_name: state.fullName,
-        project_property_id: state.projectPropertyId,
+        ...(state.organizationId ? { organization_id: state.organizationId } : {}),
       }),
     });
 
@@ -252,13 +234,6 @@ form?.addEventListener("submit", async (event) => {
   const query = new URLSearchParams(window.location.search);
   const existing = loadSession();
 
-  if (organizationInput instanceof HTMLInputElement) {
-    organizationInput.value =
-      toText(query.get("organization_id")) ??
-      existing?.organizationId ??
-      bootstrap.defaultOrganizationId ??
-      "";
-  }
   if (emailInput instanceof HTMLInputElement) {
     emailInput.value = toText(query.get("email")) ?? existing?.email ?? "";
   }

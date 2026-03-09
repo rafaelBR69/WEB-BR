@@ -29,6 +29,12 @@ type ActivatePortalBody = {
   metadata?: Record<string, unknown> | null;
 };
 
+const resolveDefaultOrganizationId = (): string | null => {
+  const fromPublic = asText(import.meta.env.PUBLIC_CRM_ORGANIZATION_ID);
+  if (fromPublic) return fromPublic;
+  return asText(import.meta.env.CRM_ORGANIZATION_ID);
+};
+
 const updateInviteAttempt = async (
   inviteRow: Record<string, unknown>,
   isValid: boolean,
@@ -149,7 +155,7 @@ export const POST: APIRoute = async ({ request }) => {
   const body = await parseJsonBody<ActivatePortalBody>(request);
   if (!body) return jsonResponse({ ok: false, error: "invalid_json_body" }, { status: 400 });
 
-  const organizationId = asText(body.organization_id);
+  const organizationId = asText(body.organization_id) ?? resolveDefaultOrganizationId();
   const email = asText(body.email)?.toLowerCase() ?? null;
   const code = asText(body.code)?.toUpperCase() ?? null;
   const password = asText(body.password);

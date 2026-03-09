@@ -190,6 +190,77 @@ export const saveSession = (session, options = {}) => {
   return payload;
 };
 
+const isSessionPersistedInLocalStorage = () => {
+  try {
+    return Boolean(window.localStorage.getItem(SESSION_KEY));
+  } catch {
+    return false;
+  }
+};
+
+export const withSessionOrganization = (params = {}, session = null) => {
+  const nextParams = { ...params };
+  const hasOrganizationId = toText(nextParams.organization_id);
+  if (hasOrganizationId) return nextParams;
+
+  const sessionOrganizationId = toText(session?.organizationId);
+  if (sessionOrganizationId) {
+    nextParams.organization_id = sessionOrganizationId;
+  }
+  return nextParams;
+};
+
+export const refreshPortalSession = async (session) => {
+  const refreshToken = toText(session?.refreshToken);
+  if (!refreshToken) return null;
+
+  const organizationId = toText(session?.organizationId);
+  const body = {
+    refresh_token: refreshToken,
+    ...(organizationId ? { organization_id: organizationId } : {}),
+  };
+
+  try {
+    const payload = await requestJson(buildPortalApiUrl("/auth/refresh"), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const portalAccount = asObject(payload?.data?.portal_account);
+    const authUser = asObject(payload?.data?.auth_user);
+    const authSession = asObject(payload?.data?.session);
+
+    const remember = (() => {
+      if (isSessionPersistedInLocalStorage()) return true;
+      try {
+        return !window.sessionStorage.getItem(SESSION_KEY);
+      } catch {
+        return true;
+      }
+    })();
+    return saveSession(
+      {
+        accessToken: toText(authSession.access_token),
+        refreshToken: toText(authSession.refresh_token) ?? refreshToken,
+        tokenType: toText(authSession.token_type),
+        expiresAt: authSession.expires_at,
+        expiresIn: authSession.expires_in,
+        organizationId: toText(portalAccount.organization_id) ?? organizationId,
+        portalAccountId: toText(portalAccount.id) ?? toText(session?.portalAccountId),
+        role: toText(portalAccount.role) ?? toText(session?.role),
+        email: toText(authUser.email) ?? toText(session?.email),
+        authUserId: toText(authUser.id) ?? toText(session?.authUserId),
+      },
+      { remember }
+    );
+  } catch {
+    return null;
+  }
+};
+
 export const clearSession = () => {
   window.localStorage.removeItem(SESSION_KEY);
   window.sessionStorage.removeItem(SESSION_KEY);

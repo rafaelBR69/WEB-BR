@@ -973,7 +973,7 @@
     if (!el.promotionsTbody) return;
     const promotions = Array.isArray(state.stats?.promotions) ? state.stats.promotions : [];
     if (!promotions.length) {
-      el.promotionsTbody.innerHTML = "<tr><td colspan='7'>Sin promociones para mostrar.</td></tr>";
+      el.promotionsTbody.innerHTML = "<tr><td colspan='8'>Sin promociones para mostrar.</td></tr>";
       return;
     }
 
@@ -989,10 +989,12 @@
       .slice(0, 20)
       .map((promo) => {
         const businessType = promo.business_type || promo.project_business_type;
+        const portalState = resolveProjectPortalState(promo);
         return `
           <tr>
             <td><strong>${esc(projectLabel(promo))}</strong><br /><small>${esc(propertyRef(promo))}</small></td>
             <td>${esc(businessLabels[businessType] || businessType || "-")}</td>
+            <td><span class="crm-badge ${esc(portalState.badgeClass)}">${esc(portalState.badgeLabel)}</span></td>
             <td><span class="crm-badge ${statusClass[promo.status] || "warn"}">${esc(statusLabel(promo.status))}</span></td>
             <td>${esc(promo.total_units ?? 0)}</td>
             <td>${esc(promo.available_units ?? 0)}</td>
@@ -2118,6 +2120,8 @@
 
     el.editForm.elements.id.value = item.id;
     el.editForm.elements.legacy_code.value = item.legacy_code || "";
+    el.editForm.elements.display_name.value =
+      item.display_name || item.project_name || item.operational?.building_name || "";
     el.editForm.elements.record_type.value = item.record_type || "single";
     renderParentProjectOptions();
     syncParentLegacyFieldRules(el.editForm);
@@ -2184,6 +2188,7 @@
     return {
       organization_id: state.organizationId || null,
       legacy_code: toText(formData.get("legacy_code")),
+      display_name: toText(formData.get("display_name")),
       record_type: recordType,
       project_business_type: toText(formData.get("project_business_type")),
       ...(includePortalField ? { portal_enabled: portalField.checked } : {}),
@@ -2644,14 +2649,26 @@
     event.preventDefault();
     const manualValue = String(el.orgInput?.value || "").trim();
     const defaultOrgId = toText(window.__crmDefaultOrganizationId);
-    state.organizationId = manualValue || defaultOrgId || "";
-    state.organizationSource = manualValue ? "manual" : defaultOrgId ? "default" : "none";
+    const localOrgId = toText(localStorage.getItem("crm.organization_id"));
+    const fallbackOrgId = localOrgId || defaultOrgId || state.organizationId;
+    state.organizationId = manualValue || fallbackOrgId || "";
+    state.organizationSource = manualValue
+      ? "manual"
+      : state.organizationId && state.organizationId === defaultOrgId
+        ? "default"
+        : state.organizationId
+          ? "local"
+          : "none";
     if (state.organizationId) localStorage.setItem("crm.organization_id", state.organizationId);
     else localStorage.removeItem("crm.organization_id");
     state.pagination.page = 1;
     renderOrganizationContext();
     setFeedback(
-      state.organizationId ? "Organizacion activa actualizada." : "Organizacion limpiada.",
+      !manualValue && fallbackOrgId
+        ? "Se mantiene la organizacion activa en CRM."
+        : state.organizationId
+          ? "Organizacion activa actualizada."
+          : "Sin organizacion configurada.",
       "ok"
     );
     await loadProperties({ preserveSelection: false, resetPage: true });

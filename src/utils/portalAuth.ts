@@ -9,6 +9,7 @@ type PortalAuthError = {
 
 export type PortalRequestContext = {
   auth_user_id: string;
+  auth_email: string | null;
   access_token: string;
   organization_id: string;
   portal_account: ReturnType<typeof mapPortalAccountRow>;
@@ -103,12 +104,14 @@ export const resolvePortalRequestContext = async (
   if (!accounts.length) {
     return {
       data: null,
-      error: toPortalAuthError(403, "portal_account_not_found"),
+      error: toPortalAuthError(
+        403,
+        orgHint ? "portal_account_not_found_for_organization" : "portal_account_not_found"
+      ),
     };
   }
 
-  const activeAccount = accounts.find((entry) => entry.status === "active");
-  const portalAccount = activeAccount ?? accounts[0];
+  const portalAccount = accounts.find((entry) => entry.status === "active") ?? accounts[0];
 
   if (!options.allowInactive && portalAccount.status !== "active") {
     return {
@@ -128,6 +131,7 @@ export const resolvePortalRequestContext = async (
   return {
     data: {
       auth_user_id: authUserId,
+      auth_email: asText(authData.user.email),
       access_token: token,
       organization_id: organizationId,
       portal_account: portalAccount,

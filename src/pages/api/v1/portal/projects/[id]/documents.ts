@@ -89,20 +89,43 @@ export const GET: APIRoute = async ({ params, url, request }) => {
     .filter((row) => {
       if (!q) return true;
       const title = asText(row.title) ?? "";
-      const path = asText(row.storage_path) ?? "";
       const mime = asText(row.mime_type) ?? "";
-      return `${title} ${path} ${mime}`.toLowerCase().includes(q);
+      return `${title} ${mime}`.toLowerCase().includes(q);
     });
+
+  const documents = filtered.map((row) => {
+    const documentId = asText(row.id);
+    const downloadEndpoint = documentId
+      ? `/api/v1/portal/projects/${encodeURIComponent(projectId)}/documents/${encodeURIComponent(documentId)}/download`
+      : null;
+
+    return {
+      document_id: documentId,
+      title: asText(row.title),
+      mime_type: asText(row.mime_type),
+      file_size_bytes:
+        typeof row.file_size_bytes === "number"
+          ? row.file_size_bytes
+          : row.file_size_bytes
+            ? Number(row.file_size_bytes)
+            : null,
+      portal_visibility: normalizePortalDocumentVisibility(row.portal_visibility),
+      portal_is_published: row.portal_is_published === true,
+      portal_published_at: asText(row.portal_published_at),
+      created_at: asText(row.created_at),
+      download_endpoint: downloadEndpoint,
+    };
+  });
 
   return jsonResponse({
     ok: true,
-    data: filtered,
+    data: documents,
     meta: {
-      count: filtered.length,
+      count: documents.length,
       role,
       membership_scope: membership.data.access_scope,
       storage: "supabase.crm.documents",
-      note: "document download should use signed URLs from private bucket",
+      note: "request a short-lived signed URL from download_endpoint before opening document",
     },
   });
 };

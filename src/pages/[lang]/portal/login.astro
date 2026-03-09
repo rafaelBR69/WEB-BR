@@ -20,8 +20,8 @@ const copyByLang = {
     title: "Portal | Acceso",
     description: "Acceso seguro al portal de agentes/clientes.",
     eyebrow: "Portal autenticado",
-    heading: "Iniciar sesion en el portal",
-    intro: "Usa tu email y contrasena para abrir tu panel de trabajo con acceso seguro por token.",
+    heading: "Acceso profesional al portal",
+    intro: "Entra con tu cuenta para consultar promociones, documentación y operativa compartida con el equipo comercial.",
     sectionTitle: "Acceso con credenciales",
     emailLabel: "Email",
     passwordLabel: "Contrasena",
@@ -29,15 +29,33 @@ const copyByLang = {
     loginCta: "Entrar al portal",
     clearCta: "Cerrar sesion guardada",
     stateTitle: "Estado de sesion",
-    activateHint: "Si todavia no tienes cuenta activa, completa primero la activacion.",
+    requestTitle: "Solicitar acceso",
+    requestIntro:
+      "Si aun no tienes acceso, deja tus datos y el equipo comercial revisara tu alta desde CRM.",
+    requestNameLabel: "Nombre y apellidos",
+    requestEmailLabel: "Email de acceso",
+    requestPhoneLabel: "Telefono (opcional)",
+    requestNotesLabel: "Notas (opcional)",
+    requestNotesPlaceholder: "Promocion de interes, agencia o comentario para el equipo comercial",
+    requestCta: "Enviar solicitud",
+    requestPrivacyHint: "Te contactaremos solo para gestionar el acceso al portal.",
+    activateHint: "Si aun no tienes la cuenta activada, completa primero la activacion.",
     activateLink: "Ir a activacion",
+    historyDesde: "Desde 1969",
+    statOne: "Acceso seguro por token",
+    statTwo: "Portal privado para agentes y clientes",
+    statThree: "Onboarding gestionado desde CRM",
+    pointOne: "Promociones, documentos y seguimiento en un solo entorno.",
+    pointTwo: "Permisos controlados por rol y organizacion.",
+    pointThree: "Preparado para clientes finales y agencias colaboradoras.",
+    requestBack: "Volver al acceso",
   },
   en: {
     title: "Portal | Access",
     description: "Secure access to the agents/clients portal.",
     eyebrow: "Authenticated portal",
-    heading: "Sign in to portal",
-    intro: "Use your email and password to open your workspace with token-based secure access.",
+    heading: "Professional portal access",
+    intro: "Sign in with your account to review projects, documentation and shared commercial activity.",
     sectionTitle: "Credentials access",
     emailLabel: "Email",
     passwordLabel: "Password",
@@ -45,12 +63,30 @@ const copyByLang = {
     loginCta: "Open portal",
     clearCta: "Clear stored session",
     stateTitle: "Session state",
+    requestTitle: "Request access",
+    requestIntro:
+      "If you do not have access yet, share your details and the commercial team will review your onboarding from CRM.",
+    requestNameLabel: "Full name",
+    requestEmailLabel: "Access email",
+    requestPhoneLabel: "Phone (optional)",
+    requestNotesLabel: "Notes (optional)",
+    requestNotesPlaceholder: "Project of interest, agency or notes for the sales team",
+    requestCta: "Submit request",
+    requestPrivacyHint: "We will contact you only to process portal access.",
     activateHint: "If you do not have an active account yet, activate first.",
     activateLink: "Go to activation",
+    historyDesde: "Since 1969",
+    statOne: "Secure token-based access",
+    statTwo: "Private space for agents and clients",
+    statThree: "Onboarding managed from CRM",
+    pointOne: "Projects, documents and follow-up in one place.",
+    pointTwo: "Permissions controlled by role and organization.",
+    pointThree: "Prepared for end clients and partner agencies.",
+    requestBack: "Back to access",
   },
 };
 
-const t = copyByLang[lang] ?? copyByLang.en;
+const t = (copyByLang as any)[lang] || copyByLang.en;
 ---
 
 <BaseLayout
@@ -60,31 +96,61 @@ const t = copyByLang[lang] ?? copyByLang.en;
   availableLangs={SUPPORTED_LANGS}
   showMobileStickyCta={false}
 >
-  <div class="portal-app">
-    <div class="portal-shell">
-      <section class="portal-hero">
-        <p class="portal-kicker">{t.eyebrow}</p>
-        <h1>{t.heading}</h1>
-        <p>{t.intro}</p>
-      </section>
+  <main class="portal-app">
+    <section class="portal-auth-shell">
+      <aside class="portal-auth-hero">
+        <div class="portal-auth-hero-inner">
+          <span class="portal-auth-badge">{t.historyDesde}</span>
+          <p class="portal-kicker">{t.eyebrow}</p>
+          <h1 class="portal-auth-title">{t.heading}</h1>
+          <p class="portal-auth-copy">{t.intro}</p>
 
-      <section class="portal-grid portal-grid-2">
-        <article class="portal-card">
-          <h2>{t.sectionTitle}</h2>
-          <form id="portal-login-form" class="portal-form">
-            <label class="portal-col-2">
-              {t.emailLabel}
+          <div class="portal-auth-stats">
+            <article>
+              <strong>01</strong>
+              <span>{t.statOne}</span>
+            </article>
+            <article>
+              <strong>02</strong>
+              <span>{t.statTwo}</span>
+            </article>
+            <article>
+              <strong>03</strong>
+              <span>{t.statThree}</span>
+            </article>
+          </div>
+
+          <ul class="portal-auth-points">
+            <li>{t.pointOne}</li>
+            <li>{t.pointTwo}</li>
+            <li>{t.pointThree}</li>
+          </ul>
+        </div>
+      </aside>
+
+      <section class="portal-auth-main">
+        <div class="portal-auth-card" id="login-panel">
+          <header class="portal-auth-card-head">
+            <span class="portal-auth-section">{t.sectionTitle}</span>
+            <h2>{t.heading}</h2>
+            <p>{t.intro}</p>
+          </header>
+
+          <form id="portal-login-form" class="portal-auth-form">
+            <label class="portal-auth-field">
+              <span>{t.emailLabel}</span>
               <input
                 id="portal-login-email"
                 name="email"
                 type="email"
-                placeholder="tu@email.com"
+                placeholder="name@company.com"
                 autocomplete="email"
                 required
               />
             </label>
-            <label class="portal-col-2">
-              {t.passwordLabel}
+
+            <label class="portal-auth-field">
+              <span>{t.passwordLabel}</span>
               <input
                 id="portal-login-password"
                 name="password"
@@ -94,36 +160,453 @@ const t = copyByLang[lang] ?? copyByLang.en;
                 required
               />
             </label>
-            <label class="portal-col-2 portal-checkbox">
-              <input id="portal-login-remember" name="remember" type="checkbox" checked />
-              {t.rememberLabel}
-            </label>
-            <div class="portal-col-2 portal-actions">
-              <button type="submit" class="portal-button portal-button-primary">{t.loginCta}</button>
-              <button id="portal-login-clear" type="button" class="portal-button portal-button-soft">
+
+            <div class="portal-auth-row">
+              <label class="portal-checkbox">
+                <input id="portal-login-remember" name="remember" type="checkbox" checked />
+                <span>{t.rememberLabel}</span>
+              </label>
+              <a class="portal-link" href={`/${lang}/portal/activate/`}>{t.activateLink}</a>
+            </div>
+
+            <div class="portal-auth-actions">
+              <button type="submit" class="portal-button portal-button-primary portal-auth-button">
+                {t.loginCta}
+              </button>
+              <button id="portal-login-clear" type="button" class="portal-button portal-button-soft portal-auth-button">
                 {t.clearCta}
               </button>
             </div>
           </form>
-          <p id="portal-login-feedback" class="portal-feedback" role="status" aria-live="polite">
-            Listo para iniciar sesion.
-          </p>
-          <p class="portal-note">
-            {t.activateHint}
-            {" "}
-            <a class="portal-link" href={`/${lang}/portal/activate/`}>{t.activateLink}</a>
-          </p>
-        </article>
 
-        <article class="portal-card">
-          <h2>{t.stateTitle}</h2>
-          <div id="portal-login-session-state" class="portal-empty" aria-live="polite">
-            No hay sesion local activa.
-          </div>
-        </article>
+          <p id="portal-login-feedback" class="portal-feedback" role="status" aria-live="polite">
+            Ready to sign in.
+          </p>
+
+          <section class="portal-auth-status">
+            <div class="portal-auth-status-head">
+              <h3>{t.stateTitle}</h3>
+              <button id="toggle-request-view" type="button" class="portal-auth-switch">
+                {t.requestTitle}
+              </button>
+            </div>
+            <div id="portal-login-session-state" class="portal-auth-session-card"></div>
+            <p class="portal-note">
+              {t.activateHint}
+              <a class="portal-link" href={`/${lang}/portal/activate/`}>{t.activateLink}</a>
+            </p>
+          </section>
+        </div>
+
+        <div id="request-panel" class="portal-auth-card hidden">
+          <header class="portal-auth-card-head">
+            <span class="portal-auth-section">{t.requestTitle}</span>
+            <h2>{t.requestTitle}</h2>
+            <p>{t.requestIntro}</p>
+          </header>
+
+          <form id="portal-access-request-form" class="portal-auth-form">
+            <label class="portal-auth-field">
+              <span>{t.requestNameLabel}</span>
+              <input id="portal-access-request-full-name" name="full_name" type="text" required />
+            </label>
+            <label class="portal-auth-field">
+              <span>{t.requestEmailLabel}</span>
+              <input id="portal-access-request-email" name="email" type="email" required />
+            </label>
+            <label class="portal-auth-field">
+              <span>{t.requestPhoneLabel}</span>
+              <input id="portal-access-request-phone" name="phone" type="tel" />
+            </label>
+            <label class="portal-auth-field">
+              <span>{t.requestNotesLabel}</span>
+              <textarea
+                id="portal-access-request-notes"
+                name="notes"
+                rows="4"
+                placeholder={t.requestNotesPlaceholder}
+              ></textarea>
+            </label>
+
+            <div class="portal-auth-actions">
+              <button type="submit" class="portal-button portal-button-primary portal-auth-button">
+                {t.requestCta}
+              </button>
+              <button type="button" class="portal-button portal-button-soft portal-auth-button request-back">
+                {t.requestBack}
+              </button>
+            </div>
+          </form>
+
+          <p id="portal-access-request-feedback" class="portal-feedback" role="status" aria-live="polite"></p>
+          <p class="portal-note">{t.requestPrivacyHint}</p>
+        </div>
       </section>
-    </div>
-  </div>
+    </section>
+  </main>
+
+  <style>
+    .portal-auth-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(340px, 0.95fr) minmax(420px, 0.9fr);
+      background:
+        radial-gradient(circle at top left, rgba(23, 56, 91, 0.14), transparent 26%),
+        linear-gradient(180deg, #f6f9fc 0%, #eef3f8 100%);
+    }
+
+    .portal-auth-hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 24%),
+        linear-gradient(150deg, #0d2743 0%, #17385b 58%, #244e77 100%);
+      color: #f7fbff;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .portal-auth-hero::before {
+      content: "";
+      position: absolute;
+      inset: auto -8% -12% auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(210, 87, 44, 0.3), rgba(210, 87, 44, 0));
+      pointer-events: none;
+    }
+
+    .portal-auth-hero::after {
+      content: "";
+      position: absolute;
+      inset: 12% auto auto -10%;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0));
+      pointer-events: none;
+    }
+
+    .portal-auth-hero-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 4rem 3.2rem;
+      display: grid;
+      align-content: center;
+      gap: 1rem;
+    }
+
+    .portal-auth-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 0.46rem 0.72rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .portal-auth-title {
+      margin: 0;
+      font-family: "Outfit", "Source Sans 3", sans-serif;
+      font-size: clamp(2.6rem, 1.5rem + 2vw, 4.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      max-width: 9ch;
+    }
+
+    .portal-auth-copy {
+      margin: 0;
+      max-width: 48ch;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: rgba(241, 247, 252, 0.88);
+    }
+
+    .portal-auth-stats {
+      margin-top: 0.8rem;
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .portal-auth-stats article {
+      display: grid;
+      gap: 0.28rem;
+      padding: 0.95rem 0.9rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(6px);
+    }
+
+    .portal-auth-stats strong {
+      font-family: "Outfit", "Source Sans 3", sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.04em;
+    }
+
+    .portal-auth-stats span {
+      font-size: 0.84rem;
+      line-height: 1.45;
+      color: rgba(237, 244, 251, 0.82);
+    }
+
+    .portal-auth-points {
+      margin: 0.3rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .portal-auth-points li {
+      position: relative;
+      padding-left: 1.2rem;
+      color: rgba(241, 247, 252, 0.86);
+      line-height: 1.5;
+    }
+
+    .portal-auth-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.58rem;
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: #d2572c;
+      box-shadow: 0 0 0 4px rgba(210, 87, 44, 0.16);
+    }
+
+    .portal-auth-main {
+      padding: 2.3rem 2rem;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 1rem;
+    }
+
+    .portal-auth-card {
+      width: min(100%, 540px);
+      border: 1px solid rgba(23, 56, 91, 0.09);
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(248, 251, 255, 0.97)),
+        radial-gradient(circle at top right, rgba(210, 87, 44, 0.06), transparent 26%);
+      box-shadow: 0 34px 72px -44px rgba(15, 42, 71, 0.35);
+      padding: 2rem 1.9rem;
+    }
+
+    .portal-auth-card-head {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .portal-auth-section {
+      font-size: 0.73rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #d2572c;
+    }
+
+    .portal-auth-card-head h2 {
+      margin: 0;
+      font-family: "Outfit", "Source Sans 3", sans-serif;
+      font-size: clamp(1.8rem, 1.4rem + 1vw, 2.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      color: #112b47;
+    }
+
+    .portal-auth-card-head p {
+      margin: 0;
+      color: #536882;
+      line-height: 1.6;
+    }
+
+    .portal-auth-form {
+      margin-top: 1.4rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .portal-auth-field {
+      display: grid;
+      gap: 0.38rem;
+    }
+
+    .portal-auth-field span {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #70859c;
+    }
+
+    .portal-auth-field input,
+    .portal-auth-field textarea {
+      width: 100%;
+      min-height: 52px;
+      padding: 0.9rem 1rem;
+      border-radius: 16px;
+      border: 1px solid #d4e0ec;
+      background: rgba(255, 255, 255, 0.96);
+      color: #112b47;
+      font: inherit;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .portal-auth-field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .portal-auth-field input:focus,
+    .portal-auth-field textarea:focus {
+      outline: none;
+      border-color: #90aac7;
+      box-shadow: 0 0 0 4px rgba(23, 56, 91, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .portal-auth-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .portal-auth-actions {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .portal-auth-button {
+      min-height: 50px;
+      border-radius: 14px;
+    }
+
+    .portal-auth-status {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e3ebf3;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .portal-auth-status-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .portal-auth-status-head h3 {
+      margin: 0;
+      font-family: "Outfit", "Source Sans 3", sans-serif;
+      font-size: 1rem;
+      color: #112b47;
+    }
+
+    .portal-auth-switch {
+      border: 0;
+      background: transparent;
+      color: #17385b;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+      text-decoration-color: rgba(210, 87, 44, 0.45);
+      text-underline-offset: 0.25rem;
+    }
+
+    .portal-auth-session-card {
+      border: 1px solid #dbe6f1;
+      border-radius: 16px;
+      background: #f9fbfe;
+      padding: 0.95rem 1rem;
+      display: grid;
+      gap: 0.34rem;
+      color: #536882;
+      min-height: 92px;
+    }
+
+    .portal-auth-session-card p {
+      margin: 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 1100px) {
+      .portal-auth-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .portal-auth-hero-inner {
+        padding: 2.4rem 1.5rem 1.9rem;
+      }
+
+      .portal-auth-title {
+        max-width: none;
+      }
+
+      .portal-auth-main {
+        padding: 1.2rem 0.9rem 2rem;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .portal-auth-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .portal-auth-card {
+        padding: 1.4rem 1.15rem;
+        border-radius: 22px;
+      }
+
+      .portal-auth-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .portal-auth-row,
+      .portal-auth-status-head {
+        align-items: flex-start;
+      }
+    }
+  </style>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const trigger = document.getElementById("toggle-request-view");
+      const loginPanel = document.getElementById("login-panel");
+      const requestPanel = document.getElementById("request-panel");
+      const back = document.querySelector(".request-back");
+
+      trigger?.addEventListener("click", () => {
+        loginPanel?.classList.add("hidden");
+        requestPanel?.classList.remove("hidden");
+      });
+
+      back?.addEventListener("click", () => {
+        requestPanel?.classList.add("hidden");
+        loginPanel?.classList.remove("hidden");
+      });
+    });
+  </script>
 
   <script is:inline define:vars={{ defaultOrganizationId, lang }}>
     window.__portalBootstrap = {

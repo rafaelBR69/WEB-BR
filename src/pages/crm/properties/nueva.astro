@@ -29,6 +29,10 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
           <p class="crm-inline-note">Paso 1: define codigo, tipo y estructura de la propiedad.</p>
           <div class="crm-form">
             <label>Codigo interno <input name="legacy_code" type="text" placeholder="PM0101 o PM0101-B1" required /></label>
+            <label class="crm-col-2">
+              Nombre comercial / promocion
+              <input name="display_name" type="text" placeholder="White Hills, Orion, Condesa Hills..." />
+            </label>
             <label>Tipo registro
               <select name="record_type">
                 <option value="project">Promocion</option>
