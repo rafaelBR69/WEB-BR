@@ -656,12 +656,30 @@ const shouldLoadPublicRealtime =
         const label = document.getElementById(labelId);
         if (!picker || !trigger || !menu || !label) return;
 
+        const updateMenuDirection = () => {
+          picker.classList.remove("is-dropup");
+          menu.removeAttribute("hidden");
+
+          const triggerRect = trigger.getBoundingClientRect();
+          const menuRect = menu.getBoundingClientRect();
+          const spaceBelow = window.innerHeight - triggerRect.bottom;
+          const spaceAbove = triggerRect.top;
+
+          if (spaceBelow < menuRect.height + 12 && spaceAbove > spaceBelow) {
+            picker.classList.add("is-dropup");
+          }
+
+          if (menu.hasAttribute("hidden")) return;
+        };
+
         trigger.addEventListener("click", () => {
           const willOpen = menu.hasAttribute("hidden");
           if (willOpen) {
             menu.removeAttribute("hidden");
+            updateMenuDirection();
           } else {
             menu.setAttribute("hidden", "");
+            picker.classList.remove("is-dropup");
           }
           trigger.setAttribute("aria-expanded", String(willOpen));
         });
@@ -678,7 +696,13 @@ const shouldLoadPublicRealtime =
         document.addEventListener("click", (event) => {
           if (picker.contains(event.target)) return;
           menu.setAttribute("hidden", "");
+          picker.classList.remove("is-dropup");
           trigger.setAttribute("aria-expanded", "false");
+        });
+
+        window.addEventListener("resize", () => {
+          if (menu.hasAttribute("hidden")) return;
+          updateMenuDirection();
         });
       };
 
