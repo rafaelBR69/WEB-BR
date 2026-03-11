@@ -3,7 +3,8 @@ export const prerender = false;
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
-import "@/styles/pages/service-pages.css";
+import { getUiCopy } from "@/i18n/ui";
+import "@/styles/pages/legal-services.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
 
@@ -12,507 +13,439 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const ui = getUiCopy(lang);
+
+const landingNavItems = [
+  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+  { href: `/${lang}/marketing-3d/`, label: "Marketing" },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+];
 
 const copyByLang = {
   es: {
-    title: "Servicios Legales | BlancaReal",
+    title: "Servicios legales | BlancaReal",
     description:
-      "Asistencia legal inmobiliaria para compraventa, alquiler, due diligence y proteccion contractual.",
-    eyebrow: "Servicios Legales",
-    heading: "Cobertura legal inmobiliaria integral",
+      "Servicios legales inmobiliarios en la Costa del Sol para compraventa, due diligence, coordinacion documental y cierre de operaciones.",
+    eyebrow: "Servicios legales",
+    headingMain: "Seguridad juridica para operaciones inmobiliarias",
+    headingSub: "Estructura legal, lectura documental y criterio operativo",
     intro:
-      "Acompanamos cada operacion con una lectura legal clara, un control documental estricto y una coordinacion real con las partes implicadas.",
-    cta: "Contactar con el area legal",
-    blockTitleA: "Servicios clave",
-    blockTitleB: "Como trabajamos",
-    focusTitle: "Riesgo controlado desde el inicio",
-    focusIntro:
-      "No intervenimos al final del proceso. Entramos pronto para limpiar riesgos, ordenar documentacion y proteger la operacion antes de que escale.",
-    dossierTitle: "Que revisamos en cada expediente",
-    dossierIntro:
-      "Cada caso se estructura con un checklist operativo para que nada critico se quede fuera de lectura.",
-    riskTitle: "Areas donde reducimos friccion",
-    finalTitle: "Asistencia legal con criterio operativo",
-    finalIntro:
-      "Unimos seguridad juridica, lectura inmobiliaria y coordinacion con comercial, clientes y promotoras.",
-    services: [
-      "Revision de contratos de compraventa y arrendamiento.",
-      "Due diligence legal de inmuebles, promociones y titularidad.",
-      "Asistencia en notaria, registro y fiscalidad basica vinculada a la operacion.",
-      "Soporte en ocupacion, cumplimiento y escenarios de conflicto documental.",
+      "BlancaReal articula la parte legal del proceso inmobiliario con una mirada practica: protegemos la operacion, ordenamos la documentacion y coordinamos a las partes para que el cierre llegue limpio.",
+    primaryCta: "Hablar con el area legal",
+    secondaryCta: "Ir a contacto",
+    heroStats: [
+      { value: "Compraventa", label: "contratos y cierre" },
+      { value: "Due diligence", label: "riesgo documental y registral" },
+      { value: "Coordinacion", label: "cliente, agencia y notaria" },
     ],
-    process: [
-      "Diagnostico legal inicial y objetivos del cliente.",
-      "Plan de accion por fases con prioridades y responsables.",
-      "Ejecucion documental y coordinacion con agentes, notaria y terceros.",
-      "Cierre con checklist, incidencias resueltas y recomendaciones de seguimiento.",
-    ],
-    dossier: [
-      "Titularidad, cargas, notas simples y consistencia registral.",
-      "Contratos, anexos, reservas, condiciones suspensivas y plazos.",
-      "Poderes, identidad de partes, representacion y firmas.",
-      "Riesgos fiscales basicos y puntos de coordinacion con asesoria externa.",
-    ],
-    risks: [
+    deskEyebrow: "Mesa legal",
+    deskTitle: "No llegamos al final del proceso. Entramos donde empieza el riesgo.",
+    deskText:
+      "La operacion se revisa desde dentro: titularidad, cargas, contratos, representacion, calendario, firmas y coordinacion con terceros. El objetivo es quitar friccion antes de que aparezca.",
+    deskTags: ["Contratos", "Registro", "Notaria", "Fiscalidad basica", "Cierre"],
+    sections: {
+      coverageEyebrow: "Cobertura",
+      coverageHeading: "Areas legales que ordenamos dentro de una operacion",
+      coverageIntro:
+        "La pagina queda preparada por bloques claros para que luego podamos profundizar cada servicio sin romper la estructura general.",
+      methodEyebrow: "Metodo",
+      methodHeading: "Como se estructura un expediente legal con BlancaReal",
+      methodIntro:
+        "El enfoque no es teorico. Cada fase tiene una funcion concreta dentro del avance de la operacion y de la proteccion del cliente.",
+      dossiersEyebrow: "Expedientes",
+      dossiersHeading: "Tipos de casos que la landing puede desplegar despues",
+      dossiersIntro:
+        "Dejamos una arquitectura pensada para crecer en compraventas, clientes internacionales, promotoras y operaciones con capas de riesgo documental.",
+      controlEyebrow: "Control documental",
+      controlHeading: "Lo que conviene dejar siempre bajo lectura legal",
+      controlIntro:
+        "Mientras llega el contenido definitivo, la estructura ya prioriza los puntos donde mas valor aporta un equipo legal inmobiliario.",
+    },
+    coverage: [
       {
-        label: "Contratos",
-        title: "Clausulas con riesgo oculto",
-        desc: "Leemos obligaciones, penalizaciones, plazos y puntos abiertos antes de firmar.",
+        id: "sale",
+        label: "01",
+        title: "Compraventas y contratos",
+        text: "Revision y estructura contractual para que la operacion avance con reglas claras, hitos definidos y menos exposicion.",
+        points: ["Reservas", "Arras", "Compraventa privada", "Anexos y condiciones"],
       },
       {
-        label: "Documentacion",
-        title: "Expedientes incompletos o inconsistentes",
-        desc: "Ordenamos la documentacion para que la operacion no dependa de improvisacion final.",
+        id: "due",
+        label: "02",
+        title: "Due diligence inmobiliaria",
+        text: "Lectura de cargas, titularidad, consistencia registral y documentacion critica antes del compromiso economico.",
+        points: ["Nota simple", "Cargas", "Titularidad", "Coherencia documental"],
       },
       {
-        label: "Coordinacion",
-        title: "Friccion entre cliente, agencia y promotora",
-        desc: "Traducimos el proceso legal a un flujo operativo entendible para todas las partes.",
+        id: "intl",
+        label: "03",
+        title: "Cliente internacional",
+        text: "Coordinacion legal de operaciones con compradores o vendedores extranjeros y necesidades asociadas al proceso.",
+        points: ["Representacion", "Documentos", "Cuenta bancaria", "Soporte de cierre"],
+      },
+      {
+        id: "close",
+        label: "04",
+        title: "Notaria, registro y cierre",
+        text: "Alineamos documentos, tiempos y partes implicadas para que la firma no dependa de improvisacion final.",
+        points: ["Agenda de firma", "Revision final", "Entrega documental", "Seguimiento"],
       },
     ],
-    stats: [
-      { value: "360", label: "Revision documental" },
-      { value: "48h", label: "Primera lectura" },
-      { value: "1 solo flujo", label: "Legal y operativa" },
+    method: [
+      {
+        step: "Fase 1",
+        title: "Lectura inicial",
+        text: "Identificamos el tipo de operacion, los actores implicados y los riesgos visibles desde el primer intercambio.",
+      },
+      {
+        step: "Fase 2",
+        title: "Orden documental",
+        text: "Clasificamos contratos, registros, anexos y piezas pendientes para crear una base de trabajo limpia.",
+      },
+      {
+        step: "Fase 3",
+        title: "Coordinacion activa",
+        text: "Traducimos lo juridico a una secuencia operativa compartida con cliente, comercial, agencia y terceros.",
+      },
+      {
+        step: "Fase 4",
+        title: "Cierre protegido",
+        text: "Revisamos el ultimo tramo con foco en firma, calendario, incidencias y continuidad posterior cuando haga falta.",
+      },
     ],
+    dossiers: [
+      {
+        title: "Venta residencial",
+        text: "Fichas pensadas para propietarios que necesitan seguridad contractual, control de tiempos y cierre ordenado.",
+      },
+      {
+        title: "Compra con verificacion previa",
+        text: "Bloques para compradores que quieren claridad antes de comprometer capital en una vivienda o activo.",
+      },
+      {
+        title: "Promotoras y comercializacion",
+        text: "Estructura preparada para reservas, contratos, documentacion de proyecto y coordinacion comercial.",
+      },
+      {
+        title: "Cliente internacional",
+        text: "Espacio para procesos con documentacion extra, representacion, idioma y acompanamiento mas sensible.",
+      },
+    ],
+    controlTitle: "Checklist de lectura legal",
+    controlList: [
+      "Titularidad real, cargas y trazabilidad registral.",
+      "Validez de contratos, anexos, reservas y condiciones suspensivas.",
+      "Representacion, identidad de las partes y capacidad de firma.",
+      "Secuencia de pagos, hitos, plazos y documentacion de cierre.",
+      "Puntos de coordinacion con fiscalidad, notaria y agentes externos.",
+    ],
+    matrixTitle: "Capas que esta pagina podra desplegar",
+    matrix: [
+      { label: "Operacion", value: "Compra, venta o estructura mixta" },
+      { label: "Activo", value: "Residencial, promocion o unidad singular" },
+      { label: "Perfil", value: "Particular, promotora o cliente internacional" },
+      { label: "Momento", value: "Preventa, contrato, firma o post-cierre" },
+    ],
+    closingTitle: "Una base legal pensada para proteger y acelerar",
+    closingIntro:
+      "Esta landing ya queda planteada con tono, jerarquia y secciones listas para incorporar contenido juridico mas profundo sin rehacer el diseno.",
+    closingPrimary: "Solicitar asesoria legal",
+    closingSecondary: "Ver comercializacion",
   },
   en: {
-    title: "Legal Services | BlancaReal",
+    title: "Legal services | BlancaReal",
     description:
-      "Real estate legal support for buying, renting, due diligence and contract protection.",
-    eyebrow: "Legal Services",
-    heading: "End-to-end legal real estate coverage",
+      "Real estate legal services on the Costa del Sol for sales, due diligence, document coordination and closing support.",
+    eyebrow: "Legal services",
+    headingMain: "Legal certainty for real estate transactions",
+    headingSub: "Legal structure, document reading and operational judgment",
     intro:
-      "We support each transaction with clear legal reading, strict document control and active coordination across the deal.",
-    cta: "Contact legal team",
-    blockTitleA: "Core services",
-    blockTitleB: "How we work",
-    focusTitle: "Risk controlled from the start",
-    focusIntro:
-      "We do not enter only at the end. We get involved early to clean risk, organize documentation and protect the transaction before it drifts.",
-    dossierTitle: "What we review in every file",
-    dossierIntro:
-      "Each case is structured with an operating checklist so critical points are visible before execution.",
-    riskTitle: "Where we reduce friction",
-    finalTitle: "Legal support with operational judgment",
-    finalIntro:
-      "We combine legal certainty, real estate context and coordination with sales teams, clients and developers.",
-    services: [
-      "Review of sale and lease agreements.",
-      "Legal due diligence for assets, developments and title position.",
-      "Support with notary, registry and basic tax steps linked to the transaction.",
-      "Support in occupation, compliance and document conflict scenarios.",
+      "BlancaReal organizes the legal side of the property process with a practical view: we protect the transaction, structure documentation and coordinate parties so closing arrives clean.",
+    primaryCta: "Talk to legal team",
+    secondaryCta: "Go to contact",
+    heroStats: [
+      { value: "Sales", label: "contracts and closing" },
+      { value: "Due diligence", label: "document and registry risk" },
+      { value: "Coordination", label: "client, agency and notary" },
     ],
-    process: [
-      "Initial legal assessment and transaction objectives.",
-      "Phase-based action plan with priorities and ownership.",
-      "Document execution and coordination with agents, notary and third parties.",
-      "Closing checklist, resolved issues and follow-up recommendations.",
-    ],
-    dossier: [
-      "Title position, liens, registry notes and consistency checks.",
-      "Contracts, annexes, reservation terms, conditions and deadlines.",
-      "Powers of attorney, identity of parties, representation and signatures.",
-      "Basic tax exposure and coordination points with external advisors.",
-    ],
-    risks: [
+    deskEyebrow: "Legal desk",
+    deskTitle: "We do not enter only at the end. We enter where risk begins.",
+    deskText:
+      "The transaction is reviewed from inside out: title, encumbrances, contracts, representation, timing, signatures and third-party coordination. The goal is to remove friction before it appears.",
+    deskTags: ["Contracts", "Registry", "Notary", "Basic tax", "Closing"],
+    sections: {
+      coverageEyebrow: "Coverage",
+      coverageHeading: "Legal areas we structure inside a transaction",
+      coverageIntro:
+        "The page is intentionally organized in clear blocks so we can deepen each service later without rebuilding the structure.",
+      methodEyebrow: "Method",
+      methodHeading: "How a legal file is structured with BlancaReal",
+      methodIntro:
+        "The approach is not theoretical. Each phase has a direct role within deal progress and client protection.",
+      dossiersEyebrow: "Case files",
+      dossiersHeading: "Types of matters this landing can expand later",
+      dossiersIntro:
+        "The architecture is ready to grow around sales, international clients, developers and transactions with document-heavy risk layers.",
+      controlEyebrow: "Document control",
+      controlHeading: "What should always stay under legal review",
+      controlIntro:
+        "Until the final content arrives, the structure already prioritizes the areas where real estate legal support adds the most value.",
+    },
+    coverage: [
       {
-        label: "Contracts",
-        title: "Clauses with hidden exposure",
-        desc: "We review obligations, penalties, timing and open points before signature.",
+        id: "sale",
+        label: "01",
+        title: "Sales and contracts",
+        text: "Contract review and structure so the transaction can advance with clear rules, defined milestones and lower exposure.",
+        points: ["Reservations", "Deposits", "Private sale agreement", "Annexes and conditions"],
       },
       {
-        label: "Documents",
-        title: "Incomplete or inconsistent files",
-        desc: "We structure documentation so the transaction does not depend on last-minute improvisation.",
+        id: "due",
+        label: "02",
+        title: "Real estate due diligence",
+        text: "Reading of encumbrances, title position, registry consistency and critical documentation before financial commitment.",
+        points: ["Registry notes", "Charges", "Ownership", "Document consistency"],
       },
       {
-        label: "Coordination",
-        title: "Friction between client, agency and developer",
-        desc: "We translate the legal path into an operational flow all parties can follow.",
-      },
-    ],
-    stats: [
-      { value: "360", label: "Document review" },
-      { value: "48h", label: "First legal read" },
-      { value: "1 single flow", label: "Legal and operations" },
-    ],
-  },
-  de: {
-    title: "Rechtsservice | BlancaReal",
-    description:
-      "Rechtliche Immobilienberatung fuer Kauf, Miete, Due Diligence und Vertragsabsicherung.",
-    eyebrow: "Rechtsservice",
-    heading: "Ganzheitliche rechtliche Immobilienbegleitung",
-    intro:
-      "Wir begleiten jede Transaktion mit klarer Rechtsanalyse, sauberer Dokumentenkontrolle und echter Koordination aller Beteiligten.",
-    cta: "Rechtsteam kontaktieren",
-    blockTitleA: "Leistungsschwerpunkte",
-    blockTitleB: "Unser Vorgehen",
-    focusTitle: "Risiken frueh kontrollieren",
-    focusIntro:
-      "Wir steigen nicht erst am Ende ein. Wir ordnen Risiken und Unterlagen frueh, damit die Transaktion stabil bleibt.",
-    dossierTitle: "Was wir pro Akte pruefen",
-    dossierIntro:
-      "Jeder Fall bekommt eine operative Checkliste, damit kritische Punkte vor der Umsetzung sichtbar sind.",
-    riskTitle: "Wo wir Reibung reduzieren",
-    finalTitle: "Rechtliche Begleitung mit operativem Blick",
-    finalIntro:
-      "Wir verbinden rechtliche Sicherheit mit Immobilienkontext und Koordination zwischen Vertrieb, Kunden und Bautraegern.",
-    services: [
-      "Pruefung von Kauf- und Mietvertraegen.",
-      "Rechtliche Due Diligence fuer Objekte, Projekte und Eigentumslage.",
-      "Unterstuetzung bei Notar, Register und grundlegenden Steuerpunkten.",
-      "Begleitung bei Besetzung, Compliance und Dokumentenkonflikten.",
-    ],
-    process: [
-      "Initiale Rechtsanalyse und Zielbild der Transaktion.",
-      "Phasenplan mit Prioritaeten und Verantwortlichkeiten.",
-      "Dokumentenumsetzung und Koordination mit Agenten, Notar und Dritten.",
-      "Abschluss-Checkliste, offene Punkte und naechste Schritte.",
-    ],
-    dossier: [
-      "Eigentumslage, Lasten, Registerauszuege und Konsistenzpruefung.",
-      "Vertraege, Anlagen, Reservierungen, Bedingungen und Fristen.",
-      "Vollmachten, Identitaet der Parteien, Vertretung und Unterschriften.",
-      "Grundlegende Steuerrisiken und Koordination mit externer Beratung.",
-    ],
-    risks: [
-      {
-        label: "Vertraege",
-        title: "Versteckte Risiken in Klauseln",
-        desc: "Wir lesen Pflichten, Strafen, Fristen und offene Punkte vor der Unterschrift.",
+        id: "intl",
+        label: "03",
+        title: "International client",
+        text: "Legal coordination of transactions with foreign buyers or sellers and the needs that appear around the process.",
+        points: ["Representation", "Documents", "Bank account", "Closing support"],
       },
       {
-        label: "Unterlagen",
-        title: "Unvollstaendige oder widerspruechliche Akten",
-        desc: "Wir ordnen die Dokumentation, damit der Deal nicht vom letzten Moment abhaengt.",
+        id: "close",
+        label: "04",
+        title: "Notary, registry and closing",
+        text: "We align documents, timing and parties so signature does not depend on last-minute improvisation.",
+        points: ["Signing agenda", "Final review", "Document delivery", "Follow-up"],
+      },
+    ],
+    method: [
+      {
+        step: "Phase 1",
+        title: "Initial reading",
+        text: "We identify transaction type, parties involved and visible risks from the first exchange.",
       },
       {
-        label: "Koordination",
-        title: "Reibung zwischen Kunde, Agentur und Bautraeger",
-        desc: "Wir uebersetzen den Rechtsprozess in einen operativen Ablauf fuer alle Beteiligten.",
-      },
-    ],
-    stats: [
-      { value: "360", label: "Dokumentenpruefung" },
-      { value: "48h", label: "Erste Rechtslesung" },
-      { value: "1 gemeinsamer Fluss", label: "Legal und Betrieb" },
-    ],
-  },
-  fr: {
-    title: "Services Juridiques | BlancaReal",
-    description:
-      "Assistance juridique immobiliere pour achat, location, due diligence et protection contractuelle.",
-    eyebrow: "Services Juridiques",
-    heading: "Couverture juridique immobiliere complete",
-    intro:
-      "Nous accompagnons chaque operation avec une lecture juridique claire, un controle documentaire strict et une coordination active.",
-    cta: "Contacter le pole juridique",
-    blockTitleA: "Services principaux",
-    blockTitleB: "Notre methode",
-    focusTitle: "Risque maitrise des le debut",
-    focusIntro:
-      "Nous n intervenons pas seulement a la fin. Nous entrons tot pour nettoyer le risque et structurer la documentation.",
-    dossierTitle: "Ce que nous verifions dans chaque dossier",
-    dossierIntro:
-      "Chaque dossier suit une checklist operationnelle pour rendre visibles les points critiques avant execution.",
-    riskTitle: "Zones ou nous reduisons la friction",
-    finalTitle: "Juridique avec vision operationnelle",
-    finalIntro:
-      "Nous relions securite juridique, contexte immobilier et coordination avec commercial, clients et promoteurs.",
-    services: [
-      "Revision des contrats de vente et de location.",
-      "Due diligence juridique des biens, programmes et titre de propriete.",
-      "Assistance notaire, registre et points fiscaux de base lies a l operation.",
-      "Support en occupation, conformite et conflits documentaires.",
-    ],
-    process: [
-      "Diagnostic juridique initial et objectifs de l operation.",
-      "Plan d action par phases avec priorites et responsables.",
-      "Execution documentaire et coordination avec agents, notaire et tiers.",
-      "Cloture avec checklist, incidences resolues et recommandations.",
-    ],
-    dossier: [
-      "Titres, charges, notes du registre et coherence documentaire.",
-      "Contrats, annexes, reservations, conditions et delais.",
-      "Pouvoirs, identite des parties, representation et signatures.",
-      "Risques fiscaux de base et coordination avec conseil externe.",
-    ],
-    risks: [
-      {
-        label: "Contrats",
-        title: "Clauses avec exposition cachee",
-        desc: "Nous relisons obligations, penalites, delais et points ouverts avant signature.",
+        step: "Phase 2",
+        title: "Document order",
+        text: "We classify contracts, registry material, annexes and pending items to create a clean working base.",
       },
       {
-        label: "Dossiers",
-        title: "Documentation incomplete ou incoherente",
-        desc: "Nous structurons le dossier pour eviter l improvisation de derniere minute.",
+        step: "Phase 3",
+        title: "Active coordination",
+        text: "We translate the legal layer into an operational sequence shared with client, sales, agency and third parties.",
       },
       {
-        label: "Coordination",
-        title: "Friction entre client, agence et promoteur",
-        desc: "Nous transformons le parcours juridique en flux operationnel compréhensible.",
+        step: "Phase 4",
+        title: "Protected closing",
+        text: "We review the final stretch with focus on signature, timing, incidents and continuity when needed.",
       },
     ],
-    stats: [
-      { value: "360", label: "Relecture documentaire" },
-      { value: "48h", label: "Premiere lecture" },
-      { value: "1 flux commun", label: "Legal et operationnel" },
-    ],
-  },
-  it: {
-    title: "Servizi Legali | BlancaReal",
-    description:
-      "Assistenza legale immobiliare per acquisto, affitto, due diligence e protezione contrattuale.",
-    eyebrow: "Servizi Legali",
-    heading: "Copertura legale immobiliare completa",
-    intro:
-      "Supportiamo ogni operazione con lettura giuridica chiara, controllo documentale rigoroso e coordinamento reale tra le parti.",
-    cta: "Contatta il team legale",
-    blockTitleA: "Servizi principali",
-    blockTitleB: "Come lavoriamo",
-    focusTitle: "Rischio controllato fin dall inizio",
-    focusIntro:
-      "Non entriamo solo alla fine. Interveniamo presto per ripulire il rischio e ordinare la documentazione.",
-    dossierTitle: "Cosa controlliamo in ogni pratica",
-    dossierIntro:
-      "Ogni pratica segue una checklist operativa per rendere visibili i punti critici prima dell esecuzione.",
-    riskTitle: "Dove riduciamo attrito",
-    finalTitle: "Assistenza legale con criterio operativo",
-    finalIntro:
-      "Uniamo sicurezza giuridica, contesto immobiliare e coordinamento con commerciale, clienti e promotori.",
-    services: [
-      "Revisione contratti di compravendita e locazione.",
-      "Due diligence legale su immobili, promozioni e titolo di proprieta.",
-      "Supporto su notaio, registro e punti fiscali di base.",
-      "Supporto su occupazione, compliance e conflitti documentali.",
-    ],
-    process: [
-      "Analisi legale iniziale e obiettivi dell operazione.",
-      "Piano d azione per fasi con priorita e responsabilita.",
-      "Esecuzione documentale e coordinamento con agenti, notaio e terzi.",
-      "Chiusura con checklist, criticita risolte e raccomandazioni.",
-    ],
-    dossier: [
-      "Titolarita, carichi, note registrali e coerenza documentale.",
-      "Contratti, allegati, prenotazioni, condizioni e scadenze.",
-      "Procure, identita delle parti, rappresentanza e firme.",
-      "Rischi fiscali base e coordinamento con consulenza esterna.",
-    ],
-    risks: [
+    dossiers: [
       {
-        label: "Contratti",
-        title: "Clausole con rischio nascosto",
-        desc: "Leggiamo obblighi, penali, tempi e punti aperti prima della firma.",
+        title: "Residential sale",
+        text: "Sections designed for owners who need contractual security, timing control and an orderly close.",
       },
       {
-        label: "Documenti",
-        title: "Pratiche incomplete o incoerenti",
-        desc: "Ordiniamo la documentazione per evitare improvvisazioni finali.",
+        title: "Purchase with prior verification",
+        text: "Blocks for buyers who want clarity before committing capital to a property or asset.",
       },
       {
-        label: "Coordinamento",
-        title: "Attrito tra cliente, agenzia e promotore",
-        desc: "Traduciamo il percorso legale in un flusso operativo leggibile da tutti.",
-      },
-    ],
-    stats: [
-      { value: "360", label: "Revisione documentale" },
-      { value: "48h", label: "Prima lettura" },
-      { value: "1 flusso unico", label: "Legale e operativa" },
-    ],
-  },
-  nl: {
-    title: "Juridische Diensten | BlancaReal",
-    description:
-      "Juridische vastgoedbegeleiding voor aankoop, verhuur, due diligence en contractbescherming.",
-    eyebrow: "Juridische Diensten",
-    heading: "Volledige juridische vastgoeddekking",
-    intro:
-      "Wij begeleiden elke transactie met heldere juridische analyse, strikte documentcontrole en echte coordinatie tussen partijen.",
-    cta: "Contacteer juridisch team",
-    blockTitleA: "Kernservices",
-    blockTitleB: "Onze aanpak",
-    focusTitle: "Risico vanaf de start onder controle",
-    focusIntro:
-      "Wij stappen niet alleen op het einde in. We komen vroeg binnen om risico en documentatie te structureren.",
-    dossierTitle: "Wat we in elk dossier nakijken",
-    dossierIntro:
-      "Elk dossier volgt een operationele checklist zodat kritieke punten zichtbaar zijn voor uitvoering.",
-    riskTitle: "Waar we frictie verminderen",
-    finalTitle: "Juridische steun met operationeel inzicht",
-    finalIntro:
-      "We combineren juridische zekerheid, vastgoedcontext en coordinatie met sales, klanten en ontwikkelaars.",
-    services: [
-      "Controle van koop- en huurcontracten.",
-      "Juridische due diligence van assets, projecten en eigendomssituatie.",
-      "Ondersteuning bij notaris, register en basisfiscaliteit.",
-      "Ondersteuning bij bezetting, compliance en documentconflicten.",
-    ],
-    process: [
-      "Eerste juridische analyse en doel van de transactie.",
-      "Gefaseerd actieplan met prioriteiten en eigenaarschap.",
-      "Documentuitvoering en coordinatie met agenten, notaris en derden.",
-      "Afsluiting met checklist, opgeloste punten en vervolgadvies.",
-    ],
-    dossier: [
-      "Eigendomssituatie, lasten, registerinformatie en documentconsistentie.",
-      "Contracten, annexen, reserveringen, voorwaarden en deadlines.",
-      "Volmachten, identiteit van partijen, vertegenwoordiging en handtekeningen.",
-      "Basis fiscale risico s en afstemming met externe adviseurs.",
-    ],
-    risks: [
-      {
-        label: "Contracten",
-        title: "Clausules met verborgen risico",
-        desc: "We lezen verplichtingen, boetes, timing en open punten voor ondertekening.",
+        title: "Developers and commercialization",
+        text: "Structure prepared for reservations, contracts, project documentation and commercial coordination.",
       },
       {
-        label: "Documenten",
-        title: "Onvolledige of inconsistente dossiers",
-        desc: "We ordenen de documentatie zodat de transactie niet van last-minute improvisatie afhangt.",
-      },
-      {
-        label: "Coordinatie",
-        title: "Wrijving tussen klant, agentschap en ontwikkelaar",
-        desc: "We vertalen het juridische traject naar een operationele flow die iedereen begrijpt.",
+        title: "International client",
+        text: "Space for processes with extra documentation, representation, language and more sensitive support needs.",
       },
     ],
-    stats: [
-      { value: "360", label: "Documentcontrole" },
-      { value: "48h", label: "Eerste lezing" },
-      { value: "1 gedeelde flow", label: "Juridisch en operatief" },
+    controlTitle: "Legal reading checklist",
+    controlList: [
+      "Actual title position, encumbrances and registry traceability.",
+      "Validity of contracts, annexes, reservations and suspensive conditions.",
+      "Representation, party identity and signature capacity.",
+      "Payment sequence, milestones, deadlines and closing documents.",
+      "Coordination points with tax, notary and external agents.",
     ],
+    matrixTitle: "Layers this page can expand",
+    matrix: [
+      { label: "Transaction", value: "Purchase, sale or mixed structure" },
+      { label: "Asset", value: "Residential, development or singular unit" },
+      { label: "Profile", value: "Private client, developer or international buyer" },
+      { label: "Moment", value: "Pre-sale, contract, signature or post-close" },
+    ],
+    closingTitle: "A legal base designed to protect and accelerate",
+    closingIntro:
+      "This landing now has the tone, hierarchy and sections needed to receive deeper legal content later without redesigning the page.",
+    closingPrimary: "Request legal advice",
+    closingSecondary: "View commercialization",
   },
 };
 
-const t = copyByLang[lang] ?? copyByLang.es;
+const page = copyByLang[lang] ?? copyByLang.en ?? copyByLang.es;
 
-const stepLabelByLang = {
-  es: "Paso",
-  en: "Step",
-  de: "Schritt",
-  fr: "Etape",
-  it: "Fase",
-  nl: "Stap",
+const icons = {
+  sale: ["M14 20h36", "M14 28h36", "M14 36h22", "M42 36h8", "M18 14h28v36H18z"],
+  due: ["M20 18h24v28H20z", "M26 14h12", "M26 50h12", "M32 22v20", "M24 30h16"],
+  intl: ["M32 12c11 0 20 9 20 20s-9 20-20 20-20-9-20-20 9-20 20-20Z", "M12 32h40", "M32 12c5 6 8 12 8 20s-3 14-8 20", "M32 12c-5 6-8 12-8 20s3 14 8 20"],
+  close: ["M18 22l10 10 18-18", "M16 44h32", "M18 16h28v32H18z"],
 };
-
-const stepLabel = stepLabelByLang[lang] ?? stepLabelByLang.en;
 ---
 
 <BaseLayout
-  title={t.title}
-  description={t.description}
+  title={page.title}
+  description={page.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  headerVariant="landing"
+  landingNavItems={landingNavItems}
+  showMobileStickyCta={false}
 >
   <div class="legal-page">
     <section class="legal-hero">
-      <div class="container legal-hero__shell">
+      <div class="container legal-hero__layout">
         <div class="legal-hero__copy">
-          <span class="service-eyebrow">{t.eyebrow}</span>
-          <h1>{t.heading}</h1>
-          <p>{t.intro}</p>
-          <div class="legal-hero__meta">
-            <span class="legal-seal" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="currentColor" stroke-width="1.8" />
-              </svg>
-            </span>
-            <span class="legal-note">{t.focusTitle}</span>
+          <span class="legal-kicker">{page.eyebrow}</span>
+          <h1>
+            <span class="legal-title-main">{page.headingMain}</span>
+            <span class="legal-title-sub">{page.headingSub}</span>
+          </h1>
+          <p>{page.intro}</p>
+
+          <div class="legal-actions">
+            <a class="legal-button legal-button--primary" href={`/${lang}/contact/?service=legal-services`}>{page.primaryCta}</a>
+            <a class="legal-button legal-button--ghost" href={`/${lang}/contact/`}>{page.secondaryCta}</a>
           </div>
-          <a class="service-cta legal-cta" href={`/${lang}/contact/?service=legal-services`}>
-            {t.cta}
-          </a>
+
+          <div class="legal-stats" aria-label={page.eyebrow}>
+            {page.heroStats.map((stat) => (
+              <article class="legal-stat">
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </article>
+            ))}
+          </div>
         </div>
 
-        <aside class="legal-trust" aria-label={t.blockTitleA}>
-          {t.stats.map((item) => (
-            <div class="legal-trust__item">
-              <span class="legal-trust__value">{item.value}</span>
-              <span class="legal-trust__label">{item.label}</span>
-            </div>
-          ))}
+        <aside class="legal-desk">
+          <span class="legal-kicker legal-kicker--soft">{page.deskEyebrow}</span>
+          <h2>{page.deskTitle}</h2>
+          <p>{page.deskText}</p>
+          <div class="legal-tags">
+            {page.deskTags.map((tag) => <span>{tag}</span>)}
+          </div>
         </aside>
       </div>
     </section>
 
     <section class="legal-section container">
-      <div class="service-section-heading">
-        <span class="service-mini-eyebrow">{t.blockTitleA}</span>
-        <h2>{t.focusTitle}</h2>
-        <p>{t.focusIntro}</p>
+      <div class="legal-section-heading">
+        <span>{page.sections.coverageEyebrow}</span>
+        <h2>{page.sections.coverageHeading}</h2>
+        <p>{page.sections.coverageIntro}</p>
       </div>
 
-      <div class="legal-grid">
-        <div class="legal-pillar-grid">
-          {t.services.map((item, index) => (
-            <article class="legal-pillar">
-              <span class="legal-pillar__index">0{index + 1}</span>
-              <h3>{item}</h3>
+      <div class="legal-coverage-grid">
+        {page.coverage.map((item) => (
+          <article class={`legal-card legal-card--${item.id}`}>
+            <div class="legal-card__head">
+              <span class="legal-card__index">{item.label}</span>
+              <span class="legal-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  {icons[item.id].map((path) => <path d={path}></path>)}
+                </svg>
+              </span>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <ul>
+              {item.points.map((point) => <li>{point}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="legal-section legal-section--tint">
+      <div class="container">
+        <div class="legal-section-heading">
+          <span>{page.sections.methodEyebrow}</span>
+          <h2>{page.sections.methodHeading}</h2>
+          <p>{page.sections.methodIntro}</p>
+        </div>
+
+        <div class="legal-method">
+          {page.method.map((step) => (
+            <article class="legal-method-step">
+              <strong>{step.step}</strong>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
             </article>
           ))}
         </div>
+      </div>
+    </section>
 
-        <aside class="legal-dossier">
-          <h3>{t.dossierTitle}</h3>
-          <p>{t.dossierIntro}</p>
+    <section class="legal-section container">
+      <div class="legal-section-heading">
+        <span>{page.sections.dossiersEyebrow}</span>
+        <h2>{page.sections.dossiersHeading}</h2>
+        <p>{page.sections.dossiersIntro}</p>
+      </div>
+
+      <div class="legal-dossier-grid">
+        {page.dossiers.map((dossier) => (
+          <article class="legal-dossier">
+            <h3>{dossier.title}</h3>
+            <p>{dossier.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="legal-section container">
+      <div class="legal-control">
+        <article class="legal-control-panel">
+          <div class="legal-section-heading legal-section-heading--compact">
+            <span>{page.sections.controlEyebrow}</span>
+            <h2>{page.sections.controlHeading}</h2>
+            <p>{page.sections.controlIntro}</p>
+          </div>
+          <h3>{page.controlTitle}</h3>
           <ul>
-            {t.dossier.map((item) => (
-              <li>{item}</li>
-            ))}
+            {page.controlList.map((item) => <li>{item}</li>)}
           </ul>
-        </aside>
+        </article>
+
+        <article class="legal-matrix">
+          <h3>{page.matrixTitle}</h3>
+          <dl>
+            {page.matrix.map((item) => (
+              <div>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </article>
       </div>
     </section>
 
-    <section class="legal-section container">
-      <div class="service-section-heading">
-        <span class="service-mini-eyebrow">{t.blockTitleB}</span>
-        <h2>{t.blockTitleB}</h2>
-        <p>{t.intro}</p>
-      </div>
-
-      <div class="legal-process">
-        {t.process.map((item, index) => (
-          <article class="legal-process-card">
-            <span class="legal-process-card__step">{stepLabel} {index + 1}</span>
-            <p>{item}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="legal-section container">
-      <div class="service-section-heading">
-        <span class="service-mini-eyebrow">{t.riskTitle}</span>
-        <h2>{t.riskTitle}</h2>
-        <p>{t.description}</p>
-      </div>
-
-      <div class="legal-risk-grid">
-        {t.risks.map((risk) => (
-          <article class="legal-risk-card">
-            <span class="legal-risk-card__tag">{risk.label}</span>
-            <h3>{risk.title}</h3>
-            <p>{risk.desc}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="legal-section container">
-      <div class="legal-cta-band">
-        <div class="service-section-heading">
-          <span class="service-mini-eyebrow">{t.eyebrow}</span>
-          <h2>{t.finalTitle}</h2>
-          <p>{t.finalIntro}</p>
-        </div>
-        <a class="service-cta legal-cta" href={`/${lang}/contact/?service=legal-services`}>
-          {t.cta}
-        </a>
+    <section class="legal-cta">
+      <div class="container">
+        <article class="legal-cta__panel">
+          <div>
+            <span class="legal-kicker">{page.eyebrow}</span>
+            <h2>{page.closingTitle}</h2>
+            <p>{page.closingIntro}</p>
+          </div>
+          <div class="legal-actions legal-actions--end">
+            <a class="legal-button legal-button--primary" href={`/${lang}/contact/?service=legal-services`}>{page.closingPrimary}</a>
+            <a class="legal-button legal-button--ghost" href={`/${lang}/commercialization/`}>{page.closingSecondary}</a>
+          </div>
+        </article>
       </div>
     </section>
   </div>

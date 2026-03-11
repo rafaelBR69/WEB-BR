@@ -1,0 +1,181 @@
+{
+  "id": "PM0074-P1_BA",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM0074",
+  "slugs": {
+    "es": "unidad-portal-1-bajo-a-orion-collection-almitak-mijas",
+    "en": "unit-portal-1-bajo-a-orion-collection-almitak-mijas",
+    "de": "einheit-portal-1-bajo-a-orion-collection-almitak-mijas",
+    "fr": "unite-portal-1-bajo-a-orion-collection-almitak-mijas",
+    "it": "unita-portal-1-bajo-a-orion-collection-almitak-mijas",
+    "nl": "unit-portal-1-bajo-a-orion-collection-almitak-mijas"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 450000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Las Lagunas",
+    "coordinates": {
+      "lat": 36.53577628175631,
+      "lng": -4.639616603103012
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": 132.88,
+    "usable_area_m2": 86.39,
+    "terrace_m2": 19.95,
+    "garden_m2": 39.56,
+    "bedrooms": 3,
+    "bathrooms": null,
+    "garages": null,
+    "floor_level": 0,
+    "orientation": null,
+    "condition": "new",
+    "floor_label": "Planta baja",
+    "type_label": "A",
+    "useful_interior_m2": 76.41,
+    "portal": 1,
+    "unit_code": "P1-BA"
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "communal_pool",
+    "gated_community"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+      "alt": {
+        "es": "Almitak en Manilva - obra nueva",
+        "en": "Almitak in Manilva - new build",
+        "de": "Almitak in Manilva - Neubau",
+        "fr": "Almitak a Manilva - programme neuf",
+        "it": "Almitak a Manilva - nuova costruzione",
+        "nl": "Almitak in Manilva - nieuwbouw"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/02_EXT_PERGOLA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/03_EXT_TERRAZAS--v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/04_EXT_PISCINA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/05_EXT_AGUA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/12_EXT_AEREA_NOCTURNA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-02.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/06_INT_SALON_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/07_INT_COCINA_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/08_TERRAZA_PISCINA_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/10_TERRAZA_FACHADA_sin-fondo-mar-v1.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/02_EXT_PERGOLA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/04_EXT_PISCINA-v1.jpg"
+        }
+      ],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/planos/1-0-A.pdf"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento orion collection almitak portal 1 bajo A mijas",
+      "en": "orion collection almitak apartment portal 1 ground floor A mijas",
+      "de": "orion collection almitak apartment portal 1 erdgeschoss A mijas",
+      "fr": "appartement orion collection almitak portail 1 rez-de-chaussee A mijas",
+      "it": "appartamento orion collection almitak portale 1 piano terra A mijas",
+      "nl": "orion collection almitak appartement portaal 1 begane grond A mijas"
+    },
+    "meta_description": {
+      "es": "Unidad P1-BA en Orion Collection: Almitak, Las Lagunas de Mijas. Consulte disponibilidad, superficies y precio.",
+      "en": "Unit P1-BA at Orion Collection: Almitak, Las Lagunas de Mijas. Check availability, areas and price.",
+      "de": "Einheit P1-BA in Orion Collection: Almitak, Las Lagunas de Mijas. Verfuegbarkeit, Flaechen und Preis pruefen.",
+      "fr": "Unite P1-BA a Orion Collection: Almitak, Las Lagunas de Mijas. Consultez disponibilite, surfaces et prix.",
+      "it": "Unita P1-BA a Orion Collection: Almitak, Las Lagunas de Mijas. Verifica disponibilita, superfici e prezzo.",
+      "nl": "Unit P1-BA in Orion Collection: Almitak, Las Lagunas de Mijas. Bekijk beschikbaarheid, oppervlaktes en prijs."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Unidad P1-BA en Orion Collection: Almitak",
+      "intro": "Unidad disponible en portal 1, Bajo, letra A con 3 dormitorios.",
+      "description": []
+    },
+    "en": {
+      "title": "Unit P1-BA at Orion Collection: Almitak",
+      "intro": "Available unit in portal 1, Ground floor, letter A with 3 bedrooms.",
+      "description": []
+    },
+    "de": {
+      "title": "Einheit P1-BA in Orion Collection: Almitak",
+      "intro": "Verfuegbare Einheit in Portal 1, Erdgeschoss, Buchstabe A mit 3 Schlafzimmern.",
+      "description": []
+    },
+    "fr": {
+      "title": "Unite P1-BA a Orion Collection: Almitak",
+      "intro": "Unite disponible au portail 1, Rez-de-chaussee, lettre A avec 3 chambres.",
+      "description": []
+    },
+    "it": {
+      "title": "Unita P1-BA a Orion Collection: Almitak",
+      "intro": "Unita disponibile nel portale 1, Piano terra, lettera A con 3 camere.",
+      "description": []
+    },
+    "nl": {
+      "title": "Unit P1-BA in Orion Collection: Almitak",
+      "intro": "Beschikbare unit in portaal 1, Begane grond, letter A met 3 slaapkamers.",
+      "description": []
+    }
+  },
+  "phase": "Portal 1"
+}

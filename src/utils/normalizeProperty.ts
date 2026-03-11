@@ -1,3 +1,5 @@
+import { resolvePrimaryMediaItem } from "@/utils/resolvePropertyMedia";
+
 export function normalizeProperty(property: any, lang: string) {
   if (!property) return null;
 
@@ -15,16 +17,7 @@ export function normalizeProperty(property: any, lang: string) {
   const interior = asList(rawGallery.interior);
   const views = asList(rawGallery.views);
   const floorplan = asList(rawGallery.floorplan);
-  const fallbackCover =
-    exterior[0] ??
-    interior[0] ??
-    living[0] ??
-    bedroom[0] ??
-    kitchen[0] ??
-    bathroom[0] ??
-    views[0] ??
-    floorplan[0] ??
-    null;
+  const fallbackCover = resolvePrimaryMediaItem(rawMedia);
 
   const seoRaw = translations.seo ?? {};
   const status = property.status ?? "available";
@@ -68,7 +61,7 @@ export function normalizeProperty(property: any, lang: string) {
       noindex: seoRaw.noindex ?? noindexByStatus,
 
       og: {
-        image: rawMedia.cover ?? fallbackCover ?? null,
+        image: fallbackCover ?? null,
         type: "website",
       },
     },
@@ -93,7 +86,7 @@ export function normalizeProperty(property: any, lang: string) {
     },
 
     media: {
-      cover: rawMedia.cover ?? fallbackCover ?? null,
+      cover: fallbackCover ?? null,
       gallery: {
         living,
         bedroom,

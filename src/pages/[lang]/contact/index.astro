@@ -14,7 +14,13 @@ if (!isSupportedLang(langParam)) {
 const lang = langParam;
 
 const serviceParamRaw = String(Astro.url.searchParams.get("service") ?? "").trim();
-const ALLOWED_SERVICES = new Set(["real-estate", "legal-services", "commercialization", "agents"]);
+const ALLOWED_SERVICES = new Set([
+  "real-estate",
+  "legal-services",
+  "commercialization",
+  "marketing-3d",
+  "agents",
+]);
 const selectedService = ALLOWED_SERVICES.has(serviceParamRaw) ? serviceParamRaw : "";
 
 const copyByLang = {
@@ -47,12 +53,14 @@ const copyByLang = {
       { value: "real-estate", label: "Real Estate" },
       { value: "legal-services", label: "Servicios Legales" },
       { value: "commercialization", label: "Comercializacion" },
+      { value: "marketing-3d", label: "Marketing 3D" },
       { value: "agents", label: "Portal de Agentes" },
     ],
     links: [
       { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
       { id: "legal", label: "Servicios Legales", href: `/${lang}/legal-services/` },
       { id: "commercialization", label: "Comercializacion", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
       { id: "agents", label: "Portal de Agentes", href: `/${lang}/portal/` },
     ],
   },
@@ -85,12 +93,14 @@ const copyByLang = {
       { value: "real-estate", label: "Real Estate" },
       { value: "legal-services", label: "Legal Services" },
       { value: "commercialization", label: "Commercialization" },
+      { value: "marketing-3d", label: "Marketing 3D" },
       { value: "agents", label: "Agents Portal" },
     ],
     links: [
       { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
       { id: "legal", label: "Legal Services", href: `/${lang}/legal-services/` },
       { id: "commercialization", label: "Commercialization", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
       { id: "agents", label: "Agents Portal", href: `/${lang}/portal/` },
     ],
   },
@@ -123,12 +133,14 @@ const copyByLang = {
       { value: "real-estate", label: "Real Estate" },
       { value: "legal-services", label: "Rechtsservice" },
       { value: "commercialization", label: "Vermarktung" },
+      { value: "marketing-3d", label: "Marketing 3D" },
       { value: "agents", label: "Agentenportal" },
     ],
     links: [
       { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
       { id: "legal", label: "Rechtsservice", href: `/${lang}/legal-services/` },
       { id: "commercialization", label: "Vermarktung", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
       { id: "agents", label: "Agentenportal", href: `/${lang}/portal/` },
     ],
   },
@@ -161,12 +173,14 @@ const copyByLang = {
       { value: "real-estate", label: "Real Estate" },
       { value: "legal-services", label: "Services Juridiques" },
       { value: "commercialization", label: "Commercialisation" },
+      { value: "marketing-3d", label: "Marketing 3D" },
       { value: "agents", label: "Portail Agents" },
     ],
     links: [
       { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
       { id: "legal", label: "Services Juridiques", href: `/${lang}/legal-services/` },
       { id: "commercialization", label: "Commercialisation", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
       { id: "agents", label: "Portail Agents", href: `/${lang}/portal/` },
     ],
   },
@@ -199,12 +213,14 @@ const copyByLang = {
       { value: "real-estate", label: "Real Estate" },
       { value: "legal-services", label: "Servizi Legali" },
       { value: "commercialization", label: "Commercializzazione" },
+      { value: "marketing-3d", label: "Marketing 3D" },
       { value: "agents", label: "Portale Agenti" },
     ],
     links: [
       { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
       { id: "legal", label: "Servizi Legali", href: `/${lang}/legal-services/` },
       { id: "commercialization", label: "Commercializzazione", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
       { id: "agents", label: "Portale Agenti", href: `/${lang}/portal/` },
     ],
   },
@@ -237,12 +253,14 @@ const copyByLang = {
       { value: "real-estate", label: "Real Estate" },
       { value: "legal-services", label: "Juridische Diensten" },
       { value: "commercialization", label: "Commercialisatie" },
+      { value: "marketing-3d", label: "Marketing 3D" },
       { value: "agents", label: "Agentenportaal" },
     ],
     links: [
       { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
       { id: "legal", label: "Juridische Diensten", href: `/${lang}/legal-services/` },
       { id: "commercialization", label: "Commercialisatie", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
       { id: "agents", label: "Agentenportaal", href: `/${lang}/portal/` },
     ],
   },

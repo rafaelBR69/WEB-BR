@@ -169,6 +169,7 @@ const normalizeMedia = (rawMedia) => {
   const media = asObject(rawMedia);
   const gallery = asObject(media.gallery);
   return {
+    main: media.main ?? null,
     cover: media.cover ?? null,
     gallery: {
       living: Array.isArray(gallery.living) ? gallery.living : [],

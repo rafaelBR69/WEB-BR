@@ -1,0 +1,167 @@
+{
+  "id": "A0126-P1",
+  "priority": 71,
+  "listing_type": "unit",
+  "parent_id": "A0126",
+  "slugs": {
+    "es": "adosado-obra-nueva-sunhill-fuengirola-planta-1",
+    "en": "new-build-townhouse-sunhill-fuengirola-floor-1",
+    "de": "neubau-reihenhaus-sunhill-fuengirola-etage-1",
+    "fr": "maison-neuve-sunhill-fuengirola-etage-1",
+    "it": "villetta-nuova-sunhill-fuengirola-piano-1",
+    "nl": "nieuwbouw-herenhuis-sunhill-fuengirola-verdieping-1"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 298000,
+  "currency": "EUR",
+  "phase": "Obras",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Fuengirola",
+    "coordinates": {
+      "lat": 36.55155590326423,
+      "lng": -4.615539918444597
+    }
+  },
+  "property": {
+    "type": "townhouse",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": 81.96,
+    "usable_area_m2": null,
+    "terrace_m2": 14,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "floor_level": 1,
+    "floor_label": "Planta 1",
+    "unit_code": "P1",
+    "parking_type": "privado_descubierto",
+    "community_pool": true,
+    "sales_stage": "Obras",
+    "delivery_date": "2027-12-01",
+    "source_import_date": "2026-02-18",
+    "property_group": "UNIFAMILIARES",
+    "publication_restrictions": "NINGUN SITIO SOLO NUESTRA WEB",
+    "idealista_publication": false,
+    "captured_by": "YOLANDA",
+    "notes": "Empezaron la obra en octubre de 2025 y tienen prevista la entrega para finales de 2027."
+  },
+  "features": [
+    "new_build",
+    "private_parking",
+    "elevator",
+    "communal_pool",
+    "gym"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/cover/facade.jpg",
+      "alt": {
+        "es": "Sunhill vivienda Planta 1 en Fuengirola",
+        "en": "Sunhill floor 1 home in Fuengirola"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/exterior-1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/cover/facade.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/salon.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/cocina.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/dormitorio.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/bano.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/bano-2.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/zonas_comunes/gym.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/zonas_comunes/sauna.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/mapa/mapa.jpg"
+        }
+      ],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/memoria_de_calidades/Memoria%20calidades%20Sunhill..pdf"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/dossier/dosier.pdf"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "adosado obra nueva sunhill fuengirola planta 1",
+      "en": "new build townhouse sunhill fuengirola floor 1"
+    },
+    "meta_description": {
+      "es": "Adosado de obra nueva en Sunhill, Fuengirola. 2 dormitorios, 2 banos, 81.96 m2 construidos y 14 m2 de terraza. Precio: 298.000 EUR.",
+      "en": "New-build townhouse at Sunhill, Fuengirola. 2 bedrooms, 2 bathrooms, 81.96 sqm built and 14 sqm terrace. Price: EUR 298,000."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Adosado de obra nueva en Sunhill, Fuengirola | Planta 1",
+      "intro": "Unidad disponible de 2 dormitorios con 81.96 m2 construidos, 14 m2 de terraza y aparcamiento privado descubierto.",
+      "description": []
+    },
+    "en": {
+      "title": "New-build townhouse at Sunhill, Fuengirola | Floor 1",
+      "intro": "Available 2-bedroom unit with 81.96 sqm built area, a 14 sqm terrace and private outdoor parking.",
+      "description": []
+    },
+    "de": {
+      "title": "Neubau-Reihenhaus in Sunhill, Fuengirola | Etage 1",
+      "intro": "Verfuegbare Einheit mit 2 Schlafzimmern, 81.96 m2 bebauter Flaeche, 14 m2 Terrasse und privatem Aussenstellplatz.",
+      "description": []
+    },
+    "fr": {
+      "title": "Maison neuve a Sunhill, Fuengirola | Etage 1",
+      "intro": "Unite disponible avec 2 chambres, 81.96 m2 construits, terrasse de 14 m2 et stationnement prive exterieur.",
+      "description": []
+    },
+    "it": {
+      "title": "Villetta di nuova costruzione a Sunhill, Fuengirola | Piano 1",
+      "intro": "Unita disponibile con 2 camere, 81.96 m2 costruiti, terrazza di 14 m2 e parcheggio privato scoperto.",
+      "description": []
+    },
+    "nl": {
+      "title": "Nieuwbouw herenhuis in Sunhill, Fuengirola | Verdieping 1",
+      "intro": "Beschikbare unit met 2 slaapkamers, 81.96 m2 bebouwd oppervlak, 14 m2 terras en prive buitenparking.",
+      "description": []
+    }
+  }
+}

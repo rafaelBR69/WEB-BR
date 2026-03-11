@@ -1,0 +1,238 @@
+{
+  "id": "PT0398",
+  "priority": 62,
+  "slugs": {
+    "es": "apartamento-ultima-planta-arenal-golf-benalmadena",
+    "en": "top-floor-apartment-arenal-golf-benalmadena",
+    "de": "wohnung-oberste-etage-arenal-golf-benalmadena",
+    "fr": "appartement-dernier-etage-arenal-golf-benalmadena",
+    "it": "appartamento-ultimo-piano-arenal-golf-benalmadena",
+    "nl": "appartement-bovenste-verdieping-arenal-golf-benalmadena"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 357500,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Benalmadena",
+    "area": "Arenal Golf",
+    "address_line": "Calle Argonautas 27, Montealto, Arenal Golf, Portal 1 2oA",
+    "coordinates": {
+      "lat": 36.59543708091136,
+      "lng": -4.559903957839838
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "segunda_mano",
+    "area_m2": 76,
+    "terrace_m2": 12,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "storage_rooms": 1,
+    "floor_level": 2,
+    "floor_label": "Planta 2",
+    "building_portal": "1",
+    "building_door": "A",
+    "elevator": true,
+    "condition": "good",
+    "ibi_yearly": null,
+    "community_fees_monthly": 100,
+    "full_address": "Calle Argonautas 27, Montealto, Arenal Golf, Portal 1 2oA, Benalmadena, Malaga"
+  },
+  "features": [
+    "garage",
+    "storage_room",
+    "communal_pool",
+    "elevator"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/cover/terraza-01.jpg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/cover/terraza-01.jpg",
+    "gallery": {
+      "living": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/salon/salon-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/salon/salon-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/salon/salon-03.jpg"
+      ],
+      "bedroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/dormitorios/cuarto-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/dormitorios/cuarto-02.jpg"
+      ],
+      "kitchen": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/cocina/cocina-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/cocina/cocina-02.jpg"
+      ],
+      "bathroom": [],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/cover/terraza-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/exterior/terraza-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/exterior/terraza-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/exterior/terraza-03.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/zonas_comunes/piscina.jpg"
+      ],
+      "interior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/salon/salon-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/salon/salon-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/salon/salon-03.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/cocina/cocina-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/cocina/cocina-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/dormitorios/cuarto-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/dormitorios/cuarto-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/interior/garage/garage-01.jpg"
+      ],
+      "views": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/views/vistas-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0398/views/vistas-02.jpg"
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento en venta arenal golf benalmadena",
+      "en": "apartment for sale arenal golf benalmadena",
+      "de": "wohnung kaufen arenal golf benalmadena",
+      "fr": "appartement a vendre arenal golf benalmadena",
+      "it": "appartamento in vendita arenal golf benalmadena",
+      "nl": "appartement te koop arenal golf benalmadena"
+    },
+    "meta_description": {
+      "es": "Apartamento de ultima planta con 2 dormitorios, terraza, garaje, trastero y piscina comunitaria en Arenal Golf, Benalmadena.",
+      "en": "Top-floor apartment with 2 bedrooms, terrace, garage, storage room and communal pool in Arenal Golf, Benalmadena.",
+      "de": "Wohnung in oberster Etage mit 2 Schlafzimmern, Terrasse, Garage, Abstellraum und Gemeinschaftspool in Arenal Golf, Benalmadena.",
+      "fr": "Appartement en dernier etage avec 2 chambres, terrasse, garage, debarras et piscine commune a Arenal Golf, Benalmadena.",
+      "it": "Appartamento all ultimo piano con 2 camere, terrazza, garage, ripostiglio e piscina condominiale ad Arenal Golf, Benalmadena.",
+      "nl": "Appartement op de bovenste verdieping met 2 slaapkamers, terras, garage, berging en gemeenschappelijk zwembad in Arenal Golf, Benalmadena."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Apartamento de ultima planta en Arenal Golf, Benalmadena",
+      "intro": "Propiedad de segunda mano con 2 dormitorios, terraza y urbanizacion con piscina en el entorno residencial de Arenal Golf.",
+      "excerpt": "Propiedad de segunda mano con 2 dormitorios, terraza y urbanizacion con piscina en el entorno residencial de Arenal Golf.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda se situa en planta alta y ofrece 76 m2 construidos, 2 banos y una terraza de 12 m2 en una de las zonas residenciales mas reconocibles de Benalmadena."
+        },
+        {
+          "type": "paragraph",
+          "content": "Cuenta con garaje, trastero, ascensor y piscina comunitaria, con un formato muy equilibrado para uso residencial o compra patrimonial en Costa del Sol."
+        }
+      ],
+      "seo": {
+        "title": "Apartamento de ultima planta en Arenal Golf, Benalmadena | BlancaReal",
+        "description": "Apartamento de ultima planta en Arenal Golf con 2 dormitorios, terraza, garaje, trastero y piscina comunitaria."
+      }
+    },
+    "en": {
+      "title": "Top-floor apartment in Arenal Golf, Benalmadena",
+      "intro": "Resale property with 2 bedrooms, terrace and an urbanisation with pool in the residential setting of Arenal Golf.",
+      "excerpt": "Resale property with 2 bedrooms, terrace and an urbanisation with pool in the residential setting of Arenal Golf.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The property sits on an upper floor and offers 76 sqm built area, 2 bathrooms and a 12 sqm terrace in one of Benalmadena s best-known residential zones."
+        },
+        {
+          "type": "paragraph",
+          "content": "It includes garage, storage room, lift and communal pool, making it a balanced option for residential use or long-term asset purchase on the Costa del Sol."
+        }
+      ],
+      "seo": {
+        "title": "Top-floor apartment in Arenal Golf, Benalmadena | BlancaReal",
+        "description": "Top-floor apartment in Arenal Golf with 2 bedrooms, terrace, garage, storage room and communal pool."
+      }
+    },
+    "de": {
+      "title": "Wohnung in oberster Etage in Arenal Golf, Benalmadena",
+      "intro": "Gebrauchtimmobilie mit 2 Schlafzimmern, Terrasse und Wohnanlage mit Pool im Wohngebiet Arenal Golf.",
+      "excerpt": "Gebrauchtimmobilie mit 2 Schlafzimmern, Terrasse und Wohnanlage mit Pool im Wohngebiet Arenal Golf.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Wohnung befindet sich in einer oberen Etage und bietet 76 m2 bebaute Flache, 2 Bader und eine 12 m2 Terrasse in einer der bekanntesten Wohnlagen Benalmadenas."
+        },
+        {
+          "type": "paragraph",
+          "content": "Sie verfugt uber Garage, Abstellraum, Aufzug und Gemeinschaftspool und ist damit eine ausgewogene Option fur Eigennutzung oder Bestandskauf an der Costa del Sol."
+        }
+      ],
+      "seo": {
+        "title": "Wohnung in oberster Etage in Arenal Golf, Benalmadena | BlancaReal",
+        "description": "Wohnung in oberster Etage in Arenal Golf mit 2 Schlafzimmern, Terrasse, Garage, Abstellraum und Gemeinschaftspool."
+      }
+    },
+    "fr": {
+      "title": "Appartement en dernier etage a Arenal Golf, Benalmadena",
+      "intro": "Bien de revente avec 2 chambres, terrasse et residence avec piscine dans l environnement residentiel d Arenal Golf.",
+      "excerpt": "Bien de revente avec 2 chambres, terrasse et residence avec piscine dans l environnement residentiel d Arenal Golf.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le logement se situe en etage eleve et offre 76 m2 construits, 2 salles de bain et une terrasse de 12 m2 dans l une des zones residentielles les plus reconnues de Benalmadena."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il comprend garage, debarras, ascenseur et piscine commune, dans un format tres equilibre pour residence principale ou achat patrimonial sur la Costa del Sol."
+        }
+      ],
+      "seo": {
+        "title": "Appartement en dernier etage a Arenal Golf, Benalmadena | BlancaReal",
+        "description": "Appartement en dernier etage a Arenal Golf avec 2 chambres, terrasse, garage, debarras et piscine commune."
+      }
+    },
+    "it": {
+      "title": "Appartamento all ultimo piano ad Arenal Golf, Benalmadena",
+      "intro": "Proprieta di seconda mano con 2 camere da letto, terrazza e urbanizzazione con piscina nel contesto residenziale di Arenal Golf.",
+      "excerpt": "Proprieta di seconda mano con 2 camere da letto, terrazza e urbanizzazione con piscina nel contesto residenziale di Arenal Golf.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "L abitazione si trova a un piano alto e offre 76 m2 costruiti, 2 bagni e una terrazza di 12 m2 in una delle zone residenziali piu riconoscibili di Benalmadena."
+        },
+        {
+          "type": "paragraph",
+          "content": "Dispone di garage, ripostiglio, ascensore e piscina condominiale, in un formato equilibrato per uso residenziale o acquisto patrimoniale in Costa del Sol."
+        }
+      ],
+      "seo": {
+        "title": "Appartamento all ultimo piano ad Arenal Golf, Benalmadena | BlancaReal",
+        "description": "Appartamento all ultimo piano ad Arenal Golf con 2 camere, terrazza, garage, ripostiglio e piscina condominiale."
+      }
+    },
+    "nl": {
+      "title": "Appartement op de bovenste verdieping in Arenal Golf, Benalmadena",
+      "intro": "Wederverkoopwoning met 2 slaapkamers, terras en een urbanisatie met zwembad in de woonomgeving van Arenal Golf.",
+      "excerpt": "Wederverkoopwoning met 2 slaapkamers, terras en een urbanisatie met zwembad in de woonomgeving van Arenal Golf.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "De woning ligt op een hoge verdieping en biedt 76 m2 bebouwde oppervlakte, 2 badkamers en een terras van 12 m2 in een van de bekendste woonzones van Benalmadena."
+        },
+        {
+          "type": "paragraph",
+          "content": "Inclusief garage, berging, lift en gemeenschappelijk zwembad, waardoor dit een evenwichtige optie is voor eigen gebruik of aankoop als belegging aan de Costa del Sol."
+        }
+      ],
+      "seo": {
+        "title": "Appartement op de bovenste verdieping in Arenal Golf, Benalmadena | BlancaReal",
+        "description": "Appartement op de bovenste verdieping in Arenal Golf met 2 slaapkamers, terras, garage, berging en gemeenschappelijk zwembad."
+      }
+    }
+  }
+}

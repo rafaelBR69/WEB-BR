@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import teamMembers from "@/data/team";
 import "@/styles/pages/landing.css";
 import BrandLogo from "@/components/BrandLogo.astro";
 
@@ -11,6 +12,27 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+
+const collaboratorLogoModules = import.meta.glob(
+  "../../assets/collaborators/strategic/*.{avif,jpg,jpeg,png,svg,webp}",
+  { eager: true, query: "?url", import: "default" },
+);
+
+const formatCollaboratorLogoName = (filePath) =>
+  filePath
+    .split("/")
+    .pop()
+    ?.replace(/\.[^.]+$/, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim() ?? "Colaborador estrategico";
+
+const collaboratorLogos = Object.entries(collaboratorLogoModules)
+  .map(([filePath, src]) => ({
+    src,
+    alt: formatCollaboratorLogoName(filePath),
+  }))
+  .sort((left, right) => left.alt.localeCompare(right.alt, lang));
 
 const copyByLang = {
   es: {
@@ -609,12 +631,93 @@ const formCopyByLang = {
 
 const formCopy = formCopyByLang[lang] ?? formCopyByLang.es;
 
+const teamCopyByLang = {
+  es: {
+    title: "Nuestro equipo",
+    prev: "Ver perfil anterior",
+    next: "Ver siguiente perfil",
+    languages: "Idiomas",
+    email: "Correo",
+    phone: "Telefono",
+    noLanguages: "Consultar",
+  },
+  en: {
+    title: "Our team",
+    prev: "View previous profile",
+    next: "View next profile",
+    languages: "Languages",
+    email: "Email",
+    phone: "Phone",
+    noLanguages: "Ask us",
+  },
+  de: {
+    title: "Unser Team",
+    prev: "Vorheriges Profil anzeigen",
+    next: "Naechstes Profil anzeigen",
+    languages: "Sprachen",
+    email: "E-Mail",
+    phone: "Telefon",
+    noLanguages: "Anfragen",
+  },
+  fr: {
+    title: "Notre equipe",
+    prev: "Voir le profil precedent",
+    next: "Voir le profil suivant",
+    languages: "Langues",
+    email: "Email",
+    phone: "Telephone",
+    noLanguages: "Nous consulter",
+  },
+  it: {
+    title: "Il nostro team",
+    prev: "Vedi il profilo precedente",
+    next: "Vedi il profilo successivo",
+    languages: "Lingue",
+    email: "Email",
+    phone: "Telefono",
+    noLanguages: "Da consultare",
+  },
+  nl: {
+    title: "Ons team",
+    prev: "Bekijk vorig profiel",
+    next: "Bekijk volgend profiel",
+    languages: "Talen",
+    email: "Email",
+    phone: "Telefoon",
+    noLanguages: "Vraag het ons",
+  },
+};
+
+const TEAM_LANGUAGE_BADGES = {
+  es: { label: "Espanol", flagUrl: "/flags/es.svg" },
+  en: { label: "English", flagUrl: "/flags/gb.svg" },
+  fr: { label: "Francais", flagUrl: "/flags/fr.svg" },
+  de: { label: "Deutsch", flagUrl: "/flags/de.svg" },
+  nl: { label: "Nederlands", flagUrl: "/flags/nl.svg" },
+  it: { label: "Italiano", flagUrl: "/flags/it.svg" },
+};
+
+const teamCopy = teamCopyByLang[lang] ?? teamCopyByLang.es;
+const teamCards = teamMembers.map((member) => ({
+  name: member.name,
+  role: member.role?.[lang] ?? member.role?.es ?? "",
+  email: member.email ?? member.emails?.[0]?.address ?? "",
+  phone: member.phone ?? "",
+  image: member.photo?.url ?? "",
+  imageAlt: member.photo?.alt?.[lang] ?? member.photo?.alt?.es ?? member.name,
+  languageBadges: Array.isArray(member.spoken_languages)
+    ? member.spoken_languages
+        .filter((code) => TEAM_LANGUAGE_BADGES[code])
+        .map((code) => TEAM_LANGUAGE_BADGES[code])
+    : [],
+}));
+
 const HERO_VIDEO_URL = "/videos/home-hero-2025.mp4";
 
 const landingNavItems = [
   { href: `/${lang}/portal/`, label: t.navAgents },
+  { href: `/${lang}/commercialization/`, label: t.navPromoters },
   { href: `/${lang}/contact/`, label: t.navContact },
-  { href: `/${lang}/projects/`, label: t.navPromoters },
 ];
 
 const blocks = [
@@ -644,7 +747,7 @@ const blocks = [
   },
   {
     id: "marketing-3d",
-    href: `/${lang}/commercialization/`,
+    href: `/${lang}/marketing-3d/`,
     image:
       "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
     title: "Marketing 3D",
@@ -660,6 +763,7 @@ const heroBottomCards = blocks.filter(
 ).filter(Boolean);
 
 const collaboratorLoop = [...extra.collaborators, ...extra.collaborators];
+const collaboratorLogoLoop = [...collaboratorLogos, ...collaboratorLogos];
 
 const footerLinks = [
   { href: `/${lang}/real-estate/`, label: t.blocks.realEstate.title },
@@ -741,62 +845,123 @@ const currentYear = new Date().getFullYear();
   </section>
 
   <section class="landing-about-z container">
-    {extra.aboutRows.map((row, index) => (
-      <article class={`z-row ${index % 2 === 1 ? "is-reverse" : ""}`}>
-        <div class="z-media">
-          <img src={row.image} alt={row.imageAlt} loading="lazy" decoding="async" />
-        </div>
-        {index === 1 ? (
-          <div class="z-copy z-copy-form">
-            <h2>{formCopy.title}</h2>
-            <p>{formCopy.intro}</p>
-            <details class="z-form-disclosure" open>
-              <summary class="z-form-summary">
-                <span class="z-form-summary-open">{formCopy.toggleOpen}</span>
-                <span class="z-form-summary-close">{formCopy.toggleClose}</span>
-              </summary>
-              <form class="z-form" method="get" action={`/${lang}/contact/`}>
-                <div class="z-form-grid">
-                  <label class="z-form-field">
-                    <span>{formCopy.name}</span>
-                    <input type="text" name="name" required />
-                  </label>
-                  <label class="z-form-field">
-                    <span>{formCopy.email}</span>
-                    <input type="email" name="email" required />
-                  </label>
-                  <label class="z-form-field">
-                    <span>{formCopy.phone}</span>
-                    <input type="tel" name="phone" />
-                  </label>
-                  <label class="z-form-field">
-                    <span>{formCopy.service}</span>
-                    <select name="service" required>
-                      <option value="">{formCopy.optionDefault}</option>
-                      <option value="real-estate">{formCopy.optionRealEstate}</option>
-                      <option value="legal-services">{formCopy.optionLegal}</option>
-                      <option value="commercialization">{formCopy.optionCommercialization}</option>
-                    </select>
-                  </label>
+    <article class="z-team">
+      <div class="z-team-head">
+        <h2>{teamCopy.title}</h2>
+      </div>
+      <div class="z-team-carousel" data-team-carousel>
+        <button
+          class="z-team-arrow z-team-arrow-prev"
+          type="button"
+          aria-label={teamCopy.prev}
+          data-carousel-prev
+        >
+          <span aria-hidden="true">&larr;</span>
+        </button>
+        <div class="z-team-viewport" data-carousel-viewport>
+          <div class="z-team-track">
+            {teamCards.map((member) => (
+              <article class="z-team-card">
+                <div class="z-team-photo">
+                  <img src={member.image} alt={member.imageAlt} loading="lazy" decoding="async" />
                 </div>
-
-                <label class="z-form-field z-form-field-full">
-                  <span>{formCopy.message}</span>
-                  <textarea name="message" rows="4"></textarea>
-                </label>
-
-                <button type="submit" class="z-form-submit">{formCopy.submit}</button>
-              </form>
-            </details>
+                <div class="z-team-copy">
+                  <h3>{member.name}</h3>
+                  {member.role && <p class="z-team-role">{member.role}</p>}
+                  <dl class="z-team-meta">
+                    <div>
+                      <dt>{teamCopy.languages}</dt>
+                      <dd>
+                        {member.languageBadges.length > 0 ? (
+                          <ul class="z-team-flags" aria-label={teamCopy.languages}>
+                            {member.languageBadges.map((badge) => (
+                              <li class="z-team-flag" title={badge.label}>
+                                <img src={badge.flagUrl} alt={badge.label} loading="lazy" />
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          teamCopy.noLanguages
+                        )}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>{teamCopy.email}</dt>
+                      <dd><a href={`mailto:${member.email}`}>{member.email}</a></dd>
+                    </div>
+                    <div>
+                      <dt>{teamCopy.phone}</dt>
+                      <dd><a href={`tel:${member.phone.replace(/\s+/g, "")}`}>{member.phone}</a></dd>
+                    </div>
+                  </dl>
+                </div>
+              </article>
+            ))}
           </div>
-        ) : (
-          <div class="z-copy">
-            <h2>{row.title}</h2>
-            <p>{row.text}</p>
-          </div>
-        )}
-      </article>
-    ))}
+        </div>
+        <button
+          class="z-team-arrow z-team-arrow-next"
+          type="button"
+          aria-label={teamCopy.next}
+          data-carousel-next
+        >
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="z-row is-reverse">
+      <div class="z-media">
+        <img
+          src={extra.aboutRows[1].image}
+          alt={extra.aboutRows[1].imageAlt}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="z-copy z-copy-form">
+        <h2>{formCopy.title}</h2>
+        <p>{formCopy.intro}</p>
+        <details class="z-form-disclosure" open>
+          <summary class="z-form-summary">
+            <span class="z-form-summary-open">{formCopy.toggleOpen}</span>
+            <span class="z-form-summary-close">{formCopy.toggleClose}</span>
+          </summary>
+          <form class="z-form" method="get" action={`/${lang}/contact/`}>
+            <div class="z-form-grid">
+              <label class="z-form-field">
+                <span>{formCopy.name}</span>
+                <input type="text" name="name" required />
+              </label>
+              <label class="z-form-field">
+                <span>{formCopy.email}</span>
+                <input type="email" name="email" required />
+              </label>
+              <label class="z-form-field">
+                <span>{formCopy.phone}</span>
+                <input type="tel" name="phone" />
+              </label>
+              <label class="z-form-field">
+                <span>{formCopy.service}</span>
+                <select name="service" required>
+                  <option value="">{formCopy.optionDefault}</option>
+                  <option value="real-estate">{formCopy.optionRealEstate}</option>
+                  <option value="legal-services">{formCopy.optionLegal}</option>
+                  <option value="commercialization">{formCopy.optionCommercialization}</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="z-form-field z-form-field-full">
+              <span>{formCopy.message}</span>
+              <textarea name="message" rows="4"></textarea>
+            </label>
+
+            <button type="submit" class="z-form-submit">{formCopy.submit}</button>
+          </form>
+        </details>
+      </div>
+    </article>
   </section>
 
   <section class="landing-collaborators" aria-label={extra.collaboratorsAria}>
@@ -805,12 +970,21 @@ const currentYear = new Date().getFullYear();
     </div>
     <div class="collaborators-marquee">
       <div class="collaborators-track">
-        {collaboratorLoop.map((item, index) => (
-          <article class="collab-pill" aria-hidden={index >= extra.collaborators.length ? "true" : undefined}>
-            <span class="collab-dot"></span>
-            <p>{item}</p>
-          </article>
-        ))}
+        {collaboratorLogos.length > 0
+          ? collaboratorLogoLoop.map((logo, index) => (
+              <article
+                class="collab-pill collab-pill-logo"
+                aria-hidden={index >= collaboratorLogos.length ? "true" : undefined}
+              >
+                <img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" />
+              </article>
+            ))
+          : collaboratorLoop.map((item, index) => (
+              <article class="collab-pill" aria-hidden={index >= extra.collaborators.length ? "true" : undefined}>
+                <span class="collab-dot"></span>
+                <p>{item}</p>
+              </article>
+            ))}
       </div>
     </div>
   </section>
@@ -858,6 +1032,7 @@ const currentYear = new Date().getFullYear();
   <script is:inline>
     const heroVideo = document.querySelector(".landing-hero-video");
     const homeFormDisclosure = document.querySelector(".z-form-disclosure");
+    const teamCarousels = document.querySelectorAll("[data-team-carousel]");
 
     const keepHeroVideoPlaying = () => {
       if (!(heroVideo instanceof HTMLVideoElement)) return;
@@ -875,6 +1050,43 @@ const currentYear = new Date().getFullYear();
       }
     };
 
+    const syncTeamCarouselState = (carousel) => {
+      const viewport = carousel.querySelector("[data-carousel-viewport]");
+      const prev = carousel.querySelector("[data-carousel-prev]");
+      const next = carousel.querySelector("[data-carousel-next]");
+
+      if (!(viewport instanceof HTMLElement) || !(prev instanceof HTMLButtonElement) || !(next instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const maxScrollLeft = viewport.scrollWidth - viewport.clientWidth;
+      prev.disabled = viewport.scrollLeft <= 8;
+      next.disabled = viewport.scrollLeft >= maxScrollLeft - 8;
+    };
+
+    const setupTeamCarousel = (carousel) => {
+      const viewport = carousel.querySelector("[data-carousel-viewport]");
+      const prev = carousel.querySelector("[data-carousel-prev]");
+      const next = carousel.querySelector("[data-carousel-next]");
+
+      if (!(viewport instanceof HTMLElement) || !(prev instanceof HTMLButtonElement) || !(next instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const scrollStep = () => Math.max(viewport.clientWidth * 0.82, 280);
+
+      prev.addEventListener("click", () => {
+        viewport.scrollBy({ left: -scrollStep(), behavior: "smooth" });
+      });
+
+      next.addEventListener("click", () => {
+        viewport.scrollBy({ left: scrollStep(), behavior: "smooth" });
+      });
+
+      viewport.addEventListener("scroll", () => syncTeamCarouselState(carousel), { passive: true });
+      syncTeamCarouselState(carousel);
+    };
+
     if (heroVideo instanceof HTMLVideoElement) {
       heroVideo.addEventListener("pause", keepHeroVideoPlaying);
       heroVideo.addEventListener("ended", keepHeroVideoPlaying);
@@ -886,13 +1098,22 @@ const currentYear = new Date().getFullYear();
     }
 
     syncHomeFormDisclosure();
+    teamCarousels.forEach(setupTeamCarousel);
+    window.addEventListener("resize", () => {
+      teamCarousels.forEach(syncTeamCarouselState);
+    });
     window.addEventListener("resize", syncHomeFormDisclosure);
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
     
-    h2, .hero-heading {
+    .landing-intro h1,
+    .landing-about-z h2,
+    .landing-collaborators h2,
+    .hero-heading {
       font-family: 'Cormorant Garamond', serif !important;
+      font-style: normal;
+      font-weight: 600;
     }
 
     .pillar-card h3 {
@@ -900,10 +1121,6 @@ const currentYear = new Date().getFullYear();
       text-transform: uppercase !important;
     }
     
-    /* Ajuste para que se vea más premium */
-    h2 {
-      font-weight: 500;
-      font-style: italic;
-    }
   </style>
 </BaseLayout>
+

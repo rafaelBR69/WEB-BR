@@ -23,6 +23,16 @@ type UiCopy = {
     menuMain: string;
     menuServices: string;
     menuExplore: string;
+    menuRelationship: string;
+    menuContent: string;
+    menuRealEstateHint: string;
+    menuPromotersHint: string;
+    menuLegalHint: string;
+    menuMarketingHint: string;
+    menuAgentsHint: string;
+    menuContactHint: string;
+    menuBlogHint: string;
+    menuAboutHint: string;
     openMenu: string;
     closeMenu: string;
   };
@@ -57,6 +67,16 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuMain: "Principal",
       menuServices: "Servicios",
       menuExplore: "Explorar",
+      menuRelationship: "Relacion",
+      menuContent: "Contenido",
+      menuRealEstateHint: "Propiedades, proyectos y zonas",
+      menuPromotersHint: "Promotoras y comercializacion",
+      menuLegalHint: "Soporte juridico inmobiliario",
+      menuMarketingHint: "Visuales, renders y campanas",
+      menuAgentsHint: "Acceso para colaboradores",
+      menuContactHint: "Hablar con BlancaReal",
+      menuBlogHint: "Guias y actualidad",
+      menuAboutHint: "Equipo y marca",
       openMenu: "Abrir menu",
       closeMenu: "Cerrar menu",
     },
@@ -89,6 +109,16 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuMain: "Main",
       menuServices: "Services",
       menuExplore: "Explore",
+      menuRelationship: "Connect",
+      menuContent: "Content",
+      menuRealEstateHint: "Properties, developments and areas",
+      menuPromotersHint: "Developers and commercialization",
+      menuLegalHint: "Real estate legal support",
+      menuMarketingHint: "Visuals, renders and campaigns",
+      menuAgentsHint: "Partner access",
+      menuContactHint: "Speak with BlancaReal",
+      menuBlogHint: "Guides and updates",
+      menuAboutHint: "Team and brand",
       openMenu: "Open menu",
       closeMenu: "Close menu",
     },
@@ -121,6 +151,16 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuMain: "Hauptbereich",
       menuServices: "Services",
       menuExplore: "Entdecken",
+      menuRelationship: "Kontakt",
+      menuContent: "Inhalte",
+      menuRealEstateHint: "Immobilien, Projekte und Gebiete",
+      menuPromotersHint: "Bautraeger und Vermarktung",
+      menuLegalHint: "Rechtliche Immobilienbetreuung",
+      menuMarketingHint: "Visuals, Renderings und Kampagnen",
+      menuAgentsHint: "Zugang fuer Partner",
+      menuContactHint: "Mit BlancaReal sprechen",
+      menuBlogHint: "Ratgeber und Updates",
+      menuAboutHint: "Team und Marke",
       openMenu: "Menue oeffnen",
       closeMenu: "Menue schliessen",
     },
@@ -153,6 +193,16 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuMain: "Principal",
       menuServices: "Services",
       menuExplore: "Explorer",
+      menuRelationship: "Relation",
+      menuContent: "Contenu",
+      menuRealEstateHint: "Biens, programmes et zones",
+      menuPromotersHint: "Promoteurs et commercialisation",
+      menuLegalHint: "Support juridique immobilier",
+      menuMarketingHint: "Visuels, rendus et campagnes",
+      menuAgentsHint: "Acces partenaires",
+      menuContactHint: "Parler avec BlancaReal",
+      menuBlogHint: "Guides et actualites",
+      menuAboutHint: "Equipe et marque",
       openMenu: "Ouvrir le menu",
       closeMenu: "Fermer le menu",
     },
@@ -185,6 +235,16 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuMain: "Principale",
       menuServices: "Servizi",
       menuExplore: "Esplora",
+      menuRelationship: "Relazione",
+      menuContent: "Contenuti",
+      menuRealEstateHint: "Proprieta, progetti e zone",
+      menuPromotersHint: "Promotori e commercializzazione",
+      menuLegalHint: "Supporto legale immobiliare",
+      menuMarketingHint: "Visual, render e campagne",
+      menuAgentsHint: "Accesso partner",
+      menuContactHint: "Parla con BlancaReal",
+      menuBlogHint: "Guide e aggiornamenti",
+      menuAboutHint: "Team e brand",
       openMenu: "Apri menu",
       closeMenu: "Chiudi menu",
     },
@@ -217,6 +277,16 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuMain: "Hoofdmenu",
       menuServices: "Diensten",
       menuExplore: "Verkennen",
+      menuRelationship: "Contact",
+      menuContent: "Content",
+      menuRealEstateHint: "Woningen, projecten en zones",
+      menuPromotersHint: "Ontwikkelaars en commercialisatie",
+      menuLegalHint: "Juridische vastgoedondersteuning",
+      menuMarketingHint: "Visuals, renders en campagnes",
+      menuAgentsHint: "Toegang voor partners",
+      menuContactHint: "Spreek met BlancaReal",
+      menuBlogHint: "Gidsen en updates",
+      menuAboutHint: "Team en merk",
       openMenu: "Open menu",
       closeMenu: "Sluit menu",
     },

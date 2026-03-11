@@ -8,6 +8,8 @@ import { buildMapFeatures } from "@/utils/buildMapFeatures";
 import MapboxCostaMap from "@/components/MapboxCostaMap.astro";
 import PropertyCard from "@/components/PropertyCard.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import { getUiCopy } from "@/i18n/ui";
+import { comparePromotionEditorialOrder } from "@/config/promotionOrder";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
 
@@ -16,6 +18,13 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const ui = getUiCopy(lang);
+
+const headerNavItems = [
+  { href: `/${lang}/properties/`, label: ui.layout.navProperties },
+  { href: `/${lang}/projects/`, label: ui.layout.navProjects },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+];
 
 const copyByLang = {
   es: {
@@ -253,6 +262,19 @@ const cards = properties
   .filter(Boolean)
   .filter((card) => card.visible && card.status !== "sold");
 
+const featuredCards = [
+  ...cards
+    .filter((card) => card.isPromotion)
+    .sort((a, b) => {
+      const byEditorial = comparePromotionEditorialOrder(a, b);
+      if (byEditorial !== 0) return byEditorial;
+      return (b.priority ?? 0) - (a.priority ?? 0);
+    }),
+  ...cards
+    .filter((card) => !card.isPromotion)
+    .sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0)),
+].slice(0, 8);
+
 const filters = buildFilters(cards);
 
 const zoneOptions = filters.cities
@@ -276,6 +298,7 @@ const mapFeatures = buildMapFeatures(properties, lang);
   description={t.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  headerNavItems={headerNavItems}
 >
   <section class="home-hero">
       <video
@@ -466,7 +489,7 @@ const mapFeatures = buildMapFeatures(properties, lang);
           </button>
         </div>
         <div class="home-carousel-track" id="featuredTrack">
-          {cards.slice(0, 8).map((card) => (
+          {featuredCards.map((card) => (
             <div class="home-carousel-slide">
               <PropertyCard data={card} lang={lang} />
             </div>

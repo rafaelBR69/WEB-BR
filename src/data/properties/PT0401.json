@@ -1,0 +1,223 @@
+{
+  "id": "PT0401",
+  "priority": 63,
+  "slugs": {
+    "es": "piso-1-dormitorio-carlos-haya-malaga",
+    "en": "1-bedroom-apartment-carlos-haya-malaga",
+    "de": "wohnung-1-schlafzimmer-carlos-haya-malaga",
+    "fr": "appartement-1-chambre-carlos-haya-malaga",
+    "it": "appartamento-1-camera-carlos-haya-malaga",
+    "nl": "appartement-1-slaapkamer-carlos-haya-malaga"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 241500,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Malaga",
+    "area": "Carlos Haya",
+    "address_line": "Avenida Carlos Haya 5, 1oB",
+    "coordinates": {
+      "lat": 36.72142829092221,
+      "lng": -4.4430504089842975
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "segunda_mano",
+    "area_m2": 55,
+    "terrace_m2": null,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "garages": null,
+    "storage_rooms": null,
+    "floor_level": 1,
+    "floor_label": "Planta 1",
+    "building_door": "B",
+    "elevator": true,
+    "condition": "good",
+    "ibi_yearly": 200,
+    "community_fees_monthly": 35,
+    "full_address": "Avenida Carlos Haya 5, 1oB, Malaga"
+  },
+  "features": [
+    "elevator"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg",
+    "gallery": {
+      "living": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/salon/salon-01.jpg"
+      ],
+      "bedroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/dormitorio/dormitorio-01.jpg"
+      ],
+      "kitchen": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/cocina/cocina-01.jpg"
+      ],
+      "bathroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/bano/bano-01.jpg"
+      ],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/exterior/exterior-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/exterior/facade-01.jpg"
+      ],
+      "interior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/salon/salon-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/bano/bano-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/cocina/cocina-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/dormitorio/dormitorio-01.jpg"
+      ],
+      "views": [],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "piso en venta carlos haya malaga",
+      "en": "apartment for sale carlos haya malaga",
+      "de": "wohnung kaufen carlos haya malaga",
+      "fr": "appartement a vendre carlos haya malaga",
+      "it": "appartamento in vendita carlos haya malaga",
+      "nl": "appartement te koop carlos haya malaga"
+    },
+    "meta_description": {
+      "es": "Piso de 1 dormitorio y 55 m2 construidos en Avenida Carlos Haya, Malaga, con ascensor y gastos mensuales ajustados.",
+      "en": "1-bedroom apartment with 55 sqm built area on Avenida Carlos Haya, Malaga, with lift access and moderate monthly costs.",
+      "de": "Wohnung mit 1 Schlafzimmer und 55 m2 bebauter Flache an der Avenida Carlos Haya in Malaga, mit Aufzug und moderaten monatlichen Kosten.",
+      "fr": "Appartement de 1 chambre et 55 m2 construits sur l Avenida Carlos Haya a Malaga, avec ascenseur et charges mensuelles moderees.",
+      "it": "Appartamento con 1 camera da letto e 55 m2 costruiti in Avenida Carlos Haya, Malaga, con ascensore e costi mensili contenuti.",
+      "nl": "Appartement met 1 slaapkamer en 55 m2 bebouwde oppervlakte aan Avenida Carlos Haya in Malaga, met lift en beperkte maandelijkse kosten."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Piso de 1 dormitorio en Carlos Haya, Malaga",
+      "intro": "Propiedad de segunda mano orientada a ciudad, con 55 m2 construidos y una configuracion practica para vivienda habitual o inversion residencial.",
+      "excerpt": "Propiedad de segunda mano orientada a ciudad, con 55 m2 construidos y una configuracion practica para vivienda habitual o inversion residencial.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda cuenta con 1 dormitorio, 1 bano y ascensor, en una ubicacion consolidada de Malaga con acceso rapido a servicios, transporte y actividad urbana."
+        },
+        {
+          "type": "paragraph",
+          "content": "La propiedad se comercializa sin plaza de garaje incluida, con una estructura de gastos ajustada y un perfil funcional para comprador final o inversor patrimonial."
+        }
+      ],
+      "seo": {
+        "title": "Piso de 1 dormitorio en Carlos Haya, Malaga | BlancaReal",
+        "description": "Piso en Malaga con 1 dormitorio, ascensor y gastos contenidos en la zona de Carlos Haya."
+      }
+    },
+    "en": {
+      "title": "1-bedroom apartment in Carlos Haya, Malaga",
+      "intro": "City-oriented resale property with 55 sqm built area and a practical layout for either a main residence or residential investment.",
+      "excerpt": "City-oriented resale property with 55 sqm built area and a practical layout for either a main residence or residential investment.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The apartment offers 1 bedroom, 1 bathroom and lift access in a consolidated Malaga location with quick access to services, transport and urban activity."
+        },
+        {
+          "type": "paragraph",
+          "content": "The property is marketed without an included garage space, with moderate running costs and a functional profile for an end user or investor."
+        }
+      ],
+      "seo": {
+        "title": "1-bedroom apartment in Carlos Haya, Malaga | BlancaReal",
+        "description": "1-bedroom apartment in Malaga with lift access and moderate running costs in the Carlos Haya area."
+      }
+    },
+    "de": {
+      "title": "Wohnung mit 1 Schlafzimmer in Carlos Haya, Malaga",
+      "intro": "Stadtorientierte Gebrauchtimmobilie mit 55 m2 bebauter Flache und praktischem Grundriss fur Eigennutzung oder Wohninvestment.",
+      "excerpt": "Stadtorientierte Gebrauchtimmobilie mit 55 m2 bebauter Flache und praktischem Grundriss fur Eigennutzung oder Wohninvestment.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Wohnung bietet 1 Schlafzimmer, 1 Bad und Aufzug in einer etablierten Lage von Malaga mit schnellem Zugang zu Dienstleistungen, Verkehr und urbanem Leben."
+        },
+        {
+          "type": "paragraph",
+          "content": "Die Immobilie wird ohne Garage angeboten, mit uberschaubaren laufenden Kosten und einem funktionalen Profil fur Eigennutzer oder Investoren."
+        }
+      ],
+      "seo": {
+        "title": "Wohnung mit 1 Schlafzimmer in Carlos Haya, Malaga | BlancaReal",
+        "description": "Wohnung in Malaga mit 1 Schlafzimmer, Aufzug und moderaten Nebenkosten im Bereich Carlos Haya."
+      }
+    },
+    "fr": {
+      "title": "Appartement de 1 chambre a Carlos Haya, Malaga",
+      "intro": "Bien de revente a vocation urbaine avec 55 m2 construits et une distribution pratique pour residence principale ou investissement residentiel.",
+      "excerpt": "Bien de revente a vocation urbaine avec 55 m2 construits et une distribution pratique pour residence principale ou investissement residentiel.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le logement propose 1 chambre, 1 salle de bain et un ascenseur dans un secteur etabli de Malaga avec acces rapide aux services, aux transports et a la vie urbaine."
+        },
+        {
+          "type": "paragraph",
+          "content": "Le bien est commercialise sans garage inclus, avec des charges contenues et un profil fonctionnel pour utilisateur final ou investisseur."
+        }
+      ],
+      "seo": {
+        "title": "Appartement de 1 chambre a Carlos Haya, Malaga | BlancaReal",
+        "description": "Appartement a Malaga avec 1 chambre, ascenseur et charges moderees dans le secteur Carlos Haya."
+      }
+    },
+    "it": {
+      "title": "Appartamento con 1 camera da letto a Carlos Haya, Malaga",
+      "intro": "Proprieta di seconda mano in contesto urbano, con 55 m2 costruiti e una distribuzione pratica per residenza principale o investimento residenziale.",
+      "excerpt": "Proprieta di seconda mano in contesto urbano, con 55 m2 costruiti e una distribuzione pratica per residenza principale o investimento residenziale.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "L appartamento offre 1 camera da letto, 1 bagno e ascensore in una zona consolidata di Malaga con rapido accesso a servizi, trasporti e vita urbana."
+        },
+        {
+          "type": "paragraph",
+          "content": "La proprieta e commercializzata senza posto auto incluso, con costi di gestione contenuti e un profilo funzionale per utente finale o investitore."
+        }
+      ],
+      "seo": {
+        "title": "Appartamento con 1 camera da letto a Carlos Haya, Malaga | BlancaReal",
+        "description": "Appartamento a Malaga con 1 camera, ascensore e costi contenuti nella zona di Carlos Haya."
+      }
+    },
+    "nl": {
+      "title": "Appartement met 1 slaapkamer in Carlos Haya, Malaga",
+      "intro": "Stedelijke wederverkoopwoning met 55 m2 bebouwde oppervlakte en een praktische indeling voor eigen bewoning of residentiele investering.",
+      "excerpt": "Stedelijke wederverkoopwoning met 55 m2 bebouwde oppervlakte en een praktische indeling voor eigen bewoning of residentiele investering.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Het appartement beschikt over 1 slaapkamer, 1 badkamer en een lift in een gevestigde wijk van Malaga met snelle toegang tot voorzieningen, vervoer en stedelijke dynamiek."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning wordt aangeboden zonder inbegrepen garageplaats, met beperkte vaste lasten en een functioneel profiel voor eindgebruiker of belegger."
+        }
+      ],
+      "seo": {
+        "title": "Appartement met 1 slaapkamer in Carlos Haya, Malaga | BlancaReal",
+        "description": "Appartement in Malaga met 1 slaapkamer, lift en beperkte maandelijkse kosten in de wijk Carlos Haya."
+      }
+    }
+  }
+}

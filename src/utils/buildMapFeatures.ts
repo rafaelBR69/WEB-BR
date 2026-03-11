@@ -1,4 +1,5 @@
 import { buildSupabaseImageUrl } from "@/utils/supabaseImage";
+import { resolvePrimaryMediaUrl } from "@/utils/resolvePropertyMedia";
 
 export function buildMapFeatures(properties: any[], lang: string) {
   const toFiniteNumber = (value: unknown) => {
@@ -15,30 +16,12 @@ export function buildMapFeatures(properties: any[], lang: string) {
   };
 
   const resolveCoverUrl = (property: any) => {
-    const cover =
-      property?.media?.cover ??
-      property?.media?.gallery?.exterior?.[0] ??
-      property?.media?.gallery?.interior?.[0] ??
-      property?.media?.gallery?.views?.[0] ??
-      null;
-
-    if (!cover) return "";
-    const raw = typeof cover === "string" ? cover : String(cover?.url ?? "");
+    const raw = resolvePrimaryMediaUrl(property?.media);
+    if (!raw) return "";
     return buildSupabaseImageUrl(raw, { width: 360, quality: 70 });
   };
 
-  const resolveRawCoverUrl = (property: any) => {
-    const cover =
-      property?.media?.cover ??
-      property?.media?.gallery?.exterior?.[0] ??
-      property?.media?.gallery?.interior?.[0] ??
-      property?.media?.gallery?.views?.[0] ??
-      null;
-
-    if (!cover) return "";
-    if (typeof cover === "string") return cover;
-    return String(cover?.url ?? "");
-  };
+  const resolveRawCoverUrl = (property: any) => resolvePrimaryMediaUrl(property?.media);
 
   return properties
     .filter((property) => property.status === "available")

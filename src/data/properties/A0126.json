@@ -1,0 +1,194 @@
+{
+  "id": "A0126",
+  "priority": 90,
+  "slugs": {
+    "es": "adosados-obra-nueva-sunhill-fuengirola",
+    "en": "new-build-townhouses-sunhill-fuengirola",
+    "de": "neubau-reihenhaeuser-sunhill-fuengirola",
+    "fr": "maisons-jumelees-neuves-sunhill-fuengirola",
+    "it": "villette-nuova-costruzione-sunhill-fuengirola",
+    "nl": "nieuwbouw-herenhuizen-sunhill-fuengirola"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 298000,
+  "currency": "EUR",
+  "pricing": {
+    "from": 298000,
+    "currency": "EUR"
+  },
+  "phase": "Obras",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Fuengirola",
+    "coordinates": {
+      "lat": 36.55155590326423,
+      "lng": -4.615539918444597
+    }
+  },
+  "property": {
+    "type": "townhouse",
+    "market": "obra_nueva",
+    "condition": "new",
+    "year_built": 2027,
+    "area_m2": null,
+    "usable_area_m2": null,
+    "terrace_m2": null,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "provider_name": "Carpe Homes",
+    "provider_phone": "952476950",
+    "provider_email": "info@carpehome.com",
+    "commercial_agency": "BlancaReal",
+    "collaboration_fee": "5% del precio final de venta",
+    "collaboration_agreement_signed": true,
+    "delivery_date": "2027-12-01",
+    "sales_stage": "Obras",
+    "property_group": "UNIFAMILIARES",
+    "publication_restrictions": "NINGUN SITIO SOLO NUESTRA WEB",
+    "idealista_publication": false,
+    "captured_by": "YOLANDA",
+    "source_import_date": "2026-02-18",
+    "notes": "Empezaron la obra en octubre de 2025 y tienen prevista la entrega para finales de 2027."
+  },
+  "features": [
+    "new_build",
+    "private_parking",
+    "elevator",
+    "communal_pool",
+    "gym"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/cover/facade.jpg",
+      "alt": {
+        "es": "Sunhill en Fuengirola",
+        "en": "Sunhill in Fuengirola",
+        "de": "Sunhill in Fuengirola",
+        "fr": "Sunhill a Fuengirola",
+        "it": "Sunhill a Fuengirola",
+        "nl": "Sunhill in Fuengirola"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/exterior-1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/cover/facade.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/salon.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/cocina.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/dormitorio.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/bano.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/bano-2.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/zonas_comunes/gym.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/zonas_comunes/sauna.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/mapa/mapa.jpg"
+        }
+      ],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/memoria_de_calidades/Memoria%20calidades%20Sunhill..pdf"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/dossier/dosier.pdf"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "adosados obra nueva fuengirola sunhill",
+      "en": "sunhill new build townhouses fuengirola",
+      "de": "sunhill neubau reihenhaeuser fuengirola",
+      "fr": "sunhill maisons jumelees neuves fuengirola",
+      "it": "sunhill villette nuova costruzione fuengirola",
+      "nl": "sunhill nieuwbouw herenhuizen fuengirola"
+    },
+    "meta_description": {
+      "es": "Sunhill en Fuengirola: adosados de obra nueva de 2 dormitorios con piscina comunitaria, gimnasio, sauna y precios desde 298.000 EUR.",
+      "en": "Sunhill in Fuengirola: 2-bedroom new-build townhouses with communal pool, gym, sauna and prices from EUR 298,000.",
+      "de": "Sunhill in Fuengirola: Neubau-Reihenhaeuser mit 2 Schlafzimmern, Gemeinschaftspool, Fitnessraum, Sauna und Preisen ab 298.000 EUR.",
+      "fr": "Sunhill a Fuengirola : maisons jumel ees neuves de 2 chambres avec piscine commune, salle de sport, sauna et prix a partir de 298 000 EUR.",
+      "it": "Sunhill a Fuengirola: villette di nuova costruzione con 2 camere, piscina condominiale, palestra, sauna e prezzi da 298.000 EUR.",
+      "nl": "Sunhill in Fuengirola: nieuwbouw herenhuizen met 2 slaapkamers, gemeenschappelijk zwembad, fitnessruimte, sauna en prijzen vanaf EUR 298.000."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Sunhill: adosados de obra nueva en Fuengirola",
+      "intro": "Promocion de adosados de 2 dormitorios en Fuengirola, con piscina comunitaria, gimnasio, sauna y precios desde 298.000 EUR.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Sunhill es una promocion de adosados de obra nueva en Fuengirola, planteada para quien busca una vivienda residencial funcional con zonas comunes de bienestar y un rango de acceso competitivo."
+        },
+        {
+          "type": "paragraph",
+          "content": "El proyecto incluye piscina comunitaria, gimnasio, sauna, ascensor, aparcamiento privado descubierto y entrega prevista para diciembre de 2027."
+        }
+      ]
+    },
+    "en": {
+      "title": "Sunhill: new-build townhouses in Fuengirola",
+      "intro": "2-bedroom townhouse development in Fuengirola with communal pool, gym, sauna and prices from EUR 298,000.",
+      "description": []
+    },
+    "de": {
+      "title": "Sunhill: Neubau-Reihenhaeuser in Fuengirola",
+      "intro": "Neubauprojekt mit Reihenhaeusern mit 2 Schlafzimmern, Gemeinschaftspool, Fitnessraum, Sauna und Preisen ab 298.000 EUR.",
+      "description": []
+    },
+    "fr": {
+      "title": "Sunhill : maisons jumel ees neuves a Fuengirola",
+      "intro": "Programme de maisons de 2 chambres a Fuengirola avec piscine commune, salle de sport, sauna et prix a partir de 298 000 EUR.",
+      "description": []
+    },
+    "it": {
+      "title": "Sunhill: villette di nuova costruzione a Fuengirola",
+      "intro": "Progetto di villette con 2 camere a Fuengirola, piscina condominiale, palestra, sauna e prezzi da 298.000 EUR.",
+      "description": []
+    },
+    "nl": {
+      "title": "Sunhill: nieuwbouw herenhuizen in Fuengirola",
+      "intro": "Project met herenhuizen met 2 slaapkamers in Fuengirola, gemeenschappelijk zwembad, fitnessruimte, sauna en prijzen vanaf EUR 298.000.",
+      "description": []
+    }
+  }
+}

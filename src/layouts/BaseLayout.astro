@@ -25,6 +25,8 @@ const {
   availableLangs,
   headerVariant = "default",
   landingNavItems = [],
+  headerNavItems = [],
+  sideMenuSections: sideMenuSectionsProp = [],
   showMobileStickyCta = true,
 } = Astro.props;
 
@@ -113,10 +115,13 @@ const isActiveHref = (href) => {
   return current.startsWith(target);
 };
 
+const isMenuItemActive = (item) =>
+  isActiveHref(item.href) ||
+  (Array.isArray(item.children) && item.children.some((child) => isActiveHref(child.href)));
+
 const defaultLandingNavItems = [
   { href: `/${lang}/portal/`, label: ui.layout.navAgents },
-  { href: `/${lang}/contact/`, label: ui.layout.navContact },
-  { href: `/${lang}/projects/`, label: ui.layout.navPromoters },
+  { href: `/${lang}/commercialization/`, label: ui.layout.navPromoters },
 ];
 
 const resolvedLandingNavItems =
@@ -124,35 +129,62 @@ const resolvedLandingNavItems =
     ? landingNavItems
     : defaultLandingNavItems;
 
-const sideMenuSections = [
+const defaultHeaderNavItems = [
+  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+  { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization },
+  { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+];
+
+const resolvedHeaderNavItems =
+  Array.isArray(headerNavItems) && headerNavItems.length
+    ? headerNavItems
+    : defaultHeaderNavItems;
+
+const defaultSideMenuSections = [
   {
     title: ui.layout.menuMain,
     items: [
       { href: `/${lang}/`, label: ui.layout.navHome },
-      { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
-      { href: `/${lang}/portal/`, label: ui.layout.navAgents },
-      { href: `/${lang}/contact/`, label: ui.layout.navContact },
-      { href: `/${lang}/projects/`, label: ui.layout.navPromoters },
+      {
+        href: `/${lang}/real-estate/`,
+        label: ui.layout.navRealEstate,
+        description: ui.layout.menuRealEstateHint,
+        children: [
+          { href: `/${lang}/properties/`, label: ui.layout.navProperties },
+          { href: `/${lang}/projects/`, label: ui.layout.navProjects },
+        ],
+      },
     ],
   },
   {
     title: ui.layout.menuServices,
     items: [
-      { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices },
-      { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization },
+      { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization, description: ui.layout.menuPromotersHint },
+      { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices, description: ui.layout.menuLegalHint },
+      { href: `/${lang}/marketing-3d/`, label: "Marketing 3D", description: ui.layout.menuMarketingHint },
     ],
   },
   {
-    title: ui.layout.menuExplore,
+    title: ui.layout.menuRelationship,
     items: [
-      { href: `/${lang}/properties/`, label: ui.layout.navProperties },
-      { href: `/${lang}/projects/`, label: ui.layout.navProjects },
-      { href: `/${lang}/map/`, label: ui.layout.navMap },
-      { href: `/${lang}/posts/`, label: ui.layout.navPosts },
-      { href: `/${lang}/about/`, label: ui.layout.navAbout },
+      { href: `/${lang}/portal/`, label: ui.layout.navAgents, description: ui.layout.menuAgentsHint },
+      { href: `/${lang}/contact/`, label: ui.layout.navContact, description: ui.layout.menuContactHint },
+    ],
+  },
+  {
+    title: ui.layout.menuContent,
+    items: [
+      { href: `/${lang}/posts/`, label: ui.layout.navPosts, description: ui.layout.menuBlogHint },
+      { href: `/${lang}/about/`, label: ui.layout.navAbout, description: ui.layout.menuAboutHint },
     ],
   },
 ];
+
+const resolvedSideMenuSections =
+  Array.isArray(sideMenuSectionsProp) && sideMenuSectionsProp.length
+    ? sideMenuSectionsProp
+    : defaultSideMenuSections;
 
 const hasPublicCatalogRoute =
   canonicalPath.includes("/properties") ||
@@ -301,12 +333,13 @@ const shouldLoadPublicRealtime =
           <>
             <nav class="main-nav desktop-only">
               <ul class="nav-links">
-                <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? "active" : ""}>{ui.layout.navHome}</a></li>
-                <li><a href={`/${lang}/real-estate/`} class={canonicalPath.includes("/real-estate") ? "active" : ""}>{ui.layout.navRealEstate}</a></li>
-                <li><a href={`/${lang}/properties/`} class={canonicalPath.includes("/properties") ? "active" : ""}>{ui.layout.navProperties}</a></li>
-                <li><a href={`/${lang}/projects/`} class={canonicalPath.includes("/projects") ? "active" : ""}>{ui.layout.navProjects}</a></li>
-                <li><a href={`/${lang}/posts/`} class={canonicalPath.includes("/posts") || canonicalPath.includes("/post/") ? "active" : ""}>{ui.layout.navPosts}</a></li>
-                <li><a href={`/${lang}/about/`} class={canonicalPath.includes("/about") ? "active" : ""}>{ui.layout.navAbout}</a></li>
+                {resolvedHeaderNavItems.map((item) => (
+                  <li>
+                    <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </nav>
 
@@ -340,16 +373,16 @@ const shouldLoadPublicRealtime =
                   </div>
                 </div>
               </div>
-              <a href="tel:+34600123456" class="header-cta desktop-only">
+              <a href={`/${lang}/contact/`} class="header-cta desktop-only">
                 {ui.layout.contact}
               </a>
 
               <button
-                class="mobile-menu-toggle"
-                aria-label={ui.layout.menu}
+                class="side-menu-toggle"
+                aria-label={ui.layout.openMenu}
                 aria-expanded="false"
-                aria-controls="mobileMenu"
-                id="menuToggle"
+                aria-controls="sideMenu"
+                id="sideMenuToggle"
               >
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -360,116 +393,77 @@ const shouldLoadPublicRealtime =
         )}
       </div>
 
-      {isLandingHeader ? (
-        <>
-          <div class="side-menu-backdrop" id="sideMenuBackdrop" hidden></div>
-          <aside class="side-menu-drawer" id="sideMenu" aria-hidden="true">
-            <div class="side-menu-brand-watermark" aria-hidden="true">
-              <BrandLogo variant="stacked" />
-            </div>
-            <div class="side-menu-head">
-              <p>{ui.layout.menu}</p>
-              <button type="button" id="sideMenuClose" aria-label={ui.layout.closeMenu}>
-                {ui.layout.closeMenu}
-              </button>
-            </div>
+      <div class="side-menu-backdrop" id="sideMenuBackdrop" hidden></div>
+      <aside class="side-menu-drawer" id="sideMenu" aria-hidden="true">
+        <div class="side-menu-brand-watermark" aria-hidden="true">
+          <BrandLogo variant="stacked" />
+        </div>
+        <div class="side-menu-head">
+          <p>{ui.layout.menu}</p>
+          <button type="button" id="sideMenuClose" aria-label={ui.layout.closeMenu}>
+            {ui.layout.closeMenu}
+          </button>
+        </div>
 
-            <nav class="side-menu-nav" aria-label={ui.layout.menu}>
-              {sideMenuSections.map((section) => (
-                <section class="side-menu-section">
-                  <h2>{section.title}</h2>
-                  <ul>
-                    {section.items.map((item) => (
-                      <li>
-                        <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
-                          {item.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ))}
-            </nav>
+        <nav class="side-menu-nav" aria-label={ui.layout.menu}>
+          {resolvedSideMenuSections.map((section) => (
+            <section class="side-menu-section">
+              <h2>{section.title}</h2>
+              <ul>
+                {section.items.map((item) => (
+                  <li>
+                    <a href={item.href} class={isMenuItemActive(item) ? "active" : ""}>
+                      <strong>{item.label}</strong>
+                      {item.description && <small>{item.description}</small>}
+                    </a>
+                    {Array.isArray(item.children) && item.children.length > 0 && (
+                      <ul class="side-submenu">
+                        {item.children.map((child) => (
+                          <li>
+                            <a href={child.href} class={isActiveHref(child.href) ? "active" : ""}>
+                              <strong>{child.label}</strong>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </nav>
 
-            <div class="side-menu-lang">
-              <span class="lang-switcher-label">{ui.layout.language}</span>
-              <div class="lang-picker" id="langPickerDrawer">
+        <div class="side-menu-lang">
+          <span class="lang-switcher-label">{ui.layout.language}</span>
+          <div class="lang-picker" id="langPickerDrawer">
+            <button
+              type="button"
+              class="lang-trigger"
+              id="langTriggerDrawer"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-controls="langMenuDrawer"
+            >
+              <span id="langLabelDrawer">{activeLangLabel}</span>
+            </button>
+            <div class="lang-menu" id="langMenuDrawer" role="listbox" hidden>
+              {langLinks.map((item) => (
                 <button
                   type="button"
-                  class="lang-trigger"
-                  id="langTriggerDrawer"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                  aria-controls="langMenuDrawer"
+                  class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                  data-href={item.href}
+                  data-label={item.label}
+                  role="option"
+                  aria-selected={item.isActive ? "true" : "false"}
                 >
-                  <span id="langLabelDrawer">{activeLangLabel}</span>
+                  {item.label}
                 </button>
-                <div class="lang-menu" id="langMenuDrawer" role="listbox" hidden>
-                  {langLinks.map((item) => (
-                    <button
-                      type="button"
-                      class={`lang-option ${item.isActive ? "is-active" : ""}`}
-                      data-href={item.href}
-                      data-label={item.label}
-                      role="option"
-                      aria-selected={item.isActive ? "true" : "false"}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
-          </aside>
-        </>
-      ) : (
-        <div class="mobile-nav-overlay" id="mobileMenu">
-          <nav class="mobile-nav-content">
-            <ul class="mobile-nav-links">
-              <li><a href={`/${lang}/`} class={canonicalPath === `/${lang}` || canonicalPath === `/${lang}/` ? "active" : ""}>{ui.layout.navHome}</a></li>
-              <li><a href={`/${lang}/real-estate/`} class={canonicalPath.includes("/real-estate") ? "active" : ""}>{ui.layout.navRealEstate}</a></li>
-              <li><a href={`/${lang}/properties/`} class={canonicalPath.includes("/properties") ? "active" : ""}>{ui.layout.navProperties}</a></li>
-              <li><a href={`/${lang}/projects/`} class={canonicalPath.includes("/projects") ? "active" : ""}>{ui.layout.navProjects}</a></li>
-              <li><a href={`/${lang}/posts/`} class={canonicalPath.includes("/posts") || canonicalPath.includes("/post/") ? "active" : ""}>{ui.layout.navPosts}</a></li>
-              <li><a href={`/${lang}/about/`} class={canonicalPath.includes("/about") ? "active" : ""}>{ui.layout.navAbout}</a></li>
-            </ul>
-            <div class="mobile-menu-utilities">
-              <div class="mobile-lang-switcher">
-                <span class="lang-switcher-label">{ui.layout.language}</span>
-                <div class="lang-picker" id="langPickerMobile">
-                  <button
-                    type="button"
-                    class="lang-trigger"
-                    id="langTriggerMobile"
-                    aria-haspopup="listbox"
-                    aria-expanded="false"
-                    aria-controls="langMenuMobile"
-                  >
-                    <span id="langLabelMobile">{activeLangLabel}</span>
-                  </button>
-                  <div class="lang-menu" id="langMenuMobile" role="listbox" hidden>
-                    {langLinks.map((item) => (
-                      <button
-                        type="button"
-                        class={`lang-option ${item.isActive ? "is-active" : ""}`}
-                        data-href={item.href}
-                        data-label={item.label}
-                        role="option"
-                        aria-selected={item.isActive ? "true" : "false"}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div class="mobile-menu-contact">
-                <a href="tel:+34600123456" class="mobile-menu-cta">{ui.layout.callNow}</a>
-              </div>
-            </div>
-          </nav>
+          </div>
         </div>
-      )}
+      </aside>
     </header>
 
     {showMobileStickyCta && (
@@ -487,30 +481,6 @@ const shouldLoadPublicRealtime =
 
     <script is:inline>
       const body = document.body;
-      const toggle = document.getElementById("menuToggle");
-      const menu = document.getElementById("mobileMenu");
-
-      const closeMobileMenu = () => {
-        if (!(toggle instanceof HTMLElement) || !(menu instanceof HTMLElement)) return;
-        menu.classList.remove("is-open");
-        toggle.classList.remove("is-active");
-        toggle.setAttribute("aria-expanded", "false");
-        body.style.overflow = "";
-      };
-
-      if (toggle instanceof HTMLElement && menu instanceof HTMLElement) {
-        toggle.addEventListener("click", () => {
-          const isOpen = menu.classList.toggle("is-open");
-          toggle.classList.toggle("is-active");
-          toggle.setAttribute("aria-expanded", String(isOpen));
-          body.style.overflow = isOpen ? "hidden" : "";
-        });
-
-        menu.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", closeMobileMenu);
-        });
-      }
-
       const sideMenuToggle = document.getElementById("sideMenuToggle");
       const sideMenu = document.getElementById("sideMenu");
       const sideMenuBackdrop = document.getElementById("sideMenuBackdrop");
@@ -646,6 +616,10 @@ const shouldLoadPublicRealtime =
         if (link.rel && link.rel.includes("external")) return true;
         const href = link.getAttribute("href") || "";
         if (href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return true;
+        const isPropertiesManagedLink =
+          link.closest(".properties-page") &&
+          (href.startsWith("?") || href.includes("/properties/"));
+        if (isPropertiesManagedLink) return true;
         return !isSameOrigin(link);
       };
 
@@ -707,17 +681,16 @@ const shouldLoadPublicRealtime =
       };
 
       initLangPicker("langPickerDesktop", "langTriggerDesktop", "langMenuDesktop", "langLabelDesktop");
-      initLangPicker("langPickerMobile", "langTriggerMobile", "langMenuMobile", "langLabelMobile");
       initLangPicker("langPickerDrawer", "langTriggerDrawer", "langMenuDrawer", "langLabelDrawer");
 
       document.addEventListener("click", (event) => {
+        if (event.defaultPrevented) return;
         const link = event.target.closest("a");
         if (!link || shouldSkipTransition(link)) return;
         const href = link.href;
         if (!href) return;
 
         event.preventDefault();
-        closeMobileMenu();
         closeSideMenu();
         document.body.classList.add("page-is-leaving");
         setTimeout(() => {

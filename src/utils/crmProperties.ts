@@ -32,6 +32,7 @@ export type PropertyMediaItem = {
 };
 
 export type PropertyMediaModel = {
+  main?: PropertyMediaItem | null;
   cover: PropertyMediaItem | null;
   gallery: Record<MediaCategory, PropertyMediaItem[]>;
 };
@@ -186,6 +187,7 @@ const toMediaItem = (value: unknown): PropertyMediaItem | null => {
 };
 
 export const getEmptyMediaModel = (): PropertyMediaModel => ({
+  main: null,
   cover: null,
   gallery: {
     living: [],
@@ -203,6 +205,7 @@ export const normalizeMediaModel = (rawMedia: unknown): PropertyMediaModel => {
   const source = asRecord(rawMedia);
   const gallerySource = asRecord(source.gallery);
   const model = getEmptyMediaModel();
+  model.main = toMediaItem(source.main);
   model.cover = toMediaItem(source.cover);
 
   MEDIA_CATEGORIES.forEach((category) => {

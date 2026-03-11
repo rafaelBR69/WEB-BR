@@ -1,4 +1,5 @@
 import { getSupabaseServerClient, hasSupabaseServerClient } from "@/utils/supabaseServer";
+import { normalizePm0074PublicProperty } from "@/utils/normalizePm0074PublicProperty";
 
 type GenericRecord = Record<string, unknown>;
 type PublicProperty = Record<string, unknown>;
@@ -223,7 +224,9 @@ export const getPublicPropertiesWithFallback = async (options: {
   fallbackProperties: PublicProperty[];
   organizationId?: string | null;
 }) => {
-  const fallback = clone(options.fallbackProperties);
+  const fallback = clone(options.fallbackProperties).map((property) =>
+    normalizePm0074PublicProperty(property)
+  );
   const requestedOrgId = asText(options.organizationId) ?? getPublicOrganizationId();
   const canQueryAllOrgs = allowAllOrganizations();
 
@@ -250,6 +253,7 @@ export const getPublicPropertiesWithFallback = async (options: {
 
     const mapped = rows
       .map((row) => mapCrmRowToPublicProperty(row, parentLegacyCodeById))
+      .map((row) => (row ? normalizePm0074PublicProperty(row) : row))
       .filter((row): row is PublicProperty => Boolean(row))
       .sort((a, b) => String(a.id ?? "").localeCompare(String(b.id ?? ""), undefined, { numeric: true }));
 
@@ -262,4 +266,3 @@ export const getPublicPropertiesWithFallback = async (options: {
     return { properties: fallback, source: "fallback_json_query_error" as const };
   }
 };
-

@@ -10,7 +10,10 @@
     "it": "Acquisizione di Immobili",
     "nl": "Vastgoedacquisitie"
   },
-  "spoken_languages": [],
+  "spoken_languages": [
+    "es",
+    "en"
+  ],
   "email": "yolanda@blancareal.com",
   "phone": "+34 635 01 54 47",
   "photo": {

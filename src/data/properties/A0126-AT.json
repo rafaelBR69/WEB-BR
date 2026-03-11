@@ -1,0 +1,167 @@
+{
+  "id": "A0126-AT",
+  "priority": 72,
+  "listing_type": "unit",
+  "parent_id": "A0126",
+  "slugs": {
+    "es": "atico-obra-nueva-sunhill-fuengirola",
+    "en": "new-build-penthouse-sunhill-fuengirola",
+    "de": "neubau-penthouse-sunhill-fuengirola",
+    "fr": "penthouse-neuf-sunhill-fuengirola",
+    "it": "attico-nuova-costruzione-sunhill-fuengirola",
+    "nl": "nieuwbouw-penthouse-sunhill-fuengirola"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 363000,
+  "currency": "EUR",
+  "phase": "Obras",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Fuengirola",
+    "coordinates": {
+      "lat": 36.55155590326423,
+      "lng": -4.615539918444597
+    }
+  },
+  "property": {
+    "type": "townhouse",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": 70.89,
+    "usable_area_m2": null,
+    "terrace_m2": 12.68,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "floor_level": 3,
+    "floor_label": "Atico",
+    "unit_code": "AT",
+    "parking_type": "privado_descubierto",
+    "community_pool": true,
+    "sales_stage": "Obras",
+    "delivery_date": "2027-12-01",
+    "source_import_date": "2026-02-18",
+    "property_group": "UNIFAMILIARES",
+    "publication_restrictions": "NINGUN SITIO SOLO NUESTRA WEB",
+    "idealista_publication": false,
+    "captured_by": "YOLANDA",
+    "notes": "Empezaron la obra en octubre de 2025 y tienen prevista la entrega para finales de 2027."
+  },
+  "features": [
+    "new_build",
+    "private_parking",
+    "elevator",
+    "communal_pool",
+    "gym"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/cover/facade.jpg",
+      "alt": {
+        "es": "Sunhill atico en Fuengirola",
+        "en": "Sunhill penthouse in Fuengirola"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/exterior-1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/cover/facade.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/salon.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/cocina.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/dormitorio.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/bano.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/interior/bano-2.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/zonas_comunes/gym.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/exterior/zonas_comunes/sauna.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/mapa/mapa.jpg"
+        }
+      ],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/memoria_de_calidades/Memoria%20calidades%20Sunhill..pdf"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/dossier/dosier.pdf"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "atico obra nueva sunhill fuengirola",
+      "en": "new build penthouse sunhill fuengirola"
+    },
+    "meta_description": {
+      "es": "Atico de obra nueva en Sunhill, Fuengirola. 2 dormitorios, 2 banos, 70.89 m2 construidos y 12.68 m2 de terraza. Precio: 363.000 EUR.",
+      "en": "New-build penthouse at Sunhill, Fuengirola. 2 bedrooms, 2 bathrooms, 70.89 sqm built and 12.68 sqm terrace. Price: EUR 363,000."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Atico de obra nueva en Sunhill, Fuengirola",
+      "intro": "Unidad disponible de 2 dormitorios con 70.89 m2 construidos, terraza de 12.68 m2 y aparcamiento privado descubierto.",
+      "description": []
+    },
+    "en": {
+      "title": "New-build penthouse at Sunhill, Fuengirola",
+      "intro": "Available 2-bedroom unit with 70.89 sqm built area, a 12.68 sqm terrace and private outdoor parking.",
+      "description": []
+    },
+    "de": {
+      "title": "Neubau-Penthouse in Sunhill, Fuengirola",
+      "intro": "Verfuegbare Einheit mit 2 Schlafzimmern, 70.89 m2 bebauter Flaeche, 12.68 m2 Terrasse und privatem Aussenstellplatz.",
+      "description": []
+    },
+    "fr": {
+      "title": "Penthouse neuf a Sunhill, Fuengirola",
+      "intro": "Unite disponible avec 2 chambres, 70.89 m2 construits, terrasse de 12.68 m2 et stationnement prive exterieur.",
+      "description": []
+    },
+    "it": {
+      "title": "Attico di nuova costruzione a Sunhill, Fuengirola",
+      "intro": "Unita disponibile con 2 camere, 70.89 m2 costruiti, terrazza di 12.68 m2 e parcheggio privato scoperto.",
+      "description": []
+    },
+    "nl": {
+      "title": "Nieuwbouw penthouse in Sunhill, Fuengirola",
+      "intro": "Beschikbare unit met 2 slaapkamers, 70.89 m2 bebouwd oppervlak, 12.68 m2 terras en prive buitenparking.",
+      "description": []
+    }
+  }
+}

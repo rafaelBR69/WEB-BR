@@ -1,0 +1,240 @@
+{
+  "id": "PT0400",
+  "priority": 61,
+  "slugs": {
+    "es": "atico-duplex-4-dormitorios-fuengirola",
+    "en": "4-bedroom-duplex-penthouse-fuengirola",
+    "de": "duplex-penthouse-4-schlafzimmer-fuengirola",
+    "fr": "penthouse-duplex-4-chambres-fuengirola",
+    "it": "attico-duplex-4-camere-fuengirola",
+    "nl": "duplex-penthouse-4-slaapkamers-fuengirola"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 1275000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Pueblo Castillo",
+    "address_line": "Urbanizacion Pueblo Castillo, Edificio Astigi 2, 6o",
+    "coordinates": {
+      "lat": 36.52711421546885,
+      "lng": -4.6280965824114
+    }
+  },
+  "property": {
+    "type": "penthouse",
+    "market": "segunda_mano",
+    "area_m2": 360,
+    "terrace_m2": 100,
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "garages": 1,
+    "storage_rooms": 1,
+    "floor_level": 6,
+    "floor_label": "Atico duplex",
+    "elevator": true,
+    "condition": "good",
+    "ibi_yearly": null,
+    "community_fees_monthly": null,
+    "full_address": "Urbanizacion Pueblo Castillo, Edificio Astigi 2, 6o, Fuengirola, Malaga"
+  },
+  "features": [
+    "garage",
+    "storage_room",
+    "communal_pool",
+    "elevator"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/cover/vistas-01.jpeg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/cover/vistas-01.jpeg",
+    "gallery": {
+      "living": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/Salon-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/Salon-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/salon-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/salon-04.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/salon-05.jpeg"
+      ],
+      "bedroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/cuartos/Dormitorio-01.jpg"
+      ],
+      "kitchen": [],
+      "bathroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/bano/Bano-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/bano/bano-02.jpeg"
+      ],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/cover/vistas-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/exterior/Terraza-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/exterior/exterior.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/exterior/exterior-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/exterior/exterior-02.jpeg"
+      ],
+      "interior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/entrada/Recibidor-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/entrada/escalera-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/Salon-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/Salon-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/salon-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/salon-04.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/salon/salon-05.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/cuartos/Dormitorio-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/bano/Bano-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/interior/bano/bano-02.jpeg"
+      ],
+      "views": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/views/vistas-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/views/vistas-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0400/views/vistas-03.jpeg"
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "atico duplex en venta fuengirola",
+      "en": "duplex penthouse for sale fuengirola",
+      "de": "duplex penthouse kaufen fuengirola",
+      "fr": "penthouse duplex a vendre fuengirola",
+      "it": "attico duplex in vendita fuengirola",
+      "nl": "duplex penthouse te koop fuengirola"
+    },
+    "meta_description": {
+      "es": "Atico duplex de 4 dormitorios con 360 m2 construidos, 100 m2 de terraza, garaje, trastero y piscina comunitaria en Fuengirola.",
+      "en": "4-bedroom duplex penthouse with 360 sqm built area, 100 sqm terrace, garage, storage room and communal pool in Fuengirola.",
+      "de": "Duplex-Penthouse mit 4 Schlafzimmern, 360 m2 bebauter Flache, 100 m2 Terrasse, Garage, Abstellraum und Gemeinschaftspool in Fuengirola.",
+      "fr": "Penthouse duplex de 4 chambres avec 360 m2 construits, 100 m2 de terrasse, garage, debarras et piscine commune a Fuengirola.",
+      "it": "Attico duplex con 4 camere da letto, 360 m2 costruiti, 100 m2 di terrazza, garage, ripostiglio e piscina condominiale a Fuengirola.",
+      "nl": "Duplex penthouse met 4 slaapkamers, 360 m2 bebouwde oppervlakte, 100 m2 terras, garage, berging en gemeenschappelijk zwembad in Fuengirola."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Atico duplex de 4 dormitorios en Fuengirola",
+      "intro": "Propiedad de segunda mano con gran superficie interior, 100 m2 de terrazas y perfil residencial premium en Fuengirola.",
+      "excerpt": "Propiedad de segunda mano con gran superficie interior, 100 m2 de terrazas y perfil residencial premium en Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Este atico duplex dispone de 4 dormitorios y 2 banos en una configuracion pensada para quien busca amplitud exterior e interior en una ubicacion consolidada."
+        },
+        {
+          "type": "paragraph",
+          "content": "La propiedad incluye garaje, trastero, ascensor y piscina comunitaria, con una escala de vivienda poco habitual dentro del mercado de segunda mano en la zona."
+        }
+      ],
+      "seo": {
+        "title": "Atico duplex de 4 dormitorios en Fuengirola | BlancaReal",
+        "description": "Atico duplex en Fuengirola con 4 dormitorios, 100 m2 de terraza, garaje, trastero y piscina comunitaria."
+      }
+    },
+    "en": {
+      "title": "4-bedroom duplex penthouse in Fuengirola",
+      "intro": "Resale property with generous interior space, 100 sqm of terraces and a premium residential profile in Fuengirola.",
+      "excerpt": "Resale property with generous interior space, 100 sqm of terraces and a premium residential profile in Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "This duplex penthouse offers 4 bedrooms and 2 bathrooms in a layout designed for buyers seeking both interior and exterior space in an established location."
+        },
+        {
+          "type": "paragraph",
+          "content": "The property includes garage, storage room, lift and communal pool, with a scale that is uncommon within the local resale market."
+        }
+      ],
+      "seo": {
+        "title": "4-bedroom duplex penthouse in Fuengirola | BlancaReal",
+        "description": "Duplex penthouse in Fuengirola with 4 bedrooms, 100 sqm terrace, garage, storage room and communal pool."
+      }
+    },
+    "de": {
+      "title": "Duplex-Penthouse mit 4 Schlafzimmern in Fuengirola",
+      "intro": "Gebrauchtimmobilie mit grosszugiger Innenflache, 100 m2 Terrassen und hochwertigem Wohnprofil in Fuengirola.",
+      "excerpt": "Gebrauchtimmobilie mit grosszugiger Innenflache, 100 m2 Terrassen und hochwertigem Wohnprofil in Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Dieses Duplex-Penthouse bietet 4 Schlafzimmer und 2 Bader in einem Grundriss fur Kaufer, die grosszugige Innen- und Aussenflachen in etablierter Lage suchen."
+        },
+        {
+          "type": "paragraph",
+          "content": "Zur Immobilie gehoren Garage, Abstellraum, Aufzug und Gemeinschaftspool, mit einer fur den lokalen Wiederverkaufsmarkt ungewohnlichen Grosszugigkeit."
+        }
+      ],
+      "seo": {
+        "title": "Duplex-Penthouse mit 4 Schlafzimmern in Fuengirola | BlancaReal",
+        "description": "Duplex-Penthouse in Fuengirola mit 4 Schlafzimmern, 100 m2 Terrasse, Garage, Abstellraum und Gemeinschaftspool."
+      }
+    },
+    "fr": {
+      "title": "Penthouse duplex de 4 chambres a Fuengirola",
+      "intro": "Bien de revente avec grand volume interieur, 100 m2 de terrasses et positionnement residentiel premium a Fuengirola.",
+      "excerpt": "Bien de revente avec grand volume interieur, 100 m2 de terrasses et positionnement residentiel premium a Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Ce penthouse duplex propose 4 chambres et 2 salles de bain dans une configuration adaptee a ceux qui recherchent de grands espaces interieurs et exterieurs."
+        },
+        {
+          "type": "paragraph",
+          "content": "Le bien comprend garage, debarras, ascenseur et piscine commune, avec une echelle peu frequente sur le marche de la revente locale."
+        }
+      ],
+      "seo": {
+        "title": "Penthouse duplex de 4 chambres a Fuengirola | BlancaReal",
+        "description": "Penthouse duplex a Fuengirola avec 4 chambres, 100 m2 de terrasse, garage, debarras et piscine commune."
+      }
+    },
+    "it": {
+      "title": "Attico duplex con 4 camere da letto a Fuengirola",
+      "intro": "Proprieta di seconda mano con ampia superficie interna, 100 m2 di terrazze e profilo residenziale premium a Fuengirola.",
+      "excerpt": "Proprieta di seconda mano con ampia superficie interna, 100 m2 di terrazze e profilo residenziale premium a Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Questo attico duplex offre 4 camere da letto e 2 bagni in una distribuzione pensata per chi cerca ampi spazi interni ed esterni in una zona consolidata."
+        },
+        {
+          "type": "paragraph",
+          "content": "La proprieta include garage, ripostiglio, ascensore e piscina condominiale, con una dimensione poco comune nel mercato della seconda mano locale."
+        }
+      ],
+      "seo": {
+        "title": "Attico duplex con 4 camere da letto a Fuengirola | BlancaReal",
+        "description": "Attico duplex a Fuengirola con 4 camere, 100 m2 di terrazza, garage, ripostiglio e piscina condominiale."
+      }
+    },
+    "nl": {
+      "title": "Duplex penthouse met 4 slaapkamers in Fuengirola",
+      "intro": "Wederverkoopwoning met royale binnenruimte, 100 m2 terrassen en een premium woonprofiel in Fuengirola.",
+      "excerpt": "Wederverkoopwoning met royale binnenruimte, 100 m2 terrassen en een premium woonprofiel in Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Deze duplex penthouse biedt 4 slaapkamers en 2 badkamers in een indeling voor kopers die veel binnen- en buitenruimte zoeken op een gevestigde locatie."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning beschikt over garage, berging, lift en gemeenschappelijk zwembad, met een schaal die zeldzaam is binnen de lokale wederverkoopmarkt."
+        }
+      ],
+      "seo": {
+        "title": "Duplex penthouse met 4 slaapkamers in Fuengirola | BlancaReal",
+        "description": "Duplex penthouse in Fuengirola met 4 slaapkamers, 100 m2 terras, garage, berging en gemeenschappelijk zwembad."
+      }
+    }
+  }
+}

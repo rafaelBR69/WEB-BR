@@ -6,6 +6,7 @@ import fallbackProperties from "@/data/properties";
 import { formatPrice } from "@/utils/formatters";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
 import { getPublicPropertiesWithFallback } from "@/utils/publicPropertiesSource";
+import { comparePromotionEditorialOrder } from "@/config/promotionOrder";
 import "@/styles/pages/projects.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -160,11 +161,6 @@ const seoByLang = {
 };
 
 const t = seoByLang[lang] ?? seoByLang.es;
-const pinnedProjectOrder = ["PM0079", "PM0084", "PM0074"];
-const pinnedProjectRank = new Map(
-  pinnedProjectOrder.map((id, index) => [id, index])
-);
-
 const byId = new Map(properties.map((property) => [String(property.id), property]));
 
 const isOwnProject = (property) => {
@@ -261,12 +257,8 @@ const projectCards = properties
   })
   .filter(Boolean)
   .sort((a, b) => {
-    const rankA = pinnedProjectRank.has(a.id) ? pinnedProjectRank.get(a.id) : Number.POSITIVE_INFINITY;
-    const rankB = pinnedProjectRank.has(b.id) ? pinnedProjectRank.get(b.id) : Number.POSITIVE_INFINITY;
-
-    if (rankA !== rankB) {
-      return rankA - rankB;
-    }
+    const byEditorial = comparePromotionEditorialOrder(a, b);
+    if (byEditorial !== 0) return byEditorial;
 
     const byAvailability = (b.availableCount ?? 0) - (a.availableCount ?? 0);
     if (byAvailability !== 0) return byAvailability;

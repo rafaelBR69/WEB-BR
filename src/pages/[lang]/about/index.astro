@@ -23,6 +23,32 @@ const copyByLang = {
     heading: "Sobre nosotros",
     intro:
       "Un equipo multidisciplinar enfocado en operaciones inmobiliarias en Costa del Sol.",
+    historyEyebrow: "Trayectoria",
+    historyHeading: "Nuestra historia",
+    historyIntro:
+      "BlancaReal se entiende desde una linea de continuidad: origen promotor, relevo generacional, crecimiento de estructura y consolidacion de nuevas lineas de negocio.",
+    historyTimeline: [
+      {
+        year: "1969",
+        title: "Claude de Hennin funda Eurimobel S.A.",
+        text: "Entre otros desarrollos, la empresa construye la urbanizacion de Las Buganvillas en La Cala de Mijas, entonces un pueblo pesquero.",
+      },
+      {
+        year: "2011",
+        title: "Xavier de Hennin toma el mando y funda BlancaReal",
+        text: "La compania se especializa en intermediacion de lujo, segunda mano, cooperativas y comercializacion de viviendas.",
+      },
+      {
+        year: "2020",
+        title: "Crecimiento de estructura",
+        text: "BlancaReal cuadruplica su equipo, abre nuevos departamentos y arranca sus primeras cooperativas de villas de lujo con certificado BREEAM.",
+      },
+      {
+        year: "2022",
+        title: "Consolidacion",
+        text: "Se consolidan los resultados en cooperativas de lujo, comercializacion de viviendas y grandes inversiones en activos.",
+      },
+    ],
     categoryLabels: {
       ceo: "CEO",
       commercial: "Comercial",
@@ -45,6 +71,32 @@ const copyByLang = {
     heading: "About us",
     intro:
       "A multidisciplinary team focused on real estate operations on Costa del Sol.",
+    historyEyebrow: "Track record",
+    historyHeading: "Our history",
+    historyIntro:
+      "BlancaReal is best understood as a timeline of continuity: developer roots, generational transition, team growth and new business lines.",
+    historyTimeline: [
+      {
+        year: "1969",
+        title: "Claude de Hennin founds Eurimobel S.A.",
+        text: "Among other developments, the company builds Las Buganvillas in La Cala de Mijas, then still a fishing village.",
+      },
+      {
+        year: "2011",
+        title: "Xavier de Hennin takes over and launches BlancaReal",
+        text: "The company specializes in luxury brokerage, resale, cooperatives and housing commercialization.",
+      },
+      {
+        year: "2020",
+        title: "Structural growth",
+        text: "BlancaReal quadruples its team, opens new departments and starts its first luxury villa cooperatives with BREEAM certification.",
+      },
+      {
+        year: "2022",
+        title: "Consolidation",
+        text: "Results are confirmed in luxury cooperatives, housing commercialization and large-scale asset investments.",
+      },
+    ],
     categoryLabels: {
       ceo: "CEO",
       commercial: "Sales",
@@ -181,6 +233,25 @@ const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => {
     <span class="about-eyebrow">{t.eyebrow}</span>
     <h1>{t.heading}</h1>
     <p>{t.intro}</p>
+  </section>
+
+  <section class="about-history container" aria-labelledby="about-history-title">
+    <div class="about-history__heading">
+      <span class="about-eyebrow">{t.historyEyebrow}</span>
+      <h2 id="about-history-title">{t.historyHeading}</h2>
+      <p>{t.historyIntro}</p>
+    </div>
+    <div class="about-history__timeline">
+      {t.historyTimeline.map((item) => (
+        <article class="about-history__item">
+          <span class="about-history__year">{item.year}</span>
+          <div class="about-history__body">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
   </section>
 
   <section class="about-team container">

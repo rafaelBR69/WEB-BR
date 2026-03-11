@@ -4,6 +4,7 @@ import { normalizeCity } from "@/utils/normalizeCity";
 import { normalizeArea } from "@/utils/normalizeArea";
 import { normalizeFloorFilterLabel } from "@/utils/floorFilter";
 import { buildSearchText, normalizeSearchText } from "@/utils/search";
+import { resolveMediaGalleryItems, resolvePrimaryMediaItem } from "@/utils/resolvePropertyMedia";
 
 export function normalizePropertyCard(property, lang) {
   if (!property) return null;
@@ -39,20 +40,8 @@ export function normalizePropertyCard(property, lang) {
   const priceFrom = isPromotion ? property.pricing?.from ?? null : null;
   const price = isPromotion ? null : property.price ?? null;
   const priceDisplay = isPromotion ? priceFrom : price;
-  const gallery = property.media?.gallery ?? {};
-  const interiorExtended = [
-    ...(Array.isArray(gallery?.interior) ? gallery.interior : []),
-    ...(Array.isArray(gallery?.living) ? gallery.living : []),
-    ...(Array.isArray(gallery?.bedroom) ? gallery.bedroom : []),
-    ...(Array.isArray(gallery?.kitchen) ? gallery.kitchen : []),
-    ...(Array.isArray(gallery?.bathroom) ? gallery.bathroom : []),
-  ];
-  const cover =
-    property.media?.cover ??
-    gallery?.exterior?.[0] ??
-    interiorExtended[0] ??
-    gallery?.views?.[0] ??
-    null;
+  const cover = resolvePrimaryMediaItem(property.media);
+  const galleryPreview = resolveMediaGalleryItems(property.media);
 
   return {
     id: property.id ?? null,
@@ -63,6 +52,7 @@ export function normalizePropertyCard(property, lang) {
     slug: property.slugs?.[lang],
     title: t.title ?? "",
     cover,
+    galleryPreview,
     price,
     currency: property.currency ?? "EUR",
     priority: typeof property.priority === "number" ? property.priority : 0,

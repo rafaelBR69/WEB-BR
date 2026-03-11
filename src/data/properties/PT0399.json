@@ -1,0 +1,245 @@
+{
+  "id": "PT0399",
+  "priority": 60,
+  "slugs": {
+    "es": "atico-3-dormitorios-las-lagunas-de-mijas",
+    "en": "3-bedroom-penthouse-las-lagunas-de-mijas",
+    "de": "penthouse-3-schlafzimmer-las-lagunas-de-mijas",
+    "fr": "penthouse-3-chambres-las-lagunas-de-mijas",
+    "it": "attico-3-camere-las-lagunas-de-mijas",
+    "nl": "penthouse-3-slaapkamers-las-lagunas-de-mijas"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 349500,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Las Lagunas de Mijas",
+    "address_line": "Rio Retortillo 10, Atico B",
+    "coordinates": {
+      "lat": 36.54101175071464,
+      "lng": -4.643269258925211
+    }
+  },
+  "property": {
+    "type": "penthouse",
+    "market": "segunda_mano",
+    "area_m2": 106.87,
+    "terrace_m2": 15,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "garages": 1,
+    "storage_rooms": 1,
+    "floor_level": 3,
+    "floor_label": "Atico",
+    "building_door": "B",
+    "elevator": true,
+    "condition": "good",
+    "ibi_yearly": null,
+    "community_fees_monthly": null,
+    "full_address": "Rio Retortillo 10, Atico B, Las Lagunas de Mijas, Malaga"
+  },
+  "features": [
+    "garage",
+    "storage_room",
+    "communal_pool",
+    "elevator"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/cover/terraza-main.jpg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/cover/terraza-main.jpg",
+    "gallery": {
+      "living": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/salon/salon-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/salon/salon-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/salon/salon-03.jpg"
+      ],
+      "bedroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/dormitorio-main.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/dormitorio-main-2.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/2-dormitorio-1.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/2-dormitorio-2.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/CUARTO-03.jpg"
+      ],
+      "kitchen": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cocina/cociona-1.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cocina/cocina-2.jpg"
+      ],
+      "bathroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/bano/BAnO-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/bano/BAnO-02.jpg"
+      ],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/cover/terraza-main.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/exterior/terraza.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/exterior/piscina-1.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/exterior/piscina-2.jpg"
+      ],
+      "interior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/salon/salon-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/salon/salon-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/salon/salon-03.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/dormitorio-main.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/dormitorio-main-2.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/2-dormitorio-1.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/2-dormitorio-2.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cuarto/CUARTO-03.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cocina/cociona-1.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/cocina/cocina-2.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/bano/BAnO-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/interior/bano/BAnO-02.jpg"
+      ],
+      "views": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0399/views/vistas.jpeg"
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "atico en venta las lagunas de mijas",
+      "en": "penthouse for sale las lagunas de mijas",
+      "de": "penthouse kaufen las lagunas de mijas",
+      "fr": "penthouse a vendre las lagunas de mijas",
+      "it": "attico in vendita las lagunas de mijas",
+      "nl": "penthouse te koop las lagunas de mijas"
+    },
+    "meta_description": {
+      "es": "Atico de 3 dormitorios con 106,87 m2 construidos, terraza privada, garaje, trastero y piscina comunitaria en Las Lagunas de Mijas.",
+      "en": "3-bedroom penthouse with 106.87 sqm built area, private terrace, garage, storage room and communal pool in Las Lagunas de Mijas.",
+      "de": "Penthouse mit 3 Schlafzimmern, 106,87 m2 bebauter Flache, privater Terrasse, Garage, Abstellraum und Gemeinschaftspool in Las Lagunas de Mijas.",
+      "fr": "Penthouse de 3 chambres avec 106,87 m2 construits, terrasse privee, garage, debarras et piscine commune a Las Lagunas de Mijas.",
+      "it": "Attico con 3 camere da letto, 106,87 m2 costruiti, terrazza privata, garage, ripostiglio e piscina condominiale a Las Lagunas de Mijas.",
+      "nl": "Penthouse met 3 slaapkamers, 106,87 m2 bebouwde oppervlakte, prive-terras, garage, berging en gemeenschappelijk zwembad in Las Lagunas de Mijas."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Atico de 3 dormitorios en Las Lagunas de Mijas",
+      "intro": "Propiedad de segunda mano con 106,87 m2 construidos, terraza privada y zonas comunes con piscina en Las Lagunas de Mijas.",
+      "excerpt": "Propiedad de segunda mano con 106,87 m2 construidos, terraza privada y zonas comunes con piscina en Las Lagunas de Mijas.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda ofrece 3 dormitorios, 2 banos y una distribucion pensada tanto para residencia habitual como para segunda vivienda en la Costa del Sol."
+        },
+        {
+          "type": "paragraph",
+          "content": "Incluye plaza de garaje, trastero y ascensor, dentro de un entorno residencial con piscina comunitaria y buena conexion con servicios y accesos."
+        }
+      ],
+      "seo": {
+        "title": "Atico de 3 dormitorios en Las Lagunas de Mijas | BlancaReal",
+        "description": "Atico de segunda mano en Las Lagunas de Mijas con 3 dormitorios, terraza privada, garaje, trastero y piscina comunitaria."
+      }
+    },
+    "en": {
+      "title": "3-bedroom penthouse in Las Lagunas de Mijas",
+      "intro": "Resale property with 106.87 sqm built area, a private terrace and communal pool areas in Las Lagunas de Mijas.",
+      "excerpt": "Resale property with 106.87 sqm built area, a private terrace and communal pool areas in Las Lagunas de Mijas.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The home offers 3 bedrooms, 2 bathrooms and a layout designed both for full-time living and as a second home on the Costa del Sol."
+        },
+        {
+          "type": "paragraph",
+          "content": "It includes a garage space, storage room and lift within a residential setting with a communal pool and easy access to local services."
+        }
+      ],
+      "seo": {
+        "title": "3-bedroom penthouse in Las Lagunas de Mijas | BlancaReal",
+        "description": "Resale penthouse in Las Lagunas de Mijas with 3 bedrooms, private terrace, garage, storage room and communal pool."
+      }
+    },
+    "de": {
+      "title": "Penthouse mit 3 Schlafzimmern in Las Lagunas de Mijas",
+      "intro": "Gebrauchtimmobilie mit 106,87 m2 bebauter Flache, privater Terrasse und Gemeinschaftspool in Las Lagunas de Mijas.",
+      "excerpt": "Gebrauchtimmobilie mit 106,87 m2 bebauter Flache, privater Terrasse und Gemeinschaftspool in Las Lagunas de Mijas.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Wohnung bietet 3 Schlafzimmer, 2 Bader und einen Grundriss, der sich sowohl fur den Erstwohnsitz als auch fur einen Zweitwohnsitz an der Costa del Sol eignet."
+        },
+        {
+          "type": "paragraph",
+          "content": "Enthalten sind Garage, Abstellraum und Aufzug in einer Wohnanlage mit Gemeinschaftspool und guter Anbindung an Dienstleistungen und Verkehrswege."
+        }
+      ],
+      "seo": {
+        "title": "Penthouse mit 3 Schlafzimmern in Las Lagunas de Mijas | BlancaReal",
+        "description": "Penthouse in Las Lagunas de Mijas mit 3 Schlafzimmern, privater Terrasse, Garage, Abstellraum und Gemeinschaftspool."
+      }
+    },
+    "fr": {
+      "title": "Penthouse de 3 chambres a Las Lagunas de Mijas",
+      "intro": "Bien de revente avec 106,87 m2 construits, terrasse privee et espaces communs avec piscine a Las Lagunas de Mijas.",
+      "excerpt": "Bien de revente avec 106,87 m2 construits, terrasse privee et espaces communs avec piscine a Las Lagunas de Mijas.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le logement offre 3 chambres, 2 salles de bain et une distribution pensee aussi bien pour une residence principale que secondaire sur la Costa del Sol."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il comprend un garage, un debarras et un ascenseur dans un ensemble residentiel avec piscine commune et bonne connexion aux services."
+        }
+      ],
+      "seo": {
+        "title": "Penthouse de 3 chambres a Las Lagunas de Mijas | BlancaReal",
+        "description": "Penthouse de revente a Las Lagunas de Mijas avec 3 chambres, terrasse privee, garage, debarras et piscine commune."
+      }
+    },
+    "it": {
+      "title": "Attico con 3 camere da letto a Las Lagunas de Mijas",
+      "intro": "Proprieta di seconda mano con 106,87 m2 costruiti, terrazza privata e aree comuni con piscina a Las Lagunas de Mijas.",
+      "excerpt": "Proprieta di seconda mano con 106,87 m2 costruiti, terrazza privata e aree comuni con piscina a Las Lagunas de Mijas.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "L abitazione offre 3 camere da letto, 2 bagni e una distribuzione adatta sia come residenza principale sia come seconda casa in Costa del Sol."
+        },
+        {
+          "type": "paragraph",
+          "content": "Include garage, ripostiglio e ascensore in un contesto residenziale con piscina condominiale e buon collegamento con i servizi."
+        }
+      ],
+      "seo": {
+        "title": "Attico con 3 camere da letto a Las Lagunas de Mijas | BlancaReal",
+        "description": "Attico di seconda mano a Las Lagunas de Mijas con 3 camere, terrazza privata, garage, ripostiglio e piscina condominiale."
+      }
+    },
+    "nl": {
+      "title": "Penthouse met 3 slaapkamers in Las Lagunas de Mijas",
+      "intro": "Wederverkoopwoning met 106,87 m2 bebouwde oppervlakte, prive-terras en gemeenschappelijke zones met zwembad in Las Lagunas de Mijas.",
+      "excerpt": "Wederverkoopwoning met 106,87 m2 bebouwde oppervlakte, prive-terras en gemeenschappelijke zones met zwembad in Las Lagunas de Mijas.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "De woning beschikt over 3 slaapkamers, 2 badkamers en een indeling die geschikt is als vaste woning of tweede verblijf aan de Costa del Sol."
+        },
+        {
+          "type": "paragraph",
+          "content": "Inclusief garage, berging en lift binnen een residentiele omgeving met gemeenschappelijk zwembad en goede verbinding met voorzieningen."
+        }
+      ],
+      "seo": {
+        "title": "Penthouse met 3 slaapkamers in Las Lagunas de Mijas | BlancaReal",
+        "description": "Wederverkoop-penthouse in Las Lagunas de Mijas met 3 slaapkamers, prive-terras, garage, berging en gemeenschappelijk zwembad."
+      }
+    }
+  }
+}

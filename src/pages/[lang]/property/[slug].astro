@@ -7,6 +7,7 @@ import GallerySection from "@/components/GallerySection.astro";
 import { formatPrice } from "@/utils/formatters";
 import { normalizeProperty } from "@/utils/normalizeProperty";
 import { DEFAULT_LANG, isSupportedLang } from "@/i18n/languages";
+import { getUiCopy } from "@/i18n/ui";
 import fallbackProperties from "@/data/properties";
 import { getPublicPropertiesWithFallback } from "@/utils/publicPropertiesSource";
 
@@ -18,6 +19,13 @@ const lang = typeof langParam === "string" ? langParam : DEFAULT_LANG;
 if (!isSupportedLang(lang)) {
   return Astro.redirect(`/${DEFAULT_LANG}/`, 302);
 }
+const ui = getUiCopy(lang);
+const headerNavItems = [
+  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+  { href: `/${lang}/properties/`, label: ui.layout.navProperties },
+  { href: `/${lang}/projects/`, label: ui.layout.navProjects },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+];
 const { properties } = await getPublicPropertiesWithFallback({
   fallbackProperties,
 });
@@ -378,6 +386,7 @@ const gallerySections = [
   url={canonicalUrl}
   lang={lang}
   availableLangs={propertyLangs}
+  headerNavItems={headerNavItems}
 >
   <PropertyHero
     cover={data.media.cover}

@@ -13,7 +13,6 @@ const CORE_URLS = SUPPORTED_LANGS.flatMap((lang) => [
   `/${lang}/agents/`,
   `/${lang}/contact/`,
   `/${lang}/projects/`,
-  `/${lang}/map/`,
 ]);
 
 const STATIC_URLS = [

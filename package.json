@@ -11,6 +11,7 @@
     "pois:fetch": "node scripts/fetch-pois-overpass.mjs",
     "zones:fetch": "node scripts/fetch-zones-nominatim.mjs",
     "properties:migrate-crm": "node scripts/migrate-properties-json-to-crm.mjs",
+    "properties:sync-legacy-codes": "node scripts/sync-crm-project-legacy-codes-from-json.mjs",
     "clients:import-projects": "node scripts/import-crm-project-clients.mjs",
     "clients:import-reservations": "node scripts/import-crm-client-reservations.mjs",
     "clients:export-reference-csv": "node scripts/client-import/export-crm-reference-csv.mjs",

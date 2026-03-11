@@ -16,6 +16,8 @@ import { isVillaFloorLabel, normalizeFloorFilterLabel } from "@/utils/floorFilte
 import { displayLocation, formatPropertyType } from "@/utils/presentation";
 import { TYPES, MARKET_TYPE } from "@/data/properties/taxonomies";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@/i18n/languages";
+import { getUiCopy } from "@/i18n/ui";
+import { comparePromotionEditorialOrder } from "@/config/promotionOrder";
 import "@/styles/pages/properties.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -24,6 +26,13 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const ui = getUiCopy(lang);
+const headerNavItems = [
+  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+  { href: `/${lang}/properties/`, label: ui.layout.navProperties },
+  { href: `/${lang}/projects/`, label: ui.layout.navProjects },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+];
 const { properties } = await getPublicPropertiesWithFallback({
   fallbackProperties,
 });
@@ -38,6 +47,8 @@ const copyByLang = {
     highlightedAreas: "Zonas destacadas",
     propertiesIn: "Propiedades en {city}",
     openFiltersAria: "Abrir filtros de propiedades",
+    openFilters: "Filtros",
+    closeFilters: "Cerrar filtros",
     filterProperties: "Filtrar propiedades",
     filter: "Filtrar",
     clearAll: "Limpiar todo",
@@ -76,6 +87,8 @@ const copyByLang = {
     highlightedAreas: "Top areas",
     propertiesIn: "Properties in {city}",
     openFiltersAria: "Open property filters",
+    openFilters: "Filters",
+    closeFilters: "Close filters",
     filterProperties: "Filter properties",
     filter: "Filter",
     clearAll: "Clear all",
@@ -114,6 +127,8 @@ const copyByLang = {
     highlightedAreas: "Top-Gebiete",
     propertiesIn: "Immobilien in {city}",
     openFiltersAria: "Immobilienfilter oeffnen",
+    openFilters: "Filter",
+    closeFilters: "Filter schliessen",
     filterProperties: "Immobilien filtern",
     filter: "Filtern",
     clearAll: "Alles zuruecksetzen",
@@ -152,6 +167,8 @@ const copyByLang = {
     highlightedAreas: "Zones vedettes",
     propertiesIn: "Proprietes a {city}",
     openFiltersAria: "Ouvrir les filtres des proprietes",
+    openFilters: "Filtres",
+    closeFilters: "Fermer les filtres",
     filterProperties: "Filtrer les proprietes",
     filter: "Filtrer",
     clearAll: "Tout effacer",
@@ -190,6 +207,8 @@ const copyByLang = {
     highlightedAreas: "Zone in evidenza",
     propertiesIn: "Proprieta a {city}",
     openFiltersAria: "Apri i filtri proprieta",
+    openFilters: "Filtri",
+    closeFilters: "Chiudi filtri",
     filterProperties: "Filtra proprieta",
     filter: "Filtra",
     clearAll: "Cancella tutto",
@@ -228,6 +247,8 @@ const copyByLang = {
     highlightedAreas: "Uitgelichte zones",
     propertiesIn: "Woningen in {city}",
     openFiltersAria: "Woningfilters openen",
+    openFilters: "Filters",
+    closeFilters: "Filters sluiten",
     filterProperties: "Woningen filteren",
     filter: "Filteren",
     clearAll: "Alles wissen",
@@ -305,12 +326,12 @@ const normalizeTypeParam = (value) => {
 };
 
 const activeFilters = {
-  city: searchParams.get("city")
-    ? normalizeCity(searchParams.get("city"))
+  city: getMultiParam("city")
+    ? [...new Set(getMultiParam("city").map((v) => normalizeCity(v)).filter(Boolean))]
     : null,
 
-  area: searchParams.get("area")
-    ? normalizeArea(searchParams.get("area"))
+  area: getMultiParam("area")
+    ? [...new Set(getMultiParam("area").map((v) => normalizeArea(v)).filter(Boolean))]
     : null,
 
   type: getMultiParam("type")
@@ -371,6 +392,10 @@ const sortApplied = sort ?? "priority";
 const sortedCards = [...filteredCards].sort((a, b) => {
   if (sortApplied === "price_desc") return b.price - a.price;
   if (sortApplied === "price_asc") return a.price - b.price;
+  if (a.isPromotion && b.isPromotion) {
+    const byEditorial = comparePromotionEditorialOrder(a, b);
+    if (byEditorial !== 0) return byEditorial;
+  }
   const byPriority = (b.priority ?? 0) - (a.priority ?? 0);
   if (byPriority !== 0) return byPriority;
   return (b.price ?? 0) - (a.price ?? 0);
@@ -390,14 +415,33 @@ const filters = buildFilters(cards) as {
 };
 
 const formatFloorLabel = (floorValue) => floorValue;
+const selectedCities = activeFilters.city ?? [];
+const selectedAreas = activeFilters.area ?? [];
+const primaryCity = selectedCities.length === 1 ? selectedCities[0] : null;
+const primaryArea = selectedAreas.length === 1 ? selectedAreas[0] : null;
+const availableAreas = Array.from(
+  new Set(
+    (selectedCities.length > 0 ? selectedCities : Object.keys(filters.areas)).flatMap(
+      (city) => filters.areas[city] ?? []
+    )
+  )
+).sort((a, b) => a.localeCompare(b));
+
+const pruneAreasForCities = (cities, areas) => {
+  if (!Array.isArray(areas) || !areas.length) return null;
+  if (!Array.isArray(cities) || !cities.length) return null;
+  const allowed = new Set(cities.flatMap((city) => filters.areas[city] ?? []));
+  const next = areas.filter((area) => allowed.has(area));
+  return next.length ? next : null;
+};
 
 /* =========================
    SEO
 ========================= */
 const listSeo = normalizePropertyList({
   lang,
-  city: activeFilters.city,
-  area: activeFilters.area,
+  city: primaryCity,
+  area: primaryArea,
   type: activeFilters.type,
   market: activeFilters.market,
   province: "Costa del Sol",
@@ -457,6 +501,47 @@ const formatMarketLabel = (value) => {
   const def = MARKET_TYPE?.[value];
   return def?.label?.[lang] ?? value;
 };
+
+const activeFilterChips = [
+  ...(activeFilters.city ?? []).map((city) => {
+    const nextCities = toggleMulti(activeFilters.city, city);
+    return {
+      label: displayLocation(city),
+      href: buildUrl({
+        city: nextCities.length ? nextCities : null,
+        area: pruneAreasForCities(nextCities, activeFilters.area),
+      }),
+    };
+  }),
+  ...(activeFilters.area ?? []).map((area) => ({
+    label: displayLocation(area),
+    href: buildUrl({ area: toggleMulti(activeFilters.area, area) }),
+  })),
+  ...(activeFilters.type ?? []).map((type) => ({
+    label: formatPropertyType(type, lang),
+    href: buildUrl({ type: toggleMulti(activeFilters.type, type) }),
+  })),
+  ...(activeFilters.market ? [{
+    label: formatMarketLabel(activeFilters.market),
+    href: buildUrl({ market: null }),
+  }] : []),
+  ...(activeFilters.bedrooms ?? []).map((bedrooms) => ({
+    label: `${bedrooms} ${t.bedroomsSuffix}`,
+    href: buildUrl({ bedrooms: toggleMulti(activeFilters.bedrooms, bedrooms) }),
+  })),
+  ...(activeFilters.floor ?? []).map((floor) => ({
+    label: formatFloorLabel(floor),
+    href: buildUrl({ floor: toggleMulti(activeFilters.floor, floor) }),
+  })),
+  ...(activeFilters.search ? [{
+    label: `"${activeFilters.search}"`,
+    href: buildUrl({ q: null }),
+  }] : []),
+  ...(activeFilters.ref ? [{
+    label: `Ref ${activeFilters.ref}`,
+    href: buildUrl({ ref: null }),
+  }] : []),
+];
 ---
 
 <BaseLayout
@@ -465,6 +550,7 @@ const formatMarketLabel = (value) => {
   noindex={listSeo.noindex}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  headerNavItems={headerNavItems}
 >
   <div class={`properties-page ${isFiltered ? 'is-filtered' : ''}`}>
     
@@ -475,218 +561,173 @@ const formatMarketLabel = (value) => {
         { !isFiltered && (
           <p class="subtitle">
             {renderText(t.headerSubtitle, {
-              location: displayLocation(activeFilters.city) || t.defaultLocation,
+              location: displayLocation(primaryCity) || t.defaultLocation,
             })}
           </p>
         )}
       </div>
     </header>
 
-
-        {!activeFilters.area && activeFilters.city && (
-          <section class="city-exploration-section">
-            <div class="exploration-content">
-              <div class="exploration-header">
-                <span class="exploration-label">{t.exclusiveSelection}</span>
-                <h2>{displayLocation(activeFilters.city)}</h2>
-                <div class="exploration-divider"></div>
-                <p>
-                  {renderText(t.explorationIntro, {
-                    city: displayLocation(activeFilters.city),
-                  })}
-                </p>
-              </div>
-              
-              <div class="exploration-links">
-                {filters.areas[activeFilters.city]?.length > 0 && (
-                  <div class="link-group">
-                    <h4>{t.highlightedAreas}</h4>
-                    <div class="link-list">
-                      {filters.areas[activeFilters.city].map((area: string) => (
-                        <a href={buildUrl({ area })} class="text-link">
-                          {displayLocation(area)}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div class="link-group">
-                  <h4>{renderText(t.propertiesIn, { city: displayLocation(activeFilters.city) })}</h4>
-                  <div class="link-list">
-                    {filters.types.map((type: string) => (
-                      <a href={buildUrl({ type })} class="text-link">
-                        {formatPropertyType(type, lang)}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
     <div class="properties-layout">
       
       <!-- SIDEBAR FILTROS -->
       <aside class="properties-sidebar">
         <div class="filters-sticky">
-           <section class="filters-panel">
-            <details class="filters-disclosure" id="filtersDisclosure" open>
-              <summary class="filters-summary" aria-label={t.openFiltersAria} aria-controls="filtersBody">
-                <span>{t.filterProperties}</span>
-              </summary>
-              <div class="filters-body" id="filtersBody">
-                <div class="filters-header desktop-only">
-                  <h2>{t.filter}</h2>
-                  {(activeFilters.city || activeFilters.area || (activeFilters.type && activeFilters.type.length) || (activeFilters.bedrooms && activeFilters.bedrooms.length) || (activeFilters.floor && activeFilters.floor.length) || activeFilters.market || activeFilters.search || activeFilters.ref) && (
-                    <a href={`/${lang}/properties/`} class="reset-all">{t.clearAll}</a>
-                  )}
+          <section
+            class="filters-panel"
+            id="propertiesFiltersPanel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="propertiesFiltersTitle"
+            aria-hidden="true"
+            tabindex="-1"
+          >
+            <div class="filters-panel-header mobile-only">
+              <p class="filters-panel-title">{t.filterProperties}</p>
+              <button type="button" class="filters-panel-close" data-filters-close aria-label={t.closeFilters}>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="filters-body" id="filtersBody">
+              <div class="filters-header">
+                <h2 id="propertiesFiltersTitle">{t.filter}</h2>
+                {((activeFilters.city && activeFilters.city.length) || (activeFilters.area && activeFilters.area.length) || (activeFilters.type && activeFilters.type.length) || (activeFilters.bedrooms && activeFilters.bedrooms.length) || (activeFilters.floor && activeFilters.floor.length) || activeFilters.market || activeFilters.search || activeFilters.ref) && (
+                  <a href={`/${lang}/properties/`} class="reset-all">{t.clearAll}</a>
+                )}
+              </div>
+
+              {filters.cities.length > 0 && (
+                <div class="filter-group">
+                  <h3>{t.location}</h3>
+                  <ul class="filter-list vertical">
+                    {filters.cities.map((city: string) => (
+                      <li class={activeFilters.city?.includes(city) ? "active" : ""}>
+                        <a
+                          href={buildUrl((() => {
+                            const nextCities = toggleMulti(activeFilters.city, city);
+                            return {
+                              city: nextCities.length ? nextCities : null,
+                              area: pruneAreasForCities(nextCities, activeFilters.area),
+                            };
+                          })())}
+                        >
+                          <span class="check-icon"></span>
+                          {displayLocation(city)}
+                          {activeFilters.city?.includes(city) && (
+                            <span class="filter-clear">x</span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+              )}
 
-            {filters.cities.length > 0 && (
-              <div class="filter-group">
-                <h3>{t.location}</h3>
-                <ul class="filter-list vertical">
-                  {filters.cities.map((city: string) => (
-                    <li class={city === activeFilters.city ? "active" : ""}>
-                      <a href={buildUrl({ city: city === activeFilters.city ? null : city, area: null })}>
-                        <span class="check-icon"></span>
-                        {displayLocation(city)}
-                        {city === activeFilters.city && (
-                          <span class="filter-clear">x</span>
-                        )}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              {selectedCities.length > 0 && availableAreas.length > 0 && (
+                <div class="filter-group">
+                  <h3>{renderText(t.areasIn, { city: displayLocation(primaryCity) || t.defaultLocation })}</h3>
+                  <ul class="filter-list vertical">
+                    {availableAreas.map((area: string) => (
+                      <li class={activeFilters.area?.includes(area) ? "active" : ""}>
+                        <a href={buildUrl({ area: toggleMulti(activeFilters.area, area) })}>
+                          <span class="check-icon"></span>
+                          {displayLocation(area)}
+                          {activeFilters.area?.includes(area) && (
+                            <span class="filter-clear">x</span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {activeFilters.city && filters.areas[activeFilters.city]?.length > 0 && (
-              <div class="filter-group">
-                <h3>{renderText(t.areasIn, { city: displayLocation(activeFilters.city) })}</h3>
-                <ul class="filter-list vertical">
-                  {filters.areas[activeFilters.city].map((area: string) => (
-                    <li class={area === activeFilters.area ? "active" : ""}>
-                      <a href={buildUrl({ area: area === activeFilters.area ? null : area })}>
-                         <span class="check-icon"></span>
-                        {displayLocation(area)}
-                        {area === activeFilters.area && (
-                          <span class="filter-clear">x</span>
-                        )}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              {(filters.types.length > 1 || (activeFilters.type && activeFilters.type.length)) && (
+                <div class="filter-group">
+                  <h3>{t.propertyType}</h3>
+                  <ul class="filter-list vertical">
+                    {filters.types.map((type: string) => (
+                      <li class={activeFilters.type?.includes(type) ? "active" : ""}>
+                        <a href={buildUrl({ type: toggleMulti(activeFilters.type, type) })}>
+                          <span class="check-icon"></span>
+                          {formatPropertyType(type, lang)}
+                          {activeFilters.type?.includes(type) && (
+                            <span class="filter-clear">x</span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {(filters.types.length > 1 || (activeFilters.type && activeFilters.type.length)) && (
-              <div class="filter-group">
-                <h3>{t.propertyType}</h3>
-                <ul class="filter-list vertical">
-                  {filters.types.map((type: string) => (
-                    <li class={activeFilters.type?.includes(type) ? "active" : ""}>
-                      <a href={buildUrl({ type: toggleMulti(activeFilters.type, type) })}>
-                         <span class="check-icon"></span>
-                        {formatPropertyType(type, lang)}
-                        {activeFilters.type?.includes(type) && (
-                          <span class="filter-clear">x</span>
-                        )}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              {filters.markets.length > 0 && (
+                <div class="filter-group">
+                  <h3>{t.status}</h3>
+                  <ul class="filter-list vertical">
+                    {filters.markets.map((market: string) => (
+                      <li class={market === activeFilters.market ? "active" : ""}>
+                        <a href={buildUrl({ market: market === activeFilters.market ? null : market })}>
+                          <span class="check-icon"></span>
+                          {formatMarketLabel(market)}
+                          {market === activeFilters.market && (
+                            <span class="filter-clear">x</span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {filters.markets.length > 0 && (
-              <div class="filter-group">
-                <h3>{t.status}</h3>
-                <ul class="filter-list vertical">
-                  {filters.markets.map((market: string) => (
-                    <li class={market === activeFilters.market ? "active" : ""}>
-                      <a href={buildUrl({ market: market === activeFilters.market ? null : market })}>
-                        <span class="check-icon"></span>
-                        {formatMarketLabel(market)}
-                        {market === activeFilters.market && (
-                          <span class="filter-clear">x</span>
-                        )}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              {filters.bedrooms.length > 0 && (
+                <div class="filter-group">
+                  <h3>{t.bedrooms}</h3>
+                  <ul class="filter-list vertical">
+                    {filters.bedrooms.map((bedrooms: number) => (
+                      <li class={activeFilters.bedrooms?.includes(bedrooms) ? "active" : ""}>
+                        <a href={buildUrl({ bedrooms: toggleMulti(activeFilters.bedrooms, bedrooms) })}>
+                          <span class="check-icon"></span>
+                          {bedrooms} {t.bedroomsSuffix}
+                          {activeFilters.bedrooms?.includes(bedrooms) && (
+                            <span class="filter-clear">x</span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {filters.bedrooms.length > 0 && (
-              <div class="filter-group">
-                <h3>{t.bedrooms}</h3>
-                <ul class="filter-list vertical">
-                  {filters.bedrooms.map((bedrooms: number) => (
-                    <li class={activeFilters.bedrooms?.includes(bedrooms) ? "active" : ""}>
-                      <a href={buildUrl({ bedrooms: toggleMulti(activeFilters.bedrooms, bedrooms) })}>
-                         <span class="check-icon"></span>
-                        {bedrooms} {t.bedroomsSuffix}
-                        {activeFilters.bedrooms?.includes(bedrooms) && (
-                          <span class="filter-clear">x</span>
-                        )}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {filters.floors.length > 0 && (
-              <div class="filter-group">
-                <h3>{t.floor}</h3>
-                <ul class="filter-list vertical">
-                  {filters.floors.map((floor: string) => (
-                    <li class={activeFilters.floor?.includes(floor) ? "active" : ""}>
-                      <a href={buildUrl({ floor: toggleMulti(activeFilters.floor, floor) })}>
-                        <span class="check-icon"></span>
-                        {formatFloorLabel(floor)}
-                        {activeFilters.floor?.includes(floor) && (
-                          <span class="filter-clear">x</span>
-                        )}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            
-              </div>
-            </details>
+              {filters.floors.length > 0 && (
+                <div class="filter-group">
+                  <h3>{t.floor}</h3>
+                  <ul class="filter-list vertical">
+                    {filters.floors.map((floor: string) => (
+                      <li class={activeFilters.floor?.includes(floor) ? "active" : ""}>
+                        <a href={buildUrl({ floor: toggleMulti(activeFilters.floor, floor) })}>
+                          <span class="check-icon"></span>
+                          {formatFloorLabel(floor)}
+                          {activeFilters.floor?.includes(floor) && (
+                            <span class="filter-clear">x</span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </section>
         </div>
       </aside>
 
       <!-- CONTENIDO PRINCIPAL -->
       <main class="properties-content">
-        <script is:inline>
-          const disclosure = document.getElementById('filtersDisclosure');
-          const mql = window.matchMedia('(min-width: 1024px)');
-
-          const syncFiltersDisclosure = () => {
-            if (!disclosure) return;
-            if (mql.matches) {
-              disclosure.setAttribute('open', '');
-            } else {
-              disclosure.removeAttribute('open');
-            }
-          };
-
-          syncFiltersDisclosure();
-          mql.addEventListener('change', syncFiltersDisclosure);
-        </script>
-        
         <!-- BARRA SUPERIOR (Resultados + Ordenar) -->
         <div class="content-header">
           <div class="results-summary">
-            <p class="results-count">
+            <p class="results-count" aria-live="polite" aria-atomic="true">
               <strong>{sortedCards.length}</strong> {t.propertiesFound}
             </p>
             {activeFilters.search && (
@@ -696,17 +737,19 @@ const formatMarketLabel = (value) => {
             )}
           </div>
           
-          <div class="sort-dropdown">
-             <span>{t.sortBy}</span>
-             <div class="sort-options">
-                <a href={buildUrl({ sort: "priority" })} class={sort === 'priority' ? 'active' : ''}>{t.relevance}</a>
-                <a href={buildUrl({ sort: "price_asc" })} class={sort === 'price_asc' ? 'active' : ''}>{t.priceAsc}</a>
-                <a href={buildUrl({ sort: "price_desc" })} class={sort === 'price_desc' ? 'active' : ''}>{t.priceDesc}</a>
-             </div>
+          <div class="content-tools">
+            <div class="sort-dropdown" aria-label={t.sortBy}>
+              <span class="sort-label">{t.sortBy}</span>
+              <div class="sort-options" role="list">
+                <a href={buildUrl({ sort: "priority" })} class={sortApplied === 'priority' ? 'active' : ''}>{t.relevance}</a>
+                <a href={buildUrl({ sort: "price_asc" })} class={sortApplied === 'price_asc' ? 'active' : ''}>{t.priceAsc}</a>
+                <a href={buildUrl({ sort: "price_desc" })} class={sortApplied === 'price_desc' ? 'active' : ''}>{t.priceDesc}</a>
+              </div>
+            </div>
           </div>
         </div>
 
-        <form class="search-bar" method="get" action={`/${lang}/properties/`}>
+        <form class="search-bar" method="get" action={`/${lang}/properties/`} role="search">
           <input
             type="search"
             name="q"
@@ -714,12 +757,12 @@ const formatMarketLabel = (value) => {
             value={activeFilters.search ?? ""}
             aria-label={t.searchAria}
           />
-          {activeFilters.city && (
-            <input type="hidden" name="city" value={activeFilters.city} />
-          )}
-          {activeFilters.area && (
-            <input type="hidden" name="area" value={activeFilters.area} />
-          )}
+          {activeFilters.city?.map((city: string) => (
+            <input type="hidden" name="city" value={city} />
+          ))}
+          {activeFilters.area?.map((area: string) => (
+            <input type="hidden" name="area" value={area} />
+          ))}
           {activeFilters.type?.map((type: string) => (
             <input type="hidden" name="type" value={type} />
           ))}
@@ -740,8 +783,35 @@ const formatMarketLabel = (value) => {
           )}
           {sort && <input type="hidden" name="sort" value={sort} />}
           {activeFilters.ref && <input type="hidden" name="ref" value={activeFilters.ref} />}
+          <button
+            type="button"
+            class="filters-toggle-mobile filters-toggle-inline"
+            data-filters-open
+            aria-label={t.openFiltersAria}
+            aria-controls="propertiesFiltersPanel"
+            aria-expanded="false"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16" />
+              <path d="M7 12h10" />
+              <path d="M10 18h4" />
+            </svg>
+            <span>{t.openFilters}</span>
+          </button>
           <button type="submit">{t.search}</button>
         </form>
+
+        {activeFilterChips.length > 0 && (
+          <section class="active-filters-bar" aria-label={t.filterProperties}>
+            {activeFilterChips.map((chip) => (
+              <a href={chip.href} class="chip">
+                <span>{chip.label}</span>
+                <span class="close" aria-hidden="true">&times;</span>
+              </a>
+            ))}
+            <a href={`/${lang}/properties/`} class="chip chip--reset">{t.clearAll}</a>
+          </section>
+        )}
 
         {sortedCards.length === 0 ? (
           <div class="empty-state">
@@ -763,21 +833,115 @@ const formatMarketLabel = (value) => {
       </main>
     </div>
 
+    <button
+      type="button"
+      class="filters-drawer-backdrop"
+      data-filters-close
+      aria-label={t.closeFilters}
+    ></button>
+
     <!-- CTA FOOTER (CENTRADOR) -->
     <div class="list-footer-cta">
       <h3>{t.footerTitle}</h3>
       <p>
         {activeFilters.city
-          ? renderText(t.footerCityPrompt, { city: displayLocation(activeFilters.city) })
+          ? renderText(t.footerCityPrompt, { city: displayLocation(primaryCity) || t.defaultLocation })
           : t.footerDefaultPrompt}
       </p>
-      <a href={`/${lang}/contacto`} class="btn btn-outline">{t.contactUs}</a>
+      <a href={`/${lang}/contact/`} class="btn btn-outline">{t.contactUs}</a>
     </div>
 
   </div>
 </BaseLayout>
 
 <script is:inline>
+  const MOBILE_FILTERS_MEDIA = "(max-width: 1023px)";
+  const filtersPanel = document.getElementById("propertiesFiltersPanel");
+  let filtersLastFocus = null;
+
+  const isMobileFiltersViewport = () => window.matchMedia(MOBILE_FILTERS_MEDIA).matches;
+  const getFiltersOpenButton = () => document.querySelector("[data-filters-open]");
+
+  const getDrawerFocusable = () => {
+    if (!(filtersPanel instanceof HTMLElement)) return [];
+    return Array.from(
+      filtersPanel.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')
+    );
+  };
+
+  const syncDrawerA11yState = () => {
+    const page = document.querySelector(".properties-page");
+    const isOpen = page?.classList.contains("filters-drawer-open");
+    if (filtersPanel instanceof HTMLElement) {
+      filtersPanel.setAttribute("aria-hidden", isOpen ? "false" : "true");
+    }
+    const filtersOpenButton = getFiltersOpenButton();
+    if (filtersOpenButton instanceof HTMLButtonElement) {
+      filtersOpenButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
+  };
+
+  const handleDrawerKeydown = (event) => {
+    if (event.key !== "Tab") return;
+    const focusable = getDrawerFocusable();
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+
+    if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
+  const closeFiltersDrawer = () => {
+    const page = document.querySelector(".properties-page");
+    if (!page) return;
+    page.classList.remove("filters-drawer-open");
+    document.body.classList.remove("filters-drawer-lock");
+    syncDrawerA11yState();
+    document.removeEventListener("keydown", handleDrawerKeydown);
+    if (filtersLastFocus instanceof HTMLElement && filtersLastFocus.isConnected) {
+      filtersLastFocus.focus();
+    }
+  };
+
+  const openFiltersDrawer = () => {
+    if (!isMobileFiltersViewport()) return;
+    const page = document.querySelector(".properties-page");
+    if (!page) return;
+    filtersLastFocus = document.activeElement;
+    page.classList.add("filters-drawer-open");
+    document.body.classList.add("filters-drawer-lock");
+    syncDrawerA11yState();
+    const focusable = getDrawerFocusable();
+    if (focusable[0] instanceof HTMLElement) {
+      focusable[0].focus();
+    }
+    document.addEventListener("keydown", handleDrawerKeydown);
+  };
+
+  const syncFiltersDrawerMode = () => {
+    if (!isMobileFiltersViewport()) {
+      closeFiltersDrawer();
+      if (filtersPanel instanceof HTMLElement) {
+        filtersPanel.setAttribute("aria-hidden", "false");
+      }
+      const filtersOpenButton = getFiltersOpenButton();
+      if (filtersOpenButton instanceof HTMLButtonElement) {
+        filtersOpenButton.setAttribute("aria-expanded", "false");
+      }
+      return;
+    }
+    syncDrawerA11yState();
+  };
+
   const shouldHandleLink = (link) => {
     if (!link) return false;
     if (link.target && link.target !== "_self") return false;
@@ -796,50 +960,68 @@ const formatMarketLabel = (value) => {
     return href;
   };
 
-  const handleNavigation = async (href) => {
+  const handleNavigation = async (href, options = {}) => {
     const targetHref = resolveHref(href);
-    const response = await fetch(targetHref, { headers: { "X-Requested-With": "fetch" } });
-    if (!response.ok) {
-      window.location.href = targetHref;
-      return;
-    }
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
+    const currentContent = document.querySelector(".properties-content");
+    currentContent?.classList.add("is-loading");
+    currentContent?.setAttribute("aria-busy", "true");
 
-    const nextPage = doc.querySelector(".properties-page");
-    const currentPage = document.querySelector(".properties-page");
-    const nextLayout = doc.querySelector(".properties-layout");
-    const currentLayout = document.querySelector(".properties-layout");
-    const nextHeader = doc.querySelector(".properties-header");
-    const currentHeader = document.querySelector(".properties-header");
-
-    if (nextPage && currentPage) {
-      currentPage.className = nextPage.className;
-    }
-    if (nextHeader && currentHeader) {
-      currentHeader.innerHTML = nextHeader.innerHTML;
-    }
-    if (nextLayout && currentLayout) {
-      currentLayout.innerHTML = nextLayout.innerHTML;
-    }
-
-    document.title = doc.title;
-    history.pushState({}, "", targetHref);
-
-    // Keep filters open on desktop after updates
-    const disclosure = document.getElementById("filtersDisclosure");
-    const mql = window.matchMedia("(min-width: 1024px)");
-    if (disclosure) {
-      if (mql.matches) {
-        disclosure.setAttribute("open", "");
-      } else {
-        disclosure.removeAttribute("open");
+    try {
+      const response = await fetch(targetHref, { headers: { "X-Requested-With": "fetch" } });
+      if (!response.ok) {
+        window.location.href = targetHref;
+        return;
       }
+
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      const currentSidebarBody = document.querySelector(".filters-body");
+      const nextSidebarBody = doc.querySelector(".filters-body");
+      const nextContent = doc.querySelector(".properties-content");
+      const currentFooter = document.querySelector(".list-footer-cta");
+      const nextFooter = doc.querySelector(".list-footer-cta");
+
+      if (currentSidebarBody && nextSidebarBody) {
+        currentSidebarBody.replaceWith(nextSidebarBody);
+      }
+
+      if (currentContent && nextContent) {
+        currentContent.replaceWith(nextContent);
+      }
+
+      if (currentFooter && nextFooter) {
+        currentFooter.replaceWith(nextFooter);
+      }
+
+      document.title = doc.title;
+      if (options.pushState !== false) {
+        history.pushState({}, "", targetHref);
+      }
+      closeFiltersDrawer();
+      syncFiltersDrawerMode();
+    } finally {
+      document.querySelector(".properties-content")?.classList.remove("is-loading");
+      document.querySelector(".properties-content")?.setAttribute("aria-busy", "false");
     }
   };
 
   document.addEventListener("click", (event) => {
+    const openButton = event.target.closest("[data-filters-open]");
+    if (openButton) {
+      event.preventDefault();
+      openFiltersDrawer();
+      return;
+    }
+
+    const closeButton = event.target.closest("[data-filters-close]");
+    if (closeButton) {
+      event.preventDefault();
+      closeFiltersDrawer();
+      return;
+    }
+
     const link = event.target.closest("a");
     if (!shouldHandleLink(link)) return;
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -847,9 +1029,26 @@ const formatMarketLabel = (value) => {
     handleNavigation(link.getAttribute("href"));
   });
 
-  window.addEventListener("popstate", () => {
-    handleNavigation(window.location.href);
+  document.addEventListener("submit", (event) => {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+    if (!form.matches(".search-bar")) return;
+    event.preventDefault();
+    handleNavigation(form.action ? `${form.action}?${new URLSearchParams(new FormData(form)).toString()}` : window.location.href);
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeFiltersDrawer();
+    }
+  });
+
+  window.addEventListener("popstate", () => {
+    handleNavigation(window.location.href, { pushState: false });
+  });
+
+  window.addEventListener("resize", syncFiltersDrawerMode);
+  syncFiltersDrawerMode();
 </script>
 
 

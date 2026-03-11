@@ -42,13 +42,19 @@ export function applyFilters(cards, filters) {
     }
 
     // CITY
-    if (filters.city && card.cityKey !== filters.city) {
-      return false;
+    if (filters.city) {
+      const cities = Array.isArray(filters.city) ? filters.city : [filters.city];
+      if (!cities.includes(card.cityKey)) {
+        return false;
+      }
     }
 
     // AREA
-    if (filters.area && card.areaKey !== filters.area) {
-      return false;
+    if (filters.area) {
+      const areas = Array.isArray(filters.area) ? filters.area : [filters.area];
+      if (!areas.includes(card.areaKey)) {
+        return false;
+      }
     }
 
     // TYPE
