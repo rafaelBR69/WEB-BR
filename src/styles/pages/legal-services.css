@@ -342,6 +342,33 @@
   color: var(--legal-navy);
 }
 
+@media (min-width: 761px) {
+  .legal-section-nav-shell {
+    display: flex;
+    justify-content: center;
+    padding-inline: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  .legal-section-nav {
+    width: min(100%, 68rem);
+    justify-content: center;
+    padding: 0.82rem 1rem;
+    border-radius: 999px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(244, 247, 251, 0.82)),
+      radial-gradient(circle at top, rgba(24, 41, 69, 0.08), transparent 62%);
+    box-shadow:
+      0 22px 34px rgba(24, 41, 69, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  }
+
+  .legal-section-nav__link {
+    min-height: 2.6rem;
+    padding-inline: 1rem;
+    white-space: nowrap;
+  }
+}
+
 .legal-section--tint {
   background: linear-gradient(180deg, rgba(24, 41, 69, 0.04), rgba(24, 41, 69, 0.02));
 }

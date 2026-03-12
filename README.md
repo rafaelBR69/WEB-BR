@@ -21,6 +21,10 @@ En `.env`:
 
 - `PUBLIC_MAPBOX_TOKEN`
 - `PUBLIC_MAPBOX_STYLE`
+- `RESEND_API_KEY` (opcional, para emails automaticos del portal)
+- `PORTAL_EMAIL_FROM` (opcional, remitente para emails del portal)
+- `PORTAL_EMAIL_REPLY_TO` (opcional)
+- `RESEND_PORTAL_APPROVAL_TEMPLATE_ID` (opcional, plantilla concreta de Resend para aprobacion portal)
 
 ## Despliegue en Vercel
 

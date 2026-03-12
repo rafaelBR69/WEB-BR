@@ -25,16 +25,19 @@ const copy = {
   sessionCleared: isSpanish ? "Sesion cerrada en este navegador." : "Session cleared on this browser.",
   loadingSession: isSpanish ? "Sesion activa detectada." : "Active session detected.",
   expiredSession: isSpanish ? "La sesion almacenada habia expirado y se elimino." : "Stored session had expired and was removed.",
-  requestReady: isSpanish ? "Listo para enviar solicitud de registro." : "Ready to submit registration request.",
+  requestReady:
+    isSpanish
+      ? "Completa tus datos profesionales para solicitar acceso al portal."
+      : "Complete your professional details to request portal access.",
   requestSending: isSpanish ? "Enviando solicitud..." : "Submitting request...",
   requestCreated:
     isSpanish
-      ? "Solicitud enviada. Te contactaremos cuando el equipo CRM apruebe el alta."
-      : "Request sent. We will contact you once CRM approves your onboarding.",
+      ? "Solicitud enviada. El equipo revisara el alta en CRM Portal y te contactaremos si se aprueba."
+      : "Request sent. The team will review the onboarding in CRM Portal and contact you if approved.",
   requestPending:
     isSpanish
-      ? "Ya existe una solicitud pendiente para este email. Te avisaremos tras revisarla."
-      : "A pending request already exists for this email. We will notify you after review.",
+      ? "Ya existe una solicitud pendiente para este email en el modulo Portal. Te avisaremos tras revisarla."
+      : "There is already a pending request for this email in the Portal module. We will notify you after review.",
   requestInviteExists:
     isSpanish
       ? "Ya existe una invitacion pendiente para este email. Revisa tu canal de recepcion."
@@ -51,8 +54,11 @@ const sessionState = document.getElementById("portal-login-session-state");
 const requestForm = document.getElementById("portal-access-request-form");
 const requestFullNameInput = document.getElementById("portal-access-request-full-name");
 const requestEmailInput = document.getElementById("portal-access-request-email");
+const requestCompanyNameInput = document.getElementById("portal-access-request-company-name");
+const requestCommercialNameInput = document.getElementById("portal-access-request-commercial-name");
+const requestLegalNameInput = document.getElementById("portal-access-request-legal-name");
+const requestCifInput = document.getElementById("portal-access-request-cif");
 const requestPhoneInput = document.getElementById("portal-access-request-phone");
-const requestNotesInput = document.getElementById("portal-access-request-notes");
 const requestFeedback = document.getElementById("portal-access-request-feedback");
 
 const query = new URLSearchParams(window.location.search);
@@ -210,8 +216,11 @@ requestForm?.addEventListener("submit", async (event) => {
 
   const fullName = toText(requestFullNameInput?.value);
   const email = toText(requestEmailInput?.value)?.toLowerCase() ?? null;
+  const companyName = toText(requestCompanyNameInput?.value);
+  const commercialName = toText(requestCommercialNameInput?.value);
+  const legalName = toText(requestLegalNameInput?.value);
+  const cif = toText(requestCifInput?.value);
   const phone = toText(requestPhoneInput?.value);
-  const notes = toText(requestNotesInput?.value);
 
   if (!fullName) {
     setRequestFeedback(
@@ -229,6 +238,38 @@ requestForm?.addEventListener("submit", async (event) => {
     return;
   }
 
+  if (!companyName) {
+    setRequestFeedback(
+      isSpanish ? "Debes indicar la empresa o agencia." : "Company or agency is required.",
+      "error"
+    );
+    return;
+  }
+
+  if (!commercialName) {
+    setRequestFeedback(
+      isSpanish ? "Debes indicar el nombre comercial." : "Trade name is required.",
+      "error"
+    );
+    return;
+  }
+
+  if (!legalName) {
+    setRequestFeedback(
+      isSpanish ? "Debes indicar la razon social." : "Legal name is required.",
+      "error"
+    );
+    return;
+  }
+
+  if (!cif) {
+    setRequestFeedback(
+      isSpanish ? "Debes indicar el CIF." : "VAT / Tax ID is required.",
+      "error"
+    );
+    return;
+  }
+
   setRequestFeedback(copy.requestSending, "warn");
 
   try {
@@ -240,8 +281,11 @@ requestForm?.addEventListener("submit", async (event) => {
       body: JSON.stringify({
         full_name: fullName,
         email,
+        company_name: companyName,
+        commercial_name: commercialName,
+        legal_name: legalName,
+        cif,
         phone,
-        notes,
         language: lang,
       }),
     });
@@ -255,7 +299,13 @@ requestForm?.addEventListener("submit", async (event) => {
       setRequestFeedback(copy.requestCreated, "ok");
     }
 
-    if (requestNotesInput instanceof HTMLTextAreaElement) requestNotesInput.value = "";
+    if (requestFullNameInput instanceof HTMLInputElement) requestFullNameInput.value = "";
+    if (requestEmailInput instanceof HTMLInputElement) requestEmailInput.value = "";
+    if (requestCompanyNameInput instanceof HTMLInputElement) requestCompanyNameInput.value = "";
+    if (requestCommercialNameInput instanceof HTMLInputElement) requestCommercialNameInput.value = "";
+    if (requestLegalNameInput instanceof HTMLInputElement) requestLegalNameInput.value = "";
+    if (requestCifInput instanceof HTMLInputElement) requestCifInput.value = "";
+    if (requestPhoneInput instanceof HTMLInputElement) requestPhoneInput.value = "";
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     setRequestFeedback(

@@ -14,6 +14,10 @@ type RequestPortalAccessBody = {
   organization_id?: string;
   email?: string;
   full_name?: string;
+  company_name?: string;
+  commercial_name?: string;
+  legal_name?: string;
+  cif?: string;
   phone?: string | null;
   language?: string | null;
   notes?: string | null;
@@ -86,6 +90,10 @@ export const POST: APIRoute = async ({ request }) => {
   const organizationId = asText(body.organization_id) ?? resolveDefaultOrganizationId();
   const email = asText(body.email)?.toLowerCase() ?? null;
   const fullName = asText(body.full_name);
+  const companyName = asText(body.company_name);
+  const commercialName = asText(body.commercial_name);
+  const legalName = asText(body.legal_name);
+  const cif = asText(body.cif);
   const phone = asText(body.phone);
   const language = asText(body.language) ?? "es";
   const notes = asText(body.notes);
@@ -95,6 +103,10 @@ export const POST: APIRoute = async ({ request }) => {
   if (!organizationId) return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
   if (!email) return jsonResponse({ ok: false, error: "email_required" }, { status: 422 });
   if (!fullName) return jsonResponse({ ok: false, error: "full_name_required" }, { status: 422 });
+  if (!companyName) return jsonResponse({ ok: false, error: "company_name_required" }, { status: 422 });
+  if (!commercialName) return jsonResponse({ ok: false, error: "commercial_name_required" }, { status: 422 });
+  if (!legalName) return jsonResponse({ ok: false, error: "legal_name_required" }, { status: 422 });
+  if (!cif) return jsonResponse({ ok: false, error: "cif_required" }, { status: 422 });
 
   if (!hasSupabaseServerClient()) {
     return jsonResponse(
@@ -105,6 +117,10 @@ export const POST: APIRoute = async ({ request }) => {
           organization_id: organizationId,
           email,
           full_name: fullName,
+          company_name: companyName,
+          commercial_name: commercialName,
+          legal_name: legalName,
+          cif,
           phone,
           language,
           project_property_id: projectPropertyId,
@@ -219,6 +235,10 @@ export const POST: APIRoute = async ({ request }) => {
       requester: {
         full_name: fullName,
         email,
+        company_name: companyName,
+        commercial_name: commercialName,
+        legal_name: legalName,
+        cif,
         phone,
         language,
         notes,

@@ -727,6 +727,10 @@
           const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : null;
           const requesterName = toText(requester.full_name);
           const requesterEmail = toText(requester.email) ?? toText(entry.email);
+          const requesterCompanyName = toText(requester.company_name);
+          const requesterCommercialName = toText(requester.commercial_name);
+          const requesterLegalName = toText(requester.legal_name);
+          const requesterCif = toText(requester.cif);
           const requesterPhone = toText(requester.phone);
           const requesterNotes = toText(requester.notes);
           const reviewedAt = toText(request.reviewed_at);
@@ -764,6 +768,10 @@
               <td>
                 <strong>${esc(requesterName ?? requesterEmail ?? "-")}</strong>
                 ${requesterEmail ? `<br /><small>${esc(requesterEmail)}</small>` : ""}
+                ${requesterCompanyName ? `<br /><small><strong>Empresa:</strong> ${esc(requesterCompanyName)}</small>` : ""}
+                ${requesterCommercialName ? `<br /><small><strong>Comercial:</strong> ${esc(requesterCommercialName)}</small>` : ""}
+                ${requesterLegalName ? `<br /><small><strong>Legal:</strong> ${esc(requesterLegalName)}</small>` : ""}
+                ${requesterCif ? `<br /><small><strong>CIF:</strong> ${esc(requesterCif)}</small>` : ""}
                 ${requesterPhone ? `<br /><small>${esc(requesterPhone)}</small>` : ""}
                 ${requesterNotes ? `<br /><small class="portal-request-note">${esc(requesterNotes)}</small>` : ""}
               </td>
@@ -1024,6 +1032,11 @@
     const code = toText(response?.data?.one_time_code);
     const inviteEmail = toText(approvedInvite.email);
     const inviteProjectId = toText(approvedInvite.project_property_id);
+    const approvalEmail = asObject(response?.meta?.approval_email);
+    const emailSent = approvalEmail.sent === true;
+    const emailAttempted = approvalEmail.attempted === true;
+    const emailConfigMissing = toText(approvalEmail.error) === "portal_email_not_configured";
+    const emailError = toText(approvalEmail.error);
 
     state.lastInviteShare = buildInviteSharePayload({
       email: inviteEmail,
@@ -1040,6 +1053,23 @@
 
     await loadRegistrationRequests();
     await loadInvites();
+    if (emailSent) {
+      setFeedback("Solicitud aprobada, invitacion generada y email de confirmacion enviado.", "ok");
+      return;
+    }
+    if (emailConfigMissing) {
+      setFeedback("Solicitud aprobada e invitacion generada. Falta configurar el envio automatico de email.", "warn");
+      return;
+    }
+    if (emailAttempted) {
+      setFeedback(
+        emailError
+          ? `Solicitud aprobada e invitacion generada, pero el email de confirmacion fallo: ${emailError}`
+          : "Solicitud aprobada e invitacion generada, pero el email de confirmacion no pudo enviarse.",
+        "warn"
+      );
+      return;
+    }
     setFeedback("Solicitud aprobada e invitacion generada.", "ok");
   };
 

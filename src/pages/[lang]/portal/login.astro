@@ -31,12 +31,18 @@ const copyByLang = {
     stateTitle: "Estado de sesion",
     requestTitle: "Solicitar acceso",
     requestIntro:
-      "Si aun no tienes acceso, deja tus datos y el equipo comercial revisara tu alta desde CRM.",
-    requestNameLabel: "Nombre y apellidos",
-    requestEmailLabel: "Email de acceso",
+      "Si aun no tienes acceso, completa tus datos profesionales. La solicitud entrara en el modulo Portal del CRM para su revision y, si se aprueba, enviaremos la invitacion al email indicado.",
+    requestStepsTitle: "Como funciona",
+    requestStepOne: "Rellena tus datos profesionales y fiscales.",
+    requestStepTwo: "El equipo revisa la solicitud desde CRM > Portal.",
+    requestStepThree: "Si se aprueba, recibes la invitacion en tu email profesional.",
+    requestNameLabel: "Persona de contacto",
+    requestEmailLabel: "Email profesional",
+    requestCompanyLabel: "Empresa o agencia",
+    requestCommercialNameLabel: "Nombre comercial",
+    requestLegalNameLabel: "Razon social",
+    requestCifLabel: "CIF",
     requestPhoneLabel: "Telefono (opcional)",
-    requestNotesLabel: "Notas (opcional)",
-    requestNotesPlaceholder: "Promocion de interes, agencia o comentario para el equipo comercial",
     requestCta: "Enviar solicitud",
     requestPrivacyHint: "Te contactaremos solo para gestionar el acceso al portal.",
     activateHint: "Si aun no tienes la cuenta activada, completa primero la activacion.",
@@ -65,12 +71,18 @@ const copyByLang = {
     stateTitle: "Session state",
     requestTitle: "Request access",
     requestIntro:
-      "If you do not have access yet, share your details and the commercial team will review your onboarding from CRM.",
-    requestNameLabel: "Full name",
-    requestEmailLabel: "Access email",
+      "If you do not have access yet, complete your professional details. The request will arrive in the CRM Portal module for review and, if approved, we will send an invitation to the provided email.",
+    requestStepsTitle: "How it works",
+    requestStepOne: "Complete your professional and tax details.",
+    requestStepTwo: "The team reviews the request from CRM > Portal.",
+    requestStepThree: "If approved, you receive the invitation in your professional email.",
+    requestNameLabel: "Contact person",
+    requestEmailLabel: "Professional email",
+    requestCompanyLabel: "Company or agency",
+    requestCommercialNameLabel: "Trade name",
+    requestLegalNameLabel: "Legal name",
+    requestCifLabel: "VAT / Tax ID",
     requestPhoneLabel: "Phone (optional)",
-    requestNotesLabel: "Notes (optional)",
-    requestNotesPlaceholder: "Project of interest, agency or notes for the sales team",
     requestCta: "Submit request",
     requestPrivacyHint: "We will contact you only to process portal access.",
     activateHint: "If you do not have an active account yet, activate first.",
@@ -205,6 +217,15 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
             <p>{t.requestIntro}</p>
           </header>
 
+          <section class="portal-request-explainer" aria-label={t.requestStepsTitle}>
+            <p class="portal-request-explainer-title">{t.requestStepsTitle}</p>
+            <ol>
+              <li>{t.requestStepOne}</li>
+              <li>{t.requestStepTwo}</li>
+              <li>{t.requestStepThree}</li>
+            </ol>
+          </section>
+
           <form id="portal-access-request-form" class="portal-auth-form">
             <label class="portal-auth-field">
               <span>{t.requestNameLabel}</span>
@@ -215,17 +236,24 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
               <input id="portal-access-request-email" name="email" type="email" required />
             </label>
             <label class="portal-auth-field">
-              <span>{t.requestPhoneLabel}</span>
-              <input id="portal-access-request-phone" name="phone" type="tel" />
+              <span>{t.requestCompanyLabel}</span>
+              <input id="portal-access-request-company-name" name="company_name" type="text" required />
             </label>
             <label class="portal-auth-field">
-              <span>{t.requestNotesLabel}</span>
-              <textarea
-                id="portal-access-request-notes"
-                name="notes"
-                rows="4"
-                placeholder={t.requestNotesPlaceholder}
-              ></textarea>
+              <span>{t.requestCommercialNameLabel}</span>
+              <input id="portal-access-request-commercial-name" name="commercial_name" type="text" required />
+            </label>
+            <label class="portal-auth-field">
+              <span>{t.requestLegalNameLabel}</span>
+              <input id="portal-access-request-legal-name" name="legal_name" type="text" required />
+            </label>
+            <label class="portal-auth-field">
+              <span>{t.requestCifLabel}</span>
+              <input id="portal-access-request-cif" name="cif" type="text" required />
+            </label>
+            <label class="portal-auth-field">
+              <span>{t.requestPhoneLabel}</span>
+              <input id="portal-access-request-phone" name="phone" type="tel" />
             </label>
 
             <div class="portal-auth-actions">
@@ -436,6 +464,31 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
       margin-top: 1.4rem;
       display: grid;
       gap: 1rem;
+    }
+
+    .portal-request-explainer {
+      margin-top: 1.2rem;
+      border: 1px solid #dbe6f1;
+      border-radius: 18px;
+      background: #f8fbfe;
+      padding: 1rem 1.05rem;
+      color: #4b617a;
+    }
+
+    .portal-request-explainer-title {
+      margin: 0 0 0.55rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #17385b;
+    }
+
+    .portal-request-explainer ol {
+      margin: 0;
+      padding-left: 1.15rem;
+      display: grid;
+      gap: 0.42rem;
     }
 
     .portal-auth-field {

@@ -15,6 +15,7 @@ import {
   safeInsertPortalAccessLog,
   toPositiveInt,
 } from "@/utils/crmPortal";
+import { sendPortalApprovalEmail } from "@/utils/portalEmail";
 
 type ReviewRegistrationRequestBody = {
   organization_id?: string;
@@ -121,6 +122,10 @@ const mapRequestRow = (row: Record<string, unknown>) => {
       requester: {
         full_name: asText(requester.full_name),
         email: asText(requester.email),
+        company_name: asText(requester.company_name),
+        commercial_name: asText(requester.commercial_name),
+        legal_name: asText(requester.legal_name),
+        cif: asText(requester.cif),
         phone: asText(requester.phone),
         language: asText(requester.language),
         notes: asText(requester.notes),
@@ -313,6 +318,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
   const nowIso = new Date().toISOString();
   const requestMetadata = asObject(requestRecord.metadata);
+  const requester = asObject(requestMetadata.requester);
 
   if (action === "reject") {
     const { data: rejectedRow, error: rejectError } = await client
@@ -476,6 +482,26 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     },
   });
 
+  const approvalEmail = await sendPortalApprovalEmail({
+    request,
+    email: requestEmail,
+    organizationId,
+    language: asText(requester.language),
+    fullName: asText(requester.full_name),
+    projectPropertyId,
+    oneTimeCode: inviteCode,
+  });
+
+  if (!approvalEmail.sent) {
+    console.warn("[crm-portal-registration-requests] approval email not sent", {
+      requestId,
+      email: requestEmail,
+      provider: approvalEmail.provider,
+      mode: approvalEmail.mode ?? null,
+      error: approvalEmail.error,
+    });
+  }
+
   return jsonResponse(
     {
       ok: true,
@@ -487,6 +513,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       meta: {
         persisted: true,
         storage: "supabase.crm.portal_invites",
+        approval_email: approvalEmail,
       },
     },
     { status: 201 }

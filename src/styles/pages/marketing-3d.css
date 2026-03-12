@@ -374,6 +374,33 @@
   color: var(--m-cyan);
 }
 
+@media (min-width: 761px) {
+  .marketing3d-section-nav-shell {
+    display: flex;
+    justify-content: center;
+    padding-inline: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  .marketing3d-section-nav {
+    width: min(100%, 68rem);
+    justify-content: center;
+    padding: 0.82rem 1rem;
+    border-radius: 999px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(236, 242, 249, 0.8)),
+      radial-gradient(circle at top, rgba(41, 214, 219, 0.1), transparent 58%);
+    box-shadow:
+      0 22px 34px rgba(29, 52, 97, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.68);
+  }
+
+  .marketing3d-section-nav__link {
+    min-height: 2.6rem;
+    padding-inline: 1rem;
+    white-space: nowrap;
+  }
+}
+
 .marketing3d-section-heading {
   display: grid;
   gap: 0.6rem;
