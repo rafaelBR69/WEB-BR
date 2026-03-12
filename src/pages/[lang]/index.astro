@@ -712,7 +712,7 @@ const teamCards = teamMembers.map((member) => ({
     : [],
 }));
 
-const HERO_VIDEO_URL = "/videos/home-hero-2025.mp4";
+const HERO_VIDEO_URL = "/videos/home-hero-2025-optimized.mp4";
 
 const landingNavItems = [
   { href: `/${lang}/portal/`, label: t.navAgents },
@@ -792,14 +792,14 @@ const currentYear = new Date().getFullYear();
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="none"
+      data-video-src={HERO_VIDEO_URL}
       disablepictureinpicture
       disableremoteplayback
       tabindex="-1"
       aria-hidden="true"
       poster="https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp"
     >
-      <source src={HERO_VIDEO_URL} type="video/mp4" />
     </video>
     <div class="landing-hero-overlay"></div>
     <div class="landing-hero-mobile-shell">
@@ -1041,6 +1041,43 @@ const currentYear = new Date().getFullYear();
       }
     };
 
+    const shouldLoadHeroVideo = () => {
+      if (!(heroVideo instanceof HTMLVideoElement)) return false;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+      if (window.innerWidth <= 720) return false;
+
+      const connection =
+        navigator.connection ||
+        navigator.mozConnection ||
+        navigator.webkitConnection;
+
+      if (connection?.saveData) return false;
+      if (typeof connection?.effectiveType === "string" && /(^|slow-)2g/.test(connection.effectiveType)) {
+        return false;
+      }
+
+      return true;
+    };
+
+    const loadHeroVideo = () => {
+      if (!(heroVideo instanceof HTMLVideoElement)) return;
+      if (heroVideo.dataset.loaded === "true") {
+        keepHeroVideoPlaying();
+        return;
+      }
+
+      const src = heroVideo.dataset.videoSrc;
+      if (!src || !shouldLoadHeroVideo()) return;
+
+      const source = document.createElement("source");
+      source.src = src;
+      source.type = "video/mp4";
+      heroVideo.appendChild(source);
+      heroVideo.dataset.loaded = "true";
+      heroVideo.load();
+      keepHeroVideoPlaying();
+    };
+
     const syncHomeFormDisclosure = () => {
       if (!(homeFormDisclosure instanceof HTMLDetailsElement)) return;
       if (window.innerWidth <= 720) {
@@ -1095,6 +1132,20 @@ const currentYear = new Date().getFullYear();
           keepHeroVideoPlaying();
         }
       });
+
+      const scheduleVideoLoad = () => {
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadHeroVideo, { timeout: 1500 });
+          return;
+        }
+        window.setTimeout(loadHeroVideo, 600);
+      };
+
+      if (document.readyState === "complete") {
+        scheduleVideoLoad();
+      } else {
+        window.addEventListener("load", scheduleVideoLoad, { once: true });
+      }
     }
 
     syncHomeFormDisclosure();
@@ -1105,8 +1156,6 @@ const currentYear = new Date().getFullYear();
     window.addEventListener("resize", syncHomeFormDisclosure);
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
-    
     .landing-intro h1,
     .landing-about-z h2,
     .landing-collaborators h2,

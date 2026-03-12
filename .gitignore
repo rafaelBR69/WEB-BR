@@ -52,6 +52,8 @@ videos/
 !public/logos/**
 !public/images/
 !public/images/**
+!public/videos/
+!public/videos/**
 !src/assets/collaborators/strategic/
 !src/assets/collaborators/strategic/**
 
@@ -72,3 +74,7 @@ scripts/lead-import/reports/*.csv
 scripts/lead-import/reports/*.json
 !scripts/lead-import/input/.gitkeep
 !scripts/lead-import/reports/.gitkeep
+
+videos/
+!public/videos/home-hero-2025-optimized.mp4
+!public/videos/home-hero-loop.mp4
