@@ -309,6 +309,7 @@ const t = copyByLang[lang] ?? copyByLang.en;
       max-width: 1400px;
       margin: 0 auto;
       width: 100%;
+      min-width: 0;
     }
 
     .portal-header {
@@ -334,6 +335,8 @@ const t = copyByLang[lang] ?? copyByLang.en;
     .header-actions {
       display: flex;
       gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .btn-refresh {
@@ -413,6 +416,15 @@ const t = copyByLang[lang] ?? copyByLang.en;
       grid-template-columns: 1fr 340px;
       gap: 40px;
       align-items: start;
+      min-width: 0;
+    }
+
+    .main-column,
+    .side-column,
+    .luxury-section,
+    .account-widget,
+    .workflow-widget {
+      min-width: 0;
     }
 
     .luxury-section .section-header {
@@ -433,6 +445,7 @@ const t = copyByLang[lang] ?? copyByLang.en;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 24px;
+      min-width: 0;
     }
 
     /* WIDGETS */
@@ -508,12 +521,15 @@ const t = copyByLang[lang] ?? copyByLang.en;
       font-weight: 600;
       color: #001E44;
       margin-bottom: 10px;
+      line-height: 1.02;
+      overflow-wrap: anywhere;
     }
 
     :global(.portal-item-meta) {
       font-size: 0.85rem;
       color: #64748b;
       margin-bottom: 5px;
+      overflow-wrap: anywhere;
     }
 
     :global(.portal-badges) {
@@ -559,6 +575,94 @@ const t = copyByLang[lang] ?? copyByLang.en;
       .portal-sidebar { display: none; }
       .portal-main { padding: 30px 20px; }
       .header-welcome h1 { font-size: 2.2rem; }
+      .portal-header {
+        gap: 20px;
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 28px;
+      }
+      .header-welcome p {
+        font-size: 1rem;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: stretch;
+      }
+      .btn-refresh {
+        flex: 0 0 auto;
+      }
+      .btn-activate {
+        flex: 1 1 220px;
+        text-align: center;
+      }
+      .portal-stats {
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .stat-card {
+        padding: 18px;
+        gap: 14px;
+      }
+      .content-columns {
+        gap: 28px;
+      }
+      .account-widget,
+      .workflow-widget {
+        padding: 24px;
+        margin-bottom: 18px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .portal-main {
+        padding: 22px 14px 28px;
+      }
+      .header-welcome h1 {
+        font-size: 1.85rem;
+      }
+      .header-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 48px) minmax(0, 1fr);
+      }
+      .btn-refresh,
+      .btn-activate {
+        min-height: 46px;
+      }
+      .portal-stats {
+        grid-template-columns: 1fr;
+      }
+      .stat-icon {
+        width: 46px;
+        height: 46px;
+      }
+      .stat-info strong {
+        font-size: 1.7rem;
+      }
+      .luxury-section h2 {
+        font-size: 1.7rem;
+      }
+      .project-elegant-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .account-widget,
+      .workflow-widget {
+        padding: 18px;
+        border-radius: 10px;
+      }
+      .luxury-steps li {
+        gap: 12px;
+      }
+      .status-indicator {
+        text-align: left;
+        margin-top: 28px;
+      }
+      :global(.portal-item) {
+        padding: 18px;
+      }
+      :global(.portal-button-soft) {
+        min-height: 44px;
+      }
     }
   </style>
 

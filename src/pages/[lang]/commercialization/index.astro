@@ -1102,8 +1102,12 @@ const brandIcons = [
             <a class="service-cta brand-hero__cta" href={`/${lang}/contact/?service=commercialization`}>
               {page.primaryCta}
             </a>
-            <a class="brand-hero__link" href={`/${lang}/projects/`}>
-              {page.secondaryCta}
+            <a class="brand-hero__link brand-hero__link--mobile-index" href={`/${lang}/projects/`}>
+              <span class="brand-hero__link-text">{page.secondaryCta}</span>
+              <span class="brand-hero__link-mobile" aria-hidden="true">
+                <span>Mas</span>
+                <span class="brand-hero__link-mobile-arrow">↓</span>
+              </span>
             </a>
           </div>
         </div>
@@ -1132,7 +1136,17 @@ const brandIcons = [
         ))}
 
         <div class="brand-subnav-shell">
-          <nav class="brand-subnav" aria-label={page.navTitle}>
+          <button
+            class="brand-subnav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="brand-subnav"
+          >
+            <span class="brand-subnav-toggle__eyebrow">{lang === "es" ? "Indice de secciones" : "Section index"}</span>
+            <span class="brand-subnav-toggle__value">{page.sectionNav[0]?.label}</span>
+            <span class="brand-subnav-toggle__icon" aria-hidden="true">+</span>
+          </button>
+          <nav class="brand-subnav" id="brand-subnav" aria-label={page.navTitle}>
             {page.sectionNav.map((item) => (
               <label class="brand-subnav__label" for={`brand-tab-${item.id}`}>
                 {item.label}
@@ -1525,7 +1539,156 @@ const brandIcons = [
           </section>
           </article>
         </div>
+
+        <button
+          class="brand-mobile-return"
+          type="button"
+          aria-label="Volver al indice de seleccion"
+          hidden
+        >
+          <span aria-hidden="true">↑</span>
+        </button>
       </section>
     </div>
   </div>
+
+  <script is:inline>
+    (() => {
+      const isMobile = window.matchMedia("(max-width: 720px)");
+      const tabsRoot = document.querySelector(".brand-tabs");
+      const panelShell = tabsRoot?.querySelector(".brand-panel-shell");
+      const navShell = tabsRoot?.querySelector(".brand-subnav-shell");
+      const navToggle = tabsRoot?.querySelector(".brand-subnav-toggle");
+      const navToggleValue = tabsRoot?.querySelector(".brand-subnav-toggle__value");
+      const mobileIndexLink = document.querySelector(".brand-hero__link--mobile-index");
+      const labels = tabsRoot ? Array.from(tabsRoot.querySelectorAll(".brand-subnav__label")) : [];
+      const radios = tabsRoot ? Array.from(tabsRoot.querySelectorAll(".brand-tab-input")) : [];
+      const returnButton = tabsRoot?.querySelector(".brand-mobile-return");
+
+      if (!tabsRoot || !panelShell || !navShell || !labels.length || !radios.length || !returnButton || !navToggle || !navToggleValue) {
+        return;
+      }
+
+      const setNavOpen = (open) => {
+        navShell.classList.toggle("is-open", open);
+        navToggle.setAttribute("aria-expanded", String(open));
+      };
+
+      const updateActiveLabel = () => {
+        const activeRadio = radios.find((radio) => radio.checked);
+        const activeLabel = activeRadio
+          ? labels.find((label) => label.getAttribute("for") === activeRadio.id)
+          : null;
+
+        if (activeLabel) {
+          navToggleValue.textContent = activeLabel.textContent?.trim() ?? "";
+        }
+      };
+
+      const getSelectedPanel = () => {
+        const activeRadio = radios.find((radio) => radio.checked);
+        const panelId = activeRadio?.id.replace("brand-tab-", "panel-");
+        return panelId ? tabsRoot.querySelector(`#${panelId}`) : null;
+      };
+
+      const scrollToTarget = (element) => {
+        const offset = 92;
+        const top = element.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({
+          top: Math.max(0, top),
+          behavior: "smooth",
+        });
+      };
+
+      const updateReturnButton = () => {
+        if (!isMobile.matches) {
+          setNavOpen(false);
+          returnButton.hidden = true;
+          returnButton.classList.remove("is-visible");
+          return;
+        }
+
+        const selectedPanel = getSelectedPanel();
+        if (!selectedPanel) {
+          returnButton.hidden = true;
+          returnButton.classList.remove("is-visible");
+          return;
+        }
+
+        const rect = selectedPanel.getBoundingClientRect();
+        const nearBottom = rect.bottom <= window.innerHeight + 80;
+        returnButton.hidden = !nearBottom;
+        returnButton.classList.toggle("is-visible", nearBottom);
+      };
+
+      labels.forEach((label) => {
+        label.addEventListener("click", () => {
+          if (!isMobile.matches) {
+            return;
+          }
+
+          setNavOpen(false);
+
+          window.requestAnimationFrame(() => {
+            window.setTimeout(() => {
+              scrollToTarget(panelShell);
+              updateReturnButton();
+            }, 70);
+          });
+        });
+      });
+
+      radios.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          if (!radio.checked) {
+            return;
+          }
+
+          updateActiveLabel();
+          updateReturnButton();
+        });
+      });
+
+      navToggle.addEventListener("click", () => {
+        if (!isMobile.matches) {
+          return;
+        }
+
+        setNavOpen(!navShell.classList.contains("is-open"));
+      });
+
+      returnButton.addEventListener("click", () => {
+        scrollToTarget(navShell);
+      });
+
+      mobileIndexLink?.addEventListener("click", (event) => {
+        if (!isMobile.matches) {
+          return;
+        }
+
+        event.preventDefault();
+        scrollToTarget(navShell);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!isMobile.matches || !navShell.classList.contains("is-open")) {
+          return;
+        }
+
+        const target = event.target;
+        if (target instanceof Node && !navShell.contains(target)) {
+          setNavOpen(false);
+        }
+      });
+
+      window.addEventListener("scroll", updateReturnButton, { passive: true });
+      window.addEventListener("resize", updateReturnButton);
+      isMobile.addEventListener("change", () => {
+        updateReturnButton();
+        updateActiveLabel();
+      });
+      updateActiveLabel();
+      updateReturnButton();
+    })();
+  </script>
 </BaseLayout>

@@ -4,8 +4,8 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
 <CrmLayout title="CRM | Portal | Invites" section="portal">
   <div class="crm-stack" data-portal-page="invites">
     <section class="crm-card crm-full">
-      <h2>Invites portal</h2>
-      <p>Alta y revocacion de invitaciones para agentes y clientes.</p>
+      <h2>Invites y altas portal</h2>
+      <p>Gestion operativa de invitaciones reales y de solicitudes de acceso recibidas desde el portal.</p>
     </section>
 
     <section class="crm-grid">
@@ -92,48 +92,129 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
         </div>
       </article>
 
-      <article class="crm-card crm-half">
-        <h3>Filtros</h3>
-        <form id="portal-invites-filter" class="crm-form">
-          <label for="portal-invites-status">
-            Estado
-            <select id="portal-invites-status" name="status" data-dictionary="invite-status">
-              <option value="">Todos</option>
-              <option value="request_pending">request_pending</option>
-              <option value="pending">pending</option>
-              <option value="used">used</option>
-              <option value="expired">expired</option>
-              <option value="revoked">revoked</option>
-              <option value="blocked">blocked</option>
+      <article class="crm-card crm-half portal-registration-card">
+        <h3>Solicitudes de acceso</h3>
+        <p class="crm-inline-note">
+          Aqui entran las peticiones enviadas desde el login del portal. Puedes aprobarlas para generar una invite real o rechazarlas.
+        </p>
+        <div class="crm-grid portal-registration-kpis" aria-live="polite">
+          <article class="crm-card crm-kpi">
+            <strong id="portal-registration-kpi-requested">-</strong>
+            <p>Pendientes</p>
+            <small class="crm-kpi-hint">Esperando revision.</small>
+          </article>
+          <article class="crm-card crm-kpi">
+            <strong id="portal-registration-kpi-approved">-</strong>
+            <p>Aprobadas</p>
+            <small class="crm-kpi-hint">Ya convertidas en invite.</small>
+          </article>
+          <article class="crm-card crm-kpi">
+            <strong id="portal-registration-kpi-rejected">-</strong>
+            <p>Rechazadas</p>
+            <small class="crm-kpi-hint">Cerradas por revision.</small>
+          </article>
+        </div>
+        <form id="portal-registration-filter" class="crm-form">
+          <label for="portal-registration-status">
+            Estado revision
+            <select id="portal-registration-status" name="approval_status" data-dictionary="registration-approval">
+              <option value="requested">requested</option>
+              <option value="approved">approved</option>
+              <option value="rejected">rejected</option>
+              <option value="all">all</option>
             </select>
           </label>
-          <label for="portal-invites-email">
+          <label for="portal-registration-email">
             Email
-            <input id="portal-invites-email" name="email" type="search" placeholder="filtro exacto por email" />
+            <input id="portal-registration-email" name="email" type="search" placeholder="filtro exacto por email" />
           </label>
-          <label for="portal-invites-project">
-            Promocion (filtro avanzado)
-            <input id="portal-invites-project" name="project_property_id" type="text" placeholder="opcional" />
-          </label>
-          <label for="portal-invites-per-page">
+          <label for="portal-registration-per-page">
             Por pagina
-            <select id="portal-invites-per-page" name="per_page">
+            <select id="portal-registration-per-page" name="per_page">
               <option value="10">10</option>
               <option value="25" selected>25</option>
               <option value="50">50</option>
             </select>
           </label>
           <div class="crm-col-2 crm-actions-row">
-            <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
-            <button id="portal-invites-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+            <button type="submit" class="crm-button crm-button-soft">Ver solicitudes</button>
+            <button id="portal-registration-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
           </div>
         </form>
       </article>
     </section>
 
     <section class="crm-card crm-full">
-      <p id="portal-invites-meta" class="crm-inline-note"></p>
+      <div class="crm-row-between portal-section-head">
+        <div>
+          <h3>Solicitudes de acceso</h3>
+          <p>Listado de altas pedidas desde el portal, separadas del historico de invites.</p>
+        </div>
+      </div>
+      <p id="portal-registration-meta" class="crm-inline-note"></p>
       <p id="portal-registration-requests-note" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table" aria-describedby="portal-registration-meta">
+          <caption class="sr-only">Listado de solicitudes de acceso portal</caption>
+          <thead>
+            <tr>
+              <th>Solicitante</th>
+              <th>Proyecto</th>
+              <th>Revision</th>
+              <th>Solicitud</th>
+              <th>Revision final</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody id="portal-registration-tbody">
+            <tr><td colspan="6">Cargando solicitudes...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <div class="crm-row-between portal-section-head">
+        <div>
+          <h3>Invites generadas</h3>
+          <p>Invitaciones reales del portal, separadas de las peticiones de acceso para que la operativa sea mas limpia.</p>
+        </div>
+      </div>
+      <form id="portal-invites-filter" class="crm-form">
+        <label for="portal-invites-status">
+          Estado
+          <select id="portal-invites-status" name="status" data-dictionary="invite-status">
+            <option value="">Todos</option>
+            <option value="pending">pending</option>
+            <option value="used">used</option>
+            <option value="expired">expired</option>
+            <option value="revoked">revoked</option>
+            <option value="blocked">blocked</option>
+          </select>
+        </label>
+        <label for="portal-invites-email">
+          Email
+          <input id="portal-invites-email" name="email" type="search" placeholder="filtro exacto por email" />
+        </label>
+        <label for="portal-invites-project">
+          Promocion (filtro avanzado)
+          <input id="portal-invites-project" name="project_property_id" type="text" placeholder="opcional" />
+        </label>
+        <label for="portal-invites-per-page">
+          Por pagina
+          <select id="portal-invites-per-page" name="per_page">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+          </select>
+        </label>
+        <div class="crm-col-2 crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="portal-invites-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+      <p id="portal-invites-meta" class="crm-inline-note"></p>
+      <p class="crm-inline-note">Esta tabla muestra invites reales y oculta las solicitudes de acceso para que el historico no se mezcle.</p>
       <div class="crm-table-wrap">
         <table class="crm-table" aria-describedby="portal-invites-meta">
           <caption class="sr-only">Listado de invitaciones portal</caption>
@@ -161,5 +242,30 @@ import CrmLayout from "@/layouts/CrmLayout.astro";
       </p>
     </section>
   </div>
+  <style>
+    .portal-registration-card .crm-inline-note {
+      margin-bottom: 1rem;
+    }
+
+    .portal-registration-kpis {
+      margin-bottom: 1rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .portal-section-head {
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .portal-request-note {
+      white-space: pre-line;
+    }
+
+    @media (max-width: 900px) {
+      .portal-registration-kpis {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
   <script is:inline src="/crm/portal.js"></script>
 </CrmLayout>

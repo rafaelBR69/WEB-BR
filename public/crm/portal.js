@@ -40,10 +40,17 @@
     inviteShareEmail: document.getElementById("portal-invite-share-email"),
     inviteCopyMessage: document.getElementById("portal-invite-copy-message"),
     inviteCopyCode: document.getElementById("portal-invite-copy-code"),
+    registrationFilterForm: document.getElementById("portal-registration-filter"),
+    registrationClearBtn: document.getElementById("portal-registration-clear"),
+    registrationKpiRequested: document.getElementById("portal-registration-kpi-requested"),
+    registrationKpiApproved: document.getElementById("portal-registration-kpi-approved"),
+    registrationKpiRejected: document.getElementById("portal-registration-kpi-rejected"),
+    registrationMeta: document.getElementById("portal-registration-meta"),
     invitesFilterForm: document.getElementById("portal-invites-filter"),
     invitesClearBtn: document.getElementById("portal-invites-clear"),
     invitesMeta: document.getElementById("portal-invites-meta"),
     registrationRequestsNote: document.getElementById("portal-registration-requests-note"),
+    registrationTbody: document.getElementById("portal-registration-tbody"),
     invitesTbody: document.getElementById("portal-invites-tbody"),
     usersFilterForm: document.getElementById("portal-users-filter"),
     usersClearBtn: document.getElementById("portal-users-clear"),
@@ -221,6 +228,13 @@
     ) {
       return "danger";
     }
+    return "warn";
+  };
+
+  const approvalStatusClass = (value) => {
+    const status = toText(value) || "requested";
+    if (status === "approved") return "ok";
+    if (status === "rejected") return "danger";
     return "warn";
   };
 
@@ -684,36 +698,43 @@
   };
 
   // INVITES
-  const renderInvites = (rows = [], meta = {}) => {
-    if (!(el.invitesTbody instanceof HTMLElement)) return;
+  const renderRegistrationCounters = (counts = {}) => {
+    if (el.registrationKpiRequested instanceof HTMLElement) {
+      el.registrationKpiRequested.textContent = String(Number(counts.requested || 0));
+    }
+    if (el.registrationKpiApproved instanceof HTMLElement) {
+      el.registrationKpiApproved.textContent = String(Number(counts.approved || 0));
+    }
+    if (el.registrationKpiRejected instanceof HTMLElement) {
+      el.registrationKpiRejected.textContent = String(Number(counts.rejected || 0));
+    }
+  };
+
+  const renderRegistrationRequests = (rows = [], meta = {}) => {
+    if (!(el.registrationTbody instanceof HTMLElement)) return;
     if (!rows.length) {
-      el.invitesTbody.innerHTML = '<tr><td colspan="7">No hay invitaciones para este filtro.</td></tr>';
+      el.registrationTbody.innerHTML = '<tr><td colspan="6">No hay solicitudes para este filtro.</td></tr>';
     } else {
-      el.invitesTbody.innerHTML = rows
+      el.registrationTbody.innerHTML = rows
         .map((entry) => {
           const id = toText(entry.id) || "";
-          const status = toText(entry.status) || "pending";
-          const statusText = inviteStatusLabel(status);
+          const request = asObject(entry.request);
+          const requester = asObject(request.requester);
+          const approvalStatus = toText(request.approval_status) ?? "requested";
+          const approvalText = dictLabel("registration-approval", approvalStatus, approvalStatus);
           const projectId = toText(entry.project_property_id);
           const linkedProject = getProjectById(projectId);
           const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : null;
-          const maxAttempts = Number(entry.max_attempts || 0);
-          const attemptCount = Number(entry.attempt_count || 0);
-          const isRevokable = status === "pending" || status === "blocked";
-          const metadata = asObject(entry.metadata);
-          const isRegistrationRequest = isSelfSignupInvite(entry);
-          const isPendingRequest = isPendingRegistrationRequest(entry);
-          const approvalStatus = toText(metadata.approval_status);
-          const requester = asObject(metadata.requester);
           const requesterName = toText(requester.full_name);
+          const requesterEmail = toText(requester.email) ?? toText(entry.email);
           const requesterPhone = toText(requester.phone);
-          const requesterHint = requesterName || requesterPhone;
-          const reviewLabel = isRegistrationRequest
-            ? `Solicitud de alta | ${dictLabel("registration-approval", approvalStatus ?? "requested", approvalStatus ?? "requested")}`
-            : null;
-          const inviteTypeText = inviteTypeLabel(entry.invite_type);
-          const roleText = portalRoleLabel(entry.role);
-          const actionHtml = isPendingRequest
+          const requesterNotes = toText(requester.notes);
+          const reviewedAt = toText(request.reviewed_at);
+          const reviewedBy = toText(request.reviewed_by);
+          const approvedInviteId = toText(request.approved_invite_id);
+          const isPending = approvalStatus === "requested" && toText(entry.status) === "pending";
+
+          const actionHtml = isPending
             ? `
                 <div class="crm-actions-row">
                   <button
@@ -734,29 +755,100 @@
                   </button>
                 </div>
               `
-            : `
-                <button
-                  type="button"
-                  class="crm-mini-btn danger"
-                  data-action="revoke-invite"
-                  data-invite-id="${esc(id)}"
-                  ${isRevokable ? "" : "disabled"}
-                >
-                  Revocar
-                </button>
-              `;
+            : approvedInviteId
+              ? `<small>Invite generada<br />${esc(approvedInviteId)}</small>`
+              : "<small>Sin acciones pendientes</small>";
+
+          return `
+            <tr>
+              <td>
+                <strong>${esc(requesterName ?? requesterEmail ?? "-")}</strong>
+                ${requesterEmail ? `<br /><small>${esc(requesterEmail)}</small>` : ""}
+                ${requesterPhone ? `<br /><small>${esc(requesterPhone)}</small>` : ""}
+                ${requesterNotes ? `<br /><small class="portal-request-note">${esc(requesterNotes)}</small>` : ""}
+              </td>
+              <td>${
+                projectLabel
+                  ? `<strong>${esc(projectLabel)}</strong>`
+                  : projectId
+                    ? `<strong>${esc(projectId)}</strong>`
+                    : "Sin promocion concreta"
+              }</td>
+              <td>
+                <span class="crm-badge ${approvalStatusClass(approvalStatus)}">${esc(approvalText)}</span>
+                <br />
+                <small>${esc(inviteStatusLabel(entry.status))}</small>
+              </td>
+              <td>${esc(formatDateTime(request.requested_at || entry.created_at))}</td>
+              <td>${
+                reviewedAt
+                  ? `${esc(formatDateTime(reviewedAt))}${reviewedBy ? `<br /><small>${esc(reviewedBy)}</small>` : ""}`
+                  : "<small>Pendiente</small>"
+              }</td>
+              <td>${actionHtml}</td>
+            </tr>
+          `;
+        })
+        .join("");
+    }
+
+    if (el.registrationMeta instanceof HTMLElement) {
+      const count = Number(meta.count || rows.length || 0);
+      const total = Number(meta.total || count);
+      const pageValue = Number(meta.page || 1);
+      const totalPages = Number(meta.total_pages || 1);
+      el.registrationMeta.textContent = `${count} filas visibles | total ${total} | pagina ${pageValue}/${totalPages}`;
+    }
+
+    if (el.registrationRequestsNote instanceof HTMLElement) {
+      const pendingRequests = rows.filter((entry) => (toText(asObject(entry.request).approval_status) ?? "requested") === "requested").length;
+      el.registrationRequestsNote.textContent =
+        pendingRequests > 0
+          ? `Pendientes en esta vista: ${pendingRequests}. Aprobando una solicitud se genera una invite real y aparece en el bloque inferior.`
+          : "No hay aprobaciones pendientes en esta vista.";
+      el.registrationRequestsNote.className = `crm-inline-note ${pendingRequests > 0 ? "warn" : ""}`;
+    }
+  };
+
+  const renderInvites = (rows = [], meta = {}) => {
+    if (!(el.invitesTbody instanceof HTMLElement)) return;
+    if (!rows.length) {
+      el.invitesTbody.innerHTML = '<tr><td colspan="7">No hay invitaciones para este filtro.</td></tr>';
+    } else {
+      el.invitesTbody.innerHTML = rows
+        .map((entry) => {
+          const id = toText(entry.id) || "";
+          const status = toText(entry.status) || "pending";
+          const statusText = inviteStatusLabel(status);
+          const projectId = toText(entry.project_property_id);
+          const linkedProject = getProjectById(projectId);
+          const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : null;
+          const maxAttempts = Number(entry.max_attempts || 0);
+          const attemptCount = Number(entry.attempt_count || 0);
+          const isRevokable = status === "pending" || status === "blocked";
+          const inviteTypeText = inviteTypeLabel(entry.invite_type);
+          const roleText = portalRoleLabel(entry.role);
+          const actionHtml = `
+            <button
+              type="button"
+              class="crm-mini-btn danger"
+              data-action="revoke-invite"
+              data-invite-id="${esc(id)}"
+              ${isRevokable ? "" : "disabled"}
+            >
+              Revocar
+            </button>
+          `;
 
           return `
             <tr>
               <td>
                 <strong>${esc(entry.email || "-")}</strong>
-                ${requesterHint ? `<br /><small>${esc(requesterHint)}</small>` : ""}
               </td>
               <td>
                 ${esc(inviteTypeText)}
                 <br />
                 <small>${esc(roleText)}</small>
-                ${reviewLabel ? `<br /><small>${esc(reviewLabel)}</small>` : ""}
               </td>
               <td>${
                 projectLabel
@@ -782,25 +874,47 @@
       const totalPages = Number(meta.total_pages || 1);
       el.invitesMeta.textContent = `${count} filas visibles | total ${total} | pagina ${pageValue}/${totalPages}`;
     }
+  };
 
-    if (el.registrationRequestsNote instanceof HTMLElement) {
-      const pendingRequests = rows.filter((entry) => isPendingRegistrationRequest(entry)).length;
-      el.registrationRequestsNote.textContent =
-        pendingRequests > 0
-          ? `Notificaciones: ${pendingRequests} solicitudes de registro pendientes de aprobacion.`
-          : "Notificaciones: sin solicitudes de registro pendientes.";
-      el.registrationRequestsNote.className = `crm-inline-note ${pendingRequests > 0 ? "warn" : ""}`;
-    }
+  const loadRegistrationRequests = async () => {
+    if (!ensureOrganization()) return;
+    const filterForm =
+      el.registrationFilterForm instanceof HTMLFormElement ? new FormData(el.registrationFilterForm) : null;
+    const selectedStatus = toText(filterForm?.get("approval_status")) || "requested";
+    const perPage = toText(filterForm?.get("per_page")) || "25";
+    const email = toText(filterForm?.get("email"));
+
+    const baseCounters = { organization_id: state.organizationId, page: "1", per_page: "1" };
+    const [listPayload, requestedPayload, approvedPayload, rejectedPayload] = await Promise.all([
+      request(
+        buildApiUrl("/api/v1/crm/portal/registration-requests", {
+          organization_id: state.organizationId,
+          approval_status: selectedStatus,
+          email,
+          per_page: perPage,
+          page: "1",
+        })
+      ),
+      request(buildApiUrl("/api/v1/crm/portal/registration-requests", { ...baseCounters, approval_status: "requested" })),
+      request(buildApiUrl("/api/v1/crm/portal/registration-requests", { ...baseCounters, approval_status: "approved" })),
+      request(buildApiUrl("/api/v1/crm/portal/registration-requests", { ...baseCounters, approval_status: "rejected" })),
+    ]);
+
+    renderRegistrationCounters({
+      requested: requestedPayload?.meta?.total || requestedPayload?.meta?.count || 0,
+      approved: approvedPayload?.meta?.total || approvedPayload?.meta?.count || 0,
+      rejected: rejectedPayload?.meta?.total || rejectedPayload?.meta?.count || 0,
+    });
+
+    renderRegistrationRequests(Array.isArray(listPayload?.data) ? listPayload.data : [], asObject(listPayload?.meta));
   };
 
   const loadInvites = async () => {
     if (!ensureOrganization()) return;
     const filterForm = el.invitesFilterForm instanceof HTMLFormElement ? new FormData(el.invitesFilterForm) : null;
-    const requestedStatus = toText(filterForm?.get("status"));
-    const apiStatus = requestedStatus === "request_pending" ? "pending" : requestedStatus;
     const params = {
       organization_id: state.organizationId,
-      status: apiStatus,
+      status: toText(filterForm?.get("status")),
       email: toText(filterForm?.get("email")),
       project_property_id: toText(filterForm?.get("project_property_id")),
       per_page: toText(filterForm?.get("per_page")) || "25",
@@ -808,20 +922,15 @@
     };
 
     const payload = await request(buildApiUrl("/api/v1/portal/invites", params));
-    let rows = Array.isArray(payload?.data) ? payload.data : [];
+    const rows = (Array.isArray(payload?.data) ? payload.data : []).filter((entry) => !isSelfSignupInvite(entry));
     const meta = asObject(payload?.meta);
-    if (requestedStatus === "request_pending") {
-      rows = rows.filter((entry) => isPendingRegistrationRequest(entry));
-      renderInvites(rows, {
-        ...meta,
-        count: rows.length,
-        total: rows.length,
-        page: 1,
-        total_pages: 1,
-      });
-      return;
-    }
-    renderInvites(rows, meta);
+    renderInvites(rows, {
+      ...meta,
+      count: rows.length,
+      total: rows.length,
+      page: 1,
+      total_pages: 1,
+    });
   };
 
   const createInvite = async () => {
@@ -929,6 +1038,7 @@
         : "Solicitud aprobada, pero no se pudo recuperar codigo visible.";
     }
 
+    await loadRegistrationRequests();
     await loadInvites();
     setFeedback("Solicitud aprobada e invitacion generada.", "ok");
   };
@@ -948,6 +1058,7 @@
       }),
     });
 
+    await loadRegistrationRequests();
     await loadInvites();
     setFeedback("Solicitud de registro rechazada.", "ok");
   };
@@ -1880,6 +1991,7 @@
           renderProjectSelectors();
         }
         normalizeInviteRoleByType();
+        await loadRegistrationRequests();
         await loadInvites();
       } else if (page === "users") {
         try {
@@ -2032,6 +2144,33 @@
     });
   }
 
+  if (el.registrationFilterForm instanceof HTMLFormElement) {
+    el.registrationFilterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void (async () => {
+        try {
+          await loadRegistrationRequests();
+          setFeedback("Solicitudes actualizadas.", "ok");
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`Error cargando solicitudes: ${message}`, "error");
+        }
+      })();
+    });
+  }
+
+  el.registrationClearBtn?.addEventListener("click", () => {
+    clearForm(el.registrationFilterForm);
+    void (async () => {
+      try {
+        await loadRegistrationRequests();
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        setFeedback(`Error limpiando filtros de solicitudes: ${message}`, "error");
+      }
+    })();
+  });
+
   el.invitesClearBtn?.addEventListener("click", () => {
     clearForm(el.invitesFilterForm);
     void (async () => {
@@ -2044,7 +2183,7 @@
     })();
   });
 
-  el.invitesTbody?.addEventListener("click", (event) => {
+  el.registrationTbody?.addEventListener("click", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
 
@@ -2077,7 +2216,11 @@
       })();
       return;
     }
+  });
 
+  el.invitesTbody?.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
     const button = target.closest("button[data-action='revoke-invite']");
     if (!button) return;
     const inviteId = toText(button.getAttribute("data-invite-id"));

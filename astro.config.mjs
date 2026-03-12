@@ -1,15 +1,19 @@
 import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
+import vercel from "@astrojs/vercel";
 import path from "node:path";
 
 import react from "@astrojs/react";
 
+const adapter = process.env.VERCEL
+  ? vercel()
+  : node({
+      mode: "standalone",
+    });
+
 export default defineConfig({
   output: "server",
-
-  adapter: node({
-    mode: "standalone",
-  }),
+  adapter,
 
   vite: {
     // Avoid Windows rename/lock issues in node_modules/.vite (ENOENT on deps -> deps_temp_*).

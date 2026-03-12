@@ -12,6 +12,20 @@ const isCrmPublicAuthPath = (pathname: string): boolean => {
 
 const isCrmApiPath = (pathname: string): boolean => pathname.startsWith("/api/v1/crm");
 
+const deploySurface = String(import.meta.env.APP_DEPLOY_SURFACE ?? "")
+  .trim()
+  .toLowerCase();
+
+const isWebOnlyDeploy = deploySurface === "web";
+
+const isApiPath = (pathname: string): boolean => pathname.startsWith("/api/");
+
+const isWebAllowedApiPath = (pathname: string): boolean => {
+  if (pathname === "/api/v1/health") return true;
+  if (pathname === "/api/v1/leads") return true;
+  return pathname.startsWith("/api/v1/portal/");
+};
+
 const isCrmApiPublicAuthPath = (pathname: string): boolean => {
   return pathname === "/api/v1/crm/auth/login" || pathname === "/api/v1/crm/auth/register";
 };
@@ -19,6 +33,29 @@ const isCrmApiPublicAuthPath = (pathname: string): boolean => {
 const isStaticAssetRequest = (pathname: string): boolean => {
   const lastSegment = pathname.split("/").pop() ?? "";
   return /\.[a-z0-9]+$/i.test(lastSegment);
+};
+
+const notFoundResponse = (pathname: string) => {
+  if (isApiPath(pathname)) {
+    return new Response(
+      JSON.stringify(
+        {
+          ok: false,
+          error: "not_found",
+        },
+        null,
+        2
+      ),
+      {
+        status: 404,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }
+    );
+  }
+
+  return new Response("Not Found", { status: 404 });
 };
 
 const jsonAuthError = (status: number, error: string) =>
@@ -41,6 +78,15 @@ const jsonAuthError = (status: number, error: string) =>
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const pathname = normalizePath(context.url.pathname);
+  if (isWebOnlyDeploy) {
+    if (pathname === "/crm" || pathname.startsWith("/crm/")) {
+      return notFoundResponse(pathname);
+    }
+    if (pathname.startsWith("/api/v1") && !isWebAllowedApiPath(pathname)) {
+      return notFoundResponse(pathname);
+    }
+  }
+
   if (!pathname.startsWith("/crm") && !isCrmApiPath(pathname)) return next();
   if (isStaticAssetRequest(pathname)) return next();
 

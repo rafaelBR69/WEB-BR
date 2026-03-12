@@ -387,7 +387,7 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
     }
 
     /* PROJECT DETAIL SPECIFIC */
-    .portal-main { flex-grow: 1; padding: 40px 60px; max-width: 1400px; margin: 0 auto; width: 100%; }
+    .portal-main { flex-grow: 1; padding: 40px 60px; max-width: 1400px; margin: 0 auto; width: 100%; min-width: 0; }
 
     .luxury-back-link {
       display: inline-flex;
@@ -416,6 +416,7 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
       display: flex;
       gap: 15px;
       align-items: center;
+      flex-wrap: wrap;
     }
     .project-meta-stats strong { color: #001E44; font-weight: 600; }
 
@@ -423,6 +424,13 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
       display: grid;
       grid-template-columns: 1fr 340px;
       gap: 40px;
+      min-width: 0;
+    }
+
+    .main-sections,
+    .project-side-column,
+    .luxury-card {
+      min-width: 0;
     }
 
     .main-sections { display: grid; gap: 30px; }
@@ -459,6 +467,7 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
       font-family: inherit;
       outline: none;
       transition: border-color 0.3s;
+      min-width: 0;
     }
     .luxury-search-input:focus { border-color: #001E44; }
 
@@ -480,6 +489,8 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
       font-weight: 600;
       color: #001E44;
       margin-bottom: 5px;
+      line-height: 1.05;
+      overflow-wrap: anywhere;
     }
 
     :global(.status-indicator) { font-size: 0.8rem; color: #94a3b8; text-align: right; margin-top: 40px; }
@@ -490,6 +501,27 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
     @media (max-width: 900px) {
       .portal-sidebar { display: none; }
       .portal-main { padding: 30px 20px; }
+      .header-welcome h1 { font-size: 2.2rem; }
+      .project-meta-stats { font-size: 1rem; }
+      .project-sections-layout { gap: 24px; }
+      .main-sections { gap: 20px; }
+      .luxury-card { padding: 24px; }
+    }
+    @media (max-width: 640px) {
+      .portal-main { padding: 22px 14px 28px; }
+      .luxury-back-link { margin-bottom: 14px; }
+      .header-welcome h1 { font-size: 1.85rem; }
+      .project-meta-stats { font-size: 0.95rem; gap: 10px; }
+      .luxury-card,
+      .luxury-card.compact { padding: 18px; border-radius: 10px; }
+      .card-head { align-items: flex-start; gap: 12px; margin-bottom: 1rem; }
+      .card-head h3 { font-size: 1.08rem; line-height: 1.2; }
+      .card-desc { margin-bottom: 14px; }
+      .luxury-search-input { margin-bottom: 14px; min-height: 46px; }
+      :global(.portal-list) { gap: 12px; }
+      :global(.portal-item) { padding: 16px; }
+      :global(.portal-item-meta) { overflow-wrap: anywhere; }
+      :global(.status-indicator) { text-align: left; margin-top: 28px; }
     }
   </style>
 
