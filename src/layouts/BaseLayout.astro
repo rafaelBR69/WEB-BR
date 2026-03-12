@@ -12,6 +12,7 @@ import "@/styles/pages/home.css";
 import { DEFAULT_LANG, LANG_LABELS, SUPPORTED_LANGS } from "@/i18n/languages";
 import { getUiCopy } from "@/i18n/ui";
 import BrandLogo from "@/components/BrandLogo.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 import lightboxUrl from "@/scripts/lightbox.js?url";
 import publicCrmRealtimeUrl from "@/scripts/public-crm-realtime.ts?url";
@@ -712,5 +713,6 @@ const shouldLoadPublicRealtime =
       </>
     )}
     <script type="module" src={lightboxUrl}></script>
+    <SpeedInsights />
   </body>
 </html>
