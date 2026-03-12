@@ -1,4 +1,22 @@
 ﻿---
+const defaultAccessibilityText = {
+  mapRegionLabel: "Mapa de propiedades en Costa del Sol",
+  mapInstructions:
+    "Usa los filtros para limitar ciudad o subzona. Abre cualquier ficha desde la lista. Usa Ver en mapa para centrar una propiedad y, si quieres, inicia una ruta desde esa vivienda.",
+  resultsLiveLabel: "Actualizacion de resultados del mapa",
+  routeLiveLabel: "Actualizacion del planificador de ruta",
+  filtersGroupLabel: "Filtros del mapa",
+  resultsGroupLabel: "Resultados del mapa",
+};
+
+const defaultMobileUiText = {
+  openResults: "Abrir panel",
+  closeResults: "Cerrar panel",
+  resultsTab: "Resultados",
+  filtersTab: "Filtros",
+  poisTab: "Servicios y ruta",
+};
+
 const {
   token,
   styleUrl = "mapbox://styles/mapbox/standard",
@@ -28,8 +46,31 @@ const {
   routeDurationLabel = "Tiempo estimado",
   routeSelectionHint = "Selecciona una vivienda para comenzar la ruta.",
   openDetailLabel = "Ver ficha",
+  viewOnMapLabel = "Ver en mapa",
   resetViewLabel = "Reiniciar mapa",
+  clearFiltersLabel = "Limpiar filtros",
+  visibleResultsLabel = "Resultados visibles",
+  visibleResultsSummaryLabel = "Resultados visibles en este encuadre",
+  resultsEmptyLabel = "Sin resultados visibles en este encuadre.",
+  resultsEmptyHint = "Reinicia el mapa o limpia filtros para volver a ver viviendas.",
+  selectedStateLabel = "Seleccionado",
+  enableMobileSheet = true,
+  defaultMobilePanel = "results",
+  showPoiTools = true,
+  showRouteTools = true,
+  accessibilityText = defaultAccessibilityText,
+  mobileUiText = defaultMobileUiText,
 } = Astro.props;
+
+const resolvedAccessibilityText = {
+  ...defaultAccessibilityText,
+  ...(accessibilityText || {}),
+};
+
+const resolvedMobileUiText = {
+  ...defaultMobileUiText,
+  ...(mobileUiText || {}),
+};
 
 const featureCollection = {
   type: "FeatureCollection",
@@ -39,14 +80,13 @@ const featureCollection = {
 
 <section class="map-layout">
   <div class="map-main">
-    <div class="map-reset-wrap">
-      <button type="button" class="map-action map-action-alt map-reset-view-btn" id="resetViewBtn">
-        {resetViewLabel}
-      </button>
-    </div>
+    <p id="mapInstructions" class="visually-hidden">{resolvedAccessibilityText.mapInstructions}</p>
     <div
       id="costaMap"
       class="costa-map"
+      role="region"
+      aria-label={resolvedAccessibilityText.mapRegionLabel}
+      aria-describedby="mapInstructions"
       data-token={token}
       data-style={styleUrl}
       data-features={JSON.stringify(featureCollection)}
@@ -56,58 +96,129 @@ const featureCollection = {
       data-empty={emptyMessage}
       data-open-detail-label={openDetailLabel}
       data-route-start-label={routeStartLabel}
+      data-view-on-map-label={viewOnMapLabel}
+      data-clear-filters-label={clearFiltersLabel}
+      data-visible-results-label={visibleResultsLabel}
+      data-visible-results-summary-label={visibleResultsSummaryLabel}
+      data-results-empty-label={resultsEmptyLabel}
+      data-results-empty-hint={resultsEmptyHint}
+      data-selected-state-label={selectedStateLabel}
+      data-show-poi-tools={showPoiTools ? "true" : "false"}
+      data-show-route-tools={showRouteTools ? "true" : "false"}
+      data-mobile-sheet={enableMobileSheet ? "true" : "false"}
+      data-default-mobile-panel={defaultMobilePanel}
+      data-accessibility-text={JSON.stringify(resolvedAccessibilityText)}
+      data-mobile-ui-text={JSON.stringify(resolvedMobileUiText)}
     ></div>
-    <section class="map-poi-overlay" aria-label={poiLabel}>
-      <p class="map-poi-overlay-title">{poiLabel}</p>
-      <div class="poi-filters poi-filters-overlay" id="poiFilters">
-        {poiFilters.map((filter) => (
-          <button type="button" class="poi-chip poi-chip-overlay" data-category={filter.id}>
-            <span class="poi-chip-icon" aria-hidden="true">
-              {filter.id === "restaurant" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M6 3v8M4.5 3v4M7.5 3v4M6 11v10M15 3l-3 8h5l-1.2 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              ) : filter.id === "hospital" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-              ) : filter.id === "school" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M3 9l9-4 9 4-9 4-9-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 11v4c0 1.7 2.2 3 5 3s5-1.3 5-3v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              ) : filter.id === "pharmacy" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><rect x="4" y="9" width="16" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9v6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-              ) : filter.id === "airport" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M2 12h20M12 3v18M6 8l6 3 6-3M7 16l5-2 5 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              ) : (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="m12 3 2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.8-5.2 2.8 1-5.7-4.1-4 5.7-.8Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-              )}
-            </span>
-            <span>{filter.label}</span>
-          </button>
-        ))}
-      </div>
-    </section>
-    <section class="map-route-overlay" aria-label={routePlannerTitle} id="routeOverlay" hidden>
-      <p class="map-route-overlay-title">{routePlannerTitle}</p>
-      <button type="button" class="map-action map-action-alt map-route-clear-btn" id="routeClearBtn">{routeClearLabel}</button>
-      <p class="route-selection route-selection-overlay" id="routeSelectionState">{routeSelectionHint}</p>
-      <div class="route-metrics route-metrics-overlay" id="routeMetrics" hidden>
-        <p><strong>{routeDistanceLabel}:</strong> <span id="routeDistanceValue"></span></p>
-        <p><strong>{routeDurationLabel}:</strong> <span id="routeDurationValue"></span></p>
-      </div>
-    </section>
   </div>
 
-  <aside class="map-nav">
-    <section class="nav-section">
-      <p class="map-filter-title">{zoneFilterLabel}</p>
-      <div class="zone-filters" id="zoneFilters" data-all-label={allZonesLabel}></div>
-    </section>
+  <aside
+    class="map-nav"
+    id="mapNav"
+    aria-label={resolvedAccessibilityText.resultsGroupLabel}
+    data-sheet-enabled={enableMobileSheet ? "true" : "false"}
+    data-sheet-expanded="false"
+    data-active-panel={defaultMobilePanel}
+  >
+    <div class="map-nav-mobile-bar">
+      <button
+        type="button"
+        class="map-nav-mobile-toggle"
+        id="mobileSheetToggle"
+        aria-expanded="false"
+        aria-controls="mapNavContent"
+      >
+        <span id="mobileSheetToggleLabel">{resolvedMobileUiText.openResults}</span>
+        <span class="map-nav-mobile-count" id="mobileSheetCount">0</span>
+      </button>
+    </div>
 
-    <section class="nav-section">
-      <p class="map-filter-title">{subzoneFilterLabel}</p>
-      <div class="zone-filters" id="areaFilters" data-all-label={allSubzonesLabel}></div>
-    </section>
+    <div class="map-nav-content" id="mapNavContent">
+      <header class="nav-section nav-summary">
+        <div class="nav-summary-copy">
+          <p class="map-filter-title">{visibleResultsLabel}</p>
+          <p class="map-results-summary" id="resultsSummary" aria-live="polite">
+            {visibleResultsSummaryLabel}: <strong id="resultsCountValue">0</strong>
+          </p>
+        </div>
+        <div class="nav-summary-actions">
+          <button type="button" class="map-action map-action-alt" id="resetViewBtn">{resetViewLabel}</button>
+          <button type="button" class="map-action map-action-alt" id="clearFiltersBtn" hidden>{clearFiltersLabel}</button>
+        </div>
+        <p class="visually-hidden" id="resultsLiveRegion" aria-live="polite">{resolvedAccessibilityText.resultsLiveLabel}</p>
+        <p class="visually-hidden" id="filtersLiveRegion" aria-live="polite">{resolvedAccessibilityText.filtersGroupLabel}</p>
+        <p class="visually-hidden" id="routeLiveRegion" aria-live="polite">{resolvedAccessibilityText.routeLiveLabel}</p>
+      </header>
 
-    <section class="nav-section nav-results">
-      <h3>{listTitle}</h3>
-      <ul class="map-result-list" id="mapResults"></ul>
-    </section>
+      <div class="map-nav-tabs" id="mobilePanelTabs" role="tablist" aria-label="Panel del mapa">
+        <button type="button" class="map-nav-tab is-active" data-panel="results" role="tab" aria-selected="true" aria-controls="panelResults">{resolvedMobileUiText.resultsTab}</button>
+        <button type="button" class="map-nav-tab" data-panel="filters" role="tab" aria-selected="false" aria-controls="panelFilters">{resolvedMobileUiText.filtersTab}</button>
+        <button type="button" class="map-nav-tab" data-panel="tools" role="tab" aria-selected="false" aria-controls="panelTools">{resolvedMobileUiText.poisTab}</button>
+      </div>
+
+      <section class="nav-section nav-section-filters" id="panelFilters" data-panel="filters">
+        <div class="nav-filter-block">
+          <p class="map-filter-title">{zoneFilterLabel}</p>
+          <div class="zone-filters" id="zoneFilters" data-all-label={allZonesLabel} role="group" aria-label={zoneFilterLabel}></div>
+        </div>
+
+        <div class="nav-filter-block">
+          <p class="map-filter-title">{subzoneFilterLabel}</p>
+          <div class="zone-filters" id="areaFilters" data-all-label={allSubzonesLabel} role="group" aria-label={subzoneFilterLabel}></div>
+        </div>
+      </section>
+
+      <section class="nav-section nav-results" id="panelResults" data-panel="results">
+        <h3>{listTitle}</h3>
+        <ul class="map-result-list" id="mapResults"></ul>
+      </section>
+
+      <section class={`nav-section nav-tools ${showPoiTools || showRouteTools ? "" : "is-hidden"}`} id="panelTools" data-panel="tools">
+        {showPoiTools && (
+          <div class="nav-tools-block">
+            <p class="map-filter-title">{poiLabel}</p>
+            <p class="tools-support-copy">{routePlannerHint}</p>
+            <div class="poi-filters" id="poiFilters" role="group" aria-label={poiLabel}>
+              {poiFilters.map((filter) => (
+                <button type="button" class="poi-chip" data-category={filter.id} aria-pressed="false">
+                  <span class="poi-chip-icon" aria-hidden="true">
+                    {filter.id === "restaurant" ? (
+                      <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M6 3v8M4.5 3v4M7.5 3v4M6 11v10M15 3l-3 8h5l-1.2 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    ) : filter.id === "hospital" ? (
+                      <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+                    ) : filter.id === "school" ? (
+                      <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M3 9l9-4 9 4-9 4-9-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 11v4c0 1.7 2.2 3 5 3s5-1.3 5-3v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    ) : filter.id === "pharmacy" ? (
+                      <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><rect x="4" y="9" width="16" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9v6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                    ) : filter.id === "airport" ? (
+                      <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M2 12h20M12 3v18M6 8l6 3 6-3M7 16l5-2 5 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="m12 3 2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.8-5.2 2.8 1-5.7-4.1-4 5.7-.8Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                    )}
+                  </span>
+                  <span class="chip-check" aria-hidden="true">✓</span>
+                  <span>{filter.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {showRouteTools && (
+          <section class="map-route-panel" aria-label={routePlannerTitle} id="routeOverlay" hidden>
+            <div class="map-route-panel-head">
+              <p class="map-route-panel-title">{routePlannerTitle}</p>
+              <button type="button" class="map-action map-action-alt map-route-clear-btn" id="routeClearBtn">{routeClearLabel}</button>
+            </div>
+            <p class="route-selection" id="routeSelectionState" aria-live="polite">{routeSelectionHint}</p>
+            <div class="route-metrics" id="routeMetrics" hidden>
+              <p><strong>{routeDistanceLabel}:</strong> <span id="routeDistanceValue"></span></p>
+              <p><strong>{routeDurationLabel}:</strong> <span id="routeDurationValue"></span></p>
+            </div>
+          </section>
+        )}
+      </section>
+    </div>
   </aside>
 </section>
 
@@ -132,6 +243,11 @@ const featureCollection = {
   const booleanPointInPolygon = booleanPointInPolygonModule.default;
 
   const mapEl = document.getElementById("costaMap");
+  const mapNav = document.getElementById("mapNav");
+  const mobileSheetToggle = document.getElementById("mobileSheetToggle");
+  const mobileSheetToggleLabel = document.getElementById("mobileSheetToggleLabel");
+  const mobileSheetCount = document.getElementById("mobileSheetCount");
+  const mobilePanelTabs = document.getElementById("mobilePanelTabs");
   const routeClearBtn = document.getElementById("routeClearBtn");
   const routeOverlay = document.getElementById("routeOverlay");
   const routeSelectionState = document.getElementById("routeSelectionState");
@@ -139,10 +255,15 @@ const featureCollection = {
   const routeDistanceValue = document.getElementById("routeDistanceValue");
   const routeDurationValue = document.getElementById("routeDurationValue");
   const resetViewBtn = document.getElementById("resetViewBtn");
+  const clearFiltersBtn = document.getElementById("clearFiltersBtn");
   const poiFiltersEl = document.getElementById("poiFilters");
   const zoneFiltersEl = document.getElementById("zoneFilters");
   const areaFiltersEl = document.getElementById("areaFilters");
   const resultsListEl = document.getElementById("mapResults");
+  const resultsCountValue = document.getElementById("resultsCountValue");
+  const resultsLiveRegion = document.getElementById("resultsLiveRegion");
+  const filtersLiveRegion = document.getElementById("filtersLiveRegion");
+  const routeLiveRegion = document.getElementById("routeLiveRegion");
 
   if (!(mapEl instanceof HTMLDivElement)) {
     throw new Error("Map container not found.");
@@ -152,11 +273,24 @@ const featureCollection = {
   const style = mapEl.dataset.style || "mapbox://styles/mapbox/standard";
   const emptyMessage = mapEl.dataset.empty || "No hay ubicaciones disponibles.";
   const openDetailLabel = mapEl.dataset.openDetailLabel || "Ver ficha";
+  const viewOnMapLabel = mapEl.dataset.viewOnMapLabel || "Ver en mapa";
   const routeStartLabel = mapEl.dataset.routeStartLabel || "Iniciar ruta";
+  const clearFiltersLabel = mapEl.dataset.clearFiltersLabel || "Limpiar filtros";
+  const visibleResultsLabel = mapEl.dataset.visibleResultsLabel || "Resultados visibles";
+  const resultsEmptyLabel = mapEl.dataset.resultsEmptyLabel || "Sin resultados visibles en este encuadre.";
+  const resultsEmptyHint =
+    mapEl.dataset.resultsEmptyHint || "Reinicia el mapa o limpia filtros para volver a ver viviendas.";
+  const selectedStateLabel = mapEl.dataset.selectedStateLabel || "Seleccionado";
   const featureCollection = JSON.parse(mapEl.dataset.features || '{"type":"FeatureCollection","features":[]}');
   const poisUrl = mapEl.dataset.poisUrl || "/data/pois.geojson";
   const zonesUrl = mapEl.dataset.zonesUrl || "/data/zones.geojson";
   const poiFilters = JSON.parse(mapEl.dataset.poiFilters || "[]");
+  const mobileUiText = JSON.parse(mapEl.dataset.mobileUiText || "{}");
+  const sheetEnabled = mapEl.dataset.mobileSheet === "true";
+  const showPoiTools = mapEl.dataset.showPoiTools !== "false";
+  const showRouteTools = mapEl.dataset.showRouteTools !== "false";
+  const defaultMobilePanel = mapEl.dataset.defaultMobilePanel || "results";
+  const mobileMediaQuery = window.matchMedia("(max-width: 760px)");
   const parseMapboxStyleRef = (styleUrl) => {
     const match = /^mapbox:\/\/styles\/([^/]+)\/([^/?#]+)/.exec(styleUrl);
     if (!match) return null;
@@ -177,6 +311,22 @@ const featureCollection = {
     }
   };
 
+  const announce = (element, message) => {
+    if (!(element instanceof HTMLElement)) return;
+    element.textContent = "";
+    window.setTimeout(() => {
+      element.textContent = message;
+    }, 20);
+  };
+
+  const isMobileLayout = () => sheetEnabled && mobileMediaQuery.matches;
+
+  const setPanelHiddenState = (panelEl, hidden) => {
+    if (!(panelEl instanceof HTMLElement)) return;
+    if (hidden) panelEl.setAttribute("hidden", "");
+    else panelEl.removeAttribute("hidden");
+  };
+
   if (!token) {
     mapEl.innerHTML = `<div class="map-empty">${emptyMessage} (falta PUBLIC_MAPBOX_TOKEN)</div>`;
   } else {
@@ -190,7 +340,6 @@ const featureCollection = {
     } else {
       mapboxgl.accessToken = token;
 
-      const DETAIL_ZOOM = 16;
       const PROPERTY_FOCUS_ZOOM = 17.4;
       const ZONE_HIDE_ZOOM = 12.5;
       const INITIAL_CENTER = [-4.92, 36.58];
@@ -267,6 +416,72 @@ const featureCollection = {
     let routeOrigin = null;
     let routeDestination = null;
     const selectedAreaIds = new Set();
+    const allowedPanels = new Set(["results", "filters", "tools"]);
+
+    const sanitizePanelName = (value) =>
+      allowedPanels.has(String(value || "")) ? String(value) : "results";
+
+    const updateClearFiltersState = () => {
+      if (!(clearFiltersBtn instanceof HTMLButtonElement)) return;
+      const hasActiveFilters =
+        selectedZoneIds.size > 0 || selectedAreaIds.size > 0 || activePoiCategories.size > 0;
+      clearFiltersBtn.hidden = !hasActiveFilters;
+      clearFiltersBtn.textContent = clearFiltersLabel;
+    };
+
+    const setActiveMobilePanel = (panelName) => {
+      if (!(mapNav instanceof HTMLElement)) return;
+      const nextPanel = sanitizePanelName(panelName || defaultMobilePanel);
+      mapNav.dataset.activePanel = nextPanel;
+
+      mapNav.querySelectorAll(".nav-section[data-panel]").forEach((panel) => {
+        if (!(panel instanceof HTMLElement)) return;
+        const isMatch = panel.dataset.panel === nextPanel;
+        if (isMobileLayout()) setPanelHiddenState(panel, !isMatch);
+        else panel.removeAttribute("hidden");
+      });
+
+      mobilePanelTabs?.querySelectorAll(".map-nav-tab").forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        const active = button.dataset.panel === nextPanel;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+        button.tabIndex = active ? 0 : -1;
+      });
+    };
+
+    const setMobileSheetExpanded = (expanded) => {
+      if (!(mapNav instanceof HTMLElement) || !(mobileSheetToggle instanceof HTMLButtonElement)) return;
+      const shouldExpand = !!expanded;
+      mapNav.dataset.sheetExpanded = shouldExpand ? "true" : "false";
+      mobileSheetToggle.setAttribute("aria-expanded", shouldExpand ? "true" : "false");
+      if (mobileSheetToggleLabel instanceof HTMLSpanElement) {
+        mobileSheetToggleLabel.textContent = shouldExpand
+          ? mobileUiText.closeResults || "Cerrar panel"
+          : mobileUiText.openResults || "Abrir panel";
+      }
+      if (!shouldExpand && isMobileLayout()) {
+        setActiveMobilePanel("results");
+      } else {
+        setActiveMobilePanel(mapNav.dataset.activePanel || defaultMobilePanel);
+      }
+    };
+
+    const syncResponsivePanelState = () => {
+      if (!(mapNav instanceof HTMLElement)) return;
+      if (isMobileLayout()) {
+        if (!mapNav.dataset.sheetExpanded) {
+          mapNav.dataset.sheetExpanded = "false";
+        }
+        setActiveMobilePanel(mapNav.dataset.activePanel || defaultMobilePanel);
+      } else {
+        mapNav.dataset.sheetExpanded = "true";
+        mapNav.querySelectorAll(".nav-section[data-panel]").forEach((panel) => {
+          if (panel instanceof HTMLElement) panel.removeAttribute("hidden");
+        });
+      }
+      updateClearFiltersState();
+    };
 
     const getSelectedZoneFeatures = () => {
       if (!selectedZoneIds.size) return [];
@@ -422,7 +637,7 @@ const featureCollection = {
         Number.isFinite(lng) && Number.isFinite(lat)
           ? `<button type="button" class="popup-start-route-btn" data-lng="${lng}" data-lat="${lat}" data-name="${title}">${routeStartLabel}</button>`
           : "";
-      return `<div class="map-popup map-popup-property">${media}<div class="map-popup-body"><h3>${title}</h3><p>${locationLabel}</p>${unitsLine}<div class="map-popup-actions">${routeButton}<a href="${href}">Ver detalle</a></div></div></div>`;
+      return `<div class="map-popup map-popup-property">${media}<div class="map-popup-body"><h3>${title}</h3><p>${locationLabel}</p>${unitsLine}<div class="map-popup-actions">${routeButton}<a href="${href}">${openDetailLabel}</a></div></div></div>`;
     };
 
     const getVisiblePropertiesInViewport = () => {
@@ -435,16 +650,12 @@ const featureCollection = {
 
     const updateResultOpenState = () => {
       if (!(resultsListEl instanceof HTMLUListElement)) return;
-      const ready = map.getZoom() >= DETAIL_ZOOM;
       resultsListEl.querySelectorAll(".map-result-item").forEach((item) => {
         const isSelected = item.getAttribute("data-id") === selectedResultId;
         item.classList.toggle("is-selected", isSelected);
-        const link = item.querySelector(".result-open");
-        if (link instanceof HTMLAnchorElement) {
-          const allow = ready && isSelected;
-          link.classList.toggle("is-ready", allow);
-          link.setAttribute("aria-disabled", allow ? "false" : "true");
-          link.tabIndex = allow ? 0 : -1;
+        const selectionBadge = item.querySelector(".result-selection-state");
+        if (selectionBadge instanceof HTMLElement) {
+          selectionBadge.hidden = !isSelected;
         }
       });
     };
@@ -452,9 +663,28 @@ const featureCollection = {
     const renderResultsPanel = () => {
       if (!(resultsListEl instanceof HTMLUListElement)) return;
       const visibleFeatures = getVisiblePropertiesInViewport();
+      const resultCount = visibleFeatures.length;
 
-      if (visibleFeatures.length === 0) {
-        resultsListEl.innerHTML = `<li class="map-result-empty">Sin resultados visibles en este encuadre.</li>`;
+      if (resultsCountValue instanceof HTMLElement) {
+        resultsCountValue.textContent = String(resultCount);
+      }
+      if (mobileSheetCount instanceof HTMLElement) {
+        mobileSheetCount.textContent = String(resultCount);
+      }
+      announce(resultsLiveRegion, `${visibleResultsLabel}: ${resultCount}`);
+
+      if (resultCount === 0) {
+        const showClear = selectedZoneIds.size > 0 || selectedAreaIds.size > 0 || activePoiCategories.size > 0;
+        resultsListEl.innerHTML = `
+          <li class="map-result-empty-card">
+            <p class="map-result-empty-title">${resultsEmptyLabel}</p>
+            <p class="map-result-empty-hint">${resultsEmptyHint}</p>
+            <div class="map-result-empty-actions">
+              <button type="button" class="map-action map-action-alt map-empty-reset">${resetViewLabel}</button>
+              ${showClear ? `<button type="button" class="map-action map-action-alt map-empty-clear">${clearFiltersLabel}</button>` : ""}
+            </div>
+          </li>
+        `;
         return;
       }
 
@@ -487,11 +717,13 @@ const featureCollection = {
                 <div class="result-meta-row">
                   <span class="map-result-tag">${markerType}</span>
                   ${unitsMeta}
+                  <span class="result-selection-state" hidden>${selectedStateLabel}</span>
                 </div>
               </div>
               <div class="result-actions">
+                <button type="button" class="result-view-btn">${viewOnMapLabel}</button>
                 <button type="button" class="result-route-btn" data-lng="${feature.geometry.coordinates[0]}" data-lat="${feature.geometry.coordinates[1]}" data-title="${props.title || "Propiedad"}">${routeStartLabel}</button>
-                <a class="result-open" href="${props.href || "#"}" aria-disabled="true" tabindex="-1">${openDetailLabel}</a>
+                <a class="result-open is-ready" href="${props.href || "#"}">${openDetailLabel}</a>
               </div>
             </li>
           `;
@@ -556,11 +788,19 @@ const featureCollection = {
       zoneFiltersEl?.querySelectorAll(".zone-chip").forEach((chip) => {
         const chipZoneId = chip.getAttribute("data-zone-id") || "";
         chip.classList.toggle("is-active", chipZoneId === "");
+        chip.setAttribute("aria-pressed", chipZoneId === "" ? "true" : "false");
+      });
+      areaFiltersEl?.querySelectorAll(".zone-chip").forEach((chip) => {
+        const active = (chip.getAttribute("data-area-id") || "") === "";
+        chip.classList.toggle("is-active", active);
+        chip.setAttribute("aria-pressed", active ? "true" : "false");
       });
       applyZoneFilterToSources();
       updateZoneLayerVisibility();
       updateAreasSource();
       renderAreaChips();
+      updateClearFiltersState();
+      announce(filtersLiveRegion, `${clearFiltersLabel}.`);
     };
 
     const setZoneSelection = (zoneId, forceState = null) => {
@@ -584,8 +824,10 @@ const featureCollection = {
         const chipZoneId = chip.getAttribute("data-zone-id") || "";
         if (!chipZoneId) {
           chip.classList.toggle("is-active", selectedZoneIds.size === 0);
+          chip.setAttribute("aria-pressed", selectedZoneIds.size === 0 ? "true" : "false");
         } else {
           chip.classList.toggle("is-active", selectedZoneIds.has(chipZoneId));
+          chip.setAttribute("aria-pressed", selectedZoneIds.has(chipZoneId) ? "true" : "false");
         }
       });
 
@@ -593,6 +835,13 @@ const featureCollection = {
       updateZoneLayerVisibility();
       updateAreasSource();
       renderAreaChips();
+      updateClearFiltersState();
+      announce(
+        filtersLiveRegion,
+        selectedZoneIds.size
+          ? `${zoneFilterLabel}: ${selectedZoneIds.size} seleccionada${selectedZoneIds.size > 1 ? "s" : ""}.`
+          : `${zoneFilterLabel}: sin filtro.`
+      );
     };
 
     const updateZoneLayerVisibility = () => {
@@ -618,8 +867,11 @@ const featureCollection = {
         .sort((a, b) => a.name.localeCompare(b.name));
 
       zoneFiltersEl.innerHTML = [
-        `<button type="button" class="zone-chip is-active" data-zone-id="">${allLabel}</button>`,
-        ...zones.map((zone) => `<button type="button" class="zone-chip" data-zone-id="${zone.id}">${zone.name}</button>`),
+        `<button type="button" class="zone-chip is-active" data-zone-id="" aria-pressed="true"><span class="chip-check" aria-hidden="true">✓</span><span>${allLabel}</span></button>`,
+        ...zones.map(
+          (zone) =>
+            `<button type="button" class="zone-chip" data-zone-id="${zone.id}" aria-pressed="false"><span class="chip-check" aria-hidden="true">✓</span><span>${zone.name}</span></button>`
+        ),
       ].join("");
 
       zoneFiltersEl.querySelectorAll(".zone-chip").forEach((button) => {
@@ -733,10 +985,10 @@ const featureCollection = {
 
       const items = [...grouped.values()].sort((a, b) => a.area.localeCompare(b.area));
       areaFiltersEl.innerHTML = [
-        `<button type="button" class="zone-chip ${selectedAreaIds.size === 0 ? "is-active" : ""}" data-area-id="">${allLabel}</button>`,
+        `<button type="button" class="zone-chip ${selectedAreaIds.size === 0 ? "is-active" : ""}" data-area-id="" aria-pressed="${selectedAreaIds.size === 0 ? "true" : "false"}"><span class="chip-check" aria-hidden="true">✓</span><span>${allLabel}</span></button>`,
         ...items.map(
           (item) =>
-            `<button type="button" class="zone-chip ${selectedAreaIds.has(item.areaId) ? "is-active" : ""}" data-area-id="${item.areaId}">${item.area} (${item.count})</button>`
+            `<button type="button" class="zone-chip ${selectedAreaIds.has(item.areaId) ? "is-active" : ""}" data-area-id="${item.areaId}" aria-pressed="${selectedAreaIds.has(item.areaId) ? "true" : "false"}"><span class="chip-check" aria-hidden="true">✓</span><span>${item.area} (${item.count})</span></button>`
         ),
       ].join("");
 
@@ -753,6 +1005,13 @@ const featureCollection = {
           renderAreaChips();
           applyZoneFilterToSources();
           updateAreasSource();
+          updateClearFiltersState();
+          announce(
+            filtersLiveRegion,
+            selectedAreaIds.size
+              ? `${subzoneFilterLabel}: ${selectedAreaIds.size} seleccionada${selectedAreaIds.size > 1 ? "s" : ""}.`
+              : `${subzoneFilterLabel}: todas.`
+          );
         });
       });
     };
@@ -957,7 +1216,7 @@ const featureCollection = {
 
     const updateRouteOverlayVisibility = () => {
       if (!(routeOverlay instanceof HTMLElement)) return;
-      const show = !!routeOrigin;
+      const show = showRouteTools && !!routeOrigin;
       if (show) routeOverlay.removeAttribute("hidden");
       else routeOverlay.setAttribute("hidden", "");
     };
@@ -974,6 +1233,7 @@ const featureCollection = {
         routeSelectionState.textContent = "Selecciona una vivienda para comenzar la ruta.";
       }
       updateRouteOverlayVisibility();
+      announce(routeLiveRegion, "Ruta limpiada.");
     };
 
     const setRouteOrigin = (coords, label = "") => {
@@ -990,6 +1250,14 @@ const featureCollection = {
           ? `Ruta iniciada desde: ${label}. ¿A donde quieres ir? Elige restaurante, hospital, colegio, farmacia, aeropuerto u ocio.`
           : "Ruta iniciada. ¿A donde quieres ir? Elige destino en POIs o en la lista.";
       }
+      announce(
+        routeLiveRegion,
+        label ? `Ruta iniciada desde ${label}.` : "Ruta iniciada. Selecciona un destino."
+      );
+      if (isMobileLayout() && (showRouteTools || showPoiTools)) {
+        setMobileSheetExpanded(true);
+        setActiveMobilePanel("tools");
+      }
     };
 
     const setRouteDestination = async (coords, label = "") => {
@@ -1003,6 +1271,7 @@ const featureCollection = {
           ? `Destino fijado: ${label}.`
           : "Destino fijado.";
       }
+      announce(routeLiveRegion, label ? `Destino fijado: ${label}.` : "Destino fijado.");
     };
 
     const drawRoute = async () => {
@@ -1031,6 +1300,7 @@ const featureCollection = {
         if (routeDistanceValue instanceof HTMLSpanElement) routeDistanceValue.textContent = `${km} km`;
         if (routeDurationValue instanceof HTMLSpanElement) routeDurationValue.textContent = `${minutes} min`;
         if (routeMetrics instanceof HTMLDivElement) routeMetrics.hidden = false;
+        announce(routeLiveRegion, `Ruta calculada: ${km} km y ${minutes} minutos.`);
       } catch {
         // Ignore API errors
       }
@@ -1470,16 +1740,25 @@ const featureCollection = {
               if (activePoiCategories.has(category)) {
                 activePoiCategories.delete(category);
                 button.classList.remove("is-active");
+                button.setAttribute("aria-pressed", "false");
                 setPoiVisibility(category, false);
               } else {
                 activePoiCategories.add(category);
                 button.classList.add("is-active");
+                button.setAttribute("aria-pressed", "true");
                 setPoiVisibility(category, true);
               }
               poiFilters.forEach((filter) => {
                 setPoiVisibility(filter.id, activePoiCategories.has(filter.id));
               });
               updatePoiSourceData();
+              updateClearFiltersState();
+              announce(
+                filtersLiveRegion,
+                activePoiCategories.size
+                  ? `${poiLabel}: ${activePoiCategories.size} activado${activePoiCategories.size > 1 ? "s" : ""}.`
+                  : `${poiLabel}: sin filtros activos.`
+              );
             });
           });
 
@@ -1504,9 +1783,12 @@ const featureCollection = {
       const target = event.target;
       if (!(target instanceof HTMLElement)) return;
 
-      const link = target.closest(".result-open");
-      if (link instanceof HTMLAnchorElement && !link.classList.contains("is-ready")) {
-        event.preventDefault();
+      if (target.closest(".map-empty-reset")) {
+        resetViewBtn?.click();
+        return;
+      }
+      if (target.closest(".map-empty-clear")) {
+        clearFiltersBtn?.click();
         return;
       }
 
@@ -1523,6 +1805,10 @@ const featureCollection = {
           setRouteOrigin([routeLng, routeLat], routeTitle);
         }
         return;
+      }
+
+      if (target.closest(".result-view-btn") || target.closest(".result-jump")) {
+        // Continue to focus the selected result on the map.
       }
 
       const lng = Number(item.dataset.lng);
@@ -1554,6 +1840,40 @@ const featureCollection = {
         essential: true,
       });
     });
+
+    clearFiltersBtn?.addEventListener("click", () => {
+      clearZoneSelection();
+      activePoiCategories.clear();
+      poiFiltersEl?.querySelectorAll(".poi-chip[data-category]").forEach((button) => {
+        if (button instanceof HTMLButtonElement) {
+          button.classList.remove("is-active");
+          button.setAttribute("aria-pressed", "false");
+        }
+      });
+      updatePoiSourceData();
+      updateClearFiltersState();
+    });
+
+    mobileSheetToggle?.addEventListener("click", () => {
+      if (!isMobileLayout()) return;
+      const expanded = mapNav?.dataset.sheetExpanded === "true";
+      setMobileSheetExpanded(!expanded);
+    });
+
+    mobilePanelTabs?.querySelectorAll(".map-nav-tab").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        const nextPanel = button.dataset.panel || "results";
+        setActiveMobilePanel(nextPanel);
+        if (isMobileLayout()) setMobileSheetExpanded(true);
+      });
+    });
+
+    mobileMediaQuery.addEventListener("change", () => {
+      syncResponsivePanelState();
+    });
+
+    syncResponsivePanelState();
 
       document.addEventListener("click", (event) => {
         const target = event.target;
@@ -2848,6 +3168,382 @@ const featureCollection = {
       border-color: rgba(255, 255, 255, 0.36);
       background: linear-gradient(150deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.74));
       box-shadow: 0 12px 28px rgba(15, 23, 42, 0.3);
+    }
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .nav-section[hidden] {
+    display: none !important;
+  }
+
+  .map-nav-mobile-bar,
+  .map-nav-tabs {
+    display: none;
+  }
+
+  .map-nav-content {
+    display: grid;
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .nav-summary {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+
+  .nav-summary-copy {
+    min-width: 0;
+  }
+
+  .map-results-summary {
+    margin: 0;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.93rem;
+    color: #202f4e;
+    line-height: 1.35;
+  }
+
+  .map-results-summary strong {
+    font-size: 1.1rem;
+    color: #1d4ed8;
+  }
+
+  .nav-summary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .nav-section-filters,
+  .nav-tools {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .nav-filter-block,
+  .nav-tools-block {
+    display: grid;
+    gap: 0.46rem;
+  }
+
+  .tools-support-copy {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: rgba(32, 47, 78, 0.76);
+    font-family: "Manrope", sans-serif;
+  }
+
+  .map-route-panel {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.9rem 0.95rem;
+    border-radius: 16px;
+    border: 1px solid rgba(32, 47, 78, 0.14);
+    background: linear-gradient(180deg, #ffffff, #f7faff);
+  }
+
+  .map-route-panel-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  .map-route-panel-title {
+    margin: 0;
+    color: #202f4e;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    font-weight: 900;
+    font-family: "Manrope", sans-serif;
+  }
+
+  .map-action,
+  .zone-chip,
+  :global(#zoneFilters .zone-chip),
+  :global(#areaFilters .zone-chip),
+  .poi-chip,
+  .result-route-btn,
+  .result-open,
+  .result-view-btn,
+  .map-nav-mobile-toggle,
+  .map-nav-tab {
+    min-height: 44px;
+  }
+
+  .map-action {
+    padding: 0.7rem 1rem;
+  }
+
+  .zone-chip,
+  :global(#zoneFilters .zone-chip),
+  :global(#areaFilters .zone-chip),
+  .poi-chip {
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .chip-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.95rem;
+    color: currentColor;
+    opacity: 0.18;
+    transform: scale(0.8);
+    transition: opacity 0.16s ease, transform 0.16s ease;
+  }
+
+  .zone-chip.is-active .chip-check,
+  .poi-chip.is-active .chip-check {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .result-selection-state {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1px solid rgba(29, 78, 216, 0.28);
+    background: rgba(29, 78, 216, 0.1);
+    color: #1d4ed8;
+    padding: 0.16rem 0.5rem;
+    font-size: 0.61rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .result-selection-state[hidden] {
+    display: none;
+  }
+
+  .result-view-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(32, 47, 78, 0.18);
+    background: linear-gradient(180deg, #ffffff, #f1f5fb);
+    color: #202f4e;
+    border-radius: 999px;
+    padding: 0.34rem 0.74rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    font-family: "Manrope", sans-serif;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  }
+
+  .result-view-btn:hover,
+  .result-route-btn:hover,
+  .result-open:hover,
+  .map-nav-mobile-toggle:hover,
+  .map-nav-tab:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 18px rgba(32, 47, 78, 0.18);
+  }
+
+  .result-open {
+    color: #202f4e;
+    border-color: rgba(32, 47, 78, 0.18);
+    background: linear-gradient(180deg, #ffffff, #f1f5fb);
+    pointer-events: auto;
+  }
+
+  .result-open.is-ready {
+    color: #fff;
+    background: linear-gradient(135deg, #202f4e, #1d4ed8);
+    border-color: transparent;
+  }
+
+  .result-actions {
+    flex-wrap: wrap;
+  }
+
+  .map-result-empty-card {
+    list-style: none;
+    border: 1px dashed rgba(32, 47, 78, 0.2);
+    border-radius: 16px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.76);
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .map-result-empty-title,
+  .map-result-empty-hint {
+    margin: 0;
+    font-family: "Manrope", sans-serif;
+    color: #202f4e;
+  }
+
+  .map-result-empty-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+  }
+
+  .map-result-empty-hint {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: rgba(32, 47, 78, 0.76);
+  }
+
+  .map-result-empty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .map-nav-tab {
+    appearance: none;
+    border: 1px solid rgba(32, 47, 78, 0.15);
+    background: #fff;
+    border-radius: 999px;
+    color: #202f4e;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+  }
+
+  .map-nav-tab.is-active {
+    color: #fff;
+    background: linear-gradient(135deg, #202f4e, #1d4ed8);
+    border-color: transparent;
+  }
+
+  .map-nav-mobile-toggle {
+    appearance: none;
+    width: 100%;
+    border: 1px solid rgba(32, 47, 78, 0.14);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(243, 247, 255, 0.98));
+    color: #202f4e;
+    border-radius: 18px;
+    padding: 0.72rem 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 18px 30px rgba(15, 23, 42, 0.16);
+  }
+
+  .map-nav-mobile-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.1rem;
+    min-height: 2rem;
+    padding: 0 0.55rem;
+    border-radius: 999px;
+    background: rgba(29, 78, 216, 0.12);
+    color: #1d4ed8;
+  }
+
+  @media (max-width: 760px) {
+    .map-nav {
+      display: grid;
+      position: fixed;
+      left: 0.7rem;
+      right: 0.7rem;
+      bottom: calc(0.7rem + env(safe-area-inset-bottom));
+      z-index: 12;
+      height: auto;
+      max-height: none;
+      padding: 0;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .map-nav-mobile-bar {
+      display: block;
+      pointer-events: auto;
+    }
+
+    .map-nav[data-sheet-enabled="true"][data-sheet-expanded="false"] .map-nav-content {
+      display: none;
+    }
+
+    .map-nav-content {
+      pointer-events: auto;
+      margin-top: 0.6rem;
+      padding: 0.85rem;
+      border-radius: 20px;
+      border: 1px solid rgba(32, 47, 78, 0.12);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 24px 42px rgba(15, 23, 42, 0.22);
+      max-height: min(60vh, 520px);
+      overflow: hidden;
+      grid-template-rows: auto auto minmax(0, 1fr);
+    }
+
+    .map-nav-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .nav-summary {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .nav-summary-actions {
+      justify-content: stretch;
+    }
+
+    .nav-summary-actions .map-action {
+      flex: 1 1 0;
+    }
+
+    .nav-section-filters,
+    .nav-results,
+    .nav-tools {
+      min-height: 0;
+      overflow-y: auto;
+    }
+
+    .map-nav[data-sheet-enabled="true"][data-sheet-expanded="true"] [data-panel] {
+      display: block;
+    }
+
+    .map-poi-overlay,
+    .map-route-overlay,
+    .map-reset-wrap {
+      display: none !important;
     }
   }
 </style>
