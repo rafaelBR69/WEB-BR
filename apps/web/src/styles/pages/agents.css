@@ -1,0 +1,265 @@
+.agents-hero {
+  padding-top: clamp(2rem, 5vw, 3.4rem);
+  padding-bottom: 1.2rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.agents-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  font-weight: 800;
+}
+
+.agents-hero h1 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: clamp(1.7rem, 4vw, 2.8rem);
+}
+
+.agents-hero p {
+  margin: 0;
+  color: var(--color-muted);
+  max-width: 760px;
+}
+
+.agents-directory {
+  padding-bottom: 2.8rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.agents-section h2 {
+  margin: 0 0 0.7rem;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}
+
+.agents-empty {
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+  padding: 0.9rem;
+  color: var(--color-muted);
+}
+
+.agents-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.agent-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 25px rgba(12, 20, 38, 0.09);
+}
+
+.agent-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #eef2f8;
+}
+
+.agent-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.agent-photo span {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.agent-body {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.85rem 0.85rem 0.95rem;
+}
+
+.agent-body h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.agent-body h3 a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.agent-body p {
+  margin: 0;
+  color: var(--color-muted);
+  min-height: 2.2em;
+}
+
+.agent-languages {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.agent-languages > span {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  font-weight: 800;
+}
+
+.agent-languages ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.agent-languages li {
+  width: 22px;
+  height: 16px;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(12, 20, 38, 0.25);
+}
+
+.agent-languages img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.agent-cta {
+  margin-top: 0.2rem;
+  display: inline-flex;
+  justify-self: start;
+  text-decoration: none;
+  color: var(--color-primary);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.45rem 0.72rem;
+}
+
+.agent-detail {
+  padding-top: 2rem;
+  padding-bottom: 2.8rem;
+}
+
+.agent-back {
+  display: inline-flex;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+}
+
+.agent-detail-card {
+  margin-top: 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(12, 20, 38, 0.09);
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.agent-detail-photo {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eef2f8;
+  min-height: 320px;
+}
+
+.agent-detail-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.agent-detail-photo span {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.agent-detail-body {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+}
+
+.agent-detail-body h1 {
+  margin: 0;
+  color: var(--color-primary);
+}
+
+.agent-detail-role {
+  margin: 0;
+  color: var(--color-muted);
+  font-weight: 700;
+}
+
+.agent-detail-bio {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.agent-detail-bio p {
+  margin: 0;
+  color: var(--color-primary);
+}
+
+.agent-detail-contact {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.agent-detail-contact a {
+  text-decoration: none;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.agent-detail-contact span {
+  color: var(--color-muted);
+}
+
+@media (max-width: 1024px) {
+  .agents-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .agent-detail-card {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-detail-photo {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .agents-grid {
+    grid-template-columns: 1fr;
+  }
+}

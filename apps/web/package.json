@@ -1,0 +1,11 @@
+{
+  "name": "@web-br/web-app",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Workspace target for the public web and portal during the CRM separation.",
+  "scripts": {
+    "dev": "node ../../scripts/run-surface.mjs web dev --config ./astro.config.mjs",
+    "build": "node ../../scripts/run-surface.mjs web build --config ./astro.config.mjs"
+  }
+}

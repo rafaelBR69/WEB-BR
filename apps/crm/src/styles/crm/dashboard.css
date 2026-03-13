@@ -1,0 +1,163 @@
+/* CRM Dashboard Styles */
+
+.crm-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .crm-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.crm-chart-widget {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 1.25rem;
+  position: relative;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.crm-chart-widget.is-dragging {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  cursor: grabbing;
+}
+
+.crm-chart-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.crm-chart-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  flex: 1;
+}
+
+.crm-chart-drag-handle {
+  cursor: grab;
+  color: #9CA3AF;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  min-width: 24px;
+  min-height: 24px;
+  justify-content: center;
+}
+
+.crm-chart-remove {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.crm-chart-remove:hover {
+  background-color: #FEE2E2;
+  color: #EF4444;
+}
+
+.crm-chart-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal / Builder Styles */
+.crm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.crm-modal {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1001;
+}
+
+.crm-modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.crm-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.crm-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6B7280;
+}
+
+.crm-chart-builder-content {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .crm-chart-builder-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.crm-chart-preview {
+  background: #F9FAFB;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px dashed #D1D5DB;
+}
+
+.crm-preview-box {
+  background: white;
+  border-radius: 8px;
+  margin-top: 1rem;
+  padding: 1rem;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crm-loading, .crm-empty {
+  color: #9CA3AF;
+  font-style: italic;
+  font-size: 0.875rem;
+}

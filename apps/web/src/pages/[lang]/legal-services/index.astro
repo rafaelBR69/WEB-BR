@@ -1,0 +1,581 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { getUiCopy } from "@shared/i18n/ui";
+import "@webapp/styles/pages/legal-services.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/legal-services/`, 302);
+}
+
+const lang = langParam;
+const ui = getUiCopy(lang);
+
+const landingNavItems = [
+  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+  { href: `/${lang}/marketing-3d/`, label: "Marketing" },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+];
+
+const copyByLang = {
+  es: {
+    title: "Servicios legales | BlancaReal",
+    description:
+      "Servicios legales inmobiliarios en la Costa del Sol para compraventa, due diligence, coordinacion documental y cierre de operaciones.",
+    eyebrow: "Servicios legales",
+    headingMain: "Seguridad juridica para operaciones inmobiliarias",
+    headingSub: "Estructura legal, lectura documental y criterio operativo",
+    intro:
+      "BlancaReal articula la parte legal del proceso inmobiliario con una mirada practica: protegemos la operacion, ordenamos la documentacion y coordinamos a las partes para que el cierre llegue limpio.",
+    primaryCta: "Hablar con el area legal",
+    secondaryCta: "Ir a contacto",
+    heroStats: [
+      { value: "Compraventa", label: "contratos y cierre" },
+      { value: "Due diligence", label: "riesgo documental y registral" },
+      { value: "Coordinacion", label: "cliente, agencia y notaria" },
+    ],
+    deskEyebrow: "Mesa legal",
+    deskTitle: "No llegamos al final del proceso. Entramos donde empieza el riesgo.",
+    deskText:
+      "La operacion se revisa desde dentro: titularidad, cargas, contratos, representacion, calendario, firmas y coordinacion con terceros. El objetivo es quitar friccion antes de que aparezca.",
+    deskTags: ["Contratos", "Registro", "Notaria", "Fiscalidad basica", "Cierre"],
+    sections: {
+      coverageEyebrow: "Cobertura",
+      coverageHeading: "Areas legales que ordenamos dentro de una operacion",
+      coverageIntro:
+        "La pagina queda preparada por bloques claros para que luego podamos profundizar cada servicio sin romper la estructura general.",
+      methodEyebrow: "Metodo",
+      methodHeading: "Como se estructura un expediente legal con BlancaReal",
+      methodIntro:
+        "El enfoque no es teorico. Cada fase tiene una funcion concreta dentro del avance de la operacion y de la proteccion del cliente.",
+      dossiersEyebrow: "Expedientes",
+      dossiersHeading: "Tipos de casos que la landing puede desplegar despues",
+      dossiersIntro:
+        "Dejamos una arquitectura pensada para crecer en compraventas, clientes internacionales, promotoras y operaciones con capas de riesgo documental.",
+      controlEyebrow: "Control documental",
+      controlHeading: "Lo que conviene dejar siempre bajo lectura legal",
+      controlIntro:
+        "Mientras llega el contenido definitivo, la estructura ya prioriza los puntos donde mas valor aporta un equipo legal inmobiliario.",
+    },
+    coverage: [
+      {
+        id: "sale",
+        label: "01",
+        title: "Compraventas y contratos",
+        text: "Revision y estructura contractual para que la operacion avance con reglas claras, hitos definidos y menos exposicion.",
+        points: ["Reservas", "Arras", "Compraventa privada", "Anexos y condiciones"],
+      },
+      {
+        id: "due",
+        label: "02",
+        title: "Due diligence inmobiliaria",
+        text: "Lectura de cargas, titularidad, consistencia registral y documentacion critica antes del compromiso economico.",
+        points: ["Nota simple", "Cargas", "Titularidad", "Coherencia documental"],
+      },
+      {
+        id: "intl",
+        label: "03",
+        title: "Cliente internacional",
+        text: "Coordinacion legal de operaciones con compradores o vendedores extranjeros y necesidades asociadas al proceso.",
+        points: ["Representacion", "Documentos", "Cuenta bancaria", "Soporte de cierre"],
+      },
+      {
+        id: "close",
+        label: "04",
+        title: "Notaria, registro y cierre",
+        text: "Alineamos documentos, tiempos y partes implicadas para que la firma no dependa de improvisacion final.",
+        points: ["Agenda de firma", "Revision final", "Entrega documental", "Seguimiento"],
+      },
+    ],
+    method: [
+      {
+        step: "Fase 1",
+        title: "Lectura inicial",
+        text: "Identificamos el tipo de operacion, los actores implicados y los riesgos visibles desde el primer intercambio.",
+      },
+      {
+        step: "Fase 2",
+        title: "Orden documental",
+        text: "Clasificamos contratos, registros, anexos y piezas pendientes para crear una base de trabajo limpia.",
+      },
+      {
+        step: "Fase 3",
+        title: "Coordinacion activa",
+        text: "Traducimos lo juridico a una secuencia operativa compartida con cliente, comercial, agencia y terceros.",
+      },
+      {
+        step: "Fase 4",
+        title: "Cierre protegido",
+        text: "Revisamos el ultimo tramo con foco en firma, calendario, incidencias y continuidad posterior cuando haga falta.",
+      },
+    ],
+    dossiers: [
+      {
+        title: "Venta residencial",
+        text: "Fichas pensadas para propietarios que necesitan seguridad contractual, control de tiempos y cierre ordenado.",
+      },
+      {
+        title: "Compra con verificacion previa",
+        text: "Bloques para compradores que quieren claridad antes de comprometer capital en una vivienda o activo.",
+      },
+      {
+        title: "Promotoras y comercializacion",
+        text: "Estructura preparada para reservas, contratos, documentacion de proyecto y coordinacion comercial.",
+      },
+      {
+        title: "Cliente internacional",
+        text: "Espacio para procesos con documentacion extra, representacion, idioma y acompanamiento mas sensible.",
+      },
+    ],
+    controlTitle: "Checklist de lectura legal",
+    controlList: [
+      "Titularidad real, cargas y trazabilidad registral.",
+      "Validez de contratos, anexos, reservas y condiciones suspensivas.",
+      "Representacion, identidad de las partes y capacidad de firma.",
+      "Secuencia de pagos, hitos, plazos y documentacion de cierre.",
+      "Puntos de coordinacion con fiscalidad, notaria y agentes externos.",
+    ],
+    matrixTitle: "Capas que esta pagina podra desplegar",
+    matrix: [
+      { label: "Operacion", value: "Compra, venta o estructura mixta" },
+      { label: "Activo", value: "Residencial, promocion o unidad singular" },
+      { label: "Perfil", value: "Particular, promotora o cliente internacional" },
+      { label: "Momento", value: "Preventa, contrato, firma o post-cierre" },
+    ],
+    closingTitle: "Una base legal pensada para proteger y acelerar",
+    closingIntro:
+      "Esta landing ya queda planteada con tono, jerarquia y secciones listas para incorporar contenido juridico mas profundo sin rehacer el diseno.",
+    closingPrimary: "Solicitar asesoria legal",
+    closingSecondary: "Ver comercializacion",
+  },
+  en: {
+    title: "Legal services | BlancaReal",
+    description:
+      "Real estate legal services on the Costa del Sol for sales, due diligence, document coordination and closing support.",
+    eyebrow: "Legal services",
+    headingMain: "Legal certainty for real estate transactions",
+    headingSub: "Legal structure, document reading and operational judgment",
+    intro:
+      "BlancaReal organizes the legal side of the property process with a practical view: we protect the transaction, structure documentation and coordinate parties so closing arrives clean.",
+    primaryCta: "Talk to legal team",
+    secondaryCta: "Go to contact",
+    heroStats: [
+      { value: "Sales", label: "contracts and closing" },
+      { value: "Due diligence", label: "document and registry risk" },
+      { value: "Coordination", label: "client, agency and notary" },
+    ],
+    deskEyebrow: "Legal desk",
+    deskTitle: "We do not enter only at the end. We enter where risk begins.",
+    deskText:
+      "The transaction is reviewed from inside out: title, encumbrances, contracts, representation, timing, signatures and third-party coordination. The goal is to remove friction before it appears.",
+    deskTags: ["Contracts", "Registry", "Notary", "Basic tax", "Closing"],
+    sections: {
+      coverageEyebrow: "Coverage",
+      coverageHeading: "Legal areas we structure inside a transaction",
+      coverageIntro:
+        "The page is intentionally organized in clear blocks so we can deepen each service later without rebuilding the structure.",
+      methodEyebrow: "Method",
+      methodHeading: "How a legal file is structured with BlancaReal",
+      methodIntro:
+        "The approach is not theoretical. Each phase has a direct role within deal progress and client protection.",
+      dossiersEyebrow: "Case files",
+      dossiersHeading: "Types of matters this landing can expand later",
+      dossiersIntro:
+        "The architecture is ready to grow around sales, international clients, developers and transactions with document-heavy risk layers.",
+      controlEyebrow: "Document control",
+      controlHeading: "What should always stay under legal review",
+      controlIntro:
+        "Until the final content arrives, the structure already prioritizes the areas where real estate legal support adds the most value.",
+    },
+    coverage: [
+      {
+        id: "sale",
+        label: "01",
+        title: "Sales and contracts",
+        text: "Contract review and structure so the transaction can advance with clear rules, defined milestones and lower exposure.",
+        points: ["Reservations", "Deposits", "Private sale agreement", "Annexes and conditions"],
+      },
+      {
+        id: "due",
+        label: "02",
+        title: "Real estate due diligence",
+        text: "Reading of encumbrances, title position, registry consistency and critical documentation before financial commitment.",
+        points: ["Registry notes", "Charges", "Ownership", "Document consistency"],
+      },
+      {
+        id: "intl",
+        label: "03",
+        title: "International client",
+        text: "Legal coordination of transactions with foreign buyers or sellers and the needs that appear around the process.",
+        points: ["Representation", "Documents", "Bank account", "Closing support"],
+      },
+      {
+        id: "close",
+        label: "04",
+        title: "Notary, registry and closing",
+        text: "We align documents, timing and parties so signature does not depend on last-minute improvisation.",
+        points: ["Signing agenda", "Final review", "Document delivery", "Follow-up"],
+      },
+    ],
+    method: [
+      {
+        step: "Phase 1",
+        title: "Initial reading",
+        text: "We identify transaction type, parties involved and visible risks from the first exchange.",
+      },
+      {
+        step: "Phase 2",
+        title: "Document order",
+        text: "We classify contracts, registry material, annexes and pending items to create a clean working base.",
+      },
+      {
+        step: "Phase 3",
+        title: "Active coordination",
+        text: "We translate the legal layer into an operational sequence shared with client, sales, agency and third parties.",
+      },
+      {
+        step: "Phase 4",
+        title: "Protected closing",
+        text: "We review the final stretch with focus on signature, timing, incidents and continuity when needed.",
+      },
+    ],
+    dossiers: [
+      {
+        title: "Residential sale",
+        text: "Sections designed for owners who need contractual security, timing control and an orderly close.",
+      },
+      {
+        title: "Purchase with prior verification",
+        text: "Blocks for buyers who want clarity before committing capital to a property or asset.",
+      },
+      {
+        title: "Developers and commercialization",
+        text: "Structure prepared for reservations, contracts, project documentation and commercial coordination.",
+      },
+      {
+        title: "International client",
+        text: "Space for processes with extra documentation, representation, language and more sensitive support needs.",
+      },
+    ],
+    controlTitle: "Legal reading checklist",
+    controlList: [
+      "Actual title position, encumbrances and registry traceability.",
+      "Validity of contracts, annexes, reservations and suspensive conditions.",
+      "Representation, party identity and signature capacity.",
+      "Payment sequence, milestones, deadlines and closing documents.",
+      "Coordination points with tax, notary and external agents.",
+    ],
+    matrixTitle: "Layers this page can expand",
+    matrix: [
+      { label: "Transaction", value: "Purchase, sale or mixed structure" },
+      { label: "Asset", value: "Residential, development or singular unit" },
+      { label: "Profile", value: "Private client, developer or international buyer" },
+      { label: "Moment", value: "Pre-sale, contract, signature or post-close" },
+    ],
+    closingTitle: "A legal base designed to protect and accelerate",
+    closingIntro:
+      "This landing now has the tone, hierarchy and sections needed to receive deeper legal content later without redesigning the page.",
+    closingPrimary: "Request legal advice",
+    closingSecondary: "View commercialization",
+  },
+};
+
+const page = copyByLang[lang] ?? copyByLang.en ?? copyByLang.es;
+
+const sectionNav = [
+  { id: "coverage", label: page.sections.coverageEyebrow },
+  { id: "method", label: page.sections.methodEyebrow },
+  { id: "dossiers", label: page.sections.dossiersEyebrow },
+  { id: "control", label: page.sections.controlEyebrow },
+  { id: "contact", label: lang === "es" ? "Contacto" : "Contact" },
+];
+
+const icons = {
+  sale: ["M14 20h36", "M14 28h36", "M14 36h22", "M42 36h8", "M18 14h28v36H18z"],
+  due: ["M20 18h24v28H20z", "M26 14h12", "M26 50h12", "M32 22v20", "M24 30h16"],
+  intl: ["M32 12c11 0 20 9 20 20s-9 20-20 20-20-9-20-20 9-20 20-20Z", "M12 32h40", "M32 12c5 6 8 12 8 20s-3 14-8 20", "M32 12c-5 6-8 12-8 20s3 14 8 20"],
+  close: ["M18 22l10 10 18-18", "M16 44h32", "M18 16h28v32H18z"],
+};
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+  headerVariant="landing"
+  landingNavItems={landingNavItems}
+  showMobileStickyCta={false}
+>
+  <div class="legal-page">
+    <section class="legal-hero">
+      <div class="container legal-hero__layout">
+        <div class="legal-hero__copy">
+          <span class="legal-kicker">{page.eyebrow}</span>
+          <h1>
+            <span class="legal-title-main">{page.headingMain}</span>
+            <span class="legal-title-sub">{page.headingSub}</span>
+          </h1>
+          <p>{page.intro}</p>
+
+          <div class="legal-actions">
+            <a class="legal-button legal-button--primary" href={`/${lang}/contact/?service=legal-services`}>{page.primaryCta}</a>
+            <a class="legal-button legal-button--ghost" href={`/${lang}/contact/`}>{page.secondaryCta}</a>
+          </div>
+
+          <div class="legal-stats" aria-label={page.eyebrow}>
+            {page.heroStats.map((stat) => (
+              <article class="legal-stat">
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <aside class="legal-desk">
+          <span class="legal-kicker legal-kicker--soft">{page.deskEyebrow}</span>
+          <h2>{page.deskTitle}</h2>
+          <p>{page.deskText}</p>
+          <div class="legal-tags">
+            {page.deskTags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container legal-section-nav-shell">
+      <button
+        class="legal-section-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="legal-section-nav"
+      >
+        <span class="legal-section-nav-toggle__eyebrow">{lang === "es" ? "Indice de secciones" : "Section index"}</span>
+        <span class="legal-section-nav-toggle__value">{sectionNav[0]?.label}</span>
+        <span class="legal-section-nav-toggle__icon" aria-hidden="true">+</span>
+      </button>
+      <nav id="legal-section-nav" class="legal-section-nav" aria-label={lang === "es" ? "Indice legal" : "Legal index"}>
+        {sectionNav.map((item, index) => (
+          <a
+            class:list={["legal-section-nav__link", index === 0 && "is-active"]}
+            href={`#${item.id}`}
+            data-legal-nav-link
+          >
+            <span>{item.label}</span>
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <section id="coverage" class="legal-section container">
+      <div class="legal-section-heading">
+        <span>{page.sections.coverageEyebrow}</span>
+        <h2>{page.sections.coverageHeading}</h2>
+        <p>{page.sections.coverageIntro}</p>
+      </div>
+
+      <div class="legal-coverage-grid">
+        {page.coverage.map((item) => (
+          <article class={`legal-card legal-card--${item.id}`}>
+            <div class="legal-card__head">
+              <span class="legal-card__index">{item.label}</span>
+              <span class="legal-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  {icons[item.id].map((path) => <path d={path}></path>)}
+                </svg>
+              </span>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <ul>
+              {item.points.map((point) => <li>{point}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="method" class="legal-section legal-section--tint">
+      <div class="container">
+        <div class="legal-section-heading">
+          <span>{page.sections.methodEyebrow}</span>
+          <h2>{page.sections.methodHeading}</h2>
+          <p>{page.sections.methodIntro}</p>
+        </div>
+
+        <div class="legal-method">
+          {page.method.map((step) => (
+            <article class="legal-method-step">
+              <strong>{step.step}</strong>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="dossiers" class="legal-section container">
+      <div class="legal-section-heading">
+        <span>{page.sections.dossiersEyebrow}</span>
+        <h2>{page.sections.dossiersHeading}</h2>
+        <p>{page.sections.dossiersIntro}</p>
+      </div>
+
+      <div class="legal-dossier-grid">
+        {page.dossiers.map((dossier) => (
+          <article class="legal-dossier">
+            <h3>{dossier.title}</h3>
+            <p>{dossier.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="control" class="legal-section container">
+      <div class="legal-control">
+        <article class="legal-control-panel">
+          <div class="legal-section-heading legal-section-heading--compact">
+            <span>{page.sections.controlEyebrow}</span>
+            <h2>{page.sections.controlHeading}</h2>
+            <p>{page.sections.controlIntro}</p>
+          </div>
+          <h3>{page.controlTitle}</h3>
+          <ul>
+            {page.controlList.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+
+        <article class="legal-matrix">
+          <h3>{page.matrixTitle}</h3>
+          <dl>
+            {page.matrix.map((item) => (
+              <div>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="legal-cta">
+      <div class="container">
+        <article class="legal-cta__panel">
+          <div>
+            <span class="legal-kicker">{page.eyebrow}</span>
+            <h2>{page.closingTitle}</h2>
+            <p>{page.closingIntro}</p>
+          </div>
+          <div class="legal-actions legal-actions--end">
+            <a class="legal-button legal-button--primary" href={`/${lang}/contact/?service=legal-services`}>{page.closingPrimary}</a>
+            <a class="legal-button legal-button--ghost" href={`/${lang}/commercialization/`}>{page.closingSecondary}</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const isMobile = window.matchMedia("(max-width: 760px)");
+      const navShell = document.querySelector(".legal-section-nav-shell");
+      const navToggle = document.querySelector(".legal-section-nav-toggle");
+      const navToggleValue = document.querySelector(".legal-section-nav-toggle__value");
+      const nav = document.querySelector(".legal-section-nav");
+      const links = Array.from(document.querySelectorAll("[data-legal-nav-link]"));
+      const sections = links
+        .map((link) => {
+          const id = link.getAttribute("href")?.replace("#", "");
+          const section = id ? document.getElementById(id) : null;
+          return section ? { link, section } : null;
+        })
+        .filter(Boolean);
+
+      if (!nav || !sections.length || !navShell || !navToggle || !navToggleValue) {
+        return;
+      }
+
+      const setNavOpen = (open) => {
+        navShell.classList.toggle("is-open", open);
+        navToggle.setAttribute("aria-expanded", String(open));
+      };
+
+      const setActive = (activeId) => {
+        sections.forEach(({ link, section }) => {
+          link.classList.toggle("is-active", section.id === activeId);
+        });
+
+        const active = sections.find(({ section }) => section.id === activeId);
+        if (active) {
+          navToggleValue.textContent = active.link.textContent?.trim() ?? "";
+        }
+      };
+
+      links.forEach((link) => {
+        link.addEventListener("click", (event) => {
+          const id = link.getAttribute("href")?.replace("#", "");
+          const section = id ? document.getElementById(id) : null;
+
+          if (!section) {
+            return;
+          }
+
+          event.preventDefault();
+          const offset = window.innerWidth <= 760 ? 122 : 136;
+          const top = section.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+          setActive(section.id);
+          if (isMobile.matches) {
+            setNavOpen(false);
+          }
+        });
+      });
+
+      navToggle.addEventListener("click", () => {
+        if (!isMobile.matches) {
+          return;
+        }
+
+        setNavOpen(!navShell.classList.contains("is-open"));
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!isMobile.matches || !navShell.classList.contains("is-open")) {
+          return;
+        }
+
+        const target = event.target;
+        if (target instanceof Node && !navShell.contains(target)) {
+          setNavOpen(false);
+        }
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+          if (visible?.target?.id) {
+            setActive(visible.target.id);
+          }
+        },
+        {
+          rootMargin: "-20% 0px -55% 0px",
+          threshold: [0.2, 0.45, 0.7],
+        }
+      );
+
+      sections.forEach(({ section }) => observer.observe(section));
+      isMobile.addEventListener("change", () => setNavOpen(false));
+      setActive(sections[0].section.id);
+    })();
+  </script>
+</BaseLayout>

@@ -1,0 +1,363 @@
+﻿---
+export const prerender = false;
+
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import fallbackProperties from "@shared/data/properties";
+import { formatPrice } from "@shared/presentation/common";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { getPublicPropertiesWithFallback } from "@shared/properties/public";
+import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
+import "@webapp/styles/pages/projects.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/projects/`, 302);
+}
+
+const lang = langParam;
+const { properties } = await getPublicPropertiesWithFallback({
+  fallbackProperties,
+});
+
+const seoByLang = {
+  es: {
+    title: "Proyectos exclusivos | BlancaReal",
+    description:
+      "Promociones exclusivas comercializadas por BlancaReal en Costa del Sol. Acceso directo a disponibilidad, precios y fichas.",
+    eyebrow: "Promociones exclusivas",
+    heading: "Nuestros proyectos con promotoras",
+    intro:
+      "Seleccionamos y comercializamos promociones en exclusiva junto a promotoras de primer nivel.",
+    units: "unidades",
+    available: "disponibles",
+    sold: "vendidas",
+    from: "Desde",
+    delivery: "Entrega",
+    beds: "Dorm.",
+    area: "Superficie",
+    cta: "Ver proyecto",
+    emptyTitle: "Aun no hay proyectos exclusivos publicados",
+    emptyText:
+      "Cuando activemos una promocion en exclusiva aparecera aqui con su disponibilidad.",
+    statusLastUnits: "Ultimas unidades",
+    statusHighDemand: "Alta demanda",
+    statusOpen: "Comercializacion activa",
+  },
+  en: {
+    title: "Exclusive projects | BlancaReal",
+    description:
+      "Exclusive developments marketed by BlancaReal on the Costa del Sol with live availability and pricing.",
+    eyebrow: "Exclusive developments",
+    heading: "Our promoted projects",
+    intro:
+      "We work directly with developers to market selected projects under exclusive agreements.",
+    units: "units",
+    available: "available",
+    sold: "sold",
+    from: "From",
+    delivery: "Delivery",
+    beds: "Beds",
+    area: "Area",
+    cta: "View project",
+    emptyTitle: "No exclusive projects published yet",
+    emptyText:
+      "Once an exclusive development is published it will appear here with availability.",
+    statusLastUnits: "Last units",
+    statusHighDemand: "High demand",
+    statusOpen: "Active sales",
+  },
+  de: {
+    title: "Exklusive Projekte | BlancaReal",
+    description:
+      "Exklusive Neubauprojekte von BlancaReal an der Costa del Sol mit aktueller Verfuegbarkeit und Preisen.",
+    eyebrow: "Exklusive Projekte",
+    heading: "Unsere exklusiven Neubauprojekte",
+    intro:
+      "Wir arbeiten direkt mit Bautraegern zusammen und vermarkten ausgewaehlte Projekte exklusiv.",
+    units: "Einheiten",
+    available: "verfuegbar",
+    sold: "verkauft",
+    from: "Ab",
+    delivery: "Uebergabe",
+    beds: "SZ",
+    area: "Flaeche",
+    cta: "Projekt ansehen",
+    emptyTitle: "Noch keine exklusiven Projekte veroeffentlicht",
+    emptyText:
+      "Sobald ein exklusives Projekt veroeffentlicht wird, erscheint es hier mit Verfuegbarkeit.",
+    statusLastUnits: "Letzte Einheiten",
+    statusHighDemand: "Hohe Nachfrage",
+    statusOpen: "Aktiver Verkauf",
+  },
+  fr: {
+    title: "Programmes exclusifs | BlancaReal",
+    description:
+      "Programmes exclusifs commercialises par BlancaReal sur la Costa del Sol avec disponibilite et prix a jour.",
+    eyebrow: "Programmes exclusifs",
+    heading: "Nos programmes avec promoteurs",
+    intro:
+      "Nous travaillons directement avec les promoteurs pour commercialiser des programmes selectionnes en exclusivite.",
+    units: "unites",
+    available: "disponibles",
+    sold: "vendues",
+    from: "A partir de",
+    delivery: "Livraison",
+    beds: "Ch.",
+    area: "Surface",
+    cta: "Voir le programme",
+    emptyTitle: "Aucun programme exclusif publie pour le moment",
+    emptyText:
+      "Lorsqu'un programme exclusif sera publie, il apparaitra ici avec sa disponibilite.",
+    statusLastUnits: "Dernieres unites",
+    statusHighDemand: "Forte demande",
+    statusOpen: "Commercialisation active",
+  },
+  it: {
+    title: "Progetti esclusivi | BlancaReal",
+    description:
+      "Progetti esclusivi commercializzati da BlancaReal in Costa del Sol con disponibilita e prezzi aggiornati.",
+    eyebrow: "Progetti esclusivi",
+    heading: "I nostri progetti con i promotori",
+    intro:
+      "Lavoriamo direttamente con i promotori per commercializzare progetti selezionati in esclusiva.",
+    units: "unita",
+    available: "disponibili",
+    sold: "vendute",
+    from: "Da",
+    delivery: "Consegna",
+    beds: "Cam.",
+    area: "Superficie",
+    cta: "Vedi progetto",
+    emptyTitle: "Nessun progetto esclusivo pubblicato",
+    emptyText:
+      "Quando pubblicheremo un progetto esclusivo apparira qui con la disponibilita.",
+    statusLastUnits: "Ultime unita",
+    statusHighDemand: "Alta domanda",
+    statusOpen: "Vendita attiva",
+  },
+  nl: {
+    title: "Exclusieve projecten | BlancaReal",
+    description:
+      "Exclusieve projecten van BlancaReal aan de Costa del Sol met actuele beschikbaarheid en prijzen.",
+    eyebrow: "Exclusieve projecten",
+    heading: "Onze projecten met ontwikkelaars",
+    intro:
+      "Wij werken rechtstreeks met ontwikkelaars om geselecteerde projecten exclusief te commercialiseren.",
+    units: "units",
+    available: "beschikbaar",
+    sold: "verkocht",
+    from: "Vanaf",
+    delivery: "Oplevering",
+    beds: "Slaapk.",
+    area: "Oppervlakte",
+    cta: "Bekijk project",
+    emptyTitle: "Nog geen exclusieve projecten gepubliceerd",
+    emptyText:
+      "Zodra een exclusief project wordt gepubliceerd, verschijnt het hier met beschikbaarheid.",
+    statusLastUnits: "Laatste units",
+    statusHighDemand: "Hoge vraag",
+    statusOpen: "Actieve verkoop",
+  },
+};
+
+const t = seoByLang[lang] ?? seoByLang.es;
+const byId = new Map(properties.map((property) => [String(property.id), property]));
+
+const isOwnProject = (property) => {
+  if (property.is_own_project === true) return true;
+  if (!property.parent_id) return false;
+  const parent = byId.get(String(property.parent_id));
+  return parent?.is_own_project === true;
+};
+
+const getRangeLabel = (values) => {
+  if (!values.length) return null;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  if (min === max) return String(min);
+  return `${min}-${max}`;
+};
+
+const projectCards = properties
+  .filter((property) => property.listing_type === "promotion")
+  .filter((property) => property.status !== "private")
+  .filter((property) => isOwnProject(property))
+  .map((project) => {
+    const units = properties.filter(
+      (item) =>
+        String(item.parent_id) === String(project.id) &&
+        item.listing_type === "unit"
+    );
+
+    const availableUnits = units.filter((item) => item.status === "available");
+    const soldUnits = units.filter((item) => item.status === "sold");
+
+    const unitPrices = availableUnits
+      .map((item) => item.price)
+      .filter((price) => typeof price === "number");
+
+    const minUnitPrice = unitPrices.length ? Math.min(...unitPrices) : null;
+    const maxUnitPrice = unitPrices.length ? Math.max(...unitPrices) : null;
+
+    const bedrooms = units
+      .map((item) => item.property?.bedrooms)
+      .filter((value) => typeof value === "number");
+
+    const areas = units
+      .map((item) => item.property?.area_m2)
+      .filter((value) => typeof value === "number")
+      .map((value) => Math.round(value));
+
+    const cover =
+      project.media?.cover ??
+      project.media?.gallery?.exterior?.[0] ??
+      project.media?.gallery?.interior?.[0] ??
+      project.media?.gallery?.views?.[0] ??
+      null;
+
+    const slug = project.slugs?.[lang] ?? project.slugs?.es ?? null;
+    if (!slug) return null;
+
+    const translation = project.translations?.[lang] ?? project.translations?.es ?? {};
+    const priceFrom = project.pricing?.from ?? minUnitPrice ?? project.price ?? null;
+    const soldPercent = units.length > 0 ? Math.round((soldUnits.length / units.length) * 100) : 0;
+
+    const demandLevel =
+      availableUnits.length <= 6
+        ? "last_units"
+        : soldPercent >= 65
+          ? "high_demand"
+          : "open";
+
+    return {
+      id: project.id,
+      title: translation.title ?? project.id,
+      intro: translation.intro ?? "",
+      area: project.location?.area ?? "",
+      province: project.location?.province ?? "",
+      unitsCount: units.length,
+      availableCount: availableUnits.length,
+      soldCount: soldUnits.length,
+      soldPercent,
+      priceFrom,
+      priceTo: maxUnitPrice,
+      bedroomsRange: getRangeLabel(bedrooms),
+      areaRange: getRangeLabel(areas),
+      deliveryYear: project.property?.year_built ?? null,
+      demandLevel,
+      currency: project.currency ?? "EUR",
+      coverUrl: typeof cover === "string" ? cover : cover?.url ?? null,
+      coverAlt:
+        (typeof cover === "object" ? cover?.alt?.[lang] : null) ??
+        (typeof cover === "object" ? cover?.alt?.es : null) ??
+        translation.title ??
+        project.id,
+      href: `/${lang}/property/${slug}/`,
+    };
+  })
+  .filter(Boolean)
+  .sort((a, b) => {
+    const byEditorial = comparePromotionEditorialOrder(a, b);
+    if (byEditorial !== 0) return byEditorial;
+
+    const byAvailability = (b.availableCount ?? 0) - (a.availableCount ?? 0);
+    if (byAvailability !== 0) return byAvailability;
+    return (b.soldPercent ?? 0) - (a.soldPercent ?? 0);
+  });
+
+const demandLabelByLevel = {
+  last_units: t.statusLastUnits,
+  high_demand: t.statusHighDemand,
+  open: t.statusOpen,
+};
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="projects-hero container">
+    <span class="projects-eyebrow">{t.eyebrow}</span>
+    <h1>{t.heading}</h1>
+    <p>{t.intro}</p>
+  </section>
+
+  {projectCards.length === 0 ? (
+    <section class="projects-empty container">
+      <h2>{t.emptyTitle}</h2>
+      <p>{t.emptyText}</p>
+    </section>
+  ) : (
+    <section class="projects-grid container">
+      {projectCards.map((card) => (
+        <article class="project-card">
+          <a class="project-media" href={card.href} aria-label={card.title}>
+            {card.coverUrl ? (
+              <img src={card.coverUrl} alt={card.coverAlt} loading="lazy" />
+            ) : (
+              <div class="project-media-fallback"></div>
+            )}
+          </a>
+
+          <div class="project-content">
+            <div class="project-meta">
+              <span>{card.area}</span>
+              <span>{card.province}</span>
+              <span class="is-status">{demandLabelByLevel[card.demandLevel]}</span>
+            </div>
+
+            <h2>
+              <a href={card.href}>{card.title}</a>
+            </h2>
+
+            {card.intro && <p class="project-intro">{card.intro}</p>}
+
+            <div class="project-stock" aria-hidden="true">
+              <div class="project-stock-bar">
+                <span style={`width: ${card.soldPercent}%;`}></span>
+              </div>
+              <p class="project-stock-text">{card.soldCount}/{card.unitsCount} {t.sold}</p>
+            </div>
+
+            <dl class="project-kpis">
+              <div>
+                <dt>{t.available}</dt>
+                <dd>{card.availableCount}</dd>
+              </div>
+              <div>
+                <dt>{t.units}</dt>
+                <dd>{card.unitsCount}</dd>
+              </div>
+              <div>
+                <dt>{t.from}</dt>
+                <dd>{formatPrice(card.priceFrom, card.currency, lang)}</dd>
+              </div>
+              <div>
+                <dt>{t.delivery}</dt>
+                <dd>{card.deliveryYear ?? "-"}</dd>
+              </div>
+              {card.areaRange && (
+                <div>
+                  <dt>{t.area}</dt>
+                  <dd>{card.areaRange} m2</dd>
+                </div>
+              )}
+            </dl>
+
+            {(card.bedroomsRange || card.areaRange) && (
+              <p class="project-subfacts">
+                {card.bedroomsRange && `${t.beds} ${card.bedroomsRange}`}
+                {card.bedroomsRange && card.areaRange ? " · " : ""}
+                {card.areaRange && `${t.area} ${card.areaRange} m2`}
+              </p>
+            )}
+
+            <a href={card.href} class="project-cta">{t.cta}</a>
+          </div>
+        </article>
+      ))}
+    </section>
+  )}
+</BaseLayout>

@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { clearCrmAuthCookies, resolveCrmAuthFromCookies } from "@/utils/crmAuth";
+import { clearCrmAuthCookies, resolveCrmAuthFromCookies } from "@shared/crm/auth";
 
 const normalizePath = (pathname: string): string => {
   const normalized = pathname.replace(/\/+$/, "");
@@ -17,6 +17,7 @@ const deploySurface = String(import.meta.env.APP_DEPLOY_SURFACE ?? "")
   .toLowerCase();
 
 const isWebOnlyDeploy = deploySurface === "web";
+const isCrmOnlyDeploy = deploySurface === "crm";
 
 const isApiPath = (pathname: string): boolean => pathname.startsWith("/api/");
 
@@ -24,6 +25,11 @@ const isWebAllowedApiPath = (pathname: string): boolean => {
   if (pathname === "/api/v1/health") return true;
   if (pathname === "/api/v1/leads") return true;
   return pathname.startsWith("/api/v1/portal/");
+};
+
+const isCrmAllowedApiPath = (pathname: string): boolean => {
+  if (pathname === "/api/v1/health") return true;
+  return pathname.startsWith("/api/v1/crm/");
 };
 
 const isCrmApiPublicAuthPath = (pathname: string): boolean => {
@@ -83,6 +89,22 @@ export const onRequest = defineMiddleware(async (context, next) => {
       return notFoundResponse(pathname);
     }
     if (pathname.startsWith("/api/v1") && !isWebAllowedApiPath(pathname)) {
+      return notFoundResponse(pathname);
+    }
+  }
+
+  if (isCrmOnlyDeploy) {
+    if (pathname === "/") {
+      return context.redirect("/crm/", 302);
+    }
+    if (pathname.startsWith("/api/v1") && !isCrmAllowedApiPath(pathname)) {
+      return notFoundResponse(pathname);
+    }
+    if (
+      !pathname.startsWith("/crm") &&
+      !isCrmApiPath(pathname) &&
+      !isStaticAssetRequest(pathname)
+    ) {
       return notFoundResponse(pathname);
     }
   }

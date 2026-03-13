@@ -1,0 +1,11 @@
+{
+  "name": "@web-br/crm-app",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Workspace target for the CRM backoffice during the gradual separation from the public web.",
+  "scripts": {
+    "dev": "node ../../scripts/run-surface.mjs crm dev --config ./astro.config.mjs --port 4322",
+    "build": "node ../../scripts/run-surface.mjs crm build --config ./astro.config.mjs"
+  }
+}

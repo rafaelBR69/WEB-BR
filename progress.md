@@ -1,10 +1,35 @@
-# Progress
+# Progress Log
 
-- 2026-03-11: Sincronizada `PT0401` al CRM con media y coordenadas actualizadas.
-- 2026-03-11: Creada la promocion padre `A0126 / Sunhill` y sus dos unidades hijas `A0126-P1` y `A0126-AT`.
-- 2026-03-11: Verificada la relacion padre-hijo de `A0126` en `crm.properties`.
-- 2026-03-11: Inventariadas promociones de Fuengirola y Mijas para analizar canibalizacion SEO.
-- 2026-03-11: Identificado que el foco de conflicto de `Sunhill` esta con `Luminal Home` y `White Hills`, no con las promociones de Mijas.
-- 2026-03-11: Reorientado el SEO de `Sunhill` hacia `adosados de obra nueva en Fuengirola` y ajustadas sus dos unidades para evitar solape con promociones de villas en Torreblanca.
-- 2026-03-11: `npm run build` completado correctamente tras el ajuste SEO.
-- 2026-03-11: Sincronizados al CRM los nuevos slugs, titles y metas de `A0126`, `A0126-P1` y `A0126-AT` mediante update directo.
+## 2026-03-13
+
+- Continued the migration from facade-based `@shared/*` modules to canonical shared implementation.
+- Previously moved the low-risk public-property helper graph into `packages/shared`.
+- In this iteration, moved the auth/access block into `packages/shared`:
+  - `@shared/crm/auth`
+  - `@shared/crm/access`
+  - `@shared/portal/auth`
+  - `@shared/portal/email`
+- In this iteration, also moved the remaining domain cores into `packages/shared`:
+  - `@shared/portal/domain`
+  - `@shared/properties/domain`
+  - `@shared/clients/domain`
+- In this iteration, also moved the next support/storage block into `packages/shared`:
+  - `@shared/leads/domain`
+  - `@shared/properties/storage`
+  - `@shared/properties/mockStore`
+  - `@shared/clients/documentsStorage`
+- In this iteration, also moved the final agency block into `packages/shared`:
+  - `@shared/agencies/analytics`
+  - `@shared/agencies/crud`
+- Replaced the original `src/utils/*` files for those modules with compatibility wrappers pointing to `@shared/*`.
+- Validation after the latest pass:
+  - `npm run build:web` OK
+  - `npm run build:crm` OK
+  - `npm run build` OK
+- Current state:
+  - app trees are clean at the import boundary
+  - public-property helpers, auth/access helpers, core CRM domain modules, the leads/storage block, and the agency layer are canonical in `packages/shared`
+  - the next phase is cleanup rather than domain migration:
+    - reduce old compatibility wrappers where safe
+    - review residual root-only imports/aliases
+    - finalize docs and deploy guidance for the split monorepo

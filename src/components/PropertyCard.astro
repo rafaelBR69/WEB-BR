@@ -1,8 +1,8 @@
 ---
-import { formatPrice } from "@/utils/formatters";
-import { formatArea } from "@/utils/presentation";
+import { formatPrice } from "@shared/presentation/formatters";
+import { formatArea } from "@shared/presentation/presentation";
 import FeatureBadge from "@/components/FeatureBadge.astro";
-import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@/utils/supabaseImage";
+import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@shared/media/supabaseImage";
 import { getUiCopy } from "@/i18n/ui";
 
 const { data, lang } = Astro.props;

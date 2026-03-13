@@ -1,0 +1,244 @@
+---
+import { formatPrice } from "@shared/presentation/common";
+import { formatArea } from "@shared/presentation/common";
+import FeatureBadge from "@webapp/components/FeatureBadge.astro";
+import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@shared/media/supabaseImage";
+import { getUiCopy } from "@shared/i18n/ui";
+
+const { data, lang } = Astro.props;
+const galleryItems = Array.isArray(data.galleryPreview) && data.galleryPreview.length
+  ? data.galleryPreview
+  : data.cover
+    ? [data.cover]
+    : [];
+
+const gallerySlides = galleryItems
+  .map((item) => {
+    const url = typeof item === "string" ? item : item?.url;
+    if (!url) return null;
+    const alt =
+      (typeof item === "object" ? item?.alt?.[lang] : null) ||
+      (typeof item === "object" ? item?.alt?.es : null) ||
+      data.title;
+    return {
+      url,
+      alt,
+      src: buildSupabaseImageUrl(url, { width: 720, quality: 72 }) ?? url,
+      srcSet: buildSupabaseSrcSet(url, [320, 480, 640, 720], { quality: 72 }) || "",
+    };
+  })
+  .filter(Boolean);
+
+const hasGalleryControls = gallerySlides.length > 1;
+const areaValue = formatArea(data.details.area_m2, lang);
+
+const ui = getUiCopy(lang);
+const label = ui.propertyCard.viewDetails;
+const galleryCopyByLang = {
+  es: { prev: "Imagen anterior", next: "Imagen siguiente" },
+  en: { prev: "Previous image", next: "Next image" },
+  de: { prev: "Vorheriges Bild", next: "Naechstes Bild" },
+  fr: { prev: "Image precedente", next: "Image suivante" },
+  it: { prev: "Immagine precedente", next: "Immagine successiva" },
+  nl: { prev: "Vorige afbeelding", next: "Volgende afbeelding" },
+};
+const galleryUi = galleryCopyByLang[lang] ?? galleryCopyByLang.es;
+---
+
+<article class="property-card">
+  <div class="card-image" data-gallery-size={gallerySlides.length}>
+    {gallerySlides.length > 0 ? (
+      <div class="card-gallery" data-gallery-index="0">
+        <div class="card-gallery-track">
+          {gallerySlides.map((slide) => (
+            <a href={`/${lang}/property/${data.slug}`} aria-label={data.title} class="card-gallery-slide">
+              <img
+                src={slide.src}
+                srcset={slide.srcSet || undefined}
+                sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 380px"
+                data-fallback-src={slide.url}
+                onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;this.srcset='';}"
+                alt={slide.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          ))}
+        </div>
+
+        {hasGalleryControls && (
+          <>
+            <button
+              type="button"
+              class="card-gallery-nav is-prev"
+              aria-label={galleryUi.prev}
+              onclick="window.__advancePropertyCard?.(this.closest('.card-gallery'), -1); return false;"
+            >
+              <span aria-hidden="true">&#8249;</span>
+            </button>
+            <button
+              type="button"
+              class="card-gallery-nav is-next"
+              aria-label={galleryUi.next}
+              onclick="window.__advancePropertyCard?.(this.closest('.card-gallery'), 1); return false;"
+            >
+              <span aria-hidden="true">&#8250;</span>
+            </button>
+            <div class="card-gallery-dots" aria-hidden="true">
+              {gallerySlides.map((_, index) => (
+                <span class:list={["card-gallery-dot", index === 0 && "is-active"]}></span>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    ) : (
+      <div class="no-image-placeholder"></div>
+    )}
+
+    {data.isPromotion && (
+      <span class="badge-promotion">
+        {ui.propertyCard.newBuild}
+      </span>
+    )}
+  </div>
+
+  <div class="card-content">
+    <header class="header">
+      <h3 class="title">
+        <a href={`/${lang}/property/${data.slug}`}>
+          {data.title}
+        </a>
+      </h3>
+
+      <div class="price-row">
+        {data.isPromotion ? (
+          data.priceFrom && (
+            <p class="price">
+              {ui.propertyCard.fromPrice} {formatPrice(data.priceFrom, data.currency, lang)}
+            </p>
+          )
+        ) : (
+          data.price && (
+            <p class="price">
+              {formatPrice(data.price, data.currency, lang)}
+            </p>
+          )
+        )}
+      </div>
+    </header>
+
+    {!data.isPromotion && (
+      <ul class="meta">
+        {data.details.bedrooms && (
+          <li class="meta-item">
+            <span class="meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3 12h18v6H3z" />
+                <path d="M7 12V9a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3" />
+                <path d="M3 18v3M21 18v3" />
+              </svg>
+            </span>
+            <span class="meta-value">{data.details.bedrooms}</span>
+          </li>
+        )}
+
+        {data.details.bathrooms && (
+          <li class="meta-item">
+            <span class="meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3z" />
+                <path d="M8 12V8a2 2 0 0 1 4 0v4" />
+              </svg>
+            </span>
+            <span class="meta-value">{data.details.bathrooms}</span>
+          </li>
+        )}
+
+        {areaValue && (
+          <li class="meta-item">
+            <span class="meta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 5h5M5 5v5M19 5h-5M19 5v5M5 19h5M5 19v-5M19 19h-5M19 19v-5" />
+              </svg>
+            </span>
+            <span class="meta-value">{areaValue}</span>
+          </li>
+        )}
+      </ul>
+    )}
+
+    {data.features.length > 0 && (
+      <div class="features">
+        {data.features.slice(0, 3).map((f) => (
+          <FeatureBadge icon={f.icon} label={f.label} />
+        ))}
+        {data.features.length > 3 && (
+          <span class="more-features">+{data.features.length - 3}</span>
+        )}
+      </div>
+    )}
+
+    <div class="card-actions">
+      <a href={`/${lang}/property/${data.slug}`} class="btn-card">{label}</a>
+    </div>
+  </div>
+</article>
+
+<script is:inline>
+  if (!window.__advancePropertyCard) {
+    window.__advancePropertyCard = (gallery, direction) => {
+      if (!gallery) return;
+      const track = gallery.querySelector(".card-gallery-track");
+      const slides = Array.from(gallery.querySelectorAll(".card-gallery-slide"));
+      if (!track || slides.length <= 1) return;
+
+      const currentIndex = Number(gallery.dataset.galleryIndex || "0");
+      const nextIndex = (currentIndex + direction + slides.length) % slides.length;
+
+      gallery.dataset.galleryIndex = String(nextIndex);
+      track.style.transform = `translateX(-${nextIndex * 100}%)`;
+
+      const dots = gallery.querySelectorAll(".card-gallery-dot");
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("is-active", index === nextIndex);
+      });
+    };
+  }
+
+  if (!window.__propertyCardSwipeBound) {
+    window.__propertyCardSwipeBound = true;
+    let startX = 0;
+    let startY = 0;
+    let activeGallery = null;
+
+    document.addEventListener("touchstart", (event) => {
+      const gallery = event.target.closest(".card-gallery");
+      if (!gallery) return;
+      const touch = event.changedTouches?.[0];
+      if (!touch) return;
+      activeGallery = gallery;
+      startX = touch.clientX;
+      startY = touch.clientY;
+    }, { passive: true });
+
+    document.addEventListener("touchend", (event) => {
+      if (!activeGallery) return;
+      const touch = event.changedTouches?.[0];
+      if (!touch) {
+        activeGallery = null;
+        return;
+      }
+
+      const deltaX = touch.clientX - startX;
+      const deltaY = touch.clientY - startY;
+      const isHorizontalGesture = Math.abs(deltaX) > 36 && Math.abs(deltaX) > Math.abs(deltaY);
+
+      if (isHorizontalGesture) {
+        window.__advancePropertyCard?.(activeGallery, deltaX < 0 ? 1 : -1);
+      }
+
+      activeGallery = null;
+    }, { passive: true });
+  }
+</script>

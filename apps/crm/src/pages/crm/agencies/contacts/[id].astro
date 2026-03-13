@@ -1,0 +1,288 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+
+const agencyContactId = String(Astro.params.id ?? "").trim();
+const backUrl = `/crm/agencies/contacts/${Astro.url.search}`;
+---
+<CrmLayout title="CRM | Contacto de Agencia" section="agencies">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between" style="gap:1rem;align-items:flex-start;flex-wrap:wrap">
+        <div>
+          <a href={backUrl} class="crm-link">&larr; Volver a contactos</a>
+          <p class="crm-context-eyebrow" style="margin-top:0.5rem">Contacto de agencia</p>
+          <h2 id="agency-contact-detail-title" style="margin:0 0 0.35rem">Cargando contacto...</h2>
+          <p id="agency-contact-detail-meta" class="crm-inline-note">Preparando contexto comercial.</p>
+        </div>
+        <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo agencias">
+          <a class="crm-link" href="/crm/agencies/">Listado</a>
+          <a class="crm-link" href="/crm/agencies/dashboard/">Dashboard</a>
+          <a class="crm-link" href="/crm/agencies/contacts/">Contactos</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <div class="crm-row-between" style="gap:1rem;align-items:flex-start;flex-wrap:wrap">
+        <div>
+          <h3 style="margin:0 0 0.35rem">Gestion del contacto</h3>
+          <p class="crm-inline-note" style="margin:0">Edita los datos del agente y su estado dentro de la agencia.</p>
+        </div>
+      </div>
+      <form id="agency-contact-edit-form" class="crm-form crm-form-compact" style="margin-top:1rem">
+        <label>Nombre
+          <input name="full_name" type="text" required />
+        </label>
+        <label>Email
+          <input name="email" type="email" />
+        </label>
+        <label>Telefono
+          <input name="phone" type="tel" />
+        </label>
+        <label>Rol
+          <select name="role">
+            <option value="agent">Agent</option>
+            <option value="principal">Principal</option>
+            <option value="assistant">Assistant</option>
+            <option value="manager">Manager</option>
+          </select>
+        </label>
+        <label>Estado relacion
+          <select name="relation_status">
+            <option value="active">Activo</option>
+            <option value="inactive">Inactivo</option>
+          </select>
+        </label>
+        <label>Principal
+          <select name="is_primary">
+            <option value="false">No</option>
+            <option value="true">Si</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button">Guardar cambios</button>
+          <button id="agency-contact-deactivate-button" type="button" class="crm-button crm-button-soft">Desactivar contacto</button>
+          <p id="agency-contact-edit-status" class="crm-inline-note"></p>
+        </div>
+      </form>
+    </section>
+
+    <section class="crm-grid crm-agencies-kpi-grid" aria-live="polite">
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-attributed">-</strong><small>Registros atribuidos</small></article>
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-attributed-customers">-</strong><small>Clientes atribuidos</small></article>
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-discarded">-</strong><small>Baja o descartado</small></article>
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-leads">-</strong><small>Leads CRM</small></article>
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-open">-</strong><small>Abiertos CRM</small></article>
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-converted">-</strong><small>Convertidos CRM</small></article>
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-clients">-</strong><small>Clientes CRM</small></article>
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-reserved">-</strong><small>Con reserva</small></article>
+      <article class="crm-card crm-kpi"><strong id="agency-contact-kpi-rate">-</strong><small>% cliente atribuido</small></article>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3 style="margin-top:0">Pulso historico</h3>
+        <div id="agency-contact-detail-monthly" class="crm-chart-3d-host">
+          <p class="crm-inline-note">Cargando...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3 style="margin-top:0">Estado historico</h3>
+        <div id="agency-contact-detail-status" class="crm-ranking-list">
+          <p class="crm-inline-note">Cargando...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3 style="margin-top:0">Proyectos atribuidos</h3>
+        <div id="agency-contact-detail-projects" class="crm-ranking-list">
+          <p class="crm-inline-note">Cargando...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3 style="margin-top:0">Clientes generados</h3>
+        <div id="agency-contact-detail-clients" class="crm-ranking-list">
+          <p class="crm-inline-note">Cargando...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3 style="margin-top:0">Leads que ha traido</h3>
+        <div id="agency-contact-detail-leads" class="crm-ranking-list">
+          <p class="crm-inline-note">Cargando...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3 style="margin-top:0">Historico atribuido sin ficha CRM</h3>
+        <div id="agency-contact-detail-attributed-leads" class="crm-ranking-list">
+          <p class="crm-inline-note">Cargando...</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="agency-contact-detail-feedback" class="crm-feedback">Cargando ficha...</p>
+    </section>
+  </div>
+
+  <style>
+    .crm-agencies-kpi-grid {
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    }
+    .crm-mini-bar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.9rem;
+    }
+    .crm-chart-3d-host {
+      min-height: 320px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 18px;
+      padding: 0.8rem;
+      background:
+        radial-gradient(circle at top left, rgba(37,99,235,0.08), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+      overflow: hidden;
+    }
+    .crm-chart-3d-stage {
+      position: relative;
+      min-height: 250px;
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(226,232,240,0.28), rgba(241,245,249,0.02)),
+        linear-gradient(180deg, rgba(15,23,42,0.02), rgba(15,23,42,0));
+      overflow: hidden;
+    }
+    .crm-chart-3d-canvas {
+      width: 100%;
+      height: 250px;
+      display: block;
+    }
+    .crm-chart-3d-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 0.85rem;
+      color: #475569;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .crm-chart-3d-legend span::before {
+      content: "";
+      display: inline-block;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 999px;
+      margin-right: 0.4rem;
+      vertical-align: -0.1rem;
+    }
+    .crm-chart-3d-legend .is-total::before {
+      background: linear-gradient(180deg, #2563eb, #1d4ed8);
+    }
+    .crm-chart-3d-legend .is-customer::before {
+      background: linear-gradient(180deg, #f97316, #ea580c);
+    }
+    .crm-chart-3d-legend .is-discarded::before {
+      background: linear-gradient(180deg, #ef4444, #b91c1c);
+    }
+    .crm-chart-3d-labels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.8rem;
+    }
+    .crm-chart-3d-label {
+      display: grid;
+      gap: 0.12rem;
+      text-align: center;
+      color: #475569;
+      font-size: 0.74rem;
+    }
+    .crm-chart-3d-label strong {
+      color: #0f172a;
+      font-size: 0.82rem;
+    }
+    .crm-mini-bar-card {
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 16px;
+      padding: 0.9rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+    }
+    .crm-mini-bar-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.6rem;
+      align-items: baseline;
+      margin-bottom: 0.55rem;
+      font-size: 0.82rem;
+      color: #475569;
+    }
+    .crm-mini-bar-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .crm-mini-bar-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.18);
+      overflow: hidden;
+    }
+    .crm-mini-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0f766e, #14b8a6);
+    }
+    .crm-mini-bar-fill.is-soft {
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+    }
+    .crm-ranking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .crm-ranking-item {
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      background: rgba(255,255,255,0.94);
+    }
+    .crm-ranking-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.9rem;
+      align-items: center;
+      margin-bottom: 0.45rem;
+    }
+    .crm-ranking-title {
+      font-weight: 700;
+      color: #0f172a;
+      text-decoration: none;
+    }
+    .crm-ranking-meta {
+      color: #64748b;
+      font-size: 0.84rem;
+    }
+    .crm-ranking-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.18);
+      overflow: hidden;
+    }
+    .crm-ranking-bar > span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+    }
+  </style>
+
+  <script is:inline define:vars={{ agencyContactId }}>
+    window.__crmAgencyContactId = agencyContactId;
+  </script>
+  <script is:inline src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
+  <script is:inline src="/crm/agency-contact-detail.js"></script>
+</CrmLayout>

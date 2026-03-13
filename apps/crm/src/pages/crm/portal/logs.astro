@@ -1,0 +1,91 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Portal | Logs" section="portal">
+  <div class="crm-stack" data-portal-page="logs">
+    <section class="crm-card crm-full">
+      <h2>Auditoria de accesos portal</h2>
+      <p>Lectura operativa de eventos de seguridad y actividad.</p>
+      <p class="crm-inline-note">
+        Acceso restringido a sesion <code>portal_agent_admin</code> autorizada (admin principal:
+        <strong>rafael@blancareal.com</strong>).
+      </p>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Filtros</h3>
+      <form id="portal-logs-filter" class="crm-form crm-form-compact">
+        <label for="portal-logs-event-type">
+          Event type
+          <select id="portal-logs-event-type" name="event_type" data-dictionary="log-event-type">
+            <option value="">Todos</option>
+            <option value="invite_sent">invite_sent</option>
+            <option value="invite_revoked">invite_revoked</option>
+            <option value="signup_ok">signup_ok</option>
+            <option value="signup_fail">signup_fail</option>
+            <option value="login_ok">login_ok</option>
+            <option value="login_fail">login_fail</option>
+            <option value="code_fail">code_fail</option>
+            <option value="blocked">blocked</option>
+            <option value="logout">logout</option>
+            <option value="visit_confirmed">visit_confirmed</option>
+            <option value="commission_updated">commission_updated</option>
+            <option value="document_downloaded">document_downloaded</option>
+          </select>
+        </label>
+        <label for="portal-logs-email">
+          Email
+          <input id="portal-logs-email" name="email" type="search" placeholder="correo asociado al evento" />
+        </label>
+        <label for="portal-logs-from">
+          Desde
+          <input id="portal-logs-from" name="from" type="date" />
+        </label>
+        <label for="portal-logs-to">
+          Hasta
+          <input id="portal-logs-to" name="to" type="date" />
+        </label>
+        <label for="portal-logs-per-page">
+          Por pagina
+          <select id="portal-logs-per-page" name="per_page">
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="portal-logs-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="portal-logs-meta" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table" aria-describedby="portal-logs-meta">
+          <caption class="sr-only">Listado de logs de acceso portal</caption>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Evento</th>
+              <th>Email</th>
+              <th>IP</th>
+              <th>User agent</th>
+            </tr>
+          </thead>
+          <tbody id="portal-logs-tbody">
+            <tr><td colspan="5">Cargando logs...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-portal-feedback" class="crm-feedback" role="status" aria-live="polite">
+        Listo para operar.
+      </p>
+    </section>
+  </div>
+  <script is:inline src="/crm/portal.js"></script>
+</CrmLayout>

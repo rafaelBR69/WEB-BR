@@ -1,0 +1,75 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Leads | Comunicaciones" section="leads">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <h2>Comunicaciones de leads</h2>
+      <p class="crm-inline-note">
+        Email masivo filtrado por promocion, canal, estado tratado y nacionalidad.
+      </p>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Email masivo</h3>
+      <form id="leads-mass-form" class="crm-form crm-form-compact">
+        <label>Estado
+          <select name="status">
+            <option value="">Todos</option>
+            <option value="new">Nuevo</option>
+            <option value="in_process">En proceso</option>
+            <option value="qualified">Cualificado</option>
+            <option value="visit_scheduled">Visita programada</option>
+            <option value="offer_sent">Oferta enviada</option>
+            <option value="negotiation">Negociacion</option>
+            <option value="won">Ganado</option>
+            <option value="lost">Perdido</option>
+          </select>
+        </label>
+        <label>Origen
+          <select name="origin_type">
+            <option value="">Todos</option>
+            <option value="direct">Directo</option>
+            <option value="website">Web corporativa</option>
+            <option value="portal">Portal inmobiliario</option>
+            <option value="agency">Agencia colaboradora</option>
+            <option value="provider">Proveedor</option>
+            <option value="phone">Llamada telefonica</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="email">Email</option>
+            <option value="other">Otros</option>
+          </select>
+        </label>
+        <label>Tratado
+          <select name="treated">
+            <option value="">Todos</option>
+            <option value="untreated">No tratado</option>
+            <option value="treated">Tratado</option>
+          </select>
+        </label>
+        <label>Nacionalidad
+          <input name="nationality" type="text" placeholder="ES, FR, NL..." />
+        </label>
+        <label>Promocion
+          <select id="leads-mass-project-select" name="project_id">
+            <option value="">Todas</option>
+          </select>
+        </label>
+        <label>Asunto
+          <input name="subject" type="text" value="Actualizacion de promocion" />
+        </label>
+        <label class="crm-col-2">Mensaje
+          <textarea name="body" rows="4" placeholder="Escribe el cuerpo del email masivo..."></textarea>
+        </label>
+        <div class="crm-actions-row">
+          <button id="leads-mass-build" type="button" class="crm-button crm-button-soft">Cargar destinatarios</button>
+          <button id="leads-mass-open" type="button" class="crm-button">Abrir email masivo</button>
+        </div>
+      </form>
+      <p id="leads-mass-meta" class="crm-inline-note">Sin destinatarios cargados.</p>
+      <label class="crm-inline-note" for="leads-mass-emails">Destinatarios (BCC)</label>
+      <textarea id="leads-mass-emails" class="crm-mass-textarea" rows="5" readonly></textarea>
+    </section>
+  </div>
+  <script is:inline src="/crm/leads-comms.js"></script>
+</CrmLayout>

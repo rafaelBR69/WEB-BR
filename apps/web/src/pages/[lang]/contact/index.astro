@@ -1,0 +1,429 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import "@webapp/styles/pages/service-pages.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/contact/`, 302);
+}
+
+const lang = langParam;
+
+const serviceParamRaw = String(Astro.url.searchParams.get("service") ?? "").trim();
+const ALLOWED_SERVICES = new Set([
+  "real-estate",
+  "legal-services",
+  "commercialization",
+  "marketing-3d",
+  "agents",
+]);
+const selectedService = ALLOWED_SERVICES.has(serviceParamRaw) ? serviceParamRaw : "";
+
+const copyByLang = {
+  es: {
+    title: "Contacto | BlancaReal",
+    description: "Canales de contacto para Real Estate, Legal, Comercializacion y portal de agentes.",
+    eyebrow: "Contacto",
+    heading: "Hablemos de tu operacion",
+    intro:
+      "Selecciona el area que necesitas y te conecta nuestro equipo en menos de 24 horas laborables.",
+    phoneLabel: "Telefono",
+    emailLabel: "Email",
+    officeLabel: "Oficina",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Canales directos",
+    linksTitle: "Accesos rapidos",
+    formTitle: "Solicitud de contacto",
+    formIntro: "Completa el formulario y registraremos tu solicitud en nuestro CRM.",
+    formName: "Nombre completo",
+    formEmail: "Email",
+    formPhone: "Telefono",
+    formService: "Servicio",
+    formMessage: "Mensaje",
+    formSubmit: "Enviar solicitud",
+    formSending: "Enviando...",
+    formSuccess: "Solicitud enviada correctamente.",
+    formError: "No se pudo enviar la solicitud. Intentalo de nuevo.",
+    serviceDefault: "Selecciona un servicio",
+    serviceOptions: [
+      { value: "real-estate", label: "Real Estate" },
+      { value: "legal-services", label: "Servicios Legales" },
+      { value: "commercialization", label: "Comercializacion" },
+      { value: "marketing-3d", label: "Marketing 3D" },
+      { value: "agents", label: "Portal de Agentes" },
+    ],
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Servicios Legales", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Comercializacion", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
+      { id: "agents", label: "Portal de Agentes", href: `/${lang}/portal/` },
+    ],
+  },
+  en: {
+    title: "Contact | BlancaReal",
+    description: "Contact channels for Real Estate, Legal, Commercialization and agent portal.",
+    eyebrow: "Contact",
+    heading: "Let us discuss your operation",
+    intro:
+      "Choose the area you need and our team will reply in less than 24 business hours.",
+    phoneLabel: "Phone",
+    emailLabel: "Email",
+    officeLabel: "Office",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Direct channels",
+    linksTitle: "Quick access",
+    formTitle: "Contact request",
+    formIntro: "Complete the form and we will register your request in our CRM.",
+    formName: "Full name",
+    formEmail: "Email",
+    formPhone: "Phone",
+    formService: "Service",
+    formMessage: "Message",
+    formSubmit: "Send request",
+    formSending: "Sending...",
+    formSuccess: "Request sent successfully.",
+    formError: "Request could not be sent. Please try again.",
+    serviceDefault: "Select a service",
+    serviceOptions: [
+      { value: "real-estate", label: "Real Estate" },
+      { value: "legal-services", label: "Legal Services" },
+      { value: "commercialization", label: "Commercialization" },
+      { value: "marketing-3d", label: "Marketing 3D" },
+      { value: "agents", label: "Agents Portal" },
+    ],
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Legal Services", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Commercialization", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
+      { id: "agents", label: "Agents Portal", href: `/${lang}/portal/` },
+    ],
+  },
+  de: {
+    title: "Kontakt | BlancaReal",
+    description: "Kontaktkanaele fuer Real Estate, Rechtsservice, Vermarktung und Agentenportal.",
+    eyebrow: "Kontakt",
+    heading: "Sprechen wir ueber Ihre Operation",
+    intro:
+      "Waehlen Sie den passenden Bereich und unser Team antwortet innerhalb von 24 Arbeitsstunden.",
+    phoneLabel: "Telefon",
+    emailLabel: "E-Mail",
+    officeLabel: "Buero",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Direkte Kanaele",
+    linksTitle: "Schnellzugriff",
+    formTitle: "Kontaktanfrage",
+    formIntro: "Fuellen Sie das Formular aus, wir erfassen die Anfrage im CRM.",
+    formName: "Vollstaendiger Name",
+    formEmail: "E-Mail",
+    formPhone: "Telefon",
+    formService: "Service",
+    formMessage: "Nachricht",
+    formSubmit: "Anfrage senden",
+    formSending: "Wird gesendet...",
+    formSuccess: "Anfrage erfolgreich gesendet.",
+    formError: "Anfrage konnte nicht gesendet werden. Bitte erneut versuchen.",
+    serviceDefault: "Service waehlen",
+    serviceOptions: [
+      { value: "real-estate", label: "Real Estate" },
+      { value: "legal-services", label: "Rechtsservice" },
+      { value: "commercialization", label: "Vermarktung" },
+      { value: "marketing-3d", label: "Marketing 3D" },
+      { value: "agents", label: "Agentenportal" },
+    ],
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Rechtsservice", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Vermarktung", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
+      { id: "agents", label: "Agentenportal", href: `/${lang}/portal/` },
+    ],
+  },
+  fr: {
+    title: "Contact | BlancaReal",
+    description: "Canaux de contact pour Real Estate, Juridique, Commercialisation et portail agents.",
+    eyebrow: "Contact",
+    heading: "Parlons de votre operation",
+    intro:
+      "Choisissez le pole souhaite et notre equipe repond en moins de 24 heures ouvrables.",
+    phoneLabel: "Telephone",
+    emailLabel: "Email",
+    officeLabel: "Bureau",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Canaux directs",
+    linksTitle: "Acces rapide",
+    formTitle: "Demande de contact",
+    formIntro: "Completez le formulaire et nous enregistrerons votre demande dans le CRM.",
+    formName: "Nom complet",
+    formEmail: "Email",
+    formPhone: "Telephone",
+    formService: "Service",
+    formMessage: "Message",
+    formSubmit: "Envoyer la demande",
+    formSending: "Envoi...",
+    formSuccess: "Demande envoyee avec succes.",
+    formError: "Impossible d envoyer la demande. Reessayez.",
+    serviceDefault: "Selectionner un service",
+    serviceOptions: [
+      { value: "real-estate", label: "Real Estate" },
+      { value: "legal-services", label: "Services Juridiques" },
+      { value: "commercialization", label: "Commercialisation" },
+      { value: "marketing-3d", label: "Marketing 3D" },
+      { value: "agents", label: "Portail Agents" },
+    ],
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Services Juridiques", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Commercialisation", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
+      { id: "agents", label: "Portail Agents", href: `/${lang}/portal/` },
+    ],
+  },
+  it: {
+    title: "Contatto | BlancaReal",
+    description: "Canali di contatto per Real Estate, Legale, Commercializzazione e portale agenti.",
+    eyebrow: "Contatto",
+    heading: "Parliamo della tua operazione",
+    intro:
+      "Seleziona l area necessaria e il team risponde entro 24 ore lavorative.",
+    phoneLabel: "Telefono",
+    emailLabel: "Email",
+    officeLabel: "Ufficio",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Canali diretti",
+    linksTitle: "Accesso rapido",
+    formTitle: "Richiesta di contatto",
+    formIntro: "Compila il modulo e registreremo la richiesta nel CRM.",
+    formName: "Nome completo",
+    formEmail: "Email",
+    formPhone: "Telefono",
+    formService: "Servizio",
+    formMessage: "Messaggio",
+    formSubmit: "Invia richiesta",
+    formSending: "Invio...",
+    formSuccess: "Richiesta inviata correttamente.",
+    formError: "Impossibile inviare la richiesta. Riprova.",
+    serviceDefault: "Seleziona un servizio",
+    serviceOptions: [
+      { value: "real-estate", label: "Real Estate" },
+      { value: "legal-services", label: "Servizi Legali" },
+      { value: "commercialization", label: "Commercializzazione" },
+      { value: "marketing-3d", label: "Marketing 3D" },
+      { value: "agents", label: "Portale Agenti" },
+    ],
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Servizi Legali", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Commercializzazione", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
+      { id: "agents", label: "Portale Agenti", href: `/${lang}/portal/` },
+    ],
+  },
+  nl: {
+    title: "Contact | BlancaReal",
+    description: "Contactkanalen voor Real Estate, Juridisch, Commercialisatie en agentenportaal.",
+    eyebrow: "Contact",
+    heading: "Laten we uw operatie bespreken",
+    intro:
+      "Kies het domein dat u nodig heeft en ons team antwoordt binnen 24 werkuren.",
+    phoneLabel: "Telefoon",
+    emailLabel: "Email",
+    officeLabel: "Kantoor",
+    officeValue: "Calahonda, Mijas - Costa del Sol",
+    channelsTitle: "Directe kanalen",
+    linksTitle: "Snelle toegang",
+    formTitle: "Contactaanvraag",
+    formIntro: "Vul het formulier in en we registreren uw aanvraag in het CRM.",
+    formName: "Volledige naam",
+    formEmail: "Email",
+    formPhone: "Telefoon",
+    formService: "Dienst",
+    formMessage: "Bericht",
+    formSubmit: "Verstuur aanvraag",
+    formSending: "Verzenden...",
+    formSuccess: "Aanvraag succesvol verzonden.",
+    formError: "Aanvraag kon niet worden verzonden. Probeer opnieuw.",
+    serviceDefault: "Selecteer een dienst",
+    serviceOptions: [
+      { value: "real-estate", label: "Real Estate" },
+      { value: "legal-services", label: "Juridische Diensten" },
+      { value: "commercialization", label: "Commercialisatie" },
+      { value: "marketing-3d", label: "Marketing 3D" },
+      { value: "agents", label: "Agentenportaal" },
+    ],
+    links: [
+      { id: "real-estate", label: "Real Estate", href: `/${lang}/real-estate/` },
+      { id: "legal", label: "Juridische Diensten", href: `/${lang}/legal-services/` },
+      { id: "commercialization", label: "Commercialisatie", href: `/${lang}/commercialization/` },
+      { id: "marketing", label: "Marketing 3D", href: `/${lang}/marketing-3d/` },
+      { id: "agents", label: "Agentenportaal", href: `/${lang}/portal/` },
+    ],
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+>
+  <section class="service-hero container">
+    <span class="service-eyebrow">{t.eyebrow}</span>
+    <h1>{t.heading}</h1>
+    <p>{t.intro}</p>
+  </section>
+
+  <section class="service-grid container">
+    <article class="service-panel">
+      <h2>{t.channelsTitle}</h2>
+      <ul class="contact-list">
+        <li>
+          <span>{t.phoneLabel}</span>
+          <a href="tel:+34952599159">+34 952 599 159</a>
+        </li>
+        <li>
+          <span>{t.emailLabel}</span>
+          <a href="mailto:info@blancareal.com">info@blancareal.com</a>
+        </li>
+        <li>
+          <span>{t.officeLabel}</span>
+          <strong>{t.officeValue}</strong>
+        </li>
+      </ul>
+    </article>
+
+    <article class="service-panel">
+      <h2>{t.linksTitle}</h2>
+      <ul class="quick-links">
+        {t.links.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </article>
+
+    <article class="service-panel service-panel-full service-panel-form">
+      <h2>{t.formTitle}</h2>
+      <p>{t.formIntro}</p>
+
+      <form id="contactLeadForm" class="service-form">
+        <div class="service-form-grid">
+          <label class="service-form-field">
+            <span>{t.formName}</span>
+            <input type="text" name="full_name" required />
+          </label>
+
+          <label class="service-form-field">
+            <span>{t.formEmail}</span>
+            <input type="email" name="email" required />
+          </label>
+
+          <label class="service-form-field">
+            <span>{t.formPhone}</span>
+            <input type="tel" name="phone" />
+          </label>
+
+          <label class="service-form-field">
+            <span>{t.formService}</span>
+            <select name="service" required>
+              <option value="">{t.serviceDefault}</option>
+              {t.serviceOptions.map((option) => (
+                <option value={option.value} selected={option.value === selectedService}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <label class="service-form-field service-form-field-full">
+          <span>{t.formMessage}</span>
+          <textarea name="message" rows="4"></textarea>
+        </label>
+
+        <div class="service-form-actions">
+          <button type="submit" class="service-cta" id="contactLeadSubmit">{t.formSubmit}</button>
+          <p class="service-form-status" id="contactLeadStatus" aria-live="polite"></p>
+        </div>
+      </form>
+    </article>
+  </section>
+
+  <script is:inline define:vars={{ lang, selectedService, t }}>
+    const form = document.getElementById("contactLeadForm");
+    const submitButton = document.getElementById("contactLeadSubmit");
+    const statusNode = document.getElementById("contactLeadStatus");
+
+    if (
+      form instanceof HTMLFormElement &&
+      submitButton instanceof HTMLButtonElement &&
+      statusNode instanceof HTMLElement
+    ) {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        statusNode.textContent = "";
+        statusNode.classList.remove("is-error", "is-success");
+
+        const formData = new FormData(form);
+        const fullName = String(formData.get("full_name") ?? "").trim();
+        const email = String(formData.get("email") ?? "").trim();
+        const phone = String(formData.get("phone") ?? "").trim();
+        const service = String(formData.get("service") ?? "").trim();
+        const message = String(formData.get("message") ?? "").trim();
+
+        const payload = {
+          full_name: fullName,
+          email,
+          phone,
+          source: "website_contact_form",
+          origin_type: "website",
+          lead_kind: service === "agents" ? "agency" : "buyer",
+          operation_interest: "both",
+          message: `[service:${service || "unspecified"}][lang:${lang}] ${message}`.trim(),
+        };
+
+        submitButton.disabled = true;
+        submitButton.textContent = t.formSending;
+
+        try {
+          const response = await fetch("/api/v1/leads", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error(`lead_submit_failed_${response.status}`);
+          }
+
+          statusNode.textContent = t.formSuccess;
+          statusNode.classList.add("is-success");
+          form.reset();
+
+          const serviceSelect = form.querySelector('select[name="service"]');
+          if (serviceSelect instanceof HTMLSelectElement && selectedService) {
+            serviceSelect.value = selectedService;
+          }
+        } catch (error) {
+          statusNode.textContent = t.formError;
+          statusNode.classList.add("is-error");
+          console.error(error);
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = t.formSubmit;
+        }
+      });
+    }
+  </script>
+</BaseLayout>

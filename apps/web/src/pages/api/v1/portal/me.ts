@@ -1,0 +1,204 @@
+import type { APIRoute } from "astro";
+import { jsonResponse, methodNotAllowed } from "@shared/api/json";
+import { getSupabaseServerClient } from "@shared/supabase/server";
+import {
+  PORTAL_MEMBERSHIP_SELECT_COLUMNS,
+  asText,
+  defaultMembershipScopeForRole,
+  isPortalProjectPublished,
+  mapPortalMembershipRow,
+} from "@shared/portal/domain";
+import { resolvePortalRequestContext } from "@shared/portal/auth";
+
+const PROJECT_SELECT_COLUMNS =
+  "id, organization_id, legacy_code, record_type, status, translations, parent_property_id, property_data, updated_at";
+
+const buildImplicitAdminMembership = (
+  portalAccountId: string,
+  organizationId: string,
+  projectId: string
+) =>
+  mapPortalMembershipRow({
+    id: `implicit_admin:${portalAccountId}:${projectId}`,
+    organization_id: organizationId,
+    portal_account_id: portalAccountId,
+    project_property_id: projectId,
+    access_scope: defaultMembershipScopeForRole("portal_agent_admin"),
+    status: "active",
+    dispute_window_hours: 48,
+    permissions: {
+      implicit_admin_access: true,
+      source: "portal_agent_admin_role",
+    },
+    revoked_at: null,
+    created_by: null,
+    created_at: null,
+    updated_at: null,
+  });
+
+export const GET: APIRoute = async ({ url, request }) => {
+  const organizationIdHint = asText(url.searchParams.get("organization_id"));
+  const includeInactiveMemberships = url.searchParams.get("include_inactive_memberships") === "true";
+
+  const client = getSupabaseServerClient();
+  if (!client) return jsonResponse({ ok: false, error: "supabase_not_configured" }, { status: 500 });
+
+  const auth = await resolvePortalRequestContext(request, { organizationIdHint });
+  if (auth.error || !auth.data) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: auth.error?.error ?? "auth_context_unresolved",
+        details: auth.error?.details,
+      },
+      { status: auth.error?.status ?? 401 }
+    );
+  }
+
+  const portalAccountId = auth.data.portal_account.id;
+  const organizationId = auth.data.organization_id;
+  const portalRole = auth.data.portal_account.role;
+  const isAdmin = portalRole === "portal_agent_admin";
+  if (!portalAccountId) return jsonResponse({ ok: false, error: "portal_account_id_missing" }, { status: 500 });
+
+  let membershipQuery = client
+    .schema("crm")
+    .from("portal_memberships")
+    .select(PORTAL_MEMBERSHIP_SELECT_COLUMNS)
+    .eq("portal_account_id", portalAccountId)
+    .order("created_at", { ascending: true });
+
+  if (organizationId) {
+    membershipQuery = membershipQuery.eq("organization_id", organizationId);
+  }
+
+  const { data: membershipsRaw, error: membershipsError } = await membershipQuery;
+  if (membershipsError) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "db_portal_memberships_read_error",
+        details: membershipsError.message,
+      },
+      { status: 500 }
+    );
+  }
+
+  const memberships = (membershipsRaw ?? []).map((row) => mapPortalMembershipRow(row as Record<string, unknown>));
+  const filteredMemberships = includeInactiveMemberships
+    ? memberships
+    : memberships.filter((entry) => entry.status === "active");
+  const projectIds = Array.from(
+    new Set(
+      filteredMemberships
+        .map((entry) => entry.project_property_id)
+        .filter((value): value is string => typeof value === "string" && value.length > 0)
+    )
+  );
+
+  let projects: Array<Record<string, unknown>> = [];
+  if (isAdmin) {
+    let adminProjectsQuery = client
+      .schema("crm")
+      .from("properties")
+      .select(PROJECT_SELECT_COLUMNS)
+      .eq("record_type", "project");
+
+    if (organizationId) {
+      adminProjectsQuery = adminProjectsQuery.eq("organization_id", organizationId);
+    }
+
+    const { data: adminProjectsRaw, error: adminProjectsError } = await adminProjectsQuery;
+    if (adminProjectsError) {
+      return jsonResponse(
+        {
+          ok: false,
+          error: "db_portal_projects_read_error",
+          details: adminProjectsError.message,
+        },
+        { status: 500 }
+      );
+    }
+    projects = ((adminProjectsRaw ?? []) as Array<Record<string, unknown>>).filter((row) =>
+      isPortalProjectPublished(row)
+    );
+  } else if (projectIds.length) {
+    let projectsQuery = client
+      .schema("crm")
+      .from("properties")
+      .select(PROJECT_SELECT_COLUMNS)
+      .in("id", projectIds)
+      .eq("record_type", "project");
+
+    if (organizationId) {
+      projectsQuery = projectsQuery.eq("organization_id", organizationId);
+    }
+
+    const { data: projectsRaw, error: projectsError } = await projectsQuery;
+    if (projectsError) {
+      return jsonResponse(
+        {
+          ok: false,
+          error: "db_portal_projects_read_error",
+          details: projectsError.message,
+        },
+        { status: 500 }
+      );
+    }
+    projects = ((projectsRaw ?? []) as Array<Record<string, unknown>>).filter((row) =>
+      isPortalProjectPublished(row)
+    );
+  }
+
+  const projectsById = new Map<string, Record<string, unknown>>();
+  projects.forEach((row) => {
+    const id = asText(row.id);
+    if (!id) return;
+    projectsById.set(id, row);
+  });
+
+  const hydratedMemberships = filteredMemberships.map((entry) => ({
+    ...entry,
+    project:
+      entry.project_property_id && projectsById.has(entry.project_property_id)
+        ? projectsById.get(entry.project_property_id)
+        : null,
+  }));
+
+  if (isAdmin && organizationId) {
+    const existingProjectIds = new Set(
+      hydratedMemberships
+        .map((entry) => entry.project_property_id)
+        .filter((value): value is string => typeof value === "string" && value.length > 0)
+    );
+
+    projects.forEach((project) => {
+      const projectId = asText(project.id);
+      if (!projectId || existingProjectIds.has(projectId)) return;
+      hydratedMemberships.push({
+        ...buildImplicitAdminMembership(portalAccountId, organizationId, projectId),
+        project,
+      });
+    });
+  }
+
+  return jsonResponse({
+    ok: true,
+    data: {
+      portal_account: auth.data.portal_account,
+      auth_user_id: auth.data.auth_user_id,
+      memberships: hydratedMemberships,
+      projects,
+    },
+    meta: {
+      storage: "supabase.crm.portal_accounts",
+      memberships_count: hydratedMemberships.length,
+      implicit_admin_access: isAdmin,
+    },
+  });
+};
+
+export const POST: APIRoute = async () => methodNotAllowed(["GET"]);
+export const PUT: APIRoute = async () => methodNotAllowed(["GET"]);
+export const PATCH: APIRoute = async () => methodNotAllowed(["GET"]);
+export const DELETE: APIRoute = async () => methodNotAllowed(["GET"]);

@@ -1,0 +1,724 @@
+---
+import "@webapp/styles/base.css";
+import "@webapp/styles/layout.css";
+import "@webapp/styles/components/property-card.css";
+import "@webapp/styles/components/feature-badge.css";
+import "@webapp/styles/components/properties-grid.css";
+import "@webapp/styles/components/property-hero.css";
+import "@webapp/styles/components/gallery.css";
+import "@webapp/styles/components/property-detail.css";
+import "@webapp/styles/components/filters.css";
+import "@webapp/styles/pages/home.css";
+import { DEFAULT_LANG, LANG_LABELS, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { getUiCopy } from "@shared/i18n/ui";
+import BrandLogo from "@webapp/components/BrandLogo.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+
+import lightboxUrl from "@webapp/scripts/lightbox.js?url";
+import publicCrmRealtimeUrl from "@webapp/scripts/public-crm-realtime.ts?url";
+
+const {
+  title = "BlancaReal",
+  description = "",
+  noindex = false,
+  lang = DEFAULT_LANG,
+  og = {},
+  availableLangs,
+  headerVariant = "default",
+  landingNavItems = [],
+  headerNavItems = [],
+  sideMenuSections: sideMenuSectionsProp = [],
+  showMobileStickyCta = true,
+} = Astro.props;
+
+const SITE_URL = "https://blancareal.com";
+
+const currentUrl = Astro.url;
+const canonicalPath = currentUrl.pathname;
+
+const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+
+const resolveLangs = () => {
+  const list = Array.isArray(availableLangs) && availableLangs.length
+    ? availableLangs
+    : [lang];
+  const unique = Array.from(new Set(list));
+  if (!unique.includes(lang)) {
+    unique.unshift(lang);
+  }
+  const sorted = SUPPORTED_LANGS.filter((code) => unique.includes(code));
+  return sorted.length ? sorted : [lang];
+};
+
+const buildLangPath = (targetLang) => {
+  const parts = canonicalPath.split("/").filter(Boolean);
+  const hasLangPrefix = parts.length > 0 && SUPPORTED_LANGS.includes(parts[0]);
+  if (hasLangPrefix) {
+    parts[0] = targetLang;
+    const base = `/${parts.join("/")}`;
+    const suffix = canonicalPath.endsWith("/") ? "/" : "";
+    return `${base}${suffix}${currentUrl.search}`;
+  }
+  return `/${targetLang}/`;
+};
+
+const buildLangCanonicalPath = (targetLang) => {
+  const parts = canonicalPath.split("/").filter(Boolean);
+  const hasLangPrefix = parts.length > 0 && SUPPORTED_LANGS.includes(parts[0]);
+  if (hasLangPrefix) {
+    parts[0] = targetLang;
+    const base = `/${parts.join("/")}`;
+    const suffix = canonicalPath.endsWith("/") ? "/" : "";
+    return `${base}${suffix}`;
+  }
+  return `/${targetLang}/`;
+};
+
+const langLinks = resolveLangs().map((code) => ({
+  code,
+  label: LANG_LABELS[code] ?? String(code).toUpperCase(),
+  href: buildLangPath(code),
+  isActive: code === lang,
+}));
+const activeLangLabel = langLinks.find((item) => item.isActive)?.label ?? "ES";
+const ui = getUiCopy(lang);
+const langAlternateLinks = resolveLangs().map((code) => ({
+  code,
+  href: `${SITE_URL}${buildLangCanonicalPath(code)}`,
+}));
+const defaultLangAlternateHref = `${SITE_URL}${buildLangCanonicalPath(DEFAULT_LANG)}`;
+
+const ogLocaleMap = {
+  es: "es_ES",
+  en: "en_GB",
+  fr: "fr_FR",
+  it: "it_IT",
+  de: "de_DE",
+  nl: "nl_NL",
+};
+
+const isLandingHeader = headerVariant === "landing";
+
+const normalizePath = (value) => {
+  const path = String(value ?? "");
+  if (!path) return "/";
+  return path.endsWith("/") ? path : `${path}/`;
+};
+
+const isActiveHref = (href) => {
+  if (typeof href !== "string" || !href.startsWith("/")) return false;
+  const current = normalizePath(canonicalPath);
+  const cleanHref = href.split("?")[0]?.split("#")[0] ?? href;
+  const target = normalizePath(cleanHref);
+  if (target === `/${lang}/`) {
+    return current === target;
+  }
+  return current.startsWith(target);
+};
+
+const isMenuItemActive = (item) =>
+  isActiveHref(item.href) ||
+  (Array.isArray(item.children) && item.children.some((child) => isActiveHref(child.href)));
+
+const defaultLandingNavItems = [
+  { href: `/${lang}/portal/`, label: ui.layout.navAgents },
+  { href: `/${lang}/commercialization/`, label: ui.layout.navPromoters },
+];
+
+const resolvedLandingNavItems =
+  Array.isArray(landingNavItems) && landingNavItems.length
+    ? landingNavItems
+    : defaultLandingNavItems;
+
+const defaultHeaderNavItems = [
+  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+  { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization },
+  { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+];
+
+const resolvedHeaderNavItems =
+  Array.isArray(headerNavItems) && headerNavItems.length
+    ? headerNavItems
+    : defaultHeaderNavItems;
+
+const defaultSideMenuSections = [
+  {
+    title: ui.layout.menuMain,
+    items: [
+      { href: `/${lang}/`, label: ui.layout.navHome },
+      {
+        href: `/${lang}/real-estate/`,
+        label: ui.layout.navRealEstate,
+        description: ui.layout.menuRealEstateHint,
+        children: [
+          { href: `/${lang}/properties/`, label: ui.layout.navProperties },
+          { href: `/${lang}/projects/`, label: ui.layout.navProjects },
+        ],
+      },
+    ],
+  },
+  {
+    title: ui.layout.menuServices,
+    items: [
+      { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization, description: ui.layout.menuPromotersHint },
+      { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices, description: ui.layout.menuLegalHint },
+      { href: `/${lang}/marketing-3d/`, label: "Marketing 3D", description: ui.layout.menuMarketingHint },
+    ],
+  },
+  {
+    title: ui.layout.menuRelationship,
+    items: [
+      { href: `/${lang}/portal/`, label: ui.layout.navAgents, description: ui.layout.menuAgentsHint },
+      { href: `/${lang}/contact/`, label: ui.layout.navContact, description: ui.layout.menuContactHint },
+    ],
+  },
+  {
+    title: ui.layout.menuContent,
+    items: [
+      { href: `/${lang}/posts/`, label: ui.layout.navPosts, description: ui.layout.menuBlogHint },
+      { href: `/${lang}/about/`, label: ui.layout.navAbout, description: ui.layout.menuAboutHint },
+    ],
+  },
+];
+
+const resolvedSideMenuSections =
+  Array.isArray(sideMenuSectionsProp) && sideMenuSectionsProp.length
+    ? sideMenuSectionsProp
+    : defaultSideMenuSections;
+
+const hasPublicCatalogRoute =
+  canonicalPath.includes("/properties") ||
+  canonicalPath.includes("/property/") ||
+  canonicalPath.includes("/projects/");
+
+const realtimeOrganizationId =
+  String(import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? "").trim() || null;
+
+const publicRealtimeConfig = {
+  enabled: hasPublicCatalogRoute,
+  supabaseUrl: String(import.meta.env.PUBLIC_SUPABASE_URL ?? "").trim(),
+  anonKey: String(import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? "").trim(),
+  organizationId: realtimeOrganizationId,
+  debounceMs: 900,
+  refreshTimeoutMs: 10000,
+};
+
+const shouldLoadPublicRealtime =
+  publicRealtimeConfig.enabled &&
+  Boolean(publicRealtimeConfig.supabaseUrl) &&
+  Boolean(publicRealtimeConfig.anonKey);
+---
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="preconnect" href="https://gslfgcqwmcircqaslzij.supabase.co" crossorigin />
+    <link rel="icon" type="image/x-icon" href="/logos/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/logos/favicon.svg" />
+    <link rel="icon" type="image/png" href="/logos/favicon-96x96.png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/logos/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/logos/site.webmanifest" />
+
+    <title>{title}</title>
+
+    {description && (
+      <meta name="description" content={description} />
+    )}
+
+    {noindex && (
+      <meta name="robots" content="noindex,follow" />
+    )}
+
+    {canonicalUrl && (
+      <link rel="canonical" href={canonicalUrl} />
+    )}
+    {langAlternateLinks.map((item) => (
+      <link rel="alternate" hreflang={item.code} href={item.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={defaultLangAlternateHref} />
+
+    <meta property="og:type" content={og.type ?? "website"} />
+
+    {title && (
+      <meta property="og:title" content={title} />
+    )}
+
+    {description && (
+      <meta property="og:description" content={description} />
+    )}
+
+    {canonicalUrl && (
+      <meta property="og:url" content={canonicalUrl} />
+    )}
+
+    {og.image && (
+      <meta property="og:image" content={og.image} />
+    )}
+
+    <meta
+      property="og:locale"
+      content={ogLocaleMap[lang as keyof typeof ogLocaleMap] ?? "es_ES"}
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+
+  <body class={showMobileStickyCta ? "has-mobile-sticky-cta" : ""}>
+    <a class="skip-link" href="#mainContent">{ui.layout.skipToContent}</a>
+    <div class="page-loader" aria-hidden="true">
+      <div class="loader-ring"></div>
+    </div>
+    <header class={`main-header ${isLandingHeader ? "main-header-landing" : ""}`}>
+      <div class="header-container">
+        <div class="brand-logo">
+          <BrandLogo variant="wordmark" href={`/${lang}/`} class="brand-logo-main" />
+          <BrandLogo variant="icon" href={`/${lang}/`} class="brand-logo-mobile-only" />
+        </div>
+
+        {isLandingHeader ? (
+          <>
+            <nav class="main-nav desktop-only">
+              <ul class="nav-links nav-links-landing">
+                {resolvedLandingNavItems.map((item) => (
+                  <li>
+                    <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div class="header-actions header-actions-landing">
+              <div class="lang-switcher desktop-only">
+                <span class="lang-switcher-label">{ui.layout.language}</span>
+                <div class="lang-picker" id="langPickerDesktop">
+                  <button
+                    type="button"
+                    class="lang-trigger"
+                    id="langTriggerDesktop"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-controls="langMenuDesktop"
+                  >
+                    <span id="langLabelDesktop">{activeLangLabel}</span>
+                  </button>
+                  <div class="lang-menu" id="langMenuDesktop" role="listbox" hidden>
+                    {langLinks.map((item) => (
+                      <button
+                        type="button"
+                        class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                        data-href={item.href}
+                        data-label={item.label}
+                        role="option"
+                        aria-selected={item.isActive ? "true" : "false"}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                class="side-menu-toggle"
+                aria-label={ui.layout.openMenu}
+                aria-expanded="false"
+                aria-controls="sideMenu"
+                id="sideMenuToggle"
+              >
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <nav class="main-nav desktop-only">
+              <ul class="nav-links">
+                {resolvedHeaderNavItems.map((item) => (
+                  <li>
+                    <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div class="header-actions">
+              <div class="lang-switcher desktop-only">
+                <span class="lang-switcher-label">{ui.layout.language}</span>
+                <div class="lang-picker" id="langPickerDesktop">
+                  <button
+                    type="button"
+                    class="lang-trigger"
+                    id="langTriggerDesktop"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-controls="langMenuDesktop"
+                  >
+                    <span id="langLabelDesktop">{activeLangLabel}</span>
+                  </button>
+                  <div class="lang-menu" id="langMenuDesktop" role="listbox" hidden>
+                    {langLinks.map((item) => (
+                      <button
+                        type="button"
+                        class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                        data-href={item.href}
+                        data-label={item.label}
+                        role="option"
+                        aria-selected={item.isActive ? "true" : "false"}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <a href={`/${lang}/contact/`} class="header-cta desktop-only">
+                {ui.layout.contact}
+              </a>
+
+              <button
+                class="side-menu-toggle"
+                aria-label={ui.layout.openMenu}
+                aria-expanded="false"
+                aria-controls="sideMenu"
+                id="sideMenuToggle"
+              >
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <div class="side-menu-backdrop" id="sideMenuBackdrop" hidden></div>
+      <aside class="side-menu-drawer" id="sideMenu" aria-hidden="true">
+        <div class="side-menu-brand-watermark" aria-hidden="true">
+          <BrandLogo variant="stacked" />
+        </div>
+        <div class="side-menu-head">
+          <p>{ui.layout.menu}</p>
+          <button type="button" id="sideMenuClose" aria-label={ui.layout.closeMenu}>
+            {ui.layout.closeMenu}
+          </button>
+        </div>
+
+        <nav class="side-menu-nav" aria-label={ui.layout.menu}>
+          {resolvedSideMenuSections.map((section) => (
+            <section class="side-menu-section">
+              <h2>{section.title}</h2>
+              <ul>
+                {section.items.map((item) => (
+                  <li>
+                    <a href={item.href} class={isMenuItemActive(item) ? "active" : ""}>
+                      <strong>{item.label}</strong>
+                      {item.description && <small>{item.description}</small>}
+                    </a>
+                    {Array.isArray(item.children) && item.children.length > 0 && (
+                      <ul class="side-submenu">
+                        {item.children.map((child) => (
+                          <li>
+                            <a href={child.href} class={isActiveHref(child.href) ? "active" : ""}>
+                              <strong>{child.label}</strong>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </nav>
+
+        <div class="side-menu-lang">
+          <span class="lang-switcher-label">{ui.layout.language}</span>
+          <div class="lang-picker" id="langPickerDrawer">
+            <button
+              type="button"
+              class="lang-trigger"
+              id="langTriggerDrawer"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-controls="langMenuDrawer"
+            >
+              <span id="langLabelDrawer">{activeLangLabel}</span>
+            </button>
+            <div class="lang-menu" id="langMenuDrawer" role="listbox" hidden>
+              {langLinks.map((item) => (
+                <button
+                  type="button"
+                  class={`lang-option ${item.isActive ? "is-active" : ""}`}
+                  data-href={item.href}
+                  data-label={item.label}
+                  role="option"
+                  aria-selected={item.isActive ? "true" : "false"}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    {showMobileStickyCta && (
+      <div class="mobile-sticky-cta">
+        <a href="tel:+34600123456" class="cta-item call">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          {ui.layout.call}
+        </a>
+        <a href="#descContainer" class="cta-item contact" id="mobileContactBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          {ui.layout.contact}
+        </a>
+      </div>
+    )}
+
+    <script is:inline>
+      const body = document.body;
+      const sideMenuToggle = document.getElementById("sideMenuToggle");
+      const sideMenu = document.getElementById("sideMenu");
+      const sideMenuBackdrop = document.getElementById("sideMenuBackdrop");
+      const sideMenuClose = document.getElementById("sideMenuClose");
+      let sideMenuLastFocus = null;
+
+      const getSideMenuFocusable = () => {
+        if (!(sideMenu instanceof HTMLElement)) return [];
+        return Array.from(
+          sideMenu.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        );
+      };
+
+      const closeSideMenu = () => {
+        if (!(sideMenu instanceof HTMLElement)) return;
+        sideMenu.classList.remove("is-open");
+        sideMenu.setAttribute("aria-hidden", "true");
+
+        if (sideMenuBackdrop instanceof HTMLElement) {
+          sideMenuBackdrop.classList.remove("is-open");
+          sideMenuBackdrop.setAttribute("hidden", "");
+        }
+
+        if (sideMenuToggle instanceof HTMLElement) {
+          sideMenuToggle.classList.remove("is-active");
+          sideMenuToggle.setAttribute("aria-expanded", "false");
+        }
+
+        body.style.overflow = "";
+        document.removeEventListener("keydown", handleSideMenuKeydown);
+        if (sideMenuLastFocus instanceof HTMLElement) {
+          sideMenuLastFocus.focus();
+        }
+      };
+
+      const openSideMenu = () => {
+        if (!(sideMenu instanceof HTMLElement) || !(sideMenuToggle instanceof HTMLElement)) return;
+        sideMenuLastFocus = document.activeElement;
+        sideMenu.classList.add("is-open");
+        sideMenu.setAttribute("aria-hidden", "false");
+        sideMenuToggle.classList.add("is-active");
+        sideMenuToggle.setAttribute("aria-expanded", "true");
+
+        if (sideMenuBackdrop instanceof HTMLElement) {
+          sideMenuBackdrop.removeAttribute("hidden");
+          sideMenuBackdrop.classList.add("is-open");
+        }
+
+        body.style.overflow = "hidden";
+        const focusable = getSideMenuFocusable();
+        if (focusable[0] instanceof HTMLElement) {
+          focusable[0].focus();
+        }
+        document.addEventListener("keydown", handleSideMenuKeydown);
+      };
+
+      const handleSideMenuKeydown = (event) => {
+        if (!(sideMenu instanceof HTMLElement)) return;
+
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeSideMenu();
+          return;
+        }
+
+        if (event.key !== "Tab") return;
+
+        const focusable = getSideMenuFocusable();
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+          return;
+        }
+
+        if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      };
+
+      if (sideMenuToggle instanceof HTMLElement && sideMenu instanceof HTMLElement) {
+        sideMenuToggle.addEventListener("click", () => {
+          const isOpen = sideMenu.classList.contains("is-open");
+          if (isOpen) {
+            closeSideMenu();
+          } else {
+            closeSideMenu();
+            openSideMenu();
+          }
+        });
+      }
+
+      if (sideMenuClose instanceof HTMLElement) {
+        sideMenuClose.addEventListener("click", closeSideMenu);
+      }
+
+      if (sideMenuBackdrop instanceof HTMLElement) {
+        sideMenuBackdrop.addEventListener("click", closeSideMenu);
+      }
+
+      if (sideMenu instanceof HTMLElement) {
+        sideMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeSideMenu);
+        });
+      }
+
+      document.getElementById("mobileContactBtn")?.addEventListener("click", (event) => {
+        event.preventDefault();
+        const target = document.querySelector(".concierge-card");
+        if (target instanceof HTMLElement) {
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+
+      const isSameOrigin = (link) => {
+        try {
+          return new URL(link.href).origin === window.location.origin;
+        } catch {
+          return false;
+        }
+      };
+
+      const shouldSkipTransition = (link) => {
+        if (!link || link.hasAttribute("download")) return true;
+        if (link.target && link.target !== "_self") return true;
+        if (link.rel && link.rel.includes("external")) return true;
+        const href = link.getAttribute("href") || "";
+        if (href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return true;
+        const isPropertiesManagedLink =
+          link.closest(".properties-page") &&
+          (href.startsWith("?") || href.includes("/properties/"));
+        if (isPropertiesManagedLink) return true;
+        return !isSameOrigin(link);
+      };
+
+      const initLangPicker = (pickerId, triggerId, menuId, labelId) => {
+        const picker = document.getElementById(pickerId);
+        const trigger = document.getElementById(triggerId);
+        const menu = document.getElementById(menuId);
+        const label = document.getElementById(labelId);
+        if (!picker || !trigger || !menu || !label) return;
+
+        const updateMenuDirection = () => {
+          picker.classList.remove("is-dropup");
+          menu.removeAttribute("hidden");
+
+          const triggerRect = trigger.getBoundingClientRect();
+          const menuRect = menu.getBoundingClientRect();
+          const spaceBelow = window.innerHeight - triggerRect.bottom;
+          const spaceAbove = triggerRect.top;
+
+          if (spaceBelow < menuRect.height + 12 && spaceAbove > spaceBelow) {
+            picker.classList.add("is-dropup");
+          }
+
+          if (menu.hasAttribute("hidden")) return;
+        };
+
+        trigger.addEventListener("click", () => {
+          const willOpen = menu.hasAttribute("hidden");
+          if (willOpen) {
+            menu.removeAttribute("hidden");
+            updateMenuDirection();
+          } else {
+            menu.setAttribute("hidden", "");
+            picker.classList.remove("is-dropup");
+          }
+          trigger.setAttribute("aria-expanded", String(willOpen));
+        });
+
+        menu.querySelectorAll(".lang-option").forEach((option) => {
+          option.addEventListener("click", () => {
+            const href = option.getAttribute("data-href");
+            const nextLabel = option.getAttribute("data-label");
+            if (nextLabel) label.textContent = nextLabel;
+            if (href) window.location.href = href;
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          if (picker.contains(event.target)) return;
+          menu.setAttribute("hidden", "");
+          picker.classList.remove("is-dropup");
+          trigger.setAttribute("aria-expanded", "false");
+        });
+
+        window.addEventListener("resize", () => {
+          if (menu.hasAttribute("hidden")) return;
+          updateMenuDirection();
+        });
+      };
+
+      initLangPicker("langPickerDesktop", "langTriggerDesktop", "langMenuDesktop", "langLabelDesktop");
+      initLangPicker("langPickerDrawer", "langTriggerDrawer", "langMenuDrawer", "langLabelDrawer");
+
+      document.addEventListener("click", (event) => {
+        if (event.defaultPrevented) return;
+        const link = event.target.closest("a");
+        if (!link || shouldSkipTransition(link)) return;
+        const href = link.href;
+        if (!href) return;
+
+        event.preventDefault();
+        closeSideMenu();
+        document.body.classList.add("page-is-leaving");
+        setTimeout(() => {
+          window.location.href = href;
+        }, 180);
+      });
+    </script>
+
+    <main id="mainContent">
+      <slot />
+    </main>
+
+    {shouldLoadPublicRealtime && (
+      <>
+        <script is:inline define:vars={{ publicRealtimeConfig }}>
+          window.__blancarealPublicRealtime = publicRealtimeConfig;
+        </script>
+        <script type="module" src={publicCrmRealtimeUrl}></script>
+      </>
+    )}
+    <script type="module" src={lightboxUrl}></script>
+    <SpeedInsights />
+  </body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "@web-br/shared",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1"
+}

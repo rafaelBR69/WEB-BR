@@ -1,0 +1,172 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Agencias" section="agencies">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <h2>Modulo de agencias</h2>
+      <p class="crm-inline-note">
+        Una agencia es una entidad CRM propia: el lead captura la entrada comercial, el cliente guarda la entidad
+        facturable y el rol `agency` activa colaboracion, referidos y trazabilidad.
+      </p>
+    </section>
+
+    <section class="crm-card crm-full">
+      <div class="crm-actions-row" style="justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div>
+          <h3 style="margin:0 0 0.35rem">Flujo recomendado</h3>
+          <p class="crm-inline-note" style="margin:0">
+            Agencia nueva: crear como lead de tipo agencia. Agencia ya registrada que refiere comprador: crear lead con
+            origen `agency` y vincular `agency_id`.
+          </p>
+        </div>
+        <div class="crm-actions-row">
+          <a class="crm-button crm-button-soft" href="/crm/agencies/dashboard/">Dashboard agencias</a>
+          <a class="crm-button crm-button-soft" href="/crm/agencies/contacts/">Contactos agencia</a>
+          <a class="crm-button crm-button-soft" href="/crm/agencies/duplicates/">Duplicados</a>
+          <a class="crm-button" href="/crm/leads/nuevo/?lead_kind=agency">Nuevo lead agencia</a>
+          <a class="crm-button crm-button-soft" href="/crm/clients/?client_role=agency">Vista clientes/agencia</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <div class="crm-row-between" style="gap:1rem;align-items:flex-start;flex-wrap:wrap">
+        <div>
+          <h3 style="margin:0 0 0.35rem">Nueva agencia</h3>
+          <p class="crm-inline-note" style="margin:0">
+            Alta rapida de agencia base para empezar a vincular leads, contactos y clientes.
+          </p>
+        </div>
+      </div>
+      <form id="agency-create-form" class="crm-form crm-form-compact" style="margin-top:1rem">
+        <label>Nombre agencia
+          <input name="full_name" type="text" placeholder="Marbella Luxury Homes" required />
+        </label>
+        <label>Agente principal
+          <input name="agent_name" type="text" placeholder="Eszter Molnar" />
+        </label>
+        <label>Email
+          <input name="email" type="email" placeholder="agencia@email.com" />
+        </label>
+        <label>Telefono
+          <input name="phone" type="tel" placeholder="+34 ..." />
+        </label>
+        <label>Scope
+          <select name="agency_scope">
+            <option value="mixed" selected>Mixto</option>
+            <option value="buyer">Comprador</option>
+            <option value="seller">Vendedor</option>
+            <option value="rental">Alquiler</option>
+          </select>
+        </label>
+        <label>Estado
+          <select name="agency_status">
+            <option value="active" selected>Activa</option>
+            <option value="inactive">Inactiva</option>
+            <option value="discarded">Descartada</option>
+          </select>
+        </label>
+        <label>Referral source
+          <select name="agency_is_referral_source">
+            <option value="true" selected>Si</option>
+            <option value="false">No</option>
+          </select>
+        </label>
+        <label style="grid-column:1 / -1">Notas
+          <textarea name="agency_notes" rows="3" placeholder="Contexto comercial, proyecto, observaciones..."></textarea>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button">Crear agencia</button>
+          <p id="agency-create-status" class="crm-inline-note"></p>
+        </div>
+      </form>
+    </section>
+
+    <section class="crm-card crm-full">
+      <form id="agencies-filter-form" class="crm-form crm-form-compact">
+        <label>Buscar
+          <input name="q" type="search" placeholder="Nombre, codigo, email, telefono..." />
+        </label>
+        <label>Estado agencia
+          <select name="agency_status">
+            <option value="">Todas</option>
+            <option value="active">Activa</option>
+            <option value="inactive">Inactiva</option>
+            <option value="discarded">Descartada</option>
+          </select>
+        </label>
+        <label>Scope
+          <select name="agency_scope">
+            <option value="">Todos</option>
+            <option value="buyer">Comprador</option>
+            <option value="seller">Vendedor</option>
+            <option value="rental">Alquiler</option>
+            <option value="mixed">Mixto</option>
+          </select>
+        </label>
+        <label>Estado cliente
+          <select name="client_status">
+            <option value="">Todos</option>
+            <option value="active">Activo</option>
+            <option value="inactive">Inactivo</option>
+            <option value="discarded">Descartado</option>
+            <option value="blacklisted">Blacklisted</option>
+          </select>
+        </label>
+        <label>Referidos
+          <select name="is_referral_source">
+            <option value="">Todas</option>
+            <option value="true">Si</option>
+            <option value="false">No</option>
+          </select>
+        </label>
+        <label>Por pagina
+          <select id="agencies-per-page" name="per_page">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="agencies-filter-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+      <p id="agencies-meta" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Agencia</th>
+              <th>Contacto base</th>
+              <th>Scope</th>
+              <th>Registros atribuidos</th>
+              <th>Clientes</th>
+              <th>Contactos</th>
+              <th>Cliente base</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="agencies-tbody">
+            <tr>
+              <td colspan="8">Cargando agencias...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="agencies-pagination" class="crm-pagination">
+        <button type="button" class="crm-button crm-button-soft" data-page-action="prev">Anterior</button>
+        <p id="agencies-page-info" class="crm-inline-note">Pagina 1 de 1</p>
+        <button type="button" class="crm-button crm-button-soft" data-page-action="next">Siguiente</button>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="agencies-feedback" class="crm-feedback">Modulo de agencias listo.</p>
+    </section>
+  </div>
+
+  <script is:inline src="/crm/agencies.js"></script>
+</CrmLayout>

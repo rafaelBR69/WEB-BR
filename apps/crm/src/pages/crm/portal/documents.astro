@@ -1,0 +1,159 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Portal | Documentos" section="portal">
+  <div class="crm-stack" data-portal-page="documents">
+    <section class="crm-card crm-full">
+      <h2>Documentos del portal por promocion</h2>
+      <p>Sube, publica y controla visibilidad de Agency Kit y Client Kit desde CRM.</p>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Filtros</h3>
+        <form id="portal-documents-filter" class="crm-form">
+          <label for="portal-documents-filter-property-select">
+            Propiedad (padre o hija)
+            <select id="portal-documents-filter-property-select" name="property_id">
+              <option value="">Todas las propiedades</option>
+            </select>
+          </label>
+          <label for="portal-documents-filter-visibility">
+            Tipo de documento
+            <select id="portal-documents-filter-visibility" name="portal_visibility">
+              <option value="">Todos</option>
+              <option value="agent">Agency Kit (agentes)</option>
+              <option value="client">Client Kit (clientes)</option>
+              <option value="both">Shared Kit (ambos)</option>
+            </select>
+          </label>
+          <label for="portal-documents-filter-published">
+            Publicacion
+            <select id="portal-documents-filter-published" name="portal_is_published">
+              <option value="">Todos</option>
+              <option value="true">Publicado</option>
+              <option value="false">Oculto</option>
+            </select>
+          </label>
+          <label for="portal-documents-filter-search">
+            Buscar
+            <input
+              id="portal-documents-filter-search"
+              name="q"
+              type="search"
+              placeholder="titulo o tipo mime"
+            />
+          </label>
+          <label for="portal-documents-filter-per-page">
+            Por pagina
+            <select id="portal-documents-filter-per-page" name="per_page">
+              <option value="25" selected>25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </label>
+          <div class="crm-actions-row">
+            <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+            <button id="portal-documents-filter-clear" type="button" class="crm-button crm-button-soft">
+              Limpiar
+            </button>
+          </div>
+        </form>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Subir / editar documento</h3>
+        <form id="portal-documents-form" class="crm-form">
+          <input id="portal-documents-id" name="id" type="hidden" />
+          <label for="portal-documents-property-select">
+            Propiedad (padre o hija)
+            <select id="portal-documents-property-select" name="property_id">
+              <option value="">Selecciona una propiedad</option>
+            </select>
+          </label>
+          <p id="portal-documents-property-resolution" class="crm-col-2 crm-inline-note">
+            Selecciona una propiedad. Si eliges unidad hija, se vinculara automaticamente a su promocion padre.
+          </p>
+          <label for="portal-documents-title" class="crm-col-2">
+            Titulo
+            <input id="portal-documents-title" name="title" type="text" required />
+          </label>
+          <label for="portal-documents-visibility">
+            Tipo de documento
+            <select id="portal-documents-visibility" name="portal_visibility">
+              <option value="agent">Agency Kit (agentes)</option>
+              <option value="client">Client Kit (clientes)</option>
+              <option value="both" selected>Shared Kit (ambos)</option>
+            </select>
+          </label>
+          <label class="crm-checkbox-label" for="portal-documents-published">
+            <input id="portal-documents-published" name="portal_is_published" type="checkbox" checked />
+            Publicado en portal
+          </label>
+          <label for="portal-documents-file" class="crm-col-2">
+            Archivo (PDF/imagen/office)
+            <input
+              id="portal-documents-file"
+              name="file"
+              type="file"
+              accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,.xls,.xlsx"
+            />
+          </label>
+          <p class="crm-inline-note crm-col-2">
+            En modo edicion, puedes actualizar metadatos sin subir archivo nuevo.
+          </p>
+          <div class="crm-col-2 crm-actions-row">
+            <button type="submit" class="crm-button">Guardar documento</button>
+            <button id="portal-documents-new" type="button" class="crm-button crm-button-soft">Nuevo</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="crm-card crm-half" id="portal-documents-hierarchy">
+        <h3>Pestana: Vinculacion padre/hijas</h3>
+        <p>Selecciona una promocion para ver las unidades hijas y cargar documentacion sin soporte tecnico.</p>
+        <form id="portal-documents-tree-form" class="crm-form">
+          <label for="portal-documents-tree-project-select" class="crm-col-2">
+            Promocion padre
+            <select id="portal-documents-tree-project-select" name="project_property_id">
+              <option value="">Selecciona una promocion</option>
+            </select>
+          </label>
+        </form>
+        <ul id="portal-documents-tree-list" class="crm-list">
+          <li>Selecciona una promocion para ver las propiedades hijas.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="portal-documents-meta" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table" aria-describedby="portal-documents-meta">
+          <caption class="sr-only">Listado de documentos del portal</caption>
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Promocion</th>
+              <th>Tipo</th>
+              <th>Publicacion</th>
+              <th>Fecha</th>
+              <th>Descarga</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody id="portal-documents-tbody">
+            <tr><td colspan="7">Cargando documentos...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-portal-feedback" class="crm-feedback" role="status" aria-live="polite">
+        Listo para operar.
+      </p>
+    </section>
+  </div>
+  <script is:inline src="/crm/portal.js"></script>
+</CrmLayout>

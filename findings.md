@@ -1,34 +1,40 @@
 # Findings
 
-- En promociones padre de Fuengirola y Mijas hay cuatro clusters SEO distintos:
-- `Sunhill` (`A0126`): unifamiliares/adosados en Fuengirola, desde `298000`.
-- `Luminal Home` (`PM00642`): unifamiliares en Fuengirola - Torreblanca, desde `249000`.
-- `White Hills` (`PM0084`): villas de obra nueva en Fuengirola - Mijas / Torreblanca, desde `764320`.
-- `Calahonda Sunset` (`PM0011`) y `Almitak` (`PM0074`): apartamentos de obra nueva en Mijas.
+## 2026-03-13
 
-- El mayor riesgo de canibalizacion de `Sunhill` no esta en Mijas sino en Fuengirola, frente a `Luminal Home` y `White Hills`, porque comparten ciudad y mercado `obra_nueva`.
-- `Sunhill` estaba demasiado generico en SEO:
-- slug ES: `obra-nueva-sunhill-fuengirola`
-- focus keyphrase ES: `obra nueva sunhill fuengirola`
-- meta ES: `Promocion de unifamiliares de obra nueva...`
-
-- `White Hills` ya esta muy bien encapsulada por marca + tipologia `villas` + `Fuengirola - Mijas`.
-- `Luminal Home` ya esta encapsulada por marca + `Fuengirola - Torreblanca`.
-- Para no pisarlas, `Sunhill` debe reforzar:
-- marca `Sunhill`
-- tipologia `adosados`
-- ciudad `Fuengirola`
-- rango de entrada `desde 298.000 EUR`
-
-- Ajuste aplicado:
-- `A0126` pasa de un enfoque generico `obra nueva sunhill fuengirola` a `adosados obra nueva fuengirola sunhill`.
-- `A0126-P1` se orienta a `adosado obra nueva sunhill fuengirola planta 1`.
-- `A0126-AT` se orienta a `atico obra nueva sunhill fuengirola`.
-
-- La diferenciacion final queda asi:
-- `Sunhill`: adosados / unifamiliares de acceso en Fuengirola.
-- `Luminal Home`: unifamiliares en Torreblanca.
-- `White Hills`: villas premium en Fuengirola - Mijas / Torreblanca.
-- `Calahonda Sunset` y `Almitak`: apartamentos de obra nueva en Mijas.
-
-- Riesgo residual detectado fuera de `Sunhill`: `PM0074` tiene `city/area` en Mijas pero title/meta/keyphrase orientados a Manilva. No afecta a esta tarea, pero conviene revisarlo aparte.
+- Surface-based deployment already works through `APP_DEPLOY_SURFACE=web|crm` in `src/middleware.ts`.
+- The repo has real app entrypoints:
+  - `apps/web`
+  - `apps/crm`
+- The root app still works because legacy `src/pages/*` routes are thin wrappers that forward into the app-specific trees.
+- Both separated surfaces build independently:
+  - `npm run build:web` -> `dist/web`
+  - `npm run build:crm` -> `dist/crm`
+- `apps/web/src` and `apps/crm/src` no longer import `@/utils/*` directly.
+- The public-property and presentation helper graph is canonical in `packages/shared`.
+- CRM and portal auth/access are now also canonical in `packages/shared`:
+  - `@shared/crm/auth`
+  - `@shared/crm/access`
+  - `@shared/portal/auth`
+  - `@shared/portal/email`
+- The heavier CRM domain cores are now canonical in `packages/shared` too:
+  - `@shared/portal/domain`
+  - `@shared/properties/domain`
+  - `@shared/clients/domain`
+- Additional support/storage modules are now canonical in `packages/shared`:
+  - `@shared/leads/domain`
+  - `@shared/properties/storage`
+  - `@shared/properties/mockStore`
+  - `@shared/clients/documentsStorage`
+- The remaining agency modules are now canonical in `packages/shared` too:
+  - `@shared/agencies/analytics`
+  - `@shared/agencies/crud`
+- The corresponding files under `src/utils/*` for those modules are now compatibility wrappers that re-export from `@shared/*`.
+- Remaining work is no longer about core/shared business logic. It is now cleanup:
+  - trimming old compatibility wrappers where safe
+  - removing residual root-only aliases/imports
+  - finalizing deploy/docs around `apps/web`, `apps/crm`, and `packages/shared`
+- Current validation status after the latest migration step:
+  - `npm run build:web` OK
+  - `npm run build:crm` OK
+  - `npm run build` OK

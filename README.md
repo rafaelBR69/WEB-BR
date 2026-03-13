@@ -15,6 +15,13 @@ Web inmobiliaria multidioma (Astro) con:
 2. `npm run dev`
 3. abrir `http://localhost:4321`
 
+### Superficies locales
+
+- `npm run dev:web` para probar solo la superficie web/portal
+- `npm run dev:crm:surface` para probar solo la superficie CRM
+- `cd apps/web && npm run dev` para usar el entrypoint dedicado de web
+- `cd apps/crm && npm run dev` para usar el entrypoint dedicado de CRM
+
 ## Variables de entorno
 
 En `.env`:
@@ -27,6 +34,13 @@ En `.env`:
 - `RESEND_PORTAL_APPROVAL_TEMPLATE_ID` (opcional, plantilla concreta de Resend para aprobacion portal)
 
 ## Despliegue en Vercel
+
+Este repo soporta dos superficies compatibles durante la separacion gradual:
+
+- `APP_DEPLOY_SURFACE=web`
+- `APP_DEPLOY_SURFACE=crm`
+
+### Web publica
 
 Para desplegar solo la web publica desde este mismo repo:
 
@@ -42,6 +56,60 @@ Con `APP_DEPLOY_SURFACE=web`:
 - se mantienen disponibles `POST /api/v1/leads`, `GET /api/v1/health` y `/api/v1/portal/*`
 
 La config de Astro cambia automaticamente al adapter de Vercel cuando el build corre dentro de Vercel.
+
+### CRM
+
+Para desplegar solo el CRM desde este mismo repo:
+
+1. Crea un segundo proyecto en Vercel apuntando tambien a la raiz del repo.
+2. Usa el comando de build `npm run build`.
+3. Anade la variable `APP_DEPLOY_SURFACE=crm`.
+
+Con `APP_DEPLOY_SURFACE=crm`:
+
+- `/crm/*` sigue disponible
+- `/api/v1/crm/*` sigue disponible
+- `/` redirige a `/crm/`
+- la web publica y el portal quedan fuera de ese despliegue
+
+## Shared layer
+
+`packages/shared/` ya es la fuente canonica del negocio compartido durante la separacion:
+
+- acceso a Supabase
+- helpers JSON/API
+- dominio de portal
+- auth y access CRM
+- propiedades, clientes, leads y agencies
+- storage de propiedades y documentos
+
+`src/utils/*` sigue existiendo como capa de compatibilidad mientras la raiz del repo mantiene wrappers y rutas legacy. El codigo nuevo debe ir a:
+
+- `packages/shared/src/*` para logica compartida
+- `apps/web/src/*` para web y portal
+- `apps/crm/src/*` para CRM
+
+Alias disponibles:
+
+- `@/*` -> `src/*`
+- `@shared/*` -> `packages/shared/src/*`
+
+## Entry points dedicados
+
+Ya existen configuraciones Astro separadas para:
+
+- `apps/web/astro.config.mjs`
+- `apps/crm/astro.config.mjs`
+
+Ambas siguen reutilizando el codigo fuente actual del repo durante la migracion, pero ya generan salida independiente:
+
+- `dist/web`
+- `dist/crm`
+
+Nota:
+
+- `npm run build:web` y `npm run build:crm` pueden ejecutarse por separado sin problema
+- si lanzas `npm run build` a la vez que otro build de superficie puede aparecer un `EPERM` sobre `dist/web`; ejecutado en solitario funciona correctamente
 
 ## Documentacion completa
 

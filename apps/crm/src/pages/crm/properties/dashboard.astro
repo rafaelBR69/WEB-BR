@@ -1,0 +1,155 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Propiedades | Dashboard" section="properties">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <div class="crm-row-between">
+        <div>
+          <p class="crm-context-eyebrow">Propiedades</p>
+          <h2>Dashboard operativo</h2>
+          <p>Lectura rapida de inventario, disponibilidad y foco comercial por promocion.</p>
+        </div>
+        <nav class="crm-links crm-subpage-links" aria-label="Navegacion modulo propiedades">
+          <a class="crm-link is-active" href="/crm/properties/dashboard/">Dashboard</a>
+          <a class="crm-link" href="/crm/properties/listado/">Listado</a>
+          <a class="crm-link" href="/crm/properties/nueva/">Nueva propiedad</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <form id="property-filter-form" class="crm-form crm-form-compact">
+        <label>Buscar promocion o referencia <input name="q" type="search" placeholder="White Hills o PM0084" /></label>
+        <label>Modelo negocio
+          <select name="project_business_type">
+            <option value="">Todos</option>
+            <option value="owned_and_commercialized">Propia y comercializada</option>
+            <option value="provider_and_commercialized_by_us">Proveedor + comercializamos</option>
+            <option value="external_listing">Captacion externa</option>
+          </select>
+        </label>
+        <label>Estado
+          <select name="status">
+            <option value="">Todos</option>
+            <option value="draft">Borrador</option>
+            <option value="available">Disponible</option>
+            <option value="reserved">Reservada</option>
+            <option value="sold">Vendida</option>
+            <option value="rented">Alquilada</option>
+            <option value="private">Privada</option>
+            <option value="archived">Archivada</option>
+          </select>
+        </label>
+        <label>Portal
+          <select name="portal_enabled">
+            <option value="">Todas</option>
+            <option value="enabled">Publicadas en portal</option>
+            <option value="disabled">Fuera de portal</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar filtros</button>
+          <button id="property-filters-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+        </div>
+      </form>
+      <p id="properties-meta" class="crm-inline-note"></p>
+      <p id="properties-dashboard-summary" class="crm-inline-note">
+        Cargando distribucion por obra nueva, segunda mano y promociones propias...
+      </p>
+      <div id="properties-kpi-grid" class="crm-grid crm-properties-kpi-grid">
+        <article class="crm-card crm-kpi">
+          <strong>-</strong>
+          <p>Total propiedades</p>
+        </article>
+        <article class="crm-card crm-kpi">
+          <strong>-</strong>
+          <p>Disponibles</p>
+        </article>
+        <article class="crm-card crm-kpi">
+          <strong>-</strong>
+          <p>Promociones</p>
+        </article>
+        <article class="crm-card crm-kpi">
+          <strong>-</strong>
+          <p>Viviendas de promocion</p>
+        </article>
+      </div>
+      <div id="properties-status-board" class="crm-status-board">
+        <p class="crm-inline-note">Calculando estados...</p>
+      </div>
+      <div id="properties-dashboard-groups" class="crm-dashboard-groups">
+        <article class="crm-dashboard-column">
+          <h3>Obra nueva</h3>
+          <p class="crm-inline-note">Cargando promociones...</p>
+        </article>
+        <article class="crm-dashboard-column">
+          <h3>Segunda mano</h3>
+          <p class="crm-inline-note">Cargando promociones...</p>
+        </article>
+        <article class="crm-dashboard-column">
+          <h3>Promociones nuestras</h3>
+          <p class="crm-inline-note">Cargando promociones...</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Promociones con mas disponibilidad</h3>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Promocion</th>
+              <th>Modelo negocio</th>
+              <th>Portal</th>
+              <th>Estado promocion</th>
+              <th>Total viviendas</th>
+              <th>Disponibles</th>
+              <th>Reservadas</th>
+              <th>Vendidas/alquiladas</th>
+            </tr>
+          </thead>
+          <tbody id="properties-promotions-tbody">
+            <tr><td colspan="8">Cargando promociones...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Conexion real proyecto-cliente</h3>
+      <p class="crm-inline-note">
+        Cruce entre propiedades CRM y reservas de clientes por promocion (clientes vinculados reales).
+      </p>
+      <p id="properties-client-link-summary" class="crm-inline-note">
+        Cargando conexion proyecto-cliente...
+      </p>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Promocion</th>
+              <th>Viviendas</th>
+              <th>Disponibles</th>
+              <th>Clientes</th>
+              <th>Reservas</th>
+              <th>Activas</th>
+              <th>% activa</th>
+              <th>Res/cliente</th>
+              <th>Estado lider</th>
+            </tr>
+          </thead>
+          <tbody id="properties-client-link-tbody">
+            <tr><td colspan="9">Cargando vinculacion...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="properties-feedback" class="crm-feedback">Listo para operar.</p>
+    </section>
+  </div>
+  <script is:inline src="/crm/properties.js"></script>
+</CrmLayout>
