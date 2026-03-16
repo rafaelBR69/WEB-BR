@@ -24,10 +24,10 @@ export type TeamCategory = (typeof TEAM_CATEGORY_ORDER)[number];
 
 const teamMembers = [
   xavierDeHennin,
-  natascha,
   eva,
   marcelo,
   yolanda,
+  natascha,
   maria,
   noemi,
   tanis,

@@ -71,8 +71,10 @@
   align-items: center;
 }
 
-.brand-logo-mobile-only .brand-logo-icon {
-  width: clamp(36px, 8vw, 42px);
+.brand-logo-mobile-only img {
+  display: block;
+  width: clamp(146px, 42vw, 182px);
+  height: auto;
 }
 
 .main-header-landing .brand-logo a {

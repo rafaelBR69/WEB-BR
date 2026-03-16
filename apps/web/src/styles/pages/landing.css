@@ -131,12 +131,89 @@
   text-wrap: balance;
 }
 
-.landing-intro p:last-child {
+.landing-intro-subtitle {
   margin: 0;
   max-width: 62ch;
   color: rgba(32, 47, 78, 0.8);
   font-size: clamp(0.98rem, 1.05vw, 1.08rem);
   line-height: 1.75;
+}
+
+.landing-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.15rem;
+}
+
+.landing-intro-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.82rem 1.25rem;
+  border: 1px solid #202f4e;
+  background: #202f4e;
+  color: #f7f8f8;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.landing-intro-cta:hover {
+  background: #d32c43;
+  border-color: #d32c43;
+}
+
+.landing-intro-cta.is-secondary {
+  background: transparent;
+  color: #202f4e;
+}
+
+.landing-intro-cta.is-secondary:hover {
+  background: rgba(32, 47, 78, 0.06);
+  border-color: #202f4e;
+  color: #202f4e;
+}
+
+.landing-intro-trust {
+  list-style: none;
+  width: min(100%, 980px);
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.landing-intro-trust-item {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(32, 47, 78, 0.1);
+  background: #ffffff;
+}
+
+.landing-intro-trust-item strong {
+  color: #202f4e;
+  font-size: 1.02rem;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.landing-intro-trust-item span {
+  color: rgba(32, 47, 78, 0.68);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .landing-services-mobile-head,
@@ -752,8 +829,11 @@
   display: inline-block;
 }
 
-.footer-brand-logo .brand-logo-stacked {
-  max-width: 150px;
+.footer-brand-logo img {
+  display: block;
+  width: 150px;
+  max-width: 100%;
+  height: auto;
 }
 
 .landing-footer h2 {
@@ -950,10 +1030,19 @@
     text-wrap: balance;
   }
 
-  .landing-intro p:last-child {
+  .landing-intro-subtitle {
     max-width: 32ch;
     font-size: 0.95rem;
     line-height: 1.72;
+  }
+
+  .landing-intro-actions {
+    width: 100%;
+  }
+
+  .landing-intro-trust {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
   }
 
   .landing-about-z.container {
@@ -1192,9 +1281,22 @@
     max-width: 12ch;
   }
 
-  .landing-intro p:last-child,
+  .landing-intro-subtitle,
   .z-copy p {
     font-size: 0.92rem;
+  }
+
+  .landing-intro-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .landing-intro-cta {
+    width: 100%;
+  }
+
+  .landing-intro-trust {
+    grid-template-columns: 1fr;
   }
 
   .landing-pillars-grid .pillar-card,

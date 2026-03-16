@@ -1,0 +1,238 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import BrandLogo from "@webapp/components/BrandLogo.astro";
+import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@shared/i18n/languages";
+import "@webapp/styles/pages/portal.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/portal/properties/`, 302);
+}
+
+const lang = langParam;
+const defaultOrganizationId = String(
+  import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? ""
+).trim();
+
+const copyByLang = {
+  es: {
+    title: "Portal | Propiedades",
+    description: "Listado privado de propiedades autorizadas dentro del portal.",
+    heading: "Propiedades autorizadas",
+    intro:
+      "Consulta las viviendas disponibles de tus promociones autorizadas sin salir del portal privado.",
+    loadingTitle: "Validando acceso...",
+    loadingText: "Cargando propiedades autorizadas...",
+    refreshCta: "Actualizar propiedades",
+    logoutCta: "Cerrar sesion",
+    searchLabel: "Buscar propiedad",
+    searchPlaceholder: "referencia, proyecto, planta",
+    searchHelp: "Busca por referencia, nombre del proyecto o planta.",
+    propertiesTitle: "Viviendas visibles",
+    propertiesHint: "Solo se muestran unidades disponibles vinculadas a promociones autorizadas para tu cuenta.",
+    projectsStat: "Promociones",
+    propertiesStat: "Propiedades",
+    noProperties: "No hay propiedades disponibles para esta cuenta en este momento.",
+    loadingState: "Cargando propiedades...",
+  },
+  en: {
+    title: "Portal | Properties",
+    description: "Private list of authorized properties inside the portal.",
+    heading: "Authorized properties",
+    intro:
+      "Review available units from your authorized projects without leaving the private portal.",
+    loadingTitle: "Validating access...",
+    loadingText: "Loading authorized properties...",
+    refreshCta: "Refresh properties",
+    logoutCta: "Sign out",
+    searchLabel: "Search property",
+    searchPlaceholder: "reference, project, floor",
+    searchHelp: "Search by reference, project name or floor.",
+    propertiesTitle: "Visible units",
+    propertiesHint: "Only available units linked to projects authorized for your account are shown.",
+    projectsStat: "Projects",
+    propertiesStat: "Properties",
+    noProperties: "There are no available properties for this account right now.",
+    loadingState: "Loading properties...",
+  },
+};
+
+const t = (copyByLang as Record<string, (typeof copyByLang)["es"]>)[lang] ?? copyByLang.en;
+---
+
+<BaseLayout
+  title={`${t.title} | BlancaReal`}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+  showMobileStickyCta={false}
+>
+  <div id="portal-auth-loading" class="portal-auth-loading" role="status" aria-live="polite">
+    <div class="portal-auth-loading-card">
+      <div class="portal-auth-loading-ring" aria-hidden="true"></div>
+      <p class="portal-auth-loading-label">{t.loadingTitle}</p>
+      <p class="portal-auth-loading-copy" data-portal-loading-text>{t.loadingText}</p>
+    </div>
+  </div>
+
+  <div id="portal-private-shell" hidden>
+    <div class="portal-scene">
+      <aside class="portal-sidebar desktop-only">
+        <div class="sidebar-brand">
+          <BrandLogo variant="wordmark" href={`/${lang}/`} />
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href={`/${lang}/portal/`} class="nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Dashboard
+          </a>
+          <a href={`/${lang}/portal/properties/`} class="nav-item active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Properties
+          </a>
+          <a href="#" class="nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Documents
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button id="portal-properties-logout" class="logout-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            {t.logoutCta}
+          </button>
+        </div>
+      </aside>
+
+      <main class="portal-main">
+        <header class="portal-header">
+          <div class="header-welcome">
+            <h1>{t.heading}</h1>
+            <p>{t.intro}</p>
+          </div>
+          <div class="header-actions">
+            <button id="portal-properties-refresh" class="btn-refresh" title={t.refreshCta}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="portal-content-grid">
+          <div class="portal-stats">
+            <div class="stat-card">
+              <div class="stat-icon luxury-gold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">{t.projectsStat}</span>
+                <strong id="portal-properties-project-count">0</strong>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon luxury-blue">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">{t.propertiesStat}</span>
+                <strong id="portal-properties-unit-count">0</strong>
+              </div>
+            </div>
+          </div>
+
+          <section class="luxury-section portal-properties-section">
+            <div class="section-header">
+              <div>
+                <h2>{t.propertiesTitle}</h2>
+                <p>{t.propertiesHint}</p>
+              </div>
+              <label class="portal-search" aria-label={t.searchLabel}>
+                <span class="portal-search-label">{t.searchLabel}</span>
+                <input id="portal-properties-search" type="search" class="portal-search-input" placeholder={t.searchPlaceholder} />
+                <small class="portal-search-help">{t.searchHelp}</small>
+              </label>
+            </div>
+
+            <div id="portal-properties-list" class="portal-properties-grid">
+              <div class="portal-empty">{t.noProperties}</div>
+            </div>
+          </section>
+        </div>
+
+        <footer class="portal-footer">
+          <p id="portal-properties-feedback" class="status-indicator" role="status" aria-live="polite">
+            {t.loadingState}
+          </p>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap');
+
+    #portal-auth-loading[hidden],
+    #portal-private-shell[hidden] { display: none !important; }
+    .portal-auth-loading { min-height: 100vh; display: grid; place-items: center; padding: 32px 20px; background: radial-gradient(circle at top, rgba(222,31,56,0.08), transparent 32%), linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%); }
+    .portal-auth-loading-card { width: min(100%, 420px); padding: 32px 28px; border-radius: 24px; background: rgba(255,255,255,0.92); border: 1px solid rgba(15,23,42,0.08); box-shadow: 0 24px 60px rgba(15,23,42,0.12); text-align: center; }
+    .portal-auth-loading-ring { width: 44px; height: 44px; margin: 0 auto 18px; border-radius: 999px; border: 3px solid rgba(15,23,42,0.12); border-top-color: #de1f38; animation: portal-auth-spin 0.85s linear infinite; }
+    .portal-auth-loading-label { margin: 0; font-size: 1rem; font-weight: 600; color: #0f172a; }
+    .portal-auth-loading-copy { margin: 8px 0 0; color: #475569; font-size: 0.95rem; }
+    @keyframes portal-auth-spin { to { transform: rotate(360deg); } }
+    .portal-scene { display: flex; min-height: 100vh; background: #f8fafc; font-family: 'Outfit', sans-serif; color: #0f172a; }
+    .portal-sidebar { width: 260px; background: #00152e; color: white; display: flex; flex-direction: column; padding: 40px 0; position: sticky; top: 0; height: 100vh; border-right: 1px solid rgba(255,255,255,0.05); }
+    .sidebar-brand { padding: 0 32px 40px; }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
+    .nav-item { display: flex; align-items: center; gap: 16px; padding: 16px 32px; color: rgba(255,255,255,0.5); text-decoration: none; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); font-weight: 500; font-size: 0.9rem; border-left: 3px solid transparent; letter-spacing: 0.3px; }
+    .nav-item:hover { color: white; background: rgba(255,255,255,0.03); }
+    .nav-item.active { color: white; background: rgba(212,175,55,0.05); border-left-color: #D4AF37; }
+    .sidebar-footer { padding: 24px 32px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .logout-link { display: flex; align-items: center; gap: 10px; background: transparent; border: 0; color: rgba(255,255,255,0.6); cursor: pointer; font-family: inherit; }
+    .portal-main { flex-grow: 1; padding: 40px 60px; max-width: 1400px; margin: 0 auto; width: 100%; min-width: 0; }
+    .portal-header, .section-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+    .portal-header { margin-bottom: 32px; }
+    .header-welcome h1 { margin: 0 0 8px; font-size: clamp(2rem, 2vw, 2.7rem); }
+    .header-welcome p, .section-header p { margin: 0; color: #64748b; }
+    .portal-content-grid { display: grid; gap: 24px; }
+    .portal-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .stat-card, .luxury-section { background: white; border-radius: 22px; border: 1px solid rgba(15,23,42,0.08); box-shadow: 0 18px 40px rgba(15,23,42,0.08); }
+    .stat-card { padding: 22px; display: flex; gap: 16px; align-items: center; }
+    .stat-icon { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; color: #fff; }
+    .luxury-gold { background: linear-gradient(135deg, #b78a2a, #e6c16b); }
+    .luxury-blue { background: linear-gradient(135deg, #0f4c81, #3f89c5); }
+    .stat-label { display: block; color: #64748b; font-size: 0.88rem; margin-bottom: 4px; }
+    .stat-info strong { font-size: 1.8rem; line-height: 1; }
+    .portal-properties-section { padding: 26px; }
+    .section-header h2 { margin: 0 0 8px; font-size: 1.5rem; }
+    .portal-search { min-width: min(100%, 320px); display: grid; gap: 8px; }
+    .portal-search-label { font-size: 0.85rem; font-weight: 600; color: #334155; }
+    .portal-search-input { width: 100%; min-height: 46px; border-radius: 14px; border: 1px solid rgba(148,163,184,0.35); padding: 0 14px; font: inherit; }
+    .portal-search-help { color: #64748b; font-size: 0.8rem; }
+    .portal-properties-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    :global(.portal-property-card) { background: #f8fafc; border: 1px solid rgba(15,23,42,0.08); border-radius: 18px; padding: 18px; display: grid; gap: 10px; }
+    :global(.portal-item-title) { margin: 0; font-size: 1.06rem; font-weight: 600; color: #0f172a; }
+    :global(.portal-item-meta) { margin: 0; color: #64748b; font-size: 0.92rem; }
+    :global(.portal-badges) { display: flex; flex-wrap: wrap; gap: 8px; }
+    :global(.portal-badge) { border-radius: 999px; padding: 5px 10px; font-size: 0.75rem; font-weight: 600; }
+    :global(.portal-badge.ok) { background: #ecfdf5; color: #059669; }
+    :global(.portal-badge.warn) { background: #fff7ed; color: #c2410c; }
+    :global(.portal-badge.danger) { background: #fef2f2; color: #dc2626; }
+    :global(.portal-actions) { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    :global(.portal-button-soft) { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 14px; border-radius: 12px; background: #00152e; color: white; text-decoration: none; border: 0; cursor: pointer; font: inherit; }
+    .portal-empty { padding: 24px; text-align: center; color: #64748b; border: 1px dashed rgba(148,163,184,0.4); border-radius: 18px; background: #f8fafc; }
+    .status-indicator { color: #64748b; margin: 28px 0 0; }
+    @media (max-width: 980px) { .portal-sidebar { display: none; } .portal-main { padding: 30px 20px; } .portal-header, .section-header { flex-direction: column; } .portal-stats { grid-template-columns: 1fr; } .portal-search { min-width: 100%; } }
+    @media (max-width: 640px) { .portal-main { padding: 22px 14px 28px; } .portal-properties-section { padding: 18px; border-radius: 18px; } .portal-properties-grid { grid-template-columns: 1fr; } }
+  </style>
+
+  <script is:inline define:vars={{ defaultOrganizationId, lang }}>
+    window.__portalBootstrap = {
+      ...(window.__portalBootstrap || {}),
+      lang,
+      defaultOrganizationId,
+    };
+  </script>
+  <script type="module" src="/portal/properties.js"></script>
+</BaseLayout>

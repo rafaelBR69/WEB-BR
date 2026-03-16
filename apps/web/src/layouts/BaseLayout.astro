@@ -275,7 +275,15 @@ const shouldLoadPublicRealtime =
       <div class="header-container">
         <div class="brand-logo">
           <BrandLogo variant="wordmark" href={`/${lang}/`} class="brand-logo-main" />
-          <BrandLogo variant="icon" href={`/${lang}/`} class="brand-logo-mobile-only" />
+          <a href={`/${lang}/`} class="brand-logo-mobile-only" aria-label="BlancaReal">
+            <img
+              src="/logos/blanca_real_logo_principal.png"
+              alt="BlancaReal"
+              width="182"
+              height="44"
+              loading="eager"
+            />
+          </a>
         </div>
 
         {isLandingHeader ? (

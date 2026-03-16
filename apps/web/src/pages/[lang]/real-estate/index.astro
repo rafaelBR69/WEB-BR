@@ -26,6 +26,8 @@ const headerNavItems = [
   { href: `/${lang}/contact/`, label: ui.layout.navContact },
 ];
 
+const propertiesPath = `/${lang}/properties/`;
+
 const copyByLang = {
   es: {
     title: "BlancaReal | Real Estate Costa del Sol",
@@ -327,7 +329,7 @@ const mapFeatures = buildMapFeatures(properties, lang);
 
   <section class="home-search-wrap">
       <div class="container">
-        <form class="home-search" method="get" action={`/${lang}/properties/`} id="homeSearchForm">
+        <form class="home-search" method="get" action={propertiesPath} id="homeSearchForm">
           <div class="search-header">
             <h2>{t.searchTitle}</h2>
             <p>{t.searchHint}</p>

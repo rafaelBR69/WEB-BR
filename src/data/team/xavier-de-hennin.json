@@ -3,12 +3,12 @@
   "category": "ceo",
   "name": "Xavier de Hennin",
   "role": {
-    "es": "CEO & Director Comercial",
-    "en": "CEO & Sales Director",
-    "de": "CEO & Verkaufsdirektor",
-    "fr": "CEO & Directeur Commercial",
-    "it": "CEO & Direttore Commerciale",
-    "nl": "CEO & Commercieel Directeur"
+    "es": "CEO",
+    "en": "CEO",
+    "de": "CEO",
+    "fr": "CEO",
+    "it": "CEO",
+    "nl": "CEO"
   },
   "spoken_languages": [
     "es",

@@ -1,14 +1,14 @@
 {
   "id": "natascha",
   "category": "commercial",
-  "name": "Natascha",
+  "name": "Natascha Taffelli",
   "role": {
-    "es": "Directora Administrativa",
-    "en": "Chief Administrative Officer",
-    "de": "Leiterin Administration",
-    "fr": "Directrice Administrative",
-    "it": "Direttrice Amministrativa",
-    "nl": "Administratief Directeur"
+    "es": "Directora Financiera",
+    "en": "Chief Financial Officer",
+    "de": "Leiterin Finanzen",
+    "fr": "Directrice Financiere",
+    "it": "Direttrice Finanziaria",
+    "nl": "Financieel Directeur"
   },
   "spoken_languages": [
     "es",

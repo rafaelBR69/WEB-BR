@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node scripts/run-surface.mjs web dev --config ./apps/web/astro.config.mjs",
     "dev:web": "node scripts/run-surface.mjs web dev --config ./apps/web/astro.config.mjs",
     "dev:crm": "astro dev --port 4322",
     "dev:crm:surface": "node scripts/run-surface.mjs crm dev --config ./apps/crm/astro.config.mjs --port 4322",

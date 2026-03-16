@@ -12,9 +12,13 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const foundedYear = 1969;
+const yearsActive = new Date().getFullYear() - foundedYear;
+const propertiesPath = `/${lang}/properties/`;
+const contactPath = `/${lang}/contact/`;
 
 const collaboratorLogoModules = import.meta.glob(
-  "../../assets/collaborators/strategic/*.{avif,jpg,jpeg,png,svg,webp}",
+  "../../../../src/assets/collaborators/strategic/*.{avif,jpg,jpeg,png,svg,webp}",
   { eager: true, query: "?url", import: "default" },
 );
 
@@ -40,9 +44,18 @@ const copyByLang = {
     description:
       "BlancaReal integra Real Estate, servicios legales y comercializacion en un unico ecosistema.",
     heroEyebrow: "BlancaReal Group",
-    heroHeading: "Inmobiliaria en Costa del Sol para Real Estate, servicios legales y comercializacion",
+    heroHeading: "Tu propiedad en Costa del Sol, con quien mas la conoce",
     heroText:
-      "BlancaReal conecta compra, venta, comercializacion y asesoramiento legal para clientes, inversores y promotoras en Costa del Sol.",
+      "Costa del Sol desde 1969, con equipo comercial y legal propio para compradores, vendedores e inversores.",
+    heroPrimaryCta: "Ver propiedades",
+    heroSecondaryCta: "Hablar con un agente",
+    heroTrustLabel: "Indicadores de confianza de BlancaReal",
+    heroTrustItems: [
+      { value: "+1.000", label: "familias acompanadas" },
+      { value: `${yearsActive}+`, label: "anos de experiencia" },
+      { value: "6", label: "idiomas" },
+      { value: "Legal propio", label: "soporte juridico integrado" },
+    ],
     pillarsHeading: "Tres lineas de negocio conectadas",
     pillarsText:
       "Accede a cada area desde esta portada principal, con navegacion clara y experiencia unificada.",
@@ -77,9 +90,18 @@ const copyByLang = {
     description:
       "BlancaReal combines Real Estate, legal services and commercialization in one ecosystem.",
     heroEyebrow: "BlancaReal Group",
-    heroHeading: "Costa del Sol real estate, legal services and property commercialization",
+    heroHeading: "Your property on the Costa del Sol, with true local experts",
     heroText:
-      "BlancaReal connects buying, selling, property commercialization and legal advice for clients, investors and developers on the Costa del Sol.",
+      "Costa del Sol since 1969, with in-house sales and legal support for buyers, sellers and investors.",
+    heroPrimaryCta: "View properties",
+    heroSecondaryCta: "Talk to an agent",
+    heroTrustLabel: "BlancaReal trust indicators",
+    heroTrustItems: [
+      { value: "1,000+", label: "families supported" },
+      { value: `${yearsActive}+`, label: "years of experience" },
+      { value: "6", label: "languages" },
+      { value: "In-house legal", label: "integrated legal support" },
+    ],
     pillarsHeading: "Three connected business lines",
     pillarsText:
       "Access each area from this main landing page with a clear and unified navigation.",
@@ -114,9 +136,18 @@ const copyByLang = {
     description:
       "BlancaReal vereint Real Estate, Rechtsservice und Vermarktung in einem Portal.",
     heroEyebrow: "BlancaReal Group",
-    heroHeading: "Immobilien an der Costa del Sol mit Real Estate, Rechtsservice und Vermarktung",
+    heroHeading: "Ihre Immobilie an der Costa del Sol, mit echten lokalen Experten",
     heroText:
-      "BlancaReal verbindet Kauf, Verkauf, Vermarktung und Rechtsberatung fuer Kunden, Investoren und Bautraeger an der Costa del Sol.",
+      "Seit 1969 an der Costa del Sol, mit eigenem Vertriebs- und Rechtsteam fuer Kaeufer, Verkaeufer und Investoren.",
+    heroPrimaryCta: "Immobilien ansehen",
+    heroSecondaryCta: "Mit einem Berater sprechen",
+    heroTrustLabel: "Vertrauensindikatoren von BlancaReal",
+    heroTrustItems: [
+      { value: "1.000+", label: "begleitete Familien" },
+      { value: `${yearsActive}+`, label: "Jahre Erfahrung" },
+      { value: "6", label: "Sprachen" },
+      { value: "Eigenes Legal", label: "integrierte Rechtsbegleitung" },
+    ],
     pillarsHeading: "Drei vernetzte Geschaeftsbereiche",
     pillarsText:
       "Greifen Sie von dieser Startseite klar und einheitlich auf jeden Bereich zu.",
@@ -151,9 +182,18 @@ const copyByLang = {
     description:
       "BlancaReal reunit Real Estate, services juridiques et commercialisation en un seul portail.",
     heroEyebrow: "BlancaReal Group",
-    heroHeading: "Immobilier sur la Costa del Sol avec Real Estate, services juridiques et commercialisation",
+    heroHeading: "Votre bien sur la Costa del Sol, avec de vrais experts locaux",
     heroText:
-      "BlancaReal relie achat, vente, commercialisation et conseil juridique pour clients, investisseurs et promoteurs sur la Costa del Sol.",
+      "Costa del Sol depuis 1969, avec equipe commerciale et juridique interne pour acheteurs, vendeurs et investisseurs.",
+    heroPrimaryCta: "Voir les proprietes",
+    heroSecondaryCta: "Parler a un agent",
+    heroTrustLabel: "Indicateurs de confiance BlancaReal",
+    heroTrustItems: [
+      { value: "1 000+", label: "familles accompagnees" },
+      { value: `${yearsActive}+`, label: "ans d experience" },
+      { value: "6", label: "langues" },
+      { value: "Legal interne", label: "support juridique integre" },
+    ],
     pillarsHeading: "Trois lignes d activite connectees",
     pillarsText:
       "Accedez a chaque pole depuis cette page principale avec une navigation claire.",
@@ -188,9 +228,18 @@ const copyByLang = {
     description:
       "BlancaReal unisce Real Estate, servizi legali e commercializzazione in un unico portale.",
     heroEyebrow: "BlancaReal Group",
-    heroHeading: "Immobiliare in Costa del Sol con Real Estate, servizi legali e commercializzazione",
+    heroHeading: "La tua proprieta in Costa del Sol, con veri esperti locali",
     heroText:
-      "BlancaReal collega acquisto, vendita, commercializzazione e consulenza legale per clienti, investitori e promotori in Costa del Sol.",
+      "Costa del Sol dal 1969, con team commerciale e legale interno per acquirenti, venditori e investitori.",
+    heroPrimaryCta: "Vedi proprieta",
+    heroSecondaryCta: "Parla con un agente",
+    heroTrustLabel: "Indicatori di fiducia BlancaReal",
+    heroTrustItems: [
+      { value: "1.000+", label: "famiglie seguite" },
+      { value: `${yearsActive}+`, label: "anni di esperienza" },
+      { value: "6", label: "lingue" },
+      { value: "Legal interno", label: "supporto giuridico integrato" },
+    ],
     pillarsHeading: "Tre linee di business connesse",
     pillarsText:
       "Accedi a ogni area da questa home principale con navigazione chiara e unificata.",
@@ -225,9 +274,18 @@ const copyByLang = {
     description:
       "BlancaReal combineert Real Estate, juridische diensten en commercialisatie in een portal.",
     heroEyebrow: "BlancaReal Group",
-    heroHeading: "Vastgoed aan de Costa del Sol met real estate, juridische diensten en commercialisatie",
+    heroHeading: "Uw woning aan de Costa del Sol, met echte lokale experts",
     heroText:
-      "BlancaReal verbindt kopen, verkopen, commercialisatie en juridisch advies voor klanten, investeerders en ontwikkelaars aan de Costa del Sol.",
+      "Sinds 1969 actief aan de Costa del Sol, met eigen sales- en juridisch team voor kopers, verkopers en investeerders.",
+    heroPrimaryCta: "Bekijk woningen",
+    heroSecondaryCta: "Praat met een agent",
+    heroTrustLabel: "Vertrouwensindicatoren van BlancaReal",
+    heroTrustItems: [
+      { value: "1.000+", label: "begeleide families" },
+      { value: `${yearsActive}+`, label: "jaar ervaring" },
+      { value: "6", label: "talen" },
+      { value: "Eigen legal", label: "geintegreerde juridische steun" },
+    ],
     pillarsHeading: "Drie verbonden businesslijnen",
     pillarsText:
       "Ga vanuit deze hoofdlanding naar elk domein met duidelijke en uniforme navigatie.",
@@ -837,9 +895,21 @@ const currentYear = new Date().getFullYear();
   </section>
 
   <section class="landing-intro container">
-    <p class="landing-intro-kicker">{t.pillarsHeading}</p>
+    <p class="landing-intro-kicker">{t.heroEyebrow}</p>
     <h1>{t.heroHeading}</h1>
-    <p>{t.heroText}</p>
+    <p class="landing-intro-subtitle">{t.heroText}</p>
+    <div class="landing-intro-actions">
+      <a href={propertiesPath} class="landing-intro-cta">{t.heroPrimaryCta}</a>
+      <a href={contactPath} class="landing-intro-cta is-secondary">{t.heroSecondaryCta}</a>
+    </div>
+    <ul class="landing-intro-trust" aria-label={t.heroTrustLabel}>
+      {t.heroTrustItems.map((item) => (
+        <li class="landing-intro-trust-item">
+          <strong>{item.value}</strong>
+          <span>{item.label}</span>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <section class="landing-about-z container">
@@ -990,7 +1060,15 @@ const currentYear = new Date().getFullYear();
   <footer class="landing-footer">
     <div class="container landing-footer-grid">
       <section class="footer-brand">
-        <BrandLogo variant="stacked" href={`/${lang}/`} class="footer-brand-logo" loading="lazy" />
+        <a href={`/${lang}/`} class="footer-brand-logo" aria-label="BlancaReal">
+          <img
+            src="/logos/blanca_real_logo_secundario_blanco.png"
+            alt="BlancaReal"
+            width="150"
+            height="145"
+            loading="lazy"
+          />
+        </a>
         <p>{extra.footerTagline}</p>
       </section>
 
