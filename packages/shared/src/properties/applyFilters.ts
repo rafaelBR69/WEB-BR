@@ -1,4 +1,7 @@
-import { normalizeSearchText } from "@shared/properties/search";
+import {
+  normalizeSearchText,
+  scoreSearchQueryMatch,
+} from "@shared/properties/search";
 import {
   isVillaFloorLabel,
   normalizeFloorFilterLabel,
@@ -28,6 +31,8 @@ export function applyFilters(cards: any[], filters: any) {
     hasTextSearch;
 
   return cards.filter((card) => {
+    let searchScore = 0;
+
     if (!card.visible) return false;
     if (card.status === "sold") return false;
 
@@ -107,16 +112,24 @@ export function applyFilters(cards: any[], filters: any) {
         .filter(Boolean)
         .map((value) => normalizeSearchText(value));
 
-      const matchedRef = refCandidates.some((value) => value.includes(refQuery));
+      const exactRefMatch = refCandidates.some((value) => value === refQuery);
+      const partialRefMatch = exactRefMatch || refCandidates.some((value) => value.includes(refQuery));
+      const matchedRef = partialRefMatch;
       if (!matchedRef) return false;
+      searchScore += exactRefMatch ? 40 : 22;
     }
 
     if (searchTerms.length > 0) {
-      const haystack = card.searchText ?? "";
-      const matched = searchTerms.every((term) => haystack.includes(term));
-      if (!matched) return false;
+      const matchResult = scoreSearchQueryMatch(
+        searchQuery,
+        card.searchText ?? "",
+        card.searchTokens ?? []
+      );
+      if (!matchResult.matched) return false;
+      searchScore += matchResult.score;
     }
 
+    card.searchScore = searchScore;
     return true;
   });
 }

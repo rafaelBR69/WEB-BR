@@ -388,8 +388,13 @@ const filteredCards = applyFilters(cards, activeFilters);
 ========================= */
 const sort = searchParams.get("sort");
 const sortApplied = sort ?? "priority";
+const hasSearchIntent = Boolean(activeFilters.search || activeFilters.ref);
 
 const sortedCards = [...filteredCards].sort((a, b) => {
+  if (hasSearchIntent) {
+    const bySearchScore = (b.searchScore ?? 0) - (a.searchScore ?? 0);
+    if (bySearchScore !== 0) return bySearchScore;
+  }
   if (sortApplied === "price_desc") return b.price - a.price;
   if (sortApplied === "price_asc") return a.price - b.price;
   if (a.isPromotion && b.isPromotion) {

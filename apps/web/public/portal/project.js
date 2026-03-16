@@ -43,6 +43,9 @@ const contentList = document.getElementById("portal-project-content");
 const unitsList = document.getElementById("portal-project-units");
 const documentsList = document.getElementById("portal-project-documents");
 const docsSearch = document.getElementById("portal-documents-search");
+const loadingShell = document.getElementById("portal-auth-loading");
+const loadingShellText = document.querySelector("[data-portal-loading-text]");
+const privateShell = document.getElementById("portal-private-shell");
 
 const state = {
   session: null,
@@ -76,6 +79,20 @@ const setFeedback = (message, kind = "warn") => {
   if (kind === "ok") feedback.classList.add("is-ok");
   else if (kind === "error") feedback.classList.add("is-error");
   else feedback.classList.add("is-warn");
+};
+
+const setLoadingMessage = (message) => {
+  if (!(loadingShellText instanceof HTMLElement)) return;
+  loadingShellText.textContent = message;
+};
+
+const showPrivateShell = () => {
+  if (privateShell instanceof HTMLElement) {
+    privateShell.removeAttribute("hidden");
+  }
+  if (loadingShell instanceof HTMLElement) {
+    loadingShell.setAttribute("hidden", "");
+  }
 };
 
 const redirectToLogin = (reason = null) => {
@@ -354,8 +371,11 @@ const refreshAll = async () => {
   const session = await ensureSession();
   if (!session) return;
   state.session = session;
+  showPrivateShell();
 
-  setFeedback(isSpanish ? "Cargando workspace del proyecto..." : "Loading project workspace...", "warn");
+  const loadingMessage = isSpanish ? "Cargando workspace del proyecto..." : "Loading project workspace...";
+  setLoadingMessage(loadingMessage);
+  setFeedback(loadingMessage, "warn");
 
   try {
     await Promise.all([loadBaseData(), loadUnits(), loadDocuments(toText(docsSearch?.value) ?? "")]);

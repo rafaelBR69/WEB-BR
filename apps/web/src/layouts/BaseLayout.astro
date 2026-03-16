@@ -690,6 +690,13 @@ const shouldLoadPublicRealtime =
       initLangPicker("langPickerDesktop", "langTriggerDesktop", "langMenuDesktop", "langLabelDesktop");
       initLangPicker("langPickerDrawer", "langTriggerDrawer", "langMenuDrawer", "langLabelDrawer");
 
+      const resetPageLeavingState = () => {
+        document.body.classList.remove("page-is-leaving");
+      };
+
+      resetPageLeavingState();
+      window.addEventListener("pageshow", resetPageLeavingState);
+
       document.addEventListener("click", (event) => {
         if (event.defaultPrevented) return;
         const link = event.target.closest("a");

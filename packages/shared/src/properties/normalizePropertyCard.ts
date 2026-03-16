@@ -3,7 +3,11 @@ import { matchType } from "@shared/properties/matchType";
 import { normalizeCity } from "@shared/properties/normalizeCity";
 import { normalizeArea } from "@shared/properties/normalizeArea";
 import { normalizeFloorFilterLabel } from "@shared/properties/floorFilter";
-import { buildSearchText, normalizeSearchText } from "@shared/properties/search";
+import {
+  buildSearchText,
+  normalizeSearchText,
+  tokenizeSearchText,
+} from "@shared/properties/search";
 import {
   resolveMediaGalleryItems,
   resolvePrimaryMediaItem,
@@ -37,6 +41,7 @@ export function normalizePropertyCard(property: any, lang: string) {
 
   const searchText = buildSearchText(property);
   const searchTextNormalized = normalizeSearchText(searchText);
+  const searchTokens = Array.from(new Set(tokenizeSearchText(searchTextNormalized)));
 
   const priceFrom = isPromotion ? property.pricing?.from ?? null : null;
   const price = isPromotion ? null : property.price ?? null;
@@ -81,5 +86,7 @@ export function normalizePropertyCard(property: any, lang: string) {
     },
     features,
     searchText: searchTextNormalized,
+    searchTokens,
+    searchScore: 0,
   };
 }

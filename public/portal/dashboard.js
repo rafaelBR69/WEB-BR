@@ -32,6 +32,9 @@ const logoutButton = document.getElementById("portal-dashboard-logout");
 
 const kpiProjects = document.getElementById("portal-kpi-projects");
 const kpiDocuments = document.getElementById("portal-kpi-documents");
+const loadingShell = document.getElementById("portal-auth-loading");
+const loadingShellText = document.querySelector("[data-portal-loading-text]");
+const privateShell = document.getElementById("portal-private-shell");
 
 const state = {
   session: null,
@@ -47,6 +50,20 @@ const setFeedback = (message, kind = "warn") => {
   if (kind === "ok") feedback.classList.add("is-ok");
   else if (kind === "error") feedback.classList.add("is-error");
   else feedback.classList.add("is-warn");
+};
+
+const setLoadingMessage = (message) => {
+  if (!(loadingShellText instanceof HTMLElement)) return;
+  loadingShellText.textContent = message;
+};
+
+const showPrivateShell = () => {
+  if (privateShell instanceof HTMLElement) {
+    privateShell.removeAttribute("hidden");
+  }
+  if (loadingShell instanceof HTMLElement) {
+    loadingShell.setAttribute("hidden", "");
+  }
 };
 
 const redirectToLogin = (reason = null) => {
@@ -208,8 +225,11 @@ const loadDashboard = async () => {
   const session = await ensureSession();
   if (!session) return;
   state.session = session;
+  showPrivateShell();
 
-  setFeedback(isSpanish ? "Cargando panel..." : "Loading dashboard...", "warn");
+  const loadingMessage = isSpanish ? "Cargando panel..." : "Loading dashboard...";
+  setLoadingMessage(loadingMessage);
+  setFeedback(loadingMessage, "warn");
 
   try {
     const [mePayload, projectsPayload] = await Promise.all([requestAuthed("/me"), requestAuthed("/projects")]);

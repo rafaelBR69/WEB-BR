@@ -275,88 +275,133 @@ const t = copyByLang[lang] ?? copyByLang.es;
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
 >
-  <section class="service-hero container">
-    <span class="service-eyebrow">{t.eyebrow}</span>
-    <h1>{t.heading}</h1>
-    <p>{t.intro}</p>
-  </section>
+  <div class="contact-page">
+    <section class="contact-hero container">
+      <div class="contact-hero__shell">
+        <div class="contact-hero__copy">
+          <span class="service-eyebrow">{t.eyebrow}</span>
+          <h1>{t.heading}</h1>
+          <p>{t.intro}</p>
 
-  <section class="service-grid container">
-    <article class="service-panel">
-      <h2>{t.channelsTitle}</h2>
-      <ul class="contact-list">
-        <li>
-          <span>{t.phoneLabel}</span>
-          <a href="tel:+34952599159">+34 952 599 159</a>
-        </li>
-        <li>
-          <span>{t.emailLabel}</span>
-          <a href="mailto:info@blancareal.com">info@blancareal.com</a>
-        </li>
-        <li>
-          <span>{t.officeLabel}</span>
-          <strong>{t.officeValue}</strong>
-        </li>
-      </ul>
-    </article>
+          <div class="contact-service-tags" aria-label={t.formService}>
+            {t.serviceOptions.map((option) => (
+              <span class={`contact-service-tag ${option.value === selectedService ? "is-active" : ""}`}>
+                {option.label}
+              </span>
+            ))}
+          </div>
+        </div>
 
-    <article class="service-panel">
-      <h2>{t.linksTitle}</h2>
-      <ul class="quick-links">
-        {t.links.map((link) => (
-          <li>
-            <a href={link.href}>{link.label}</a>
+        <aside class="contact-hero__aside" aria-label={t.channelsTitle}>
+          <div class="contact-hero__card">
+            <span class="contact-card__eyebrow">{t.channelsTitle}</span>
+            <div class="contact-hero__lead">
+              <a href="tel:+34952599159" class="contact-hero__phone">+34 952 599 159</a>
+              <a href="mailto:info@blancareal.com" class="contact-hero__mail">info@blancareal.com</a>
+            </div>
+            <dl class="contact-hero__meta">
+              <div>
+                <dt>{t.officeLabel}</dt>
+                <dd>{t.officeValue}</dd>
+              </div>
+              <div>
+                <dt>{t.formService}</dt>
+                <dd>{t.serviceOptions.length}</dd>
+              </div>
+            </dl>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="contact-grid container">
+      <article class="contact-panel contact-panel--channels">
+        <div class="contact-panel__head">
+          <span class="contact-card__eyebrow">{t.channelsTitle}</span>
+          <h2>{t.channelsTitle}</h2>
+        </div>
+        <ul class="contact-channel-grid">
+          <li class="contact-channel-card">
+            <span>{t.phoneLabel}</span>
+            <a href="tel:+34952599159">+34 952 599 159</a>
           </li>
-        ))}
-      </ul>
-    </article>
+          <li class="contact-channel-card">
+            <span>{t.emailLabel}</span>
+            <a href="mailto:info@blancareal.com">info@blancareal.com</a>
+          </li>
+          <li class="contact-channel-card">
+            <span>{t.officeLabel}</span>
+            <strong>{t.officeValue}</strong>
+          </li>
+        </ul>
+      </article>
 
-    <article class="service-panel service-panel-full service-panel-form">
-      <h2>{t.formTitle}</h2>
-      <p>{t.formIntro}</p>
+      <article class="contact-panel contact-panel--links">
+        <div class="contact-panel__head">
+          <span class="contact-card__eyebrow">{t.linksTitle}</span>
+          <h2>{t.linksTitle}</h2>
+        </div>
+        <ul class="contact-links-grid">
+          {t.links.map((link) => (
+            <li>
+              <a href={link.href} class="contact-link-card">
+                <span>{link.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </article>
 
-      <form id="contactLeadForm" class="service-form">
-        <div class="service-form-grid">
-          <label class="service-form-field">
-            <span>{t.formName}</span>
-            <input type="text" name="full_name" required />
-          </label>
-
-          <label class="service-form-field">
-            <span>{t.formEmail}</span>
-            <input type="email" name="email" required />
-          </label>
-
-          <label class="service-form-field">
-            <span>{t.formPhone}</span>
-            <input type="tel" name="phone" />
-          </label>
-
-          <label class="service-form-field">
-            <span>{t.formService}</span>
-            <select name="service" required>
-              <option value="">{t.serviceDefault}</option>
-              {t.serviceOptions.map((option) => (
-                <option value={option.value} selected={option.value === selectedService}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
+      <article class="contact-panel contact-panel--form">
+        <div class="contact-panel__head">
+          <span class="contact-card__eyebrow">{t.formTitle}</span>
+          <h2>{t.formTitle}</h2>
+          <p>{t.formIntro}</p>
         </div>
 
-        <label class="service-form-field service-form-field-full">
-          <span>{t.formMessage}</span>
-          <textarea name="message" rows="4"></textarea>
-        </label>
+        <form id="contactLeadForm" class="service-form contact-form">
+          <div class="service-form-grid contact-form-grid">
+            <label class="service-form-field">
+              <span>{t.formName}</span>
+              <input type="text" name="full_name" required />
+            </label>
 
-        <div class="service-form-actions">
-          <button type="submit" class="service-cta" id="contactLeadSubmit">{t.formSubmit}</button>
-          <p class="service-form-status" id="contactLeadStatus" aria-live="polite"></p>
-        </div>
-      </form>
-    </article>
-  </section>
+            <label class="service-form-field">
+              <span>{t.formEmail}</span>
+              <input type="email" name="email" required />
+            </label>
+
+            <label class="service-form-field">
+              <span>{t.formPhone}</span>
+              <input type="tel" name="phone" />
+            </label>
+
+            <label class="service-form-field">
+              <span>{t.formService}</span>
+              <select name="service" required>
+                <option value="">{t.serviceDefault}</option>
+                {t.serviceOptions.map((option) => (
+                  <option value={option.value} selected={option.value === selectedService}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <label class="service-form-field service-form-field-full">
+            <span>{t.formMessage}</span>
+            <textarea name="message" rows="5"></textarea>
+          </label>
+
+          <div class="service-form-actions contact-form-actions">
+            <button type="submit" class="service-cta contact-submit" id="contactLeadSubmit">{t.formSubmit}</button>
+            <p class="service-form-status" id="contactLeadStatus" aria-live="polite"></p>
+          </div>
+        </form>
+      </article>
+    </section>
+  </div>
 
   <script is:inline define:vars={{ lang, selectedService, t }}>
     const form = document.getElementById("contactLeadForm");
