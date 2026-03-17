@@ -69,6 +69,14 @@ export function applyFilters(cards: any[], filters: any) {
       }
     }
 
+    if (filters.feature) {
+      const features = Array.isArray(filters.feature) ? filters.feature : [filters.feature];
+      const cardFeatures = Array.isArray(card.featureKeys) ? card.featureKeys : [];
+      if (!features.every((feature) => cardFeatures.includes(feature))) {
+        return false;
+      }
+    }
+
     if (filters.bedrooms) {
       const bedrooms = Array.isArray(filters.bedrooms) ? filters.bedrooms : [filters.bedrooms];
       if (!bedrooms.includes(card.details?.bedrooms)) {

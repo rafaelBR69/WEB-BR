@@ -12,6 +12,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const privacyPath = `/${lang}/legal/privacy/`;
+const CONTACT_PREFILL_STORAGE_KEY = "blancareal-contact-prefill";
+const OFFICE_ADDRESS = "Calle Monte Calahonda 10, Mijas Costa, Malaga";
+const OFFICE_MAP_EMBED =
+  "https://www.google.com/maps?q=Calle+Monte+Calahonda+10,+Mijas+Costa,+Malaga&output=embed";
 
 const serviceParamRaw = String(Astro.url.searchParams.get("service") ?? "").trim();
 const ALLOWED_SERVICES = new Set([
@@ -34,9 +39,13 @@ const copyByLang = {
     phoneLabel: "Telefono",
     emailLabel: "Email",
     officeLabel: "Oficina",
-    officeValue: "Calahonda, Mijas - Costa del Sol",
+    officeValue: OFFICE_ADDRESS,
+    hoursLabel: "Horario",
+    hoursValue: "Lunes a Viernes · 09:00 a 19:00 CET",
     channelsTitle: "Canales directos",
     linksTitle: "Accesos rapidos",
+    mapTitle: "Donde estamos",
+    mapIntro: "Atendemos con cita previa en Calahonda, Mijas Costa, y acompanamos operaciones en toda la Costa del Sol.",
     formTitle: "Solicitud de contacto",
     formIntro: "Completa el formulario y registraremos tu solicitud en nuestro CRM.",
     formName: "Nombre completo",
@@ -46,8 +55,12 @@ const copyByLang = {
     formMessage: "Mensaje",
     formSubmit: "Enviar solicitud",
     formSending: "Enviando...",
-    formSuccess: "Solicitud enviada correctamente.",
+    formSuccess: "Solicitud recibida. Te contactaremos segun nuestra politica de privacidad.",
     formError: "No se pudo enviar la solicitud. Intentalo de nuevo.",
+    formConsentPrefix: "He leido y acepto la",
+    formConsentLink: "politica de privacidad",
+    formConsentSuffix: "antes de enviar mis datos.",
+    formLegalNote: "Tus datos se usaran exclusivamente para gestionar tu solicitud comercial o legal.",
     serviceDefault: "Selecciona un servicio",
     serviceOptions: [
       { value: "real-estate", label: "Real Estate" },
@@ -74,9 +87,13 @@ const copyByLang = {
     phoneLabel: "Phone",
     emailLabel: "Email",
     officeLabel: "Office",
-    officeValue: "Calahonda, Mijas - Costa del Sol",
+    officeValue: OFFICE_ADDRESS,
+    hoursLabel: "Opening hours",
+    hoursValue: "Monday to Friday · 09:00 to 19:00 CET",
     channelsTitle: "Direct channels",
     linksTitle: "Quick access",
+    mapTitle: "Where to find us",
+    mapIntro: "We meet by appointment in Calahonda, Mijas Costa, and support operations across the Costa del Sol.",
     formTitle: "Contact request",
     formIntro: "Complete the form and we will register your request in our CRM.",
     formName: "Full name",
@@ -86,8 +103,12 @@ const copyByLang = {
     formMessage: "Message",
     formSubmit: "Send request",
     formSending: "Sending...",
-    formSuccess: "Request sent successfully.",
+    formSuccess: "Request received. We will contact you according to our privacy policy.",
     formError: "Request could not be sent. Please try again.",
+    formConsentPrefix: "I have read and accept the",
+    formConsentLink: "privacy policy",
+    formConsentSuffix: "before sending my data.",
+    formLegalNote: "Your data will only be used to manage your commercial or legal request.",
     serviceDefault: "Select a service",
     serviceOptions: [
       { value: "real-estate", label: "Real Estate" },
@@ -114,9 +135,13 @@ const copyByLang = {
     phoneLabel: "Telefon",
     emailLabel: "E-Mail",
     officeLabel: "Buero",
-    officeValue: "Calahonda, Mijas - Costa del Sol",
+    officeValue: OFFICE_ADDRESS,
+    hoursLabel: "Oeffnungszeiten",
+    hoursValue: "Montag bis Freitag · 09:00 bis 19:00 CET",
     channelsTitle: "Direkte Kanaele",
     linksTitle: "Schnellzugriff",
+    mapTitle: "Unser Standort",
+    mapIntro: "Wir empfangen nach Termin in Calahonda, Mijas Costa, und begleiten Operationen an der gesamten Costa del Sol.",
     formTitle: "Kontaktanfrage",
     formIntro: "Fuellen Sie das Formular aus, wir erfassen die Anfrage im CRM.",
     formName: "Vollstaendiger Name",
@@ -126,8 +151,12 @@ const copyByLang = {
     formMessage: "Nachricht",
     formSubmit: "Anfrage senden",
     formSending: "Wird gesendet...",
-    formSuccess: "Anfrage erfolgreich gesendet.",
+    formSuccess: "Anfrage erhalten. Wir kontaktieren Sie gemaess unserer Datenschutzerklaerung.",
     formError: "Anfrage konnte nicht gesendet werden. Bitte erneut versuchen.",
+    formConsentPrefix: "Ich habe die",
+    formConsentLink: "Datenschutzerklaerung",
+    formConsentSuffix: "gelesen und akzeptiere sie vor dem Senden meiner Daten.",
+    formLegalNote: "Ihre Daten werden ausschliesslich verwendet, um Ihre kommerzielle oder rechtliche Anfrage zu bearbeiten.",
     serviceDefault: "Service waehlen",
     serviceOptions: [
       { value: "real-estate", label: "Real Estate" },
@@ -154,9 +183,13 @@ const copyByLang = {
     phoneLabel: "Telephone",
     emailLabel: "Email",
     officeLabel: "Bureau",
-    officeValue: "Calahonda, Mijas - Costa del Sol",
+    officeValue: OFFICE_ADDRESS,
+    hoursLabel: "Horaires",
+    hoursValue: "Lundi au vendredi · 09:00 a 19:00 CET",
     channelsTitle: "Canaux directs",
     linksTitle: "Acces rapide",
+    mapTitle: "Ou nous trouver",
+    mapIntro: "Nous recevons sur rendez-vous a Calahonda, Mijas Costa, et accompagnons des operations sur toute la Costa del Sol.",
     formTitle: "Demande de contact",
     formIntro: "Completez le formulaire et nous enregistrerons votre demande dans le CRM.",
     formName: "Nom complet",
@@ -166,8 +199,12 @@ const copyByLang = {
     formMessage: "Message",
     formSubmit: "Envoyer la demande",
     formSending: "Envoi...",
-    formSuccess: "Demande envoyee avec succes.",
+    formSuccess: "Demande recue. Nous vous contacterons conformement a notre politique de confidentialite.",
     formError: "Impossible d envoyer la demande. Reessayez.",
+    formConsentPrefix: "J ai lu et j accepte la",
+    formConsentLink: "politique de confidentialite",
+    formConsentSuffix: "avant d envoyer mes donnees.",
+    formLegalNote: "Vos donnees seront utilisees uniquement pour traiter votre demande commerciale ou juridique.",
     serviceDefault: "Selectionner un service",
     serviceOptions: [
       { value: "real-estate", label: "Real Estate" },
@@ -194,9 +231,13 @@ const copyByLang = {
     phoneLabel: "Telefono",
     emailLabel: "Email",
     officeLabel: "Ufficio",
-    officeValue: "Calahonda, Mijas - Costa del Sol",
+    officeValue: OFFICE_ADDRESS,
+    hoursLabel: "Orari",
+    hoursValue: "Lunedi a venerdi · 09:00 a 19:00 CET",
     channelsTitle: "Canali diretti",
     linksTitle: "Accesso rapido",
+    mapTitle: "Dove siamo",
+    mapIntro: "Riceviamo su appuntamento a Calahonda, Mijas Costa, e seguiamo operazioni in tutta la Costa del Sol.",
     formTitle: "Richiesta di contatto",
     formIntro: "Compila il modulo e registreremo la richiesta nel CRM.",
     formName: "Nome completo",
@@ -206,8 +247,12 @@ const copyByLang = {
     formMessage: "Messaggio",
     formSubmit: "Invia richiesta",
     formSending: "Invio...",
-    formSuccess: "Richiesta inviata correttamente.",
+    formSuccess: "Richiesta ricevuta. Ti contatteremo secondo la nostra privacy policy.",
     formError: "Impossibile inviare la richiesta. Riprova.",
+    formConsentPrefix: "Ho letto e accetto la",
+    formConsentLink: "privacy policy",
+    formConsentSuffix: "prima di inviare i miei dati.",
+    formLegalNote: "I tuoi dati saranno utilizzati solo per gestire la tua richiesta commerciale o legale.",
     serviceDefault: "Seleziona un servizio",
     serviceOptions: [
       { value: "real-estate", label: "Real Estate" },
@@ -234,9 +279,13 @@ const copyByLang = {
     phoneLabel: "Telefoon",
     emailLabel: "Email",
     officeLabel: "Kantoor",
-    officeValue: "Calahonda, Mijas - Costa del Sol",
+    officeValue: OFFICE_ADDRESS,
+    hoursLabel: "Openingstijden",
+    hoursValue: "Maandag tot vrijdag · 09:00 tot 19:00 CET",
     channelsTitle: "Directe kanalen",
     linksTitle: "Snelle toegang",
+    mapTitle: "Waar we zitten",
+    mapIntro: "Wij ontvangen op afspraak in Calahonda, Mijas Costa, en begeleiden trajecten in de hele Costa del Sol.",
     formTitle: "Contactaanvraag",
     formIntro: "Vul het formulier in en we registreren uw aanvraag in het CRM.",
     formName: "Volledige naam",
@@ -246,8 +295,12 @@ const copyByLang = {
     formMessage: "Bericht",
     formSubmit: "Verstuur aanvraag",
     formSending: "Verzenden...",
-    formSuccess: "Aanvraag succesvol verzonden.",
+    formSuccess: "Aanvraag ontvangen. Wij nemen contact op volgens ons privacybeleid.",
     formError: "Aanvraag kon niet worden verzonden. Probeer opnieuw.",
+    formConsentPrefix: "Ik heb het",
+    formConsentLink: "privacybeleid",
+    formConsentSuffix: "gelezen en aanvaard voordat ik mijn gegevens verzend.",
+    formLegalNote: "Uw gegevens worden uitsluitend gebruikt om uw commerciële of juridische aanvraag te verwerken.",
     serviceDefault: "Selecteer een dienst",
     serviceOptions: [
       { value: "real-estate", label: "Real Estate" },
@@ -308,6 +361,10 @@ const t = copyByLang[lang] ?? copyByLang.es;
                 <dt>{t.formService}</dt>
                 <dd>{t.serviceOptions.length}</dd>
               </div>
+              <div>
+                <dt>{t.hoursLabel}</dt>
+                <dd>{t.hoursValue}</dd>
+              </div>
             </dl>
           </div>
         </aside>
@@ -332,6 +389,10 @@ const t = copyByLang[lang] ?? copyByLang.es;
           <li class="contact-channel-card">
             <span>{t.officeLabel}</span>
             <strong>{t.officeValue}</strong>
+          </li>
+          <li class="contact-channel-card">
+            <span>{t.hoursLabel}</span>
+            <strong>{t.hoursValue}</strong>
           </li>
         </ul>
       </article>
@@ -394,19 +455,70 @@ const t = copyByLang[lang] ?? copyByLang.es;
             <textarea name="message" rows="5"></textarea>
           </label>
 
+          <label class="service-form-consent service-form-field-full">
+            <input type="checkbox" name="consent" required />
+            <span>
+              {t.formConsentPrefix}{" "}
+              <a href={privacyPath}>{t.formConsentLink}</a>{" "}
+              {t.formConsentSuffix}
+            </span>
+          </label>
+
+          <p class="service-form-legal-note service-form-field-full">{t.formLegalNote}</p>
+
           <div class="service-form-actions contact-form-actions">
             <button type="submit" class="service-cta contact-submit" id="contactLeadSubmit">{t.formSubmit}</button>
             <p class="service-form-status" id="contactLeadStatus" aria-live="polite"></p>
           </div>
         </form>
       </article>
+
+      <article class="contact-panel contact-panel--map service-panel-full">
+        <div class="contact-panel__head">
+          <span class="contact-card__eyebrow">{t.mapTitle}</span>
+          <h2>{t.mapTitle}</h2>
+          <p>{t.mapIntro}</p>
+        </div>
+        <div class="contact-map-shell">
+          <iframe
+            src={OFFICE_MAP_EMBED}
+            title={t.mapTitle}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </article>
     </section>
   </div>
 
-  <script is:inline define:vars={{ lang, selectedService, t }}>
+  <script is:inline define:vars={{ lang, selectedService, t, contactPrefillStorageKey: CONTACT_PREFILL_STORAGE_KEY }}>
     const form = document.getElementById("contactLeadForm");
     const submitButton = document.getElementById("contactLeadSubmit");
     const statusNode = document.getElementById("contactLeadStatus");
+
+    try {
+      const rawPrefill = window.sessionStorage.getItem(contactPrefillStorageKey);
+      if (rawPrefill && form instanceof HTMLFormElement) {
+        const prefill = JSON.parse(rawPrefill);
+        const assignFieldValue = (selector, value) => {
+          const field = form.querySelector(selector);
+          if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement) {
+            field.value = String(value ?? "").trim();
+          }
+        };
+
+        assignFieldValue('input[name="full_name"]', prefill.full_name);
+        assignFieldValue('input[name="email"]', prefill.email);
+        assignFieldValue('input[name="phone"]', prefill.phone);
+        assignFieldValue('textarea[name="message"]', prefill.message);
+        if (prefill.service) {
+          assignFieldValue('select[name="service"]', prefill.service);
+        }
+        window.sessionStorage.removeItem(contactPrefillStorageKey);
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
     if (
       form instanceof HTMLFormElement &&
@@ -424,6 +536,13 @@ const t = copyByLang[lang] ?? copyByLang.es;
         const phone = String(formData.get("phone") ?? "").trim();
         const service = String(formData.get("service") ?? "").trim();
         const message = String(formData.get("message") ?? "").trim();
+        const consent = formData.get("consent") === "on";
+
+        if (!consent) {
+          statusNode.textContent = t.formError;
+          statusNode.classList.add("is-error");
+          return;
+        }
 
         const payload = {
           full_name: fullName,
@@ -433,7 +552,7 @@ const t = copyByLang[lang] ?? copyByLang.es;
           origin_type: "website",
           lead_kind: service === "agents" ? "agency" : "buyer",
           operation_interest: "both",
-          message: `[service:${service || "unspecified"}][lang:${lang}] ${message}`.trim(),
+          message: `[service:${service || "unspecified"}][lang:${lang}][consent:accepted] ${message}`.trim(),
         };
 
         submitButton.disabled = true;

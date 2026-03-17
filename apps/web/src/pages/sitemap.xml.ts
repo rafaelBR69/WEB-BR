@@ -10,6 +10,7 @@ const CORE_URLS = SUPPORTED_LANGS.flatMap((lang) => [
   `/${lang}/real-estate/`,
   `/${lang}/legal-services/`,
   `/${lang}/commercialization/`,
+  `/${lang}/sell-with-us/`,
   `/${lang}/agents/`,
   `/${lang}/contact/`,
   `/${lang}/projects/`,

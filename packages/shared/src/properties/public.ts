@@ -8,3 +8,4 @@ export * from "./normalizeCity";
 export * from "./normalizeArea";
 export * from "./floorFilter";
 export * from "./buildMapFeatures";
+export * from "./showcase";

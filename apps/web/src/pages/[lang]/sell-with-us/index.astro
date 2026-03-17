@@ -1,0 +1,531 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import "@webapp/styles/pages/service-pages.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/sell-with-us/`, 302);
+}
+
+const lang = langParam;
+const privacyPath = `/${lang}/legal/privacy/`;
+
+const copyByLang = {
+  es: {
+    title: "Vende con nosotros | BlancaReal",
+    description:
+      "Vender casa en la Costa del Sol con BlancaReal: marketing, captacion de demanda y acompanamiento legal para propietarios.",
+    eyebrow: "Vende con nosotros",
+    heading: "Vender casa en la Costa del Sol con marketing y cobertura legal integrados",
+    intro:
+      "Captamos propietarios que quieren vender mejor, con una estrategia clara, visibilidad internacional y coordinacion legal desde la valoracion inicial hasta notaria.",
+    primaryCta: "Solicitar valoracion",
+    stats: ["Since 1969", "Costa del Sol", "Marketing + ventas", "Cobertura legal interna"],
+    whyTitle: "Por que vender con BlancaReal",
+    whyItems: [
+      "Posicionamiento realista del precio segun mercado, ubicacion y competencia activa.",
+      "Presentacion comercial cuidada con fotografia, video, copy y distribucion multicanal.",
+      "Filtrado de compradores y seguimiento comercial continuo para reducir visitas improductivas.",
+      "Coordinacion documental y legal para que la operacion llegue a firma con menos friccion.",
+    ],
+    serviceTitle: "Que incluye el servicio",
+    serviceItems: [
+      "Analisis inicial del inmueble y recomendacion de salida a mercado.",
+      "Plan de comercializacion para vivienda habitual, segunda residencia o activo de inversion.",
+      "Difusion en base de datos propia, portales y canales digitales alineados con el perfil del inmueble.",
+      "Negociacion, reservas, compraventa y soporte hasta cierre.",
+    ],
+    seoTitle: "Vender vivienda en Malaga, Marbella, Mijas o Fuengirola con una estrategia mas clara",
+    seoParagraphs: [
+      "Si estas valorando vender una casa en la Costa del Sol, no basta con publicar un anuncio. El tiempo en mercado, el tipo de comprador y la calidad de la presentacion condicionan directamente el resultado. BlancaReal trabaja la venta residencial combinando marketing, captacion de demanda cualificada y acompanamiento legal en un mismo flujo.",
+      "Esto es especialmente relevante en zonas como Marbella, Mijas, Fuengirola, Benalmadena o Estepona, donde conviven obra nueva, segunda mano y compradores internacionales con tiempos y expectativas distintas. La pagina de Vende con nosotros esta pensada como puerta de entrada para propietarios que quieren una primera conversacion util, no un formulario generico.",
+    ],
+    panelTitle: "Solicitud inicial",
+    panelIntro:
+      "Dejanos tu email y una nota breve sobre la vivienda. Nuestro equipo te contacta para revisar encaje, documentacion y siguiente paso comercial.",
+    formName: "Nombre completo",
+    formEmail: "Email",
+    formPhone: "Telefono",
+    formArea: "Zona o municipio",
+    formMessage: "Cuentanos que vivienda quieres vender",
+    formSubmit: "Quiero vender con BlancaReal",
+    formSending: "Enviando...",
+    formSuccess: "Solicitud recibida. Te contactaremos segun nuestra politica de privacidad.",
+    formError: "No se pudo enviar la solicitud. Revisa los datos e intentalo de nuevo.",
+    formConsentPrefix: "He leido y acepto la",
+    formConsentLink: "politica de privacidad",
+    formConsentSuffix: "antes de enviar mis datos.",
+    legalNote:
+      "Usaremos tus datos solo para gestionar esta solicitud de venta y coordinar una primera respuesta comercial.",
+    relatedTitle: "Accesos relacionados",
+    relatedLinks: [
+      { label: "Comercializacion", href: `/${lang}/commercialization/` },
+      { label: "Servicios legales", href: `/${lang}/legal-services/` },
+      { label: "Contactar con BlancaReal", href: `/${lang}/contact/?service=commercialization` },
+    ],
+  },
+  en: {
+    title: "Sell with us | BlancaReal",
+    description:
+      "Sell your home on the Costa del Sol with BlancaReal: pricing, marketing, buyer demand and in-house legal coordination.",
+    eyebrow: "Sell with us",
+    heading: "Sell your Costa del Sol home with integrated marketing and legal support",
+    intro:
+      "We help owners sell with a clearer strategy, international visibility and legal coordination from the initial valuation to completion.",
+    primaryCta: "Request valuation",
+    stats: ["Since 1969", "Costa del Sol", "Marketing + sales", "In-house legal coverage"],
+    whyTitle: "Why owners choose BlancaReal",
+    whyItems: [
+      "Realistic pricing based on market conditions, location and active competition.",
+      "Careful commercial presentation with photography, video, copy and multichannel distribution.",
+      "Buyer qualification and continuous follow-up to reduce low-quality viewings.",
+      "Document and legal coordination so the sale reaches completion with less friction.",
+    ],
+    serviceTitle: "What the service covers",
+    serviceItems: [
+      "Initial asset review and market-entry recommendation.",
+      "Commercialization plan for main residence, second home or investment stock.",
+      "Exposure through our database, portals and digital channels aligned with the asset profile.",
+      "Negotiation, reservation, sale contract and support through closing.",
+    ],
+    seoTitle: "Selling in Malaga, Marbella, Mijas or Fuengirola with a stronger route to market",
+    seoParagraphs: [
+      "If you plan to sell a property on the Costa del Sol, publishing a listing is not enough. Time on market, buyer fit and the quality of the presentation directly affect the result. BlancaReal handles residential sales by combining marketing, qualified demand generation and legal guidance in one operating flow.",
+      "That matters even more in locations such as Marbella, Mijas, Fuengirola, Benalmadena or Estepona, where new build, resale and international demand move at different speeds. This page is designed as an entry point for owners who want a useful first conversation, not a generic form.",
+    ],
+    panelTitle: "Initial request",
+    panelIntro:
+      "Leave your email and a short note about the property. Our team will contact you to review fit, documentation and next commercial steps.",
+    formName: "Full name",
+    formEmail: "Email",
+    formPhone: "Phone",
+    formArea: "Area or municipality",
+    formMessage: "Tell us about the home you want to sell",
+    formSubmit: "I want to sell with BlancaReal",
+    formSending: "Sending...",
+    formSuccess: "Request received. We will contact you according to our privacy policy.",
+    formError: "Request could not be sent. Please review the details and try again.",
+    formConsentPrefix: "I have read and accept the",
+    formConsentLink: "privacy policy",
+    formConsentSuffix: "before sending my data.",
+    legalNote:
+      "We will use your data only to handle this seller request and coordinate an initial commercial reply.",
+    relatedTitle: "Related access",
+    relatedLinks: [
+      { label: "Commercialization", href: `/${lang}/commercialization/` },
+      { label: "Legal services", href: `/${lang}/legal-services/` },
+      { label: "Contact BlancaReal", href: `/${lang}/contact/?service=commercialization` },
+    ],
+  },
+  de: {
+    title: "Verkaufen Sie mit uns | BlancaReal",
+    description:
+      "Immobilie an der Costa del Sol verkaufen mit BlancaReal: Preisstrategie, Vermarktung und interne Rechtsbegleitung.",
+    eyebrow: "Verkaufen Sie mit uns",
+    heading: "Verkaufen Sie Ihre Immobilie an der Costa del Sol mit Vermarktung und Rechtsbegleitung aus einer Hand",
+    intro:
+      "Wir begleiten Eigentumer mit klarer Marktstrategie, internationaler Sichtbarkeit und rechtlicher Koordination vom ersten Bewertungsgespraech bis zur Unterschrift.",
+    primaryCta: "Bewertung anfragen",
+    stats: ["Since 1969", "Costa del Sol", "Marketing + Vertrieb", "Interne Rechtsbegleitung"],
+    whyTitle: "Warum Eigentumer BlancaReal waehlen",
+    whyItems: [
+      "Realistische Preispositionierung anhand von Markt, Lage und aktivem Wettbewerb.",
+      "Sorgfaeltige Praesentation mit Foto, Video, Text und mehrkanaliger Distribution.",
+      "Qualifizierung der Interessenten und laufendes Follow-up, um unproduktive Besichtigungen zu reduzieren.",
+      "Dokumentations- und Rechtskoordination bis zum Abschluss.",
+    ],
+    serviceTitle: "Was der Service umfasst",
+    serviceItems: [
+      "Erstpruefung der Immobilie und Empfehlung fuer den Markteintritt.",
+      "Vermarktungsplan fuer Hauptwohnsitz, Zweitwohnsitz oder Investmentobjekt.",
+      "Ausspielung ueber eigene Datenbank, Portale und digitale Kanaele passend zum Objektprofil.",
+      "Verhandlung, Reservierung, Kaufvertrag und Begleitung bis zum Closing.",
+    ],
+    seoTitle: "Verkaufen in Malaga, Marbella, Mijas oder Fuengirola mit klarerer Marktstrategie",
+    seoParagraphs: [
+      "Wer eine Immobilie an der Costa del Sol verkaufen will, braucht mehr als ein Inserat. Vermarktungsdauer, Nachfragequalitaet und Praesentation beeinflussen das Ergebnis direkt. BlancaReal verbindet Marketing, qualifizierte Nachfrage und rechtliche Begleitung in einem Ablauf.",
+      "Das ist besonders relevant in Maerkten wie Marbella, Mijas, Fuengirola, Benalmadena oder Estepona, wo Neubau, Resale und internationale Nachfrage unterschiedlich funktionieren. Diese Seite ist als Einstieg fuer Eigentumer gedacht, die ein nuetzliches Erstgespraech suchen.",
+    ],
+    panelTitle: "Erstanfrage",
+    panelIntro:
+      "Hinterlassen Sie Ihre E-Mail und eine kurze Notiz zur Immobilie. Unser Team meldet sich fuer den naechsten kommerziellen Schritt.",
+    formName: "Vollstaendiger Name",
+    formEmail: "E-Mail",
+    formPhone: "Telefon",
+    formArea: "Gebiet oder Gemeinde",
+    formMessage: "Beschreiben Sie die Immobilie, die Sie verkaufen moechten",
+    formSubmit: "Ich moechte mit BlancaReal verkaufen",
+    formSending: "Wird gesendet...",
+    formSuccess: "Anfrage erhalten. Wir melden uns gemaess unserer Datenschutzerklaerung.",
+    formError: "Anfrage konnte nicht gesendet werden. Bitte pruefen Sie die Daten und versuchen Sie es erneut.",
+    formConsentPrefix: "Ich habe die",
+    formConsentLink: "Datenschutzerklaerung",
+    formConsentSuffix: "gelesen und akzeptiere sie vor dem Senden meiner Daten.",
+    legalNote:
+      "Ihre Daten werden ausschliesslich fuer diese Verkaeuferanfrage und eine erste kommerzielle Rueckmeldung verwendet.",
+    relatedTitle: "Verwandte Zugange",
+    relatedLinks: [
+      { label: "Vermarktung", href: `/${lang}/commercialization/` },
+      { label: "Rechtsservice", href: `/${lang}/legal-services/` },
+      { label: "BlancaReal kontaktieren", href: `/${lang}/contact/?service=commercialization` },
+    ],
+  },
+  fr: {
+    title: "Vendez avec nous | BlancaReal",
+    description:
+      "Vendre un bien sur la Costa del Sol avec BlancaReal : positionnement prix, marketing, demande qualifiee et coordination juridique.",
+    eyebrow: "Vendez avec nous",
+    heading: "Vendez votre bien sur la Costa del Sol avec marketing et accompagnement juridique integres",
+    intro:
+      "Nous aidons les proprietaires a vendre avec une strategie plus claire, une visibilite internationale et une coordination juridique du debut a la signature.",
+    primaryCta: "Demander une estimation",
+    stats: ["Since 1969", "Costa del Sol", "Marketing + ventes", "Couverture juridique interne"],
+    whyTitle: "Pourquoi vendre avec BlancaReal",
+    whyItems: [
+      "Positionnement prix realiste selon le marche, l emplacement et la concurrence active.",
+      "Presentation commerciale soignee avec photo, video, copywriting et diffusion multicanale.",
+      "Qualification des acquereurs et suivi pour reduire les visites peu utiles.",
+      "Coordination documentaire et juridique jusqu a la signature.",
+    ],
+    serviceTitle: "Ce que couvre le service",
+    serviceItems: [
+      "Analyse initiale du bien et recommandation de mise sur le marche.",
+      "Plan de commercialisation pour residence principale, secondaire ou actif d investissement.",
+      "Diffusion via notre base, les portails et des canaux digitaux adaptes au profil du bien.",
+      "Negociation, reservation, promesse de vente et accompagnement jusqu au closing.",
+    ],
+    seoTitle: "Vendre a Malaga, Marbella, Mijas ou Fuengirola avec une strategie de marche plus solide",
+    seoParagraphs: [
+      "Pour vendre une maison sur la Costa del Sol, publier une annonce ne suffit pas. Le temps sur le marche, la qualite des leads et la presentation conditionnent directement le resultat. BlancaReal regroupe marketing, demande qualifiee et accompagnement juridique dans un meme flux.",
+      "C est encore plus important dans des zones comme Marbella, Mijas, Fuengirola, Benalmadena ou Estepona, ou neuf, seconde main et acheteurs internationaux evoluent a des rythmes differents. Cette page sert d entree pour les proprietaires qui veulent un premier echange utile.",
+    ],
+    panelTitle: "Demande initiale",
+    panelIntro:
+      "Laissez votre email et une note rapide sur le bien. Notre equipe vous contacte pour cadrer la suite commerciale.",
+    formName: "Nom complet",
+    formEmail: "Email",
+    formPhone: "Telephone",
+    formArea: "Zone ou municipalite",
+    formMessage: "Parlez-nous du bien que vous souhaitez vendre",
+    formSubmit: "Je veux vendre avec BlancaReal",
+    formSending: "Envoi...",
+    formSuccess: "Demande recue. Nous vous contacterons selon notre politique de confidentialite.",
+    formError: "La demande n a pas pu etre envoyee. Verifiez les donnees et reessayez.",
+    formConsentPrefix: "J ai lu et j accepte la",
+    formConsentLink: "politique de confidentialite",
+    formConsentSuffix: "avant d envoyer mes donnees.",
+    legalNote:
+      "Vos donnees seront utilisees uniquement pour traiter cette demande vendeur et coordonner une premiere reponse commerciale.",
+    relatedTitle: "Acces lies",
+    relatedLinks: [
+      { label: "Commercialisation", href: `/${lang}/commercialization/` },
+      { label: "Services juridiques", href: `/${lang}/legal-services/` },
+      { label: "Contacter BlancaReal", href: `/${lang}/contact/?service=commercialization` },
+    ],
+  },
+  it: {
+    title: "Vendi con noi | BlancaReal",
+    description:
+      "Vendere casa in Costa del Sol con BlancaReal: pricing, marketing, domanda qualificata e supporto legale interno.",
+    eyebrow: "Vendi con noi",
+    heading: "Vendi la tua casa in Costa del Sol con marketing e supporto legale integrati",
+    intro:
+      "Aiutiamo i proprietari a vendere con una strategia piu chiara, visibilita internazionale e coordinamento legale dalla valutazione iniziale al rogito.",
+    primaryCta: "Richiedi valutazione",
+    stats: ["Since 1969", "Costa del Sol", "Marketing + vendite", "Copertura legale interna"],
+    whyTitle: "Perche vendere con BlancaReal",
+    whyItems: [
+      "Posizionamento realistico del prezzo in base a mercato, zona e concorrenza attiva.",
+      "Presentazione commerciale curata con foto, video, copy e distribuzione multicanale.",
+      "Qualifica degli acquirenti e follow-up costante per ridurre visite poco produttive.",
+      "Coordinamento documentale e legale fino alla chiusura.",
+    ],
+    serviceTitle: "Cosa include il servizio",
+    serviceItems: [
+      "Analisi iniziale dell immobile e raccomandazione di uscita sul mercato.",
+      "Piano di commercializzazione per prima casa, seconda casa o investimento.",
+      "Distribuzione tramite database interno, portali e canali digitali coerenti con il profilo dell immobile.",
+      "Negoziazione, prenotazione, contratto e supporto fino al closing.",
+    ],
+    seoTitle: "Vendere a Malaga, Marbella, Mijas o Fuengirola con una strategia piu forte",
+    seoParagraphs: [
+      "Se vuoi vendere una casa in Costa del Sol, pubblicare un annuncio non basta. Tempo sul mercato, qualita della domanda e presentazione incidono direttamente sul risultato. BlancaReal unisce marketing, generazione di domanda qualificata e supporto legale nello stesso flusso operativo.",
+      "Questo conta ancora di piu in mercati come Marbella, Mijas, Fuengirola, Benalmadena o Estepona, dove nuova costruzione, seconda mano e domanda internazionale si muovono con ritmi diversi. Questa pagina e pensata come ingresso per proprietari che vogliono un primo contatto utile.",
+    ],
+    panelTitle: "Richiesta iniziale",
+    panelIntro:
+      "Lascia la tua email e una breve nota sull immobile. Il nostro team ti ricontatta per impostare il prossimo passo commerciale.",
+    formName: "Nome completo",
+    formEmail: "Email",
+    formPhone: "Telefono",
+    formArea: "Zona o comune",
+    formMessage: "Raccontaci quale immobile vuoi vendere",
+    formSubmit: "Voglio vendere con BlancaReal",
+    formSending: "Invio...",
+    formSuccess: "Richiesta ricevuta. Ti contatteremo secondo la nostra privacy policy.",
+    formError: "Impossibile inviare la richiesta. Controlla i dati e riprova.",
+    formConsentPrefix: "Ho letto e accetto la",
+    formConsentLink: "privacy policy",
+    formConsentSuffix: "prima di inviare i miei dati.",
+    legalNote:
+      "Useremo i tuoi dati solo per gestire questa richiesta vendita e coordinare una prima risposta commerciale.",
+    relatedTitle: "Accessi correlati",
+    relatedLinks: [
+      { label: "Commercializzazione", href: `/${lang}/commercialization/` },
+      { label: "Servizi legali", href: `/${lang}/legal-services/` },
+      { label: "Contatta BlancaReal", href: `/${lang}/contact/?service=commercialization` },
+    ],
+  },
+  nl: {
+    title: "Verkoop met ons | BlancaReal",
+    description:
+      "Huis verkopen aan de Costa del Sol met BlancaReal: prijsstrategie, marketing, gekwalificeerde vraag en juridische begeleiding.",
+    eyebrow: "Verkoop met ons",
+    heading: "Verkoop uw woning aan de Costa del Sol met geintegreerde marketing en juridische begeleiding",
+    intro:
+      "Wij helpen eigenaars verkopen met een helderdere strategie, internationale zichtbaarheid en juridische coordinatie van waardering tot notaris.",
+    primaryCta: "Vraag waardering aan",
+    stats: ["Since 1969", "Costa del Sol", "Marketing + sales", "Interne juridische dekking"],
+    whyTitle: "Waarom verkopen met BlancaReal",
+    whyItems: [
+      "Realistische prijspositionering op basis van markt, locatie en actieve concurrentie.",
+      "Sterke presentatie met fotografie, video, copy en distributie via meerdere kanalen.",
+      "Kwalificatie van kopers en continue opvolging om onproductieve bezoeken te beperken.",
+      "Documentaire en juridische coordinatie tot aan de afronding.",
+    ],
+    serviceTitle: "Wat de dienst omvat",
+    serviceItems: [
+      "Eerste analyse van het object en advies voor marktintroductie.",
+      "Commercialisatieplan voor hoofdwoning, tweede verblijf of investeringsproduct.",
+      "Distributie via onze database, portals en digitale kanalen passend bij het profiel van het object.",
+      "Onderhandeling, reservering, koopcontract en begeleiding tot closing.",
+    ],
+    seoTitle: "Verkopen in Malaga, Marbella, Mijas of Fuengirola met een sterkere marktroute",
+    seoParagraphs: [
+      "Wie een woning aan de Costa del Sol wil verkopen, heeft meer nodig dan een advertentie. Tijd op de markt, kwaliteit van de vraag en presentatie bepalen rechtstreeks het resultaat. BlancaReal combineert marketing, gekwalificeerde vraag en juridische begeleiding in een workflow.",
+      "Dat is extra relevant in zones zoals Marbella, Mijas, Fuengirola, Benalmadena of Estepona, waar nieuwbouw, resale en internationale vraag in verschillende ritmes bewegen. Deze pagina is bedoeld als ingang voor eigenaars die een nuttig eerste gesprek willen.",
+    ],
+    panelTitle: "Eerste aanvraag",
+    panelIntro:
+      "Laat uw email achter met een korte notitie over de woning. Ons team neemt contact op voor de volgende commerciele stap.",
+    formName: "Volledige naam",
+    formEmail: "Email",
+    formPhone: "Telefoon",
+    formArea: "Zone of gemeente",
+    formMessage: "Vertel ons welke woning u wilt verkopen",
+    formSubmit: "Ik wil verkopen met BlancaReal",
+    formSending: "Verzenden...",
+    formSuccess: "Aanvraag ontvangen. Wij nemen contact op volgens ons privacybeleid.",
+    formError: "De aanvraag kon niet worden verzonden. Controleer de gegevens en probeer opnieuw.",
+    formConsentPrefix: "Ik heb het",
+    formConsentLink: "privacybeleid",
+    formConsentSuffix: "gelezen en aanvaard voordat ik mijn gegevens verzend.",
+    legalNote:
+      "Wij gebruiken uw gegevens alleen om deze verkoopaanvraag te behandelen en een eerste commerciele reactie te coordineren.",
+    relatedTitle: "Gerelateerde links",
+    relatedLinks: [
+      { label: "Commercialisatie", href: `/${lang}/commercialization/` },
+      { label: "Juridische diensten", href: `/${lang}/legal-services/` },
+      { label: "Contacteer BlancaReal", href: `/${lang}/contact/?service=commercialization` },
+    ],
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Residential property selling service",
+  name: t.heading,
+  provider: {
+    "@type": "Organization",
+    name: "BlancaReal",
+    url: "https://blancareal.com",
+  },
+  areaServed: "Costa del Sol",
+  description: t.description,
+  url: `https://blancareal.com/${lang}/sell-with-us/`,
+};
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.description}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+  structuredData={structuredData}
+>
+  <div class="sell-page">
+    <section class="service-hero container sell-hero">
+      <span class="service-eyebrow">{t.eyebrow}</span>
+      <h1>{t.heading}</h1>
+      <p>{t.intro}</p>
+      <a href="#sellLeadForm" class="service-cta">{t.primaryCta}</a>
+
+      <div class="sell-kpi-strip" aria-label={t.eyebrow}>
+        {t.stats.map((item) => (
+          <span class="sell-kpi-chip">{item}</span>
+        ))}
+      </div>
+    </section>
+
+    <section class="service-grid container">
+      <article class="service-panel">
+        <h2>{t.whyTitle}</h2>
+        <ul>
+          {t.whyItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </article>
+
+      <article class="service-panel">
+        <h2>{t.serviceTitle}</h2>
+        <ul>
+          {t.serviceItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </article>
+
+      <article class="service-panel service-panel-full">
+        <h2>{t.seoTitle}</h2>
+        {t.seoParagraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </article>
+
+      <article class="service-panel service-panel-form service-panel-full">
+        <h2>{t.panelTitle}</h2>
+        <p>{t.panelIntro}</p>
+
+        <form id="sellLeadForm" class="service-form">
+          <div class="service-form-grid">
+            <label class="service-form-field">
+              <span>{t.formName}</span>
+              <input type="text" name="full_name" required />
+            </label>
+
+            <label class="service-form-field">
+              <span>{t.formEmail}</span>
+              <input type="email" name="email" required />
+            </label>
+
+            <label class="service-form-field">
+              <span>{t.formPhone}</span>
+              <input type="tel" name="phone" />
+            </label>
+
+            <label class="service-form-field">
+              <span>{t.formArea}</span>
+              <input type="text" name="area" />
+            </label>
+          </div>
+
+          <label class="service-form-field service-form-field-full">
+            <span>{t.formMessage}</span>
+            <textarea name="message" rows="5"></textarea>
+          </label>
+
+          <label class="service-form-consent service-form-field-full">
+            <input type="checkbox" name="consent" required />
+            <span>
+              {t.formConsentPrefix} <a href={privacyPath}>{t.formConsentLink}</a> {t.formConsentSuffix}
+            </span>
+          </label>
+
+          <p class="service-form-legal-note service-form-field-full">{t.legalNote}</p>
+
+          <div class="service-form-actions">
+            <button type="submit" class="service-cta" id="sellLeadSubmit">{t.formSubmit}</button>
+            <p class="service-form-status" id="sellLeadStatus" aria-live="polite"></p>
+          </div>
+        </form>
+      </article>
+
+      <article class="service-panel">
+        <h2>{t.relatedTitle}</h2>
+        <div class="quick-links">
+          {t.relatedLinks.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ lang, t }}>
+    const form = document.getElementById("sellLeadForm");
+    const submitButton = document.getElementById("sellLeadSubmit");
+    const statusNode = document.getElementById("sellLeadStatus");
+
+    if (
+      form instanceof HTMLFormElement &&
+      submitButton instanceof HTMLButtonElement &&
+      statusNode instanceof HTMLElement
+    ) {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        statusNode.textContent = "";
+        statusNode.classList.remove("is-error", "is-success");
+
+        const formData = new FormData(form);
+        const fullName = String(formData.get("full_name") ?? "").trim();
+        const email = String(formData.get("email") ?? "").trim();
+        const phone = String(formData.get("phone") ?? "").trim();
+        const area = String(formData.get("area") ?? "").trim();
+        const message = String(formData.get("message") ?? "").trim();
+        const consent = formData.get("consent") === "on";
+
+        if (!consent) {
+          statusNode.textContent = t.formError;
+          statusNode.classList.add("is-error");
+          return;
+        }
+
+        const payload = {
+          full_name: fullName,
+          email,
+          phone,
+          source: "website_sell_with_us_form",
+          origin_type: "website",
+          lead_kind: "seller",
+          operation_interest: "sale",
+          message: `[service:sell-with-us][lang:${lang}][area:${area || "unspecified"}][consent:accepted] ${message}`.trim(),
+        };
+
+        submitButton.disabled = true;
+        submitButton.textContent = t.formSending;
+
+        try {
+          const response = await fetch("/api/v1/leads", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error(`sell_with_us_submit_failed_${response.status}`);
+          }
+
+          statusNode.textContent = t.formSuccess;
+          statusNode.classList.add("is-success");
+          form.reset();
+        } catch (error) {
+          statusNode.textContent = t.formError;
+          statusNode.classList.add("is-error");
+          console.error(error);
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = t.formSubmit;
+        }
+      });
+    }
+  </script>
+</BaseLayout>

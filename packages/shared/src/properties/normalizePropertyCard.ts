@@ -38,6 +38,9 @@ export function normalizePropertyCard(property: any, lang: string) {
   const features = (property.features || [])
     .map((key: string) => formatFeature(key, lang))
     .filter(Boolean);
+  const featureKeys = Array.isArray(property.features)
+    ? property.features.filter((key: string) => typeof key === "string")
+    : [];
 
   const searchText = buildSearchText(property);
   const searchTextNormalized = normalizeSearchText(searchText);
@@ -47,14 +50,19 @@ export function normalizePropertyCard(property: any, lang: string) {
   const price = isPromotion ? null : property.price ?? null;
   const cover = resolvePrimaryMediaItem(property.media);
   const galleryPreview = resolveMediaGalleryItems(property.media);
+  const slug = typeof property.slugs?.[lang] === "string" ? property.slugs[lang].trim() : "";
+  const title = typeof translation.title === "string" ? translation.title.trim() : "";
+
+  // Skip malformed public records so they never render as empty cards with undefined links.
+  if (!slug || !title) return null;
 
   return {
     id: property.id ?? null,
     status,
     isAvailable: status === "available",
     visible,
-    slug: property.slugs?.[lang],
-    title: translation.title ?? "",
+    slug,
+    title,
     cover,
     galleryPreview,
     price,
@@ -85,6 +93,7 @@ export function normalizePropertyCard(property: any, lang: string) {
       orientation: raw.orientation ?? null,
     },
     features,
+    featureKeys,
     searchText: searchTextNormalized,
     searchTokens,
     searchScore: 0,

@@ -21,284 +21,337 @@ const landingNavItems = [
   { href: `/${lang}/contact/`, label: ui.layout.navContact },
 ];
 
+const landingNavGroupsByLang = {
+  es: [
+    {
+      label: "Bienes y Raices",
+      href: `/${lang}/real-estate/`,
+      sections: [
+        {
+          title: "Catalogo",
+          items: [
+            { label: "Obra nueva", href: `/${lang}/properties/?market=obra_nueva` },
+            { label: "2a mano", href: `/${lang}/properties/?market=segunda_mano` },
+            { label: "Todas las propiedades", href: `/${lang}/properties/` },
+          ],
+        },
+        {
+          title: "Promociones",
+          items: [
+            { label: "Nuestras promociones", href: `/${lang}/projects/` },
+            { label: "Vender con nosotros", href: `/${lang}/sell-with-us/` },
+            { label: "Contacto", href: `/${lang}/contact/` },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Asesoramiento Legal",
+      href: `/${lang}/legal-services/`,
+      sections: [
+        {
+          title: "Servicios",
+          items: [
+            { label: "Revision y contratos", href: `/${lang}/legal-services/#coverage-contracts` },
+            { label: "Due diligence inmobiliaria", href: `/${lang}/legal-services/#coverage-due` },
+            { label: "Asesoria fiscal", href: `/${lang}/legal-services/#coverage-tax` },
+            { label: "Tramites y documentacion", href: `/${lang}/legal-services/#coverage-docs` },
+          ],
+        },
+        {
+          title: "Soporte",
+          items: [
+            { label: "Representacion legal", href: `/${lang}/legal-services/#coverage-claims` },
+            { label: "Servicios para extranjeros", href: `/${lang}/legal-services/#coverage-foreign` },
+            { label: "Solicitar asesoria", href: `/${lang}/legal-services/#contact` },
+          ],
+        },
+      ],
+    },
+  ],
+  en: [
+    {
+      label: "Real Estate",
+      href: `/${lang}/real-estate/`,
+      sections: [
+        {
+          title: "Catalog",
+          items: [
+            { label: "New build", href: `/${lang}/properties/?market=obra_nueva` },
+            { label: "Resale", href: `/${lang}/properties/?market=segunda_mano` },
+            { label: "All properties", href: `/${lang}/properties/` },
+          ],
+        },
+        {
+          title: "Developments",
+          items: [
+            { label: "Our developments", href: `/${lang}/projects/` },
+            { label: "Sell with us", href: `/${lang}/sell-with-us/` },
+            { label: "Contact", href: `/${lang}/contact/` },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Legal Advisory",
+      href: `/${lang}/legal-services/`,
+      sections: [
+        {
+          title: "Services",
+          items: [
+            { label: "Contract drafting and review", href: `/${lang}/legal-services/#coverage-contracts` },
+            { label: "Real estate due diligence", href: `/${lang}/legal-services/#coverage-due` },
+            { label: "Tax advice", href: `/${lang}/legal-services/#coverage-tax` },
+            { label: "Documentation and formalities", href: `/${lang}/legal-services/#coverage-docs` },
+          ],
+        },
+        {
+          title: "Support",
+          items: [
+            { label: "Legal representation", href: `/${lang}/legal-services/#coverage-claims` },
+            { label: "Services for foreign clients", href: `/${lang}/legal-services/#coverage-foreign` },
+            { label: "Request advice", href: `/${lang}/legal-services/#contact` },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 const copyByLang = {
   es: {
     title: "Servicios legales | BlancaReal",
     description:
-      "Servicios legales inmobiliarios en la Costa del Sol para compraventa, due diligence, coordinacion documental y cierre de operaciones.",
+      "Servicios legales inmobiliarios en la Costa del Sol para contratos, due diligence, fiscalidad, tramites, representacion y apoyo a compradores, vendedores, arrendadores e inversores extranjeros.",
     eyebrow: "Servicios legales",
-    headingMain: "Seguridad juridica para operaciones inmobiliarias",
-    headingSub: "Estructura legal, lectura documental y criterio operativo",
+    headingMain: "Servicios legales inmobiliarios en la Costa del Sol",
+    headingSub: "Contratos, due diligence, fiscalidad, tramites, representacion y asistencia internacional",
     intro:
-      "BlancaReal articula la parte legal del proceso inmobiliario con una mirada practica: protegemos la operacion, ordenamos la documentacion y coordinamos a las partes para que el cierre llegue limpio.",
+      "Adaptamos el soporte legal a cada operacion inmobiliaria: compra, venta, alquiler, regularizacion, cierre notarial y defensa posterior si surge cualquier conflicto sobre el inmueble o el contrato.",
     primaryCta: "Hablar con el area legal",
     secondaryCta: "Ir a contacto",
     heroStats: [
-      { value: "Compraventa", label: "contratos y cierre" },
-      { value: "Due diligence", label: "riesgo documental y registral" },
-      { value: "Coordinacion", label: "cliente, agencia y notaria" },
+      { value: "6 areas", label: "de cobertura legal inmobiliaria" },
+      { value: "Costa del Sol", label: "compra, venta, alquiler e inversion" },
+      { value: "Clientes nacionales e internacionales", label: "acompanamiento legal integral" },
     ],
     deskEyebrow: "Mesa legal",
-    deskTitle: "No llegamos al final del proceso. Entramos donde empieza el riesgo.",
+    deskTitle: "Intervenimos donde empieza el riesgo juridico del inmueble y de la operacion.",
     deskText:
-      "La operacion se revisa desde dentro: titularidad, cargas, contratos, representacion, calendario, firmas y coordinacion con terceros. El objetivo es quitar friccion antes de que aparezca.",
-    deskTags: ["Contratos", "Registro", "Notaria", "Fiscalidad basica", "Cierre"],
+      "Nuestro servicio legal cubre la preparacion documental, la revision registral y urbanistica, la fiscalidad, la coordinacion de tramites y la defensa cuando la operacion deriva en reclamacion o conflicto.",
+    deskTags: ["Contratos", "Due diligence", "Fiscalidad", "Notaria", "Representacion", "NIE"],
     sections: {
       coverageEyebrow: "Cobertura",
-      coverageHeading: "Areas legales que ordenamos dentro de una operacion",
+      coverageHeading: "Servicios legales que prestamos dentro de una operacion inmobiliaria",
       coverageIntro:
-        "La pagina queda preparada por bloques claros para que luego podamos profundizar cada servicio sin romper la estructura general.",
-      methodEyebrow: "Metodo",
-      methodHeading: "Como se estructura un expediente legal con BlancaReal",
-      methodIntro:
-        "El enfoque no es teorico. Cada fase tiene una funcion concreta dentro del avance de la operacion y de la proteccion del cliente.",
-      dossiersEyebrow: "Expedientes",
-      dossiersHeading: "Tipos de casos que la landing puede desplegar despues",
-      dossiersIntro:
-        "Dejamos una arquitectura pensada para crecer en compraventas, clientes internacionales, promotoras y operaciones con capas de riesgo documental.",
-      controlEyebrow: "Control documental",
-      controlHeading: "Lo que conviene dejar siempre bajo lectura legal",
-      controlIntro:
-        "Mientras llega el contenido definitivo, la estructura ya prioriza los puntos donde mas valor aporta un equipo legal inmobiliario.",
+        "La pagina queda organizada por areas claras para que sepas exactamente que revisamos, que preparamos y que defendemos en cada compraventa, alquiler o incidencia juridica.",
     },
     coverage: [
       {
-        id: "sale",
+        id: "contracts",
         label: "01",
-        title: "Compraventas y contratos",
-        text: "Revision y estructura contractual para que la operacion avance con reglas claras, hitos definidos y menos exposicion.",
-        points: ["Reservas", "Arras", "Compraventa privada", "Anexos y condiciones"],
+        title: "Revision y elaboracion de contratos",
+        text: "Preparamos y revisamos la base contractual de la operacion para que cada parte firme con reglas claras y menos riesgo.",
+        points: [
+          "Contratos de compraventa",
+          "Contratos de arras",
+          "Contratos de alquiler: vivienda, temporada y local",
+          "Contratos de opcion de compra",
+          "Contratos de obra o reforma",
+        ],
       },
       {
         id: "due",
         label: "02",
-        title: "Due diligence inmobiliaria",
-        text: "Lectura de cargas, titularidad, consistencia registral y documentacion critica antes del compromiso economico.",
-        points: ["Nota simple", "Cargas", "Titularidad", "Coherencia documental"],
+        title: "Due diligence legal del inmueble",
+        text: "Verificamos la situacion juridica y documental del activo antes de avanzar en compra, venta o regularizacion.",
+        points: [
+          "Verificacion de cargas en el Registro de la Propiedad",
+          "Comprobacion de titularidad",
+          "Situacion urbanistica: licencias, infracciones y uso permitido",
+          "Revision de deudas: IBI, comunidad y suministros",
+        ],
       },
       {
-        id: "intl",
+        id: "tax",
         label: "03",
-        title: "Cliente internacional",
-        text: "Coordinacion legal de operaciones con compradores o vendedores extranjeros y necesidades asociadas al proceso.",
-        points: ["Representacion", "Documentos", "Cuenta bancaria", "Soporte de cierre"],
+        title: "Asesoria fiscal",
+        text: "Aterrizamos el impacto fiscal de cada operacion y las obligaciones asociadas a compra, venta o alquiler.",
+        points: [
+          "ITP, IVA, AJD, plusvalia municipal e IRPF",
+          "Impuestos asociados a compra o venta",
+          "Declaraciones relacionadas con alquileres",
+          "Licencias turisticas y numero de registro de alquiler",
+        ],
       },
       {
-        id: "close",
+        id: "docs",
         label: "04",
-        title: "Notaria, registro y cierre",
-        text: "Alineamos documentos, tiempos y partes implicadas para que la firma no dependa de improvisacion final.",
-        points: ["Agenda de firma", "Revision final", "Entrega documental", "Seguimiento"],
+        title: "Gestion de tramites y documentacion",
+        text: "Coordinamos la parte operativa y documental para que la firma y los pasos previos no dependan de improvisacion.",
+        points: [
+          "Preparacion y acompanamiento a firma ante notario",
+          "Coordinacion con bancos, tasadores y agentes inmobiliarios",
+          "Certificados de eficiencia energetica",
+          "Certificados de comunidad, IBI y catastro",
+        ],
+      },
+      {
+        id: "claims",
+        label: "05",
+        title: "Representacion legal",
+        text: "Actuamos cuando la operacion ya tiene conflicto o necesita defensa frente a incumplimientos o incidencias urbanisticas.",
+        points: [
+          "Reclamaciones por vicios ocultos",
+          "Conflictos entre arrendador y arrendatario",
+          "Desahucios",
+          "Reclamaciones por incumplimiento contractual",
+          "Defensa en procedimientos urbanisticos",
+        ],
+      },
+      {
+        id: "foreign",
+        label: "06",
+        title: "Servicios para extranjeros",
+        text: "Acompanamos compras y tramites cuando el cliente opera desde fuera o necesita documentacion internacional.",
+        points: [
+          "Obtencion de NIE",
+          "Revision de documentacion internacional",
+          "Asistencia en compras desde el extranjero",
+        ],
       },
     ],
-    method: [
-      {
-        step: "Fase 1",
-        title: "Lectura inicial",
-        text: "Identificamos el tipo de operacion, los actores implicados y los riesgos visibles desde el primer intercambio.",
-      },
-      {
-        step: "Fase 2",
-        title: "Orden documental",
-        text: "Clasificamos contratos, registros, anexos y piezas pendientes para crear una base de trabajo limpia.",
-      },
-      {
-        step: "Fase 3",
-        title: "Coordinacion activa",
-        text: "Traducimos lo juridico a una secuencia operativa compartida con cliente, comercial, agencia y terceros.",
-      },
-      {
-        step: "Fase 4",
-        title: "Cierre protegido",
-        text: "Revisamos el ultimo tramo con foco en firma, calendario, incidencias y continuidad posterior cuando haga falta.",
-      },
-    ],
-    dossiers: [
-      {
-        title: "Venta residencial",
-        text: "Fichas pensadas para propietarios que necesitan seguridad contractual, control de tiempos y cierre ordenado.",
-      },
-      {
-        title: "Compra con verificacion previa",
-        text: "Bloques para compradores que quieren claridad antes de comprometer capital en una vivienda o activo.",
-      },
-      {
-        title: "Promotoras y comercializacion",
-        text: "Estructura preparada para reservas, contratos, documentacion de proyecto y coordinacion comercial.",
-      },
-      {
-        title: "Cliente internacional",
-        text: "Espacio para procesos con documentacion extra, representacion, idioma y acompanamiento mas sensible.",
-      },
-    ],
-    controlTitle: "Checklist de lectura legal",
-    controlList: [
-      "Titularidad real, cargas y trazabilidad registral.",
-      "Validez de contratos, anexos, reservas y condiciones suspensivas.",
-      "Representacion, identidad de las partes y capacidad de firma.",
-      "Secuencia de pagos, hitos, plazos y documentacion de cierre.",
-      "Puntos de coordinacion con fiscalidad, notaria y agentes externos.",
-    ],
-    matrixTitle: "Capas que esta pagina podra desplegar",
-    matrix: [
-      { label: "Operacion", value: "Compra, venta o estructura mixta" },
-      { label: "Activo", value: "Residencial, promocion o unidad singular" },
-      { label: "Perfil", value: "Particular, promotora o cliente internacional" },
-      { label: "Momento", value: "Preventa, contrato, firma o post-cierre" },
-    ],
-    closingTitle: "Una base legal pensada para proteger y acelerar",
+    closingTitle: "Servicios legales pensados para ordenar la operacion y reducir riesgo",
     closingIntro:
-      "Esta landing ya queda planteada con tono, jerarquia y secciones listas para incorporar contenido juridico mas profundo sin rehacer el diseno.",
+      "Te acompanamos en la compra, venta o alquiler con revision legal previa, coordinacion documental y representacion si la operacion necesita defensa posterior.",
     closingPrimary: "Solicitar asesoria legal",
     closingSecondary: "Ver comercializacion",
   },
   en: {
     title: "Legal services | BlancaReal",
     description:
-      "Real estate legal services on the Costa del Sol for sales, due diligence, document coordination and closing support.",
+      "Real estate legal services on the Costa del Sol for contracts, due diligence, tax advice, documentation, representation and support for foreign buyers, sellers and landlords.",
     eyebrow: "Legal services",
-    headingMain: "Legal certainty for real estate transactions",
-    headingSub: "Legal structure, document reading and operational judgment",
+    headingMain: "Real estate legal services on the Costa del Sol",
+    headingSub: "Contracts, due diligence, tax advice, documentation, representation and international support",
     intro:
-      "BlancaReal organizes the legal side of the property process with a practical view: we protect the transaction, structure documentation and coordinate parties so closing arrives clean.",
+      "We tailor legal support to each property transaction: purchase, sale, rental, regularization, notary signing and formal representation if the matter later becomes contentious.",
     primaryCta: "Talk to legal team",
     secondaryCta: "Go to contact",
     heroStats: [
-      { value: "Sales", label: "contracts and closing" },
-      { value: "Due diligence", label: "document and registry risk" },
-      { value: "Coordination", label: "client, agency and notary" },
+      { value: "6 areas", label: "of real estate legal coverage" },
+      { value: "Costa del Sol", label: "purchase, sale, rental and investment" },
+      { value: "National and international clients", label: "end-to-end legal support" },
     ],
     deskEyebrow: "Legal desk",
-    deskTitle: "We do not enter only at the end. We enter where risk begins.",
+    deskTitle: "We step in where legal risk begins in the asset and in the transaction.",
     deskText:
-      "The transaction is reviewed from inside out: title, encumbrances, contracts, representation, timing, signatures and third-party coordination. The goal is to remove friction before it appears.",
-    deskTags: ["Contracts", "Registry", "Notary", "Basic tax", "Closing"],
+      "Our legal work covers document preparation, registry and planning review, tax implications, transaction formalities and representation whenever a dispute affects the property or the agreement.",
+    deskTags: ["Contracts", "Due diligence", "Tax", "Notary", "Representation", "NIE"],
     sections: {
       coverageEyebrow: "Coverage",
-      coverageHeading: "Legal areas we structure inside a transaction",
+      coverageHeading: "Legal services we provide within a real estate transaction",
       coverageIntro:
-        "The page is intentionally organized in clear blocks so we can deepen each service later without rebuilding the structure.",
-      methodEyebrow: "Method",
-      methodHeading: "How a legal file is structured with BlancaReal",
-      methodIntro:
-        "The approach is not theoretical. Each phase has a direct role within deal progress and client protection.",
-      dossiersEyebrow: "Case files",
-      dossiersHeading: "Types of matters this landing can expand later",
-      dossiersIntro:
-        "The architecture is ready to grow around sales, international clients, developers and transactions with document-heavy risk layers.",
-      controlEyebrow: "Document control",
-      controlHeading: "What should always stay under legal review",
-      controlIntro:
-        "Until the final content arrives, the structure already prioritizes the areas where real estate legal support adds the most value.",
+        "The page is structured around clear service areas so clients understand exactly what we review, prepare, coordinate or defend in each transaction or dispute.",
     },
     coverage: [
       {
-        id: "sale",
+        id: "contracts",
         label: "01",
-        title: "Sales and contracts",
-        text: "Contract review and structure so the transaction can advance with clear rules, defined milestones and lower exposure.",
-        points: ["Reservations", "Deposits", "Private sale agreement", "Annexes and conditions"],
+        title: "Contract drafting and review",
+        text: "We prepare and review the contractual base of the transaction so each party signs with clearer terms and lower exposure.",
+        points: [
+          "Sale and purchase agreements",
+          "Deposit contracts",
+          "Rental contracts: residential, seasonal and commercial",
+          "Option to purchase agreements",
+          "Works or refurbishment contracts",
+        ],
       },
       {
         id: "due",
         label: "02",
         title: "Real estate due diligence",
-        text: "Reading of encumbrances, title position, registry consistency and critical documentation before financial commitment.",
-        points: ["Registry notes", "Charges", "Ownership", "Document consistency"],
+        text: "We verify the legal and documentary position of the asset before the client commits capital or takes title.",
+        points: [
+          "Registry encumbrance review",
+          "Ownership verification",
+          "Planning status: licences, infringements and permitted use",
+          "Debt review: council tax, community fees and utilities",
+        ],
       },
       {
-        id: "intl",
+        id: "tax",
         label: "03",
-        title: "International client",
-        text: "Legal coordination of transactions with foreign buyers or sellers and the needs that appear around the process.",
-        points: ["Representation", "Documents", "Bank account", "Closing support"],
+        title: "Tax advice",
+        text: "We frame the tax effect of each purchase, sale or rental situation and the declarations linked to it.",
+        points: [
+          "Transfer tax, VAT, stamp duty, municipal plusvalia and income tax",
+          "Taxes linked to purchase or sale",
+          "Returns related to rental activity",
+          "Tourist rental licences and rental registration number",
+        ],
       },
       {
-        id: "close",
+        id: "docs",
         label: "04",
-        title: "Notary, registry and closing",
-        text: "We align documents, timing and parties so signature does not depend on last-minute improvisation.",
-        points: ["Signing agenda", "Final review", "Document delivery", "Follow-up"],
+        title: "Documentation and formalities",
+        text: "We coordinate the operational and documentary side so the signing stage and prior steps stay under control.",
+        points: [
+          "Preparation for and attendance at notary signing",
+          "Coordination with banks, valuers and estate agents",
+          "Energy performance certificate",
+          "Community, council tax and cadastral certificates",
+        ],
+      },
+      {
+        id: "claims",
+        label: "05",
+        title: "Legal representation",
+        text: "We act when the matter turns contentious or needs formal legal defence against breaches or property-related disputes.",
+        points: [
+          "Claims for hidden defects",
+          "Landlord and tenant conflicts",
+          "Evictions",
+          "Claims for contractual breach",
+          "Defence in planning proceedings",
+        ],
+      },
+      {
+        id: "foreign",
+        label: "06",
+        title: "Services for foreign clients",
+        text: "We assist transactions where the client operates from abroad or needs extra international documentation support.",
+        points: [
+          "NIE application",
+          "International document review",
+          "Support for purchases handled from abroad",
+        ],
       },
     ],
-    method: [
-      {
-        step: "Phase 1",
-        title: "Initial reading",
-        text: "We identify transaction type, parties involved and visible risks from the first exchange.",
-      },
-      {
-        step: "Phase 2",
-        title: "Document order",
-        text: "We classify contracts, registry material, annexes and pending items to create a clean working base.",
-      },
-      {
-        step: "Phase 3",
-        title: "Active coordination",
-        text: "We translate the legal layer into an operational sequence shared with client, sales, agency and third parties.",
-      },
-      {
-        step: "Phase 4",
-        title: "Protected closing",
-        text: "We review the final stretch with focus on signature, timing, incidents and continuity when needed.",
-      },
-    ],
-    dossiers: [
-      {
-        title: "Residential sale",
-        text: "Sections designed for owners who need contractual security, timing control and an orderly close.",
-      },
-      {
-        title: "Purchase with prior verification",
-        text: "Blocks for buyers who want clarity before committing capital to a property or asset.",
-      },
-      {
-        title: "Developers and commercialization",
-        text: "Structure prepared for reservations, contracts, project documentation and commercial coordination.",
-      },
-      {
-        title: "International client",
-        text: "Space for processes with extra documentation, representation, language and more sensitive support needs.",
-      },
-    ],
-    controlTitle: "Legal reading checklist",
-    controlList: [
-      "Actual title position, encumbrances and registry traceability.",
-      "Validity of contracts, annexes, reservations and suspensive conditions.",
-      "Representation, party identity and signature capacity.",
-      "Payment sequence, milestones, deadlines and closing documents.",
-      "Coordination points with tax, notary and external agents.",
-    ],
-    matrixTitle: "Layers this page can expand",
-    matrix: [
-      { label: "Transaction", value: "Purchase, sale or mixed structure" },
-      { label: "Asset", value: "Residential, development or singular unit" },
-      { label: "Profile", value: "Private client, developer or international buyer" },
-      { label: "Moment", value: "Pre-sale, contract, signature or post-close" },
-    ],
-    closingTitle: "A legal base designed to protect and accelerate",
+    closingTitle: "Legal services designed to structure the transaction and reduce risk",
     closingIntro:
-      "This landing now has the tone, hierarchy and sections needed to receive deeper legal content later without redesigning the page.",
+      "We support purchase, sale and rental matters with legal review, document coordination and formal representation whenever the transaction needs it.",
     closingPrimary: "Request legal advice",
     closingSecondary: "View commercialization",
   },
 };
 
 const page = copyByLang[lang] ?? copyByLang.en ?? copyByLang.es;
+const landingNavGroups = landingNavGroupsByLang[lang] ?? landingNavGroupsByLang.es;
 
 const sectionNav = [
   { id: "coverage", label: page.sections.coverageEyebrow },
-  { id: "method", label: page.sections.methodEyebrow },
-  { id: "dossiers", label: page.sections.dossiersEyebrow },
-  { id: "control", label: page.sections.controlEyebrow },
   { id: "contact", label: lang === "es" ? "Contacto" : "Contact" },
 ];
 
 const icons = {
-  sale: ["M14 20h36", "M14 28h36", "M14 36h22", "M42 36h8", "M18 14h28v36H18z"],
+  contracts: ["M14 20h36", "M14 28h36", "M14 36h22", "M42 36h8", "M18 14h28v36H18z"],
   due: ["M20 18h24v28H20z", "M26 14h12", "M26 50h12", "M32 22v20", "M24 30h16"],
-  intl: ["M32 12c11 0 20 9 20 20s-9 20-20 20-20-9-20-20 9-20 20-20Z", "M12 32h40", "M32 12c5 6 8 12 8 20s-3 14-8 20", "M32 12c-5 6-8 12-8 20s3 14 8 20"],
-  close: ["M18 22l10 10 18-18", "M16 44h32", "M18 16h28v32H18z"],
+  tax: ["M18 20h28", "M22 16h20v32H22z", "M26 28h12", "M26 36h8"],
+  docs: ["M18 22l10 10 18-18", "M16 44h32", "M18 16h28v32H18z"],
+  claims: ["M20 18h24", "M24 18v28", "M40 18v28", "M24 32h16", "M18 46h28"],
+  foreign: ["M32 12c11 0 20 9 20 20s-9 20-20 20-20-9-20-20 9-20 20-20Z", "M12 32h40", "M32 12c5 6 8 12 8 20s-3 14-8 20", "M32 12c-5 6-8 12-8 20s3 14 8 20"],
 };
 ---
 
@@ -309,6 +362,8 @@ const icons = {
   availableLangs={SUPPORTED_LANGS}
   headerVariant="landing"
   landingNavItems={landingNavItems}
+  landingNavGroups={landingNavGroups}
+  landingHeaderSolid={true}
   showMobileStickyCta={false}
 >
   <div class="legal-page">
@@ -380,9 +435,9 @@ const icons = {
       </div>
 
       <div class="legal-coverage-grid">
-        {page.coverage.map((item) => (
-          <article class={`legal-card legal-card--${item.id}`}>
-            <div class="legal-card__head">
+          {page.coverage.map((item) => (
+            <article id={`coverage-${item.id}`} class={`legal-card legal-card--${item.id}`}>
+              <div class="legal-card__head">
               <span class="legal-card__index">{item.label}</span>
               <span class="legal-card__icon" aria-hidden="true">
                 <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -397,71 +452,6 @@ const icons = {
             </ul>
           </article>
         ))}
-      </div>
-    </section>
-
-    <section id="method" class="legal-section legal-section--tint">
-      <div class="container">
-        <div class="legal-section-heading">
-          <span>{page.sections.methodEyebrow}</span>
-          <h2>{page.sections.methodHeading}</h2>
-          <p>{page.sections.methodIntro}</p>
-        </div>
-
-        <div class="legal-method">
-          {page.method.map((step) => (
-            <article class="legal-method-step">
-              <strong>{step.step}</strong>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section id="dossiers" class="legal-section container">
-      <div class="legal-section-heading">
-        <span>{page.sections.dossiersEyebrow}</span>
-        <h2>{page.sections.dossiersHeading}</h2>
-        <p>{page.sections.dossiersIntro}</p>
-      </div>
-
-      <div class="legal-dossier-grid">
-        {page.dossiers.map((dossier) => (
-          <article class="legal-dossier">
-            <h3>{dossier.title}</h3>
-            <p>{dossier.text}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section id="control" class="legal-section container">
-      <div class="legal-control">
-        <article class="legal-control-panel">
-          <div class="legal-section-heading legal-section-heading--compact">
-            <span>{page.sections.controlEyebrow}</span>
-            <h2>{page.sections.controlHeading}</h2>
-            <p>{page.sections.controlIntro}</p>
-          </div>
-          <h3>{page.controlTitle}</h3>
-          <ul>
-            {page.controlList.map((item) => <li>{item}</li>)}
-          </ul>
-        </article>
-
-        <article class="legal-matrix">
-          <h3>{page.matrixTitle}</h3>
-          <dl>
-            {page.matrix.map((item) => (
-              <div>
-                <dt>{item.label}</dt>
-                <dd>{item.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </article>
       </div>
     </section>
 

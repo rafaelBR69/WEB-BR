@@ -4,7 +4,7 @@
 
 .property-card {
   background-color: var(--color-surface);
-  border-radius: 1rem;
+  border-radius: 0;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -77,50 +77,7 @@
 }
 
 .card-gallery-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 999px;
-  background: rgba(11, 18, 33, 0.28);
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2;
-  padding: 0;
-  transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease, background-color 0.2s ease;
-  opacity: 0.96;
-  text-shadow: 0 8px 22px rgba(8, 15, 28, 0.55);
-  backdrop-filter: blur(8px);
-}
-
-.card-gallery-nav.is-prev {
-  left: 0.9rem;
-}
-
-.card-gallery-nav.is-next {
-  right: 0.9rem;
-}
-
-.card-gallery-nav span {
-  font-size: 1.8rem;
-  line-height: 1;
-  transform: translateY(-1px);
-  font-weight: 400;
-}
-
-.card-gallery-nav:hover {
-  opacity: 1;
-  background: rgba(11, 18, 33, 0.42);
-}
-
-.card-gallery-nav:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.92);
-  outline-offset: 2px;
+  display: none;
 }
 
 .card-gallery-dots {
@@ -238,7 +195,7 @@
   opacity: 0.9;
   font-weight: 700;
   border: 1px solid var(--color-border);
-  border-radius: 0.5rem;
+  border-radius: 0;
   background: var(--color-bg);
   padding: 0.35rem 0.5rem;
 }
@@ -277,7 +234,7 @@
   justify-content: center;
   min-width: 2rem;
   padding: 0.35rem 0.55rem;
-  border-radius: 0.5rem;
+  border-radius: 0;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
   color: var(--color-muted);
@@ -300,7 +257,7 @@
   padding: 0.85rem;
   background-color: var(--color-bg);
   color: var(--color-primary);
-  border-radius: 0.5rem;
+  border-radius: 0;
   font-weight: 700;
   font-size: 0.9rem;
   transition: all 0.25s;
@@ -317,7 +274,7 @@
 
 @media (max-width: 640px) {
   .property-card {
-    border-radius: 1.05rem;
+    border-radius: 0;
     box-shadow: 0 10px 26px rgba(16, 24, 40, 0.08);
   }
 
@@ -331,19 +288,6 @@
 
   .card-image {
     aspect-ratio: 4 / 3.15;
-  }
-
-  .card-gallery-nav {
-    width: 2.55rem;
-    height: 2.55rem;
-  }
-
-  .card-gallery-nav.is-prev {
-    left: 0.65rem;
-  }
-
-  .card-gallery-nav.is-next {
-    right: 0.65rem;
   }
 
   .property-card .title {

@@ -1,70 +1,325 @@
 ---
 export const prerender = false;
 
-import { INDEXABLE_CITIES, INDEXABLE_AREAS, INDEXABLE_TYPES } from "@shared/config/seoSlugs";
-import { normalizeCity } from "@shared/properties/public";
-import { normalizeArea } from "@shared/properties/public";
-import { DEFAULT_LANG, isSupportedLang } from "@shared/i18n/languages";
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import fallbackProperties from "@shared/data/properties";
+import PropertyCard from "@webapp/components/PropertyCard.astro";
+import { getPublicPropertiesWithFallback } from "@shared/properties/public";
+import { normalizePropertyCard } from "@shared/properties/public";
+import { applyFilters } from "@shared/properties/public";
+import { INDEXABLE_CITIES } from "@shared/config/seoSlugs";
+import {
+  buildPropertyLandingCatalogUrl,
+  resolvePropertyLanding,
+} from "@shared/seo/resolvePropertyLanding";
+import { buildPropertyLandingContent } from "@shared/seo/propertyLandingContent";
+import { buildPropertyLandingSchema } from "@shared/seo/buildPropertyLandingSchema";
+import { buildPropertyLandingHubs } from "@shared/seo/propertyLandingHubs";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { getUiCopy } from "@shared/i18n/ui";
+import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
+import "@webapp/styles/pages/properties.css";
 
-const { slug = [], lang = DEFAULT_LANG } = Astro.params;
+const rawSlug = Array.isArray(Astro.params.slug)
+  ? Astro.params.slug
+  : Astro.params.slug
+    ? [Astro.params.slug]
+    : [];
 
-if (!isSupportedLang(lang)) {
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
   return Astro.redirect(`/${DEFAULT_LANG}/properties/`, 302);
 }
 
-// Máximo permitido: /city o /city/zone o /city/type
-if (slug.length === 0 || slug.length > 2) {
+const lang = langParam;
+const ui = getUiCopy(lang);
+
+const landing = resolvePropertyLanding({
+  lang,
+  slugSegments: rawSlug,
+});
+
+if (!landing) {
+  const firstSegment = String(rawSlug[0] ?? "").toLowerCase();
+  if (firstSegment && INDEXABLE_CITIES.includes(firstSegment)) {
+    return Astro.redirect(`/${lang}/properties/${firstSegment}/`, 301);
+  }
+
   return Astro.redirect(`/${lang}/properties/`, 301);
 }
 
-const citySlug = slug[0];
-if (!INDEXABLE_CITIES.includes(citySlug)) {
-  return Astro.redirect(`/${lang}/properties/`, 301);
-}
+const headerNavItems = [
+  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+  { href: `/${lang}/properties/`, label: ui.layout.navProperties },
+  { href: `/${lang}/projects/`, label: ui.layout.navProjects },
+  { href: `/${lang}/contact/`, label: ui.layout.navContact },
+];
 
-let city = normalizeCity(citySlug);
-let area: string | null = null;
-let type: string | null = null;
+const { properties } = await getPublicPropertiesWithFallback({
+  fallbackProperties,
+});
 
-// CASO 1: /city
-if (slug.length === 1) {
-  // OK
-}
+const cards = properties
+  .map((property) => normalizePropertyCard(property, lang))
+  .filter(Boolean)
+  .filter((card) => card.visible);
 
-// CASO 2: /city/second
-if (slug.length === 2) {
-  const second = slug[1];
+const filteredCards = applyFilters(cards, landing.queryFilters);
 
-  // ¿Es tipo?
-  if (INDEXABLE_TYPES.includes(second)) {
-    type = second;
+const sortedCards = [...filteredCards].sort((a, b) => {
+  if (a.isPromotion && b.isPromotion) {
+    const byEditorial = comparePromotionEditorialOrder(a, b);
+    if (byEditorial !== 0) return byEditorial;
   }
 
-  // ¿Es zona?
-  if (INDEXABLE_AREAS[citySlug]?.includes(second)) {
-    area = normalizeArea(second);
-  }
+  const byPriority = (b.priority ?? 0) - (a.priority ?? 0);
+  if (byPriority !== 0) return byPriority;
 
-  // Si no es ni tipo ni zona → fuera
-  if (!type && !area) {
-    return Astro.redirect(`/${lang}/properties/${citySlug}/`, 301);
-  }
-}
+  return (b.priceDisplay ?? b.price ?? 0) - (a.priceDisplay ?? a.price ?? 0);
+});
 
-// ⚠️ Prohibido: city + area + type
-// (ya lo evitamos porque solo aceptamos 2 segmentos)
+const primaryMedia = sortedCards.find((card) => card.cover)?.cover ?? null;
+const ogImage =
+  typeof primaryMedia === "string"
+    ? primaryMedia
+    : primaryMedia?.url ?? null;
 
-// Construimos URL interna limpia
-const url = new URL(Astro.request.url);
-url.pathname = `/${lang}/properties/`;
+const content = buildPropertyLandingContent({
+  lang,
+  landing,
+  resultCount: sortedCards.length,
+  ogImage,
+});
 
-url.searchParams.set("city", city);
-if (area) url.searchParams.set("area", area);
-if (type) url.searchParams.set("type", type);
+const structuredData = buildPropertyLandingSchema({
+  lang,
+  canonicalPath: landing.canonicalPath,
+  content,
+  cards: sortedCards,
+});
 
-// Eliminamos basura técnica
-url.searchParams.delete("sort");
-url.searchParams.delete("page");
+const hubSections = buildPropertyLandingHubs({
+  lang,
+  landing,
+});
 
-return Astro.redirect(url.pathname + url.search, 307);
+const catalogUrl = buildPropertyLandingCatalogUrl(landing);
+
+const copyByLang = {
+  es: {
+    eyebrow: "Costa del Sol",
+    introLabel: "Landing SEO indexable",
+    visibleCount: "propiedades visibles",
+    browseCatalog: "Abrir catalogo interactivo",
+    contactTeam: "Hablar con el equipo",
+    bodyTitle: "Contexto de la busqueda",
+    faqTitle: "Preguntas frecuentes",
+    resultsTitle: "Seleccion disponible",
+    emptyTitle: "No hay propiedades visibles para esta combinacion",
+    emptyText:
+      "Esta URL queda publicada como landing util, pero ahora mismo no tiene inventario suficiente para indexarse con fuerza.",
+    backToProperties: "Ver todas las propiedades",
+    footerTitle: "Necesita una seleccion mas precisa?",
+    footerText:
+      "Podemos ayudarle a refinar la busqueda por zona, tipologia, presupuesto o estrategia de compra.",
+  },
+  en: {
+    eyebrow: "Costa del Sol",
+    introLabel: "Indexable SEO landing",
+    visibleCount: "visible properties",
+    browseCatalog: "Open interactive catalogue",
+    contactTeam: "Talk to the team",
+    bodyTitle: "Search context",
+    faqTitle: "Frequently asked questions",
+    resultsTitle: "Available selection",
+    emptyTitle: "No visible properties for this combination",
+    emptyText:
+      "This URL can still exist as a useful landing, but it currently does not have enough live stock to justify strong indexation.",
+    backToProperties: "View all properties",
+    footerTitle: "Need a more precise shortlist?",
+    footerText:
+      "We can refine the search by area, property type, budget or buying strategy.",
+  },
+  de: {
+    eyebrow: "Costa del Sol",
+    introLabel: "Indexierbare SEO-Landingpage",
+    visibleCount: "sichtbare immobilien",
+    browseCatalog: "Interaktiven Katalog oeffnen",
+    contactTeam: "Mit dem Team sprechen",
+    bodyTitle: "Suchkontext",
+    faqTitle: "Haeufige Fragen",
+    resultsTitle: "Verfuegbare Auswahl",
+    emptyTitle: "Keine sichtbaren Immobilien fuer diese Kombination",
+    emptyText:
+      "Diese URL bleibt als nuetzliche Landingpage bestehen, hat aktuell aber nicht genug Live-Inventar fuer eine starke Indexierung.",
+    backToProperties: "Alle Immobilien ansehen",
+    footerTitle: "Brauchen Sie eine praezisere Auswahl?",
+    footerText:
+      "Wir koennen die Suche nach Gebiet, Immobilientyp, Budget oder Kaufstrategie verfeinern.",
+  },
+  fr: {
+    eyebrow: "Costa del Sol",
+    introLabel: "Landing SEO indexable",
+    visibleCount: "proprietes visibles",
+    browseCatalog: "Ouvrir le catalogue interactif",
+    contactTeam: "Parler avec l equipe",
+    bodyTitle: "Contexte de recherche",
+    faqTitle: "Questions frequentes",
+    resultsTitle: "Selection disponible",
+    emptyTitle: "Aucune propriete visible pour cette combinaison",
+    emptyText:
+      "Cette URL peut rester une landing utile, mais elle ne dispose pas encore d un stock suffisant pour une forte indexation.",
+    backToProperties: "Voir toutes les proprietes",
+    footerTitle: "Besoin d une selection plus precise ?",
+    footerText:
+      "Nous pouvons affiner la recherche par zone, typologie, budget ou strategie d achat.",
+  },
+  it: {
+    eyebrow: "Costa del Sol",
+    introLabel: "Landing SEO indicizzabile",
+    visibleCount: "proprieta visibili",
+    browseCatalog: "Apri catalogo interattivo",
+    contactTeam: "Parla con il team",
+    bodyTitle: "Contesto della ricerca",
+    faqTitle: "Domande frequenti",
+    resultsTitle: "Selezione disponibile",
+    emptyTitle: "Nessuna proprieta visibile per questa combinazione",
+    emptyText:
+      "Questa URL puo restare una landing utile, ma in questo momento non ha abbastanza stock live per una forte indicizzazione.",
+    backToProperties: "Vedi tutte le proprieta",
+    footerTitle: "Hai bisogno di una selezione piu precisa?",
+    footerText:
+      "Possiamo affinare la ricerca per zona, tipologia, budget o strategia di acquisto.",
+  },
+  nl: {
+    eyebrow: "Costa del Sol",
+    introLabel: "Indexeerbare SEO-landingspagina",
+    visibleCount: "zichtbare woningen",
+    browseCatalog: "Open interactieve catalogus",
+    contactTeam: "Praat met het team",
+    bodyTitle: "Zoekcontext",
+    faqTitle: "Veelgestelde vragen",
+    resultsTitle: "Beschikbare selectie",
+    emptyTitle: "Geen zichtbare woningen voor deze combinatie",
+    emptyText:
+      "Deze URL kan nuttig blijven als landing, maar heeft nu niet genoeg live aanbod voor sterke indexatie.",
+    backToProperties: "Bekijk alle woningen",
+    footerTitle: "Meer gerichte shortlist nodig?",
+    footerText:
+      "We kunnen de zoekopdracht verfijnen op gebied, woningtype, budget of aankoopstrategie.",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
 ---
+
+<BaseLayout
+  title={content.title}
+  description={content.description}
+  noindex={content.noindex}
+  lang={lang}
+  availableLangs={SUPPORTED_LANGS}
+  headerNavItems={headerNavItems}
+  structuredData={structuredData}
+  og={content.ogImage ? { image: content.ogImage } : undefined}
+>
+  <div class="properties-page properties-seo-page">
+    <header class="properties-header properties-seo-header">
+      <div class="header-content">
+        <nav class="properties-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            {content.breadcrumbs.map((crumb) => (
+              <li>
+                <a href={crumb.href}>{crumb.name}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+        <p class="subtitle">{t.eyebrow}</p>
+        <h1>{content.h1}</h1>
+        <p class="properties-seo-intro">{content.intro}</p>
+        <div class="properties-seo-actions">
+          <a class="btn-primary" href={catalogUrl}>{t.browseCatalog}</a>
+          <a class="btn-secondary" href={`/${lang}/contact/`}>{t.contactTeam}</a>
+        </div>
+        <div class="properties-seo-meta">
+          <span>{sortedCards.length} {t.visibleCount}</span>
+          <span>{t.introLabel}</span>
+          {content.noindex && <span>noindex</span>}
+        </div>
+      </div>
+    </header>
+
+    <div class="properties-layout properties-layout--seo">
+      <main class="properties-content">
+        <section class="properties-seo-copy">
+          <div class="properties-seo-blocks">
+            <div class="properties-seo-block">
+              <h2>{t.resultsTitle}</h2>
+              <p>{content.description}</p>
+            </div>
+            {content.bodyBlocks.map((block) => (
+              <article class="properties-seo-block">
+                <h2>{block.title}</h2>
+                <p>{block.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {sortedCards.length === 0 ? (
+          <div class="empty-state">
+            <div class="empty-icon"></div>
+            <h3>{t.emptyTitle}</h3>
+            <p>{t.emptyText}</p>
+            <a href={`/${lang}/properties/`} class="btn btn-primary">{t.backToProperties}</a>
+          </div>
+        ) : (
+          <section class="properties-grid">
+            {sortedCards.map((data) => (
+              <PropertyCard data={data} lang={lang} />
+            ))}
+          </section>
+        )}
+
+        {content.faqItems.length > 0 && (
+          <section class="properties-seo-faq" aria-labelledby="landingFaqTitle">
+            <div class="properties-seo-heading">
+              <h2 id="landingFaqTitle">{t.faqTitle}</h2>
+            </div>
+            <div class="properties-seo-faq-list">
+              {content.faqItems.map((item) => (
+                <details class="properties-seo-faq-item">
+                  <summary>{item.question}</summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {hubSections.length > 0 && (
+          <section class="properties-seo-hubs" aria-label="Related property searches">
+            {hubSections.map((section) => (
+              <article class="properties-hub-section">
+                <h2>{section.title}</h2>
+                <div class="properties-hub-links">
+                  {section.links.map((link) => (
+                    <a href={link.href} class="properties-hub-link">{link.label}</a>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </section>
+        )}
+      </main>
+    </div>
+
+    <div class="list-footer-cta">
+      <h3>{t.footerTitle}</h3>
+      <p>{t.footerText}</p>
+      <a href={`/${lang}/contact/`} class="btn btn-outline">{t.contactTeam}</a>
+    </div>
+  </div>
+</BaseLayout>

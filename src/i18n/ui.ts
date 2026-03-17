@@ -10,6 +10,8 @@ type UiCopy = {
     navPromoters: string;
     navLegalServices: string;
     navCommercialization: string;
+    navSellWithUs: string;
+    navForAgents: string;
     navAgents: string;
     navContact: string;
     navMap: string;
@@ -29,6 +31,7 @@ type UiCopy = {
     menuPromotersHint: string;
     menuLegalHint: string;
     menuMarketingHint: string;
+    menuSellWithUsHint: string;
     menuAgentsHint: string;
     menuContactHint: string;
     menuBlogHint: string;
@@ -54,6 +57,8 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       navPromoters: "Promotoras",
       navLegalServices: "Servicios legales",
       navCommercialization: "Comercializacion",
+      navSellWithUs: "Vende con nosotros",
+      navForAgents: "Para agentes",
       navAgents: "Agentes",
       navContact: "Contacto",
       navMap: "Mapa",
@@ -73,6 +78,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuPromotersHint: "Promotoras y comercializacion",
       menuLegalHint: "Soporte juridico inmobiliario",
       menuMarketingHint: "Visuales, renders y campanas",
+      menuSellWithUsHint: "Captacion, marketing y venta",
       menuAgentsHint: "Acceso para colaboradores",
       menuContactHint: "Hablar con BlancaReal",
       menuBlogHint: "Guias y actualidad",
@@ -96,6 +102,8 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       navPromoters: "Developers",
       navLegalServices: "Legal services",
       navCommercialization: "Commercialization",
+      navSellWithUs: "Sell with us",
+      navForAgents: "For agents",
       navAgents: "Agents",
       navContact: "Contact",
       navMap: "Map",
@@ -115,6 +123,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuPromotersHint: "Developers and commercialization",
       menuLegalHint: "Real estate legal support",
       menuMarketingHint: "Visuals, renders and campaigns",
+      menuSellWithUsHint: "Seller intake, marketing and sale",
       menuAgentsHint: "Partner access",
       menuContactHint: "Speak with BlancaReal",
       menuBlogHint: "Guides and updates",
@@ -138,6 +147,8 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       navPromoters: "Bautraeger",
       navLegalServices: "Rechtsservice",
       navCommercialization: "Vermarktung",
+      navSellWithUs: "Verkaufen Sie mit uns",
+      navForAgents: "Fuer Agenten",
       navAgents: "Agenten",
       navContact: "Kontakt",
       navMap: "Karte",
@@ -157,6 +168,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuPromotersHint: "Bautraeger und Vermarktung",
       menuLegalHint: "Rechtliche Immobilienbetreuung",
       menuMarketingHint: "Visuals, Renderings und Kampagnen",
+      menuSellWithUsHint: "Akquise, Marketing und Verkauf",
       menuAgentsHint: "Zugang fuer Partner",
       menuContactHint: "Mit BlancaReal sprechen",
       menuBlogHint: "Ratgeber und Updates",
@@ -180,6 +192,8 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       navPromoters: "Promoteurs",
       navLegalServices: "Services juridiques",
       navCommercialization: "Commercialisation",
+      navSellWithUs: "Vendez avec nous",
+      navForAgents: "Pour agents",
       navAgents: "Agents",
       navContact: "Contact",
       navMap: "Carte",
@@ -199,6 +213,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuPromotersHint: "Promoteurs et commercialisation",
       menuLegalHint: "Support juridique immobilier",
       menuMarketingHint: "Visuels, rendus et campagnes",
+      menuSellWithUsHint: "Captation, marketing et vente",
       menuAgentsHint: "Acces partenaires",
       menuContactHint: "Parler avec BlancaReal",
       menuBlogHint: "Guides et actualites",
@@ -222,6 +237,8 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       navPromoters: "Promotori",
       navLegalServices: "Servizi legali",
       navCommercialization: "Commercializzazione",
+      navSellWithUs: "Vendi con noi",
+      navForAgents: "Per agenti",
       navAgents: "Agenti",
       navContact: "Contatto",
       navMap: "Mappa",
@@ -241,6 +258,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuPromotersHint: "Promotori e commercializzazione",
       menuLegalHint: "Supporto legale immobiliare",
       menuMarketingHint: "Visual, render e campagne",
+      menuSellWithUsHint: "Acquisizione, marketing e vendita",
       menuAgentsHint: "Accesso partner",
       menuContactHint: "Parla con BlancaReal",
       menuBlogHint: "Guide e aggiornamenti",
@@ -264,6 +282,8 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       navPromoters: "Ontwikkelaars",
       navLegalServices: "Juridische diensten",
       navCommercialization: "Commercialisatie",
+      navSellWithUs: "Verkoop met ons",
+      navForAgents: "Voor agenten",
       navAgents: "Agenten",
       navContact: "Contact",
       navMap: "Kaart",
@@ -283,6 +303,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
       menuPromotersHint: "Ontwikkelaars en commercialisatie",
       menuLegalHint: "Juridische vastgoedondersteuning",
       menuMarketingHint: "Visuals, renders en campagnes",
+      menuSellWithUsHint: "Acquisitie, marketing en verkoop",
       menuAgentsHint: "Toegang voor partners",
       menuContactHint: "Spreek met BlancaReal",
       menuBlogHint: "Gidsen en updates",

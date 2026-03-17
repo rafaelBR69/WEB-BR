@@ -38,3 +38,61 @@
   - `npm run build:web` OK
   - `npm run build:crm` OK
   - `npm run build` OK
+
+## 2026-03-16 Website Backlog Planning
+
+- The backlog in the screenshot is not a single stream of work. It mixes:
+  - legal/compliance blockers
+  - home conversion work
+  - sitewide SEO/performance/accessibility items
+  - section-level content/product tasks
+  - net-new business pages
+  - marketing instrumentation
+- The highest-risk items are the legal/compliance ones because they affect forms, data collection, cookies, and public exposure of personal contact data.
+- Several screenshot items are already partially addressed in the repo and must be re-audited before redoing:
+  - privacy/cookies pages exist
+  - consent handling has been added to home/contact
+  - preload/preconnect/structured-data work has started on home
+  - home H1/trust/value-prop work has started
+  - collaborator accessibility work has already been touched
+  - portal loading/access flow has been improved
+- The clean sequencing is:
+  1. compliance and contact safety
+  2. home clarity and conversion
+  3. core section UX/content
+  4. sitewide SEO/a11y/performance hardening
+  5. new pages/product surfaces
+  6. analytics/growth validation
+- Tasks marked across many areas but really sharing one dependency should be batched:
+  - all cookie/RGPD items
+  - all locale SEO tags/schema/hreflang items
+  - all image/logo request optimization items
+  - all carousel/ticker/language-switcher accessibility fixes
+- The home backlog should not revert to a generic agency homepage. The repo already moved toward:
+  - clearer value proposition
+  - trust strip
+  - customer-oriented nav
+  - reduced contact exposure
+  The next home pass should refine, not restart.
+
+## 2026-03-17 Real Estate Consolidation
+
+- `/real-estate/` is currently a full standalone page with:
+  - hero
+  - search form
+  - full-width `MapboxCostaMap`
+  - featured carousel
+- `/properties/` already became the main catalog entry and now has the shared editorial header/subnav.
+- `MapboxCostaMap.astro` already has enough behavior to support the new request:
+  - feature-based rendering
+  - reset and viewport controls
+  - zone/subzone filtering
+  - programmatic selection and zooming logic internally
+- The new request is not about building new map capability from zero; it is about relocating and resizing the map experience into `/properties/`.
+- The tricky part is the result count and listing logic split:
+  - `/properties/` visually mixes promotions and units depending on filter intent
+  - the user now wants the page emphasis to move toward unit inventory with contextual map support
+- The safest migration path is:
+  1. move the compact map into `/properties/`
+  2. wire it to filtered/current context
+  3. then demote `/real-estate/` to a redirect or thin shell

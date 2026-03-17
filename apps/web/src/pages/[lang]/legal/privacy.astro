@@ -1,0 +1,226 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import "@webapp/styles/pages/legal-docs.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/legal/privacy/`, 302);
+}
+
+const lang = langParam;
+const CONTACT_EMAIL = "info@blancareal.com";
+const CONTACT_PHONE = "+34 952 599 159";
+
+const copyByLang = {
+  es: {
+    title: "Politica de privacidad | BlancaReal",
+    description:
+      "Politica de privacidad de BlancaReal: responsable, finalidades, bases juridicas, conservacion y derechos RGPD.",
+    eyebrow: "Legal",
+    heading: "Politica de privacidad",
+    intro:
+      "Esta politica explica como trata BlancaReal los datos personales obtenidos a traves de esta web, de formularios, del telefono corporativo y de cualquier solicitud comercial o legal iniciada por el usuario.",
+    updated: "Actualizado en marzo de 2026",
+    meta: "BlancaReal · Mijas Costa · Costa del Sol",
+    sections: [
+      {
+        title: "1. Responsable del tratamiento",
+        paragraphs: [
+          "El responsable del tratamiento de los datos personales facilitados a traves de esta web es BlancaReal, con actividad inmobiliaria, comercial y de asesoramiento en Costa del Sol. Las comunicaciones relativas a privacidad y ejercicio de derechos se atienden desde el canal corporativo de contacto publicado en esta pagina.",
+          "Cuando un usuario remite un formulario, solicita una llamada, pide informacion sobre una propiedad o inicia una consulta sobre servicios legales o comercializacion, BlancaReal actua como responsable del tratamiento respecto a esos datos.",
+        ],
+      },
+      {
+        title: "2. Datos que tratamos",
+        items: [
+          "Datos identificativos y de contacto: nombre, apellidos, email y telefono.",
+          "Datos de contexto comercial: servicio solicitado, interes inmobiliario, promocion, zona o mensaje enviado.",
+          "Datos tecnicos minimos asociados a la navegacion, al idioma, a la fecha de la solicitud y al consentimiento prestado.",
+          "Datos derivados de una relacion posterior, si el usuario decide continuar con una operacion comercial, legal o contractual.",
+        ],
+      },
+      {
+        title: "3. Finalidades del tratamiento",
+        paragraphs: [
+          "Los datos se utilizan para responder solicitudes de informacion, preparar una llamada o reunion, derivar la consulta al departamento adecuado, registrar la oportunidad en los sistemas internos de gestion y mantener comunicaciones relacionadas con la consulta del usuario.",
+          "Tambien pueden tratarse para elaborar propuestas comerciales, coordinar una posible reserva o due diligence, prestar servicios legales o de comercializacion y cumplir obligaciones administrativas, fiscales o legales cuando exista una relacion profesional o contractual.",
+        ],
+      },
+      {
+        title: "4. Base juridica",
+        items: [
+          "Consentimiento del interesado cuando remite voluntariamente formularios o acepta comunicaciones relacionadas con su solicitud.",
+          "Aplicacion de medidas precontractuales cuando pide informacion para una posible operacion de compra, venta, inversion o asesoramiento.",
+          "Ejecucion de un contrato o encargo profesional si la relacion llega a formalizarse.",
+          "Cumplimiento de obligaciones legales aplicables a la actividad mercantil, fiscal, contable o de prevencion del fraude.",
+          "Interes legitimo para organizar la atencion comercial, documentar interacciones y defender posibles reclamaciones.",
+        ],
+      },
+      {
+        title: "5. Conservacion",
+        paragraphs: [
+          "Los datos se conservaran durante el tiempo necesario para responder la solicitud y, si existe continuidad comercial o legal, durante el tiempo que exija la relacion profesional y los plazos legales de conservacion aplicables.",
+          "Cuando el usuario solo realiza una consulta inicial y no existe continuidad, BlancaReal limitara la conservacion al tiempo razonable para seguimiento comercial y defensa frente a posibles incidencias, suprimiendo o bloqueando la informacion cuando deje de ser necesaria.",
+        ],
+      },
+      {
+        title: "6. Destinatarios y encargados",
+        paragraphs: [
+          "BlancaReal no vende datos personales a terceros. Podra comunicar informacion a proveedores tecnologicos y colaboradores necesarios para alojar la web, gestionar formularios, almacenar informacion o prestar soporte operativo, siempre bajo instrucciones de BlancaReal y con las garantias contractuales exigibles.",
+          "Tambien podran existir comunicaciones cuando una ley lo exija, cuando sea necesario para la ejecucion de un encargo solicitado por el interesado o cuando intervengan profesionales vinculados a la operacion con una necesidad legitima y documentada.",
+        ],
+      },
+      {
+        title: "7. Transferencias internacionales",
+        paragraphs: [
+          "Determinados proveedores de infraestructura, almacenamiento o soporte pueden operar fuera del Espacio Economico Europeo o apoyarse en subencargados internacionales. En esos casos, BlancaReal aplicara las garantias previstas en el RGPD, como clausulas contractuales tipo u otros mecanismos validos.",
+        ],
+      },
+      {
+        title: "8. Derechos del interesado",
+        paragraphs: [
+          "El usuario puede solicitar acceso, rectificacion, supresion, oposicion, limitacion del tratamiento y portabilidad, asi como retirar el consentimiento cuando esa sea la base juridica del tratamiento.",
+          "Para ejercer esos derechos puede escribir al email corporativo indicado abajo, identificando su solicitud y el canal desde el que se produjo el contacto. Si considera que sus derechos no han sido atendidos correctamente, puede presentar reclamacion ante la Agencia Espanola de Proteccion de Datos.",
+        ],
+      },
+      {
+        title: "9. Menores y veracidad de los datos",
+        paragraphs: [
+          "Los formularios de esta web no estan dirigidos a menores de edad. El usuario garantiza que los datos comunicados son verdaderos, exactos y actualizados, y se compromete a informar de cualquier cambio relevante.",
+        ],
+      },
+    ],
+    contactTitle: "Canal de privacidad",
+  },
+  en: {
+    title: "Privacy policy | BlancaReal",
+    description:
+      "BlancaReal privacy policy: controller, purposes, legal basis, retention, recipients and GDPR rights.",
+    eyebrow: "Legal",
+    heading: "Privacy policy",
+    intro:
+      "This policy explains how BlancaReal processes personal data collected through this website, public forms, the corporate phone line and any commercial or legal enquiry initiated by the user.",
+    updated: "Updated in March 2026",
+    meta: "BlancaReal · Mijas Costa · Costa del Sol",
+    sections: [
+      {
+        title: "1. Data controller",
+        paragraphs: [
+          "BlancaReal is the controller of the personal data submitted through this website in connection with real estate, commercialization, legal advisory and general contact requests. Privacy-related communications are handled through the corporate channel shown on this page.",
+          "Whenever a user submits a form, requests a call, asks about a property or starts a legal or commercial enquiry, BlancaReal acts as the controller for the data associated with that request.",
+        ],
+      },
+      {
+        title: "2. Data we process",
+        items: [
+          "Identity and contact data: full name, email address and phone number.",
+          "Commercial context data: requested service, property interest, development, area or free-text message.",
+          "Minimum technical data linked to browsing, language, timestamp and consent status.",
+          "Additional information derived from a later commercial, legal or contractual relationship.",
+        ],
+      },
+      {
+        title: "3. Processing purposes",
+        paragraphs: [
+          "Data is processed in order to answer enquiries, prepare calls or meetings, route the request to the appropriate department, register the opportunity in internal systems and maintain communications related to the user request.",
+          "It may also be used to prepare commercial proposals, coordinate a reservation or due diligence, deliver legal or commercialization services and comply with administrative, tax or legal obligations where a professional or contractual relationship exists.",
+        ],
+      },
+      {
+        title: "4. Legal basis",
+        items: [
+          "Consent, where the user voluntarily submits a form or accepts communications linked to a request.",
+          "Pre-contractual measures when the user asks for information regarding a potential purchase, sale, investment or advisory service.",
+          "Performance of a contract or professional engagement if the relationship becomes formalized.",
+          "Compliance with legal obligations applicable to BlancaReal's commercial, tax, accounting or anti-fraud duties.",
+          "Legitimate interest in organizing commercial attention, documenting interactions and defending possible claims.",
+        ],
+      },
+      {
+        title: "5. Retention",
+        paragraphs: [
+          "Data will be kept for as long as required to manage the request and, where a commercial or legal relationship follows, for the period required by that relationship and by applicable legal retention duties.",
+          "Where the user only makes an initial enquiry and no ongoing relationship follows, BlancaReal will limit retention to the reasonable follow-up period and to any legal defence period, deleting or blocking the data when it is no longer necessary.",
+        ],
+      },
+      {
+        title: "6. Recipients and processors",
+        paragraphs: [
+          "BlancaReal does not sell personal data. Information may be shared with technology providers and operational collaborators needed to host the site, process forms, store information or deliver operational support, always under BlancaReal instructions and with the required contractual safeguards.",
+          "Disclosures may also occur where required by law, where necessary to perform a requested service or where professionals connected to a transaction have a documented legitimate need to access the information.",
+        ],
+      },
+      {
+        title: "7. International transfers",
+        paragraphs: [
+          "Some infrastructure, storage or support providers may operate outside the European Economic Area or rely on international sub-processors. In those cases, BlancaReal applies the safeguards required by the GDPR, including standard contractual clauses or equivalent lawful mechanisms.",
+        ],
+      },
+      {
+        title: "8. Your rights",
+        paragraphs: [
+          "Users may request access, rectification, erasure, objection, restriction of processing and portability, and may withdraw consent whenever consent is the legal basis relied upon.",
+          "Requests can be sent to the corporate email shown below, identifying the request and the channel through which the contact was initiated. If the user believes their rights have not been handled correctly, they may lodge a complaint with the Spanish Data Protection Authority.",
+        ],
+      },
+      {
+        title: "9. Minors and data accuracy",
+        paragraphs: [
+          "The forms on this site are not directed to minors. Users guarantee that the data provided is true, accurate and up to date and agree to notify BlancaReal of any relevant change.",
+        ],
+      },
+    ],
+    contactTitle: "Privacy contact",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.en;
+---
+
+<BaseLayout title={t.title} description={t.description} lang={lang} availableLangs={SUPPORTED_LANGS}>
+  <main class="legal-doc-page">
+    <div class="legal-doc-shell">
+      <section class="legal-doc-hero">
+        <p class="legal-doc-eyebrow">{t.eyebrow}</p>
+        <h1>{t.heading}</h1>
+        <p>{t.intro}</p>
+        <div class="legal-doc-meta">
+          <span>{t.updated}</span>
+          <span>{t.meta}</span>
+        </div>
+      </section>
+
+      <div class="legal-doc-grid">
+        {t.sections.map((section) => (
+          <article class="legal-doc-card">
+            <h2>{section.title}</h2>
+            {Array.isArray(section.paragraphs) &&
+              section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            {Array.isArray(section.items) && (
+              <ul>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))}
+
+        <article class="legal-doc-card">
+          <h2>{t.contactTitle}</h2>
+          <p>
+            {CONTACT_EMAIL} · {CONTACT_PHONE}
+          </p>
+          <div class="legal-doc-contact">
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <a href={`tel:${CONTACT_PHONE.replace(/\s+/g, "")}`}>{CONTACT_PHONE}</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

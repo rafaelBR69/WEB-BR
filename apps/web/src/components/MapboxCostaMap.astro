@@ -29,6 +29,8 @@ const {
   routeSelectionHint = "Selecciona una vivienda para comenzar la ruta.",
   openDetailLabel = "Ver ficha",
   resetViewLabel = "Reiniciar mapa",
+  compact = false,
+  fitToFeaturesOnLoad = false,
 } = Astro.props;
 
 const featureCollection = {
@@ -37,7 +39,7 @@ const featureCollection = {
 };
 ---
 
-<section class="map-layout">
+<section class:list={["map-layout", compact && "is-compact"]}>
   <div class="map-main">
     <div class="map-reset-wrap">
       <button type="button" class="map-action map-action-alt map-reset-view-btn" id="resetViewBtn">
@@ -49,6 +51,8 @@ const featureCollection = {
       class="costa-map"
       data-token={token}
       data-style={styleUrl}
+      data-compact={compact ? "true" : "false"}
+      data-fit-to-features={fitToFeaturesOnLoad ? "true" : "false"}
       data-features={JSON.stringify(featureCollection)}
       data-pois-url={poisUrl}
       data-zones-url={zonesUrl}
@@ -93,22 +97,24 @@ const featureCollection = {
     </section>
   </div>
 
-  <aside class="map-nav">
-    <section class="nav-section">
-      <p class="map-filter-title">{zoneFilterLabel}</p>
-      <div class="zone-filters" id="zoneFilters" data-all-label={allZonesLabel}></div>
-    </section>
+  {!compact && (
+    <aside class="map-nav">
+      <section class="nav-section">
+        <p class="map-filter-title">{zoneFilterLabel}</p>
+        <div class="zone-filters" id="zoneFilters" data-all-label={allZonesLabel}></div>
+      </section>
 
-    <section class="nav-section">
-      <p class="map-filter-title">{subzoneFilterLabel}</p>
-      <div class="zone-filters" id="areaFilters" data-all-label={allSubzonesLabel}></div>
-    </section>
+      <section class="nav-section">
+        <p class="map-filter-title">{subzoneFilterLabel}</p>
+        <div class="zone-filters" id="areaFilters" data-all-label={allSubzonesLabel}></div>
+      </section>
 
-    <section class="nav-section nav-results">
-      <h3>{listTitle}</h3>
-      <ul class="map-result-list" id="mapResults"></ul>
-    </section>
-  </aside>
+      <section class="nav-section nav-results">
+        <h3>{listTitle}</h3>
+        <ul class="map-result-list" id="mapResults"></ul>
+      </section>
+    </aside>
+  )}
 </section>
 
 <script>
@@ -150,6 +156,8 @@ const featureCollection = {
 
   const token = mapEl.dataset.token || "";
   const style = mapEl.dataset.style || "mapbox://styles/mapbox/standard";
+  const compactMode = mapEl.dataset.compact === "true";
+  const fitToFeaturesOnLoadMode = mapEl.dataset.fitToFeatures === "true";
   const emptyMessage = mapEl.dataset.empty || "No hay ubicaciones disponibles.";
   const openDetailLabel = mapEl.dataset.openDetailLabel || "Ver ficha";
   const routeStartLabel = mapEl.dataset.routeStartLabel || "Iniciar ruta";
@@ -430,6 +438,24 @@ const featureCollection = {
       return filteredCollection(allPropertyFeatures).features.filter((feature) => {
         const [lng, lat] = feature.geometry?.coordinates || [];
         return bounds.contains([lng, lat]);
+      });
+    };
+
+    const fitToFeatureCollection = (featuresToFit, options = {}) => {
+      if (!Array.isArray(featuresToFit) || !featuresToFit.length) return;
+      const bounds = new mapboxgl.LngLatBounds();
+      featuresToFit.forEach((feature) => {
+        const coords = feature?.geometry?.coordinates;
+        if (Array.isArray(coords) && coords.length >= 2) {
+          bounds.extend(coords);
+        }
+      });
+      if (bounds.isEmpty()) return;
+      map.fitBounds(bounds, {
+        padding: compactMode ? 36 : 55,
+        duration: 700,
+        maxZoom: compactMode ? 14.8 : 15.8,
+        ...options,
       });
     };
 
@@ -1107,6 +1133,10 @@ const featureCollection = {
         },
       });
 
+      if (fitToFeaturesOnLoadMode) {
+        fitToFeatureCollection(allPropertyFeatures, { duration: 0 });
+      }
+
       map.addLayer({
         id: "route-line",
         type: "line",
@@ -1545,6 +1575,10 @@ const featureCollection = {
     });
 
     resetViewBtn?.addEventListener("click", () => {
+      if (fitToFeaturesOnLoadMode && allPropertyFeatures.length) {
+        fitToFeatureCollection(filteredCollection(allPropertyFeatures).features);
+        return;
+      }
       map.easeTo({
         center: INITIAL_CENTER,
         zoom: INITIAL_ZOOM,
@@ -1588,6 +1622,47 @@ const featureCollection = {
     padding: 0.45rem 0 1.7rem;
     --map-frame-height: max(560px, min(80vh, 820px));
     align-items: start;
+  }
+
+  .map-layout.is-compact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 0;
+    --map-frame-height: clamp(420px, 42vw, 560px);
+    height: 100%;
+  }
+
+  .map-layout.is-compact .map-main {
+    padding: 0.3rem;
+    border-radius: 18px;
+    height: 100%;
+  }
+
+  .map-layout.is-compact .costa-map {
+    min-height: clamp(420px, 42vw, 560px);
+    height: 100%;
+    border-radius: 16px;
+  }
+
+  .map-layout.is-compact .map-poi-overlay {
+    top: 0.82rem;
+    left: 0.82rem;
+  }
+
+  .map-layout.is-compact .map-reset-wrap {
+    top: 0.82rem;
+    right: 0.82rem;
+  }
+
+  .map-layout.is-compact .poi-chip-overlay {
+    font-size: 0.8rem;
+  }
+
+  .map-layout.is-compact .map-route-overlay {
+    right: 0.82rem;
+    bottom: 0.82rem;
+    top: auto;
+    width: min(300px, calc(100% - 1.64rem));
   }
 
   .map-main {
@@ -2753,6 +2828,11 @@ const featureCollection = {
   }
 
   @media (max-width: 760px) {
+    .map-layout.is-compact .costa-map {
+      min-height: 360px;
+      height: 360px;
+    }
+
     .costa-map {
       min-height: 420px;
       height: 64vh;

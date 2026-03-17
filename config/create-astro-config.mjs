@@ -25,8 +25,22 @@ export const createAstroConfig = ({
     outDir: distDir,
     output: "server",
     adapter,
+    server: {
+      host: true,
+      port: Number(process.env.PORT || 4321),
+    },
     vite: {
       cacheDir,
+      server: {
+        host: true,
+        strictPort: true,
+        hmr: {
+          protocol: "ws",
+          host: process.env.HMR_HOST || "localhost",
+          clientPort: Number(process.env.HMR_CLIENT_PORT || process.env.PORT || 4321),
+          port: Number(process.env.HMR_PORT || process.env.PORT || 4321),
+        },
+      },
       resolve: {
         alias: {
           "@": path.join(repoRoot, "src"),

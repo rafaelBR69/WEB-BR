@@ -13,6 +13,9 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const contactPath = `/${lang}/contact/`;
+const encodeContactData = (value) =>
+  Buffer.from(JSON.stringify(value), "utf8").toString("base64");
 
 const copyByLang = {
   es: {
@@ -59,6 +62,9 @@ const copyByLang = {
     languagesLabel: "Idiomas",
     emailLabel: "Email",
     phoneLabel: "Telefono",
+    revealContact: "Ver contacto directo",
+    hideContact: "Ocultar contacto",
+    fallbackContact: "Prefiero escribir al equipo",
     showMore: "Mostrar mas",
     showLess: "Mostrar menos",
     emptyCategory: "Proximamente agregaremos perfiles en esta categoria.",
@@ -107,6 +113,9 @@ const copyByLang = {
     languagesLabel: "Languages",
     emailLabel: "Email",
     phoneLabel: "Phone",
+    revealContact: "View direct contact",
+    hideContact: "Hide contact",
+    fallbackContact: "I prefer the contact form",
     showMore: "Show more",
     showLess: "Show less",
     emptyCategory: "Profiles for this category will be added soon.",
@@ -140,10 +149,6 @@ const LANGUAGE_BADGES = {
     label: "Italiano",
     flagUrl: "/flags/it.svg",
   },
-};
-
-const toTelHref = (value) => {
-  return `tel:${String(value ?? "").replace(/[^\d+]/g, "")}`;
 };
 
 const normalizeEmailEntry = (entry, lang) => {
@@ -205,6 +210,8 @@ const normalizeMember = (member) => {
     spokenLanguages,
     emails: emailEntries,
     phone,
+    encodedEmails: encodeContactData(emailEntries),
+    encodedPhone: encodeContactData(phone),
     hasContact,
     canCollapseBio,
   };
@@ -275,6 +282,7 @@ const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => {
                     .replace(/[^\w-]/g, "");
                 const memberHeadingId = `${memberIdBase}-heading`;
                 const memberBioId = `${memberIdBase}-bio`;
+                const memberContactId = `${memberIdBase}-contact`;
 
                 return (
                   <article class="team-card" aria-labelledby={memberHeadingId}>
@@ -316,22 +324,35 @@ const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => {
                       )}
 
                       {member.hasContact && (
-                        <div class="team-contact">
-                          {member.emails.map((emailItem) => (
-                            <a
-                              href={`mailto:${emailItem.address}`}
-                              aria-label={`${t.emailLabel}: ${emailItem.label ? `${emailItem.label} - ` : ""}${emailItem.address}`}
-                            >
-                              {emailItem.label && <span class="team-contact-label">{emailItem.label}: </span>}
-                              {emailItem.address}
-                            </a>
-                          ))}
-                          {member.phone && (
-                            <a href={toTelHref(member.phone)} aria-label={`${t.phoneLabel}: ${member.phone}`}>
-                              <span class="team-contact-label">{t.phoneLabel}: </span>
-                              {member.phone}
-                            </a>
-                          )}
+                        <div
+                          class="team-contact"
+                          data-contact-reveal
+                          data-contact-emails={member.encodedEmails}
+                          data-contact-phone={member.encodedPhone}
+                          data-email-label={t.emailLabel}
+                          data-phone-label={t.phoneLabel}
+                        >
+                          <button
+                            type="button"
+                            class="team-contact-toggle"
+                            data-contact-toggle
+                            data-open-label={t.revealContact}
+                            data-close-label={t.hideContact}
+                            aria-expanded="false"
+                            aria-controls={memberContactId}
+                          >
+                            {t.revealContact}
+                          </button>
+                          <div
+                            id={memberContactId}
+                            class="team-contact-panel"
+                            data-contact-panel
+                            aria-live="polite"
+                            hidden
+                          ></div>
+                          <a class="team-contact-fallback" href={contactPath}>
+                            {t.fallbackContact}
+                          </a>
                         </div>
                       )}
 
@@ -375,6 +396,85 @@ const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => {
   </section>
 
   <script is:inline>
+    const decodeContactPayload = (value, fallback) => {
+      if (typeof value !== "string" || !value) return fallback;
+
+      try {
+        return JSON.parse(window.atob(value));
+      } catch (error) {
+        console.error(error);
+        return fallback;
+      }
+    };
+
+    const createContactLink = ({ kind, label, value }) => {
+      if (!value) return null;
+
+      const link = document.createElement("a");
+      link.className = "team-contact-link";
+      link.href =
+        kind === "email"
+          ? `mailto:${value}`
+          : `tel:${String(value).replace(/[^\d+]/g, "")}`;
+
+      const labelNode = document.createElement("span");
+      labelNode.className = "team-contact-label";
+      labelNode.textContent = `${label}: `;
+
+      link.append(labelNode, document.createTextNode(value));
+      return link;
+    };
+
+    document.querySelectorAll("[data-contact-reveal]").forEach((card) => {
+      const button = card.querySelector("[data-contact-toggle]");
+      const panel = card.querySelector("[data-contact-panel]");
+
+      if (!(button instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+      const openLabel = button.dataset.openLabel || button.textContent || "View direct contact";
+      const closeLabel = button.dataset.closeLabel || openLabel;
+
+      button.addEventListener("click", () => {
+        if (panel.dataset.ready !== "true") {
+          const emailLabel = card.getAttribute("data-email-label") || "Email";
+          const phoneLabel = card.getAttribute("data-phone-label") || "Phone";
+          const emails = decodeContactPayload(card.getAttribute("data-contact-emails"), []);
+          const phone = decodeContactPayload(card.getAttribute("data-contact-phone"), "");
+          const fragment = document.createDocumentFragment();
+
+          if (Array.isArray(emails)) {
+            emails.forEach((entry) => {
+              const address = String(entry?.address || "").trim();
+              if (!address) return;
+
+              const label = String(entry?.label || "").trim() || emailLabel;
+              const link = createContactLink({ kind: "email", label, value: address });
+              if (link) fragment.append(link);
+            });
+          }
+
+          const phoneValue = typeof phone === "string" ? phone.trim() : "";
+          if (phoneValue) {
+            const link = createContactLink({ kind: "phone", label: phoneLabel, value: phoneValue });
+            if (link) fragment.append(link);
+          }
+
+          panel.replaceChildren(fragment);
+          panel.dataset.ready = "true";
+        }
+
+        const shouldOpen = panel.hasAttribute("hidden");
+        if (shouldOpen) {
+          panel.removeAttribute("hidden");
+        } else {
+          panel.setAttribute("hidden", "");
+        }
+
+        button.textContent = shouldOpen ? closeLabel : openLabel;
+        button.setAttribute("aria-expanded", String(shouldOpen));
+      });
+    });
+
     document.querySelectorAll(".team-bio-toggle").forEach((button) => {
       if (!(button instanceof HTMLButtonElement)) return;
       const wrapper = button.closest(".team-bio-wrap");

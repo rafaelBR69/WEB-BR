@@ -1,0 +1,401 @@
+---
+const {
+  lang,
+  slides = [],
+  stats = [],
+  projectsPath = "/",
+} = Astro.props;
+
+const copyByLang = {
+  es: {
+    eyebrow: "BlancaReal Group",
+    heading: "El marketplace de lujo de la Costa del Sol",
+    text:
+      "Promociones propias, comercializacion premium y acompanamiento legal integrado para compradores e inversores.",
+    primaryCta: "Ver proyecto",
+    secondaryCta: "Ver todos los proyectos",
+    projectLabel: "Proyecto destacado",
+    locationLabel: "Ubicacion",
+    fromLabel: "Desde",
+    availableLabel: "Disponibles",
+    soldLabel: "Vendidas",
+    progressLabel: "Seleccionar proyecto destacado",
+    detailLabel: "Promocion activa",
+    prev: "Proyecto anterior",
+    next: "Proyecto siguiente",
+  },
+  en: {
+    eyebrow: "BlancaReal Group",
+    heading: "The Costa del Sol Luxury Marketplace",
+    text:
+      "Our own developments, premium commercialization and integrated legal guidance for buyers and investors.",
+    primaryCta: "View project",
+    secondaryCta: "View all projects",
+    projectLabel: "Featured development",
+    locationLabel: "Location",
+    fromLabel: "From",
+    availableLabel: "Available",
+    soldLabel: "Sold",
+    progressLabel: "Select featured project",
+    detailLabel: "Active development",
+    prev: "Previous project",
+    next: "Next project",
+  },
+  de: {
+    eyebrow: "BlancaReal Group",
+    heading: "Der Luxus-Marktplatz der Costa del Sol",
+    text:
+      "Eigene Projekte, Premium-Vermarktung und integrierte Rechtsbegleitung fuer Kaeufer und Investoren.",
+    primaryCta: "Projekt ansehen",
+    secondaryCta: "Alle Projekte ansehen",
+    projectLabel: "Top-Projekt",
+    locationLabel: "Lage",
+    fromLabel: "Ab",
+    availableLabel: "Verfuegbar",
+    soldLabel: "Verkauft",
+    progressLabel: "Top-Projekt auswaehlen",
+    detailLabel: "Aktives Projekt",
+    prev: "Vorheriges Projekt",
+    next: "Naechstes Projekt",
+  },
+  fr: {
+    eyebrow: "BlancaReal Group",
+    heading: "Le marketplace luxe de la Costa del Sol",
+    text:
+      "Programmes propres, commercialisation premium et accompagnement juridique integre pour acheteurs et investisseurs.",
+    primaryCta: "Voir le programme",
+    secondaryCta: "Voir tous les programmes",
+    projectLabel: "Programme phare",
+    locationLabel: "Localisation",
+    fromLabel: "A partir de",
+    availableLabel: "Disponibles",
+    soldLabel: "Vendues",
+    progressLabel: "Selectionner le programme phare",
+    detailLabel: "Programme actif",
+    prev: "Programme precedent",
+    next: "Programme suivant",
+  },
+  it: {
+    eyebrow: "BlancaReal Group",
+    heading: "Il luxury marketplace della Costa del Sol",
+    text:
+      "Progetti propri, commercializzazione premium e supporto legale integrato per acquirenti e investitori.",
+    primaryCta: "Vedi progetto",
+    secondaryCta: "Vedi tutti i progetti",
+    projectLabel: "Progetto in evidenza",
+    locationLabel: "Posizione",
+    fromLabel: "Da",
+    availableLabel: "Disponibili",
+    soldLabel: "Vendute",
+    progressLabel: "Seleziona il progetto in evidenza",
+    detailLabel: "Progetto attivo",
+    prev: "Progetto precedente",
+    next: "Progetto successivo",
+  },
+  nl: {
+    eyebrow: "BlancaReal Group",
+    heading: "De luxe marketplace van de Costa del Sol",
+    text:
+      "Eigen projecten, premium commercialisatie en geintegreerde juridische begeleiding voor kopers en investeerders.",
+    primaryCta: "Bekijk project",
+    secondaryCta: "Bekijk alle projecten",
+    projectLabel: "Uitgelicht project",
+    locationLabel: "Locatie",
+    fromLabel: "Vanaf",
+    availableLabel: "Beschikbaar",
+    soldLabel: "Verkocht",
+    progressLabel: "Selecteer uitgelicht project",
+    detailLabel: "Actief project",
+    prev: "Vorig project",
+    next: "Volgend project",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+const hasSlides = slides.length > 0;
+---
+
+<section
+  class="home-editorial-hero"
+  data-editorial-hero
+  data-duration="6000"
+  data-projects-path={projectsPath}
+  aria-label={t.heading}
+>
+  <div class="home-editorial-hero-stage">
+    {hasSlides ? (
+      slides.map((slide, index) => (
+        <article
+          class:list={["home-editorial-slide", index === 0 && "is-active"]}
+          data-hero-slide
+          data-slide-href={slide.href}
+          aria-hidden={index === 0 ? "false" : "true"}
+        >
+          {slide.coverUrl ? (
+            <img
+              class="home-editorial-slide-media"
+              src={slide.coverUrl}
+              alt={slide.coverAlt}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              fetchpriority={index === 0 ? "high" : undefined}
+            />
+          ) : (
+            <div class="home-editorial-slide-fallback"></div>
+          )}
+          <div class="home-editorial-slide-shade"></div>
+          <div class="container home-editorial-slide-layout"></div>
+        </article>
+      ))
+    ) : (
+      <article class="home-editorial-slide is-active" data-hero-slide aria-hidden="false">
+        <div class="home-editorial-slide-fallback"></div>
+        <div class="home-editorial-slide-shade"></div>
+        <div class="container home-editorial-slide-layout"></div>
+      </article>
+    )}
+  </div>
+
+  <div class="container home-editorial-controls-shell">
+    <div class="home-editorial-controls">
+      <div class="home-editorial-copy is-pinned">
+        <p class="home-editorial-eyebrow">{t.eyebrow}</p>
+        <h1 class="home-editorial-hero-title">{t.heading}</h1>
+        <ul class="home-editorial-stats">
+          {stats.map((item) => (
+            <li class="home-editorial-stat">
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="home-editorial-actions">
+          <a
+            class="home-editorial-cta"
+            href={slides[0]?.href ?? projectsPath}
+            data-hero-primary-cta
+          >
+            {t.primaryCta}
+          </a>
+          <a class="home-editorial-cta is-secondary" href={projectsPath}>
+            {t.secondaryCta}
+          </a>
+        </div>
+      </div>
+
+      {slides.length > 1 ? (
+        <div class="home-editorial-progress-shell">
+          <div class="home-editorial-progress-row">
+            <div class="home-editorial-progress" aria-label={t.progressLabel}>
+              {slides.map((slide, index) => (
+                <button
+                  type="button"
+                  class:list={["home-editorial-progress-item", index === 0 && "is-active"]}
+                  data-hero-progress
+                  aria-label={`${t.progressLabel}: ${slide.title}`}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  <span class="home-editorial-progress-line"></span>
+                  <span class="home-editorial-progress-fill" data-hero-progress-fill></span>
+                </button>
+              ))}
+            </div>
+
+            <div class="home-editorial-arrow-group">
+              <button type="button" class="home-editorial-arrow" data-hero-prev aria-label={t.prev}>
+                <span aria-hidden="true">&larr;</span>
+              </button>
+              <button type="button" class="home-editorial-arrow" data-hero-next aria-label={t.next}>
+                <span aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="home-editorial-detail-list" aria-live="polite">
+            {slides.map((slide, index) => (
+              <article
+                class:list={["home-editorial-detail-card", index === 0 && "is-active"]}
+                data-hero-detail
+                aria-hidden={index === 0 ? "false" : "true"}
+              >
+                <h2>{slide.title}</h2>
+                <p class="home-editorial-detail-location">
+                  {[slide.area, slide.province].filter(Boolean).join(" | ") || "-"}
+                </p>
+                <div class="home-editorial-detail-facts">
+                  <span>{t.availableLabel} {slide.availableCount}</span>
+                  <span>{t.soldLabel} {slide.soldCount}</span>
+                  <span>{t.fromLabel} {slide.priceLabel}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const hero = document.querySelector("[data-editorial-hero]");
+    if (!(hero instanceof HTMLElement) || hero.dataset.bound === "true") return;
+    hero.dataset.bound = "true";
+
+    const slides = Array.from(hero.querySelectorAll("[data-hero-slide]"));
+    const progressButtons = Array.from(hero.querySelectorAll("[data-hero-progress]"));
+    const fills = progressButtons.map((button) => button.querySelector("[data-hero-progress-fill]"));
+    const detailCards = Array.from(hero.querySelectorAll("[data-hero-detail]"));
+    const primaryCta = hero.querySelector("[data-hero-primary-cta]");
+    const prevButton = hero.querySelector("[data-hero-prev]");
+    const nextButton = hero.querySelector("[data-hero-next]");
+    const defaultCtaHref = hero.getAttribute("data-projects-path") || "/";
+    const duration = Number(hero.dataset.duration || "6000");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const autoplayEnabled = slides.length > 1 && !prefersReducedMotion.matches;
+
+    let activeIndex = 0;
+    let rafId = 0;
+    let startTime = null;
+    let elapsed = 0;
+    let paused = false;
+
+    const cancelTimer = () => {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    };
+
+    const setProgress = (value) => {
+      fills.forEach((fill, index) => {
+        if (!(fill instanceof HTMLElement)) return;
+        fill.style.transform = `scaleX(${index === activeIndex ? value : 0})`;
+      });
+    };
+
+    const syncUi = () => {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle("is-active", index === activeIndex);
+        slide.setAttribute("aria-hidden", index === activeIndex ? "false" : "true");
+      });
+
+      progressButtons.forEach((button, index) => {
+        button.classList.toggle("is-active", index === activeIndex);
+        button.setAttribute("aria-pressed", index === activeIndex ? "true" : "false");
+      });
+
+      detailCards.forEach((card, index) => {
+        card.classList.toggle("is-active", index === activeIndex);
+        card.setAttribute("aria-hidden", index === activeIndex ? "false" : "true");
+      });
+
+      if (primaryCta instanceof HTMLAnchorElement) {
+        const activeSlide = slides[activeIndex];
+        if (activeSlide instanceof HTMLElement) {
+          const href = activeSlide.getAttribute("data-slide-href");
+          primaryCta.href = href || defaultCtaHref;
+        }
+      }
+    };
+
+    const tick = (timestamp) => {
+      if (!autoplayEnabled || paused) return;
+      if (startTime === null) {
+        startTime = timestamp - elapsed;
+      }
+
+      elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      setProgress(progress);
+
+      if (progress >= 1) {
+        setActive((activeIndex + 1) % slides.length, true);
+        return;
+      }
+
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    const startAutoplay = () => {
+      if (!autoplayEnabled) {
+        setProgress(0);
+        return;
+      }
+      cancelTimer();
+      startTime = null;
+      elapsed = 0;
+      paused = false;
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    const pauseAutoplay = () => {
+      if (!autoplayEnabled || paused) return;
+      paused = true;
+      cancelTimer();
+    };
+
+    const resumeAutoplay = () => {
+      if (!autoplayEnabled || !paused) return;
+      paused = false;
+      startTime = performance.now() - elapsed;
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    const setActive = (nextIndex, restartAutoplay = false) => {
+      activeIndex = (nextIndex + slides.length) % slides.length;
+      syncUi();
+      setProgress(0);
+      if (restartAutoplay) {
+        startAutoplay();
+      }
+    };
+
+    progressButtons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        setActive(index, true);
+        if (button instanceof HTMLButtonElement) {
+          button.blur();
+        }
+      });
+    });
+
+    if (prevButton instanceof HTMLButtonElement) {
+      prevButton.addEventListener("click", () => {
+        setActive(activeIndex - 1, true);
+        prevButton.blur();
+      });
+    }
+
+    if (nextButton instanceof HTMLButtonElement) {
+      nextButton.addEventListener("click", () => {
+        setActive(activeIndex + 1, true);
+        nextButton.blur();
+      });
+    }
+
+    hero.addEventListener("mouseenter", pauseAutoplay);
+    hero.addEventListener("mouseleave", resumeAutoplay);
+    hero.addEventListener("focusin", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || !target.matches(":focus-visible")) return;
+      pauseAutoplay();
+    });
+    hero.addEventListener("focusout", (event) => {
+      const nextTarget = event.relatedTarget;
+      if (!(nextTarget instanceof Node) || !hero.contains(nextTarget)) {
+        resumeAutoplay();
+      }
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        pauseAutoplay();
+      } else if (!hero.matches(":hover")) {
+        resumeAutoplay();
+      }
+    });
+
+    syncUi();
+    startAutoplay();
+  })();
+</script>

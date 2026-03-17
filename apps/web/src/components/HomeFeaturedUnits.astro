@@ -1,0 +1,210 @@
+---
+import PropertyCard from "@webapp/components/PropertyCard.astro";
+
+const { lang, cards = [] } = Astro.props;
+
+const copyByLang = {
+  es: {
+    eyebrow: "Propiedades destacadas",
+    title: "Una seleccion de unidades hijas listas para activar demanda",
+    intro:
+      "20 unidades disponibles de nuestros proyectos propios, en rotacion continua para dar visibilidad real al inventario activo.",
+    prev: "Ver grupo anterior",
+    next: "Ver grupo siguiente",
+  },
+  en: {
+    eyebrow: "Featured properties",
+    title: "A rotating selection of child units ready to capture demand",
+    intro:
+      "20 available child units from our own developments, continuously rotating to surface active inventory.",
+    prev: "View previous group",
+    next: "View next group",
+  },
+  de: {
+    eyebrow: "Top-Immobilien",
+    title: "Eine rotierende Auswahl an verfuegbaren Einheiten",
+    intro:
+      "20 verfuegbare Einheiten aus unseren eigenen Projekten in kontinuierlicher Rotation fuer das aktive Inventar.",
+    prev: "Vorherige Gruppe anzeigen",
+    next: "Naechste Gruppe anzeigen",
+  },
+  fr: {
+    eyebrow: "Biens en vedette",
+    title: "Une selection rotative d unites disponibles",
+    intro:
+      "20 unites disponibles issues de nos propres programmes, mises en rotation pour valoriser le stock actif.",
+    prev: "Voir le groupe precedent",
+    next: "Voir le groupe suivant",
+  },
+  it: {
+    eyebrow: "Immobili in evidenza",
+    title: "Una selezione rotante di unita disponibili",
+    intro:
+      "20 unita disponibili dei nostri progetti propri, in rotazione continua per dare visibilita allo stock attivo.",
+    prev: "Vedi gruppo precedente",
+    next: "Vedi gruppo successivo",
+  },
+  nl: {
+    eyebrow: "Uitgelichte woningen",
+    title: "Een roterende selectie van beschikbare units",
+    intro:
+      "20 beschikbare child units uit onze eigen projecten, doorlopend in rotatie om actief aanbod zichtbaar te houden.",
+    prev: "Bekijk vorige groep",
+    next: "Bekijk volgende groep",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+---
+
+{cards.length > 0 && (
+  <section class="home-featured-units" aria-labelledby="homeFeaturedUnitsTitle">
+    <div class="container">
+      <div class="home-editorial-section-head">
+        <p class="home-editorial-section-kicker">{t.eyebrow}</p>
+        <h2 id="homeFeaturedUnitsTitle" class="home-editorial-section-title">{t.title}</h2>
+        <p class="home-editorial-section-text">{t.intro}</p>
+      </div>
+
+      <div class="home-units-carousel" data-home-units-carousel>
+        <div class="home-units-carousel-head">
+          <button
+            type="button"
+            class="home-units-arrow"
+            data-home-units-prev
+            aria-label={t.prev}
+          >
+            <span aria-hidden="true">&larr;</span>
+          </button>
+          <button
+            type="button"
+            class="home-units-arrow"
+            data-home-units-next
+            aria-label={t.next}
+          >
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+
+        <div class="home-units-viewport" data-home-units-viewport tabindex="0">
+          <div class="home-units-track">
+            {cards.map((card) => (
+              <div class="home-units-slide">
+                <PropertyCard data={card} lang={lang} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<script is:inline>
+  (() => {
+    const carousel = document.querySelector("[data-home-units-carousel]");
+    if (!(carousel instanceof HTMLElement) || carousel.dataset.bound === "true") return;
+    carousel.dataset.bound = "true";
+
+    const viewport = carousel.querySelector("[data-home-units-viewport]");
+    const prevButton = carousel.querySelector("[data-home-units-prev]");
+    const nextButton = carousel.querySelector("[data-home-units-next]");
+    const slides = Array.from(carousel.querySelectorAll(".home-units-slide"));
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const autoplayMs = 5200;
+
+    if (!(viewport instanceof HTMLElement) || slides.length <= 1) return;
+
+    let currentPage = 0;
+    let timerId = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const getPageSize = () => {
+      if (window.innerWidth >= 1280) return 5;
+      if (window.innerWidth >= 900) return 3;
+      if (window.innerWidth >= 640) return 2;
+      return 1;
+    };
+
+    const getTotalPages = () => Math.max(1, Math.ceil(slides.length / getPageSize()));
+
+    const syncButtons = () => {
+      const disabled = getTotalPages() <= 1;
+      if (prevButton instanceof HTMLButtonElement) prevButton.disabled = disabled;
+      if (nextButton instanceof HTMLButtonElement) nextButton.disabled = disabled;
+    };
+
+    const goToPage = (page, behavior = "smooth") => {
+      const pageSize = getPageSize();
+      const totalPages = getTotalPages();
+      currentPage = ((page % totalPages) + totalPages) % totalPages;
+      const targetIndex = Math.min(currentPage * pageSize, slides.length - 1);
+      const target = slides[targetIndex];
+      if (!(target instanceof HTMLElement)) return;
+      viewport.scrollTo({ left: target.offsetLeft, behavior });
+      syncButtons();
+    };
+
+    const schedule = () => {
+      window.clearTimeout(timerId);
+      if (prefersReducedMotion.matches || getTotalPages() <= 1) return;
+      timerId = window.setTimeout(() => {
+        goToPage(currentPage + 1);
+        schedule();
+      }, autoplayMs);
+    };
+
+    const pause = () => window.clearTimeout(timerId);
+    const resume = () => schedule();
+
+    if (prevButton instanceof HTMLButtonElement) {
+      prevButton.addEventListener("click", () => {
+        goToPage(currentPage - 1);
+        schedule();
+      });
+    }
+
+    if (nextButton instanceof HTMLButtonElement) {
+      nextButton.addEventListener("click", () => {
+        goToPage(currentPage + 1);
+        schedule();
+      });
+    }
+
+    carousel.addEventListener("mouseenter", pause);
+    carousel.addEventListener("mouseleave", resume);
+    carousel.addEventListener("focusin", pause);
+    carousel.addEventListener("focusout", (event) => {
+      const nextTarget = event.relatedTarget;
+      if (!(nextTarget instanceof Node) || !carousel.contains(nextTarget)) {
+        resume();
+      }
+    });
+
+    viewport.addEventListener("touchstart", (event) => {
+      const touch = event.changedTouches?.[0];
+      if (!touch) return;
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    }, { passive: true });
+
+    viewport.addEventListener("touchend", (event) => {
+      const touch = event.changedTouches?.[0];
+      if (!touch) return;
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      if (Math.abs(deltaX) <= 48 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      goToPage(currentPage + (deltaX < 0 ? 1 : -1));
+      schedule();
+    }, { passive: true });
+
+    window.addEventListener("resize", () => {
+      goToPage(currentPage, "auto");
+      schedule();
+    });
+
+    syncButtons();
+    schedule();
+  })();
+</script>

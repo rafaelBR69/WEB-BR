@@ -35,3 +35,75 @@ Separate web and CRM gradually inside the same monorepo without breaking the cur
 | Dynamic wrapper imports used `%5Bid%5D` in route segments and broke builds | 1 | Fixed by regenerating imports with proper unescaped relative paths |
 | Root `npm run build` failed once with `EPERM` on `dist/web` | 1 | Not a code issue; it happened because root and surface builds were run in parallel against the same output tree |
 | One large patch exceeded Windows command/path limits | 1 | Fixed by splitting the migration into smaller apply-patch batches |
+
+---
+
+## 2026-03-16 Backlog Roadmap
+
+### Goal
+Convert the current multi-area website backlog into an execution roadmap that protects legal/compliance first, then improves home conversion, then expands SEO/content/product surfaces without duplicating work already implemented.
+
+### Current Phase
+- `in_progress` Prioritize and sequence the full website backlog by risk, dependency, and sprint
+
+### Phases
+- `pending` Phase 1: Legal/compliance blockers and consent foundation
+- `pending` Phase 2: Home conversion clarity and contact-path restructuring
+- `pending` Phase 3: Core section UX/content improvements (`real-estate`, `legal`, `commercial`, `contact`, `nosotros`)
+- `pending` Phase 4: Cross-site SEO, accessibility, performance, and social metadata hardening
+- `pending` Phase 5: New business pages and portal/public-entry surfaces
+- `pending` Phase 6: Growth instrumentation, content engine, and search-console/ads validation
+
+### Recommended Sprint Sequence
+- `Sprint 1`
+  - Legal pages and real cookie/compliance base
+  - Banner cookies with opt-in/out
+  - Consent checkboxes on all public forms
+  - PII exposure reduction for public team contacts
+  - Locale meta description audit across key pages
+- `Sprint 2`
+  - Home: H1/value prop, CTA hierarchy, trust strip, section restructuring
+  - Home: reduced team carousel plus 3 key contacts model
+  - Contact: confirmation state, service preselection, Map embed, opening hours
+  - Real Estate: page-level descriptions and improved listing/result clarity
+- `Sprint 3`
+  - Header language visibility
+  - Localized schema and hreflang verification
+  - Accessibility fixes for sliders/tickers/language selector
+  - Image and logo request optimization
+- `Sprint 4`
+  - Legal trust content: case/examples, Maria profile, downloadable checklist
+  - Commercial trust content: sub-pages, metrics, promoter form
+  - Nosotros: names cleanup, history timeline, document/logos section
+- `Sprint 5`
+  - New pages: zone guides, buyer/seller process, investment pages, Golden Visa page
+  - Portal public entry page and portal notification improvements
+  - Blog support: author schema, EN/DE translation workflow, CTA into service verticals
+- `Sprint 6`
+  - Google Ads conversion setup and validation
+  - Google Search Console + hreflang verification
+  - Sitemap XML by locale
+  - Ongoing content cadence and measurement loop
+
+### Delivery Rules
+- Do not treat the screenshot backlog as greenfield: re-audit items already partially implemented before reopening them.
+- Every task touching forms, cookies, or PII must ship with a manual QA checklist.
+- Every sitewide SEO/accessibility item should be bundled and deployed together by phase, not one by one.
+- New pages should only start after Phase 1 and Phase 2 are stable in production.
+
+---
+
+## 2026-03-17 Real Estate Consolidation
+
+### Goal
+Remove the standalone `real-estate` landing as a full experience and move its map value into the main `/properties/` catalog, with a smaller contextual map on the first row, two cards next to it, and one highlighted property alongside. The map must react to the active area/city context by reframing and zooming.
+
+### Current Phase
+- `in_progress` Validate the new compact-map composition in `/properties/` and the redirect away from `/real-estate/`
+
+### Phases
+- `completed` Phase 1: Identify which `real-estate` behaviors must survive inside `/properties/`
+- `completed` Phase 2: Restructure `/properties/` first row to include compact map + featured card layout
+- `completed` Phase 3: Feed the map with filtered/current-context features and area-aware zoom behavior
+- `completed` Phase 4: Reduce `/real-estate/` to a redirect or remove its standalone UX safely
+- `pending` Phase 5: Validate navigation, filters, and map focus behavior across cities/areas

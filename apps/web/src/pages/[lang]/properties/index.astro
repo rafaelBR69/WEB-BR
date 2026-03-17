@@ -4,17 +4,21 @@ export const prerender = false;
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import fallbackProperties from "@shared/data/properties";
 import PropertyCard from "@webapp/components/PropertyCard.astro";
+import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
 
 import { normalizePropertyCard } from "@shared/properties/public";
 import { normalizePropertyList } from "@shared/properties/public";
 import { buildFilters } from "@shared/properties/public";
 import { applyFilters } from "@shared/properties/public";
+import { buildProjectShowcaseCards } from "@shared/properties/public";
 import { normalizeCity } from "@shared/properties/public";
 import { normalizeArea } from "@shared/properties/public";
 import { isVillaFloorLabel, normalizeFloorFilterLabel } from "@shared/properties/public";
 import { displayLocation, formatPropertyType } from "@shared/presentation/common";
 import { TYPES, MARKET_TYPE } from "@shared/data/properties/taxonomies";
+import { FEATURES } from "@shared/i18n/features";
+import { buildPropertyLandingHubs } from "@shared/seo/propertyLandingHubs";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { getUiCopy } from "@shared/i18n/ui";
 import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
@@ -27,15 +31,99 @@ if (!isSupportedLang(langParam)) {
 
 const lang = langParam;
 const ui = getUiCopy(lang);
-const headerNavItems = [
-  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
-  { href: `/${lang}/properties/`, label: ui.layout.navProperties },
-  { href: `/${lang}/projects/`, label: ui.layout.navProjects },
-  { href: `/${lang}/contact/`, label: ui.layout.navContact },
-];
 const { properties } = await getPublicPropertiesWithFallback({
   fallbackProperties,
 });
+const realEstatePath = `/${lang}/real-estate/`;
+const projectsPath = `/${lang}/projects/`;
+const contactPath = `/${lang}/contact/`;
+const buildCatalogUrl = (params = {}) => {
+  const nextParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.filter(Boolean).forEach((item) => nextParams.append(key, String(item)));
+      return;
+    }
+    if (value !== null && value !== undefined && value !== "") {
+      nextParams.set(key, String(value));
+    }
+  });
+  const query = nextParams.toString();
+  return `/${lang}/properties/${query ? `?${query}` : ""}`;
+};
+const projectNavItems = buildProjectShowcaseCards(properties, lang).map((project) => ({
+  label: project.title,
+  href: project.href,
+}));
+const chunkItems = (items, size) =>
+  items.reduce((groups, item, index) => {
+    const groupIndex = Math.floor(index / size);
+    if (!groups[groupIndex]) groups[groupIndex] = [];
+    groups[groupIndex].push(item);
+    return groups;
+  }, []);
+const projectSectionsByLang = {
+  es: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Proyectos" : "", items })),
+  en: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Projects" : "", items })),
+  de: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Projekte" : "", items })),
+  fr: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Projets" : "", items })),
+  it: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Progetti" : "", items })),
+  nl: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Projecten" : "", items })),
+};
+const projectSections = projectSectionsByLang[lang] ?? projectSectionsByLang.es;
+const landingNavGroupsByLang = {
+  es: [
+    {
+      label: "Bienes y Raices",
+      href: realEstatePath,
+      sections: [
+        {
+          title: "Catalogo",
+          items: [
+            { label: "Todas las propiedades", href: buildCatalogUrl() },
+            { label: "Obra nueva", href: buildCatalogUrl({ market: "obra_nueva" }) },
+            { label: "Segunda mano", href: buildCatalogUrl({ market: "segunda_mano" }) },
+          ],
+        },
+        {
+          title: "Accesos",
+          items: [
+            { label: "Explorar real estate", href: realEstatePath },
+            { label: "Proyectos", href: projectsPath },
+            { label: "Contacto", href: contactPath },
+          ],
+        },
+      ],
+    },
+    { label: "Proyectos", href: projectsPath, sections: projectSections },
+  ],
+  en: [
+    {
+      label: "Real Estate",
+      href: realEstatePath,
+      sections: [
+        {
+          title: "Catalog",
+          items: [
+            { label: "All properties", href: buildCatalogUrl() },
+            { label: "New build", href: buildCatalogUrl({ market: "obra_nueva" }) },
+            { label: "Resale", href: buildCatalogUrl({ market: "segunda_mano" }) },
+          ],
+        },
+        {
+          title: "Access",
+          items: [
+            { label: "Explore real estate", href: realEstatePath },
+            { label: "Projects", href: projectsPath },
+            { label: "Contact", href: contactPath },
+          ],
+        },
+      ],
+    },
+    { label: "Projects", href: projectsPath, sections: projectSections },
+  ],
+};
+const landingNavGroups = landingNavGroupsByLang[lang] ?? landingNavGroupsByLang.es;
 
 const copyByLang = {
   es: {
@@ -53,6 +141,13 @@ const copyByLang = {
     filter: "Filtrar",
     clearAll: "Limpiar todo",
     location: "Ubicacion",
+    price: "Precio",
+    amenities: "Caracteristicas",
+    newBuilds: "Obra nueva",
+    resale: "Segunda mano",
+    from: "Desde",
+    to: "Hasta",
+    apply: "Aplicar",
     areasIn: "Zonas en {city}",
     propertyType: "Tipo de propiedad",
     status: "Estado",
@@ -77,6 +172,8 @@ const copyByLang = {
     footerDefaultPrompt:
       "Buscas propiedades en la Costa del Sol? Te asesoramos sin compromiso.",
     contactUs: "Contactanos",
+    mapEmpty: "No hay ubicaciones disponibles en el mapa.",
+    mapReset: "Reiniciar mapa",
   },
   en: {
     headerSubtitle: "Find your ideal property in {location}.",
@@ -93,6 +190,13 @@ const copyByLang = {
     filter: "Filter",
     clearAll: "Clear all",
     location: "Location",
+    price: "Price",
+    amenities: "Features",
+    newBuilds: "New Builds",
+    resale: "Resale",
+    from: "From",
+    to: "To",
+    apply: "Apply",
     areasIn: "Areas in {city}",
     propertyType: "Property type",
     status: "Status",
@@ -117,6 +221,8 @@ const copyByLang = {
     footerDefaultPrompt:
       "Looking for properties on the Costa del Sol? We can advise you with no obligation.",
     contactUs: "Contact us",
+    mapEmpty: "No map locations available.",
+    mapReset: "Reset map",
   },
   de: {
     headerSubtitle: "Finden Sie Ihre ideale Immobilie in {location}.",
@@ -133,6 +239,13 @@ const copyByLang = {
     filter: "Filtern",
     clearAll: "Alles zuruecksetzen",
     location: "Lage",
+    price: "Preis",
+    amenities: "Merkmale",
+    newBuilds: "Neubau",
+    resale: "Bestand",
+    from: "Von",
+    to: "Bis",
+    apply: "Anwenden",
     areasIn: "Gebiete in {city}",
     propertyType: "Immobilientyp",
     status: "Status",
@@ -157,6 +270,8 @@ const copyByLang = {
     footerDefaultPrompt:
       "Suchen Sie Immobilien an der Costa del Sol? Wir beraten Sie unverbindlich.",
     contactUs: "Kontakt",
+    mapEmpty: "Keine Standorte auf der Karte verfuegbar.",
+    mapReset: "Karte zuruecksetzen",
   },
   fr: {
     headerSubtitle: "Trouvez votre bien ideal a {location}.",
@@ -173,6 +288,13 @@ const copyByLang = {
     filter: "Filtrer",
     clearAll: "Tout effacer",
     location: "Localisation",
+    price: "Prix",
+    amenities: "Caracteristiques",
+    newBuilds: "Neuf",
+    resale: "Revente",
+    from: "De",
+    to: "A",
+    apply: "Appliquer",
     areasIn: "Zones a {city}",
     propertyType: "Type de propriete",
     status: "Statut",
@@ -197,6 +319,8 @@ const copyByLang = {
     footerDefaultPrompt:
       "Vous cherchez des proprietes sur la Costa del Sol ? Nous vous conseillons sans engagement.",
     contactUs: "Contactez-nous",
+    mapEmpty: "Aucun emplacement disponible sur la carte.",
+    mapReset: "Reinitialiser la carte",
   },
   it: {
     headerSubtitle: "Trova la tua proprieta ideale a {location}.",
@@ -213,6 +337,13 @@ const copyByLang = {
     filter: "Filtra",
     clearAll: "Cancella tutto",
     location: "Posizione",
+    price: "Prezzo",
+    amenities: "Caratteristiche",
+    newBuilds: "Nuova costruzione",
+    resale: "Usato",
+    from: "Da",
+    to: "A",
+    apply: "Applica",
     areasIn: "Zone a {city}",
     propertyType: "Tipo di proprieta",
     status: "Stato",
@@ -237,6 +368,8 @@ const copyByLang = {
     footerDefaultPrompt:
       "Cerchi proprieta in Costa del Sol? Ti aiutiamo senza impegno.",
     contactUs: "Contattaci",
+    mapEmpty: "Nessuna posizione disponibile sulla mappa.",
+    mapReset: "Reimposta mappa",
   },
   nl: {
     headerSubtitle: "Vind jouw ideale woning in {location}.",
@@ -253,6 +386,13 @@ const copyByLang = {
     filter: "Filteren",
     clearAll: "Alles wissen",
     location: "Locatie",
+    price: "Prijs",
+    amenities: "Kenmerken",
+    newBuilds: "Nieuwbouw",
+    resale: "Bestaande bouw",
+    from: "Van",
+    to: "Tot",
+    apply: "Toepassen",
     areasIn: "Zones in {city}",
     propertyType: "Woningtype",
     status: "Status",
@@ -277,6 +417,8 @@ const copyByLang = {
     footerDefaultPrompt:
       "Zoek je woningen aan de Costa del Sol? Wij adviseren je vrijblijvend.",
     contactUs: "Neem contact op",
+    mapEmpty: "Geen locaties beschikbaar op de kaart.",
+    mapReset: "Kaart resetten",
   },
 };
 
@@ -337,6 +479,9 @@ const activeFilters = {
   type: getMultiParam("type")
     ? getMultiParam("type").map((v) => normalizeTypeParam(v))
     : null,
+  feature: getMultiParam("feature")
+    ? [...new Set(getMultiParam("feature").map((v) => String(v).trim()).filter(Boolean))]
+    : null,
   market: searchParams.get("market") || null,
 
   bedrooms: getMultiParam("bedrooms")
@@ -377,11 +522,30 @@ const cards = properties
   .map((p) => normalizePropertyCard(p, lang))
   .filter(Boolean)
   .filter((p) => p.visible);
+const allCardPrices = cards
+  .map((card) => card.price)
+  .filter((value): value is number => typeof value === "number" && Number.isFinite(value));
+const catalogPriceBounds = {
+  min: allCardPrices.length ? Math.min(...allCardPrices) : 0,
+  max: allCardPrices.length ? Math.max(...allCardPrices) : 5000000,
+};
+
+if (typeof activeFilters.priceMin === "number" && activeFilters.priceMin <= catalogPriceBounds.min) {
+  activeFilters.priceMin = null;
+}
+
+if (typeof activeFilters.priceMax === "number" && activeFilters.priceMax >= catalogPriceBounds.max) {
+  activeFilters.priceMax = null;
+}
 
 /* =========================
    APLICAR FILTROS
 ========================= */
 const filteredCards = applyFilters(cards, activeFilters);
+const filteredUnitCards = applyFilters(cards, {
+  ...activeFilters,
+  listingType: "unit",
+});
 
 /* =========================
    ORDENACIÃ“N
@@ -405,6 +569,22 @@ const sortedCards = [...filteredCards].sort((a, b) => {
   if (byPriority !== 0) return byPriority;
   return (b.price ?? 0) - (a.price ?? 0);
 });
+const sortCatalogCards = (a, b) => {
+  if (hasSearchIntent) {
+    const bySearchScore = (b.searchScore ?? 0) - (a.searchScore ?? 0);
+    if (bySearchScore !== 0) return bySearchScore;
+  }
+  if (sortApplied === "price_desc") return (b.price ?? 0) - (a.price ?? 0);
+  if (sortApplied === "price_asc") return (a.price ?? 0) - (b.price ?? 0);
+  if (a.isPromotion && b.isPromotion) {
+    const byEditorial = comparePromotionEditorialOrder(a, b);
+    if (byEditorial !== 0) return byEditorial;
+  }
+  const byPriority = (b.priority ?? 0) - (a.priority ?? 0);
+  if (byPriority !== 0) return byPriority;
+  return (b.price ?? 0) - (a.price ?? 0);
+};
+const sortedUnitCards = [...filteredUnitCards].sort(sortCatalogCards);
 
 /* =========================
    FILTROS DISPONIBLES (CONTEXTUALES)
@@ -424,6 +604,29 @@ const selectedCities = activeFilters.city ?? [];
 const selectedAreas = activeFilters.area ?? [];
 const primaryCity = selectedCities.length === 1 ? selectedCities[0] : null;
 const primaryArea = selectedAreas.length === 1 ? selectedAreas[0] : null;
+const formatFeatureLabel = (value) => {
+  const def = FEATURES?.[value];
+  return def?.[lang] ?? def?.es ?? value;
+};
+const formatPriceLabel = (min, max) => {
+  const format = (value) =>
+    new Intl.NumberFormat(lang === "es" ? "es-ES" : lang, {
+      style: "currency",
+      currency: "EUR",
+      maximumFractionDigits: 0,
+    }).format(value);
+
+  if (typeof min === "number" && typeof max === "number") {
+    return `${format(min)} - ${format(max)}`;
+  }
+  if (typeof min === "number") {
+    return `${format(min)}+`;
+  }
+  if (typeof max === "number") {
+    return `< ${format(max)}`;
+  }
+  return t.price;
+};
 const availableAreas = Array.from(
   new Set(
     (selectedCities.length > 0 ? selectedCities : Object.keys(filters.areas)).flatMap(
@@ -431,6 +634,44 @@ const availableAreas = Array.from(
     )
   )
 ).sort((a, b) => a.localeCompare(b));
+const availableFeatures = Array.from(
+  new Set(
+    cards.flatMap((card) => (Array.isArray(card.featureKeys) ? card.featureKeys : []))
+  )
+).sort((a, b) => formatFeatureLabel(a).localeCompare(formatFeatureLabel(b)));
+const priceBounds = {
+  min: Number.isFinite(Number(catalogPriceBounds.min)) ? Number(catalogPriceBounds.min) : 0,
+  max: Number.isFinite(Number(catalogPriceBounds.max)) ? Number(catalogPriceBounds.max) : 5000000,
+};
+const priceStep = priceBounds.max > 2000000 ? 50000 : 25000;
+
+const summarizeSelection = (selected, fallback, formatter = (value) => value) => {
+  if (!Array.isArray(selected) || selected.length === 0) return fallback;
+  if (selected.length === 1) return formatter(selected[0]);
+  return `${fallback} (${selected.length})`;
+};
+
+const locationSummary = primaryArea
+  ? displayLocation(primaryArea)
+  : primaryCity
+    ? displayLocation(primaryCity)
+    : summarizeSelection(selectedCities, t.location, displayLocation);
+const typeSummary = summarizeSelection(activeFilters.type, t.propertyType, (value) =>
+  formatPropertyType(value, lang)
+);
+const bedroomsSummary = summarizeSelection(activeFilters.bedrooms, t.bedrooms, (value) =>
+  `${value} ${t.bedroomsSuffix}`
+);
+const amenitiesSummary = summarizeSelection(activeFilters.feature, t.amenities, formatFeatureLabel);
+const priceSummary =
+  typeof activeFilters.priceMin === "number" || typeof activeFilters.priceMax === "number"
+    ? formatPriceLabel(activeFilters.priceMin, activeFilters.priceMax)
+    : t.price;
+const locationButtonLabel = locationSummary === t.location ? t.location : `${t.location}: ${locationSummary}`;
+const typeButtonLabel = typeSummary === t.propertyType ? t.propertyType : `${t.propertyType}: ${typeSummary}`;
+const priceButtonLabel = priceSummary === t.price ? t.price : `${t.price}: ${priceSummary}`;
+const bedroomsButtonLabel = bedroomsSummary === t.bedrooms ? t.bedrooms : `${t.bedrooms}: ${bedroomsSummary}`;
+const amenitiesButtonLabel = amenitiesSummary === t.amenities ? t.amenities : `${t.amenities}: ${amenitiesSummary}`;
 
 const pruneAreasForCities = (cities, areas) => {
   if (!Array.isArray(areas) || !areas.length) return null;
@@ -448,6 +689,7 @@ const listSeo = normalizePropertyList({
   city: primaryCity,
   area: primaryArea,
   type: activeFilters.type,
+  feature: activeFilters.feature,
   market: activeFilters.market,
   province: "Costa del Sol",
   hasTechnicalFilters,
@@ -463,6 +705,7 @@ function buildUrl(overrides = {}) {
     city: activeFilters.city,
     area: activeFilters.area,
     type: activeFilters.type,
+    feature: activeFilters.feature,
     market: activeFilters.market,
     bedrooms: activeFilters.bedrooms,
     floor: activeFilters.floor,
@@ -492,6 +735,7 @@ const isFiltered = !!(
   activeFilters.city ||
   activeFilters.area ||
   (activeFilters.type && activeFilters.type.length) ||
+  (activeFilters.feature && activeFilters.feature.length) ||
   (activeFilters.bedrooms && activeFilters.bedrooms.length) ||
   (activeFilters.floor && activeFilters.floor.length) ||
   activeFilters.market ||
@@ -526,6 +770,10 @@ const activeFilterChips = [
     label: formatPropertyType(type, lang),
     href: buildUrl({ type: toggleMulti(activeFilters.type, type) }),
   })),
+  ...(activeFilters.feature ?? []).map((feature) => ({
+    label: formatFeatureLabel(feature),
+    href: buildUrl({ feature: toggleMulti(activeFilters.feature, feature) }),
+  })),
   ...(activeFilters.market ? [{
     label: formatMarketLabel(activeFilters.market),
     href: buildUrl({ market: null }),
@@ -538,6 +786,12 @@ const activeFilterChips = [
     label: formatFloorLabel(floor),
     href: buildUrl({ floor: toggleMulti(activeFilters.floor, floor) }),
   })),
+  ...((typeof activeFilters.priceMin === "number" || typeof activeFilters.priceMax === "number")
+    ? [{
+        label: formatPriceLabel(activeFilters.priceMin, activeFilters.priceMax),
+        href: buildUrl({ priceMin: null, priceMax: null }),
+      }]
+    : []),
   ...(activeFilters.search ? [{
     label: `"${activeFilters.search}"`,
     href: buildUrl({ q: null }),
@@ -547,15 +801,64 @@ const activeFilterChips = [
     href: buildUrl({ ref: null }),
   }] : []),
 ];
+
+const seoHubSections = !isFiltered ? buildPropertyLandingHubs({ lang }) : [];
+const pageNoindex = isFiltered || hasTechnicalFilters;
+const propertyById = new Map(properties.map((property) => [String(property.id ?? ""), property]));
+const mapboxToken = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
+const mapboxStyle = import.meta.env.PUBLIC_MAPBOX_STYLE ?? "mapbox://styles/mapbox/streets-v12";
+const featuredShowcaseCard = sortedCards[0] ?? null;
+const listingCards = featuredShowcaseCard
+  ? sortedCards.filter((card) => String(card.id) !== String(featuredShowcaseCard.id))
+  : sortedCards;
+const compactMapFeatures = sortedUnitCards
+  .map((card) => {
+    const property = propertyById.get(String(card.id ?? ""));
+    const lng = Number(property?.location?.coordinates?.lng);
+    const lat = Number(property?.location?.coordinates?.lat);
+    if (!Number.isFinite(lng) || !Number.isFinite(lat) || !card.slug) return null;
+    const coverUrl =
+      typeof card.cover === "string"
+        ? card.cover
+        : String(card.cover?.url ?? "");
+
+    return {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [lng, lat],
+      },
+      properties: {
+        id: card.id,
+        title: card.title,
+        area: property?.location?.area ?? "",
+        city: property?.location?.city ?? "",
+        coverUrl,
+        coverUrlFallback: coverUrl,
+        listingType: "unit",
+        availableUnits: "",
+        summaryPrice: card.price ?? "",
+        summaryCurrency: card.currency ?? "EUR",
+        summaryBedroomsMin: card.details?.bedrooms ?? "",
+        summaryBedroomsMax: card.details?.bedrooms ?? "",
+        summaryAreaMin: card.details?.area_m2 ?? "",
+        summaryAreaMax: card.details?.area_m2 ?? "",
+        href: `/${lang}/property/${card.slug}/`,
+      },
+    };
+  })
+  .filter(Boolean);
 ---
 
 <BaseLayout
   title={listSeo.title}
   description={listSeo.description}
-  noindex={listSeo.noindex}
+  noindex={pageNoindex}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
-  headerNavItems={headerNavItems}
+  headerVariant="landing"
+  landingHeaderSolid={true}
+  landingNavGroups={landingNavGroups}
 >
   <div class={`properties-page ${isFiltered ? 'is-filtered' : ''}`}>
     
@@ -729,11 +1032,288 @@ const activeFilterChips = [
 
       <!-- CONTENIDO PRINCIPAL -->
       <main class="properties-content">
+        <section class="catalog-filter-toolbar" aria-label={t.filterProperties}>
+          <button
+            type="button"
+            class="catalog-filter-chip catalog-filter-chip--primary filters-toggle-mobile"
+            data-filters-open
+            aria-label={t.openFiltersAria}
+            aria-controls="propertiesFiltersPanel"
+            aria-expanded="false"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16" />
+              <path d="M7 12h10" />
+              <path d="M10 18h4" />
+            </svg>
+            <span>{t.openFilters}</span>
+          </button>
+
+          <div class="catalog-filter-dropdown">
+            <button type="button" class="catalog-filter-chip" data-filter-dropdown-toggle aria-expanded="false">
+              <span>{locationButtonLabel}</span>
+            </button>
+            <div class="catalog-filter-menu">
+              {filters.cities.length > 0 && (
+                <div class="catalog-filter-menu-group">
+                  <p>{t.location}</p>
+                  <ul>
+                    <li>
+                      <a href={buildUrl({ city: null, area: null })} class="catalog-filter-menu-clear">
+                        <span>{t.clearAll}</span>
+                      </a>
+                    </li>
+                    {filters.cities.map((city: string) => (
+                      <li>
+                        <a
+                          href={buildUrl((() => {
+                            const nextCities = toggleMulti(activeFilters.city, city);
+                            return {
+                              city: nextCities.length ? nextCities : null,
+                              area: pruneAreasForCities(nextCities, activeFilters.area),
+                            };
+                          })())}
+                          class={activeFilters.city?.includes(city) ? "active" : ""}
+                        >
+                          <span class="catalog-filter-check" aria-hidden="true"></span>
+                          <span>{displayLocation(city)}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {availableAreas.length > 0 && (
+                <div class="catalog-filter-menu-group">
+                  <p>{primaryCity ? renderText(t.areasIn, { city: displayLocation(primaryCity) }) : t.location}</p>
+                  <ul>
+                    <li>
+                      <a href={buildUrl({ area: null })} class="catalog-filter-menu-clear">
+                        <span>{t.clearAll}</span>
+                      </a>
+                    </li>
+                    {availableAreas.map((area: string) => (
+                      <li>
+                        <a
+                          href={buildUrl({ area: toggleMulti(activeFilters.area, area) })}
+                          class={activeFilters.area?.includes(area) ? "active" : ""}
+                        >
+                          <span class="catalog-filter-check" aria-hidden="true"></span>
+                          <span>{displayLocation(area)}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div class="catalog-filter-dropdown">
+            <button type="button" class="catalog-filter-chip" data-filter-dropdown-toggle aria-expanded="false">
+              <span>{typeButtonLabel}</span>
+            </button>
+            <div class="catalog-filter-menu">
+              <div class="catalog-filter-menu-group">
+                <p>{t.propertyType}</p>
+                <ul>
+                  <li>
+                    <a href={buildUrl({ type: null })} class="catalog-filter-menu-clear">
+                      <span>{t.clearAll}</span>
+                    </a>
+                  </li>
+                  {filters.types.map((type: string) => (
+                    <li>
+                      <a
+                        href={buildUrl({ type: toggleMulti(activeFilters.type, type) })}
+                        class={activeFilters.type?.includes(type) ? "active" : ""}
+                      >
+                        <span class="catalog-filter-check" aria-hidden="true"></span>
+                        <span>{formatPropertyType(type, lang)}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="catalog-filter-dropdown">
+            <button type="button" class="catalog-filter-chip" data-filter-dropdown-toggle aria-expanded="false">
+              <span>{priceButtonLabel}</span>
+            </button>
+            <div class="catalog-filter-menu">
+              <div class="catalog-filter-menu-group catalog-filter-menu-group-price">
+                <p>{t.price}</p>
+                <form class="catalog-price-form" data-filter-form method="get" action={`/${lang}/properties/`}>
+                  {activeFilters.city?.map((city: string) => (
+                    <input type="hidden" name="city" value={city} />
+                  ))}
+                  {activeFilters.area?.map((area: string) => (
+                    <input type="hidden" name="area" value={area} />
+                  ))}
+                  {activeFilters.type?.map((type: string) => (
+                    <input type="hidden" name="type" value={type} />
+                  ))}
+                  {activeFilters.feature?.map((feature: string) => (
+                    <input type="hidden" name="feature" value={feature} />
+                  ))}
+                  {activeFilters.bedrooms?.map((bedroom: number) => (
+                    <input type="hidden" name="bedrooms" value={bedroom} />
+                  ))}
+                  {activeFilters.floor?.map((floor: string) => (
+                    <input type="hidden" name="floor" value={floor} />
+                  ))}
+                  {activeFilters.market && (
+                    <input type="hidden" name="market" value={activeFilters.market} />
+                  )}
+                  {activeFilters.search && <input type="hidden" name="q" value={activeFilters.search} />}
+                  {activeFilters.ref && <input type="hidden" name="ref" value={activeFilters.ref} />}
+                  {sort && <input type="hidden" name="sort" value={sort} />}
+
+                  <div
+                    class="catalog-price-range"
+                    data-price-range
+                    data-min={priceBounds.min}
+                    data-max={priceBounds.max}
+                    data-step={priceStep}
+                  >
+                    <div class="catalog-price-range-track">
+                      <span class="catalog-price-range-fill" data-price-range-fill></span>
+                    </div>
+                    <input
+                      type="range"
+                      min={priceBounds.min}
+                      max={priceBounds.max}
+                      step={priceStep}
+                      value={typeof activeFilters.priceMin === "number" ? activeFilters.priceMin : priceBounds.min}
+                      data-price-min
+                    />
+                    <input
+                      type="range"
+                      min={priceBounds.min}
+                      max={priceBounds.max}
+                      step={priceStep}
+                      value={typeof activeFilters.priceMax === "number" ? activeFilters.priceMax : priceBounds.max}
+                      data-price-max
+                    />
+                  </div>
+
+                  <div class="catalog-price-values">
+                    <label>
+                      <span>{t.from}</span>
+                      <input
+                        type="number"
+                        name="priceMin"
+                        min={priceBounds.min}
+                        max={priceBounds.max}
+                        step={priceStep}
+                        value={typeof activeFilters.priceMin === "number" ? activeFilters.priceMin : priceBounds.min}
+                        data-price-min-input
+                      />
+                    </label>
+                    <label>
+                      <span>{t.to}</span>
+                      <input
+                        type="number"
+                        name="priceMax"
+                        min={priceBounds.min}
+                        max={priceBounds.max}
+                        step={priceStep}
+                        value={typeof activeFilters.priceMax === "number" ? activeFilters.priceMax : priceBounds.max}
+                        data-price-max-input
+                      />
+                    </label>
+                  </div>
+
+                  <div class="catalog-price-actions">
+                    <a href={buildUrl({ priceMin: null, priceMax: null })}>{t.clearAll}</a>
+                    <button type="submit">{t.apply}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="catalog-filter-dropdown">
+            <button type="button" class="catalog-filter-chip" data-filter-dropdown-toggle aria-expanded="false">
+              <span>{bedroomsButtonLabel}</span>
+            </button>
+            <div class="catalog-filter-menu">
+              <div class="catalog-filter-menu-group">
+                <p>{t.bedrooms}</p>
+                <ul>
+                  <li>
+                    <a href={buildUrl({ bedrooms: null })} class="catalog-filter-menu-clear">
+                      <span>{t.clearAll}</span>
+                    </a>
+                  </li>
+                  {filters.bedrooms.map((bedrooms: number) => (
+                    <li>
+                      <a
+                        href={buildUrl({ bedrooms: toggleMulti(activeFilters.bedrooms, bedrooms) })}
+                        class={activeFilters.bedrooms?.includes(bedrooms) ? "active" : ""}
+                      >
+                        <span class="catalog-filter-check" aria-hidden="true"></span>
+                        <span>{bedrooms} {t.bedroomsSuffix}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="catalog-filter-dropdown">
+            <button type="button" class="catalog-filter-chip" data-filter-dropdown-toggle aria-expanded="false">
+              <span>{amenitiesButtonLabel}</span>
+            </button>
+            <div class="catalog-filter-menu">
+              <div class="catalog-filter-menu-group">
+                <p>{t.amenities}</p>
+                <ul>
+                  <li>
+                    <a href={buildUrl({ feature: null })} class="catalog-filter-menu-clear">
+                      <span>{t.clearAll}</span>
+                    </a>
+                  </li>
+                  {availableFeatures.map((feature: string) => (
+                    <li>
+                      <a
+                        href={buildUrl({ feature: toggleMulti(activeFilters.feature, feature) })}
+                        class={activeFilters.feature?.includes(feature) ? "active" : ""}
+                      >
+                        <span class="catalog-filter-check" aria-hidden="true"></span>
+                        <span>{formatFeatureLabel(feature)}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href={buildUrl({ market: activeFilters.market === "obra_nueva" ? null : "obra_nueva" })}
+            class={`catalog-filter-chip ${activeFilters.market === "obra_nueva" ? "is-active" : ""}`}
+          >
+            <span>{t.newBuilds}</span>
+          </a>
+
+          <a
+            href={buildUrl({ market: activeFilters.market === "segunda_mano" ? null : "segunda_mano" })}
+            class={`catalog-filter-chip ${activeFilters.market === "segunda_mano" ? "is-active" : ""}`}
+          >
+            <span>{t.resale}</span>
+          </a>
+        </section>
+
         <!-- BARRA SUPERIOR (Resultados + Ordenar) -->
         <div class="content-header">
           <div class="results-summary">
             <p class="results-count" aria-live="polite" aria-atomic="true">
-              <strong>{sortedCards.length}</strong> {t.propertiesFound}
+              <strong>{filteredUnitCards.length}</strong> {t.propertiesFound}
             </p>
             {activeFilters.search && (
               <p class="results-query">
@@ -771,6 +1351,9 @@ const activeFilterChips = [
           {activeFilters.type?.map((type: string) => (
             <input type="hidden" name="type" value={type} />
           ))}
+          {activeFilters.feature?.map((feature: string) => (
+            <input type="hidden" name="feature" value={feature} />
+          ))}
           {activeFilters.bedrooms?.map((bedroom: number) => (
             <input type="hidden" name="bedrooms" value={bedroom} />
           ))}
@@ -788,21 +1371,6 @@ const activeFilterChips = [
           )}
           {sort && <input type="hidden" name="sort" value={sort} />}
           {activeFilters.ref && <input type="hidden" name="ref" value={activeFilters.ref} />}
-          <button
-            type="button"
-            class="filters-toggle-mobile filters-toggle-inline"
-            data-filters-open
-            aria-label={t.openFiltersAria}
-            aria-controls="propertiesFiltersPanel"
-            aria-expanded="false"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6h16" />
-              <path d="M7 12h10" />
-              <path d="M10 18h4" />
-            </svg>
-            <span>{t.openFilters}</span>
-          </button>
           <button type="submit">{t.search}</button>
         </form>
 
@@ -818,9 +1386,32 @@ const activeFilterChips = [
           </section>
         )}
 
+        {(compactMapFeatures.length > 0 || featuredShowcaseCard) && (
+          <section class="properties-showcase-row" aria-label="Context showcase">
+            {compactMapFeatures.length > 0 && (
+              <div class="properties-showcase-map">
+                <MapboxCostaMap
+                  token={mapboxToken}
+                  styleUrl={mapboxStyle}
+                  features={compactMapFeatures}
+                  emptyMessage={t.mapEmpty}
+                  resetViewLabel={t.mapReset}
+                  compact={true}
+                  fitToFeaturesOnLoad={true}
+                />
+              </div>
+            )}
+            {featuredShowcaseCard && (
+              <div class="properties-showcase-featured">
+                <PropertyCard data={featuredShowcaseCard} lang={lang} />
+              </div>
+            )}
+          </section>
+        )}
+
         {sortedCards.length === 0 ? (
           <div class="empty-state">
-            <div class="empty-icon">ðŸ”</div>
+            <div class="empty-icon" aria-hidden="true"></div>
             <h3>{t.emptyTitle}</h3>
             <p>{t.emptyText}</p>
             <a href={`/${lang}/properties/`} class="btn btn-primary">{t.viewAllProperties}</a>
@@ -828,11 +1419,26 @@ const activeFilterChips = [
         ) : (
           <>
             <section class="properties-grid">
-              {sortedCards.map((data) => (
+              {listingCards.map((data) => (
                 <PropertyCard data={data} lang={lang} />
               ))}
             </section>
           </>
+        )}
+
+        {seoHubSections.length > 0 && (
+          <section class="properties-seo-hubs" aria-label="Property search hubs">
+            {seoHubSections.map((section) => (
+              <article class="properties-hub-section">
+                <h2>{section.title}</h2>
+                <div class="properties-hub-links">
+                  {section.links.map((link) => (
+                    <a href={link.href} class="properties-hub-link">{link.label}</a>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </section>
         )}
 
       </main>
@@ -965,11 +1571,88 @@ const activeFilterChips = [
     return href;
   };
 
+  const initPriceRange = (scope = document) => {
+    scope.querySelectorAll("[data-price-range]").forEach((rangeRoot) => {
+      const minRange = rangeRoot.querySelector("[data-price-min]");
+      const maxRange = rangeRoot.querySelector("[data-price-max]");
+      const minInput = rangeRoot.parentElement?.querySelector("[data-price-min-input]");
+      const maxInput = rangeRoot.parentElement?.querySelector("[data-price-max-input]");
+      const fill = rangeRoot.querySelector("[data-price-range-fill]");
+
+      if (
+        !(minRange instanceof HTMLInputElement) ||
+        !(maxRange instanceof HTMLInputElement) ||
+        !(minInput instanceof HTMLInputElement) ||
+        !(maxInput instanceof HTMLInputElement)
+      ) {
+        return;
+      }
+
+      const absoluteMin = Number(rangeRoot.dataset.min || 0);
+      const absoluteMax = Number(rangeRoot.dataset.max || 0);
+      const step = Number(rangeRoot.dataset.step || 1);
+
+      const clampValues = (source = "range") => {
+        let minValue = source === "input" ? Number(minInput.value || absoluteMin) : Number(minRange.value);
+        let maxValue = source === "input" ? Number(maxInput.value || absoluteMax) : Number(maxRange.value);
+
+        minValue = Math.max(absoluteMin, Math.min(minValue, absoluteMax));
+        maxValue = Math.max(absoluteMin, Math.min(maxValue, absoluteMax));
+
+        if (maxValue < minValue) {
+          if (source === "input") {
+            if (document.activeElement === minInput) {
+              maxValue = minValue;
+            } else {
+              minValue = maxValue;
+            }
+          } else if (document.activeElement === minRange) {
+            maxValue = minValue;
+          } else {
+            minValue = maxValue;
+          }
+        }
+
+        minValue = Math.round(minValue / step) * step;
+        maxValue = Math.round(maxValue / step) * step;
+
+        minRange.value = String(minValue);
+        maxRange.value = String(maxValue);
+        minInput.value = String(minValue);
+        maxInput.value = String(maxValue);
+
+        const start = ((minValue - absoluteMin) / (absoluteMax - absoluteMin)) * 100;
+        const end = ((maxValue - absoluteMin) / (absoluteMax - absoluteMin)) * 100;
+        if (fill instanceof HTMLElement) {
+          fill.style.left = `${start}%`;
+          fill.style.width = `${Math.max(end - start, 0)}%`;
+        }
+      };
+
+      minRange.addEventListener("input", () => clampValues("range"));
+      maxRange.addEventListener("input", () => clampValues("range"));
+      minInput.addEventListener("input", () => clampValues("input"));
+      maxInput.addEventListener("input", () => clampValues("input"));
+      clampValues("range");
+    });
+  };
+
+  const closeToolbarDropdowns = () => {
+    document.querySelectorAll(".catalog-filter-dropdown.is-open").forEach((node) => {
+      node.classList.remove("is-open");
+      const toggle = node.querySelector("[data-filter-dropdown-toggle]");
+      if (toggle instanceof HTMLButtonElement) {
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  };
+
   const handleNavigation = async (href, options = {}) => {
     const targetHref = resolveHref(href);
     const currentContent = document.querySelector(".properties-content");
     currentContent?.classList.add("is-loading");
     currentContent?.setAttribute("aria-busy", "true");
+    closeToolbarDropdowns();
 
     try {
       const response = await fetch(targetHref, { headers: { "X-Requested-With": "fetch" } });
@@ -1001,6 +1684,7 @@ const activeFilterChips = [
       }
 
       document.title = doc.title;
+      initPriceRange(document);
       if (options.pushState !== false) {
         history.pushState({}, "", targetHref);
       }
@@ -1013,6 +1697,25 @@ const activeFilterChips = [
   };
 
   document.addEventListener("click", (event) => {
+    const dropdownToggle = event.target.closest("[data-filter-dropdown-toggle]");
+    if (dropdownToggle) {
+      event.preventDefault();
+      const dropdown = dropdownToggle.closest(".catalog-filter-dropdown");
+      const willOpen = !dropdown?.classList.contains("is-open");
+      closeToolbarDropdowns();
+      if (dropdown && willOpen) {
+        dropdown.classList.add("is-open");
+        if (dropdownToggle instanceof HTMLButtonElement) {
+          dropdownToggle.setAttribute("aria-expanded", "true");
+        }
+      }
+      return;
+    }
+
+    if (!event.target.closest(".catalog-filter-dropdown")) {
+      closeToolbarDropdowns();
+    }
+
     const openButton = event.target.closest("[data-filters-open]");
     if (openButton) {
       event.preventDefault();
@@ -1037,13 +1740,34 @@ const activeFilterChips = [
   document.addEventListener("submit", (event) => {
     const form = event.target;
     if (!(form instanceof HTMLFormElement)) return;
-    if (!form.matches(".search-bar")) return;
+    if (!form.matches(".search-bar, .catalog-price-form")) return;
     event.preventDefault();
-    handleNavigation(form.action ? `${form.action}?${new URLSearchParams(new FormData(form)).toString()}` : window.location.href);
+    const formData = new FormData(form);
+
+    if (form.matches(".catalog-price-form")) {
+      const priceRange = form.querySelector("[data-price-range]");
+      const absoluteMin = Number(priceRange?.dataset.min || 0);
+      const absoluteMax = Number(priceRange?.dataset.max || 0);
+      const rawMin = Number(formData.get("priceMin"));
+      const rawMax = Number(formData.get("priceMax"));
+
+      if (!Number.isFinite(rawMin) || rawMin <= absoluteMin) {
+        formData.delete("priceMin");
+      }
+
+      if (!Number.isFinite(rawMax) || rawMax >= absoluteMax) {
+        formData.delete("priceMax");
+      }
+    }
+
+    handleNavigation(
+      form.action ? `${form.action}?${new URLSearchParams(formData).toString()}` : window.location.href
+    );
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
+      closeToolbarDropdowns();
       closeFiltersDrawer();
     }
   });
@@ -1054,6 +1778,7 @@ const activeFilterChips = [
 
   window.addEventListener("resize", syncFiltersDrawerMode);
   syncFiltersDrawerMode();
+  initPriceRange(document);
 </script>
 
 

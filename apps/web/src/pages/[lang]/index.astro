@@ -1,9 +1,22 @@
 ---
+export const prerender = false;
+
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import HomeEditorialHero from "@webapp/components/HomeEditorialHero.astro";
+import HomeFeaturedServices from "@webapp/components/HomeFeaturedServices.astro";
+import HomeFeaturedUnits from "@webapp/components/HomeFeaturedUnits.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import teamMembers from "@shared/data/team";
+import posts from "@shared/data/posts";
 import "@webapp/styles/pages/landing.css";
-import BrandLogo from "@webapp/components/BrandLogo.astro";
+import "@webapp/styles/pages/home-editorial.css";
+import fallbackProperties from "@shared/data/properties";
+import { formatPrice } from "@shared/presentation/common";
+import {
+  buildFeaturedChildUnitCards,
+  buildProjectShowcaseCards,
+  getPublicPropertiesWithFallback,
+} from "@shared/properties/public";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
 
@@ -14,8 +27,31 @@ if (!isSupportedLang(langParam)) {
 const lang = langParam;
 const foundedYear = 1969;
 const yearsActive = new Date().getFullYear() - foundedYear;
-const propertiesPath = `/${lang}/properties/`;
+const teamCount = teamMembers.length;
+const realEstatePath = `/${lang}/real-estate/`;
 const contactPath = `/${lang}/contact/`;
+const aboutPath = `/${lang}/about/`;
+const legalServicesPath = `/${lang}/legal-services/`;
+const commercializationPath = `/${lang}/commercialization/`;
+const privacyPath = `/${lang}/legal/privacy/`;
+const cookiesPath = `/${lang}/legal/cookies/`;
+const HERO_POSTER_URL =
+  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp";
+const CONTACT_PREFILL_STORAGE_KEY = "blancareal-contact-prefill";
+const buildCatalogUrl = (params = {}) => {
+  const searchParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.filter(Boolean).forEach((item) => searchParams.append(key, String(item)));
+      return;
+    }
+    if (value !== null && value !== undefined && value !== "") {
+      searchParams.set(key, String(value));
+    }
+  });
+  const query = searchParams.toString();
+  return `/${lang}/properties/${query ? `?${query}` : ""}`;
+};
 
 const collaboratorLogoModules = import.meta.glob(
   "../../../../../src/assets/collaborators/strategic/*.{avif,jpg,jpeg,png,svg,webp}",
@@ -59,6 +95,10 @@ const copyByLang = {
     pillarsHeading: "Tres lineas de negocio conectadas",
     pillarsText:
       "Accede a cada area desde esta portada principal, con navegacion clara y experiencia unificada.",
+    navBuy: "Comprar vivienda",
+    navLegal: "Asesoramiento legal",
+    navPartners: "Promotoras y agentes",
+    navAbout: "Quienes somos",
     navAgents: "Agentes",
     navContact: "Contacto",
     navPromoters: "Promotoras",
@@ -105,6 +145,10 @@ const copyByLang = {
     pillarsHeading: "Three connected business lines",
     pillarsText:
       "Access each area from this main landing page with a clear and unified navigation.",
+    navBuy: "Buy property",
+    navLegal: "Legal advice",
+    navPartners: "Developers and agents",
+    navAbout: "About us",
     navAgents: "Agents",
     navContact: "Contact",
     navPromoters: "Developers",
@@ -151,6 +195,10 @@ const copyByLang = {
     pillarsHeading: "Drei vernetzte Geschaeftsbereiche",
     pillarsText:
       "Greifen Sie von dieser Startseite klar und einheitlich auf jeden Bereich zu.",
+    navBuy: "Immobilie kaufen",
+    navLegal: "Rechtsberatung",
+    navPartners: "Bautraeger und Agenten",
+    navAbout: "Ueber uns",
     navAgents: "Agenten",
     navContact: "Kontakt",
     navPromoters: "Bautraeger",
@@ -197,6 +245,10 @@ const copyByLang = {
     pillarsHeading: "Trois lignes d activite connectees",
     pillarsText:
       "Accedez a chaque pole depuis cette page principale avec une navigation claire.",
+    navBuy: "Acheter un bien",
+    navLegal: "Conseil juridique",
+    navPartners: "Promoteurs et agents",
+    navAbout: "Qui sommes-nous",
     navAgents: "Agents",
     navContact: "Contact",
     navPromoters: "Promoteurs",
@@ -243,6 +295,10 @@ const copyByLang = {
     pillarsHeading: "Tre linee di business connesse",
     pillarsText:
       "Accedi a ogni area da questa home principale con navigazione chiara e unificata.",
+    navBuy: "Comprare casa",
+    navLegal: "Consulenza legale",
+    navPartners: "Promotori e agenti",
+    navAbout: "Chi siamo",
     navAgents: "Agenti",
     navContact: "Contatto",
     navPromoters: "Promotori",
@@ -289,6 +345,10 @@ const copyByLang = {
     pillarsHeading: "Drie verbonden businesslijnen",
     pillarsText:
       "Ga vanuit deze hoofdlanding naar elk domein met duidelijke en uniforme navigatie.",
+    navBuy: "Woning kopen",
+    navLegal: "Juridisch advies",
+    navPartners: "Ontwikkelaars en agenten",
+    navAbout: "Over ons",
     navAgents: "Agenten",
     navContact: "Contact",
     navPromoters: "Projectontwikkelaars",
@@ -318,6 +378,73 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.es;
+const { properties } = await getPublicPropertiesWithFallback({
+  fallbackProperties,
+});
+
+const projectCards = buildProjectShowcaseCards(properties, lang, {
+  allowedIds: ["PM0079", "PM0074", "PM0011", "PM0084"],
+  limit: 4,
+});
+
+const featuredUnits = buildFeaturedChildUnitCards(properties, lang, {
+  limit: 20,
+});
+
+const availableHomesCount = properties.filter((property) => {
+  if (property.status !== "available") return false;
+  if (property.listing_type !== "unit") return false;
+  if (!property.slugs?.[lang]) return false;
+  return true;
+}).length;
+
+const formattedAvailableHomesCount = new Intl.NumberFormat(lang).format(availableHomesCount);
+
+const heroStatsByLang = {
+  es: [
+    { value: "Since 1969", label: "trayectoria en Costa del Sol" },
+    { value: formattedAvailableHomesCount, label: "viviendas disponibles" },
+    { value: "1.000+", label: "familias acompanadas" },
+    { value: "Legal + Ventas", label: "equipo integrado" },
+  ],
+  en: [
+    { value: "Since 1969", label: "serving Costa del Sol" },
+    { value: formattedAvailableHomesCount, label: "homes available" },
+    { value: "1,000+", label: "families assisted" },
+    { value: "Legal + Sales", label: "integrated team" },
+  ],
+  de: [
+    { value: "Since 1969", label: "an der Costa del Sol" },
+    { value: formattedAvailableHomesCount, label: "verfuegbare Wohnungen" },
+    { value: "1.000+", label: "begleitete Familien" },
+    { value: "Legal + Sales", label: "integriertes Team" },
+  ],
+  fr: [
+    { value: "Since 1969", label: "sur la Costa del Sol" },
+    { value: formattedAvailableHomesCount, label: "logements disponibles" },
+    { value: "1 000+", label: "familles accompagnees" },
+    { value: "Legal + Sales", label: "equipe integree" },
+  ],
+  it: [
+    { value: "Since 1969", label: "in Costa del Sol" },
+    { value: formattedAvailableHomesCount, label: "abitazioni disponibili" },
+    { value: "1.000+", label: "famiglie assistite" },
+    { value: "Legal + Sales", label: "team integrato" },
+  ],
+  nl: [
+    { value: "Since 1969", label: "aan de Costa del Sol" },
+    { value: formattedAvailableHomesCount, label: "beschikbare woningen" },
+    { value: "1.000+", label: "begeleide families" },
+    { value: "Legal + Sales", label: "geintegreerd team" },
+  ],
+};
+
+const heroSlides = projectCards.map((card) => ({
+  ...card,
+  priceLabel: formatPrice(card.priceFrom, card.currency, lang),
+}));
+const heroStats = heroStatsByLang[lang] ?? heroStatsByLang.es;
+const heroPosterUrl = heroSlides[0]?.coverUrl ?? HERO_POSTER_URL;
 
 const extraCopyByLang = {
   es: {
@@ -603,7 +730,12 @@ const formCopyByLang = {
     optionRealEstate: "Real Estate",
     optionLegal: "Servicios Legales",
     optionCommercialization: "Comercializacion",
-    submit: "Enviar solicitud",
+    consentPrefix: "He leido y acepto la",
+    consentLink: "politica de privacidad",
+    consentSuffix: "antes de continuar.",
+    legalNote: "Tus datos se trataran solo para gestionar tu solicitud y redirigirte al formulario seguro de contacto.",
+    redirecting: "Abrimos el formulario seguro de contacto...",
+    submit: "Continuar al formulario",
   },
   en: {
     title: "Request personalized advice",
@@ -619,7 +751,12 @@ const formCopyByLang = {
     optionRealEstate: "Real Estate",
     optionLegal: "Legal Services",
     optionCommercialization: "Commercialization",
-    submit: "Send request",
+    consentPrefix: "I have read and accept the",
+    consentLink: "privacy policy",
+    consentSuffix: "before continuing.",
+    legalNote: "Your data will only be used to prepare your request and move you to the secure contact form.",
+    redirecting: "Opening the secure contact form...",
+    submit: "Continue to form",
   },
   de: {
     title: "Persoenliche Beratung anfordern",
@@ -635,7 +772,12 @@ const formCopyByLang = {
     optionRealEstate: "Real Estate",
     optionLegal: "Rechtsservice",
     optionCommercialization: "Vermarktung",
-    submit: "Anfrage senden",
+    consentPrefix: "Ich habe die",
+    consentLink: "Datenschutzerklaerung",
+    consentSuffix: "gelesen und akzeptiere sie vor dem Fortfahren.",
+    legalNote: "Ihre Daten werden nur verwendet, um Ihre Anfrage vorzubereiten und Sie zum sicheren Kontaktformular weiterzuleiten.",
+    redirecting: "Das sichere Kontaktformular wird geoeffnet...",
+    submit: "Zum Formular weiter",
   },
   fr: {
     title: "Demander un accompagnement personnalise",
@@ -651,7 +793,12 @@ const formCopyByLang = {
     optionRealEstate: "Real Estate",
     optionLegal: "Services Juridiques",
     optionCommercialization: "Commercialisation",
-    submit: "Envoyer la demande",
+    consentPrefix: "J ai lu et j accepte la",
+    consentLink: "politique de confidentialite",
+    consentSuffix: "avant de continuer.",
+    legalNote: "Vos donnees seront utilisees uniquement pour preparer votre demande et vous rediriger vers le formulaire de contact securise.",
+    redirecting: "Ouverture du formulaire de contact securise...",
+    submit: "Continuer vers le formulaire",
   },
   it: {
     title: "Richiedi consulenza personalizzata",
@@ -667,7 +814,12 @@ const formCopyByLang = {
     optionRealEstate: "Real Estate",
     optionLegal: "Servizi Legali",
     optionCommercialization: "Commercializzazione",
-    submit: "Invia richiesta",
+    consentPrefix: "Ho letto e accetto la",
+    consentLink: "privacy policy",
+    consentSuffix: "prima di continuare.",
+    legalNote: "I tuoi dati saranno usati solo per preparare la richiesta e portarti al modulo di contatto sicuro.",
+    redirecting: "Apertura del modulo di contatto sicuro...",
+    submit: "Continua al modulo",
   },
   nl: {
     title: "Vraag persoonlijk advies aan",
@@ -683,7 +835,12 @@ const formCopyByLang = {
     optionRealEstate: "Real Estate",
     optionLegal: "Juridische Diensten",
     optionCommercialization: "Commercialisatie",
-    submit: "Verstuur aanvraag",
+    consentPrefix: "Ik heb het",
+    consentLink: "privacybeleid",
+    consentSuffix: "gelezen en aanvaard voordat ik verder ga.",
+    legalNote: "Uw gegevens worden alleen gebruikt om uw aanvraag voor te bereiden en u naar het beveiligde contactformulier te brengen.",
+    redirecting: "Beveiligd contactformulier wordt geopend...",
+    submit: "Ga naar formulier",
   },
 };
 
@@ -697,6 +854,8 @@ const teamCopyByLang = {
     languages: "Idiomas",
     email: "Correo",
     phone: "Telefono",
+    emailAction: "Enviar correo",
+    phoneAction: "Llamar",
     noLanguages: "Consultar",
   },
   en: {
@@ -706,6 +865,8 @@ const teamCopyByLang = {
     languages: "Languages",
     email: "Email",
     phone: "Phone",
+    emailAction: "Send email",
+    phoneAction: "Call",
     noLanguages: "Ask us",
   },
   de: {
@@ -715,6 +876,8 @@ const teamCopyByLang = {
     languages: "Sprachen",
     email: "E-Mail",
     phone: "Telefon",
+    emailAction: "E-Mail senden",
+    phoneAction: "Anrufen",
     noLanguages: "Anfragen",
   },
   fr: {
@@ -724,6 +887,8 @@ const teamCopyByLang = {
     languages: "Langues",
     email: "Email",
     phone: "Telephone",
+    emailAction: "Envoyer un email",
+    phoneAction: "Appeler",
     noLanguages: "Nous consulter",
   },
   it: {
@@ -733,6 +898,8 @@ const teamCopyByLang = {
     languages: "Lingue",
     email: "Email",
     phone: "Telefono",
+    emailAction: "Invia email",
+    phoneAction: "Chiama",
     noLanguages: "Da consultare",
   },
   nl: {
@@ -742,6 +909,8 @@ const teamCopyByLang = {
     languages: "Talen",
     email: "Email",
     phone: "Telefoon",
+    emailAction: "Email sturen",
+    phoneAction: "Bellen",
     noLanguages: "Vraag het ons",
   },
 };
@@ -761,6 +930,8 @@ const teamCards = teamMembers.map((member) => ({
   role: member.role?.[lang] ?? member.role?.es ?? "",
   email: member.email ?? member.emails?.[0]?.address ?? "",
   phone: member.phone ?? "",
+  emailHref: member.email ?? member.emails?.[0]?.address ?? "",
+  phoneHref: String(member.phone ?? "").replace(/\s+/g, ""),
   image: member.photo?.url ?? "",
   imageAlt: member.photo?.alt?.[lang] ?? member.photo?.alt?.es ?? member.name,
   languageBadges: Array.isArray(member.spoken_languages)
@@ -770,53 +941,423 @@ const teamCards = teamMembers.map((member) => ({
     : [],
 }));
 
-const HERO_VIDEO_URL = "/videos/home-hero-2025-optimized.mp4";
-
 const landingNavItems = [
-  { href: `/${lang}/real-estate/`, label: t.blocks.realEstate.title },
-  { href: `/${lang}/portal/`, label: t.navAgents },
-  { href: `/${lang}/commercialization/`, label: t.navPromoters },
-  { href: `/${lang}/contact/`, label: t.navContact },
+  { href: realEstatePath, label: t.navBuy },
+  { href: legalServicesPath, label: t.navLegal },
+  { href: commercializationPath, label: t.navPartners },
+  { href: aboutPath, label: t.navAbout },
+  { href: contactPath, label: t.navContact },
 ];
 
-const blocks = [
-  {
-    id: "real-estate",
-    href: `/${lang}/real-estate/`,
-    image:
-      "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-    title: t.blocks.realEstate.title,
-    imageAlt: t.blocks.realEstate.imageAlt,
-  },
-  {
-    id: "commercialization",
-    href: `/${lang}/commercialization/`,
-    image: "/images/home-sections/commercialization/entrada.png",
-    title: t.blocks.commercialization.title,
-    imageAlt: t.blocks.commercialization.imageAlt,
-  },
-  {
-    id: "legal",
-    href: `/${lang}/legal-services/`,
-    image: "/images/home-sections/legal-services/legal.jpg",
-    title: t.blocks.legal.title,
-    imageAlt: t.blocks.legal.imageAlt,
-  },
-  {
-    id: "marketing-3d",
-    href: `/${lang}/marketing-3d/`,
-    image: "/images/home-sections/marketing-3d/dron.jpg",
-    title: "Marketing 3D",
-    imageAlt: "Marketing 3D BlancaReal",
-  },
-];
+const landingNavGroupsByLang = {
+  es: [
+    {
+      label: "Bienes y Raices",
+      href: realEstatePath,
+      sections: [
+        {
+          title: "Catalogo",
+          items: [
+            { label: "Obra nueva", href: buildCatalogUrl({ market: "obra_nueva" }) },
+            { label: "2a mano", href: buildCatalogUrl({ market: "segunda_mano" }) },
+            { label: "Nuestras promociones", href: buildCatalogUrl({ market: "obra_nueva", sort: "priority" }) },
+          ],
+        },
+        {
+          title: "Areas",
+          items: [
+            { label: "Mijas", href: buildCatalogUrl({ city: "mijas" }) },
+            { label: "Marbella", href: buildCatalogUrl({ city: "marbella" }) },
+            { label: "Fuengirola", href: buildCatalogUrl({ city: "fuengirola" }) },
+          ],
+        },
+        {
+          title: "Sub areas",
+          items: [
+            { label: "La Cala", href: buildCatalogUrl({ city: "mijas", area: "la cala" }) },
+            { label: "Puerto Banus", href: buildCatalogUrl({ city: "marbella", area: "puerto banus" }) },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Asesoramiento Legal",
+      href: legalServicesPath,
+      sections: [
+        {
+          title: "Servicios",
+          items: [
+            { label: "Revision y contratos", href: `/${lang}/legal-services/#coverage-contracts` },
+            { label: "Due diligence inmobiliaria", href: `/${lang}/legal-services/#coverage-due` },
+            { label: "Asesoria fiscal", href: `/${lang}/legal-services/#coverage-tax` },
+            { label: "Tramites y documentacion", href: `/${lang}/legal-services/#coverage-docs` },
+          ],
+        },
+        {
+          title: "Soporte",
+          items: [
+            { label: "Representacion legal", href: `/${lang}/legal-services/#coverage-claims` },
+            { label: "Servicios para extranjeros", href: `/${lang}/legal-services/#coverage-foreign` },
+            { label: "Solicitar asesoria", href: `/${lang}/legal-services/#contact` },
+          ],
+        },
+      ],
+    },
+  ],
+  en: [
+    {
+      label: "Real Estate",
+      href: realEstatePath,
+      sections: [
+        {
+          title: "Catalog",
+          items: [
+            { label: "New build", href: buildCatalogUrl({ market: "obra_nueva" }) },
+            { label: "Resale", href: buildCatalogUrl({ market: "segunda_mano" }) },
+            { label: "Our developments", href: buildCatalogUrl({ market: "obra_nueva", sort: "priority" }) },
+          ],
+        },
+        {
+          title: "Areas",
+          items: [
+            { label: "Mijas", href: buildCatalogUrl({ city: "mijas" }) },
+            { label: "Marbella", href: buildCatalogUrl({ city: "marbella" }) },
+            { label: "Fuengirola", href: buildCatalogUrl({ city: "fuengirola" }) },
+          ],
+        },
+        {
+          title: "Sub areas",
+          items: [
+            { label: "La Cala", href: buildCatalogUrl({ city: "mijas", area: "la cala" }) },
+            { label: "Puerto Banus", href: buildCatalogUrl({ city: "marbella", area: "puerto banus" }) },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Legal Advisory",
+      href: legalServicesPath,
+      sections: [
+        {
+          title: "Services",
+          items: [
+            { label: "Contract drafting and review", href: `/${lang}/legal-services/#coverage-contracts` },
+            { label: "Real estate due diligence", href: `/${lang}/legal-services/#coverage-due` },
+            { label: "Tax advice", href: `/${lang}/legal-services/#coverage-tax` },
+            { label: "Documentation and formalities", href: `/${lang}/legal-services/#coverage-docs` },
+          ],
+        },
+        {
+          title: "Support",
+          items: [
+            { label: "Legal representation", href: `/${lang}/legal-services/#coverage-claims` },
+            { label: "Services for foreign clients", href: `/${lang}/legal-services/#coverage-foreign` },
+            { label: "Request advice", href: `/${lang}/legal-services/#contact` },
+          ],
+        },
+      ],
+    },
+  ],
+  de: [
+    {
+      label: "Immobilien",
+      href: realEstatePath,
+      sections: [
+        {
+          title: "Katalog",
+          items: [
+            { label: "Neubau", href: buildCatalogUrl({ market: "obra_nueva" }) },
+            { label: "Bestand", href: buildCatalogUrl({ market: "segunda_mano" }) },
+            { label: "Unsere Projekte", href: buildCatalogUrl({ market: "obra_nueva", sort: "priority" }) },
+          ],
+        },
+        {
+          title: "Gebiete",
+          items: [
+            { label: "Mijas", href: buildCatalogUrl({ city: "mijas" }) },
+            { label: "Marbella", href: buildCatalogUrl({ city: "marbella" }) },
+            { label: "Fuengirola", href: buildCatalogUrl({ city: "fuengirola" }) },
+          ],
+        },
+        {
+          title: "Teilgebiete",
+          items: [
+            { label: "La Cala", href: buildCatalogUrl({ city: "mijas", area: "la cala" }) },
+            { label: "Puerto Banus", href: buildCatalogUrl({ city: "marbella", area: "puerto banus" }) },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Rechtsberatung",
+      href: legalServicesPath,
+      sections: [
+        {
+          title: "Leistungen",
+          items: [
+            { label: "Vertragspruefung und Erstellung", href: `/${lang}/legal-services/#coverage-contracts` },
+            { label: "Due Diligence", href: `/${lang}/legal-services/#coverage-due` },
+            { label: "Steuerberatung", href: `/${lang}/legal-services/#coverage-tax` },
+            { label: "Unterlagen und Abwicklung", href: `/${lang}/legal-services/#coverage-docs` },
+          ],
+        },
+        {
+          title: "Support",
+          items: [
+            { label: "Rechtliche Vertretung", href: `/${lang}/legal-services/#coverage-claims` },
+            { label: "Services fuer Auslaender", href: `/${lang}/legal-services/#coverage-foreign` },
+            { label: "Beratung anfragen", href: `/${lang}/legal-services/#contact` },
+          ],
+        },
+      ],
+    },
+  ],
+  fr: [
+    {
+      label: "Immobilier",
+      href: realEstatePath,
+      sections: [
+        {
+          title: "Catalogue",
+          items: [
+            { label: "Programme neuf", href: buildCatalogUrl({ market: "obra_nueva" }) },
+            { label: "Revente", href: buildCatalogUrl({ market: "segunda_mano" }) },
+            { label: "Nos promotions", href: buildCatalogUrl({ market: "obra_nueva", sort: "priority" }) },
+          ],
+        },
+        {
+          title: "Zones",
+          items: [
+            { label: "Mijas", href: buildCatalogUrl({ city: "mijas" }) },
+            { label: "Marbella", href: buildCatalogUrl({ city: "marbella" }) },
+            { label: "Fuengirola", href: buildCatalogUrl({ city: "fuengirola" }) },
+          ],
+        },
+        {
+          title: "Sous-zones",
+          items: [
+            { label: "La Cala", href: buildCatalogUrl({ city: "mijas", area: "la cala" }) },
+            { label: "Puerto Banus", href: buildCatalogUrl({ city: "marbella", area: "puerto banus" }) },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Conseil juridique",
+      href: legalServicesPath,
+      sections: [
+        {
+          title: "Services",
+          items: [
+            { label: "Revision et redaction de contrats", href: `/${lang}/legal-services/#coverage-contracts` },
+            { label: "Due diligence immobiliere", href: `/${lang}/legal-services/#coverage-due` },
+            { label: "Conseil fiscal", href: `/${lang}/legal-services/#coverage-tax` },
+            { label: "Demarches et documentation", href: `/${lang}/legal-services/#coverage-docs` },
+          ],
+        },
+        {
+          title: "Support",
+          items: [
+            { label: "Representation juridique", href: `/${lang}/legal-services/#coverage-claims` },
+            { label: "Services pour clients etrangers", href: `/${lang}/legal-services/#coverage-foreign` },
+            { label: "Demander un conseil", href: `/${lang}/legal-services/#contact` },
+          ],
+        },
+      ],
+    },
+  ],
+  it: [
+    {
+      label: "Real Estate",
+      href: realEstatePath,
+      sections: [
+        {
+          title: "Catalogo",
+          items: [
+            { label: "Nuova costruzione", href: buildCatalogUrl({ market: "obra_nueva" }) },
+            { label: "Usato", href: buildCatalogUrl({ market: "segunda_mano" }) },
+            { label: "Le nostre promozioni", href: buildCatalogUrl({ market: "obra_nueva", sort: "priority" }) },
+          ],
+        },
+        {
+          title: "Aree",
+          items: [
+            { label: "Mijas", href: buildCatalogUrl({ city: "mijas" }) },
+            { label: "Marbella", href: buildCatalogUrl({ city: "marbella" }) },
+            { label: "Fuengirola", href: buildCatalogUrl({ city: "fuengirola" }) },
+          ],
+        },
+        {
+          title: "Sottoaree",
+          items: [
+            { label: "La Cala", href: buildCatalogUrl({ city: "mijas", area: "la cala" }) },
+            { label: "Puerto Banus", href: buildCatalogUrl({ city: "marbella", area: "puerto banus" }) },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Consulenza legale",
+      href: legalServicesPath,
+      sections: [
+        {
+          title: "Servizi",
+          items: [
+            { label: "Revisione e redazione contratti", href: `/${lang}/legal-services/#coverage-contracts` },
+            { label: "Due diligence immobiliare", href: `/${lang}/legal-services/#coverage-due` },
+            { label: "Consulenza fiscale", href: `/${lang}/legal-services/#coverage-tax` },
+            { label: "Pratiche e documentazione", href: `/${lang}/legal-services/#coverage-docs` },
+          ],
+        },
+        {
+          title: "Supporto",
+          items: [
+            { label: "Rappresentanza legale", href: `/${lang}/legal-services/#coverage-claims` },
+            { label: "Servizi per stranieri", href: `/${lang}/legal-services/#coverage-foreign` },
+            { label: "Richiedi consulenza", href: `/${lang}/legal-services/#contact` },
+          ],
+        },
+      ],
+    },
+  ],
+  nl: [
+    {
+      label: "Vastgoed",
+      href: realEstatePath,
+      sections: [
+        {
+          title: "Catalogus",
+          items: [
+            { label: "Nieuwbouw", href: buildCatalogUrl({ market: "obra_nueva" }) },
+            { label: "Bestaande bouw", href: buildCatalogUrl({ market: "segunda_mano" }) },
+            { label: "Onze promoties", href: buildCatalogUrl({ market: "obra_nueva", sort: "priority" }) },
+          ],
+        },
+        {
+          title: "Gebieden",
+          items: [
+            { label: "Mijas", href: buildCatalogUrl({ city: "mijas" }) },
+            { label: "Marbella", href: buildCatalogUrl({ city: "marbella" }) },
+            { label: "Fuengirola", href: buildCatalogUrl({ city: "fuengirola" }) },
+          ],
+        },
+        {
+          title: "Subgebieden",
+          items: [
+            { label: "La Cala", href: buildCatalogUrl({ city: "mijas", area: "la cala" }) },
+            { label: "Puerto Banus", href: buildCatalogUrl({ city: "marbella", area: "puerto banus" }) },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Juridisch advies",
+      href: legalServicesPath,
+      sections: [
+        {
+          title: "Diensten",
+          items: [
+            { label: "Contracten opstellen en beoordelen", href: `/${lang}/legal-services/#coverage-contracts` },
+            { label: "Due diligence vastgoed", href: `/${lang}/legal-services/#coverage-due` },
+            { label: "Fiscaal advies", href: `/${lang}/legal-services/#coverage-tax` },
+            { label: "Documentatie en afhandeling", href: `/${lang}/legal-services/#coverage-docs` },
+          ],
+        },
+        {
+          title: "Support",
+          items: [
+            { label: "Juridische vertegenwoordiging", href: `/${lang}/legal-services/#coverage-claims` },
+            { label: "Diensten voor buitenlandse klanten", href: `/${lang}/legal-services/#coverage-foreign` },
+            { label: "Advies aanvragen", href: `/${lang}/legal-services/#contact` },
+          ],
+        },
+      ],
+    },
+  ],
+};
 
-const heroTopCard = blocks.find((block) => block.id === "real-estate");
-const heroBottomCards = blocks.filter(
-  (block) => block.id !== "real-estate" && block.id !== "marketing-3d"
-).concat(
-  blocks.find((block) => block.id === "marketing-3d")
-).filter(Boolean);
+const landingNavGroups = landingNavGroupsByLang[lang] ?? landingNavGroupsByLang.es;
+
+const homePostsByLang = {
+  es: {
+    eyebrow: "Revista BlancaReal",
+    title: "Lecturas recientes sobre mercado, producto y asesoramiento",
+    intro:
+      "Una seleccion editorial de nuestro blog para poner contexto al mercado, explicar servicios y destacar operaciones o proyectos recientes.",
+    viewAll: "Ver revista",
+  },
+  en: {
+    eyebrow: "BlancaReal Journal",
+    title: "Recent reads on market, product and advisory",
+    intro:
+      "An editorial selection from our journal to frame the market, explain services and highlight recent deals or developments.",
+    viewAll: "View journal",
+  },
+  de: {
+    eyebrow: "BlancaReal Magazin",
+    title: "Aktuelle Inhalte zu Markt, Produkt und Beratung",
+    intro:
+      "Eine redaktionelle Auswahl aus unserem Magazin, um den Markt einzuordnen, Services zu erklaeren und aktuelle Projekte oder Transaktionen hervorzuheben.",
+    viewAll: "Magazin ansehen",
+  },
+  fr: {
+    eyebrow: "Journal BlancaReal",
+    title: "Lectures recentes sur le marche, le produit et le conseil",
+    intro:
+      "Une selection editoriale de notre journal pour donner du contexte au marche, expliquer nos services et mettre en avant des projets ou operations recentes.",
+    viewAll: "Voir le journal",
+  },
+  it: {
+    eyebrow: "Journal BlancaReal",
+    title: "Letture recenti su mercato, prodotto e consulenza",
+    intro:
+      "Una selezione editoriale del nostro journal per dare contesto al mercato, spiegare i servizi e mettere in evidenza progetti o operazioni recenti.",
+    viewAll: "Vedi journal",
+  },
+  nl: {
+    eyebrow: "BlancaReal Journal",
+    title: "Recente stukken over markt, product en advies",
+    intro:
+      "Een redactionele selectie uit ons journal om de markt te duiden, diensten uit te leggen en recente projecten of transacties uit te lichten.",
+    viewAll: "Bekijk journal",
+  },
+};
+
+const homePostsCopy = homePostsByLang[lang] ?? homePostsByLang.es;
+const homePosts = posts
+  .filter((post) => post.status === "published")
+  .map((post) => {
+    const translation = post.translations?.[lang] ?? post.translations?.es ?? null;
+    const slug = post.slugs?.[lang] ?? post.slugs?.es ?? null;
+    if (!translation || !slug || !translation.title) return null;
+
+    return {
+      slug,
+      title: translation.title,
+      excerpt: translation.excerpt ?? "",
+      category: String(post.category ?? ""),
+      featured: post.featured === true,
+      publishedAt: post.published_at ?? "",
+      readingTimeMin: Number(post.reading_time_min ?? 0) || 0,
+      coverUrl: post.media?.cover?.url ?? "",
+      coverAlt:
+        post.media?.cover?.alt?.[lang] ??
+        post.media?.cover?.alt?.es ??
+        translation.title,
+    };
+  })
+  .filter(Boolean)
+  .sort((left, right) => {
+    const featuredDelta = Number(right.featured) - Number(left.featured);
+    if (featuredDelta !== 0) return featuredDelta;
+    const leftTime = new Date(`${left.publishedAt}T00:00:00`).getTime();
+    const rightTime = new Date(`${right.publishedAt}T00:00:00`).getTime();
+    return rightTime - leftTime;
+  })
+  .slice(0, 4);
+
+const homeLeadPost = homePosts[0] ?? null;
+const homeSecondaryPosts = homePosts.slice(1, 4);
 
 const collaboratorLoop = [...extra.collaborators, ...extra.collaborators];
 const collaboratorLogoLoop = [...collaboratorLogos, ...collaboratorLogos];
@@ -825,8 +1366,42 @@ const footerLinks = [
   { href: `/${lang}/real-estate/`, label: t.blocks.realEstate.title },
   { href: `/${lang}/legal-services/`, label: t.blocks.legal.title },
   { href: `/${lang}/commercialization/`, label: t.blocks.commercialization.title },
-  { href: `/${lang}/portal/`, label: t.navAgents },
+  { href: aboutPath, label: t.navAbout },
   { href: `/${lang}/contact/`, label: t.navContact },
+];
+
+const homeStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name: "BlancaReal",
+    url: `https://blancareal.com/${lang}/`,
+    image: heroPosterUrl,
+    telephone: "+34952599159",
+    email: "info@blancareal.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Calle Monte Calahonda, 10",
+      addressLocality: "Mijas Costa",
+      postalCode: "29649",
+      addressCountry: "ES",
+    },
+    areaServed: ["Costa del Sol", "Mijas Costa", "Fuengirola", "Malaga"],
+    availableLanguage: ["es", "en", "de", "fr", "it", "nl"],
+    numberOfEmployees: teamCount,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "BlancaReal",
+        item: `https://blancareal.com/${lang}/`,
+      },
+    ],
+  },
 ];
 
 const currentYear = new Date().getFullYear();
@@ -837,82 +1412,76 @@ const currentYear = new Date().getFullYear();
   description={t.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  og={{ image: heroPosterUrl }}
+  preloadImageUrl={heroPosterUrl}
+  preloadImageType="image/webp"
+  structuredData={homeStructuredData}
   headerVariant="landing"
+  landingHeaderOverlay={true}
   landingNavItems={landingNavItems}
+  landingNavGroups={landingNavGroups}
   showMobileStickyCta={false}
 >
-  <section class="landing-hero">
-    <video
-      class="landing-hero-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="none"
-      data-video-src={HERO_VIDEO_URL}
-      disablepictureinpicture
-      disableremoteplayback
-      tabindex="-1"
-      aria-hidden="true"
-      poster="https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp"
-    >
-    </video>
-    <div class="landing-hero-overlay"></div>
-    <div class="landing-hero-mobile-shell">
-      {heroTopCard && (
-        <article class="pillar-card landing-hero-top-card" data-id={heroTopCard.id}>
-          <a class="pillar-link landing-hero-top-link" href={heroTopCard.href}>
-            <div class="pillar-content">
-              <h3>{heroTopCard.title}</h3>
-            </div>
-          </a>
-        </article>
-      )}
-      <a class="landing-mobile-jump" href="#landing-services">
-        {t.servicesJump}
-      </a>
-    </div>
-  </section>
-
-  <section class="landing-pillars" id="landing-services" aria-labelledby="landing-services-title">
-    <div class="landing-services-mobile-head">
-      <p id="landing-services-title">{t.servicesJump}</p>
-      <span>{t.servicesSwipe}</span>
-    </div>
-    <div class="landing-pillars-grid">
-      {heroBottomCards.map((block) => (
-        <article class="pillar-card" data-id={block.id}>
-          <a class="pillar-link" href={block.href}>
-            <img src={block.image} alt={block.imageAlt} loading="lazy" decoding="async" />
-            <div class="pillar-overlay"></div>
-            <div class="pillar-content">
-              <h3>{block.title}</h3>
-            </div>
-          </a>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="landing-intro container">
-    <p class="landing-intro-kicker">{t.heroEyebrow}</p>
-    <h1>{t.heroHeading}</h1>
-    <p class="landing-intro-subtitle">{t.heroText}</p>
-    <div class="landing-intro-actions">
-      <a href={propertiesPath} class="landing-intro-cta">{t.heroPrimaryCta}</a>
-      <a href={contactPath} class="landing-intro-cta is-secondary">{t.heroSecondaryCta}</a>
-    </div>
-    <ul class="landing-intro-trust" aria-label={t.heroTrustLabel}>
-      {t.heroTrustItems.map((item) => (
-        <li class="landing-intro-trust-item">
-          <strong>{item.value}</strong>
-          <span>{item.label}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
+  <HomeEditorialHero
+    lang={lang}
+    slides={heroSlides}
+    stats={heroStats}
+    projectsPath={`/${lang}/projects/`}
+  />
+  <HomeFeaturedServices lang={lang} />
+  <HomeFeaturedUnits lang={lang} cards={featuredUnits} />
 
   <section class="landing-about-z container">
+    {homeLeadPost ? (
+      <article class="home-journal">
+        <div class="home-journal-head">
+          <div class="home-journal-heading">
+            <p class="home-journal-eyebrow">{homePostsCopy.eyebrow}</p>
+            <h2>{homePostsCopy.title}</h2>
+            <p>{homePostsCopy.intro}</p>
+          </div>
+          <a href={`/${lang}/posts/`} class="home-journal-link">{homePostsCopy.viewAll}</a>
+        </div>
+
+        <div class="home-journal-grid">
+          <article class="home-journal-lead">
+            <a href={`/${lang}/post/${homeLeadPost.slug}/`} class="home-journal-card-link">
+              {homeLeadPost.coverUrl ? (
+                <img src={homeLeadPost.coverUrl} alt={homeLeadPost.coverAlt} loading="lazy" decoding="async" />
+              ) : (
+                <div class="home-journal-fallback"></div>
+              )}
+              <div class="home-journal-overlay"></div>
+              <div class="home-journal-copy">
+                <span>{homeLeadPost.category}</span>
+                <h3>{homeLeadPost.title}</h3>
+                <p>{homeLeadPost.excerpt}</p>
+              </div>
+            </a>
+          </article>
+
+          <div class="home-journal-stack">
+            {homeSecondaryPosts.map((post) => (
+              <article class="home-journal-secondary">
+                <a href={`/${lang}/post/${post.slug}/`} class="home-journal-secondary-link">
+                  {post.coverUrl ? (
+                    <img src={post.coverUrl} alt={post.coverAlt} loading="lazy" decoding="async" />
+                  ) : (
+                    <div class="home-journal-fallback"></div>
+                  )}
+                  <div class="home-journal-secondary-copy">
+                    <span>{post.category}</span>
+                    <h3>{post.title}</h3>
+                    <p>{post.excerpt}</p>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </article>
+    ) : null}
+
     <article class="z-team">
       <div class="z-team-head">
         <h2>{teamCopy.title}</h2>
@@ -953,14 +1522,32 @@ const currentYear = new Date().getFullYear();
                         )}
                       </dd>
                     </div>
-                    <div>
-                      <dt>{teamCopy.email}</dt>
-                      <dd><a href={`mailto:${member.email}`}>{member.email}</a></dd>
-                    </div>
-                    <div>
-                      <dt>{teamCopy.phone}</dt>
-                      <dd><a href={`tel:${member.phone.replace(/\s+/g, "")}`}>{member.phone}</a></dd>
-                    </div>
+                  </dl>
+                  <div class="z-team-actions">
+                    {member.email && (
+                      <a class="z-team-action z-team-action-email" href={`mailto:${member.emailHref}`}>
+                        {teamCopy.emailAction}
+                      </a>
+                    )}
+                    {member.phone && (
+                      <a class="z-team-action z-team-action-phone" href={`tel:${member.phoneHref}`}>
+                        {teamCopy.phoneAction}
+                      </a>
+                    )}
+                  </div>
+                  <dl class="z-team-contact-list">
+                    {member.email && (
+                      <div>
+                        <dt>{teamCopy.email}</dt>
+                        <dd><a href={`mailto:${member.emailHref}`}>{member.email}</a></dd>
+                      </div>
+                    )}
+                    {member.phone && (
+                      <div>
+                        <dt>{teamCopy.phone}</dt>
+                        <dd><a href={`tel:${member.phoneHref}`}>{member.phone}</a></dd>
+                      </div>
+                    )}
                   </dl>
                 </div>
               </article>
@@ -995,7 +1582,7 @@ const currentYear = new Date().getFullYear();
             <span class="z-form-summary-open">{formCopy.toggleOpen}</span>
             <span class="z-form-summary-close">{formCopy.toggleClose}</span>
           </summary>
-          <form class="z-form" method="get" action={`/${lang}/contact/`}>
+          <form class="z-form" method="get" action={contactPath} id="landingLeadForm">
             <div class="z-form-grid">
               <label class="z-form-field">
                 <span>{formCopy.name}</span>
@@ -1025,7 +1612,21 @@ const currentYear = new Date().getFullYear();
               <textarea name="message" rows="4"></textarea>
             </label>
 
-            <button type="submit" class="z-form-submit">{formCopy.submit}</button>
+            <label class="z-form-consent">
+              <input type="checkbox" name="consent" required />
+              <span>
+                {formCopy.consentPrefix}{" "}
+                <a href={privacyPath}>{formCopy.consentLink}</a>{" "}
+                {formCopy.consentSuffix}
+              </span>
+            </label>
+
+            <p class="z-form-legal-note">{formCopy.legalNote}</p>
+
+            <div class="z-form-actions">
+              <button type="submit" class="z-form-submit">{formCopy.submit}</button>
+              <p class="z-form-status" id="landingLeadStatus" aria-live="polite"></p>
+            </div>
           </form>
         </details>
       </div>
@@ -1095,8 +1696,8 @@ const currentYear = new Date().getFullYear();
       <section class="footer-legal">
         <h3>{extra.footerLegal}</h3>
         <ul>
-          <li><a href="#">{extra.privacy}</a></li>
-          <li><a href="#">{extra.cookies}</a></li>
+          <li><a href={privacyPath}>{extra.privacy}</a></li>
+          <li><a href={cookiesPath}>{extra.cookies}</a></li>
         </ul>
       </section>
     </div>
@@ -1105,54 +1706,18 @@ const currentYear = new Date().getFullYear();
     </div>
   </footer>
 
-  <script is:inline>
-    const heroVideo = document.querySelector(".landing-hero-video");
+  <script
+    is:inline
+    define:vars={{
+      contactPath,
+      contactPrefillStorageKey: CONTACT_PREFILL_STORAGE_KEY,
+      landingRedirectText: formCopy.redirecting,
+    }}
+  >
     const homeFormDisclosure = document.querySelector(".z-form-disclosure");
+    const landingLeadForm = document.getElementById("landingLeadForm");
+    const landingLeadStatus = document.getElementById("landingLeadStatus");
     const teamCarousels = document.querySelectorAll("[data-team-carousel]");
-
-    const keepHeroVideoPlaying = () => {
-      if (!(heroVideo instanceof HTMLVideoElement)) return;
-      if (heroVideo.paused) {
-        heroVideo.play().catch(() => {});
-      }
-    };
-
-    const shouldLoadHeroVideo = () => {
-      if (!(heroVideo instanceof HTMLVideoElement)) return false;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-      if (window.innerWidth <= 720) return false;
-
-      const connection =
-        navigator.connection ||
-        navigator.mozConnection ||
-        navigator.webkitConnection;
-
-      if (connection?.saveData) return false;
-      if (typeof connection?.effectiveType === "string" && /(^|slow-)2g/.test(connection.effectiveType)) {
-        return false;
-      }
-
-      return true;
-    };
-
-    const loadHeroVideo = () => {
-      if (!(heroVideo instanceof HTMLVideoElement)) return;
-      if (heroVideo.dataset.loaded === "true") {
-        keepHeroVideoPlaying();
-        return;
-      }
-
-      const src = heroVideo.dataset.videoSrc;
-      if (!src || !shouldLoadHeroVideo()) return;
-
-      const source = document.createElement("source");
-      source.src = src;
-      source.type = "video/mp4";
-      heroVideo.appendChild(source);
-      heroVideo.dataset.loaded = "true";
-      heroVideo.load();
-      keepHeroVideoPlaying();
-    };
 
     const syncHomeFormDisclosure = () => {
       if (!(homeFormDisclosure instanceof HTMLDetailsElement)) return;
@@ -1200,28 +1765,40 @@ const currentYear = new Date().getFullYear();
       syncTeamCarouselState(carousel);
     };
 
-    if (heroVideo instanceof HTMLVideoElement) {
-      heroVideo.addEventListener("pause", keepHeroVideoPlaying);
-      heroVideo.addEventListener("ended", keepHeroVideoPlaying);
-      document.addEventListener("visibilitychange", () => {
-        if (!document.hidden) {
-          keepHeroVideoPlaying();
-        }
-      });
+    if (landingLeadForm instanceof HTMLFormElement && landingLeadStatus instanceof HTMLElement) {
+      landingLeadForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-      const scheduleVideoLoad = () => {
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(loadHeroVideo, { timeout: 1500 });
+        if (!landingLeadForm.reportValidity()) {
           return;
         }
-        window.setTimeout(loadHeroVideo, 600);
-      };
 
-      if (document.readyState === "complete") {
-        scheduleVideoLoad();
-      } else {
-        window.addEventListener("load", scheduleVideoLoad, { once: true });
-      }
+        const formData = new FormData(landingLeadForm);
+        const payload = {
+          full_name: String(formData.get("name") ?? "").trim(),
+          email: String(formData.get("email") ?? "").trim(),
+          phone: String(formData.get("phone") ?? "").trim(),
+          service: String(formData.get("service") ?? "").trim(),
+          message: String(formData.get("message") ?? "").trim(),
+          source: "landing_home_form",
+        };
+
+        try {
+          window.sessionStorage.setItem(contactPrefillStorageKey, JSON.stringify(payload));
+        } catch (error) {
+          console.error(error);
+        }
+
+        landingLeadStatus.textContent = landingRedirectText;
+        landingLeadStatus.classList.add("is-success");
+
+        const targetUrl = new URL(contactPath, window.location.origin);
+        if (payload.service) {
+          targetUrl.searchParams.set("service", payload.service);
+        }
+        targetUrl.searchParams.set("from", "home");
+        window.location.assign(targetUrl.toString());
+      });
     }
 
     syncHomeFormDisclosure();
@@ -1232,16 +1809,16 @@ const currentYear = new Date().getFullYear();
     window.addEventListener("resize", syncHomeFormDisclosure);
   </script>
   <style>
-    .landing-intro h1,
+    .home-editorial-hero-title,
+    .home-editorial-section-title,
     .landing-about-z h2,
-    .landing-collaborators h2,
-    .hero-heading {
+    .landing-collaborators h2 {
       font-family: 'Cormorant Garamond', serif !important;
       font-style: normal;
       font-weight: 600;
     }
 
-    .pillar-card h3 {
+    .home-service-copy h3 {
       font-family: 'Smoothy Sans', 'Cormorant Garamond', serif !important;
       text-transform: uppercase !important;
     }

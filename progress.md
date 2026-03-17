@@ -33,3 +33,37 @@
     - reduce old compatibility wrappers where safe
     - review residual root-only imports/aliases
     - finalize docs and deploy guidance for the split monorepo
+
+## 2026-03-16
+
+- Used the planning-with-files workflow for the website backlog requested from the screenshot.
+- Reviewed the existing planning files first to avoid losing prior repo context.
+- Added a new roadmap section in `task_plan.md` with:
+  - phase ordering
+  - sprint grouping
+  - dependency rules
+- Logged key planning conclusions in `findings.md`, especially:
+  - which backlog items are legal blockers
+  - which items are already partially implemented in the repo
+  - which tasks should be batched instead of executed one by one
+- Outcome of this session:
+  - backlog is now sequenced into 6 phases
+  - early sprints are centered on compliance, home conversion, and contact safety
+  - later sprints cover section expansion, new pages, and growth instrumentation
+
+## 2026-03-17
+
+- Started a new planning-with-files track for the requested real-estate simplification.
+- Reviewed:
+  - `apps/web/src/pages/[lang]/real-estate/index.astro`
+  - `apps/web/src/pages/[lang]/properties/index.astro`
+  - `apps/web/src/components/MapboxCostaMap.astro`
+- Confirmed the work is a migration/recomposition task, not a greenfield map feature.
+- Logged the migration goal and phases into `task_plan.md`.
+- Logged the architectural findings into `findings.md`.
+- Implemented the first migration pass:
+  - `/real-estate/` now redirects to `/properties/`
+  - `/properties/` now renders a first-row showcase with a compact map plus one featured property
+  - the compact map auto-fits to the currently filtered unit set, so it reframes when city/area filters narrow the catalog
+- Validation:
+  - `npm run build:web` OK

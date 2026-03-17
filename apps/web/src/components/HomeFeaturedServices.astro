@@ -1,0 +1,166 @@
+---
+const { lang } = Astro.props;
+
+const copyByLang = {
+  es: {
+    eyebrow: "Servicios destacados",
+    title: "Las dos lineas que impulsan nuestras operaciones",
+    intro:
+      "Comercializacion residencial premium y cobertura legal para acompanar la venta, la compra y el producto promotor con una misma firma.",
+    cards: [
+      {
+        href: `/${lang}/commercialization/`,
+        image: "/images/home-sections/commercialization/entrada.png",
+        title: "Comercializacion",
+        text: "Estrategia, posicionamiento y ventas para promociones y producto residencial.",
+        cta: "Explorar comercializacion",
+      },
+      {
+        href: `/${lang}/legal-services/`,
+        image: "/images/home-sections/legal-services/legal.jpg",
+        title: "Servicios legales",
+        text: "Soporte juridico integral para operaciones, contratos e inversores internacionales.",
+        cta: "Explorar legal",
+      },
+    ],
+  },
+  en: {
+    eyebrow: "Featured services",
+    title: "The two lines driving our marketplace",
+    intro:
+      "Premium residential commercialization and legal coverage to support sales, acquisitions and developer inventory under one brand.",
+    cards: [
+      {
+        href: `/${lang}/commercialization/`,
+        image: "/images/home-sections/commercialization/entrada.png",
+        title: "Commercialization",
+        text: "Strategy, positioning and sales for developments and residential stock.",
+        cta: "Explore commercialization",
+      },
+      {
+        href: `/${lang}/legal-services/`,
+        image: "/images/home-sections/legal-services/legal.jpg",
+        title: "Legal services",
+        text: "Integrated legal support for transactions, contracts and international investors.",
+        cta: "Explore legal services",
+      },
+    ],
+  },
+  de: {
+    eyebrow: "Top-Services",
+    title: "Die zwei Bereiche hinter unserem Marketplace",
+    intro:
+      "Premium-Vermarktung und juristische Begleitung fuer Verkauf, Kauf und Bautraegerprodukt unter einer Marke.",
+    cards: [
+      {
+        href: `/${lang}/commercialization/`,
+        image: "/images/home-sections/commercialization/entrada.png",
+        title: "Vermarktung",
+        text: "Strategie, Positionierung und Vertrieb fuer Projekte und Wohnprodukt.",
+        cta: "Vermarktung ansehen",
+      },
+      {
+        href: `/${lang}/legal-services/`,
+        image: "/images/home-sections/legal-services/legal.jpg",
+        title: "Rechtsservice",
+        text: "Integrierte Rechtsbegleitung fuer Transaktionen, Vertraege und internationale Investoren.",
+        cta: "Rechtsservice ansehen",
+      },
+    ],
+  },
+  fr: {
+    eyebrow: "Services en vedette",
+    title: "Les deux poles qui portent notre marketplace",
+    intro:
+      "Commercialisation premium et accompagnement juridique pour les ventes, acquisitions et programmes promoteurs au sein d une meme structure.",
+    cards: [
+      {
+        href: `/${lang}/commercialization/`,
+        image: "/images/home-sections/commercialization/entrada.png",
+        title: "Commercialisation",
+        text: "Strategie, positionnement et ventes pour programmes et stock residentiel.",
+        cta: "Explorer la commercialisation",
+      },
+      {
+        href: `/${lang}/legal-services/`,
+        image: "/images/home-sections/legal-services/legal.jpg",
+        title: "Services juridiques",
+        text: "Accompagnement juridique integre pour operations, contrats et investisseurs internationaux.",
+        cta: "Explorer le juridique",
+      },
+    ],
+  },
+  it: {
+    eyebrow: "Servizi in evidenza",
+    title: "Le due aree che guidano il nostro marketplace",
+    intro:
+      "Commercializzazione premium e supporto legale per vendite, acquisti e prodotto promotore sotto un unico marchio.",
+    cards: [
+      {
+        href: `/${lang}/commercialization/`,
+        image: "/images/home-sections/commercialization/entrada.png",
+        title: "Commercializzazione",
+        text: "Strategia, posizionamento e vendite per progetti e stock residenziale.",
+        cta: "Esplora commercializzazione",
+      },
+      {
+        href: `/${lang}/legal-services/`,
+        image: "/images/home-sections/legal-services/legal.jpg",
+        title: "Servizi legali",
+        text: "Supporto legale integrato per operazioni, contratti e investitori internazionali.",
+        cta: "Esplora servizi legali",
+      },
+    ],
+  },
+  nl: {
+    eyebrow: "Uitgelichte diensten",
+    title: "De twee lijnen achter onze marketplace",
+    intro:
+      "Premium commercialisatie en juridische begeleiding voor verkoop, aankoop en ontwikkelaarsproduct binnen een merk.",
+    cards: [
+      {
+        href: `/${lang}/commercialization/`,
+        image: "/images/home-sections/commercialization/entrada.png",
+        title: "Commercialisatie",
+        text: "Strategie, positionering en verkoop voor projecten en residentieel aanbod.",
+        cta: "Verken commercialisatie",
+      },
+      {
+        href: `/${lang}/legal-services/`,
+        image: "/images/home-sections/legal-services/legal.jpg",
+        title: "Juridische diensten",
+        text: "Geintegreerde juridische ondersteuning voor transacties, contracten en internationale investeerders.",
+        cta: "Verken juridische diensten",
+      },
+    ],
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.es;
+---
+
+<section class="home-featured-services" aria-labelledby="homeFeaturedServicesTitle">
+  <div class="container">
+    <div class="home-editorial-section-head">
+      <p class="home-editorial-section-kicker">{t.eyebrow}</p>
+      <h2 id="homeFeaturedServicesTitle" class="home-editorial-section-title">{t.title}</h2>
+      <p class="home-editorial-section-text">{t.intro}</p>
+    </div>
+
+    <div class="home-services-grid">
+      {t.cards.map((card) => (
+        <article class="home-service-card">
+          <a href={card.href} class="home-service-link">
+            <img src={card.image} alt={card.title} loading="lazy" decoding="async" />
+            <div class="home-service-overlay"></div>
+            <div class="home-service-copy">
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+              <span>{card.cta}</span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -5,8 +5,7 @@ import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import fallbackProperties from "@shared/data/properties";
 import { formatPrice } from "@shared/presentation/common";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
-import { getPublicPropertiesWithFallback } from "@shared/properties/public";
-import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
+import { buildProjectShowcaseCards, getPublicPropertiesWithFallback } from "@shared/properties/public";
 import { getUiCopy } from "@shared/i18n/ui";
 import "@webapp/styles/pages/projects.css";
 
@@ -169,109 +168,7 @@ const seoByLang = {
 };
 
 const t = seoByLang[lang] ?? seoByLang.es;
-const byId = new Map(properties.map((property) => [String(property.id), property]));
-
-const isOwnProject = (property) => {
-  if (property.is_own_project === true) return true;
-  if (!property.parent_id) return false;
-  const parent = byId.get(String(property.parent_id));
-  return parent?.is_own_project === true;
-};
-
-const getRangeLabel = (values) => {
-  if (!values.length) return null;
-  const min = Math.min(...values);
-  const max = Math.max(...values);
-  if (min === max) return String(min);
-  return `${min}-${max}`;
-};
-
-const projectCards = properties
-  .filter((property) => property.listing_type === "promotion")
-  .filter((property) => property.status !== "private")
-  .filter((property) => isOwnProject(property))
-  .map((project) => {
-    const units = properties.filter(
-      (item) =>
-        String(item.parent_id) === String(project.id) &&
-        item.listing_type === "unit"
-    );
-
-    const availableUnits = units.filter((item) => item.status === "available");
-    const soldUnits = units.filter((item) => item.status === "sold");
-
-    const unitPrices = availableUnits
-      .map((item) => item.price)
-      .filter((price) => typeof price === "number");
-
-    const minUnitPrice = unitPrices.length ? Math.min(...unitPrices) : null;
-    const maxUnitPrice = unitPrices.length ? Math.max(...unitPrices) : null;
-
-    const bedrooms = units
-      .map((item) => item.property?.bedrooms)
-      .filter((value) => typeof value === "number");
-
-    const areas = units
-      .map((item) => item.property?.area_m2)
-      .filter((value) => typeof value === "number")
-      .map((value) => Math.round(value));
-
-    const cover =
-      project.media?.cover ??
-      project.media?.gallery?.exterior?.[0] ??
-      project.media?.gallery?.interior?.[0] ??
-      project.media?.gallery?.views?.[0] ??
-      null;
-
-    const slug = project.slugs?.[lang] ?? project.slugs?.es ?? null;
-    if (!slug) return null;
-
-    const translation = project.translations?.[lang] ?? project.translations?.es ?? {};
-    const priceFrom = project.pricing?.from ?? minUnitPrice ?? project.price ?? null;
-    const soldPercent = units.length > 0 ? Math.round((soldUnits.length / units.length) * 100) : 0;
-
-    const demandLevel =
-      availableUnits.length <= 6
-        ? "last_units"
-        : soldPercent >= 65
-          ? "high_demand"
-          : "open";
-
-    return {
-      id: project.id,
-      title: translation.title ?? project.id,
-      intro: translation.intro ?? "",
-      area: project.location?.area ?? "",
-      province: project.location?.province ?? "",
-      unitsCount: units.length,
-      availableCount: availableUnits.length,
-      soldCount: soldUnits.length,
-      soldPercent,
-      priceFrom,
-      priceTo: maxUnitPrice,
-      bedroomsRange: getRangeLabel(bedrooms),
-      areaRange: getRangeLabel(areas),
-      deliveryYear: project.property?.year_built ?? null,
-      demandLevel,
-      currency: project.currency ?? "EUR",
-      coverUrl: typeof cover === "string" ? cover : cover?.url ?? null,
-      coverAlt:
-        (typeof cover === "object" ? cover?.alt?.[lang] : null) ??
-        (typeof cover === "object" ? cover?.alt?.es : null) ??
-        translation.title ??
-        project.id,
-      href: `/${lang}/property/${slug}/`,
-    };
-  })
-  .filter(Boolean)
-  .sort((a, b) => {
-    const byEditorial = comparePromotionEditorialOrder(a, b);
-    if (byEditorial !== 0) return byEditorial;
-
-    const byAvailability = (b.availableCount ?? 0) - (a.availableCount ?? 0);
-    if (byAvailability !== 0) return byAvailability;
-    return (b.soldPercent ?? 0) - (a.soldPercent ?? 0);
-  });
+const projectCards = buildProjectShowcaseCards(properties, lang);
 
 const demandLabelByLevel = {
   last_units: t.statusLastUnits,

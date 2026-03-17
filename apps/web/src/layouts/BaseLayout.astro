@@ -23,15 +23,39 @@ const {
   noindex = false,
   lang = DEFAULT_LANG,
   og = {},
+  preloadImageUrl = "",
+  preloadImageType = "",
+  structuredData = [],
   availableLangs,
   headerVariant = "default",
   landingNavItems = [],
+  landingNavGroups = [],
   headerNavItems = [],
   sideMenuSections: sideMenuSectionsProp = [],
   showMobileStickyCta = true,
+  landingHeaderOverlay = false,
+  landingHeaderSolid = false,
 } = Astro.props;
 
 const SITE_URL = "https://blancareal.com";
+const DEFAULT_OG_IMAGE =
+  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg";
+const localizedDefaultDescriptionByLang = {
+  es: "BlancaReal: inmobiliaria, asesoramiento legal y comercializacion en Costa del Sol.",
+  en: "BlancaReal: real estate, legal advisory and commercialization on Costa del Sol.",
+  de: "BlancaReal: Immobilien, Rechtsberatung und Vermarktung an der Costa del Sol.",
+  fr: "BlancaReal : immobilier, conseil juridique et commercialisation sur la Costa del Sol.",
+  it: "BlancaReal: real estate, consulenza legale e commercializzazione in Costa del Sol.",
+  nl: "BlancaReal: vastgoed, juridisch advies en commercialisatie aan de Costa del Sol.",
+};
+const langFlagSrcByCode = {
+  es: "/flags/es.svg",
+  en: "/flags/gb.svg",
+  de: "/flags/de.svg",
+  fr: "/flags/fr.svg",
+  it: "/flags/it.svg",
+  nl: "/flags/nl.svg",
+};
 
 const currentUrl = Astro.url;
 const canonicalPath = currentUrl.pathname;
@@ -78,15 +102,27 @@ const langLinks = resolveLangs().map((code) => ({
   code,
   label: LANG_LABELS[code] ?? String(code).toUpperCase(),
   href: buildLangPath(code),
+  canonicalHref: `${SITE_URL}${buildLangCanonicalPath(code)}`,
+  flagSrc: langFlagSrcByCode[code] ?? "/flags/es.svg",
   isActive: code === lang,
 }));
-const activeLangLabel = langLinks.find((item) => item.isActive)?.label ?? "ES";
+const activeLang = langLinks.find((item) => item.isActive) ?? langLinks[0];
 const ui = getUiCopy(lang);
 const langAlternateLinks = resolveLangs().map((code) => ({
   code,
   href: `${SITE_URL}${buildLangCanonicalPath(code)}`,
 }));
 const defaultLangAlternateHref = `${SITE_URL}${buildLangCanonicalPath(DEFAULT_LANG)}`;
+const structuredDataItems = Array.isArray(structuredData)
+  ? structuredData.filter(Boolean)
+  : structuredData
+    ? [structuredData]
+    : [];
+const resolvedDescription =
+  String(description ?? "").trim() ||
+  localizedDefaultDescriptionByLang[lang as keyof typeof localizedDefaultDescriptionByLang] ||
+  localizedDefaultDescriptionByLang.es;
+const resolvedOgImage = og.image ?? DEFAULT_OG_IMAGE;
 
 const ogLocaleMap = {
   es: "es_ES",
@@ -118,17 +154,27 @@ const isActiveHref = (href) => {
 
 const isMenuItemActive = (item) =>
   isActiveHref(item.href) ||
-  (Array.isArray(item.children) && item.children.some((child) => isActiveHref(child.href)));
+  (Array.isArray(item.children) && item.children.some((child) => isActiveHref(child.href))) ||
+  (Array.isArray(item.sections) &&
+    item.sections.some(
+      (section) => Array.isArray(section.items) && section.items.some((entry) => isActiveHref(entry.href))
+    ));
 
 const defaultLandingNavItems = [
-  { href: `/${lang}/portal/`, label: ui.layout.navAgents },
+  { href: `/${lang}/portal/`, label: ui.layout.navForAgents },
   { href: `/${lang}/commercialization/`, label: ui.layout.navPromoters },
+];
+
+const utilityNavItems = [
+  { href: `/${lang}/sell-with-us/`, label: ui.layout.navSellWithUs },
+  { href: `/${lang}/portal/`, label: ui.layout.navForAgents },
 ];
 
 const resolvedLandingNavItems =
   Array.isArray(landingNavItems) && landingNavItems.length
     ? landingNavItems
     : defaultLandingNavItems;
+const resolvedLandingNavGroups = Array.isArray(landingNavGroups) ? landingNavGroups : [];
 
 const defaultHeaderNavItems = [
   { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
@@ -169,7 +215,8 @@ const defaultSideMenuSections = [
   {
     title: ui.layout.menuRelationship,
     items: [
-      { href: `/${lang}/portal/`, label: ui.layout.navAgents, description: ui.layout.menuAgentsHint },
+      { href: `/${lang}/sell-with-us/`, label: ui.layout.navSellWithUs, description: ui.layout.menuSellWithUsHint },
+      { href: `/${lang}/portal/`, label: ui.layout.navForAgents, description: ui.layout.menuAgentsHint },
       { href: `/${lang}/contact/`, label: ui.layout.navContact, description: ui.layout.menuContactHint },
     ],
   },
@@ -208,6 +255,15 @@ const shouldLoadPublicRealtime =
   publicRealtimeConfig.enabled &&
   Boolean(publicRealtimeConfig.supabaseUrl) &&
   Boolean(publicRealtimeConfig.anonKey);
+const cookieYesSiteId = String(
+  import.meta.env.PUBLIC_COOKIEYES_SITE_ID ??
+  import.meta.env.PUBLIC_COOKIEYES_ID ??
+  ""
+).trim();
+const shouldLoadCookieYes = Boolean(cookieYesSiteId);
+const cookieYesScriptUrl = shouldLoadCookieYes
+  ? `https://cdn-cookieyes.com/client_data/${cookieYesSiteId}/script.js`
+  : "";
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -216,6 +272,22 @@ const shouldLoadPublicRealtime =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="preconnect" href="https://gslfgcqwmcircqaslzij.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="https://gslfgcqwmcircqaslzij.supabase.co" />
+    {shouldLoadCookieYes && (
+      <>
+        <link rel="preconnect" href="https://cdn-cookieyes.com" crossorigin />
+        <link rel="dns-prefetch" href="https://cdn-cookieyes.com" />
+      </>
+    )}
+    {preloadImageUrl && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImageUrl}
+        type={preloadImageType || undefined}
+        fetchpriority="high"
+      />
+    )}
     <link rel="icon" type="image/x-icon" href="/logos/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/logos/favicon.svg" />
     <link rel="icon" type="image/png" href="/logos/favicon-96x96.png" sizes="96x96" />
@@ -224,9 +296,7 @@ const shouldLoadPublicRealtime =
 
     <title>{title}</title>
 
-    {description && (
-      <meta name="description" content={description} />
-    )}
+    <meta name="description" content={resolvedDescription} />
 
     {noindex && (
       <meta name="robots" content="noindex,follow" />
@@ -246,17 +316,18 @@ const shouldLoadPublicRealtime =
       <meta property="og:title" content={title} />
     )}
 
-    {description && (
-      <meta property="og:description" content={description} />
-    )}
+    <meta property="og:description" content={resolvedDescription} />
 
     {canonicalUrl && (
       <meta property="og:url" content={canonicalUrl} />
     )}
 
-    {og.image && (
-      <meta property="og:image" content={og.image} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+    {title && (
+      <meta name="twitter:title" content={title} />
     )}
+    <meta name="twitter:description" content={resolvedDescription} />
 
     <meta
       property="og:locale"
@@ -264,67 +335,120 @@ const shouldLoadPublicRealtime =
     />
 
     <meta name="twitter:card" content="summary_large_image" />
+    {shouldLoadCookieYes && (
+      <script
+        id="cookieyes"
+        type="text/javascript"
+        src={cookieYesScriptUrl}
+      ></script>
+    )}
+    {structuredDataItems.map((item) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))}
   </head>
 
-  <body class={showMobileStickyCta ? "has-mobile-sticky-cta" : ""}>
+  <body
+    class={showMobileStickyCta ? "has-mobile-sticky-cta" : ""}
+    data-cookie-consent-provider={shouldLoadCookieYes ? "cookieyes" : "none"}
+  >
     <a class="skip-link" href="#mainContent">{ui.layout.skipToContent}</a>
     <div class="page-loader" aria-hidden="true">
       <div class="loader-ring"></div>
     </div>
-    <header class={`main-header ${isLandingHeader ? "main-header-landing" : ""}`}>
-      <div class="header-container">
+    <header
+      class={`main-header ${isLandingHeader ? "main-header-landing" : ""} ${landingHeaderOverlay ? "main-header-overlay" : ""} ${landingHeaderSolid ? "is-scrolled" : ""}`}
+      data-landing-header={isLandingHeader ? "true" : undefined}
+      data-landing-header-solid={landingHeaderSolid ? "true" : undefined}
+    >
+      <div class={`header-container ${isLandingHeader ? "header-container-landing" : ""}`}>
         <div class="brand-logo">
-          <BrandLogo variant="wordmark" href={`/${lang}/`} class="brand-logo-main" />
-          <a href={`/${lang}/`} class="brand-logo-mobile-only" aria-label="BlancaReal">
-            <img
-              src="/logos/blanca_real_logo_principal.png"
-              alt="BlancaReal"
-              width="182"
-              height="44"
-              loading="eager"
-            />
-          </a>
+          {isLandingHeader ? (
+            <>
+              <a
+                href={`/${lang}/`}
+                class="brand-logo-element brand-logo-wordmark brand-logo-main landing-brand-logo"
+                aria-label="BlancaReal"
+              >
+                <img
+                  src="/logos/blancareal_logo_principal_blanco.png"
+                  alt="BlancaReal"
+                  width="182"
+                  height="44"
+                  loading="eager"
+                  data-logo-switch
+                  data-logo-light-src="/logos/blancareal_logo_principal_blanco.png"
+                  data-logo-dark-src="/logos/blanca_real_logo_principal.png"
+                />
+              </a>
+              <a
+                href={`/${lang}/`}
+                class="brand-logo-mobile-only landing-brand-logo-mobile"
+                aria-label="BlancaReal"
+              >
+                <img
+                  src="/logos/blancareal_logo_principal_blanco.png"
+                  alt="BlancaReal"
+                  width="182"
+                  height="44"
+                  loading="eager"
+                  data-logo-switch
+                  data-logo-light-src="/logos/blancareal_logo_principal_blanco.png"
+                  data-logo-dark-src="/logos/blanca_real_logo_principal.png"
+                />
+              </a>
+            </>
+          ) : (
+            <>
+              <BrandLogo variant="wordmark" href={`/${lang}/`} class="brand-logo-main" />
+              <a href={`/${lang}/`} class="brand-logo-mobile-only" aria-label="BlancaReal">
+                <img
+                  src="/logos/blanca_real_logo_principal.png"
+                  alt="BlancaReal"
+                  width="182"
+                  height="44"
+                  loading="eager"
+                />
+              </a>
+            </>
+          )}
         </div>
 
         {isLandingHeader ? (
           <>
-            <nav class="main-nav desktop-only">
-              <ul class="nav-links nav-links-landing">
-                {resolvedLandingNavItems.map((item) => (
-                  <li>
-                    <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
             <div class="header-actions header-actions-landing">
+              <nav class="header-utility-links desktop-only" aria-label="Utility navigation">
+                {utilityNavItems.map((item) => (
+                  <a href={item.href} class={`header-utility-link ${isActiveHref(item.href) ? "active" : ""}`}>
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+
               <div class="lang-switcher desktop-only">
                 <span class="lang-switcher-label">{ui.layout.language}</span>
-                <div class="lang-picker" id="langPickerDesktop">
+                <div class="lang-picker" id="langPickerLanding">
                   <button
                     type="button"
                     class="lang-trigger"
-                    id="langTriggerDesktop"
-                    aria-haspopup="listbox"
+                    id="langTriggerLanding"
                     aria-expanded="false"
-                    aria-controls="langMenuDesktop"
+                    aria-controls="langMenuLanding"
                   >
-                    <span id="langLabelDesktop">{activeLangLabel}</span>
+                    <img src={activeLang.flagSrc} alt={activeLang.label} width="18" height="12" loading="lazy" />
+                    <span id="langLabelLanding">{activeLang.code.toUpperCase()}</span>
                   </button>
-                  <div class="lang-menu" id="langMenuDesktop" role="listbox" hidden>
+                  <div class="lang-menu" id="langMenuLanding" hidden>
                     {langLinks.map((item) => (
                       <button
                         type="button"
                         class={`lang-option ${item.isActive ? "is-active" : ""}`}
                         data-href={item.href}
-                        data-label={item.label}
-                        role="option"
-                        aria-selected={item.isActive ? "true" : "false"}
+                        data-label={item.code.toUpperCase()}
+                        title={item.label}
+                        lang={item.code}
                       >
-                        {item.label}
+                        <img src={item.flagSrc} alt={item.label} width="18" height="12" loading="lazy" />
+                        <span>{item.label}</span>
                       </button>
                     ))}
                   </div>
@@ -359,6 +483,14 @@ const shouldLoadPublicRealtime =
             </nav>
 
             <div class="header-actions">
+              <nav class="header-utility-links desktop-only" aria-label="Utility navigation">
+                {utilityNavItems.map((item) => (
+                  <a href={item.href} class={`header-utility-link ${isActiveHref(item.href) ? "active" : ""}`}>
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+
               <div class="lang-switcher desktop-only">
                 <span class="lang-switcher-label">{ui.layout.language}</span>
                 <div class="lang-picker" id="langPickerDesktop">
@@ -366,32 +498,29 @@ const shouldLoadPublicRealtime =
                     type="button"
                     class="lang-trigger"
                     id="langTriggerDesktop"
-                    aria-haspopup="listbox"
                     aria-expanded="false"
                     aria-controls="langMenuDesktop"
                   >
-                    <span id="langLabelDesktop">{activeLangLabel}</span>
+                    <img src={activeLang.flagSrc} alt={activeLang.label} width="18" height="12" loading="lazy" />
+                    <span id="langLabelDesktop">{activeLang.code.toUpperCase()}</span>
                   </button>
-                  <div class="lang-menu" id="langMenuDesktop" role="listbox" hidden>
+                  <div class="lang-menu" id="langMenuDesktop" hidden>
                     {langLinks.map((item) => (
                       <button
                         type="button"
                         class={`lang-option ${item.isActive ? "is-active" : ""}`}
                         data-href={item.href}
-                        data-label={item.label}
-                        role="option"
-                        aria-selected={item.isActive ? "true" : "false"}
+                        data-label={item.code.toUpperCase()}
+                        title={item.label}
+                        lang={item.code}
                       >
-                        {item.label}
+                        <img src={item.flagSrc} alt={item.label} width="18" height="12" loading="lazy" />
+                        <span>{item.label}</span>
                       </button>
                     ))}
                   </div>
                 </div>
               </div>
-              <a href={`/${lang}/contact/`} class="header-cta desktop-only">
-                {ui.layout.contact}
-              </a>
-
               <button
                 class="side-menu-toggle"
                 aria-label={ui.layout.openMenu}
@@ -407,6 +536,61 @@ const shouldLoadPublicRealtime =
           </>
         )}
       </div>
+
+      {isLandingHeader ? (
+        <div class="landing-subnav desktop-only">
+          <div class="landing-subnav-inner">
+            {resolvedLandingNavGroups.length > 0 ? (
+              <nav class="main-nav main-nav-landing-subnav landing-nav-groups-nav" aria-label="Landing navigation">
+                <ul class="landing-nav-groups">
+                  {resolvedLandingNavGroups.map((group) => (
+                    <li class={`landing-nav-group ${isMenuItemActive(group) ? "is-active" : ""}`}>
+                      <a
+                        href={group.href}
+                        class={`landing-nav-group-trigger ${isMenuItemActive(group) ? "active" : ""}`}
+                      >
+                        {group.label}
+                      </a>
+                      {Array.isArray(group.sections) && group.sections.length > 0 ? (
+                        <div class="landing-nav-dropdown">
+                          <div class="landing-nav-dropdown-grid">
+                            {group.sections.map((section) => (
+                              <section class="landing-nav-dropdown-section">
+                                {section.title ? <p>{section.title}</p> : null}
+                                <ul>
+                                  {section.items.map((item) => (
+                                    <li>
+                                      <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
+                                        {item.label}
+                                      </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </section>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ) : (
+              <nav class="main-nav main-nav-landing-subnav">
+                <ul class="nav-links nav-links-landing">
+                  {resolvedLandingNavItems.map((item) => (
+                    <li>
+                      <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+          </div>
+        </div>
+      ) : null}
 
       <div class="side-menu-backdrop" id="sideMenuBackdrop" hidden></div>
       <aside class="side-menu-drawer" id="sideMenu" aria-hidden="true">
@@ -451,39 +635,29 @@ const shouldLoadPublicRealtime =
 
         <div class="side-menu-lang">
           <span class="lang-switcher-label">{ui.layout.language}</span>
-          <div class="lang-picker" id="langPickerDrawer">
-            <button
-              type="button"
-              class="lang-trigger"
-              id="langTriggerDrawer"
-              aria-haspopup="listbox"
-              aria-expanded="false"
-              aria-controls="langMenuDrawer"
-            >
-              <span id="langLabelDrawer">{activeLangLabel}</span>
-            </button>
-            <div class="lang-menu" id="langMenuDrawer" role="listbox" hidden>
-              {langLinks.map((item) => (
-                <button
-                  type="button"
-                  class={`lang-option ${item.isActive ? "is-active" : ""}`}
-                  data-href={item.href}
-                  data-label={item.label}
-                  role="option"
-                  aria-selected={item.isActive ? "true" : "false"}
+          <ul class="side-menu-lang-list" aria-label={ui.layout.language}>
+            {langLinks.map((item) => (
+              <li lang={item.code}>
+                <a
+                  href={item.href}
+                  hreflang={item.code}
+                  lang={item.code}
+                  class={`side-menu-lang-link ${item.isActive ? "is-active" : ""}`}
+                  aria-current={item.isActive ? "page" : undefined}
                 >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
+                  <img src={item.flagSrc} alt={item.label} width="18" height="12" loading="lazy" />
+                  <span>{item.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </aside>
     </header>
 
     {showMobileStickyCta && (
       <div class="mobile-sticky-cta">
-        <a href="tel:+34600123456" class="cta-item call">
+        <a href="tel:+34952599159" class="cta-item call">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
           {ui.layout.call}
         </a>
@@ -496,7 +670,10 @@ const shouldLoadPublicRealtime =
 
     <script is:inline>
       const body = document.body;
+      const landingHeader = document.querySelector("[data-landing-header='true']");
+      const landingHeaderIsSolid = landingHeader?.getAttribute("data-landing-header-solid") === "true";
       const sideMenuToggle = document.getElementById("sideMenuToggle");
+      const switchableLogos = Array.from(document.querySelectorAll("[data-logo-switch]"));
       const sideMenu = document.getElementById("sideMenu");
       const sideMenuBackdrop = document.getElementById("sideMenuBackdrop");
       const sideMenuClose = document.getElementById("sideMenuClose");
@@ -695,15 +872,31 @@ const shouldLoadPublicRealtime =
         });
       };
 
-      initLangPicker("langPickerDesktop", "langTriggerDesktop", "langMenuDesktop", "langLabelDesktop");
-      initLangPicker("langPickerDrawer", "langTriggerDrawer", "langMenuDrawer", "langLabelDrawer");
-
       const resetPageLeavingState = () => {
         document.body.classList.remove("page-is-leaving");
       };
 
+      const syncLandingHeaderState = () => {
+        if (!(landingHeader instanceof HTMLElement)) return;
+        const isScrolled = landingHeaderIsSolid || window.scrollY > 24;
+        landingHeader.classList.toggle("is-scrolled", isScrolled);
+        switchableLogos.forEach((logo) => {
+          if (!(logo instanceof HTMLImageElement)) return;
+          const nextSrc = isScrolled
+            ? logo.dataset.logoDarkSrc
+            : logo.dataset.logoLightSrc;
+          if (nextSrc && logo.getAttribute("src") !== nextSrc) {
+            logo.setAttribute("src", nextSrc);
+          }
+        });
+      };
+
       resetPageLeavingState();
+      syncLandingHeaderState();
       window.addEventListener("pageshow", resetPageLeavingState);
+      window.addEventListener("scroll", syncLandingHeaderState, { passive: true });
+      initLangPicker("langPickerLanding", "langTriggerLanding", "langMenuLanding", "langLabelLanding");
+      initLangPicker("langPickerDesktop", "langTriggerDesktop", "langMenuDesktop", "langLabelDesktop");
 
       document.addEventListener("click", (event) => {
         if (event.defaultPrevented) return;
@@ -734,6 +927,6 @@ const shouldLoadPublicRealtime =
       </>
     )}
     <script type="module" src={lightboxUrl}></script>
-    <SpeedInsights />
-  </body>
-</html>
+    {!import.meta.env.DEV ? <SpeedInsights /> : null}
+    </body>
+  </html>
