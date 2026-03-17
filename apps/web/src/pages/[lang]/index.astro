@@ -28,7 +28,7 @@ const lang = langParam;
 const foundedYear = 1969;
 const yearsActive = new Date().getFullYear() - foundedYear;
 const teamCount = teamMembers.length;
-const realEstatePath = `/${lang}/real-estate/`;
+const realEstatePath = `/${lang}/properties/`;
 const contactPath = `/${lang}/contact/`;
 const aboutPath = `/${lang}/about/`;
 const legalServicesPath = `/${lang}/legal-services/`;
@@ -1363,7 +1363,7 @@ const collaboratorLoop = [...extra.collaborators, ...extra.collaborators];
 const collaboratorLogoLoop = [...collaboratorLogos, ...collaboratorLogos];
 
 const footerLinks = [
-  { href: `/${lang}/real-estate/`, label: t.blocks.realEstate.title },
+  { href: `/${lang}/properties/`, label: t.blocks.realEstate.title },
   { href: `/${lang}/legal-services/`, label: t.blocks.legal.title },
   { href: `/${lang}/commercialization/`, label: t.blocks.commercialization.title },
   { href: aboutPath, label: t.navAbout },
