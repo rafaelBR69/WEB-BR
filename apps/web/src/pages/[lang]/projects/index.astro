@@ -6,7 +6,7 @@ import fallbackProperties from "@shared/data/properties";
 import { formatPrice } from "@shared/presentation/common";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { buildProjectShowcaseCards, getPublicPropertiesWithFallback } from "@shared/properties/public";
-import { getUiCopy } from "@shared/i18n/ui";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/projects.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -15,15 +15,14 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
-const ui = getUiCopy(lang);
-const headerNavItems = [
-  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
-  { href: `/${lang}/properties/`, label: ui.layout.navProperties },
-  { href: `/${lang}/projects/`, label: ui.layout.navProjects },
-  { href: `/${lang}/contact/`, label: ui.layout.navContact },
-];
 const { properties } = await getPublicPropertiesWithFallback({
   fallbackProperties,
+});
+const navigation = buildPublicNavigation({
+  lang,
+  family: "catalog",
+  section: "projects",
+  properties,
 });
 
 const seoByLang = {
@@ -182,7 +181,7 @@ const demandLabelByLevel = {
   description={t.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
-  headerNavItems={headerNavItems}
+  {...navigation}
 >
   <section class="projects-hero container">
     <span class="projects-eyebrow">{t.eyebrow}</span>

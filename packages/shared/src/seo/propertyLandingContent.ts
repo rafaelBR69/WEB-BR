@@ -1,4 +1,7 @@
-import { PROPERTY_LANDING_OVERRIDES } from "@shared/seo/propertyLandingOverrides";
+import {
+  PROPERTY_LANDING_OVERRIDES,
+  type PropertyLandingOverride,
+} from "@shared/seo/propertyLandingOverrides";
 import type { PropertyLandingModel } from "@shared/seo/resolvePropertyLanding";
 
 export type PropertyLandingBodyBlock = {
@@ -261,7 +264,7 @@ const getCopy = (lang: string) => fallbackCopy[lang as keyof typeof fallbackCopy
 const pickOverride = (lang: string, seoKey: string) =>
   PROPERTY_LANDING_OVERRIDES[
     lang as keyof typeof PROPERTY_LANDING_OVERRIDES
-  ]?.[seoKey as never] ?? null;
+  ]?.[seoKey as never] as PropertyLandingOverride | null;
 
 export function buildPropertyLandingContent({
   lang,
@@ -349,8 +352,8 @@ export function buildPropertyLandingContent({
         : landing.kind === "city-type"
           ? copy.faqTypeQuestions(params)
           : landing.kind === "city-area-type"
-            ? copy.faqAreaTypeQuestions(params)
-            : copy.faqPopularQuestions(params);
+        ? copy.faqAreaTypeQuestions(params)
+        : copy.faqPopularQuestions(params);
 
   const breadcrumbs = [
     { name: copy.home, href: `/${lang}/` },
@@ -387,8 +390,8 @@ export function buildPropertyLandingContent({
     description,
     h1,
     intro: override?.intro ?? intro,
-    bodyBlocks,
-    faqItems,
+    bodyBlocks: override?.bodyBlocks?.length ? override.bodyBlocks : bodyBlocks,
+    faqItems: override?.faqItems?.length ? override.faqItems : faqItems,
     breadcrumbs,
     ogImage,
     noindex: !landing.indexable || resultCount < landing.minResults,

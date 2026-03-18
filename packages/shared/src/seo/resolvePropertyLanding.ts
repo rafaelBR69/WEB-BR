@@ -1,5 +1,6 @@
 import {
   SEO_LANDING_CITIES,
+  SEO_LANDING_RULES,
   SEO_LANDING_TYPES,
   type SeoLandingAreaConfig,
   type SeoLandingCityConfig,
@@ -40,6 +41,7 @@ export type PropertyLandingModel = {
     type: string[] | null;
     market: string | null;
     feature: string[] | null;
+    priceMin: number | null;
   };
 };
 
@@ -52,7 +54,12 @@ const LANDING_SIGNAL_SCORES: Record<string, number> = {
   "mijas/la-cala": 94,
   "marbella/puerto-banus": 92,
   "mijas/villas": 90,
-  "marbella/apartments": 86,
+  "marbella/pisos": 86,
+  "mijas/pisos": 89,
+  "mijas/casas": 78,
+  "mijas/calahonda": 84,
+  "fuengirola/torreblanca": 83,
+  "manilva": 80,
   "mijas/search/sea-view": 84,
   "marbella/search/new-build": 82,
   "fuengirola/search/pool": 78,
@@ -91,6 +98,14 @@ const POPULAR_LABELS = {
     it: "Complesso chiuso",
     nl: "Afgesloten wooncomplex",
   },
+  luxury_villas: {
+    es: "Villas de lujo",
+    en: "Luxury villas",
+    de: "Luxusvillen",
+    fr: "Villas de luxe",
+    it: "Ville di lusso",
+    nl: "Luxe villa's",
+  },
 } as const;
 
 const normalizeSlug = (value: string) =>
@@ -98,6 +113,14 @@ const normalizeSlug = (value: string) =>
     .trim()
     .toLowerCase()
     .replace(/^\/+|\/+$/g, "");
+
+const matchesSlug = (
+  value: string,
+  config: {
+    slug: string;
+    aliases?: string[];
+  }
+) => value === config.slug || Boolean(config.aliases?.includes(value));
 
 const getLocationLabel = (key: string, lang: string) =>
   CITIES[key]?.label?.[lang] ??
@@ -144,7 +167,9 @@ const toPopularEntity = (
 });
 
 const getDemandScore = (seoKey: string, configuredPriority = 0) =>
-  LANDING_SIGNAL_SCORES[seoKey] ?? configuredPriority;
+  SEO_LANDING_RULES[seoKey]?.priority ??
+  LANDING_SIGNAL_SCORES[seoKey] ??
+  configuredPriority;
 
 const buildLandingModel = ({
   kind,
@@ -171,14 +196,15 @@ const buildLandingModel = ({
 }): PropertyLandingModel => {
   const canonicalPath = `/${lang}/properties/${slugSegments.join("/")}/`;
   const seoKey = slugSegments.join("/");
+  const ruleConfig = SEO_LANDING_RULES[seoKey];
 
   return {
     kind,
     seoKey,
     slugSegments,
     canonicalPath,
-    indexable: true,
-    minResults,
+    indexable: ruleConfig?.enabled !== false,
+    minResults: ruleConfig?.minResults ?? minResults,
     city,
     area,
     type,
@@ -224,14 +250,15 @@ export function resolvePropertyLanding({
         type: null,
         market: null,
         feature: null,
+        priceMin: null,
       },
     });
   }
 
   const secondSegment = segments[1];
-  const areaConfig = cityConfig.areas.find((areaItem) => areaItem.slug === secondSegment);
+  const areaConfig = cityConfig.areas.find((areaItem) => matchesSlug(secondSegment, areaItem));
   const typeConfig = SEO_LANDING_TYPES.find(
-    (typeItem) => typeItem.slug === secondSegment && cityConfig.typeSlugs.includes(typeItem.slug)
+    (typeItem) => matchesSlug(secondSegment, typeItem) && cityConfig.typeSlugs.includes(typeItem.slug)
   );
 
   if (segments.length === 2 && areaConfig) {
@@ -250,6 +277,7 @@ export function resolvePropertyLanding({
         type: null,
         market: null,
         feature: null,
+        priceMin: null,
       },
     });
   }
@@ -270,6 +298,7 @@ export function resolvePropertyLanding({
         type: [type.key],
         market: null,
         feature: null,
+        priceMin: null,
       },
     });
   }
@@ -293,9 +322,10 @@ export function resolvePropertyLanding({
       queryFilters: {
         city: [city.key],
         area: null,
-        type: null,
+        type: popularConfig.typeKey ? [popularConfig.typeKey] : null,
         market: popularConfig.marketKey ?? null,
         feature: popularConfig.featureKey ? [popularConfig.featureKey] : null,
+        priceMin: popularConfig.priceMin ?? null,
       },
     });
   }
@@ -307,7 +337,7 @@ export function resolvePropertyLanding({
         ? areaConfig.typeSlugs
         : cityConfig.typeSlugs;
     const nestedTypeConfig = SEO_LANDING_TYPES.find(
-      (typeItem) => typeItem.slug === thirdSegment && areaTypeSlugs.includes(typeItem.slug)
+      (typeItem) => matchesSlug(thirdSegment, typeItem) && areaTypeSlugs.includes(typeItem.slug)
     );
 
     if (!nestedTypeConfig) {
@@ -338,6 +368,7 @@ export function resolvePropertyLanding({
         type: [type.key],
         market: null,
         feature: null,
+        priceMin: null,
       },
     });
   }
@@ -354,6 +385,9 @@ export function buildPropertyLandingCatalogUrl(landing: PropertyLandingModel) {
   landing.queryFilters.feature?.forEach((feature) => searchParams.append("feature", feature));
   if (landing.queryFilters.market) {
     searchParams.set("market", landing.queryFilters.market);
+  }
+  if (typeof landing.queryFilters.priceMin === "number") {
+    searchParams.set("priceMin", String(landing.queryFilters.priceMin));
   }
 
   const query = searchParams.toString();

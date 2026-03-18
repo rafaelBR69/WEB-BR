@@ -152,6 +152,17 @@ export const CITIES = {
     },
   },
 
+  las_lagunas_de_mijas: {
+    label: {
+      es: "Las Lagunas de Mijas",
+      en: "Las Lagunas de Mijas",
+      fr: "Las Lagunas de Mijas",
+      it: "Las Lagunas de Mijas",
+      nl: "Las Lagunas de Mijas",
+      de: "Las Lagunas de Mijas",
+    },
+  },
+
   marbella: {
     label: {
       es: "Marbella",
@@ -215,6 +226,50 @@ export const CITIES = {
       it: "Manilva",
       nl: "Manilva",
       de: "Manilva",
+    },
+  },
+
+  torreblanca: {
+    label: {
+      es: "Torreblanca",
+      en: "Torreblanca",
+      fr: "Torreblanca",
+      it: "Torreblanca",
+      nl: "Torreblanca",
+      de: "Torreblanca",
+    },
+  },
+
+  calahonda: {
+    label: {
+      es: "Calahonda",
+      en: "Calahonda",
+      fr: "Calahonda",
+      it: "Calahonda",
+      nl: "Calahonda",
+      de: "Calahonda",
+    },
+  },
+
+  los_boliches: {
+    label: {
+      es: "Los Boliches",
+      en: "Los Boliches",
+      fr: "Los Boliches",
+      it: "Los Boliches",
+      nl: "Los Boliches",
+      de: "Los Boliches",
+    },
+  },
+
+  nueva_andalucia: {
+    label: {
+      es: "Nueva Andalucia",
+      en: "Nueva Andalucia",
+      fr: "Nueva Andalucia",
+      it: "Nueva Andalucia",
+      nl: "Nueva Andalucia",
+      de: "Nueva Andalucia",
     },
   },
 

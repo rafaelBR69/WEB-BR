@@ -11,17 +11,17 @@ import { normalizePropertyCard } from "@shared/properties/public";
 import { normalizePropertyList } from "@shared/properties/public";
 import { buildFilters } from "@shared/properties/public";
 import { applyFilters } from "@shared/properties/public";
-import { buildProjectShowcaseCards } from "@shared/properties/public";
 import { normalizeCity } from "@shared/properties/public";
 import { normalizeArea } from "@shared/properties/public";
 import { isVillaFloorLabel, normalizeFloorFilterLabel } from "@shared/properties/public";
 import { displayLocation, formatPropertyType } from "@shared/presentation/common";
 import { TYPES, MARKET_TYPE } from "@shared/data/properties/taxonomies";
 import { FEATURES } from "@shared/i18n/features";
+import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
 import { buildPropertyLandingHubs } from "@shared/seo/propertyLandingHubs";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
-import { getUiCopy } from "@shared/i18n/ui";
 import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/properties.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -30,13 +30,15 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
-const ui = getUiCopy(lang);
 const { properties } = await getPublicPropertiesWithFallback({
   fallbackProperties,
 });
-const realEstatePath = `/${lang}/real-estate/`;
-const projectsPath = `/${lang}/projects/`;
-const contactPath = `/${lang}/contact/`;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "catalog",
+  section: "properties",
+  properties,
+});
 const buildCatalogUrl = (params = {}) => {
   const nextParams = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
@@ -51,79 +53,6 @@ const buildCatalogUrl = (params = {}) => {
   const query = nextParams.toString();
   return `/${lang}/properties/${query ? `?${query}` : ""}`;
 };
-const projectNavItems = buildProjectShowcaseCards(properties, lang).map((project) => ({
-  label: project.title,
-  href: project.href,
-}));
-const chunkItems = (items, size) =>
-  items.reduce((groups, item, index) => {
-    const groupIndex = Math.floor(index / size);
-    if (!groups[groupIndex]) groups[groupIndex] = [];
-    groups[groupIndex].push(item);
-    return groups;
-  }, []);
-const projectSectionsByLang = {
-  es: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Proyectos" : "", items })),
-  en: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Projects" : "", items })),
-  de: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Projekte" : "", items })),
-  fr: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Projets" : "", items })),
-  it: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Progetti" : "", items })),
-  nl: chunkItems(projectNavItems, 4).map((items, index) => ({ title: index === 0 ? "Projecten" : "", items })),
-};
-const projectSections = projectSectionsByLang[lang] ?? projectSectionsByLang.es;
-const landingNavGroupsByLang = {
-  es: [
-    {
-      label: "Bienes y Raices",
-      href: realEstatePath,
-      sections: [
-        {
-          title: "Catalogo",
-          items: [
-            { label: "Todas las propiedades", href: buildCatalogUrl() },
-            { label: "Obra nueva", href: buildCatalogUrl({ market: "obra_nueva" }) },
-            { label: "Segunda mano", href: buildCatalogUrl({ market: "segunda_mano" }) },
-          ],
-        },
-        {
-          title: "Accesos",
-          items: [
-            { label: "Explorar real estate", href: realEstatePath },
-            { label: "Proyectos", href: projectsPath },
-            { label: "Contacto", href: contactPath },
-          ],
-        },
-      ],
-    },
-    { label: "Proyectos", href: projectsPath, sections: projectSections },
-  ],
-  en: [
-    {
-      label: "Real Estate",
-      href: realEstatePath,
-      sections: [
-        {
-          title: "Catalog",
-          items: [
-            { label: "All properties", href: buildCatalogUrl() },
-            { label: "New build", href: buildCatalogUrl({ market: "obra_nueva" }) },
-            { label: "Resale", href: buildCatalogUrl({ market: "segunda_mano" }) },
-          ],
-        },
-        {
-          title: "Access",
-          items: [
-            { label: "Explore real estate", href: realEstatePath },
-            { label: "Projects", href: projectsPath },
-            { label: "Contact", href: contactPath },
-          ],
-        },
-      ],
-    },
-    { label: "Projects", href: projectsPath, sections: projectSections },
-  ],
-};
-const landingNavGroups = landingNavGroupsByLang[lang] ?? landingNavGroupsByLang.es;
 
 const copyByLang = {
   es: {
@@ -522,6 +451,10 @@ const cards = properties
   .map((p) => normalizePropertyCard(p, lang))
   .filter(Boolean)
   .filter((p) => p.visible);
+const eligibleLandings = evaluatePropertyLandingEligibility({
+  lang,
+  cards,
+});
 const allCardPrices = cards
   .map((card) => card.price)
   .filter((value): value is number => typeof value === "number" && Number.isFinite(value));
@@ -802,7 +735,12 @@ const activeFilterChips = [
   }] : []),
 ];
 
-const seoHubSections = !isFiltered ? buildPropertyLandingHubs({ lang }) : [];
+const seoHubSections = !isFiltered
+  ? buildPropertyLandingHubs({
+      lang,
+      eligibleLandings,
+    })
+  : [];
 const pageNoindex = isFiltered || hasTechnicalFilters;
 const propertyById = new Map(properties.map((property) => [String(property.id ?? ""), property]));
 const mapboxToken = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
@@ -856,9 +794,7 @@ const compactMapFeatures = sortedUnitCards
   noindex={pageNoindex}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
-  headerVariant="landing"
-  landingHeaderSolid={true}
-  landingNavGroups={landingNavGroups}
+  {...navigation}
 >
   <div class={`properties-page ${isFiltered ? 'is-filtered' : ''}`}>
     

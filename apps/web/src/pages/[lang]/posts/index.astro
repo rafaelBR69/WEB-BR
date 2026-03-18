@@ -4,6 +4,7 @@ export const prerender = false;
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import posts, { POST_CATEGORY_ORDER, isPostCategory } from "@shared/data/posts";
 import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@shared/i18n/languages";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/posts.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -12,6 +13,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "editorial",
+  section: "posts",
+});
 
 const copyByLang = {
   es: {
@@ -240,6 +246,7 @@ const categoryCounts = Object.fromEntries(
   description={t.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  {...navigation}
 >
   <section class="posts-page container">
     <header class="posts-hero">
@@ -300,4 +307,3 @@ const categoryCounts = Object.fromEntries(
     )}
   </section>
 </BaseLayout>
-

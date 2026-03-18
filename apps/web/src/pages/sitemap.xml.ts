@@ -1,13 +1,17 @@
 import type { APIRoute } from "astro";
 import posts from "@shared/data/posts";
+import fallbackProperties from "@shared/data/properties";
 import teamMembers from "@shared/data/team";
 import { SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { normalizeProperty, normalizePropertyCard, getPublicPropertiesWithFallback } from "@shared/properties/public";
+import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
 
 const SITE_URL = "https://blancareal.com";
 
 const CORE_URLS = SUPPORTED_LANGS.flatMap((lang) => [
   `/${lang}/`,
   `/${lang}/real-estate/`,
+  `/${lang}/properties/`,
   `/${lang}/legal-services/`,
   `/${lang}/commercialization/`,
   `/${lang}/sell-with-us/`,
@@ -15,21 +19,6 @@ const CORE_URLS = SUPPORTED_LANGS.flatMap((lang) => [
   `/${lang}/contact/`,
   `/${lang}/projects/`,
 ]);
-
-const STATIC_URLS = [
-  // Ciudades
-  "/es/properties/mijas/",
-  "/es/properties/marbella/",
-  "/es/properties/fuengirola/",
-
-  // Zonas
-  "/es/properties/mijas/la-cala/",
-  "/es/properties/marbella/puerto-banus/",
-
-  // Tipos
-  "/es/properties/mijas/villas/",
-  "/es/properties/marbella/apartments/",
-];
 
 const POST_URLS = SUPPORTED_LANGS.flatMap((lang) => {
   const indexUrl = `/${lang}/posts/`;
@@ -55,12 +44,50 @@ const AGENT_URLS = SUPPORTED_LANGS.flatMap((lang) => {
   });
 });
 
-const URLS = Array.from(new Set([...CORE_URLS, ...STATIC_URLS, ...POST_URLS, ...AGENT_URLS]));
-
 export const GET: APIRoute = async () => {
+  const { properties } = await getPublicPropertiesWithFallback({
+    fallbackProperties,
+  });
+
+  const landingUrls = SUPPORTED_LANGS.flatMap((lang) => {
+    const cards = properties
+      .map((property) => normalizePropertyCard(property, lang))
+      .filter(Boolean)
+      .filter((card) => card.visible);
+
+    return evaluatePropertyLandingEligibility({ lang, cards })
+      .filter((entry) => entry.showInSitemap)
+      .map((entry) => entry.landing.canonicalPath);
+  });
+
+  const propertyUrls = SUPPORTED_LANGS.flatMap((lang) =>
+    properties
+      .map((property) => ({
+        property,
+        data: normalizeProperty(property, lang),
+      }))
+      .filter(({ property, data }) =>
+        Boolean(property.slugs?.[lang]) &&
+        Boolean(data) &&
+        data.visible &&
+        !data.seo.noindex
+      )
+      .map(({ property }) => `/${lang}/property/${property.slugs[lang]}/`)
+  );
+
+  const urls = Array.from(
+    new Set([
+      ...CORE_URLS,
+      ...landingUrls,
+      ...propertyUrls,
+      ...POST_URLS,
+      ...AGENT_URLS,
+    ])
+  );
+
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${URLS.map(
+${urls.map(
   (path) => `
   <url>
     <loc>${SITE_URL}${path}</loc>

@@ -5,6 +5,7 @@ import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import teamMembers, { TEAM_CATEGORY_ORDER } from "@shared/data/team";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import BrandLogo from "@webapp/components/BrandLogo.astro";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/about.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -13,6 +14,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "editorial",
+  section: "about",
+});
 const contactPath = `/${lang}/contact/`;
 const encodeContactData = (value) =>
   Buffer.from(JSON.stringify(value), "utf8").toString("base64");
@@ -235,6 +241,7 @@ const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => {
   description={t.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  {...navigation}
 >
   <section class="about-hero container">
     <span class="about-eyebrow">{t.eyebrow}</span>

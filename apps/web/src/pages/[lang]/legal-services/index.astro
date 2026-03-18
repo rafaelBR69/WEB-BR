@@ -3,7 +3,7 @@ export const prerender = false;
 
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
-import { getUiCopy } from "@shared/i18n/ui";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/legal-services.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -13,110 +13,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
-const ui = getUiCopy(lang);
-
-const landingNavItems = [
-  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
-  { href: `/${lang}/marketing-3d/`, label: "Marketing" },
-  { href: `/${lang}/contact/`, label: ui.layout.navContact },
-];
-
-const landingNavGroupsByLang = {
-  es: [
-    {
-      label: "Bienes y Raices",
-      href: `/${lang}/real-estate/`,
-      sections: [
-        {
-          title: "Catalogo",
-          items: [
-            { label: "Obra nueva", href: `/${lang}/properties/?market=obra_nueva` },
-            { label: "2a mano", href: `/${lang}/properties/?market=segunda_mano` },
-            { label: "Todas las propiedades", href: `/${lang}/properties/` },
-          ],
-        },
-        {
-          title: "Promociones",
-          items: [
-            { label: "Nuestras promociones", href: `/${lang}/projects/` },
-            { label: "Vender con nosotros", href: `/${lang}/sell-with-us/` },
-            { label: "Contacto", href: `/${lang}/contact/` },
-          ],
-        },
-      ],
-    },
-    {
-      label: "Asesoramiento Legal",
-      href: `/${lang}/legal-services/`,
-      sections: [
-        {
-          title: "Servicios",
-          items: [
-            { label: "Revision y contratos", href: `/${lang}/legal-services/#coverage-contracts` },
-            { label: "Due diligence inmobiliaria", href: `/${lang}/legal-services/#coverage-due` },
-            { label: "Asesoria fiscal", href: `/${lang}/legal-services/#coverage-tax` },
-            { label: "Tramites y documentacion", href: `/${lang}/legal-services/#coverage-docs` },
-          ],
-        },
-        {
-          title: "Soporte",
-          items: [
-            { label: "Representacion legal", href: `/${lang}/legal-services/#coverage-claims` },
-            { label: "Servicios para extranjeros", href: `/${lang}/legal-services/#coverage-foreign` },
-            { label: "Solicitar asesoria", href: `/${lang}/legal-services/#contact` },
-          ],
-        },
-      ],
-    },
-  ],
-  en: [
-    {
-      label: "Real Estate",
-      href: `/${lang}/real-estate/`,
-      sections: [
-        {
-          title: "Catalog",
-          items: [
-            { label: "New build", href: `/${lang}/properties/?market=obra_nueva` },
-            { label: "Resale", href: `/${lang}/properties/?market=segunda_mano` },
-            { label: "All properties", href: `/${lang}/properties/` },
-          ],
-        },
-        {
-          title: "Developments",
-          items: [
-            { label: "Our developments", href: `/${lang}/projects/` },
-            { label: "Sell with us", href: `/${lang}/sell-with-us/` },
-            { label: "Contact", href: `/${lang}/contact/` },
-          ],
-        },
-      ],
-    },
-    {
-      label: "Legal Advisory",
-      href: `/${lang}/legal-services/`,
-      sections: [
-        {
-          title: "Services",
-          items: [
-            { label: "Contract drafting and review", href: `/${lang}/legal-services/#coverage-contracts` },
-            { label: "Real estate due diligence", href: `/${lang}/legal-services/#coverage-due` },
-            { label: "Tax advice", href: `/${lang}/legal-services/#coverage-tax` },
-            { label: "Documentation and formalities", href: `/${lang}/legal-services/#coverage-docs` },
-          ],
-        },
-        {
-          title: "Support",
-          items: [
-            { label: "Legal representation", href: `/${lang}/legal-services/#coverage-claims` },
-            { label: "Services for foreign clients", href: `/${lang}/legal-services/#coverage-foreign` },
-            { label: "Request advice", href: `/${lang}/legal-services/#contact` },
-          ],
-        },
-      ],
-    },
-  ],
-};
+const navigation = buildPublicNavigation({
+  lang,
+  family: "section-landing",
+  section: "legal-services",
+});
 
 const copyByLang = {
   es: {
@@ -338,7 +239,6 @@ const copyByLang = {
 };
 
 const page = copyByLang[lang] ?? copyByLang.en ?? copyByLang.es;
-const landingNavGroups = landingNavGroupsByLang[lang] ?? landingNavGroupsByLang.es;
 
 const sectionNav = [
   { id: "coverage", label: page.sections.coverageEyebrow },
@@ -360,10 +260,7 @@ const icons = {
   description={page.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
-  headerVariant="landing"
-  landingNavItems={landingNavItems}
-  landingNavGroups={landingNavGroups}
-  landingHeaderSolid={true}
+  {...navigation}
   showMobileStickyCta={false}
 >
   <div class="legal-page">

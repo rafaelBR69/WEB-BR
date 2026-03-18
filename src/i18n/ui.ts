@@ -51,7 +51,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
     layout: {
       skipToContent: "Saltar al contenido",
       navHome: "Inicio",
-      navRealEstate: "Real Estate",
+      navRealEstate: "Bienes y Raíces",
       navProperties: "Propiedades",
       navProjects: "Proyectos",
       navPromoters: "Promotoras",

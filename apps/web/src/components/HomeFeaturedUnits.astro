@@ -1,60 +1,10 @@
 ---
 import PropertyCard from "@webapp/components/PropertyCard.astro";
+import homePageContent from "@shared/data/pages/home.json";
 
 const { lang, cards = [] } = Astro.props;
-
-const copyByLang = {
-  es: {
-    eyebrow: "Propiedades destacadas",
-    title: "Una seleccion de unidades hijas listas para activar demanda",
-    intro:
-      "20 unidades disponibles de nuestros proyectos propios, en rotacion continua para dar visibilidad real al inventario activo.",
-    prev: "Ver grupo anterior",
-    next: "Ver grupo siguiente",
-  },
-  en: {
-    eyebrow: "Featured properties",
-    title: "A rotating selection of child units ready to capture demand",
-    intro:
-      "20 available child units from our own developments, continuously rotating to surface active inventory.",
-    prev: "View previous group",
-    next: "View next group",
-  },
-  de: {
-    eyebrow: "Top-Immobilien",
-    title: "Eine rotierende Auswahl an verfuegbaren Einheiten",
-    intro:
-      "20 verfuegbare Einheiten aus unseren eigenen Projekten in kontinuierlicher Rotation fuer das aktive Inventar.",
-    prev: "Vorherige Gruppe anzeigen",
-    next: "Naechste Gruppe anzeigen",
-  },
-  fr: {
-    eyebrow: "Biens en vedette",
-    title: "Une selection rotative d unites disponibles",
-    intro:
-      "20 unites disponibles issues de nos propres programmes, mises en rotation pour valoriser le stock actif.",
-    prev: "Voir le groupe precedent",
-    next: "Voir le groupe suivant",
-  },
-  it: {
-    eyebrow: "Immobili in evidenza",
-    title: "Una selezione rotante di unita disponibili",
-    intro:
-      "20 unita disponibili dei nostri progetti propri, in rotazione continua per dare visibilita allo stock attivo.",
-    prev: "Vedi gruppo precedente",
-    next: "Vedi gruppo successivo",
-  },
-  nl: {
-    eyebrow: "Uitgelichte woningen",
-    title: "Een roterende selectie van beschikbare units",
-    intro:
-      "20 beschikbare child units uit onze eigen projecten, doorlopend in rotatie om actief aanbod zichtbaar te houden.",
-    prev: "Bekijk vorige groep",
-    next: "Bekijk volgende groep",
-  },
-};
-
-const t = copyByLang[lang] ?? copyByLang.es;
+const homeContent = homePageContent as Record<string, any>;
+const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLang.es;
 ---
 
 {cards.length > 0 && (

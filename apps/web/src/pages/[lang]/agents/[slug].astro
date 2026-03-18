@@ -4,6 +4,7 @@ export const prerender = false;
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import teamMembers from "@shared/data/team";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/agents.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -14,6 +15,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "editorial",
+  section: "agents",
+});
 
 const copyByLang = {
   es: {
@@ -160,6 +166,7 @@ const pageTitle = `${member.name} | ${t.title}`;
   description={t.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  {...navigation}
 >
   <section class="agent-detail container">
     <a class="agent-back" href={`/${lang}/agents/`}>{t.backLabel}</a>

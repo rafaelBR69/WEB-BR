@@ -3,6 +3,7 @@ export const prerender = false;
 
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/service-pages.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -12,6 +13,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "editorial",
+  section: "contact",
+});
 const privacyPath = `/${lang}/legal/privacy/`;
 const CONTACT_PREFILL_STORAGE_KEY = "blancareal-contact-prefill";
 const OFFICE_ADDRESS = "Calle Monte Calahonda 10, Mijas Costa, Malaga";
@@ -327,6 +333,7 @@ const t = copyByLang[lang] ?? copyByLang.es;
   description={t.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  {...navigation}
 >
   <div class="contact-page">
     <section class="contact-hero container">

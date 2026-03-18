@@ -146,8 +146,28 @@ const isActiveHref = (href) => {
   const current = normalizePath(canonicalPath);
   const cleanHref = href.split("?")[0]?.split("#")[0] ?? href;
   const target = normalizePath(cleanHref);
+  const propertiesPath = normalizePath(`/${lang}/properties/`);
+  const propertyDetailPath = normalizePath(`/${lang}/property/`);
+  const postsPath = normalizePath(`/${lang}/posts/`);
+  const postDetailPath = normalizePath(`/${lang}/post/`);
+  const aboutPath = normalizePath(`/${lang}/about/`);
+  const agentsPath = normalizePath(`/${lang}/agents/`);
+  const legalServicesPath = normalizePath(`/${lang}/legal-services/`);
+  const legalDocsPath = normalizePath(`/${lang}/legal/`);
   if (target === `/${lang}/`) {
     return current === target;
+  }
+  if (target === propertiesPath && current.startsWith(propertyDetailPath)) {
+    return true;
+  }
+  if (target === postsPath && current.startsWith(postDetailPath)) {
+    return true;
+  }
+  if (target === aboutPath && current.startsWith(agentsPath)) {
+    return true;
+  }
+  if (target === legalServicesPath && current.startsWith(legalDocsPath)) {
+    return true;
   }
   return current.startsWith(target);
 };

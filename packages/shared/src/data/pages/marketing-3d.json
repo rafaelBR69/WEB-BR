@@ -1,0 +1,278 @@
+{
+  "pageByLang": {
+    "es": {
+      "title": "Marketing 3D | BlancaReal",
+      "description": "Marketing 3D inmobiliario en la Costa del Sol: fotografia profesional, drones, modelado 3D y campanas estrategicas a medida.",
+      "eyebrow": "Marketing 3D",
+      "headingMain": "Marketing 3D inmobiliario en la Costa del Sol",
+      "headingSub": "Visuales que activan la venta",
+      "intro": "Convertimos cada activo en una puesta en escena visual y estrategica: capturamos la mejor luz, elevamos la perspectiva, construimos recreaciones hiperrealistas y lanzamos campanas pensadas para el comprador correcto.",
+      "primaryCta": "Solicitar propuesta visual",
+      "secondaryCta": "Ir a contacto",
+      "stats": [
+        {
+          "value": "4 modulos",
+          "label": "captura, vuelo, render y campana"
+        },
+        {
+          "value": "x3",
+          "label": "mas interacciones con video aereo"
+        },
+        {
+          "value": "Ad-hoc",
+          "label": "estrategia para cada activo"
+        }
+      ],
+      "consoleLabel": "Cabina creativa",
+      "consoleTitle": "No mostramos una vivienda. Activamos una experiencia.",
+      "consoleText": "Cada pieza entra en una secuencia clara: impacto, lectura espacial, emocion y conversion. La pagina funciona como una sala de control visual para poner su activo en otra liga.",
+      "sections": {
+        "solutionsEyebrow": "Nuestras soluciones visuales y estrategicas",
+        "solutionsHeading": "Cuatro modulos, una misma mision",
+        "solutionsIntro": "Cada formato cumple un papel distinto dentro del recorrido de venta. Juntos construyen deseo, transparencia y velocidad comercial.",
+        "flowEyebrow": "Secuencia de salida",
+        "flowHeading": "Del primer fotograma al comprador ideal",
+        "flowIntro": "Trabajamos la venta como una progresion: captar atencion, elevar percepcion, hacer tangible lo que aun no existe y convertir visibilidad en demanda cualificada.",
+        "resultsEyebrow": "Tablero de conversion",
+        "resultsHeading": "Lo que afinamos para que el activo compita mejor",
+        "resultsIntro": "La creatividad aqui no es decorativa. Esta al servicio de una lectura comercial mas clara y de una venta mas rapida."
+      },
+      "solutions": [
+        {
+          "id": "photo",
+          "kicker": "01 Scan",
+          "title": "Fotografia profesional",
+          "text": "Realizamos imagenes de alta calidad pensadas para enamorar a primera vista y transmitir transparencia. Capturamos luz, angulos, amplitud y eliminamos ruido visual para vender mejor y mas rapido.",
+          "note": "Luz precisa. Espacios limpios. Primer impacto real."
+        },
+        {
+          "id": "drone",
+          "kicker": "02 Flight",
+          "title": "Videos con drones",
+          "text": "Elevamos la perspectiva y mostramos inmueble y entorno desde el aire mediante recorridos dinamicos. Este formato genera mucha mas atencion en redes y portales que un carrusel de fotos clasico.",
+          "note": "Mas contexto. Mas deseo. Mas interaccion."
+        },
+        {
+          "id": "render",
+          "kicker": "03 Render",
+          "title": "Modelado 3D",
+          "text": "Damos vida a los proyectos sobre plano creando recreaciones hiperrealistas de interior y exterior para que el cliente visualice espacios, materiales y acabados antes de construir.",
+          "note": "Antes de poner un ladrillo, ya se puede recorrer."
+        },
+        {
+          "id": "launch",
+          "kicker": "04 Launch",
+          "title": "Campanas estrategicas ad-hoc",
+          "text": "Si nos confia su activo, tambien nos ocupamos de que lo vea el comprador ideal. Disenamos email marketing, ads, redes y distribucion digital a medida, invirtiendo donde la campana rinde de verdad.",
+          "note": "No disparamos a todo. Activamos el canal correcto."
+        }
+      ],
+      "flow": [
+        {
+          "step": "01",
+          "title": "Capturar",
+          "text": "Ordenamos la escena y encuadramos los puntos fuertes del activo."
+        },
+        {
+          "step": "02",
+          "title": "Elevar",
+          "text": "Mostramos localizacion, vistas, orientacion y relacion con el entorno."
+        },
+        {
+          "step": "03",
+          "title": "Visualizar",
+          "text": "Convertimos planos e ideas en espacios comprensibles y deseables."
+        },
+        {
+          "step": "04",
+          "title": "Activar",
+          "text": "Lanzamos la pieza adecuada en el canal rentable para acelerar visitas."
+        }
+      ],
+      "resultStats": [
+        {
+          "value": "x3",
+          "label": "interacciones potenciales con video aereo"
+        },
+        {
+          "value": "4 capas",
+          "label": "foto, dron, 3D y campana"
+        },
+        {
+          "value": "1 estrategia",
+          "label": "adaptada a cada vivienda o proyecto"
+        }
+      ],
+      "checklistTitle": "Que cuidamos en cada salida",
+      "checklist": [
+        "Luz, encuadres y limpieza visual para que la vivienda respire mejor en pantalla.",
+        "Lectura del entorno: vistas, accesos, orientacion y escala urbana.",
+        "Narrativa espacial para producto terminado o por desarrollar.",
+        "Distribucion de la inversion en canales con capacidad real de respuesta."
+      ],
+      "channelsTitle": "Canales que activamos",
+      "channels": [
+        "Email marketing",
+        "Ads",
+        "Redes sociales",
+        "Portales inmobiliarios",
+        "Piezas comerciales a medida"
+      ],
+      "closingTitle": "Su activo no necesita mas ruido. Necesita mejor escena.",
+      "closingIntro": "BlancaReal une visuales, estrategia y lectura inmobiliaria para que la propiedad no solo se vea mejor: se entienda, se recuerde y se venda con mas velocidad.",
+      "closingPrimary": "Hablar con el equipo",
+      "closingSecondary": "Ver comercializacion"
+    },
+    "en": {
+      "title": "3D Marketing | BlancaReal",
+      "description": "Real estate 3D marketing on the Costa del Sol: professional photography, drones, 3D modeling and tailored strategic campaigns.",
+      "eyebrow": "3D Marketing",
+      "headingMain": "Real estate 3D marketing on the Costa del Sol",
+      "headingSub": "Visuals built to trigger the sale",
+      "intro": "We turn each asset into a visual and strategic stage set: we capture better light, lift perspective, build hyperreal spaces and launch campaigns designed for the right buyer.",
+      "primaryCta": "Request visual proposal",
+      "secondaryCta": "Go to contact",
+      "stats": [
+        {
+          "value": "4 modules",
+          "label": "capture, flight, render and campaign"
+        },
+        {
+          "value": "x3",
+          "label": "more attention with aerial video"
+        },
+        {
+          "value": "Ad-hoc",
+          "label": "strategy for each asset"
+        }
+      ],
+      "consoleLabel": "Creative cockpit",
+      "consoleTitle": "We do not just show a property. We trigger an experience.",
+      "consoleText": "Each piece enters a clear sequence: impact, spatial reading, emotion and conversion. The page behaves like a visual control room built to place your asset in a different league.",
+      "sections": {
+        "solutionsEyebrow": "Our visual and strategic solutions",
+        "solutionsHeading": "Four modules, one mission",
+        "solutionsIntro": "Each format plays a different role in the sales journey. Together they build desire, transparency and commercial speed.",
+        "flowEyebrow": "Launch sequence",
+        "flowHeading": "From first frame to ideal buyer",
+        "flowIntro": "We approach sales as progression: catch attention, elevate perception, make the future tangible and convert visibility into qualified demand.",
+        "resultsEyebrow": "Conversion board",
+        "resultsHeading": "What we sharpen so the asset competes better",
+        "resultsIntro": "Creativity here is not decorative. It serves clearer commercial reading and faster sales execution."
+      },
+      "solutions": [
+        {
+          "id": "photo",
+          "kicker": "01 Scan",
+          "title": "Professional photography",
+          "text": "We create high-quality imagery designed to win attention instantly and communicate transparency. We shape light, angles, spaciousness and remove visual noise to help the property sell faster and better.",
+          "note": "Precise light. Cleaner spaces. Stronger first impact."
+        },
+        {
+          "id": "drone",
+          "kicker": "02 Flight",
+          "title": "Drone videos",
+          "text": "We lift perspective and show both property and surroundings through dynamic aerial routes. This format generates far more attention across social media and portals than a classic photo carousel.",
+          "note": "More context. More desire. More interaction."
+        },
+        {
+          "id": "render",
+          "kicker": "03 Render",
+          "title": "3D modeling",
+          "text": "We bring off-plan projects to life by building hyperreal interior and exterior recreations so the buyer can visualize spaces, materials and finishes before construction starts.",
+          "note": "Before laying a brick, the project can already be explored."
+        },
+        {
+          "id": "launch",
+          "kicker": "04 Launch",
+          "title": "Ad-hoc strategic campaigns",
+          "text": "If you trust us with your asset, we also make sure it reaches the right buyer. We design email marketing, ads, social media and custom digital distribution, investing where the campaign truly performs.",
+          "note": "We do not spray everywhere. We activate the right channel."
+        }
+      ],
+      "flow": [
+        {
+          "step": "01",
+          "title": "Capture",
+          "text": "We stage the scene and frame the strongest points of the asset."
+        },
+        {
+          "step": "02",
+          "title": "Elevate",
+          "text": "We show location, views, orientation and environmental context."
+        },
+        {
+          "step": "03",
+          "title": "Visualize",
+          "text": "We turn plans and ideas into spaces the buyer can understand and desire."
+        },
+        {
+          "step": "04",
+          "title": "Activate",
+          "text": "We launch the right piece in the profitable channel to speed up visits."
+        }
+      ],
+      "resultStats": [
+        {
+          "value": "x3",
+          "label": "potential interactions with aerial video"
+        },
+        {
+          "value": "4 layers",
+          "label": "photo, drone, 3D and campaign"
+        },
+        {
+          "value": "1 strategy",
+          "label": "adapted to each home or project"
+        }
+      ],
+      "checklistTitle": "What we refine in every launch",
+      "checklist": [
+        "Light, framing and visual cleaning so the property breathes better on screen.",
+        "Environmental reading: views, access, orientation and urban scale.",
+        "Spatial storytelling for completed or future product.",
+        "Investment distribution across channels with real response capacity."
+      ],
+      "channelsTitle": "Channels we activate",
+      "channels": [
+        "Email marketing",
+        "Ads",
+        "Social media",
+        "Property portals",
+        "Tailored commercial pieces"
+      ],
+      "closingTitle": "Your asset does not need more noise. It needs a better stage.",
+      "closingIntro": "BlancaReal combines visuals, strategy and real estate reading so the property is not only seen better, but understood, remembered and sold faster.",
+      "closingPrimary": "Talk to the team",
+      "closingSecondary": "View commercialization"
+    }
+  },
+  "chromeByLang": {
+    "es": {
+      "sectionIndexEyebrow": "Indice de secciones",
+      "sectionIndexAria": "Indice de marketing",
+      "contactLabel": "Contacto",
+      "consoleSignals": [
+        "Capture",
+        "Flight",
+        "Render",
+        "Launch"
+      ],
+      "solutionHudLabel": "BR / VISUAL OPS",
+      "closingEyebrow": "BlancaReal Visual Ops"
+    },
+    "en": {
+      "sectionIndexEyebrow": "Section index",
+      "sectionIndexAria": "Marketing index",
+      "contactLabel": "Contact",
+      "consoleSignals": [
+        "Capture",
+        "Flight",
+        "Render",
+        "Launch"
+      ],
+      "solutionHudLabel": "BR / VISUAL OPS",
+      "closingEyebrow": "BlancaReal Visual Ops"
+    }
+  }
+}

@@ -5,11 +5,12 @@ import PropertyHero from "@webapp/components/PropertyHero.astro";
 import GallerySection from "@webapp/components/GallerySection.astro";
 
 import { formatPrice } from "@shared/presentation/common";
-import { normalizeProperty } from "@shared/properties/public";
+import { normalizeProperty, normalizePropertyCard } from "@shared/properties/public";
+import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
 import { DEFAULT_LANG, isSupportedLang } from "@shared/i18n/languages";
-import { getUiCopy } from "@shared/i18n/ui";
 import fallbackProperties from "@shared/data/properties";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 
 /* =========================
    PARAMS
@@ -19,15 +20,14 @@ const lang = typeof langParam === "string" ? langParam : DEFAULT_LANG;
 if (!isSupportedLang(lang)) {
   return Astro.redirect(`/${DEFAULT_LANG}/`, 302);
 }
-const ui = getUiCopy(lang);
-const headerNavItems = [
-  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
-  { href: `/${lang}/properties/`, label: ui.layout.navProperties },
-  { href: `/${lang}/projects/`, label: ui.layout.navProjects },
-  { href: `/${lang}/contact/`, label: ui.layout.navContact },
-];
 const { properties } = await getPublicPropertiesWithFallback({
   fallbackProperties,
+});
+const navigation = buildPublicNavigation({
+  lang,
+  family: "catalog",
+  section: "property-detail",
+  properties,
 });
 
 const agent = {
@@ -94,6 +94,7 @@ const propertyResolved = {
    NORMALIZATION
 ========================= */
 const data = normalizeProperty(propertyResolved, lang);
+const propertyCard = normalizePropertyCard(propertyResolved, lang);
 
 if (!data || !data.visible) {
   throw new Error(`Property is private or not available: ${lang}/${slug}`);
@@ -259,6 +260,10 @@ const copyByLang = {
       "Nuestro equipo de expertos locales le guiara en cada paso para asegurar que su transicion a este exclusivo entorno sea impecable.",
     exploreAllProperties: "Explorar todas las propiedades",
     propertiesInArea: "Propiedades en",
+    relatedSearches: "Busquedas relacionadas",
+    propertiesInCity: "Propiedades en {city}",
+    sameTypeInCity: "{type} en {city}",
+    viewProject: "Ver proyecto",
     visualCatalog: "Catalogo visual",
     propertyImmersion: "Inmersion en la propiedad",
     galleryLiving: "Salon",
@@ -333,6 +338,10 @@ const copyByLang = {
       "Our local experts will guide you at every step to ensure a seamless move into this exclusive setting.",
     exploreAllProperties: "Explore all properties",
     propertiesInArea: "Properties in",
+    relatedSearches: "Related searches",
+    propertiesInCity: "Properties in {city}",
+    sameTypeInCity: "{type} in {city}",
+    viewProject: "View project",
     visualCatalog: "Visual catalog",
     propertyImmersion: "Property immersion",
     galleryLiving: "Living room",
@@ -366,6 +375,67 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.en;
+const allCards = properties
+  .map((item) => normalizePropertyCard(item, lang))
+  .filter(Boolean)
+  .filter((card) => card.visible);
+const eligibleLandings = evaluatePropertyLandingEligibility({
+  lang,
+  cards: allCards,
+});
+const currentAreaLanding =
+  propertyCard?.areaKey && propertyCard?.cityKey
+    ? eligibleLandings.find(
+        (entry) =>
+          entry.showInSitemap &&
+          entry.landing.kind === "city-area" &&
+          entry.landing.city.key === propertyCard.cityKey &&
+          entry.landing.area?.key === propertyCard.areaKey
+      )
+    : null;
+const currentCityLanding = propertyCard?.cityKey
+  ? eligibleLandings.find(
+      (entry) =>
+        entry.showInSitemap &&
+        entry.landing.kind === "city" &&
+        entry.landing.city.key === propertyCard.cityKey
+    )
+  : null;
+const currentTypeLanding =
+  propertyCard?.typeKey && propertyCard?.cityKey
+    ? eligibleLandings.find(
+        (entry) =>
+          entry.showInSitemap &&
+          entry.landing.kind === "city-type" &&
+          entry.landing.city.key === propertyCard.cityKey &&
+          entry.landing.type?.key === propertyCard.typeKey
+      )
+    : null;
+const relatedSearchLinks = [
+  currentCityLanding
+    ? {
+        href: currentCityLanding.landing.canonicalPath,
+        label: t.propertiesInCity.replace("{city}", currentCityLanding.landing.city.label),
+      }
+    : null,
+  currentTypeLanding
+    ? {
+        href: currentTypeLanding.landing.canonicalPath,
+        label: t.sameTypeInCity
+          .replace("{type}", currentTypeLanding.landing.type?.label ?? "")
+          .replace("{city}", currentTypeLanding.landing.city.label),
+      }
+    : null,
+  parentProperty?.slugs?.[lang]
+    ? {
+        href: `/${lang}/property/${parentProperty.slugs[lang]}/`,
+        label: t.viewProject,
+      }
+    : null,
+].filter((link, index, all) => {
+  if (!link) return false;
+  return all.findIndex((candidate) => candidate?.href === link.href) === index;
+});
 const gallerySections = [
   { key: "living", title: t.galleryLiving },
   { key: "bedroom", title: t.galleryBedroom },
@@ -386,7 +456,7 @@ const gallerySections = [
   url={canonicalUrl}
   lang={lang}
   availableLangs={propertyLangs}
-  headerNavItems={headerNavItems}
+  {...navigation}
 >
   <PropertyHero
     cover={data.media.cover}
@@ -636,11 +706,26 @@ const gallerySections = [
         </p>
         <div class="advisory-links">
           <a href={`/${lang}/properties/`} class="text-link-luxury">{t.exploreAllProperties}</a>
-          <a href={`/${lang}/properties/?area=${data.location.area}`} class="text-link-luxury">
-            {t.propertiesInArea} {data.location.area}
-          </a>
+          {currentAreaLanding && (
+            <a href={currentAreaLanding.landing.canonicalPath} class="text-link-luxury">
+              {t.propertiesInArea} {currentAreaLanding.landing.area?.label ?? data.location.area}
+            </a>
+          )}
         </div>
       </section>
+
+      {relatedSearchLinks.length > 0 && (
+        <section class="section-advisory" aria-labelledby="related-searches-title">
+          <span class="editorial-label">{t.location}</span>
+          <h2 class="section-title" id="related-searches-title">{t.relatedSearches}</h2>
+          <div class="luxury-divider"></div>
+          <div class="advisory-links">
+            {relatedSearchLinks.map((link) => (
+              <a href={link.href} class="text-link-luxury">{link.label}</a>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section class="galleries-wrapper" aria-labelledby="galleries-title">
         <span class="editorial-label">{t.visualCatalog}</span>

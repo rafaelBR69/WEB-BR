@@ -3,6 +3,7 @@ export const prerender = false;
 
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/service-pages.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -12,6 +13,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "section-landing",
+  section: "sell-with-us",
+});
 const privacyPath = `/${lang}/legal/privacy/`;
 
 const copyByLang = {
@@ -358,6 +364,7 @@ const structuredData = {
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
   structuredData={structuredData}
+  {...navigation}
 >
   <div class="sell-page">
     <section class="service-hero container sell-hero">

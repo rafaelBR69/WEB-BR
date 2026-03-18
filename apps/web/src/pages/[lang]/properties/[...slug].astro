@@ -4,6 +4,7 @@ export const prerender = false;
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import fallbackProperties from "@shared/data/properties";
 import PropertyCard from "@webapp/components/PropertyCard.astro";
+import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
 import { normalizePropertyCard } from "@shared/properties/public";
 import { applyFilters } from "@shared/properties/public";
@@ -13,11 +14,12 @@ import {
   resolvePropertyLanding,
 } from "@shared/seo/resolvePropertyLanding";
 import { buildPropertyLandingContent } from "@shared/seo/propertyLandingContent";
+import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
 import { buildPropertyLandingSchema } from "@shared/seo/buildPropertyLandingSchema";
 import { buildPropertyLandingHubs } from "@shared/seo/propertyLandingHubs";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
-import { getUiCopy } from "@shared/i18n/ui";
 import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/properties.css";
 
 const rawSlug = Array.isArray(Astro.params.slug)
@@ -33,7 +35,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
-const ui = getUiCopy(lang);
+const normalizeLandingSegment = (value: string) =>
+  String(value)
+    .trim()
+    .toLowerCase()
+    .replace(/^\/+|\/+$/g, "");
 
 const landing = resolvePropertyLanding({
   lang,
@@ -48,24 +54,35 @@ if (!landing) {
 
   return Astro.redirect(`/${lang}/properties/`, 301);
 }
-
-const headerNavItems = [
-  { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
-  { href: `/${lang}/properties/`, label: ui.layout.navProperties },
-  { href: `/${lang}/projects/`, label: ui.layout.navProjects },
-  { href: `/${lang}/contact/`, label: ui.layout.navContact },
-];
+const requestedSeoKey = rawSlug.map(normalizeLandingSegment).filter(Boolean).join("/");
+if (requestedSeoKey && requestedSeoKey !== landing.seoKey) {
+  return Astro.redirect(landing.canonicalPath, 301);
+}
 
 const { properties } = await getPublicPropertiesWithFallback({
   fallbackProperties,
+});
+const navigation = buildPublicNavigation({
+  lang,
+  family: "catalog",
+  section: "properties",
+  properties,
 });
 
 const cards = properties
   .map((property) => normalizePropertyCard(property, lang))
   .filter(Boolean)
   .filter((card) => card.visible);
+const eligibleLandings = evaluatePropertyLandingEligibility({
+  lang,
+  cards,
+});
 
 const filteredCards = applyFilters(cards, landing.queryFilters);
+const filteredUnitCards = applyFilters(cards, {
+  ...landing.queryFilters,
+  listingType: "unit",
+});
 
 const sortedCards = [...filteredCards].sort((a, b) => {
   if (a.isPromotion && b.isPromotion) {
@@ -76,6 +93,11 @@ const sortedCards = [...filteredCards].sort((a, b) => {
   const byPriority = (b.priority ?? 0) - (a.priority ?? 0);
   if (byPriority !== 0) return byPriority;
 
+  return (b.priceDisplay ?? b.price ?? 0) - (a.priceDisplay ?? a.price ?? 0);
+});
+const sortedUnitCards = [...filteredUnitCards].sort((a, b) => {
+  const byPriority = (b.priority ?? 0) - (a.priority ?? 0);
+  if (byPriority !== 0) return byPriority;
   return (b.priceDisplay ?? b.price ?? 0) - (a.priceDisplay ?? a.price ?? 0);
 });
 
@@ -101,21 +123,128 @@ const structuredData = buildPropertyLandingSchema({
 
 const hubSections = buildPropertyLandingHubs({
   lang,
+  eligibleLandings,
   landing,
 });
 
 const catalogUrl = buildPropertyLandingCatalogUrl(landing);
+const buildCatalogSearchUrl = (overrides = {}) => {
+  const params = new URLSearchParams();
+  const merged = {
+    city: landing.queryFilters.city,
+    area: landing.queryFilters.area,
+    type: landing.queryFilters.type,
+    feature: landing.queryFilters.feature,
+    market: landing.queryFilters.market,
+    priceMin: landing.queryFilters.priceMin,
+    ...overrides,
+  };
+
+  Object.entries(merged).forEach(([key, value]) => {
+    if (value === null || value === undefined || value === "") return;
+    if (Array.isArray(value)) {
+      value.forEach((item) => {
+        if (item !== null && item !== undefined && item !== "") {
+          params.append(key, String(item));
+        }
+      });
+      return;
+    }
+    params.set(key, String(value));
+  });
+
+  const query = params.toString();
+  return query ? `/${lang}/properties/?${query}` : `/${lang}/properties/`;
+};
+const baseSearchLabel =
+  landing.area?.label ??
+  landing.city.label;
+const baseIntentLabel =
+  landing.type?.label ??
+  landing.popular?.label ??
+  landing.city.label;
+const activeLandingChips = [
+  {
+    label: landing.city.label,
+    href: `/${lang}/properties/${landing.city.slug}/`,
+  },
+  landing.area
+    ? {
+        label: landing.area.label,
+        href: `/${lang}/properties/${landing.city.slug}/${landing.area.slug}/`,
+      }
+    : null,
+  landing.type
+    ? {
+        label: landing.type.label,
+        href: buildCatalogSearchUrl({ q: null }),
+      }
+    : null,
+  landing.popular
+    ? {
+        label: landing.popular.label,
+        href: buildCatalogSearchUrl({ q: null }),
+      }
+    : null,
+].filter(Boolean);
+const propertyById = new Map(properties.map((property) => [String(property.id ?? ""), property]));
+const mapboxToken = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
+const mapboxStyle = import.meta.env.PUBLIC_MAPBOX_STYLE ?? "mapbox://styles/mapbox/streets-v12";
+const featuredShowcaseCard = sortedCards[0] ?? null;
+const listingCards = featuredShowcaseCard
+  ? sortedCards.filter((card) => String(card.id) !== String(featuredShowcaseCard.id))
+  : sortedCards;
+const compactMapFeatures = sortedUnitCards
+  .map((card) => {
+    const property = propertyById.get(String(card.id ?? ""));
+    const lng = Number(property?.location?.coordinates?.lng);
+    const lat = Number(property?.location?.coordinates?.lat);
+    if (!Number.isFinite(lng) || !Number.isFinite(lat) || !card.slug) return null;
+    const coverUrl =
+      typeof card.cover === "string"
+        ? card.cover
+        : String(card.cover?.url ?? "");
+
+    return {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [lng, lat],
+      },
+      properties: {
+        id: card.id,
+        title: card.title,
+        area: property?.location?.area ?? "",
+        city: property?.location?.city ?? "",
+        coverUrl,
+        coverUrlFallback: coverUrl,
+        listingType: "unit",
+        availableUnits: "",
+        summaryPrice: card.price ?? "",
+        summaryCurrency: card.currency ?? "EUR",
+        summaryBedroomsMin: card.details?.bedrooms ?? "",
+        summaryBedroomsMax: card.details?.bedrooms ?? "",
+        summaryAreaMin: card.details?.area_m2 ?? "",
+        summaryAreaMax: card.details?.area_m2 ?? "",
+        href: `/${lang}/property/${card.slug}/`,
+      },
+    };
+  })
+  .filter(Boolean);
 
 const copyByLang = {
   es: {
     eyebrow: "Costa del Sol",
-    introLabel: "Landing SEO indexable",
-    visibleCount: "propiedades visibles",
+    propertiesFound: "propiedades encontradas",
+    searchAria: "Buscar propiedades dentro del catalogo",
+    searchPlaceholder: "Buscar por zona, referencia o palabra clave",
+    search: "Buscar",
+    resultsFor: "Resultados para",
+    mapEmpty: "No hay ubicaciones disponibles en el mapa.",
+    mapReset: "Reiniciar mapa",
     browseCatalog: "Abrir catalogo interactivo",
     contactTeam: "Hablar con el equipo",
-    bodyTitle: "Contexto de la busqueda",
     faqTitle: "Preguntas frecuentes",
-    resultsTitle: "Seleccion disponible",
     emptyTitle: "No hay propiedades visibles para esta combinacion",
     emptyText:
       "Esta URL queda publicada como landing util, pero ahora mismo no tiene inventario suficiente para indexarse con fuerza.",
@@ -126,13 +255,16 @@ const copyByLang = {
   },
   en: {
     eyebrow: "Costa del Sol",
-    introLabel: "Indexable SEO landing",
-    visibleCount: "visible properties",
+    propertiesFound: "properties found",
+    searchAria: "Search properties inside the catalogue",
+    searchPlaceholder: "Search by area, reference or keyword",
+    search: "Search",
+    resultsFor: "Results for",
+    mapEmpty: "No map locations available.",
+    mapReset: "Reset map",
     browseCatalog: "Open interactive catalogue",
     contactTeam: "Talk to the team",
-    bodyTitle: "Search context",
     faqTitle: "Frequently asked questions",
-    resultsTitle: "Available selection",
     emptyTitle: "No visible properties for this combination",
     emptyText:
       "This URL can still exist as a useful landing, but it currently does not have enough live stock to justify strong indexation.",
@@ -143,13 +275,16 @@ const copyByLang = {
   },
   de: {
     eyebrow: "Costa del Sol",
-    introLabel: "Indexierbare SEO-Landingpage",
-    visibleCount: "sichtbare immobilien",
+    propertiesFound: "immobilien gefunden",
+    searchAria: "Immobilien im Katalog suchen",
+    searchPlaceholder: "Nach Gebiet, Referenz oder Stichwort suchen",
+    search: "Suchen",
+    resultsFor: "Ergebnisse fuer",
+    mapEmpty: "Keine Standorte auf der Karte verfuegbar.",
+    mapReset: "Karte zuruecksetzen",
     browseCatalog: "Interaktiven Katalog oeffnen",
     contactTeam: "Mit dem Team sprechen",
-    bodyTitle: "Suchkontext",
     faqTitle: "Haeufige Fragen",
-    resultsTitle: "Verfuegbare Auswahl",
     emptyTitle: "Keine sichtbaren Immobilien fuer diese Kombination",
     emptyText:
       "Diese URL bleibt als nuetzliche Landingpage bestehen, hat aktuell aber nicht genug Live-Inventar fuer eine starke Indexierung.",
@@ -160,13 +295,16 @@ const copyByLang = {
   },
   fr: {
     eyebrow: "Costa del Sol",
-    introLabel: "Landing SEO indexable",
-    visibleCount: "proprietes visibles",
+    propertiesFound: "proprietes trouvees",
+    searchAria: "Rechercher des proprietes dans le catalogue",
+    searchPlaceholder: "Rechercher par zone, reference ou mot-cle",
+    search: "Rechercher",
+    resultsFor: "Resultats pour",
+    mapEmpty: "Aucun emplacement disponible sur la carte.",
+    mapReset: "Reinitialiser la carte",
     browseCatalog: "Ouvrir le catalogue interactif",
     contactTeam: "Parler avec l equipe",
-    bodyTitle: "Contexte de recherche",
     faqTitle: "Questions frequentes",
-    resultsTitle: "Selection disponible",
     emptyTitle: "Aucune propriete visible pour cette combinaison",
     emptyText:
       "Cette URL peut rester une landing utile, mais elle ne dispose pas encore d un stock suffisant pour une forte indexation.",
@@ -177,13 +315,16 @@ const copyByLang = {
   },
   it: {
     eyebrow: "Costa del Sol",
-    introLabel: "Landing SEO indicizzabile",
-    visibleCount: "proprieta visibili",
+    propertiesFound: "proprieta trovate",
+    searchAria: "Cerca proprieta nel catalogo",
+    searchPlaceholder: "Cerca per zona, riferimento o parola chiave",
+    search: "Cerca",
+    resultsFor: "Risultati per",
+    mapEmpty: "Nessuna posizione disponibile sulla mappa.",
+    mapReset: "Reimposta mappa",
     browseCatalog: "Apri catalogo interattivo",
     contactTeam: "Parla con il team",
-    bodyTitle: "Contesto della ricerca",
     faqTitle: "Domande frequenti",
-    resultsTitle: "Selezione disponibile",
     emptyTitle: "Nessuna proprieta visibile per questa combinazione",
     emptyText:
       "Questa URL puo restare una landing utile, ma in questo momento non ha abbastanza stock live per una forte indicizzazione.",
@@ -194,13 +335,16 @@ const copyByLang = {
   },
   nl: {
     eyebrow: "Costa del Sol",
-    introLabel: "Indexeerbare SEO-landingspagina",
-    visibleCount: "zichtbare woningen",
+    propertiesFound: "woningen gevonden",
+    searchAria: "Zoek woningen in de catalogus",
+    searchPlaceholder: "Zoek op zone, referentie of trefwoord",
+    search: "Zoeken",
+    resultsFor: "Resultaten voor",
+    mapEmpty: "Geen locaties beschikbaar op de kaart.",
+    mapReset: "Kaart resetten",
     browseCatalog: "Open interactieve catalogus",
     contactTeam: "Praat met het team",
-    bodyTitle: "Zoekcontext",
     faqTitle: "Veelgestelde vragen",
-    resultsTitle: "Beschikbare selectie",
     emptyTitle: "Geen zichtbare woningen voor deze combinatie",
     emptyText:
       "Deze URL kan nuttig blijven als landing, maar heeft nu niet genoeg live aanbod voor sterke indexatie.",
@@ -220,7 +364,7 @@ const t = copyByLang[lang] ?? copyByLang.es;
   noindex={content.noindex}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
-  headerNavItems={headerNavItems}
+  {...navigation}
   structuredData={structuredData}
   og={content.ogImage ? { image: content.ogImage } : undefined}
 >
@@ -238,35 +382,82 @@ const t = copyByLang[lang] ?? copyByLang.es;
         </nav>
         <p class="subtitle">{t.eyebrow}</p>
         <h1>{content.h1}</h1>
-        <p class="properties-seo-intro">{content.intro}</p>
-        <div class="properties-seo-actions">
-          <a class="btn-primary" href={catalogUrl}>{t.browseCatalog}</a>
-          <a class="btn-secondary" href={`/${lang}/contact/`}>{t.contactTeam}</a>
-        </div>
-        <div class="properties-seo-meta">
-          <span>{sortedCards.length} {t.visibleCount}</span>
-          <span>{t.introLabel}</span>
-          {content.noindex && <span>noindex</span>}
-        </div>
       </div>
     </header>
 
     <div class="properties-layout properties-layout--seo">
       <main class="properties-content">
-        <section class="properties-seo-copy">
-          <div class="properties-seo-blocks">
-            <div class="properties-seo-block">
-              <h2>{t.resultsTitle}</h2>
-              <p>{content.description}</p>
-            </div>
-            {content.bodyBlocks.map((block) => (
-              <article class="properties-seo-block">
-                <h2>{block.title}</h2>
-                <p>{block.text}</p>
-              </article>
-            ))}
+        <div class="content-header">
+          <div class="results-summary">
+            <p class="results-count" aria-live="polite" aria-atomic="true">
+              <strong>{sortedUnitCards.length}</strong> {t.propertiesFound}
+            </p>
+            <p class="results-query">
+              {t.resultsFor} "<span>{baseIntentLabel} · {baseSearchLabel}</span>"
+            </p>
           </div>
-        </section>
+        </div>
+
+        <form class="search-bar" method="get" action={`/${lang}/properties/`} role="search">
+          {landing.queryFilters.city?.map((city) => (
+            <input type="hidden" name="city" value={city} />
+          ))}
+          {landing.queryFilters.area?.map((area) => (
+            <input type="hidden" name="area" value={area} />
+          ))}
+          {landing.queryFilters.type?.map((type) => (
+            <input type="hidden" name="type" value={type} />
+          ))}
+          {landing.queryFilters.feature?.map((feature) => (
+            <input type="hidden" name="feature" value={feature} />
+          ))}
+          {landing.queryFilters.market && (
+            <input type="hidden" name="market" value={landing.queryFilters.market} />
+          )}
+          {typeof landing.queryFilters.priceMin === "number" && (
+            <input type="hidden" name="priceMin" value={String(landing.queryFilters.priceMin)} />
+          )}
+          <input
+            type="search"
+            name="q"
+            placeholder={t.searchPlaceholder}
+            aria-label={t.searchAria}
+          />
+          <button type="submit">{t.search}</button>
+        </form>
+
+        {activeLandingChips.length > 0 && (
+          <section class="active-filters-bar" aria-label={t.propertiesFound}>
+            {activeLandingChips.map((chip) => (
+              <a href={chip.href} class="chip">
+                <span>{chip.label}</span>
+              </a>
+            ))}
+          </section>
+        )}
+
+        {(compactMapFeatures.length > 0 || featuredShowcaseCard) && (
+          <section class="properties-showcase-row" aria-label="Landing catalogue showcase">
+            {compactMapFeatures.length > 0 && (
+              <div class="properties-showcase-map">
+                <MapboxCostaMap
+                  token={mapboxToken}
+                  styleUrl={mapboxStyle}
+                  features={compactMapFeatures}
+                  emptyMessage={t.mapEmpty}
+                  resetViewLabel={t.mapReset}
+                  compact={true}
+                  fitToFeaturesOnLoad={true}
+                />
+              </div>
+            )}
+            {featuredShowcaseCard && (
+              <div class="properties-showcase-featured">
+                <PropertyCard data={featuredShowcaseCard} lang={lang} />
+              </div>
+            )}
+          </section>
+        )}
 
         {sortedCards.length === 0 ? (
           <div class="empty-state">
@@ -277,7 +468,7 @@ const t = copyByLang[lang] ?? copyByLang.es;
           </div>
         ) : (
           <section class="properties-grid">
-            {sortedCards.map((data) => (
+            {listingCards.map((data) => (
               <PropertyCard data={data} lang={lang} />
             ))}
           </section>

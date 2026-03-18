@@ -1,10 +1,5 @@
-import {
-  SEO_LANDING_CITIES,
-  SEO_LANDING_TYPES,
-} from "@shared/config/seoSlugs";
-import { CITIES, TYPES } from "@shared/data/properties/taxonomies";
+import type { PropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
 import type { PropertyLandingModel } from "@shared/seo/resolvePropertyLanding";
-import { displayLocation } from "@shared/presentation/common";
 
 type HubLink = {
   href: string;
@@ -36,50 +31,7 @@ const copyByLang = {
   },
 };
 
-const SIGNAL_SCORES: Record<string, number> = {
-  "mijas": 100,
-  "marbella": 96,
-  "mijas/la-cala": 94,
-  "marbella/puerto-banus": 92,
-  "mijas/villas": 90,
-  "mijas/la-cala/apartments": 88,
-  "mijas/search/sea-view": 84,
-  "marbella/search/new-build": 82,
-};
-
-const POPULAR_LABELS = {
-  sea_view: {
-    es: "Vistas al mar",
-    en: "Sea view",
-  },
-  new_build: {
-    es: "Obra nueva",
-    en: "New build",
-  },
-  pool: {
-    es: "Piscina",
-    en: "Pool",
-  },
-  gated_community: {
-    es: "Urbanizacion cerrada",
-    en: "Gated community",
-  },
-};
-
 const getCopy = (lang: string) => copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.es;
-
-const getCityLabel = (key: string, lang: string) =>
-  CITIES[key]?.label?.[lang] ?? CITIES[key]?.label?.es ?? displayLocation(key);
-
-const getTypeLabel = (key: string, lang: string) =>
-  TYPES[key]?.label?.[lang] ?? TYPES[key]?.label?.es ?? displayLocation(key);
-
-const getPopularLabel = (key: string, lang: string) =>
-  POPULAR_LABELS[key as keyof typeof POPULAR_LABELS]?.[
-    lang as keyof (typeof POPULAR_LABELS)[keyof typeof POPULAR_LABELS]
-  ] ??
-  POPULAR_LABELS[key as keyof typeof POPULAR_LABELS]?.es ??
-  displayLocation(key);
 
 const sortLinks = (links: HubLink[]) =>
   links
@@ -87,140 +39,83 @@ const sortLinks = (links: HubLink[]) =>
     .sort((left, right) => (right.score ?? 0) - (left.score ?? 0) || left.label.localeCompare(right.label))
     .map(({ score: _score, ...rest }) => rest);
 
+const toHubLink = (entry: PropertyLandingEligibility): HubLink => {
+  const { landing } = entry;
+  const label =
+    landing.kind === "city"
+      ? landing.city.label
+      : landing.kind === "city-area"
+        ? landing.area?.label ?? landing.city.label
+        : landing.kind === "city-type"
+          ? `${landing.type?.label ?? ""} ${landing.city.label}`.trim()
+          : landing.kind === "city-area-type"
+            ? `${landing.type?.label ?? ""} ${landing.area?.label ?? landing.city.label}`.trim()
+            : `${landing.popular?.label ?? ""} ${landing.city.label}`.trim();
+
+  return {
+    href: landing.canonicalPath,
+    label,
+    score: entry.score,
+  };
+};
+
 export function buildPropertyLandingHubs({
   lang,
+  eligibleLandings,
   landing = null,
 }: {
   lang: string;
+  eligibleLandings: PropertyLandingEligibility[];
   landing?: PropertyLandingModel | null;
 }): HubSection[] {
   const copy = getCopy(lang);
+  const curatedLandings = eligibleLandings.filter((entry) => entry.showInHub);
 
   if (!landing) {
     return [
       {
         title: copy.cities,
-        links: sortLinks(
-          SEO_LANDING_CITIES.map((city) => ({
-            href: `/${lang}/properties/${city.slug}/`,
-            label: getCityLabel(city.cityKey, lang),
-            score: SIGNAL_SCORES[city.slug] ?? city.priority ?? 0,
-          }))
-        ),
+        links: sortLinks(curatedLandings.filter((entry) => entry.landing.kind === "city").map(toHubLink)),
       },
       {
         title: copy.areas,
-        links: sortLinks(
-          SEO_LANDING_CITIES.flatMap((city) =>
-            city.areas.map((area) => ({
-              href: `/${lang}/properties/${city.slug}/${area.slug}/`,
-              label: getCityLabel(area.areaKey, lang),
-              score: SIGNAL_SCORES[`${city.slug}/${area.slug}`] ?? area.priority ?? 0,
-            }))
-          )
-        ),
+        links: sortLinks(curatedLandings.filter((entry) => entry.landing.kind === "city-area").map(toHubLink)),
       },
       {
         title: copy.types,
-        links: sortLinks(
-          SEO_LANDING_CITIES.flatMap((city) =>
-            city.typeSlugs.map((typeSlug) => {
-              const typeConfig = SEO_LANDING_TYPES.find((type) => type.slug === typeSlug);
-              return {
-                href: `/${lang}/properties/${city.slug}/${typeSlug}/`,
-                label: `${getTypeLabel(typeConfig?.typeKey ?? typeSlug, lang)} ${getCityLabel(city.cityKey, lang)}`,
-                score: SIGNAL_SCORES[`${city.slug}/${typeSlug}`] ?? typeConfig?.priority ?? 0,
-              };
-            })
-          )
-        ),
+        links: sortLinks(curatedLandings.filter((entry) => entry.landing.kind === "city-type").map(toHubLink)),
       },
       {
         title: copy.areaTypes,
-        links: sortLinks(
-          SEO_LANDING_CITIES.flatMap((city) =>
-            city.areas.flatMap((area) =>
-              (area.typeSlugs && area.typeSlugs.length ? area.typeSlugs : city.typeSlugs).map((typeSlug) => {
-                const typeConfig = SEO_LANDING_TYPES.find((type) => type.slug === typeSlug);
-                return {
-                  href: `/${lang}/properties/${city.slug}/${area.slug}/${typeSlug}/`,
-                  label: `${getTypeLabel(typeConfig?.typeKey ?? typeSlug, lang)} ${getCityLabel(area.areaKey, lang)}`,
-                  score: SIGNAL_SCORES[`${city.slug}/${area.slug}/${typeSlug}`] ?? Math.max(area.priority ?? 0, typeConfig?.priority ?? 0),
-                };
-              })
-            )
-          )
-        ).slice(0, 12),
+        links: sortLinks(curatedLandings.filter((entry) => entry.landing.kind === "city-area-type").map(toHubLink)).slice(0, 12),
       },
       {
         title: copy.popular,
-        links: sortLinks(
-          SEO_LANDING_CITIES.flatMap((city) =>
-            city.popularSearches.map((popular) => ({
-              href: `/${lang}/properties/${city.slug}/search/${popular.slug}/`,
-              label: `${getPopularLabel(popular.labelKey, lang)} ${getCityLabel(city.cityKey, lang)}`,
-              score: SIGNAL_SCORES[`${city.slug}/search/${popular.slug}`] ?? popular.priority ?? 0,
-            }))
-          )
-        ),
+        links: sortLinks(curatedLandings.filter((entry) => entry.landing.kind === "city-popular").map(toHubLink)),
       },
-    ];
+    ].filter((section) => section.links.length > 0);
   }
 
-  const cityConfig = SEO_LANDING_CITIES.find((city) => city.slug === landing.city.slug);
-  if (!cityConfig) {
-    return [];
-  }
-
-  const relatedLinks: HubLink[] = [
-    ...cityConfig.areas
-      .filter((area) => area.slug !== landing.area?.slug)
-      .map((area) => ({
-        href: `/${lang}/properties/${cityConfig.slug}/${area.slug}/`,
-        label: getCityLabel(area.areaKey, lang),
-        score: SIGNAL_SCORES[`${cityConfig.slug}/${area.slug}`] ?? area.priority ?? 0,
-      })),
-    ...cityConfig.typeSlugs
-      .filter((typeSlug) => typeSlug !== landing.type?.slug)
-      .map((typeSlug) => {
-        const typeConfig = SEO_LANDING_TYPES.find((type) => type.slug === typeSlug);
-        return {
-          href: `/${lang}/properties/${cityConfig.slug}/${typeSlug}/`,
-          label: getTypeLabel(typeConfig?.typeKey ?? typeSlug, lang),
-          score: SIGNAL_SCORES[`${cityConfig.slug}/${typeSlug}`] ?? typeConfig?.priority ?? 0,
-        };
-      }),
-    ...cityConfig.popularSearches
-      .filter((popular) => popular.slug !== landing.popular?.slug)
-      .map((popular) => ({
-        href: `/${lang}/properties/${cityConfig.slug}/search/${popular.slug}/`,
-        label: getPopularLabel(popular.labelKey, lang),
-        score: SIGNAL_SCORES[`${cityConfig.slug}/search/${popular.slug}`] ?? popular.priority ?? 0,
-      })),
-  ];
-
-  if (landing.area) {
-    const areaConfig = cityConfig.areas.find((area) => area.slug === landing.area?.slug);
-    if (areaConfig) {
-      const typeSlugs =
-        areaConfig.typeSlugs && areaConfig.typeSlugs.length
-          ? areaConfig.typeSlugs
-          : cityConfig.typeSlugs;
-
-      relatedLinks.push(
-        ...typeSlugs
-          .filter((typeSlug) => typeSlug !== landing.type?.slug)
-          .map((typeSlug) => {
-            const typeConfig = SEO_LANDING_TYPES.find((type) => type.slug === typeSlug);
-            return {
-              href: `/${lang}/properties/${cityConfig.slug}/${areaConfig.slug}/${typeSlug}/`,
-              label: `${getTypeLabel(typeConfig?.typeKey ?? typeSlug, lang)} ${getCityLabel(areaConfig.areaKey, lang)}`,
-              score: SIGNAL_SCORES[`${cityConfig.slug}/${areaConfig.slug}/${typeSlug}`] ?? Math.max(areaConfig.priority ?? 0, typeConfig?.priority ?? 0),
-            };
-          })
+  const relatedLinks = eligibleLandings
+    .filter((entry) => entry.showInSitemap)
+    .filter((entry) => entry.landing.seoKey !== landing.seoKey)
+    .filter((entry) => entry.landing.city.slug === landing.city.slug)
+    .filter((entry) => {
+      if (!landing.area) return true;
+      return (
+        entry.landing.area?.slug === landing.area.slug ||
+        entry.landing.kind === "city-area" ||
+        entry.landing.kind === "city-type" ||
+        entry.landing.kind === "city-popular"
       );
-    }
-  }
+    })
+    .map((entry) => ({
+      ...toHubLink(entry),
+      score:
+        entry.score +
+        (entry.landing.area?.slug && entry.landing.area.slug === landing.area?.slug ? 25 : 0) +
+        (entry.landing.type?.slug && entry.landing.type.slug === landing.type?.slug ? 12 : 0),
+    }));
 
   return [
     {

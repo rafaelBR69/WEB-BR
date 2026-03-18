@@ -5,6 +5,7 @@ import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import RichContent from "@webapp/components/RichContent.astro";
 import posts from "@shared/data/posts";
 import { DEFAULT_LANG, SUPPORTED_LANGS, isSupportedLang } from "@shared/i18n/languages";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/posts.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -13,6 +14,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "editorial",
+  section: "posts",
+});
 const slugParam = String(Astro.params.slug ?? "").trim();
 if (!slugParam) {
   return Astro.redirect(`/${lang}/posts/`, 302);
@@ -201,6 +207,7 @@ const relatedPosts = posts
   description={description}
   lang={lang}
   availableLangs={availableLangs.length ? availableLangs : [lang]}
+  {...navigation}
 >
   <section class="post-detail-page container">
     <a class="post-back-link" href={`/${lang}/posts/`}>{t.backToPosts}</a>
@@ -257,4 +264,3 @@ const relatedPosts = posts
     )}
   </section>
 </BaseLayout>
-

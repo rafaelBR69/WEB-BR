@@ -3,6 +3,7 @@ export const prerender = false;
 
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/pages/legal-docs.css";
 
 const langParam = Astro.params.lang ?? DEFAULT_LANG;
@@ -12,6 +13,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "editorial",
+  section: "legal",
+});
 const CONTACT_EMAIL = "info@blancareal.com";
 
 const copyByLang = {
@@ -114,7 +120,7 @@ const copyByLang = {
 const t = copyByLang[lang] ?? copyByLang.en;
 ---
 
-<BaseLayout title={t.title} description={t.description} lang={lang} availableLangs={SUPPORTED_LANGS}>
+<BaseLayout title={t.title} description={t.description} lang={lang} availableLangs={SUPPORTED_LANGS} {...navigation}>
   <main class="legal-doc-page">
     <div class="legal-doc-shell">
       <section class="legal-doc-hero">
