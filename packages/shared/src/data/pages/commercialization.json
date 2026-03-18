@@ -1,15 +1,15 @@
 {
   "pageByLang": {
     "es": {
-      "title": "BlancaReal | Mas que casas, proyectos de vida",
-      "description": "Mas que casas, proyectos de vida. BlancaReal integra promocion, comercializacion, legal, marketing y estructura propia desde Costa del Sol.",
+      "title": "BlancaReal | M\u00e1s que casas, proyectos de vida",
+      "description": "M\u00e1s que casas, proyectos de vida. BlancaReal integra promoci\u00f3n, comercializaci\u00f3n, legal, marketing y estructura propia desde Costa del Sol.",
       "eyebrow": "",
       "headingLineA": "Comercializadora inmobiliaria en la Costa del Sol",
-      "headingLineB": "Mas que casas, proyectos de vida",
-      "intro": "BlancaReal nace desde la promocion de obra nueva y evoluciona hacia un ecosistema propio de comercializacion, marketing, operativa y soporte legal para clientes, promotoras e inversores.",
+      "headingLineB": "M\u00e1s que casas, proyectos de vida",
+      "intro": "BlancaReal nace desde la promoci\u00f3n de obra nueva y evoluciona hacia un ecosistema propio de comercializaci\u00f3n, marketing, operativa y soporte legal para clientes, promotoras e inversores.",
       "primaryCta": "Hablar con BlancaReal",
       "secondaryCta": "Ir a promociones",
-      "navTitle": "Navegacion",
+      "navTitle": "Navegaci\u00f3n",
       "heroStats": [
         {
           "value": "1969",
@@ -27,15 +27,15 @@
       "sectionNav": [
         {
           "id": "por-que",
-          "label": "Por que BlancaReal"
+          "label": "Por qu\u00e9 BlancaReal"
         },
         {
           "id": "trabajo",
-          "label": "Como trabajamos"
+          "label": "C\u00f3mo trabajamos"
         },
         {
           "id": "proyectos",
-          "label": "Ultimas comercializaciones"
+          "label": "\u00daltimas comercializaciones"
         },
         {
           "id": "ofrece-por-defecto",
@@ -47,7 +47,7 @@
         },
         {
           "id": "atencion",
-          "label": "Atencion al cliente"
+          "label": "Atenci\u00f3n al cliente"
         },
         {
           "id": "marcas",
@@ -62,48 +62,48 @@
           "label": "Contacto"
         }
       ],
-      "storyLead": "Nuestra historia se entiende mejor como una linea temporal: origen promotor, relevo generacional, crecimiento de estructura y consolidacion de nuevas lineas de negocio.",
-      "storyIntro": "BlancaReal nace sobre una base inmobiliaria anterior y evoluciona con una lectura muy clara del mercado: pasar de construir y gestionar producto a coordinar tambien comercializacion, lujo, cooperativas e inversion.",
+      "storyLead": "Nuestra historia se entiende mejor como una l\u00ednea temporal: origen promotor, relevo generacional, crecimiento de estructura y consolidaci\u00f3n de nuevas l\u00edneas de negocio.",
+      "storyIntro": "BlancaReal nace sobre una base inmobiliaria anterior y evoluciona con una lectura muy clara del mercado: pasar de construir y gestionar producto a coordinar tambi\u00e9n comercializaci\u00f3n, lujo, cooperativas e inversi\u00f3n.",
       "storyTimeline": [
         {
           "year": "1969",
           "title": "Claude de Hennin funda Eurimobel S.A.",
-          "text": "Claude de Hennin funda Eurimobel S.A., empresa de servicios inmobiliarios. Entre otros desarrollos, la empresa construye la urbanizacion de Las Buganvillas en La Cala de Mijas, entonces un pueblo pesquero.",
+          "text": "Claude de Hennin funda Eurimobel S.A., empresa de servicios inmobiliarios. Entre otros desarrollos, la empresa construye la urbanizaci\u00f3n de Las Buganvillas en La Cala de Mijas, entonces un pueblo pesquero.",
           "note": "La Cala de Mijas"
         },
         {
           "year": "2011",
           "title": "Xavier de Hennin toma el mando y funda BlancaReal",
-          "text": "Xavier de Hennin asume la direccion de Eurimobel S.A. y funda BlancaReal. La empresa se especializa en la intermediacion de viviendas de lujo y de segunda mano, ademas de convertirse en gestora de cooperativas y en estructura de comercializacion de viviendas."
+          "text": "Xavier de Hennin asume la direcci\u00f3n de Eurimobel S.A. y funda BlancaReal. La empresa se especializa en la intermediaci\u00f3n de viviendas de lujo y de segunda mano, adem\u00e1s de convertirse en gestora de cooperativas y en estructura de comercializaci\u00f3n de viviendas."
         },
         {
           "year": "2020",
           "title": "Nueva estructura y primeros proyectos de villas de lujo",
-          "text": "BlancaReal cuadruplica su equipo para abrir nuevos departamentos, entre ellos Marketing, Off Market e Inversiones de grandes activos. Ese mismo ano comienza la gestion de las dos primeras cooperativas de villas de lujo con certificado BREEAM."
+          "text": "BlancaReal cuadruplica su equipo para abrir nuevos departamentos, entre ellos Marketing, Off Market e Inversiones de grandes activos. Ese mismo a\u00f1o comienza la gesti\u00f3n de las dos primeras cooperativas de villas de lujo con certificado BREEAM."
         },
         {
           "year": "2022",
-          "title": "Consolidacion del modelo",
-          "text": "Se confirman los exitos en la gestion de cooperativas de villas de lujo, la comercializacion de viviendas y las grandes inversiones en activos de alto valor."
+          "title": "Consolidaci\u00f3n del modelo",
+          "text": "Se confirman los \u00e9xitos en la gesti\u00f3n de cooperativas de villas de lujo, la comercializaci\u00f3n de viviendas y las grandes inversiones en activos de alto valor."
         }
       ],
       "storyMilestones": [
         {
           "title": "Origen",
-          "text": "Promocion y servicios inmobiliarios desde 1969."
+          "text": "Promoci\u00f3n y servicios inmobiliarios desde 1969."
         },
         {
           "title": "Relevo",
-          "text": "Fundacion de BlancaReal en 2011 cÃ³mo nueva etapa."
+          "text": "Fundaci\u00f3n de BlancaReal en 2011 como nueva etapa."
         },
         {
           "title": "Escala",
-          "text": "Expasion de equipo y nuevas lineas de negocio a partir de 2020."
+          "text": "Expansi\u00f3n de equipo y nuevas l\u00edneas de negocio a partir de 2020."
         }
       ],
-      "whoLead": "Somos una compania que comercializa, coordina y acompana. No solo vendemos producto: estructuramos operaciones y damos soporte real al cliente y al proyecto.",
-      "whoIntro": "Nuestra experiencia acumulada se puede leer en volumen, tipologia de activo, capacidad de entrega y estructura propia. Esta es la base con la que trabajamos hoy.",
-      "whatWeHaveCommercializedTitle": "Que hemos comercializado",
+      "whoLead": "Somos una compa\u00f1\u00eda que comercializa, coordina y acompa\u00f1a. No solo vendemos producto: estructuramos operaciones y damos soporte real al cliente y al proyecto.",
+      "whoIntro": "Nuestra experiencia acumulada se puede leer en volumen, tipolog\u00eda de activo, capacidad de entrega y estructura propia. Esta es la base con la que trabajamos hoy.",
+      "whatWeHaveCommercializedTitle": "Qu\u00e9 hemos comercializado",
       "commercializationStats": [
         {
           "value": "1.000",
@@ -115,34 +115,34 @@
         },
         {
           "value": "2.500",
-          "label": "viviendas en regimen de cooperativa entregadas"
+          "label": "viviendas en r\u00e9gimen de cooperativa entregadas"
         },
         {
           "value": "BREEAM",
-          "label": "certificacion en nuestras construcciones"
+          "label": "certificaci\u00f3n en nuestras construcciones"
         },
         {
-          "value": "Hoteles, logistica y terciario",
+          "value": "Hoteles, log\u00edstica y terciario",
           "label": "activos trabajados"
         },
         {
           "value": "993.753 EUR",
-          "label": "facturacion 2022"
+          "label": "facturaci\u00f3n 2022"
         },
         {
           "value": "38.177",
           "label": "usuarios web desde 2020"
         },
         {
-          "value": "Mijas, Malaga",
+          "value": "Mijas, M\u00e1laga",
           "label": "sede central"
         },
         {
-          "value": "Hibridos y electricos",
-          "label": "compromiso ecologico"
+          "value": "H\u00edbridos y el\u00e9ctricos",
+          "label": "compromiso ecol\u00f3gico"
         }
       ],
-      "whyLead": "La propuesta de BlancaReal se apoya en cuatro principios claros: confianza, transparencia, innovacion y profesionalidad.",
+      "whyLead": "La propuesta de BlancaReal se apoya en cuatro principios claros: confianza, transparencia, innovaci\u00f3n y profesionalidad.",
       "whyItems": [
         {
           "title": "Confianza",
@@ -153,84 +153,84 @@
           "text": "Nuestros procesos son claros, precisos y entendibles para todas las partes."
         },
         {
-          "title": "Innovacion",
-          "text": "Invertimos en mejora continua para vender mejor, medir mejor y acompanar mejor."
+          "title": "Innovaci\u00f3n",
+          "text": "Invertimos en mejora continua para vender mejor, medir mejor y acompa\u00f1ar mejor."
         },
         {
           "title": "Profesionalidad",
-          "text": "Nuestro equipo se impone objetivos a exito y trabaja orientado a resultado real."
+          "text": "Nuestro equipo se impone objetivos a \u00e9xito y trabaja orientado a resultado real."
         }
       ],
-      "careLead": "Atendemos de forma personalizada al cliente antes, durante y despues de la compra. El objetivo no es solo cerrar, sino garantizar el exito de su proyecto de vida.",
+      "careLead": "Atendemos de forma personalizada al cliente antes, durante y despu\u00e9s de la compra. El objetivo no es solo cerrar, sino garantizar el \u00e9xito de su proyecto de vida.",
       "careModel": [
         {
           "step": "01",
-          "title": "Atencion personalizada",
-          "text": "Acompanamos al cliente final antes, durante y despues de la compra de su vivienda."
+          "title": "Atenci\u00f3n personalizada",
+          "text": "Acompa\u00f1amos al cliente final antes, durante y despu\u00e9s de la compra de su vivienda."
         },
         {
           "step": "02",
           "title": "Soporte legal",
-          "text": "Ponemos a disposicion de cada cliente nuestros servicios de asesoria legal para cualquier necesidad."
+          "text": "Ponemos a disposici\u00f3n de cada cliente nuestros servicios de asesor\u00eda legal para cualquier necesidad."
         },
         {
           "step": "03",
           "title": "Trato diferencial",
-          "text": "Tratamos al comprador cÃ³mo se merece para garantizar el exito de su proyecto de vida."
+          "text": "Tratamos al comprador como se merece para garantizar el \u00e9xito de su proyecto de vida."
         },
         {
           "step": "04",
           "title": "Viabilidad del proyecto",
-          "text": "Conseguimos los ingresos previstos, lo que protege la viabilidad de cualquier promocion."
+          "text": "Conseguimos los ingresos previstos, lo que protege la viabilidad de cualquier promoci\u00f3n."
         },
         {
           "step": "05",
           "title": "Idiomas",
-          "text": "Trabajamos en espanol e ingles por defecto, ademas de frances, aleman, italiano, ucraniano y ruso."
+          "text": "Trabajamos en espa\u00f1ol e ingl\u00e9s por defecto, adem\u00e1s de franc\u00e9s, alem\u00e1n, italiano, ucraniano y ruso."
         }
       ],
-      "workflowLead": "Trabajamos por fases, con continuidad comercial y capacidad de revision. El proceso combina marketing, ventas, analitica y mejora permanente.",
+      "workflowLead": "Trabajamos por fases, con continuidad comercial y capacidad de revisi\u00f3n. El proceso combina marketing, ventas, anal\u00edtica y mejora permanente.",
       "workflow": [
         {
           "step": "Fase 1",
           "title": "Marketing",
-          "tagline": "Aprox. 30 dias habiles",
+          "tagline": "Aprox. 30 d\u00edas h\u00e1biles",
           "items": [
             "Acciones de pago",
-            "Acciones organicas",
+            "Acciones org\u00e1nicas",
             "Material multimedia",
             "Webs y landings",
-            "Publicidad digital y fisica",
-            "Portales y divulgacion"
+            "Publicidad digital y f\u00edsica",
+            "Portales y divulgaci\u00f3n"
           ]
         },
         {
           "step": "Fase 2",
-          "title": "Comercializacion",
+          "title": "Comercializaci\u00f3n",
           "tagline": "Continuada",
           "items": [
-            "Atencion al cliente",
-            "Informacion y visitas",
-            "Reuniones informativas fisicas y online",
+            "Atenci\u00f3n al cliente",
+            "Informaci\u00f3n y visitas",
+            "Reuniones informativas f\u00edsicas y online",
             "Reserva y contratos de compraventa",
-            "Captacion de clientes",
-            "Divulgacion de material de publicidad",
+            "Captaci\u00f3n de clientes",
+            "Divulgaci\u00f3n de material de publicidad",
             "Colaboraciones y eventos"
           ]
         },
         {
           "step": "Fase 3",
-          "title": "Estadisticas, analisis y mejoras",
+          "title": "Estad\u00edsticas, an\u00e1lisis y mejoras",
           "items": [
-            "Informacion del cliente",
+            "Informaci\u00f3n del cliente",
             "Datos de leads, contactos y visitas",
-            "Analisis de resultados, medios y campanas",
-            "Motivo de interes y evaluacion de la idoneidad de la promocion"
+            "An\u00e1lisis de resultados, medios y campa\u00f1as",
+            "Motivo de inter\u00e9s y evaluaci\u00f3n de la idoneidad de la promoci\u00f3n"
           ]
         },
         {
           "step": "Fase 4",
-          "title": "Revision continuada",
+          "title": "Revisi\u00f3n continuada",
           "items": [
             "Incidencias relevantes",
             "Acciones correctoras o preventivas cuando proceda"
@@ -252,9 +252,9 @@
         {
           "title": "Comercial y operaciones",
           "items": [
-            "Presupuestos y gestion",
-            "CRM de gestion",
-            "Atencion telefonica, virtual y presencial",
+            "Presupuestos y gesti\u00f3n",
+            "CRM de gesti\u00f3n",
+            "Atenci\u00f3n telef\u00f3nica, virtual y presencial",
             "Asistencia de visitas",
             "Caseta de ventas"
           ]
@@ -263,8 +263,8 @@
           "title": "Legal",
           "items": [
             "Licencias y permisos",
-            "Gestion de reservas y contratos",
-            "Procedimientos de extranjeria",
+            "Gesti\u00f3n de reservas y contratos",
+            "Procedimientos de extranjer\u00eda",
             "Blanqueo de capitales",
             "Obligaciones tributarias"
           ]
@@ -291,10 +291,10 @@
           "title": "BlancaReal Inversiones",
           "tagline": "Dinamizamos sus inversiones",
           "items": [
-            "Activos de inversion corporativa",
+            "Activos de inversi\u00f3n corporativa",
             "Real Estate y Private Equity",
             "Proyectos para fondos institucionales y family offices",
-            "Suelos, edificios, hoteles, logistico y otros activos"
+            "Suelos, edificios, hoteles, log\u00edstico y otros activos"
           ]
         },
         {
@@ -310,9 +310,9 @@
           "title": "BlancaReal Profesional",
           "tagline": "Realizamos servicios in-house",
           "items": [
-            "Comercializacion de villas privadas",
-            "Comercializacion de promociones y proyectos",
-            "Legal y administracion",
+            "Comercializaci\u00f3n de villas privadas",
+            "Comercializaci\u00f3n de promociones y proyectos",
+            "Legal y administraci\u00f3n",
             "Marketing y publicidad"
           ]
         }
@@ -321,28 +321,28 @@
       "collaborators": [
         "Promotoras asociadas",
         "Despachos legales",
-        "Notarias locales",
+        "Notar\u00edas locales",
         "Tasadores homologados",
         "Brokers hipotecarios",
-        "Arquitectos y tecnicos",
+        "Arquitectos y t\u00e9cnicos",
         "Gestores patrimoniales",
         "Especialistas de marketing"
       ],
-      "projectsLead": "Estas son las comercializaciones destacadas que ya trabajamos en la web y que mejor representan cÃ³mo se presenta el producto dentro del ecosistema BlancaReal.",
+      "projectsLead": "Estas son las comercializaciones destacadas que ya trabajamos en la web y que mejor representan c\u00f3mo se presenta el producto dentro del ecosistema BlancaReal.",
       "portfolio": [
         {
           "name": "Nylva Homes",
           "location": "Manilva",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
           "slug": "obra-nueva-nylva-homes-manilva",
-          "body": "Promocion de 45 apartamentos en Manilva-Sotogrande con vistas abiertas al mar, Gibraltar y Africa."
+          "body": "Promoci\u00f3n de 45 apartamentos en Manilva-Sotogrande con vistas abiertas al mar, Gibraltar y \u00c1frica."
         },
         {
           "name": "Calahonda Sunset",
           "location": "Calahonda",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/cover/home.png",
           "slug": "obra-nueva-calahonda-sunset-mijas",
-          "body": "Proyecto residencial de 93 viviendas en Calahonda, distribuido en varios bloques y tipologias."
+          "body": "Proyecto residencial de 93 viviendas en Calahonda, distribuido en varios bloques y tipolog\u00edas."
         },
         {
           "name": "Orion Collection: ALMITAK",
@@ -353,29 +353,29 @@
         },
         {
           "name": "WhiteHills Fuengirola",
-          "location": "Reserva del Higueron",
+          "location": "Reserva del Higuer\u00f3n",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
           "slug": "obra-nueva-white-hills-fuengirola-mijas",
-          "body": "Proyecto residencial premium trabajado con foco en experiencia, presentacion y lectura del cliente final."
+          "body": "Proyecto residencial premium trabajado con foco en experiencia, presentaci\u00f3n y lectura del cliente final."
         }
       ],
       "projectCta": "Ver proyecto",
       "projectFeaturedLabel": "Proyecto destacado",
-      "projectCollectionLabel": "Comercializacion seleccionada",
-      "defaultLead": "Por defecto, BlancaReal aporta estructura comercial y de marketing lista para operar desde el primer dia del proyecto.",
+      "projectCollectionLabel": "Comercializaci\u00f3n seleccionada",
+      "defaultLead": "Por defecto, BlancaReal aporta estructura comercial y de marketing lista para operar desde el primer d\u00eda del proyecto.",
       "defaultStatsSuffix": "servicios incluidos",
       "defaultGroups": [
         {
-          "title": "Comercializacion",
+          "title": "Comercializaci\u00f3n",
           "items": [
             "Caseta de venta",
-            "Atencion al cliente",
-            "CRM de gestion",
+            "Atenci\u00f3n al cliente",
+            "CRM de gesti\u00f3n",
             "Visitas presenciales y virtuales",
-            "Seguimiento y analisis de clientes",
+            "Seguimiento y an\u00e1lisis de clientes",
             "Cartera de clientes internacionales y nacional con nivel adquisitivo alto",
             "Reuniones visuales encriptadas y sesiones informativas",
-            "Traducciones simultaneas en reuniones",
+            "Traducciones simult\u00e1neas en reuniones",
             "Jornadas abiertas para clientes y colaboradores",
             "Networking con inversores"
           ]
@@ -383,62 +383,62 @@
         {
           "title": "Marketing",
           "items": [
-            "Publicidad fisica: carteles, flyer, roll up y otros soportes",
-            "Material audiovisual: video, fotografia 360, drone, renders, visita virtual y plano 3D",
-            "Creacion de landing pages especificas",
+            "Publicidad f\u00edsica: carteles, flyer, roll up y otros soportes",
+            "Material audiovisual: video, fotograf\u00eda 360, drone, renders, visita virtual y plano 3D",
+            "Creaci\u00f3n de landing pages espec\u00edficas",
             "Desarrollo de intranet",
             "SEO y SEM",
-            "Gestion de redes sociales y mailing",
-            "Gestion de portales inmobiliarios",
-            "Investigacion de mercado: customer journey y buyer persona",
+            "Gesti\u00f3n de redes sociales y mailing",
+            "Gesti\u00f3n de portales inmobiliarios",
+            "Investigaci\u00f3n de mercado: customer journey y buyer persona",
             "Business intelligence",
-            "Analisis de mercado: precios, m2 y zonas de mayor afluencia"
+            "An\u00e1lisis de mercado: precios, m2 y zonas de mayor afluencia"
           ]
         }
       ],
-      "extraLead": "Ademas de la estructura base, BlancaReal puede extender el servicio a postventa, legal-fiscal y tramites tecnicos o de control.",
+      "extraLead": "Adem\u00e1s de la estructura base, BlancaReal puede extender el servicio a postventa, legal-fiscal y tr\u00e1mites t\u00e9cnicos o de control.",
       "extraGroups": [
         {
           "title": "Servicio postventa",
           "items": [
-            "Administracion en el proceso de compraventa",
-            "Gestion de alta de suministros",
-            "Acompanamiento al cliente en la firma ante notario",
-            "Gestion de servicios comerciales postventa: reventa, alquiler u otras modalidades",
+            "Administraci\u00f3n en el proceso de compraventa",
+            "Gesti\u00f3n de alta de suministros",
+            "Acompa\u00f1amiento al cliente en la firma ante notario",
+            "Gesti\u00f3n de servicios comerciales postventa: reventa, alquiler u otras modalidades",
             "Altas en censos administrativos: Hacienda, Seguridad Social, Patronato y otros"
           ]
         },
         {
           "title": "Legal y fiscal",
           "items": [
-            "Gestion de reserva y contratos",
-            "Revision de documentos de cliente",
+            "Gesti\u00f3n de reserva y contratos",
+            "Revisi\u00f3n de documentos de cliente",
             "Blanqueo de capitales",
-            "Documentacion exigible en la compraventa",
-            "Gestion documental para extranjeros",
+            "Documentaci\u00f3n exigible en la compraventa",
+            "Gesti\u00f3n documental para extranjeros",
             "Aperturas de cuenta bancaria",
             "Golden Visa",
-            "Investigacion fiscal",
+            "Investigaci\u00f3n fiscal",
             "Obligaciones tributarias",
-            "Ingenieria fiscal"
+            "Ingenier\u00eda fiscal"
           ]
         },
         {
-          "title": "Otros tramites",
+          "title": "Otros tr\u00e1mites",
           "items": [
             "Seguimiento de las obras",
             "Licencias y permisos",
             "Solvencia del inversor",
-            "Analisis de proveedores",
-            "Auditorias internas y externas",
+            "An\u00e1lisis de proveedores",
+            "Auditor\u00edas internas y externas",
             "Control de calidad",
             "Estudios de viabilidad",
             "Control de gastos",
-            "Redaccion de informes ad hoc"
+            "Redacci\u00f3n de informes ad hoc"
           ]
         }
       ],
-      "locationLead": "Estamos donde esta nuestro cliente, con sede central en Mijas, Malaga.",
+      "locationLead": "Estamos donde est\u00e1 nuestro cliente, con sede central en Mijas, M\u00e1laga.",
       "locationCards": [
         {
           "label": "Email",
@@ -446,13 +446,13 @@
           "href": "mailto:info@blancareal.com"
         },
         {
-          "label": "Telefono",
+          "label": "Tel\u00e9fono",
           "value": "+34 952 59 91 59",
           "href": "tel:+34952599159"
         },
         {
           "label": "Sede central",
-          "value": "Calle Monte Calahonda 10, 29649 Mijas, Espana"
+          "value": "Calle Monte Calahonda 10, 29649 Mijas, Espa\u00f1a"
         },
         {
           "label": "Web BlancaReal",
@@ -2077,10 +2077,10 @@
         {
           "step": "05",
           "title": "Talen",
-          "text": "Wij werken standaard in het Spaans en Engels, en daarnaast in het Frans, Duits, Italiaans, OekraÃ¯ens en Russisch."
+          "text": "Wij werken standaard in het Spaans en Engels, en daarnaast in het Frans, Duits, Italiaans, Oekraafens en Russisch."
         }
       ],
-      "workflowLead": "Wij werken in fasen, met commerciÃ«le continuiteit en ruimte voor revisie. Het proces combineert marketing, verkoop, analyse en voortdurende verbetering.",
+      "workflowLead": "Wij werken in fasen, met commerciele continuiteit en ruimte voor revisie. Het proces combineert marketing, verkoop, analyse en voortdurende verbetering.",
       "workflow": [
         {
           "step": "Fase 1",
@@ -2128,7 +2128,7 @@
           ]
         }
       ],
-      "resourcesLead": "BlancaReal werkt met eigen middelen in marketing, commercie, operations, juridisch en marktonderzoek. Daardoor kunnen wij het essentiÃ«le uitvoeren zonder afhankelijk te zijn van externe partijen.",
+      "resourcesLead": "BlancaReal werkt met eigen middelen in marketing, commercie, operations, juridisch en marktonderzoek. Daardoor kunnen wij het essenti\u00c3\u00able uitvoeren zonder afhankelijk te zijn van externe partijen.",
       "resourceGroups": [
         {
           "title": "Marketing",
@@ -2167,7 +2167,7 @@
           ]
         }
       ],
-      "brandsLead": "Onze merken structureren het commerciÃ«le aanbod per klanttype, asset en dienst. Elk merk heeft een eigen positionering, boodschap en doel.",
+      "brandsLead": "Onze merken structureren het commerci\u00eble aanbod per klanttype, asset en dienst. Elk merk heeft een eigen positionering, boodschap en doel.",
       "brands": [
         {
           "title": "BlancaReal Properties",
@@ -2175,7 +2175,7 @@
           "items": [
             "Nieuwbouw",
             "Cooperaties",
-            "ResidentiÃ«le wederverkoop"
+            "Residenti\u00eble wederverkoop"
           ]
         },
         {
@@ -2192,7 +2192,7 @@
           "title": "BlancaReal Exclusivity",
           "tagline": "Wij presenteren exclusieve panden",
           "items": [
-            "Luxe residentiÃ«le wederverkoop",
+            "Luxe residenti\u00eble wederverkoop",
             "Luxury Holiday Rentals",
             "Off-market villa's"
           ]
@@ -2201,7 +2201,7 @@
           "title": "BlancaReal Professional",
           "tagline": "Wij leveren in-house services",
           "items": [
-            "Commercialisatie van privÃ©villa's",
+            "Commercialisatie van priv\u00e9villa's",
             "Commercialisatie van projecten en ontwikkelingen",
             "Juridisch en administratie",
             "Marketing en reclame"
@@ -2229,7 +2229,7 @@
           "location": "Mijas",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
           "slug": "nieuwbouw-almitak-mijas",
-          "body": "Nieuwbouwproduct met zorgvuldige positionering en een consistente visuele en commerciÃ«le taal."
+          "body": "Nieuwbouwproduct met zorgvuldige positionering en een consistente visuele en commerci\u00eble taal."
         },
         {
           "name": "WhiteHills Fuengirola",
@@ -2242,7 +2242,7 @@
       "projectCta": "Bekijk project",
       "projectFeaturedLabel": "Uitgelicht project",
       "projectCollectionLabel": "Geselecteerde commercialisatie",
-      "defaultLead": "Standaard levert BlancaReal een commerciÃ«le en marketingstructuur die vanaf dag Ã©Ã©n operationeel is.",
+      "defaultLead": "Standaard levert BlancaReal een commerci\u00eble en marketingstructuur die vanaf dag \u00e9\u00e9n operationeel is.",
       "defaultStatsSuffix": "inbegrepen diensten",
       "defaultGroups": [
         {
@@ -2284,7 +2284,7 @@
             "Administratie tijdens het aankoopproces",
             "Beheer van aansluitingen voor nutsvoorzieningen",
             "Begeleiding van de klant bij de notaris",
-            "Beheer van after-sales commerciÃ«le diensten zoals wederverkoop of verhuur",
+            "Beheer van after-sales commerci\u00eble diensten zoals wederverkoop of verhuur",
             "Registraties bij de relevante administratieve instanties"
           ]
         },
@@ -2350,39 +2350,39 @@
   },
   "chromeByLang": {
     "es": {
-      "mobileMore": "Mas",
+      "mobileMore": "M\u00e1s",
       "statsAria": "Datos BlancaReal",
-      "sectionIndex": "Indice de secciones",
+      "sectionIndex": "\u00cdndice de secciones",
       "valuesAria": "Valores de BlancaReal",
-      "whyEyebrow": "01 Por que BlancaReal",
-      "whyTitle": "Por que BlancaReal",
-      "careEyebrow": "06 Como atendemos al cliente final",
-      "careTitle": "Como atendemos al cliente final",
-      "workflowEyebrow": "02 Como trabajamos",
-      "workflowTitle": "Como trabajamos",
-      "resourcesEyebrow": "05 Cuales son los recursos de BlancaReal",
-      "resourcesTitle": "Cuales son los recursos de BlancaReal",
-      "brandsEyebrow": "07 Cuales son nuestras marcas",
-      "brandsTitle": "Cuales son nuestras marcas",
-      "projectsEyebrow": "03 Ultimas comercializaciones",
-      "projectsTitle": "Ultimas comercializaciones",
-      "defaultEyebrow": "04 Que ofrece BlancaReal por defecto",
-      "defaultTitle": "Que ofrece BlancaReal por defecto",
-      "defaultIntroEyebrow": "Activacion inmediata",
-      "defaultIntroTitle": "Estructura preparada para vender desde el primer dia",
-      "defaultIntroText": "Comercializacion y marketing no aparecen como extras dispersos, sino como una base operativa integrada que ordena captacion, visitas, seguimiento y presentacion del producto.",
+      "whyEyebrow": "01 Por qu\u00e9 BlancaReal",
+      "whyTitle": "Por qu\u00e9 BlancaReal",
+      "careEyebrow": "06 C\u00f3mo atendemos al cliente final",
+      "careTitle": "C\u00f3mo atendemos al cliente final",
+      "workflowEyebrow": "02 C\u00f3mo trabajamos",
+      "workflowTitle": "C\u00f3mo trabajamos",
+      "resourcesEyebrow": "05 Cu\u00e1les son los recursos de BlancaReal",
+      "resourcesTitle": "Cu\u00e1les son los recursos de BlancaReal",
+      "brandsEyebrow": "07 Cu\u00e1les son nuestras marcas",
+      "brandsTitle": "Cu\u00e1les son nuestras marcas",
+      "projectsEyebrow": "03 \u00daltimas comercializaciones",
+      "projectsTitle": "\u00daltimas comercializaciones",
+      "defaultEyebrow": "04 Qu\u00e9 ofrece BlancaReal por defecto",
+      "defaultTitle": "Qu\u00e9 ofrece BlancaReal por defecto",
+      "defaultIntroEyebrow": "Activaci\u00f3n inmediata",
+      "defaultIntroTitle": "Estructura preparada para vender desde el primer d\u00eda",
+      "defaultIntroText": "Comercializaci\u00f3n y marketing no aparecen como extras dispersos, sino como una base operativa integrada que ordena captaci\u00f3n, visitas, seguimiento y presentaci\u00f3n del producto.",
       "defaultStatsAria": "Servicios base de BlancaReal",
-      "extraEyebrow": "08 Que mas ofrece BlancaReal",
-      "extraTitle": "Que mas ofrece BlancaReal",
-      "extraIntroEyebrow": "Extension de servicio",
-      "extraIntroTitle": "Una capa adicional para operaciones mas complejas o clientes que exigen acompanamiento completo",
-      "extraIntroText": "Cuando el proyecto o el comprador lo necesita, BlancaReal amplia la estructura base con postventa, cobertura legal-fiscal y tramites tecnicos para no fragmentar la experiencia.",
-      "locationEyebrow": "09 Donde puedes encontrarnos",
-      "locationTitle": "Donde puedes encontrarnos",
+      "extraEyebrow": "08 Qu\u00e9 m\u00e1s ofrece BlancaReal",
+      "extraTitle": "Qu\u00e9 m\u00e1s ofrece BlancaReal",
+      "extraIntroEyebrow": "Extensi\u00f3n de servicio",
+      "extraIntroTitle": "Una capa adicional para operaciones m\u00e1s complejas o clientes que exigen acompa\u00f1amiento completo",
+      "extraIntroText": "Cuando el proyecto o el comprador lo necesita, BlancaReal ampl\u00eda la estructura base con postventa, cobertura legal-fiscal y tr\u00e1mites t\u00e9cnicos para no fragmentar la experiencia.",
+      "locationEyebrow": "09 D\u00f3nde puedes encontrarnos",
+      "locationTitle": "D\u00f3nde puedes encontrarnos",
       "ctaEyebrow": "BlancaReal",
-      "ctaTitle": "Mas que casas, proyectos de vida.",
-      "ctaText": "La pagina ya deja claro quienes sois, como trabajais y que estructura hay detras. Desde aqui, el siguiente paso natural es hablar con el equipo.",
-      "returnToIndex": "Volver al indice de seleccion"
+      "ctaTitle": "M\u00e1s que casas, proyectos de vida.",
+      "ctaText": "La p\u00e1gina ya deja claro qui\u00e9nes sois, c\u00f3mo trabaj\u00e1is y qu\u00e9 estructura hay detr\u00e1s. Desde aqu\u00ed, el siguiente paso natural es hablar con el equipo.",
+      "returnToIndex": "Volver al \u00edndice de selecci\u00f3n"
     },
     "en": {
       "mobileMore": "More",

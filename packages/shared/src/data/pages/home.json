@@ -2,9 +2,9 @@
   "pageByLang": {
     "es": {
       "title": "BlancaReal | Home",
-      "description": "BlancaReal integra bienes y raices, servicios legales y comercializacion en un unico ecosistema.",
+      "description": "BlancaReal integra bienes y ra\u00edces, servicios legales y comercializaci\u00f3n en un \u00fanico ecosistema.",
       "heroEyebrow": "BlancaReal Group",
-      "heroHeading": "Tu propiedad en Costa del Sol, con quien mas la conoce",
+      "heroHeading": "Tu propiedad en Costa del Sol, con quien m\u00e1s la conoce",
       "heroText": "Costa del Sol desde 1969, con equipo comercial y legal propio para compradores, vendedores e inversores.",
       "heroPrimaryCta": "Ver propiedades",
       "heroSecondaryCta": "Hablar con un agente",
@@ -12,11 +12,11 @@
       "heroTrustItems": [
         {
           "value": "+1.000",
-          "label": "familias acompanadas"
+          "label": "familias acompa\u00f1adas"
         },
         {
           "value": "__YEARS_ACTIVE__+",
-          "label": "anos de experiencia"
+          "label": "a\u00f1os de experiencia"
         },
         {
           "value": "6",
@@ -24,15 +24,15 @@
         },
         {
           "value": "Legal propio",
-          "label": "soporte juridico integrado"
+          "label": "soporte jur\u00eddico integrado"
         }
       ],
-      "pillarsHeading": "Tres lineas de negocio conectadas",
-      "pillarsText": "Accede a cada area desde esta portada principal, con navegacion clara y experiencia unificada.",
+      "pillarsHeading": "Tres l\u00edneas de negocio conectadas",
+      "pillarsText": "Accede a cada \u00e1rea desde esta portada principal, con navegaci\u00f3n clara y experiencia unificada.",
       "navBuy": "Comprar vivienda",
       "navLegal": "Asesoramiento legal",
       "navPartners": "Promotoras y agentes",
-      "navAbout": "Quienes somos",
+      "navAbout": "Qui\u00e9nes somos",
       "navAgents": "Agentes",
       "navContact": "Contacto",
       "navPromoters": "Promotoras",
@@ -40,22 +40,22 @@
       "servicesSwipe": "Desliza para explorar",
       "blocks": {
         "realEstate": {
-          "title": "Bienes y Raices",
+          "title": "Bienes y Ra\u00edces",
           "text": "Mapa, propiedades, filtros y operaciones inmobiliarias.",
-          "cta": "Entrar a Bienes y Raices",
-          "imageAlt": "Bloque de bienes y raices BlancaReal"
+          "cta": "Entrar a Bienes y Ra\u00edces",
+          "imageAlt": "Bloque de bienes y ra\u00edces BlancaReal"
         },
         "legal": {
           "title": "Servicios Legales",
-          "text": "Cobertura juridica para compraventa, alquiler e inversion.",
+          "text": "Cobertura jur\u00eddica para compraventa, alquiler e inversi\u00f3n.",
           "cta": "Entrar a Legal",
           "imageAlt": "Bloque de servicios legales BlancaReal"
         },
         "commercialization": {
-          "title": "Comercializacion",
+          "title": "Comercializaci\u00f3n",
           "text": "Estrategia comercial para promotoras y producto residencial.",
-          "cta": "Entrar a Comercializacion",
-          "imageAlt": "Bloque de comercializacion BlancaReal"
+          "cta": "Entrar a Comercializaci\u00f3n",
+          "imageAlt": "Bloque de comercializaci\u00f3n BlancaReal"
         }
       }
     },
@@ -367,7 +367,7 @@
       },
       {
         "value": "1.000+",
-        "label": "familias acompanadas"
+        "label": "familias acompa\u00f1adas"
       },
       {
         "value": "Legal + Ventas",
@@ -470,24 +470,24 @@
       "aboutRows": [
         {
           "title": "Trayectoria y confianza",
-          "text": "BlancaReal trabaja en Costa del Sol desde 1969 y ha acompanado a mas de 1.000 familias en sus operaciones inmobiliarias.",
+          "text": "BlancaReal trabaja en Costa del Sol desde 1969 y ha acompa\u00f1ado a m\u00e1s de 1.000 familias en sus operaciones inmobiliarias.",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-          "imageAlt": "Promocion residencial en Costa del Sol"
+          "imageAlt": "Promoci\u00f3n residencial en Costa del Sol"
         },
         {
           "title": "Servicios integrados",
-          "text": "Integramos bienes y raices, comercializacion, asesoramiento legal-fiscal y gestion de patrimonio para cubrir todo el ciclo de una operacion.",
+          "text": "Integramos bienes y ra\u00edces, comercializaci\u00f3n, asesoramiento legal-fiscal y gesti\u00f3n de patrimonio para cubrir todo el ciclo de una operaci\u00f3n.",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
           "imageAlt": "Equipo y servicios inmobiliarios integrados"
         },
         {
           "title": "Cobertura local e internacional",
-          "text": "Con sede en Calahonda, Mijas Costa, operamos con enfoque local y atencion multilingue para clientes nacionales e internacionales.",
+          "text": "Con sede en Calahonda, Mijas Costa, operamos con enfoque local y atenci\u00f3n multiling\u00fce para clientes nacionales e internacionales.",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0084/cover/og-home.jpg",
           "imageAlt": "Vista de Costa del Sol con promociones residenciales"
         }
       ],
-      "collaboratorsTitle": "Colaboradores estrategicos",
+      "collaboratorsTitle": "Colaboradores estrat\u00e9gicos",
       "collaboratorsAria": "Ruleta de colaboradores de BlancaReal",
       "collaborators": [
         "Promotoras asociadas",
@@ -495,7 +495,7 @@
         "Notarias locales",
         "Tasadores homologados",
         "Brokers hipotecarios",
-        "Arquitectos y tecnicos",
+        "Arquitectos y t\u00e9cnicos",
         "Gestores patrimoniales",
         "Especialistas de marketing"
       ],
@@ -504,7 +504,7 @@
       "footerContact": "Contacto",
       "footerLegal": "Legal",
       "footerRights": "Todos los derechos reservados.",
-      "privacy": "Politica de privacidad",
+      "privacy": "Pol\u00edtica de privacidad",
       "cookies": "Cookies"
     },
     "en": {
@@ -716,22 +716,22 @@
   "formByLang": {
     "es": {
       "title": "Solicitar asesoramiento personalizado",
-      "intro": "Cuentanos brevemente tu objetivo y el equipo de BlancaReal te contacta.",
+      "intro": "Cu\u00e9ntanos brevemente tu objetivo y el equipo de BlancaReal te contacta.",
       "toggleOpen": "Abrir formulario",
       "toggleClose": "Cerrar formulario",
       "name": "Nombre",
       "email": "Email",
-      "phone": "Telefono",
+      "phone": "Tel\u00e9fono",
       "service": "Servicio",
       "message": "Mensaje",
       "optionDefault": "Selecciona un servicio",
-      "optionRealEstate": "Bienes y Raices",
+      "optionRealEstate": "Bienes y Ra\u00edces",
       "optionLegal": "Servicios Legales",
-      "optionCommercialization": "Comercializacion",
-      "consentPrefix": "He leido y acepto la",
-      "consentLink": "politica de privacidad",
+      "optionCommercialization": "Comercializaci\u00f3n",
+      "consentPrefix": "He le\u00eddo y acepto la",
+      "consentLink": "pol\u00edtica de privacidad",
       "consentSuffix": "antes de continuar.",
-      "legalNote": "Tus datos se trataran solo para gestionar tu solicitud y redirigirte al formulario seguro de contacto.",
+      "legalNote": "Tus datos se tratar\u00e1n solo para gestionar tu solicitud y redirigirte al formulario seguro de contacto.",
       "redirecting": "Abrimos el formulario seguro de contacto...",
       "submit": "Continuar al formulario"
     },
@@ -848,7 +848,7 @@
       "next": "Ver siguiente perfil",
       "languages": "Idiomas",
       "email": "Correo",
-      "phone": "Telefono",
+      "phone": "Tel\u00e9fono",
       "emailAction": "Enviar correo",
       "phoneAction": "Llamar",
       "noLanguages": "Consultar"
@@ -911,7 +911,7 @@
   },
   "teamLanguageBadges": {
     "es": {
-      "label": "Espanol",
+      "label": "Espa\u00f1ol",
       "flagUrl": "/flags/es.svg"
     },
     "en": {
@@ -939,7 +939,7 @@
     "es": {
       "eyebrow": "Revista BlancaReal",
       "title": "Lecturas recientes sobre mercado, producto y asesoramiento",
-      "intro": "Una seleccion editorial de nuestro blog para poner contexto al mercado, explicar servicios y destacar operaciones o proyectos recientes.",
+      "intro": "Una selecci\u00f3n editorial de nuestro blog para poner contexto al mercado, explicar servicios y destacar operaciones o proyectos recientes.",
       "viewAll": "Ver revista"
     },
     "en": {
@@ -977,16 +977,16 @@
     "es": {
       "eyebrow": "Grupo BlancaReal",
       "heading": "El marketplace de lujo de la Costa del Sol",
-      "text": "Promociones propias, comercializacion premium y acompanamiento legal integrado para compradores e inversores.",
+      "text": "Promociones propias, comercializaci\u00f3n premium y acompa\u00f1amiento legal integrado para compradores e inversores.",
       "primaryCta": "Ver proyecto",
       "secondaryCta": "Ver todos los proyectos",
       "projectLabel": "Proyecto destacado",
-      "locationLabel": "Ubicacion",
+      "locationLabel": "Ubicaci\u00f3n",
       "fromLabel": "Desde",
       "availableLabel": "Disponibles",
       "soldLabel": "Vendidas",
       "progressLabel": "Seleccionar proyecto destacado",
-      "detailLabel": "Promocion activa",
+      "detailLabel": "Promoci\u00f3n activa",
       "prev": "Proyecto anterior",
       "next": "Proyecto siguiente"
     },
@@ -1074,21 +1074,21 @@
   "featuredServicesByLang": {
     "es": {
       "eyebrow": "Servicios destacados",
-      "title": "Las dos lineas que impulsan nuestras operaciones",
-      "intro": "Comercializacion residencial premium y cobertura legal para acompanar la venta, la compra y el producto promotor con una misma firma.",
+      "title": "Las dos l\u00edneas que impulsan nuestras operaciones",
+      "intro": "Comercializaci\u00f3n residencial premium y cobertura legal para acompa\u00f1ar la venta, la compra y el producto promotor con una misma firma.",
       "cards": [
         {
           "href": "/__LANG__/commercialization/",
           "image": "/images/home-sections/commercialization/entrada.png",
-          "title": "Comercializacion",
+          "title": "Comercializaci\u00f3n",
           "text": "Estrategia, posicionamiento y ventas para promociones y producto residencial.",
-          "cta": "Explorar comercializacion"
+          "cta": "Explorar comercializaci\u00f3n"
         },
         {
           "href": "/__LANG__/legal-services/",
           "image": "/images/home-sections/legal-services/legal.jpg",
           "title": "Servicios legales",
-          "text": "Soporte juridico integral para operaciones, contratos e inversores internacionales.",
+          "text": "Soporte jur\u00eddico integral para operaciones, contratos e inversores internacionales.",
           "cta": "Explorar legal"
         }
       ]
@@ -1202,8 +1202,8 @@
   "featuredUnitsByLang": {
     "es": {
       "eyebrow": "Propiedades destacadas",
-      "title": "Una seleccion de unidades hijas listas para activar demanda",
-      "intro": "20 unidades disponibles de nuestros proyectos propios, en rotacion continua para dar visibilidad real al inventario activo.",
+      "title": "Una selección de las unidades mas destacadas.",
+      "intro": "20 unidades disponibles de nuestros proyectos propios, en rotación continua para dar visibilidad real al inventario activo.",
       "prev": "Ver grupo anterior",
       "next": "Ver grupo siguiente"
     },

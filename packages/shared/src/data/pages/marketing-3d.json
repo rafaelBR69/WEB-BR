@@ -2,21 +2,21 @@
   "pageByLang": {
     "es": {
       "title": "Marketing 3D | BlancaReal",
-      "description": "Marketing 3D inmobiliario en la Costa del Sol: fotografia profesional, drones, modelado 3D y campanas estrategicas a medida.",
+      "description": "Marketing 3D inmobiliario en la Costa del Sol: fotografía profesional, drones, modelado 3D y campañas estratégicas a medida.",
       "eyebrow": "Marketing 3D",
       "headingMain": "Marketing 3D inmobiliario en la Costa del Sol",
       "headingSub": "Visuales que activan la venta",
-      "intro": "Convertimos cada activo en una puesta en escena visual y estrategica: capturamos la mejor luz, elevamos la perspectiva, construimos recreaciones hiperrealistas y lanzamos campanas pensadas para el comprador correcto.",
+      "intro": "Convertimos cada activo en una puesta en escena visual y estratégica: capturamos la mejor luz, elevamos la perspectiva, construimos recreaciones hiperrealistas y lanzamos campañas pensadas para el comprador correcto.",
       "primaryCta": "Solicitar propuesta visual",
       "secondaryCta": "Ir a contacto",
       "stats": [
         {
-          "value": "4 modulos",
-          "label": "captura, vuelo, render y campana"
+          "value": "4 módulos",
+          "label": "captura, vuelo, render y campaña"
         },
         {
           "value": "x3",
-          "label": "mas interacciones con video aereo"
+          "label": "más interacciones con video aéreo"
         },
         {
           "value": "Ad-hoc",
@@ -25,32 +25,32 @@
       ],
       "consoleLabel": "Cabina creativa",
       "consoleTitle": "No mostramos una vivienda. Activamos una experiencia.",
-      "consoleText": "Cada pieza entra en una secuencia clara: impacto, lectura espacial, emocion y conversion. La pagina funciona como una sala de control visual para poner su activo en otra liga.",
+      "consoleText": "Cada pieza entra en una secuencia clara: impacto, lectura espacial, emoción y conversión. La página funciona como una sala de control visual para poner su activo en otra liga.",
       "sections": {
-        "solutionsEyebrow": "Nuestras soluciones visuales y estrategicas",
-        "solutionsHeading": "Cuatro modulos, una misma mision",
+        "solutionsEyebrow": "Nuestras soluciones visuales y estratégicas",
+        "solutionsHeading": "Cuatro módulos, una misma misión",
         "solutionsIntro": "Cada formato cumple un papel distinto dentro del recorrido de venta. Juntos construyen deseo, transparencia y velocidad comercial.",
         "flowEyebrow": "Secuencia de salida",
         "flowHeading": "Del primer fotograma al comprador ideal",
-        "flowIntro": "Trabajamos la venta como una progresion: captar atencion, elevar percepcion, hacer tangible lo que aun no existe y convertir visibilidad en demanda cualificada.",
-        "resultsEyebrow": "Tablero de conversion",
+        "flowIntro": "Trabajamos la venta como una progresión: captar atención, elevar percepción, hacer tangible lo que aún no existe y convertir visibilidad en demanda cualificada.",
+        "resultsEyebrow": "Tablero de conversión",
         "resultsHeading": "Lo que afinamos para que el activo compita mejor",
-        "resultsIntro": "La creatividad aqui no es decorativa. Esta al servicio de una lectura comercial mas clara y de una venta mas rapida."
+        "resultsIntro": "La creatividad aquí no es decorativa. Esta al servicio de una lectura comercial más clara y de una venta más rápida."
       },
       "solutions": [
         {
           "id": "photo",
           "kicker": "01 Scan",
-          "title": "Fotografia profesional",
-          "text": "Realizamos imagenes de alta calidad pensadas para enamorar a primera vista y transmitir transparencia. Capturamos luz, angulos, amplitud y eliminamos ruido visual para vender mejor y mas rapido.",
+          "title": "Fotografía profesional",
+          "text": "Realizamos imágenes de alta calidad pensadas para enamorar a primera vista y transmitir transparencia. Capturamos luz, ángulos, amplitud y eliminamos ruido visual para vender mejor y más rápido.",
           "note": "Luz precisa. Espacios limpios. Primer impacto real."
         },
         {
           "id": "drone",
           "kicker": "02 Flight",
           "title": "Videos con drones",
-          "text": "Elevamos la perspectiva y mostramos inmueble y entorno desde el aire mediante recorridos dinamicos. Este formato genera mucha mas atencion en redes y portales que un carrusel de fotos clasico.",
-          "note": "Mas contexto. Mas deseo. Mas interaccion."
+          "text": "Elevamos la perspectiva y mostramos inmueble y entorno desde el aire mediante recorridos dinámicos. Este formato genera mucha más atención en redes y portales que un carrusel de fotos clásico.",
+          "note": "Más contexto. Más deseo. Más interacción."
         },
         {
           "id": "render",
@@ -62,8 +62,8 @@
         {
           "id": "launch",
           "kicker": "04 Launch",
-          "title": "Campanas estrategicas ad-hoc",
-          "text": "Si nos confia su activo, tambien nos ocupamos de que lo vea el comprador ideal. Disenamos email marketing, ads, redes y distribucion digital a medida, invirtiendo donde la campana rinde de verdad.",
+          "title": "Campañas estratégicas ad-hoc",
+          "text": "Si nos confía su activo, también nos ocupamos de que lo vea el comprador ideal. Diseñamos email marketing, ads, redes y distribución digital a medida, invirtiendo donde la campaña rinde de verdad.",
           "note": "No disparamos a todo. Activamos el canal correcto."
         }
       ],
@@ -76,7 +76,7 @@
         {
           "step": "02",
           "title": "Elevar",
-          "text": "Mostramos localizacion, vistas, orientacion y relacion con el entorno."
+          "text": "Mostramos localización, vistas, orientación y relación con el entorno."
         },
         {
           "step": "03",
@@ -92,23 +92,23 @@
       "resultStats": [
         {
           "value": "x3",
-          "label": "interacciones potenciales con video aereo"
+          "label": "interacciones potenciales con video aéreo"
         },
         {
           "value": "4 capas",
-          "label": "foto, dron, 3D y campana"
+          "label": "foto, dron, 3D y campaña"
         },
         {
           "value": "1 estrategia",
           "label": "adaptada a cada vivienda o proyecto"
         }
       ],
-      "checklistTitle": "Que cuidamos en cada salida",
+      "checklistTitle": "Qué cuidamos en cada salida",
       "checklist": [
         "Luz, encuadres y limpieza visual para que la vivienda respire mejor en pantalla.",
-        "Lectura del entorno: vistas, accesos, orientacion y escala urbana.",
+        "Lectura del entorno: vistas, accesos, orientación y escala urbana.",
         "Narrativa espacial para producto terminado o por desarrollar.",
-        "Distribucion de la inversion en canales con capacidad real de respuesta."
+        "Distribución de la inversión en canales con capacidad real de respuesta."
       ],
       "channelsTitle": "Canales que activamos",
       "channels": [
@@ -118,10 +118,10 @@
         "Portales inmobiliarios",
         "Piezas comerciales a medida"
       ],
-      "closingTitle": "Su activo no necesita mas ruido. Necesita mejor escena.",
-      "closingIntro": "BlancaReal une visuales, estrategia y lectura inmobiliaria para que la propiedad no solo se vea mejor: se entienda, se recuerde y se venda con mas velocidad.",
+      "closingTitle": "Su activo no necesita más ruido. Necesita mejor escena.",
+      "closingIntro": "BlancaReal une visuales, estrategia y lectura inmobiliaria para que la propiedad no solo se vea mejor: se entienda, se recuerde y se venda con más velocidad.",
       "closingPrimary": "Hablar con el equipo",
-      "closingSecondary": "Ver comercializacion"
+      "closingSecondary": "Ver comercialización"
     },
     "en": {
       "title": "3D Marketing | BlancaReal",
@@ -249,8 +249,8 @@
   },
   "chromeByLang": {
     "es": {
-      "sectionIndexEyebrow": "Indice de secciones",
-      "sectionIndexAria": "Indice de marketing",
+      "sectionIndexEyebrow": "\u00cdndice de secciones",
+      "sectionIndexAria": "\u00cdndice de marketing",
       "contactLabel": "Contacto",
       "consoleSignals": [
         "Capture",

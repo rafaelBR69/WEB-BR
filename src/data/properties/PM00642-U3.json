@@ -24,7 +24,7 @@
   "transaction": "sale",
   "price": 429000,
   "currency": "EUR",
-  "phase": "Comercializacion",
+  "phase": "Comercialización",
   "location": {
     "country": "ES",
     "province": "Malaga",
@@ -51,7 +51,7 @@
     "unit_code": "BL4-P2-U3",
     "parking_type": "privado_descubierto",
     "community_pool": true,
-    "sales_stage": "Comercializacion",
+    "sales_stage": "Comercialización",
     "delivery_date": "2028-12-01",
     "source_import_date": "2026-02-11",
     "property_group": "UNIFAMILIARES"
