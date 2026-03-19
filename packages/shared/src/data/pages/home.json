@@ -841,6 +841,88 @@
       "submit": "Ga naar formulier"
     }
   },
+  "instagramByLang": {
+    "es": {
+      "eyebrow": "Instagram",
+      "title": "Mantente al dia",
+      "intro": "Unete a BlancaReal en Instagram.",
+      "cta": "Seguir",
+      "ariaLabel": "Publicaciones de Instagram de BlancaReal"
+    },
+    "en": {
+      "eyebrow": "Instagram",
+      "title": "Stay In The Know",
+      "intro": "Join BlancaReal on Instagram.",
+      "cta": "Follow",
+      "ariaLabel": "BlancaReal Instagram posts"
+    },
+    "de": {
+      "eyebrow": "Instagram",
+      "title": "Bleiben Sie auf dem Laufenden",
+      "intro": "Folgen Sie BlancaReal auf Instagram.",
+      "cta": "Folgen",
+      "ariaLabel": "Instagram-Beitraege von BlancaReal"
+    },
+    "fr": {
+      "eyebrow": "Instagram",
+      "title": "Restez informe",
+      "intro": "Suivez BlancaReal sur Instagram.",
+      "cta": "Suivre",
+      "ariaLabel": "Publications Instagram de BlancaReal"
+    },
+    "it": {
+      "eyebrow": "Instagram",
+      "title": "Resta aggiornato",
+      "intro": "Segui BlancaReal su Instagram.",
+      "cta": "Segui",
+      "ariaLabel": "Post Instagram di BlancaReal"
+    },
+    "nl": {
+      "eyebrow": "Instagram",
+      "title": "Blijf op de hoogte",
+      "intro": "Volg BlancaReal op Instagram.",
+      "cta": "Volgen",
+      "ariaLabel": "Instagram-posts van BlancaReal"
+    }
+  },
+  "youtubeByLang": {
+    "es": {
+      "title": "YouTube",
+      "intro": "Descubre recorridos, proyectos y videos de BlancaReal.",
+      "cta": "Ver videos",
+      "ariaLabel": "Videos de YouTube de BlancaReal"
+    },
+    "en": {
+      "title": "YouTube",
+      "intro": "Discover tours, projects and BlancaReal videos.",
+      "cta": "Watch videos",
+      "ariaLabel": "BlancaReal YouTube videos"
+    },
+    "de": {
+      "title": "YouTube",
+      "intro": "Entdecken Sie Rundgaenge, Projekte und Videos von BlancaReal.",
+      "cta": "Videos ansehen",
+      "ariaLabel": "YouTube-Videos von BlancaReal"
+    },
+    "fr": {
+      "title": "YouTube",
+      "intro": "Decouvrez visites, projets et videos de BlancaReal.",
+      "cta": "Voir les videos",
+      "ariaLabel": "Videos YouTube de BlancaReal"
+    },
+    "it": {
+      "title": "YouTube",
+      "intro": "Scopri tour, progetti e video di BlancaReal.",
+      "cta": "Guarda i video",
+      "ariaLabel": "Video YouTube di BlancaReal"
+    },
+    "nl": {
+      "title": "YouTube",
+      "intro": "Ontdek tours, projecten en video's van BlancaReal.",
+      "cta": "Bekijk video's",
+      "ariaLabel": "YouTube-video's van BlancaReal"
+    }
+  },
   "teamByLang": {
     "es": {
       "title": "Nuestro equipo",

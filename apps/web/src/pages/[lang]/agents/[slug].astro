@@ -174,7 +174,13 @@ const pageTitle = `${member.name} | ${t.title}`;
     <article class="agent-detail-card">
       <div class="agent-detail-photo">
         {member.photoUrl ? (
-          <img src={member.photoUrl} alt={member.photoAlt} loading="eager" />
+          <img
+            src={member.photoUrl}
+            alt={member.photoAlt}
+            width="720"
+            height="900"
+            loading="eager"
+          />
         ) : (
           <span>{member.name.slice(0, 1)}</span>
         )}

@@ -1,4 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap");
+@import "@fontsource/cormorant-garamond/latin-400.css";
+@import "@fontsource/cormorant-garamond/latin-ext-400.css";
+@import "@fontsource/cormorant-garamond/latin-500.css";
+@import "@fontsource/cormorant-garamond/latin-ext-500.css";
+@import "@fontsource/cormorant-garamond/latin-600.css";
+@import "@fontsource/cormorant-garamond/latin-ext-600.css";
+@import "@fontsource/cormorant-garamond/latin-700.css";
+@import "@fontsource/cormorant-garamond/latin-ext-700.css";
+@import "@fontsource/fraunces/latin-400.css";
+@import "@fontsource/fraunces/latin-ext-400.css";
+@import "@fontsource/fraunces/latin-500.css";
+@import "@fontsource/fraunces/latin-ext-500.css";
+@import "@fontsource/fraunces/latin-600.css";
+@import "@fontsource/fraunces/latin-ext-600.css";
 
 .service-hero {
   padding-top: clamp(2rem, 5vw, 3.6rem);
@@ -680,9 +693,15 @@
   position: relative;
   overflow: hidden;
   padding: clamp(2.8rem, 8vw, 6rem) 0 clamp(3rem, 7vw, 5rem);
-  background:
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image:
     linear-gradient(112deg, rgba(18, 29, 51, 0.95) 0%, rgba(18, 29, 51, 0.8) 54%, rgba(18, 29, 51, 0.3) 100%),
-    url("/images/commercialization-hero.png") center/cover no-repeat;
+    url("/images/commercialization-hero.png");
+  background-image:
+    linear-gradient(112deg, rgba(18, 29, 51, 0.95) 0%, rgba(18, 29, 51, 0.8) 54%, rgba(18, 29, 51, 0.3) 100%),
+    url("/images/commercialization-hero.webp");
 }
 
 .comm-hero::after {
@@ -1434,9 +1453,15 @@
   position: relative;
   overflow: hidden;
   padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.4rem, 6vw, 4rem);
-  background:
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image:
     linear-gradient(118deg, rgba(17, 27, 46, 0.96) 0%, rgba(17, 27, 46, 0.82) 52%, rgba(17, 27, 46, 0.38) 100%),
-    url("/images/commercialization-hero.png") center/cover no-repeat;
+    url("/images/commercialization-hero.png");
+  background-image:
+    linear-gradient(118deg, rgba(17, 27, 46, 0.96) 0%, rgba(17, 27, 46, 0.82) 52%, rgba(17, 27, 46, 0.38) 100%),
+    url("/images/commercialization-hero.webp");
 }
 
 .brand-hero .container,

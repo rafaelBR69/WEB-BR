@@ -1,21 +1,13 @@
 ---
 import "@webapp/styles/base.css";
 import "@webapp/styles/layout.css";
-import "@webapp/styles/components/property-card.css";
-import "@webapp/styles/components/feature-badge.css";
-import "@webapp/styles/components/properties-grid.css";
-import "@webapp/styles/components/property-hero.css";
-import "@webapp/styles/components/gallery.css";
-import "@webapp/styles/components/property-detail.css";
-import "@webapp/styles/components/filters.css";
-import "@webapp/styles/pages/home.css";
 import { DEFAULT_LANG, LANG_LABELS, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { getUiCopy } from "@shared/i18n/ui";
 import BrandLogo from "@webapp/components/BrandLogo.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
-
-import lightboxUrl from "@webapp/scripts/lightbox.js?url";
-import publicCrmRealtimeUrl from "@webapp/scripts/public-crm-realtime.ts?url";
+import manropeRegularFontUrl from "@fontsource/manrope/files/manrope-latin-400-normal.woff2?url";
+import manropeSemiboldFontUrl from "@fontsource/manrope/files/manrope-latin-600-normal.woff2?url";
+import cormorantSemiboldFontUrl from "@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2?url";
 
 const {
   title = "BlancaReal",
@@ -35,6 +27,9 @@ const {
   showMobileStickyCta = true,
   landingHeaderOverlay = false,
   landingHeaderSolid = false,
+  enableLightbox = false,
+  enablePublicRealtime = false,
+  preloadSmoothyFont = false,
 } = Astro.props;
 
 const SITE_URL = "https://blancareal.com";
@@ -254,16 +249,11 @@ const resolvedSideMenuSections =
     ? sideMenuSectionsProp
     : defaultSideMenuSections;
 
-const hasPublicCatalogRoute =
-  canonicalPath.includes("/properties") ||
-  canonicalPath.includes("/property/") ||
-  canonicalPath.includes("/projects/");
-
 const realtimeOrganizationId =
   String(import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? "").trim() || null;
 
 const publicRealtimeConfig = {
-  enabled: hasPublicCatalogRoute,
+  enabled: Boolean(enablePublicRealtime),
   supabaseUrl: String(import.meta.env.PUBLIC_SUPABASE_URL ?? "").trim(),
   anonKey: String(import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? "").trim(),
   organizationId: realtimeOrganizationId,
@@ -293,6 +283,12 @@ const cookieYesScriptUrl = shouldLoadCookieYes
     <meta name="theme-color" content="#ffffff" />
     <link rel="preconnect" href="https://gslfgcqwmcircqaslzij.supabase.co" crossorigin />
     <link rel="dns-prefetch" href="https://gslfgcqwmcircqaslzij.supabase.co" />
+    <link rel="preload" as="font" type="font/woff2" href={manropeRegularFontUrl} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={manropeSemiboldFontUrl} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={cormorantSemiboldFontUrl} crossorigin />
+    {preloadSmoothyFont && (
+      <link rel="preload" as="font" type="font/woff2" href="/fonts/smoothy-sans-regular.woff2" crossorigin />
+    )}
     {shouldLoadCookieYes && (
       <>
         <link rel="preconnect" href="https://cdn-cookieyes.com" crossorigin />
@@ -943,10 +939,25 @@ const cookieYesScriptUrl = shouldLoadCookieYes
         <script is:inline define:vars={{ publicRealtimeConfig }}>
           window.__blancarealPublicRealtime = publicRealtimeConfig;
         </script>
-        <script type="module" src={publicCrmRealtimeUrl}></script>
+        <script>
+          const loadPublicRealtime = () => import("@webapp/scripts/public-crm-realtime");
+          if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(() => {
+              void loadPublicRealtime();
+            }, { timeout: 2200 });
+          } else {
+            window.setTimeout(() => {
+              void loadPublicRealtime();
+            }, 1200);
+          }
+        </script>
       </>
     )}
-    <script type="module" src={lightboxUrl}></script>
+    {enableLightbox && (
+      <script>
+        import "@webapp/scripts/lightbox.js";
+      </script>
+    )}
     {!import.meta.env.DEV ? <SpeedInsights /> : null}
     </body>
   </html>

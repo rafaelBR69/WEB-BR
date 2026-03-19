@@ -1,4 +1,4 @@
-﻿---
+---
 const {
   token,
   styleUrl = "mapbox://styles/mapbox/standard",
@@ -14,14 +14,8 @@ const {
     { id: "leisure", label: "Ocio" },
   ],
   emptyMessage = "No hay ubicaciones disponibles en el mapa.",
-  zoneFilterLabel = "Zonas",
-  allZonesLabel = "Sin filtro",
-  subzoneFilterLabel = "Subzonas",
-  allSubzonesLabel = "Todas",
   poiLabel = "Puntos de interes",
-  listTitle = "Resultados visibles",
   routePlannerTitle = "Ruta",
-  routePlannerHint = "Pulsa 'Iniciar ruta' en una vivienda y luego elige un POI o resultado como destino.",
   routeStartLabel = "Iniciar ruta",
   routeClearLabel = "Limpiar ruta",
   routeDistanceLabel = "Distancia",
@@ -29,2905 +23,377 @@ const {
   routeSelectionHint = "Selecciona una vivienda para comenzar la ruta.",
   openDetailLabel = "Ver ficha",
   resetViewLabel = "Reiniciar mapa",
+  activateMapLabel = "Activar mapa",
+  exploreAreaLabel = "Explorar zona",
   compact = false,
   fitToFeaturesOnLoad = false,
+  mode = "listing",
+  loadStrategy = "visible",
+  showPois = mode === "detail",
+  showZones = mode === "detail",
+  enableRouting = mode === "detail",
 } = Astro.props;
 
 const featureCollection = {
   type: "FeatureCollection",
   features,
 };
+
+const shouldRenderExploreButton =
+  mode === "detail" && !(showPois && showZones && enableRouting);
 ---
 
-<section class:list={["map-layout", compact && "is-compact"]}>
-  <div class="map-main">
-    <div class="map-reset-wrap">
-      <button type="button" class="map-action map-action-alt map-reset-view-btn" id="resetViewBtn">
+<section class:list={["map-layout", compact && "is-compact", mode === "listing" && "is-listing"]}>
+  <div
+    class="map-shell"
+    data-mapbox-root
+    data-token={token}
+    data-style={styleUrl}
+    data-mode={mode}
+    data-load-strategy={loadStrategy}
+    data-fit-to-features={fitToFeaturesOnLoad ? "true" : "false"}
+    data-features={JSON.stringify(featureCollection)}
+    data-pois-url={poisUrl}
+    data-zones-url={zonesUrl}
+    data-poi-filters={JSON.stringify(poiFilters)}
+    data-empty={emptyMessage}
+    data-open-detail-label={openDetailLabel}
+    data-route-start-label={routeStartLabel}
+    data-route-clear-label={routeClearLabel}
+    data-route-distance-label={routeDistanceLabel}
+    data-route-duration-label={routeDurationLabel}
+    data-route-selection-hint={routeSelectionHint}
+    data-show-pois={showPois ? "true" : "false"}
+    data-show-zones={showZones ? "true" : "false"}
+    data-enable-routing={enableRouting ? "true" : "false"}
+    data-can-load-extras={mode === "detail" ? "true" : "false"}
+  >
+    <div class="map-toolbar">
+      <button type="button" class="map-action map-action-alt" data-map-reset>
         {resetViewLabel}
       </button>
+      {shouldRenderExploreButton && (
+        <button type="button" class="map-action" data-map-load-extras>
+          {exploreAreaLabel}
+        </button>
+      )}
     </div>
-    <div
-      id="costaMap"
-      class="costa-map"
-      data-token={token}
-      data-style={styleUrl}
-      data-compact={compact ? "true" : "false"}
-      data-fit-to-features={fitToFeaturesOnLoad ? "true" : "false"}
-      data-features={JSON.stringify(featureCollection)}
-      data-pois-url={poisUrl}
-      data-zones-url={zonesUrl}
-      data-poi-filters={JSON.stringify(poiFilters)}
-      data-empty={emptyMessage}
-      data-open-detail-label={openDetailLabel}
-      data-route-start-label={routeStartLabel}
-    ></div>
-    <section class="map-poi-overlay" aria-label={poiLabel}>
-      <p class="map-poi-overlay-title">{poiLabel}</p>
-      <div class="poi-filters poi-filters-overlay" id="poiFilters">
-        {poiFilters.map((filter) => (
-          <button type="button" class="poi-chip poi-chip-overlay" data-category={filter.id}>
-            <span class="poi-chip-icon" aria-hidden="true">
-              {filter.id === "restaurant" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M6 3v8M4.5 3v4M7.5 3v4M6 11v10M15 3l-3 8h5l-1.2 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              ) : filter.id === "hospital" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-              ) : filter.id === "school" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M3 9l9-4 9 4-9 4-9-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 11v4c0 1.7 2.2 3 5 3s5-1.3 5-3v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              ) : filter.id === "pharmacy" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><rect x="4" y="9" width="16" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9v6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-              ) : filter.id === "airport" ? (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="M2 12h20M12 3v18M6 8l6 3 6-3M7 16l5-2 5 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              ) : (
-                <svg viewBox="0 0 24 24" class="poi-chip-icon-svg"><path d="m12 3 2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.8-5.2 2.8 1-5.7-4.1-4 5.7-.8Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-              )}
-            </span>
-            <span>{filter.label}</span>
+
+    <div class="map-viewport">
+      <div class="costa-map" data-mapbox-canvas></div>
+      <div class="map-overlay-card" data-mapbox-overlay>
+        <p class="map-overlay-eyebrow">{mode === "listing" ? "Vista interactiva" : "Mapa"}</p>
+        <p class="map-overlay-text">
+          {mode === "listing"
+            ? "Carga el mapa solo cuando quieras explorar la ubicacion."
+            : "Activa el mapa avanzado solo cuando quieras explorar el entorno."}
+        </p>
+        {loadStrategy === "interaction" && (
+          <button type="button" class="map-action" data-map-activate>
+            {activateMapLabel}
           </button>
-        ))}
+        )}
       </div>
-    </section>
-    <section class="map-route-overlay" aria-label={routePlannerTitle} id="routeOverlay" hidden>
-      <p class="map-route-overlay-title">{routePlannerTitle}</p>
-      <button type="button" class="map-action map-action-alt map-route-clear-btn" id="routeClearBtn">{routeClearLabel}</button>
-      <p class="route-selection route-selection-overlay" id="routeSelectionState">{routeSelectionHint}</p>
-      <div class="route-metrics route-metrics-overlay" id="routeMetrics" hidden>
-        <p><strong>{routeDistanceLabel}:</strong> <span id="routeDistanceValue"></span></p>
-        <p><strong>{routeDurationLabel}:</strong> <span id="routeDurationValue"></span></p>
+
+      <div class="map-poi-panel" data-map-poi-panel hidden>
+        <p class="map-poi-panel-title">{poiLabel}</p>
+        <div class="poi-filters" data-map-poi-filters></div>
       </div>
-    </section>
+
+      <div class="map-route-panel" data-map-route-panel hidden>
+        <p class="map-route-title">{routePlannerTitle}</p>
+        <button type="button" class="map-action map-action-alt" data-map-route-clear>
+          {routeClearLabel}
+        </button>
+        <p class="map-route-status" data-map-route-status>{routeSelectionHint}</p>
+        <div class="map-route-metrics" data-map-route-metrics hidden>
+          <p><strong>{routeDistanceLabel}:</strong> <span data-map-route-distance></span></p>
+          <p><strong>{routeDurationLabel}:</strong> <span data-map-route-duration></span></p>
+        </div>
+      </div>
+    </div>
   </div>
-
-  {!compact && (
-    <aside class="map-nav">
-      <section class="nav-section">
-        <p class="map-filter-title">{zoneFilterLabel}</p>
-        <div class="zone-filters" id="zoneFilters" data-all-label={allZonesLabel}></div>
-      </section>
-
-      <section class="nav-section">
-        <p class="map-filter-title">{subzoneFilterLabel}</p>
-        <div class="zone-filters" id="areaFilters" data-all-label={allSubzonesLabel}></div>
-      </section>
-
-      <section class="nav-section nav-results">
-        <h3>{listTitle}</h3>
-        <ul class="map-result-list" id="mapResults"></ul>
-      </section>
-    </aside>
-  )}
 </section>
 
 <script>
-  const [
-    mapboxModule,
-    ,
-    turfHelpers,
-    distanceModule,
-    booleanPointInPolygonModule,
-  ] = await Promise.all([
-    import("mapbox-gl"),
-    import("mapbox-gl/dist/mapbox-gl.css"),
-    import("@turf/helpers"),
-    import("@turf/distance"),
-    import("@turf/boolean-point-in-polygon"),
-  ]);
-
-  const mapboxgl = mapboxModule.default;
-  const { point } = turfHelpers;
-  const distance = distanceModule.default;
-  const booleanPointInPolygon = booleanPointInPolygonModule.default;
-
-  const mapEl = document.getElementById("costaMap");
-  const routeClearBtn = document.getElementById("routeClearBtn");
-  const routeOverlay = document.getElementById("routeOverlay");
-  const routeSelectionState = document.getElementById("routeSelectionState");
-  const routeMetrics = document.getElementById("routeMetrics");
-  const routeDistanceValue = document.getElementById("routeDistanceValue");
-  const routeDurationValue = document.getElementById("routeDurationValue");
-  const resetViewBtn = document.getElementById("resetViewBtn");
-  const poiFiltersEl = document.getElementById("poiFilters");
-  const zoneFiltersEl = document.getElementById("zoneFilters");
-  const areaFiltersEl = document.getElementById("areaFilters");
-  const resultsListEl = document.getElementById("mapResults");
-
-  if (!(mapEl instanceof HTMLDivElement)) {
-    throw new Error("Map container not found.");
-  }
-
-  const token = mapEl.dataset.token || "";
-  const style = mapEl.dataset.style || "mapbox://styles/mapbox/standard";
-  const compactMode = mapEl.dataset.compact === "true";
-  const fitToFeaturesOnLoadMode = mapEl.dataset.fitToFeatures === "true";
-  const emptyMessage = mapEl.dataset.empty || "No hay ubicaciones disponibles.";
-  const openDetailLabel = mapEl.dataset.openDetailLabel || "Ver ficha";
-  const routeStartLabel = mapEl.dataset.routeStartLabel || "Iniciar ruta";
-  const featureCollection = JSON.parse(mapEl.dataset.features || '{"type":"FeatureCollection","features":[]}');
-  const poisUrl = mapEl.dataset.poisUrl || "/data/pois.geojson";
-  const zonesUrl = mapEl.dataset.zonesUrl || "/data/zones.geojson";
-  const poiFilters = JSON.parse(mapEl.dataset.poiFilters || "[]");
-  const parseMapboxStyleRef = (styleUrl) => {
-    const match = /^mapbox:\/\/styles\/([^/]+)\/([^/?#]+)/.exec(styleUrl);
-    if (!match) return null;
-    return { owner: match[1], styleId: match[2] };
-  };
-  const validateMapboxAccess = async (accessToken, styleUrl) => {
-    const styleRef = parseMapboxStyleRef(styleUrl);
-    if (!styleRef) return { ok: true, status: null };
-
-    const probeUrl = `https://api.mapbox.com/styles/v1/${styleRef.owner}/${styleRef.styleId}?access_token=${accessToken}`;
-    try {
-      const response = await fetch(probeUrl, { method: "GET" });
-      if (response.ok) return { ok: true, status: response.status };
-      return { ok: false, status: response.status };
-    } catch {
-      // If the probe fails for network reasons, keep current behavior and let the map try to load.
-      return { ok: true, status: null };
-    }
-  };
-
-  if (!token) {
-    mapEl.innerHTML = `<div class="map-empty">${emptyMessage} (falta PUBLIC_MAPBOX_TOKEN)</div>`;
-  } else {
-    const accessCheck = await validateMapboxAccess(token, style);
-    if (!accessCheck.ok) {
-      const reason =
-        accessCheck.status === 401 || accessCheck.status === 403
-          ? `Mapbox rechazo el token (${accessCheck.status}). Revisa permisos, dominio permitido y facturacion de la cuenta.`
-          : `Mapbox devolvio ${accessCheck.status ?? "error"}.`;
-      mapEl.innerHTML = `<div class="map-empty">${emptyMessage} (${reason})</div>`;
-    } else {
-      mapboxgl.accessToken = token;
-
-      const DETAIL_ZOOM = 16;
-      const PROPERTY_FOCUS_ZOOM = 17.4;
-      const ZONE_HIDE_ZOOM = 12.5;
-      const INITIAL_CENTER = [-4.92, 36.58];
-      const INITIAL_ZOOM = 9.6;
-
-    const withStableId = (rawFeatures, prefix) => {
-      return (rawFeatures || []).map((feature, idx) => ({
-        ...feature,
-        id: feature.id || `${prefix}-${idx + 1}`,
-      }));
-    };
-
-    const slugify = (value) =>
-      String(value || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
-
-    const map = new mapboxgl.Map({
-      container: "costaMap",
-      style,
-      center: INITIAL_CENTER,
-      zoom: INITIAL_ZOOM,
-      cooperativeGestures: true,
-      minZoom: 4,
-      maxZoom: 18,
-      attributionControl: false,
-    });
-
-    map.addControl(new mapboxgl.NavigationControl({ showCompass: true }), "top-right");
-    map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-right");
-
-    const poiColors = {
-      restaurant: "#f97316",
-      hospital: "#ef4444",
-      school: "#2563eb",
-      pharmacy: "#16a34a",
-      airport: "#0ea5e9",
-      leisure: "#9333ea",
-    };
-
-    const poiIcons = {
-      restaurant: "poi-restaurant",
-      hospital: "poi-hospital",
-      school: "poi-school",
-      pharmacy: "poi-pharmacy",
-      airport: "poi-airport",
-      leisure: "poi-leisure",
-    };
-
-    let allPropertyFeatures = withStableId(featureCollection.features || [], "property").map((feature) => {
-      const city = String(feature.properties?.city || "");
-      const area = String(feature.properties?.area || city || "");
-      const areaId = `${slugify(city)}::${slugify(area)}`;
-      return {
-        ...feature,
-        properties: {
-          ...(feature.properties || {}),
-          area,
-          city,
-          areaId,
-        },
-      };
-    });
-    let allPoiFeatures = [];
-    let zoneCollection = { type: "FeatureCollection", features: [] };
-    const selectedZoneIds = new Set();
-    let hoveredZoneFeatureId = null;
-    let hoveredPropertyFeatureId = null;
-    let selectedResultId = "";
-    const activePoiCategories = new Set();
-    let routeOrigin = null;
-    let routeDestination = null;
-    const selectedAreaIds = new Set();
-
-    const getSelectedZoneFeatures = () => {
-      if (!selectedZoneIds.size) return [];
-      return zoneCollection.features.filter((feature) =>
-        selectedZoneIds.has(String(feature.properties?.id || ""))
-      );
-    };
-
-    const pointInsideSelectedZones = (pointCoords) => {
-      const selectedZones = getSelectedZoneFeatures();
-      if (!selectedZones.length) return true;
-      return selectedZones.some((zoneFeature) =>
-        booleanPointInPolygon(point(pointCoords), zoneFeature)
-      );
-    };
-
-    const filterByZonesOnly = (featuresToFilter) => {
-      if (!selectedZoneIds.size) {
-        return { type: "FeatureCollection", features: featuresToFilter };
-      }
-
-      const filtered = featuresToFilter.filter((feature) => {
-        const pointCoords = feature.geometry?.coordinates;
-        if (!Array.isArray(pointCoords) || pointCoords.length < 2) return false;
-        return pointInsideSelectedZones(pointCoords);
-      });
-
-      return { type: "FeatureCollection", features: filtered };
-    };
-
-    const filteredCollection = (featuresToFilter) => {
-      const byZone = filterByZonesOnly(featuresToFilter).features;
-      if (!selectedAreaIds.size) {
-        return { type: "FeatureCollection", features: byZone };
-      }
-      return {
-        type: "FeatureCollection",
-        features: byZone.filter((feature) =>
-          selectedAreaIds.has(String(feature.properties?.areaId || ""))
-        ),
-      };
-    };
-
-    const uiLocale = (() => {
-      const lang = String(document.documentElement?.lang || "es").toLowerCase();
-      if (lang.startsWith("en")) return "en-GB";
-      if (lang.startsWith("de")) return "de-DE";
-      if (lang.startsWith("fr")) return "fr-FR";
-      if (lang.startsWith("it")) return "it-IT";
-      if (lang.startsWith("nl")) return "nl-NL";
-      return "es-ES";
-    })();
-
-    const numberFormatter = new Intl.NumberFormat(uiLocale, { maximumFractionDigits: 0 });
-    const currencyFormatterCache = new Map();
-
-    const toFiniteNumber = (value) => {
-      const num = Number(value);
-      return Number.isFinite(num) ? num : null;
-    };
-
-    const normalizeForCompare = (value) =>
-      String(value || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .trim();
-
-    const formatCityArea = (cityValue, areaValue) => {
-      const city = String(cityValue || "").trim();
-      const area = String(areaValue || "").trim();
-      if (!city) return area;
-      if (!area) return city;
-
-      const cityNorm = normalizeForCompare(city);
-      const areaNorm = normalizeForCompare(area);
-      if (!cityNorm || !areaNorm) return `${city}${city && area ? " · " : ""}${area}`;
-      if (areaNorm === cityNorm || areaNorm.includes(cityNorm)) return area;
-      return `${city} · ${area}`;
-    };
-
-    const formatCurrency = (value, currency = "EUR") => {
-      const amount = toFiniteNumber(value);
-      if (amount === null || amount <= 0) return "";
-      const currencyCode = String(currency || "EUR").toUpperCase();
-      const cacheKey = `${uiLocale}:${currencyCode}`;
-      if (!currencyFormatterCache.has(cacheKey)) {
-        currencyFormatterCache.set(
-          cacheKey,
-          new Intl.NumberFormat(uiLocale, {
-            style: "currency",
-            currency: currencyCode,
-            maximumFractionDigits: 0,
-          })
-        );
-      }
-      return currencyFormatterCache.get(cacheKey).format(amount);
-    };
-
-    const formatRange = (minValue, maxValue, suffix = "") => {
-      const min = toFiniteNumber(minValue);
-      const max = toFiniteNumber(maxValue);
-      if (min === null && max === null) return "";
-      if (min === null || max === null) {
-        const single = min ?? max;
-        return `${numberFormatter.format(single)}${suffix}`;
-      }
-      if (min === max) return `${numberFormatter.format(min)}${suffix}`;
-      return `${numberFormatter.format(min)}-${numberFormatter.format(max)}${suffix}`;
-    };
-
-    const buildResultSummaryHtml = (props) => {
-      const chips = [];
-      const listType = String(props.listingType || "");
-
-      const price = formatCurrency(props.summaryPrice, props.summaryCurrency || "EUR");
-      if (price) {
-        chips.push(
-          `<span class="result-summary-pill result-summary-pill-price">${listType === "promotion" ? "Desde " : ""}${price}</span>`
-        );
-      }
-
-      const beds = formatRange(props.summaryBedroomsMin, props.summaryBedroomsMax, " dorm.");
-      if (beds) {
-        chips.push(`<span class="result-summary-pill">${beds}</span>`);
-      }
-
-      const area = formatRange(props.summaryAreaMin, props.summaryAreaMax, " m²");
-      if (area) {
-        chips.push(`<span class="result-summary-pill">${area}</span>`);
-      }
-
-      if (!chips.length) return "";
-      return `<div class="result-summary-row">${chips.join("")}</div>`;
-    };
-
-    const createPropertyPopupHtml = (props) => {
-      const title = props.title || "Propiedad";
-      const locationLabel = formatCityArea(props.city || "", props.area || "");
-      const listingType = props.listingType || "unit";
-      const availableUnits = props.availableUnits || "";
-      const href = props.href || "#";
-      const coverUrl = String(props.coverUrl || "").trim();
-      const coverFallback = String(props.coverUrlFallback || coverUrl).trim();
-      const unitsLine = listingType === "promotion" && availableUnits ? `<p>${availableUnits} unidades disponibles</p>` : "";
-      const lng = Number(props.lng ?? NaN);
-      const lat = Number(props.lat ?? NaN);
-      const media =
-        coverUrl
-          ? `<img class="map-popup-cover" src="${coverUrl}" data-fallback-src="${coverFallback}" onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;}" alt="${title}" loading="lazy" decoding="async" />`
-          : "";
-      const routeButton =
-        Number.isFinite(lng) && Number.isFinite(lat)
-          ? `<button type="button" class="popup-start-route-btn" data-lng="${lng}" data-lat="${lat}" data-name="${title}">${routeStartLabel}</button>`
-          : "";
-      return `<div class="map-popup map-popup-property">${media}<div class="map-popup-body"><h3>${title}</h3><p>${locationLabel}</p>${unitsLine}<div class="map-popup-actions">${routeButton}<a href="${href}">Ver detalle</a></div></div></div>`;
-    };
-
-    const getVisiblePropertiesInViewport = () => {
-      const bounds = map.getBounds();
-      return filteredCollection(allPropertyFeatures).features.filter((feature) => {
-        const [lng, lat] = feature.geometry?.coordinates || [];
-        return bounds.contains([lng, lat]);
-      });
-    };
-
-    const fitToFeatureCollection = (featuresToFit, options = {}) => {
-      if (!Array.isArray(featuresToFit) || !featuresToFit.length) return;
-      const bounds = new mapboxgl.LngLatBounds();
-      featuresToFit.forEach((feature) => {
-        const coords = feature?.geometry?.coordinates;
-        if (Array.isArray(coords) && coords.length >= 2) {
-          bounds.extend(coords);
-        }
-      });
-      if (bounds.isEmpty()) return;
-      map.fitBounds(bounds, {
-        padding: compactMode ? 36 : 55,
-        duration: 700,
-        maxZoom: compactMode ? 14.8 : 15.8,
-        ...options,
-      });
-    };
-
-    const updateResultOpenState = () => {
-      if (!(resultsListEl instanceof HTMLUListElement)) return;
-      const ready = map.getZoom() >= DETAIL_ZOOM;
-      resultsListEl.querySelectorAll(".map-result-item").forEach((item) => {
-        const isSelected = item.getAttribute("data-id") === selectedResultId;
-        item.classList.toggle("is-selected", isSelected);
-        const link = item.querySelector(".result-open");
-        if (link instanceof HTMLAnchorElement) {
-          const allow = ready && isSelected;
-          link.classList.toggle("is-ready", allow);
-          link.setAttribute("aria-disabled", allow ? "false" : "true");
-          link.tabIndex = allow ? 0 : -1;
-        }
-      });
-    };
-
-    const renderResultsPanel = () => {
-      if (!(resultsListEl instanceof HTMLUListElement)) return;
-      const visibleFeatures = getVisiblePropertiesInViewport();
-
-      if (visibleFeatures.length === 0) {
-        resultsListEl.innerHTML = `<li class="map-result-empty">Sin resultados visibles en este encuadre.</li>`;
-        return;
-      }
-
-      const html = visibleFeatures
-        .map((feature) => {
-          const props = feature.properties || {};
-          const markerType = props.listingType === "promotion" ? "Proyecto" : "Vivienda";
-          const availableUnitsRaw = String(props.availableUnits ?? "").trim();
-          const showAvailableUnits =
-            props.listingType === "promotion" &&
-            availableUnitsRaw !== "" &&
-            availableUnitsRaw !== "0";
-          const unitsMeta = showAvailableUnits
-            ? `<span class="result-meta-badge">${availableUnitsRaw} disp.</span>`
-            : "";
-          const coverUrl = String(props.coverUrl || "").trim();
-          const coverFallback = String(props.coverUrlFallback || coverUrl).trim();
-          const mediaBlock = coverUrl
-            ? `<div class="result-media"><img src="${coverUrl}" data-fallback-src="${coverFallback}" onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;}" alt="${props.title || "Propiedad"}" loading="lazy" decoding="async" /></div>`
-            : `<div class="result-media result-media-placeholder"></div>`;
-          const locationLabel = formatCityArea(props.city || "", props.area || "");
-          const summaryHtml = buildResultSummaryHtml(props);
-          return `
-            <li class="map-result-item" data-id="${feature.id}" data-lng="${feature.geometry.coordinates[0]}" data-lat="${feature.geometry.coordinates[1]}">
-              ${mediaBlock}
-              <div class="result-body">
-                <button type="button" class="result-jump">${props.title || "Propiedad"}</button>
-                <span>${locationLabel}</span>
-                ${summaryHtml}
-                <div class="result-meta-row">
-                  <span class="map-result-tag">${markerType}</span>
-                  ${unitsMeta}
-                </div>
-              </div>
-              <div class="result-actions">
-                <button type="button" class="result-route-btn" data-lng="${feature.geometry.coordinates[0]}" data-lat="${feature.geometry.coordinates[1]}" data-title="${props.title || "Propiedad"}">${routeStartLabel}</button>
-                <a class="result-open" href="${props.href || "#"}" aria-disabled="true" tabindex="-1">${openDetailLabel}</a>
-              </div>
-            </li>
-          `;
-        })
-        .join("");
-
-      resultsListEl.innerHTML = html;
-      updateResultOpenState();
-    };
-
-    const applyZoneFilterToSources = () => {
-      const propertySource = map.getSource("properties");
-      if (!propertySource) return;
-
-      propertySource.setData(filteredCollection(allPropertyFeatures));
-      updatePoiSourceData();
-      renderResultsPanel();
-      updateAreasSource();
-    };
-
-    const getPoiCollectionForMap = () => {
-      let features = filterByZonesOnly(allPoiFeatures).features;
-      if (selectedAreaIds.size) {
-        features = features.filter((feature) => {
-          const areaId = String(feature.properties?.areaId || "");
-          // Many POIs come without area metadata; keep them visible instead of hiding everything.
-          if (!areaId) return true;
-          return selectedAreaIds.has(areaId);
-        });
-      }
-      if (!selectedZoneIds.size && !selectedAreaIds.size) {
-        const nearBounds = map.getBounds();
-        features = features.filter((feature) => {
-          const coords = feature.geometry?.coordinates || [];
-          return Array.isArray(coords) && nearBounds.contains(coords);
-        });
-      }
-      return { type: "FeatureCollection", features };
-    };
-
-    const updatePoiSourceData = () => {
-      const poiSource = map.getSource("pois");
-      if (!poiSource) return;
-      poiSource.setData(getPoiCollectionForMap());
-      poiFilters.forEach((filter) => {
-        setPoiVisibility(filter.id, activePoiCategories.has(filter.id));
-      });
-    };
-
-    const selectedZoneFilterExpression = () => {
-      const zoneIds = [...selectedZoneIds];
-      if (!zoneIds.length) return ["==", ["get", "id"], ""];
-      return ["match", ["get", "id"], zoneIds, true, false];
-    };
-
-    const clearZoneSelection = () => {
-      selectedZoneIds.clear();
-      selectedAreaIds.clear();
-      if (map.getLayer("zones-selected")) {
-        map.setFilter("zones-selected", ["==", ["get", "id"], ""]);
-      }
-      zoneFiltersEl?.querySelectorAll(".zone-chip").forEach((chip) => {
-        const chipZoneId = chip.getAttribute("data-zone-id") || "";
-        chip.classList.toggle("is-active", chipZoneId === "");
-      });
-      applyZoneFilterToSources();
-      updateZoneLayerVisibility();
-      updateAreasSource();
-      renderAreaChips();
-    };
-
-    const setZoneSelection = (zoneId, forceState = null) => {
-      const normalized = String(zoneId || "");
-
-      if (!normalized) {
-        clearZoneSelection();
-        return;
-      }
-
-      const shouldSelect = forceState === null ? !selectedZoneIds.has(normalized) : !!forceState;
-      if (shouldSelect) selectedZoneIds.add(normalized);
-      else selectedZoneIds.delete(normalized);
-      selectedAreaIds.clear();
-
-      if (map.getLayer("zones-selected")) {
-        map.setFilter("zones-selected", selectedZoneFilterExpression());
-      }
-
-      zoneFiltersEl?.querySelectorAll(".zone-chip").forEach((chip) => {
-        const chipZoneId = chip.getAttribute("data-zone-id") || "";
-        if (!chipZoneId) {
-          chip.classList.toggle("is-active", selectedZoneIds.size === 0);
-        } else {
-          chip.classList.toggle("is-active", selectedZoneIds.has(chipZoneId));
-        }
-      });
-
-      applyZoneFilterToSources();
-      updateZoneLayerVisibility();
-      updateAreasSource();
-      renderAreaChips();
-    };
-
-    const updateZoneLayerVisibility = () => {
-      const insideDetailZoom = map.getZoom() >= ZONE_HIDE_ZOOM && selectedZoneIds.size > 0;
-      const visibility = insideDetailZoom ? "none" : "visible";
-      if (map.getLayer("zones-fill")) {
-        map.setLayoutProperty("zones-fill", "visibility", visibility);
-      }
-      if (map.getLayer("zones-outline")) {
-        map.setLayoutProperty("zones-outline", "visibility", visibility);
-      }
-      if (map.getLayer("zones-count")) {
-        map.setLayoutProperty("zones-count", "visibility", visibility);
-      }
-    };
-
-    const renderZoneChips = () => {
-      if (!(zoneFiltersEl instanceof HTMLDivElement)) return;
-      const allLabel = zoneFiltersEl.dataset.allLabel || "Sin filtro";
-      const zones = zoneCollection.features
-        .map((feature) => ({ id: String(feature.properties?.id || ""), name: String(feature.properties?.name || feature.properties?.id || "") }))
-        .filter((zone) => zone.id)
-        .sort((a, b) => a.name.localeCompare(b.name));
-
-      zoneFiltersEl.innerHTML = [
-        `<button type="button" class="zone-chip is-active" data-zone-id="">${allLabel}</button>`,
-        ...zones.map((zone) => `<button type="button" class="zone-chip" data-zone-id="${zone.id}">${zone.name}</button>`),
-      ].join("");
-
-      zoneFiltersEl.querySelectorAll(".zone-chip").forEach((button) => {
-        button.addEventListener("click", () => setZoneSelection(button.getAttribute("data-zone-id") || ""));
-      });
-    };
-
-    const getFeaturesForAreaLevel = () => filteredCollection(allPropertyFeatures).features;
-
-    const updateZoneCountsSource = () => {
-      if (!map.getSource("zones")) return;
-      const baseFeatures = zoneCollection.features || [];
-      const props = allPropertyFeatures || [];
-      const withCounts = baseFeatures.map((zoneFeature) => {
-        const count = props.filter((propertyFeature) => {
-          const coords = propertyFeature.geometry?.coordinates;
-          if (!Array.isArray(coords) || coords.length < 2) return false;
-          return booleanPointInPolygon(point(coords), zoneFeature);
-        }).length;
-        return {
-          ...zoneFeature,
-          properties: {
-            ...(zoneFeature.properties || {}),
-            propertyCount: count,
-          },
-        };
-      });
-      zoneCollection = { ...zoneCollection, features: withCounts };
-      map.getSource("zones").setData(zoneCollection);
-    };
-
-    const computeAreaFeatures = () => {
-      if (!selectedZoneIds.size || map.getZoom() < 10) {
-        return { type: "FeatureCollection", features: [] };
-      }
-
-      const grouped = new Map();
-      const current = filterByZonesOnly(allPropertyFeatures).features;
-      for (const feature of current) {
-        const props = feature.properties || {};
-        const city = String(props.city || "");
-        const area = String(props.area || city || "");
-        const areaId = String(props.areaId || `${slugify(city)}::${slugify(area)}`);
-        const key = areaId;
-        if (!grouped.has(key)) {
-          grouped.set(key, {
-            areaId,
-            city,
-            area,
-            count: 0,
-            points: [],
-          });
-        }
-        const entry = grouped.get(key);
-        entry.count += 1;
-        entry.points.push(feature.geometry.coordinates);
-      }
-
-      const features = [];
-      for (const [key, entry] of grouped.entries()) {
-        if (!entry.points.length) continue;
-        const lngs = entry.points.map((p) => p[0]);
-        const lats = entry.points.map((p) => p[1]);
-        const minLng = Math.min(...lngs);
-        const maxLng = Math.max(...lngs);
-        const minLat = Math.min(...lats);
-        const maxLat = Math.max(...lats);
-        const centerLng = (minLng + maxLng) / 2;
-        const centerLat = (minLat + maxLat) / 2;
-        features.push({
-          type: "Feature",
-          geometry: { type: "Point", coordinates: [centerLng, centerLat] },
-          properties: {
-            id: key,
-            areaId: entry.areaId,
-            city: entry.city,
-            area: entry.area,
-            count: entry.count,
-            minLng,
-            maxLng,
-            minLat,
-            maxLat,
-          },
-        });
-      }
-
-      return { type: "FeatureCollection", features };
-    };
-
-    const updateAreasSource = () => {
-      if (!map.getSource("areas")) return;
-      map.getSource("areas").setData(computeAreaFeatures());
-    };
-
-    const renderAreaChips = () => {
-      if (!(areaFiltersEl instanceof HTMLDivElement)) return;
-      const allLabel = areaFiltersEl.dataset.allLabel || "Todas";
-      const grouped = new Map();
-      const current = filterByZonesOnly(allPropertyFeatures).features;
-      for (const feature of current) {
-        const props = feature.properties || {};
-        const areaId = String(props.areaId || "");
-        const area = String(props.area || "");
-        if (!areaId || !area) continue;
-        grouped.set(areaId, {
-          areaId,
-          area,
-          count: (grouped.get(areaId)?.count || 0) + 1,
-        });
-      }
-
-      const items = [...grouped.values()].sort((a, b) => a.area.localeCompare(b.area));
-      areaFiltersEl.innerHTML = [
-        `<button type="button" class="zone-chip ${selectedAreaIds.size === 0 ? "is-active" : ""}" data-area-id="">${allLabel}</button>`,
-        ...items.map(
-          (item) =>
-            `<button type="button" class="zone-chip ${selectedAreaIds.has(item.areaId) ? "is-active" : ""}" data-area-id="${item.areaId}">${item.area} (${item.count})</button>`
-        ),
-      ].join("");
-
-      areaFiltersEl.querySelectorAll(".zone-chip").forEach((button) => {
-        button.addEventListener("click", () => {
-          const areaId = button.getAttribute("data-area-id") || "";
-          if (!areaId) {
-            selectedAreaIds.clear();
-          } else if (selectedAreaIds.has(areaId)) {
-            selectedAreaIds.delete(areaId);
-          } else {
-            selectedAreaIds.add(areaId);
-          }
-          renderAreaChips();
-          applyZoneFilterToSources();
-          updateAreasSource();
-        });
-      });
-    };
-
-    const setPoiVisibility = (category, visible) => {
-      const layerId = `pois-${category}`;
-      const symbolLayerId = `pois-symbol-${category}`;
-      if (map.getLayer(layerId)) map.setLayoutProperty(layerId, "visibility", visible ? "visible" : "none");
-      if (map.getLayer(symbolLayerId)) map.setLayoutProperty(symbolLayerId, "visibility", visible ? "visible" : "none");
-    };
-
-    const registerPoiIcons = () => {
-      const hexToRgb = (hex) => {
-        const clean = String(hex || "").replace("#", "");
-        if (clean.length !== 6) return { r: 107, g: 114, b: 128 };
-        return {
-          r: Number.parseInt(clean.slice(0, 2), 16),
-          g: Number.parseInt(clean.slice(2, 4), 16),
-          b: Number.parseInt(clean.slice(4, 6), 16),
-        };
-      };
-
-      const tone = (hex, delta) => {
-        const { r, g, b } = hexToRgb(hex);
-        const clamp = (v) => Math.max(0, Math.min(255, Math.round(v)));
-        return `rgb(${clamp(r + delta)}, ${clamp(g + delta)}, ${clamp(b + delta)})`;
-      };
-
-      const drawStar = (ctx, cx, cy, outerR, innerR) => {
-        let rot = Math.PI / 2 * 3;
-        const step = Math.PI / 5;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy - outerR);
-        for (let i = 0; i < 5; i += 1) {
-          ctx.lineTo(cx + Math.cos(rot) * outerR, cy + Math.sin(rot) * outerR);
-          rot += step;
-          ctx.lineTo(cx + Math.cos(rot) * innerR, cy + Math.sin(rot) * innerR);
-          rot += step;
-        }
-        ctx.closePath();
-      };
-
-      const drawPill = (ctx, cx, cy, width, height, angle = -0.62) => {
-        const radius = height / 2;
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.rotate(angle);
-        ctx.beginPath();
-        ctx.moveTo(-width / 2 + radius, -height / 2);
-        ctx.lineTo(width / 2 - radius, -height / 2);
-        ctx.arc(width / 2 - radius, 0, radius, -Math.PI / 2, Math.PI / 2);
-        ctx.lineTo(-width / 2 + radius, height / 2);
-        ctx.arc(-width / 2 + radius, 0, radius, Math.PI / 2, Math.PI * 1.5);
-        ctx.closePath();
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(0, -height / 2 + 0.6);
-        ctx.lineTo(0, height / 2 - 0.6);
-        ctx.stroke();
-        ctx.restore();
-      };
-
-      const drawPoiGlyph = (ctx, category, cx, cy) => {
-        ctx.save();
-        ctx.strokeStyle = "#ffffff";
-        ctx.fillStyle = "#ffffff";
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-
-        if (category === "restaurant") {
-          ctx.lineWidth = 2.8;
-          ctx.beginPath();
-          ctx.moveTo(cx - 8, cy - 10);
-          ctx.lineTo(cx - 8, cy + 9);
-          ctx.moveTo(cx - 12, cy - 10);
-          ctx.lineTo(cx - 12, cy - 4);
-          ctx.moveTo(cx - 8, cy - 10);
-          ctx.lineTo(cx - 8, cy - 4);
-          ctx.moveTo(cx - 4, cy - 10);
-          ctx.lineTo(cx - 4, cy - 4);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(cx + 9, cy - 10);
-          ctx.lineTo(cx + 3, cy + 9);
-          ctx.lineTo(cx + 10.5, cy + 9);
-          ctx.closePath();
-          ctx.fill();
-        } else if (category === "hospital") {
-          ctx.lineWidth = 4.6;
-          ctx.beginPath();
-          ctx.moveTo(cx - 9, cy);
-          ctx.lineTo(cx + 9, cy);
-          ctx.moveTo(cx, cy - 9);
-          ctx.lineTo(cx, cy + 9);
-          ctx.stroke();
-        } else if (category === "school") {
-          ctx.beginPath();
-          ctx.moveTo(cx - 13, cy - 2);
-          ctx.lineTo(cx, cy - 9);
-          ctx.lineTo(cx + 13, cy - 2);
-          ctx.lineTo(cx, cy + 5);
-          ctx.closePath();
-          ctx.fill();
-
-          ctx.fillRect(cx - 8, cy + 5, 16, 3.4);
-          ctx.lineWidth = 2.2;
-          ctx.beginPath();
-          ctx.moveTo(cx + 10, cy - 1);
-          ctx.lineTo(cx + 12, cy + 9);
-          ctx.stroke();
-        } else if (category === "pharmacy") {
-          ctx.lineWidth = 2.8;
-          drawPill(ctx, cx, cy + 1, 21, 9);
-        } else if (category === "airport") {
-          ctx.lineWidth = 2.6;
-          ctx.beginPath();
-          ctx.moveTo(cx - 12, cy);
-          ctx.lineTo(cx + 12, cy);
-          ctx.moveTo(cx, cy - 9);
-          ctx.lineTo(cx, cy + 10);
-          ctx.moveTo(cx - 8, cy - 6);
-          ctx.lineTo(cx, cy - 1.5);
-          ctx.lineTo(cx + 8, cy - 6);
-          ctx.moveTo(cx - 7, cy + 6);
-          ctx.lineTo(cx, cy + 2.4);
-          ctx.lineTo(cx + 7, cy + 6);
-          ctx.stroke();
-        } else {
-          drawStar(ctx, cx, cy, 10.5, 5.2);
-          ctx.fill();
-        }
-
-        ctx.restore();
-      };
-
-      Object.entries(poiIcons).forEach(([category, imageId]) => {
-        if (map.hasImage(imageId)) return;
-        const size = 64;
-        const canvas = document.createElement("canvas");
-        canvas.width = size;
-        canvas.height = size;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        ctx.clearRect(0, 0, size, size);
-        ctx.beginPath();
-        ctx.arc(size / 2, size / 2 + 2.2, 22, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(15, 23, 42, 0.34)";
-        ctx.fill();
-
-        const baseColor = poiColors[category] || "#6b7280";
-        const radial = ctx.createLinearGradient(12, 10, 52, 56);
-        radial.addColorStop(0, tone(baseColor, 32));
-        radial.addColorStop(0.52, baseColor);
-        radial.addColorStop(1, tone(baseColor, -28));
-
-        ctx.beginPath();
-        ctx.arc(size / 2, size / 2, 23, 0, Math.PI * 2);
-        ctx.fillStyle = radial;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(size / 2, size / 2, 22, 0, Math.PI * 2);
-        ctx.lineWidth = 3.2;
-        ctx.strokeStyle = "#ffffff";
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(size / 2 - 5, size / 2 - 7, 10.5, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
-        ctx.fill();
-
-        drawPoiGlyph(ctx, category, size / 2, size / 2);
-
-        map.addImage(imageId, ctx.getImageData(0, 0, size, size), { pixelRatio: 2 });
-      });
-    };
-
-    const routePointsFeatureCollection = () => {
-      const points = [];
-      if (routeOrigin) {
-        points.push({
-          type: "Feature",
-          geometry: { type: "Point", coordinates: routeOrigin },
-          properties: { role: "origin" },
-        });
-      }
-      if (routeDestination) {
-        points.push({
-          type: "Feature",
-          geometry: { type: "Point", coordinates: routeDestination },
-          properties: { role: "destination" },
-        });
-      }
-      return { type: "FeatureCollection", features: points };
-    };
-
-    const updateRoutePointLayers = () => {
-      map.getSource("route-points")?.setData(routePointsFeatureCollection());
-    };
-
-    const updateRouteOverlayVisibility = () => {
-      if (!(routeOverlay instanceof HTMLElement)) return;
-      const show = !!routeOrigin;
-      if (show) routeOverlay.removeAttribute("hidden");
-      else routeOverlay.setAttribute("hidden", "");
-    };
-
-    const clearRoute = () => {
-      routeOrigin = null;
-      routeDestination = null;
-      map.getSource("route")?.setData({ type: "FeatureCollection", features: [] });
-      map.getSource("route-points")?.setData({ type: "FeatureCollection", features: [] });
-      if (routeMetrics instanceof HTMLDivElement) routeMetrics.hidden = true;
-      if (routeDistanceValue instanceof HTMLSpanElement) routeDistanceValue.textContent = "";
-      if (routeDurationValue instanceof HTMLSpanElement) routeDurationValue.textContent = "";
-      if (routeSelectionState instanceof HTMLParagraphElement) {
-        routeSelectionState.textContent = "Selecciona una vivienda para comenzar la ruta.";
-      }
-      updateRouteOverlayVisibility();
-    };
-
-    const setRouteOrigin = (coords, label = "") => {
-      routeOrigin = coords;
-      routeDestination = null;
-      map.getSource("route")?.setData({ type: "FeatureCollection", features: [] });
-      if (routeMetrics instanceof HTMLDivElement) routeMetrics.hidden = true;
-      if (routeDistanceValue instanceof HTMLSpanElement) routeDistanceValue.textContent = "";
-      if (routeDurationValue instanceof HTMLSpanElement) routeDurationValue.textContent = "";
-      updateRoutePointLayers();
-      updateRouteOverlayVisibility();
-      if (routeSelectionState instanceof HTMLParagraphElement) {
-        routeSelectionState.textContent = label
-          ? `Ruta iniciada desde: ${label}. ¿A donde quieres ir? Elige restaurante, hospital, colegio, farmacia, aeropuerto u ocio.`
-          : "Ruta iniciada. ¿A donde quieres ir? Elige destino en POIs o en la lista.";
-      }
-    };
-
-    const setRouteDestination = async (coords, label = "") => {
-      if (!routeOrigin) return;
-      routeDestination = coords;
-      updateRoutePointLayers();
-      updateRouteOverlayVisibility();
-      await drawRoute();
-      if (routeSelectionState instanceof HTMLParagraphElement) {
-        routeSelectionState.textContent = label
-          ? `Destino fijado: ${label}.`
-          : "Destino fijado.";
-      }
-    };
-
-    const drawRoute = async () => {
-      if (!routeOrigin || !routeDestination) return;
-      const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${routeOrigin[0]},${routeOrigin[1]};${routeDestination[0]},${routeDestination[1]}?geometries=geojson&overview=full&steps=false&access_token=${token}`;
-      try {
-        const response = await fetch(url);
-        if (!response.ok) return;
-        const data = await response.json();
-        const first = data.routes?.[0];
-        if (!first?.geometry) return;
-
-        map.getSource("route")?.setData({
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              geometry: first.geometry,
-              properties: {},
-            },
-          ],
-        });
-
-        const km = (Number(first.distance || 0) / 1000).toFixed(2);
-        const minutes = Math.round(Number(first.duration || 0) / 60);
-        if (routeDistanceValue instanceof HTMLSpanElement) routeDistanceValue.textContent = `${km} km`;
-        if (routeDurationValue instanceof HTMLSpanElement) routeDurationValue.textContent = `${minutes} min`;
-        if (routeMetrics instanceof HTMLDivElement) routeMetrics.hidden = false;
-      } catch {
-        // Ignore API errors
-      }
-    };
-    map.on("load", async () => {
-      registerPoiIcons();
-
-      map.addSource("properties", {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: allPropertyFeatures },
-        cluster: true,
-        clusterRadius: 46,
-        clusterMaxZoom: 12,
-      });
-
-      map.addSource("pois", {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: [] },
-      });
-
-      map.addSource("route", {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: [] },
-      });
-
-      map.addSource("route-points", {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: [] },
-      });
-
-      map.addSource("areas", {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: [] },
-      });
-
-      map.addLayer({
-        id: "clusters",
-        type: "circle",
-        source: "properties",
-        filter: ["has", "point_count"],
-        paint: {
-          "circle-color": "#202F4E",
-          "circle-radius": ["step", ["get", "point_count"], 16, 12, 20, 24, 24],
-          "circle-stroke-color": "#ffffff",
-          "circle-stroke-width": 2,
-        },
-      });
-
-      map.addLayer({
-        id: "cluster-count",
-        type: "symbol",
-        source: "properties",
-        filter: ["has", "point_count"],
-        layout: {
-          "text-field": "{point_count_abbreviated}",
-          "text-size": 12,
-          "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
-        },
-        paint: {
-          "text-color": "#ffffff",
-        },
-      });
-
-      map.addLayer({
-        id: "points",
-        type: "circle",
-        source: "properties",
-        filter: ["!", ["has", "point_count"]],
-        paint: {
-          "circle-color": ["match", ["get", "listingType"], "promotion", "#1d4ed8", "#D32C43"],
-          "circle-radius": ["case", ["boolean", ["feature-state", "hover"], false], 10, ["match", ["get", "listingType"], "promotion", 8, 6]],
-          "circle-stroke-color": "#ffffff",
-          "circle-stroke-width": 2,
-        },
-      });
-
-      if (fitToFeaturesOnLoadMode) {
-        fitToFeatureCollection(allPropertyFeatures, { duration: 0 });
-      }
-
-      map.addLayer({
-        id: "route-line",
-        type: "line",
-        source: "route",
-        paint: {
-          "line-color": "#0f766e",
-          "line-width": 4,
-          "line-opacity": 0.9,
-        },
-      });
-
-      map.addLayer({
-        id: "route-points-layer",
-        type: "circle",
-        source: "route-points",
-        paint: {
-          "circle-color": [
-            "match",
-            ["get", "role"],
-            "origin",
-            "#0ea5e9",
-            "destination",
-            "#d32c43",
-            "#202f4e",
-          ],
-          "circle-radius": 7,
-          "circle-stroke-color": "#ffffff",
-          "circle-stroke-width": 2,
-        },
-      });
-
-      map.addLayer({
-        id: "areas-bubbles",
-        type: "circle",
-        source: "areas",
-        paint: {
-          "circle-color": "#1d4ed8",
-          "circle-radius": [
-            "interpolate",
-            ["linear"],
-            ["get", "count"],
-            1,
-            12,
-            5,
-            16,
-            12,
-            21,
-          ],
-          "circle-opacity": 0.82,
-          "circle-stroke-color": "#ffffff",
-          "circle-stroke-width": 2,
-        },
-      });
-
-      map.addLayer({
-        id: "areas-count",
-        type: "symbol",
-        source: "areas",
-        layout: {
-          "text-field": ["concat", ["get", "area"], "\n", ["to-string", ["get", "count"]]],
-          "text-size": 11,
-          "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
-          "text-max-width": 9,
-          "text-justify": "center",
-        },
-        paint: {
-          "text-color": "#ffffff",
-          "text-halo-color": "rgba(15,23,42,0.35)",
-          "text-halo-width": 0.8,
-        },
-      });
-
-      map.on("click", "clusters", (event) => {
-        const feature = map.queryRenderedFeatures(event.point, { layers: ["clusters"] })[0];
-        if (!feature) return;
-        const clusterId = feature.properties?.cluster_id;
-        map.getSource("properties").getClusterExpansionZoom(clusterId, (error, zoom) => {
-          if (error) return;
-          map.easeTo({ center: feature.geometry.coordinates, zoom });
-        });
-      });
-
-      map.on("mousemove", "points", (event) => {
-        map.getCanvas().style.cursor = "pointer";
-        const current = event.features?.[0];
-        if (!current || current.id == null) return;
-        if (hoveredPropertyFeatureId !== null && hoveredPropertyFeatureId !== current.id) {
-          map.setFeatureState({ source: "properties", id: hoveredPropertyFeatureId }, { hover: false });
-        }
-        hoveredPropertyFeatureId = current.id;
-        map.setFeatureState({ source: "properties", id: hoveredPropertyFeatureId }, { hover: true });
-      });
-
-      map.on("mouseleave", "points", () => {
-        map.getCanvas().style.cursor = "";
-        if (hoveredPropertyFeatureId !== null) {
-          map.setFeatureState({ source: "properties", id: hoveredPropertyFeatureId }, { hover: false });
-        }
-        hoveredPropertyFeatureId = null;
-      });
-
-      map.on("click", "points", (event) => {
-        const pointFeature = event.features?.[0];
-        if (!pointFeature) return;
-        const id = String(pointFeature.id || "");
-        selectedResultId = id;
-        updateResultOpenState();
-        const coords = pointFeature.geometry.coordinates.slice();
-        map.flyTo({
-          center: coords,
-          zoom: Math.max(map.getZoom(), PROPERTY_FOCUS_ZOOM),
-          duration: 850,
-          essential: true,
-        });
-        const popupProps = {
-          ...(pointFeature.properties || {}),
-          lng: coords[0],
-          lat: coords[1],
-        };
-        new mapboxgl.Popup({ closeButton: true, offset: 12 })
-          .setLngLat(coords)
-          .setHTML(createPropertyPopupHtml(popupProps))
-          .addTo(map);
-      });
-
-      map.on("click", "areas-bubbles", (event) => {
-        const areaFeature = event.features?.[0];
-        if (!areaFeature) return;
-        const p = areaFeature.properties || {};
-        const areaId = String(p.areaId || p.id || "");
-        if (areaId) {
-          if (selectedAreaIds.has(areaId)) selectedAreaIds.delete(areaId);
-          else selectedAreaIds.add(areaId);
-          renderAreaChips();
-          applyZoneFilterToSources();
-        }
-        const minLng = Number(p.minLng);
-        const minLat = Number(p.minLat);
-        const maxLng = Number(p.maxLng);
-        const maxLat = Number(p.maxLat);
-        if ([minLng, minLat, maxLng, maxLat].every(Number.isFinite)) {
-          map.fitBounds(
-            [
-              [minLng, minLat],
-              [maxLng, maxLat],
-            ],
-            { padding: 55, duration: 700, maxZoom: 16.2 }
-          );
-        }
-      });
-
-      map.on("mouseenter", "areas-bubbles", () => {
-        map.getCanvas().style.cursor = "pointer";
-      });
-      map.on("mouseleave", "areas-bubbles", () => {
-        map.getCanvas().style.cursor = "";
-      });
-
-      map.on("click", (event) => {
-        if (selectedZoneIds.size) {
-          const candidateLayers = ["zones-fill", "zones-outline", "zones-selected", "areas-bubbles", "points", "clusters"];
-          const existingLayers = candidateLayers.filter((layerId) => map.getLayer(layerId));
-          const hits = existingLayers.length
-            ? map.queryRenderedFeatures(event.point, { layers: existingLayers })
-            : [];
-          if (!hits.length) {
-            clearZoneSelection();
-            updateAreasSource();
-          }
-        }
-      });
-
-      try {
-        const zonesResponse = await fetch(zonesUrl);
-        if (zonesResponse.ok) {
-          const rawZones = await zonesResponse.json();
-          const normalized = (rawZones.features || []).map((feature, index) => ({
-            ...feature,
-            id: index + 1,
-            properties: {
-              ...(feature.properties || {}),
-              id: String(feature.properties?.id || `zone-${index + 1}`),
-              name: String(feature.properties?.name || feature.properties?.id || `zone-${index + 1}`),
-            },
-          }));
-
-          zoneCollection = { type: "FeatureCollection", features: normalized };
-          map.addSource("zones", { type: "geojson", data: zoneCollection });
-          map.addLayer({ id: "zones-fill", type: "fill", source: "zones", paint: { "fill-color": "#2563eb", "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.22, 0.08] } });
-          map.addLayer({ id: "zones-outline", type: "line", source: "zones", paint: { "line-color": "#1d4ed8", "line-width": 1 } });
-          map.addLayer({ id: "zones-selected", type: "line", source: "zones", filter: ["==", ["get", "id"], ""], paint: { "line-color": "#D32C43", "line-width": 3 } });
-          map.addLayer({
-            id: "zones-count",
-            type: "symbol",
-            source: "zones",
-            layout: {
-              "text-field": [
-                "case",
-                [">", ["coalesce", ["get", "propertyCount"], 0], 0],
-                ["to-string", ["get", "propertyCount"]],
-                "",
-              ],
-              "text-size": 13,
-              "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
-            },
-            paint: {
-              "text-color": "#0f172a",
-              "text-halo-color": "#ffffff",
-              "text-halo-width": 1.4,
-            },
-          });
-
-          map.on("mousemove", "zones-fill", (event) => {
-            const feature = event.features?.[0];
-            if (!feature) return;
-            if (hoveredZoneFeatureId !== null) map.setFeatureState({ source: "zones", id: hoveredZoneFeatureId }, { hover: false });
-            hoveredZoneFeatureId = feature.id;
-            map.setFeatureState({ source: "zones", id: hoveredZoneFeatureId }, { hover: true });
-          });
-
-          map.on("mouseleave", "zones-fill", () => {
-            if (hoveredZoneFeatureId !== null) map.setFeatureState({ source: "zones", id: hoveredZoneFeatureId }, { hover: false });
-            hoveredZoneFeatureId = null;
-          });
-
-          map.on("click", "zones-fill", (event) => {
-            const feature = event.features?.[0];
-            if (!feature) return;
-            const zoneId = String(feature.properties?.id || "");
-            const wasSelected = selectedZoneIds.has(zoneId);
-            setZoneSelection(zoneId);
-            if (wasSelected) return;
-            const bounds = new mapboxgl.LngLatBounds();
-            const geometry = feature.geometry;
-            if (geometry?.type === "Polygon") {
-              geometry.coordinates?.[0]?.forEach((coord) => bounds.extend(coord));
-            } else if (geometry?.type === "MultiPolygon") {
-              geometry.coordinates?.forEach((polygon) =>
-                polygon?.[0]?.forEach((coord) => bounds.extend(coord))
-              );
-            }
-          if (!bounds.isEmpty()) {
-              map.fitBounds(bounds, { padding: 55, duration: 700, maxZoom: 11.8 });
-            }
-          });
-
-          renderZoneChips();
-          renderAreaChips();
-          updateZoneCountsSource();
-          updateAreasSource();
-          updateZoneLayerVisibility();
-        }
-      } catch {
-        // Continue without zones
-      }
-
-      try {
-        const response = await fetch(poisUrl);
-        if (response.ok) {
-          const pois = await response.json();
-          const airportFeatures = [
-            {
-              type: "Feature",
-              geometry: { type: "Point", coordinates: [-4.49911, 36.675] },
-              properties: {
-                id: "manual-airport-malaga",
-                name: "Aeropuerto de Malaga (AGP)",
-                category: "airport",
-                city: "Malaga",
-                area: "Churriana",
-                address: "Av. del Comandante Garcia Morato, s/n",
-              },
-            },
-            {
-              type: "Feature",
-              geometry: { type: "Point", coordinates: [-5.34968, 36.15122] },
-              properties: {
-                id: "manual-airport-gibraltar",
-                name: "Aeropuerto de Gibraltar (GIB)",
-                category: "airport",
-                city: "Gibraltar",
-                area: "",
-                address: "Winston Churchill Ave",
-              },
-            },
-          ];
-
-          allPoiFeatures = withStableId([...(pois.features || []), ...airportFeatures], "poi").map((feature) => {
-            const props = feature.properties || {};
-            const city = String(props.city || "");
-            const area = String(props.area || "");
-            const areaId =
-              city && area
-                ? `${slugify(city)}::${slugify(area)}`
-                : "";
-            return {
-              ...feature,
-              properties: {
-                ...props,
-                city,
-                area,
-                areaId,
-              },
-            };
-          });
-
-          poiFilters.forEach((filter) => {
-            const layerId = `pois-${filter.id}`;
-            const symbolLayerId = `pois-symbol-${filter.id}`;
-            map.addLayer({
-              id: layerId,
-              type: "circle",
-              source: "pois",
-              filter: ["==", ["get", "category"], filter.id],
-              layout: { visibility: "none" },
-              paint: {
-                "circle-color": poiColors[filter.id] || "#6b7280",
-                "circle-radius": 5,
-                "circle-stroke-color": "#ffffff",
-                "circle-stroke-width": 1.2,
-              },
-            });
-
-            map.addLayer({
-              id: symbolLayerId,
-              type: "symbol",
-              source: "pois",
-              filter: ["==", ["get", "category"], filter.id],
-              layout: {
-                visibility: "none",
-                "icon-image": poiIcons[filter.id] || "marker-15",
-                "icon-size": 0.62,
-                "icon-padding": 8,
-                "icon-allow-overlap": false,
-                "icon-ignore-placement": false,
-              },
-            });
-
-            const handlePoiClick = (event) => {
-              const poi = event.features?.[0];
-              if (!poi) return;
-              const props = poi.properties || {};
-              if (routeOrigin) {
-                setRouteDestination(poi.geometry.coordinates.slice(), props.name || "POI");
-              }
-              const html = `<div class="map-popup"><div class="map-popup-body"><h3>${props.name || "POI"}</h3><p>${props.city || ""}${props.city && props.area ? " · " : ""}${props.area || ""}</p>${props.address ? `<p>${props.address}</p>` : ""}</div></div>`;
-              new mapboxgl.Popup({ closeButton: true, offset: 10 })
-                .setLngLat(poi.geometry.coordinates.slice())
-                .setHTML(html)
-                .addTo(map);
-            };
-
-            map.on("click", layerId, handlePoiClick);
-            map.on("click", symbolLayerId, handlePoiClick);
-          });
-
-          poiFiltersEl?.querySelectorAll(".poi-chip[data-category]").forEach((button) => {
-            button.addEventListener("click", () => {
-              const category = button.getAttribute("data-category");
-              if (!category) return;
-              if (activePoiCategories.has(category)) {
-                activePoiCategories.delete(category);
-                button.classList.remove("is-active");
-                setPoiVisibility(category, false);
-              } else {
-                activePoiCategories.add(category);
-                button.classList.add("is-active");
-                setPoiVisibility(category, true);
-              }
-              poiFilters.forEach((filter) => {
-                setPoiVisibility(filter.id, activePoiCategories.has(filter.id));
-              });
-              updatePoiSourceData();
-            });
-          });
-
-          applyZoneFilterToSources();
-          renderResultsPanel();
-          map.on("moveend", renderResultsPanel);
-        }
-      } catch {
-        // Continue without pois
-      }
-
-    });
-
-    map.on("moveend", () => {
-      updateResultOpenState();
-      updateZoneLayerVisibility();
-      updateAreasSource();
-      updatePoiSourceData();
-    });
-
-    resultsListEl?.addEventListener("click", (event) => {
-      const target = event.target;
-      if (!(target instanceof HTMLElement)) return;
-
-      const link = target.closest(".result-open");
-      if (link instanceof HTMLAnchorElement && !link.classList.contains("is-ready")) {
-        event.preventDefault();
-        return;
-      }
-
-      const item = target.closest(".map-result-item");
-      if (!(item instanceof HTMLLIElement)) return;
-
-      if (target.closest(".result-open")) return;
-      const routeBtn = target.closest(".result-route-btn");
-      if (routeBtn instanceof HTMLButtonElement) {
-        const routeLng = Number(routeBtn.dataset.lng);
-        const routeLat = Number(routeBtn.dataset.lat);
-        const routeTitle = routeBtn.dataset.title || "Propiedad";
-        if (Number.isFinite(routeLng) && Number.isFinite(routeLat)) {
-          setRouteOrigin([routeLng, routeLat], routeTitle);
-        }
-        return;
-      }
-
-      const lng = Number(item.dataset.lng);
-      const lat = Number(item.dataset.lat);
-      const id = item.dataset.id || "";
-      if (!Number.isFinite(lng) || !Number.isFinite(lat)) return;
-
-      selectedResultId = id;
-      map.flyTo({
-        center: [lng, lat],
-        zoom: Math.max(map.getZoom(), PROPERTY_FOCUS_ZOOM),
-        duration: 850,
-        essential: true,
-      });
-      updateResultOpenState();
-    });
-
-    routeClearBtn?.addEventListener("click", () => {
-      clearRoute();
-    });
-
-    resetViewBtn?.addEventListener("click", () => {
-      if (fitToFeaturesOnLoadMode && allPropertyFeatures.length) {
-        fitToFeatureCollection(filteredCollection(allPropertyFeatures).features);
-        return;
-      }
-      map.easeTo({
-        center: INITIAL_CENTER,
-        zoom: INITIAL_ZOOM,
-        bearing: 0,
-        pitch: 0,
-        duration: 850,
-        essential: true,
-      });
-    });
-
-      document.addEventListener("click", (event) => {
-        const target = event.target;
-        if (!(target instanceof HTMLElement)) return;
-        const startButton = target.closest(".popup-start-route-btn");
-        if (startButton instanceof HTMLButtonElement) {
-          const startLng = Number(startButton.dataset.lng);
-          const startLat = Number(startButton.dataset.lat);
-          const startName = startButton.dataset.name || "Propiedad";
-          if (Number.isFinite(startLng) && Number.isFinite(startLat)) {
-            setRouteOrigin([startLng, startLat], startName);
-          }
-          return;
-        }
-      });
-    }
-  }
+  import "@webapp/scripts/mapbox-public";
 </script>
 
 <style>
   .map-layout {
+    position: relative;
+  }
+
+  .map-shell {
     --map-brand: #202f4e;
-    --map-brand-strong: #1c2a45;
     --map-accent: #d32c43;
-    --map-paper: #ffffff;
-    --map-soft: #f4f7fc;
     --map-border: rgba(32, 47, 78, 0.14);
     --map-shadow: 0 18px 34px rgba(15, 23, 42, 0.1);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 420px;
-    gap: 1rem;
-    padding: 0.45rem 0 1.7rem;
-    --map-frame-height: max(560px, min(80vh, 820px));
-    align-items: start;
+    gap: 0.9rem;
   }
 
-  .map-layout.is-compact {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    padding: 0;
-    --map-frame-height: clamp(420px, 42vw, 560px);
-    height: 100%;
+  .map-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
 
-  .map-layout.is-compact .map-main {
-    padding: 0.3rem;
-    border-radius: 18px;
-    height: 100%;
-  }
-
-  .map-layout.is-compact .costa-map {
-    min-height: clamp(420px, 42vw, 560px);
-    height: 100%;
-    border-radius: 16px;
-  }
-
-  .map-layout.is-compact .map-poi-overlay {
-    top: 0.82rem;
-    left: 0.82rem;
-  }
-
-  .map-layout.is-compact .map-reset-wrap {
-    top: 0.82rem;
-    right: 0.82rem;
-  }
-
-  .map-layout.is-compact .poi-chip-overlay {
-    font-size: 0.8rem;
-  }
-
-  .map-layout.is-compact .map-route-overlay {
-    right: 0.82rem;
-    bottom: 0.82rem;
-    top: auto;
-    width: min(300px, calc(100% - 1.64rem));
-  }
-
-  .map-main {
-    min-width: 0;
+  .map-viewport {
     position: relative;
     padding: 0.42rem;
     border-radius: 22px;
-    border: 1px solid rgba(32, 47, 78, 0.12);
+    border: 1px solid var(--map-border);
     background:
       radial-gradient(120% 100% at 100% -20%, rgba(29, 78, 216, 0.1), transparent 58%),
       linear-gradient(180deg, #ffffff, #f6f9ff);
     box-shadow: var(--map-shadow);
-  }
-
-  .map-reset-wrap {
-    position: absolute;
-    top: 1.08rem;
-    right: 4.4rem;
-    z-index: 5;
-    pointer-events: none;
-  }
-
-  .map-reset-view-btn {
-    pointer-events: auto;
-    box-shadow: 0 8px 14px rgba(15, 23, 42, 0.16);
-    backdrop-filter: blur(3px);
-    background: rgba(255, 255, 255, 0.92);
-  }
-
-  .map-route-overlay {
-    position: absolute;
-    top: 4.1rem;
-    right: 1.08rem;
-    z-index: 5;
-    width: min(332px, calc(100% - 2.15rem));
-    display: grid;
-    gap: 0.5rem;
-    padding: 0.72rem 0.82rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.38);
-    background: linear-gradient(150deg, rgba(15, 23, 42, 0.64), rgba(30, 41, 59, 0.5));
-    box-shadow: 0 14px 28px rgba(2, 6, 23, 0.28);
-    backdrop-filter: blur(7px);
-    pointer-events: none;
-  }
-
-  .map-route-overlay[hidden] {
-    display: none;
-  }
-
-  .map-route-overlay-title {
-    margin: 0;
-    color: #ffffff;
-    font-size: 0.74rem;
-    text-transform: uppercase;
-    letter-spacing: 0.13em;
-    font-weight: 900;
-    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.46);
-    font-family: "Manrope", sans-serif;
-  }
-
-  .map-route-clear-btn {
-    width: fit-content;
-    pointer-events: auto;
-  }
-
-  .route-selection-overlay {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.77rem;
-    line-height: 1.3;
-    text-shadow: 0 2px 9px rgba(0, 0, 0, 0.42);
-  }
-
-  .route-metrics-overlay {
-    pointer-events: auto;
-    border-color: rgba(255, 255, 255, 0.24);
-    background: rgba(15, 23, 42, 0.28);
-  }
-
-  .route-metrics-overlay p {
-    color: #ffffff;
-    font-size: 0.78rem;
-  }
-
-  .route-metrics-overlay strong,
-  .route-metrics-overlay span {
-    color: #ffffff;
-  }
-
-  .map-route-overlay .route-selection,
-  .map-route-overlay .route-selection-overlay {
-    color: #ffffff !important;
-  }
-
-  .map-route-overlay .route-metrics p,
-  .map-route-overlay .route-metrics strong,
-  .map-route-overlay .route-metrics span {
-    color: #ffffff !important;
+    overflow: hidden;
   }
 
   .costa-map {
     width: 100%;
-    height: var(--map-frame-height);
     min-height: 560px;
+    height: min(70vh, 720px);
     border-radius: 16px;
     border: 1px solid rgba(32, 47, 78, 0.18);
     overflow: hidden;
-    background: #e9eef5;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+    background:
+      linear-gradient(135deg, rgba(32, 47, 78, 0.08), rgba(29, 78, 216, 0.1)),
+      #e9eef5;
   }
 
-  .map-nav {
-    display: grid;
-    grid-template-rows: auto auto minmax(0, 1fr);
-    gap: 0.75rem;
-    align-content: start;
-    position: static;
-    top: auto;
-    height: calc(var(--map-frame-height) + 0.84rem + 2px);
-    max-height: calc(var(--map-frame-height) + 0.84rem + 2px);
-    overflow: hidden;
-    padding: 0.2rem 0.25rem 0.35rem 0.08rem;
+  .is-compact .map-toolbar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 5;
   }
 
-  .nav-section {
-    background: transparent;
-    border: 1px solid var(--map-border);
+  .is-compact .map-viewport {
+    padding: 0.3rem;
     border-radius: 18px;
-    padding: 0.9rem 0.95rem;
-    position: relative;
-    box-shadow: none;
+  }
+
+  .is-compact .costa-map {
+    min-height: clamp(420px, 42vw, 560px);
+    height: clamp(420px, 42vw, 560px);
+  }
+
+  .map-overlay-card,
+  .map-poi-panel,
+  .map-route-panel {
+    position: absolute;
+    z-index: 4;
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+  }
+
+  .map-overlay-card {
+    left: 1rem;
+    bottom: 1rem;
+    width: min(340px, calc(100% - 2rem));
+    padding: 0.95rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 14px 26px rgba(15, 23, 42, 0.16);
+  }
+
+  .map-overlay-card[hidden],
+  .map-poi-panel[hidden],
+  .map-route-panel[hidden] {
+    display: none;
+  }
+
+  .map-overlay-eyebrow,
+  .map-poi-panel-title,
+  .map-route-title {
+    margin: 0 0 0.35rem;
+    color: var(--map-brand);
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+  }
+
+  .map-overlay-text,
+  .map-route-status {
+    margin: 0 0 0.85rem;
+    color: rgba(32, 47, 78, 0.82);
+    font-size: 0.9rem;
+    line-height: 1.45;
   }
 
   .map-action {
     border: 0;
     background: linear-gradient(135deg, #202f4e, #1d4ed8);
     color: #fff;
-    padding: 0.58rem 0.96rem;
+    padding: 0.7rem 1rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     line-height: 1;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.09em;
-    white-space: nowrap;
+    letter-spacing: 0.08em;
     cursor: pointer;
     font-family: "Manrope", sans-serif;
-    transition:
-      transform 0.16s ease,
-      box-shadow 0.16s ease,
-      opacity 0.16s ease,
-      filter 0.16s ease;
-  }
-
-  .map-action:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 18px rgba(32, 47, 78, 0.28);
-    filter: brightness(1.04);
   }
 
   .map-action-alt {
-    background: linear-gradient(180deg, #ffffff, #f1f5fb);
-    color: #202f4e;
-    border: 1px solid rgba(32, 47, 78, 0.22);
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--map-brand);
+    border: 1px solid rgba(32, 47, 78, 0.14);
+    box-shadow: 0 8px 14px rgba(15, 23, 42, 0.12);
   }
 
-  .map-action.is-active,
-  .map-action-alt.is-active {
-    background: #d32c43;
-    color: #fff;
-    border-color: #d32c43;
+  .map-poi-panel {
+    top: 1rem;
+    left: 1rem;
+    max-width: min(360px, calc(100% - 2rem));
+    padding: 0.8rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
   }
 
-  .map-filter-title {
-    margin: 0 0 0.46rem;
-    color: #202f4e;
-    font-size: 0.68rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-family: "Manrope", sans-serif;
-  }
-
-  .zone-filters,
-  .poi-filters,
-  .travel-mode,
-  .travel-minutes {
+  .poi-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
+    gap: 0.55rem;
   }
 
-  .zone-chip,
-  :global(#zoneFilters .zone-chip),
-  :global(#areaFilters .zone-chip),
   .poi-chip {
-    border: 1px solid rgba(32, 47, 78, 0.16);
-    background: linear-gradient(180deg, #ffffff, #f2f6ff);
-    color: #202f4e;
-    padding: 0.41rem 0.76rem;
+    border: 1px solid rgba(32, 47, 78, 0.14);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--map-brand);
     border-radius: 999px;
-    font-size: 0.74rem;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.76rem;
     font-weight: 700;
-    letter-spacing: 0.02em;
     cursor: pointer;
-    font-family: "Manrope", sans-serif;
-    line-height: 1;
-    min-height: 2.05rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
-    transition:
-      transform 0.16s ease,
-      box-shadow 0.16s ease,
-      background-color 0.16s ease,
-      border-color 0.16s ease,
-      color 0.16s ease;
   }
 
-  .zone-chip:hover,
-  :global(#zoneFilters .zone-chip:hover),
-  :global(#areaFilters .zone-chip:hover),
-  .poi-chip:hover,
-  .zone-chip:focus-visible,
-  :global(#zoneFilters .zone-chip:focus-visible),
-  :global(#areaFilters .zone-chip:focus-visible),
-  .poi-chip:focus-visible {
-    border-color: rgba(32, 47, 78, 0.3);
-    background: #fff;
-    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.14);
-    transform: translateY(-1px) scale(1.01);
-    outline: none;
-  }
-
-  .zone-chip.is-active,
-  :global(#zoneFilters .zone-chip.is-active),
-  :global(#areaFilters .zone-chip.is-active),
   .poi-chip.is-active {
-    background: linear-gradient(140deg, #202f4e, #274371);
+    background: linear-gradient(135deg, rgba(32, 47, 78, 0.94), rgba(29, 78, 216, 0.9));
     color: #fff;
     border-color: transparent;
-    box-shadow: 0 10px 20px rgba(32, 47, 78, 0.28);
   }
 
-  .travel-box {
+  .map-route-panel {
+    right: 1rem;
+    bottom: 1rem;
+    width: min(320px, calc(100% - 2rem));
     display: grid;
     gap: 0.45rem;
+    padding: 0.82rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(15, 23, 42, 0.78);
+    box-shadow: 0 14px 28px rgba(2, 6, 23, 0.28);
   }
 
-  .quick-route-box {
-    display: grid;
-    gap: 0.3rem;
-    padding: 0.45rem 0.5rem;
-    border: 1px solid rgba(32, 47, 78, 0.12);
-    border-radius: 10px;
-    background: rgba(32, 47, 78, 0.03);
-  }
-
-  .quick-route-title {
-    margin: 0;
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #202f4e;
-    font-family: "Manrope", sans-serif;
-  }
-
-  .quick-route-hint {
-    margin: 0;
-    font-size: 0.75rem;
-    color: rgba(32, 47, 78, 0.78);
-    font-family: "Manrope", sans-serif;
-  }
-
-  .travel-hint {
-    margin: 0;
-    font-size: 0.76rem;
-    color: rgba(32, 47, 78, 0.76);
-    font-family: "Manrope", sans-serif;
-  }
-
-  .route-selection {
-    margin: 0;
-    font-size: 0.78rem;
-    color: rgba(32, 47, 78, 0.72);
-    font-family: "Manrope", sans-serif;
-  }
-
-  .route-metrics {
-    display: grid;
-    gap: 0.2rem;
-    padding: 0.45rem 0.55rem;
-    border: 1px solid rgba(32, 47, 78, 0.12);
-    border-radius: 10px;
-    background: rgba(32, 47, 78, 0.03);
-  }
-
-  .route-metrics p {
-    margin: 0;
-    font-size: 0.8rem;
-    color: #202f4e;
-    font-family: "Manrope", sans-serif;
-  }
-
-  .route-manual-controls[hidden] {
-    display: none;
-  }
-
-  .travel-minutes-title {
-    margin: 0.2rem 0 0;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(32, 47, 78, 0.7);
-    font-weight: 800;
-    font-family: "Manrope", sans-serif;
-  }
-
-  .map-nav h3 {
-    margin: 0.5rem 0 0;
-    font-size: 1.01rem;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    color: #202f4e;
-    font-family: "Manrope", sans-serif;
-  }
-
-  .map-result-list {
-    --map-result-card-height: 166px;
-    --map-result-gap: 0.72rem;
-    list-style: none;
-    margin: 0.78rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: var(--map-result-gap);
-    align-content: start;
-    grid-auto-rows: min-content;
-    max-height: min(100%, calc((var(--map-result-card-height) * 3) + (var(--map-result-gap) * 2)));
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding-right: 0.22rem;
-  }
-
-  .map-result-item {
-    border: 1px solid rgba(32, 47, 78, 0.13);
-    border-radius: 16px;
-    padding: 0.72rem;
-    display: grid;
-    grid-template-columns: 96px minmax(0, 1fr);
-    gap: 0.46rem 0.72rem;
-    background: linear-gradient(165deg, #ffffff, #f8fbff);
-    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.07);
-    transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease,
-      border-color 0.18s ease,
-      background-color 0.18s ease;
-    position: relative;
-    overflow: hidden;
-    align-content: start;
-    align-self: start;
-    min-height: var(--map-result-card-height);
-  }
-
-  .map-result-item::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, rgba(29, 78, 216, 0.14), rgba(211, 44, 67, 0.4));
-    opacity: 0;
-    transition: opacity 0.18s ease;
-  }
-
-  .map-result-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.13);
-    border-color: rgba(32, 47, 78, 0.22);
-    background: linear-gradient(165deg, #ffffff, #f4f8ff);
-  }
-
-  .map-result-item.is-selected {
-    border-color: rgba(29, 78, 216, 0.36);
-    background: linear-gradient(165deg, #ffffff, #eef4ff);
-    box-shadow: 0 14px 30px rgba(29, 78, 216, 0.18);
-  }
-
-  .map-result-item:hover::before,
-  .map-result-item.is-selected::before {
-    opacity: 1;
-  }
-
-  .result-jump {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    color: #202f4e;
-    font-size: 0.95rem;
-    font-weight: 800;
-    background: transparent;
-    cursor: pointer;
-    font-family: "Manrope", sans-serif;
-    line-height: 1.25;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .result-jump:hover {
-    color: #1d4ed8;
-  }
-
-  .result-body > span:not(.map-result-tag) {
-    color: rgba(32, 47, 78, 0.78);
-    font-size: 0.8rem;
-    line-height: 1.3;
-    font-family: "Manrope", sans-serif;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .result-media {
-    width: 96px;
-    height: 96px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(32, 47, 78, 0.15);
-    background: #e6edf7;
-    grid-row: span 2;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-  }
-
-  .result-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.45s ease;
-  }
-
-  .map-result-item:hover .result-media img {
-    transform: scale(1.05);
-  }
-
-  .result-media-placeholder {
-    background:
-      linear-gradient(135deg, rgba(32, 47, 78, 0.14), rgba(211, 44, 67, 0.18)),
-      repeating-linear-gradient(
-        -45deg,
-        rgba(255, 255, 255, 0.12),
-        rgba(255, 255, 255, 0.12) 8px,
-        rgba(255, 255, 255, 0.04) 8px,
-        rgba(255, 255, 255, 0.04) 16px
-      );
-  }
-
-  .result-body {
-    min-width: 0;
-    display: grid;
-    gap: 0.24rem;
-    align-content: start;
-  }
-
-  .result-meta-row {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.32rem;
-    flex-wrap: wrap;
-  }
-
-  .result-summary-row {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.32rem;
-    margin-top: 0.02rem;
-  }
-
-  .result-summary-pill {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 999px;
-    border: 1px solid rgba(32, 47, 78, 0.18);
-    background: rgba(32, 47, 78, 0.06);
-    color: rgba(32, 47, 78, 0.86);
-    padding: 0.17rem 0.5rem;
-    font-size: 0.61rem;
-    letter-spacing: 0.04em;
-    font-weight: 800;
-    line-height: 1;
-    white-space: nowrap;
-    text-transform: uppercase;
-  }
-
-  .result-summary-pill-price {
-    border-color: rgba(29, 78, 216, 0.33);
-    background: rgba(29, 78, 216, 0.12);
-    color: #1e3a8a;
-  }
-
-  .map-result-tag {
-    display: inline-flex;
-    width: fit-content;
-    border: 1px solid rgba(32, 47, 78, 0.16);
-    border-radius: 999px;
-    padding: 0.18rem 0.54rem;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 800;
-    color: #202f4e;
-    background: rgba(32, 47, 78, 0.07);
-  }
-
-  .result-meta-badge {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 999px;
-    border: 1px solid rgba(16, 185, 129, 0.35);
-    background: rgba(16, 185, 129, 0.12);
-    color: #166534;
-    padding: 0.16rem 0.5rem;
-    font-size: 0.61rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-weight: 800;
-    line-height: 1;
-  }
-
-  .result-open {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    display: inline-flex;
-    width: fit-content;
-    margin-top: 0;
-    align-items: center;
-    justify-content: center;
-    min-height: 32px;
-    padding: 0.34rem 0.74rem;
-    border-radius: 999px;
-    border: 1px solid rgba(32, 47, 78, 0.18);
-    color: rgba(32, 47, 78, 0.5);
-    background: linear-gradient(180deg, #ffffff, #f1f5fb);
-    text-decoration: none;
-    pointer-events: none;
-    font-size: 0.72rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    font-family: "Manrope", sans-serif;
-    transition: all 0.18s ease;
-  }
-
-  .result-open.is-ready {
+  .map-route-title,
+  .map-route-status,
+  .map-route-metrics strong,
+  .map-route-metrics span,
+  .map-route-metrics p {
     color: #fff;
-    background: linear-gradient(135deg, #202f4e, #1d4ed8);
-    border-color: transparent;
-    pointer-events: auto;
-    box-shadow: 0 10px 20px rgba(32, 47, 78, 0.3);
   }
 
-  .map-result-empty {
+  .map-route-metrics p {
+    margin: 0;
     font-size: 0.82rem;
-    color: rgba(32, 47, 78, 0.75);
-    padding: 0.5rem 0.2rem;
-    font-family: "Manrope", sans-serif;
   }
 
   .map-empty {
     display: grid;
     place-items: center;
+    width: 100%;
     height: 100%;
-    color: #202f4e;
-    padding: 1rem;
+    padding: 2rem;
     text-align: center;
-    font-family: "Manrope", sans-serif;
+    color: rgba(32, 47, 78, 0.78);
+    font-weight: 600;
   }
 
   :global(.mapboxgl-popup-content) {
-    border-radius: 14px;
     padding: 0;
+    border-radius: 18px;
     overflow: hidden;
-    min-width: 290px;
-    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.24);
+    box-shadow: 0 18px 34px rgba(15, 23, 42, 0.22);
   }
 
   :global(.map-popup) {
-    background: #ffffff;
-  }
-
-  :global(.map-popup-body) {
-    padding: 0.9rem 1rem 0.95rem;
+    display: grid;
+    min-width: 240px;
+    max-width: 280px;
   }
 
   :global(.map-popup-cover) {
-    display: block;
     width: 100%;
-    height: 150px;
+    aspect-ratio: 16 / 10;
     object-fit: cover;
+    display: block;
+  }
+
+  :global(.map-popup-body) {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.9rem 1rem 1rem;
+  }
+
+  :global(.map-popup-body h3),
+  :global(.map-popup-body p) {
+    margin: 0;
+  }
+
+  :global(.map-popup-body p) {
+    color: rgba(32, 47, 78, 0.76);
+    font-size: 0.9rem;
   }
 
   :global(.map-popup-actions) {
-    margin-top: 0.55rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  :global(.map-popup h3) {
-    margin: 0;
-    font-size: 1.02rem;
-    font-family: "Manrope", sans-serif;
-    line-height: 1.3;
-  }
-
-  :global(.map-popup p) {
-    margin: 0.26rem 0 0;
-    font-size: 0.9rem;
-    color: rgba(32, 47, 78, 0.8);
-    font-family: "Manrope", sans-serif;
-    line-height: 1.35;
-  }
-
-  :global(.map-popup a) {
-    display: inline-block;
-    margin-top: 0;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #d32c43;
-    text-decoration: none;
-    font-family: "Manrope", sans-serif;
-  }
-
-  :global(.popup-start-route-btn) {
-    margin-top: 0;
-    border: 1px solid rgba(32, 47, 78, 0.16);
-    background: #202f4e;
-    color: #fff;
-    border-radius: 999px;
-    padding: 0.4rem 0.76rem;
-    font-size: 0.86rem;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: "Manrope", sans-serif;
-  }
-
-  :global(.mapboxgl-popup-close-button) {
-    font-size: 1.05rem;
-    padding: 0.38rem 0.52rem;
-    line-height: 1;
-    color: #0f172a;
-  }
-
-  .result-route-btn {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: fit-content;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid transparent;
-    background: linear-gradient(135deg, #202f4e, #253a61);
-    color: #fff;
-    border-radius: 999px;
-    min-height: 32px;
-    padding: 0.34rem 0.74rem;
-    font-size: 0.72rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    cursor: pointer;
-    font-family: "Manrope", sans-serif;
-    transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease,
-      opacity 0.18s ease,
-      filter 0.18s ease;
-  }
-
-  .result-route-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 18px rgba(32, 47, 78, 0.28);
-    filter: brightness(1.04);
-  }
-
-  .result-actions {
     display: flex;
-    gap: 0.44rem;
-    align-items: center;
-    margin-top: 0.28rem;
-    flex-wrap: nowrap;
-    grid-column: 2;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 0.15rem;
   }
 
-  .nav-results h3 {
-    margin-top: 0.6rem;
-  }
-
-  .nav-results {
-    min-height: 0;
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-  }
-
-  .map-poi-overlay {
-    position: absolute;
-    top: 1.08rem;
-    left: 1.08rem;
-    z-index: 4;
-    display: grid;
-    gap: 0.5rem;
-    padding: 0.72rem 0.82rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: linear-gradient(158deg, rgba(9, 14, 28, 0.7), rgba(31, 43, 68, 0.54));
-    box-shadow: 0 14px 28px rgba(2, 6, 23, 0.3);
-    backdrop-filter: blur(7px);
-    pointer-events: none;
-  }
-
-  .map-poi-overlay-title {
-    margin: 0;
-    color: #ffffff;
-    font-size: 0.74rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 900;
-    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.48);
-    font-family: "Manrope", sans-serif;
-  }
-
-  .poi-filters-overlay {
-    display: grid;
-    gap: 0.44rem;
-    justify-items: start;
-    pointer-events: auto;
-  }
-
-  .poi-chip-overlay {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.58rem;
+  :global(.map-popup-actions a),
+  :global(.map-popup-actions button) {
     border: 0;
-    background: rgba(15, 23, 42, 0.3);
-    color: #ffffff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.58);
-    font-weight: 800;
-    font-size: 0.9rem;
-    padding: 0.22rem 0.36rem;
-    border-radius: 999px;
-    transition:
-      transform 0.16s ease,
-      box-shadow 0.16s ease,
-      background-color 0.16s ease;
-  }
-
-  .poi-chip-overlay .poi-chip-icon {
-    width: 1.38rem;
-    height: 1.38rem;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 800;
-    border-radius: 999px;
-    line-height: 1.1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid rgba(255, 255, 255, 0.95);
-    background: rgba(15, 23, 42, 0.42);
-  }
-
-  .poi-chip-icon-svg {
-    width: 0.92rem;
-    height: 0.92rem;
-    display: block;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
-  }
-
-  .poi-chip-overlay[data-category="restaurant"] .poi-chip-icon { color: #fdba74; }
-  .poi-chip-overlay[data-category="hospital"] .poi-chip-icon { color: #fda4af; }
-  .poi-chip-overlay[data-category="school"] .poi-chip-icon { color: #93c5fd; }
-  .poi-chip-overlay[data-category="pharmacy"] .poi-chip-icon { color: #86efac; }
-  .poi-chip-overlay[data-category="leisure"] .poi-chip-icon { color: #d8b4fe; }
-
-  .poi-chip-overlay.is-active {
-    color: #ffffff;
-    background: rgba(15, 23, 42, 0.6);
-    box-shadow: 0 10px 18px rgba(2, 6, 23, 0.3);
-  }
-
-  .poi-chip-overlay:hover {
-    transform: translateX(2px);
-    background: rgba(15, 23, 42, 0.5);
-  }
-
-  /* Results are injected via innerHTML, so force global compact styles */
-  :global(.map-result-list) {
-    --map-result-card-height: 166px;
-    --map-result-gap: 0.72rem;
-    gap: var(--map-result-gap);
-    align-content: start;
-    grid-auto-rows: min-content;
-    max-height: min(100%, calc((var(--map-result-card-height) * 3) + (var(--map-result-gap) * 2)));
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding-right: 0.22rem;
-  }
-
-  :global(.map-result-item) {
-    border: 1px solid rgba(32, 47, 78, 0.13);
-    border-radius: 16px;
-    padding: 0.72rem;
-    display: grid;
-    grid-template-columns: 96px minmax(0, 1fr);
-    gap: 0.46rem 0.72rem;
-    background: linear-gradient(165deg, #ffffff, #f8fbff);
-    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.07);
-    position: relative;
-    overflow: hidden;
-    align-content: start;
-    align-self: start;
-    transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease,
-      border-color 0.18s ease,
-      background-color 0.18s ease;
-    min-height: var(--map-result-card-height);
-  }
-
-  :global(.map-result-item::before) {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, rgba(29, 78, 216, 0.14), rgba(211, 44, 67, 0.4));
-    opacity: 0;
-    transition: opacity 0.18s ease;
-  }
-
-  :global(.map-result-item:hover) {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.13);
-    border-color: rgba(32, 47, 78, 0.22);
-    background: linear-gradient(165deg, #ffffff, #f4f8ff);
-  }
-
-  :global(.map-result-item.is-selected) {
-    border-color: rgba(29, 78, 216, 0.36);
-    box-shadow: 0 14px 30px rgba(29, 78, 216, 0.18);
-    background: linear-gradient(165deg, #ffffff, #eef4ff);
-  }
-
-  :global(.map-result-item:hover::before),
-  :global(.map-result-item.is-selected::before) {
-    opacity: 1;
-  }
-
-  :global(.result-media) {
-    width: 96px;
-    height: 96px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(32, 47, 78, 0.15);
-    grid-row: span 2;
-    background: #e6edf7;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-  }
-
-  :global(.result-media img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.45s ease;
-  }
-
-  :global(.map-result-item:hover .result-media img) {
-    transform: scale(1.05);
-  }
-
-  :global(.result-body) {
-    min-width: 0;
-    display: grid;
-    gap: 0.24rem;
-  }
-
-  :global(.result-jump) {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: 0;
-    background: transparent;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    color: #202f4e;
-    font-size: 0.95rem;
-    font-weight: 800;
-    line-height: 1.22;
-    cursor: pointer;
-    font-family: "Manrope", sans-serif;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  :global(.result-body > span:not(.map-result-tag)) {
-    color: rgba(32, 47, 78, 0.78);
-    font-size: 0.8rem;
-    line-height: 1.3;
-    font-family: "Manrope", sans-serif;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  :global(.result-meta-row) {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.32rem;
-    flex-wrap: wrap;
-  }
-
-  :global(.result-summary-row) {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.32rem;
-    margin-top: 0.02rem;
-  }
-
-  :global(.result-summary-pill) {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 999px;
-    border: 1px solid rgba(32, 47, 78, 0.18);
-    background: rgba(32, 47, 78, 0.06);
-    color: rgba(32, 47, 78, 0.86);
-    padding: 0.17rem 0.5rem;
-    font-size: 0.61rem;
-    letter-spacing: 0.04em;
-    font-weight: 800;
-    line-height: 1;
-    white-space: nowrap;
-    text-transform: uppercase;
-  }
-
-  :global(.result-summary-pill-price) {
-    border-color: rgba(29, 78, 216, 0.33);
-    background: rgba(29, 78, 216, 0.12);
-    color: #1e3a8a;
-  }
-
-  :global(.map-result-tag) {
-    display: inline-flex;
-    width: fit-content;
-    border: 1px solid rgba(32, 47, 78, 0.16);
-    border-radius: 999px;
-    padding: 0.18rem 0.54rem;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 800;
-    color: #202f4e;
-    background: rgba(32, 47, 78, 0.07);
-  }
-
-  :global(.result-meta-badge) {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 999px;
-    border: 1px solid rgba(16, 185, 129, 0.35);
-    background: rgba(16, 185, 129, 0.12);
-    color: #166534;
-    padding: 0.16rem 0.5rem;
-    font-size: 0.61rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-weight: 800;
-    line-height: 1;
-  }
-
-  :global(.result-actions) {
-    display: flex;
-    align-items: center;
-    gap: 0.44rem;
-    flex-wrap: nowrap;
-    grid-column: 2;
-    margin-top: 0.28rem;
-  }
-
-  :global(.result-route-btn),
-  :global(.result-open) {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    min-height: 32px;
-    padding: 0.34rem 0.74rem;
-    border-radius: 999px;
-    font-size: 0.72rem;
-    line-height: 1;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    font-family: "Manrope", sans-serif;
-    text-decoration: none;
-  }
-
-  :global(.result-route-btn) {
-    border: 1px solid transparent;
-    background: linear-gradient(135deg, #202f4e, #253a61);
-    color: #fff;
-    cursor: pointer;
-    transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease,
-      opacity 0.18s ease,
-      filter 0.18s ease;
-  }
-
-  :global(.result-route-btn:hover) {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 18px rgba(32, 47, 78, 0.28);
-    filter: brightness(1.04);
-  }
-
-  :global(.result-open) {
-    border: 1px solid rgba(32, 47, 78, 0.18);
-    background: linear-gradient(180deg, #ffffff, #f1f5fb);
-    color: rgba(32, 47, 78, 0.5);
-    pointer-events: none;
-    transition: all 0.18s ease;
-  }
-
-  :global(.result-open.is-ready) {
-    border-color: transparent;
     background: linear-gradient(135deg, #202f4e, #1d4ed8);
     color: #fff;
-    pointer-events: auto;
-    box-shadow: 0 10px 20px rgba(32, 47, 78, 0.3);
+    border-radius: 999px;
+    padding: 0.58rem 0.88rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
   }
 
-  @media (max-width: 1080px) {
-    .map-layout {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .map-main {
-      padding: 0.32rem;
-      border-radius: 20px;
-    }
-
-    .map-nav {
-      position: static;
-      top: auto;
-      height: auto;
-      max-height: none;
-      overflow: visible;
-      grid-template-rows: none;
-      padding: 0.06rem 0;
-    }
-
-    .map-result-list {
-      --map-result-card-height: 148px;
-    }
-
-    .map-result-item {
-      grid-template-columns: 88px minmax(0, 1fr);
-      gap: 0.38rem 0.58rem;
-      padding: 0.64rem;
-    }
-
-    .result-media {
-      width: 88px;
-      height: 88px;
-    }
-
-    .map-poi-overlay {
-      top: 0.9rem;
-      left: 0.9rem;
-    }
-
-    .map-reset-wrap {
-      top: 0.9rem;
-      right: 4.1rem;
-    }
-
-    .map-route-overlay {
-      top: 3.85rem;
-      right: 0.9rem;
-      width: min(320px, calc(100% - 1.8rem));
-    }
-
-    :global(.map-result-item) {
-      grid-template-columns: 84px minmax(0, 1fr);
-      padding: 0.62rem;
-      gap: 0.36rem 0.56rem;
-      min-height: var(--map-result-card-height);
-    }
-
-    :global(.result-media) {
-      width: 84px;
-      height: 84px;
-      border-radius: 10px;
-    }
-
-    :global(.result-jump) {
-      font-size: 0.86rem;
-    }
-
-    :global(.result-body > span:not(.map-result-tag)) {
-      font-size: 0.75rem;
-    }
-
-    :global(.map-result-tag) {
-      font-size: 0.58rem;
-    }
-
-    :global(.result-meta-badge) {
-      font-size: 0.58rem;
-    }
-
-    :global(.result-summary-pill) {
-      font-size: 0.58rem;
-    }
-
-    :global(.result-route-btn),
-    :global(.result-open) {
-      min-height: 28px;
-      padding: 0.24rem 0.58rem;
-      font-size: 0.66rem;
-    }
+  :global(.map-popup-actions button) {
+    background: rgba(32, 47, 78, 0.1);
+    color: var(--map-brand);
   }
 
-  @media (max-width: 760px) {
-    .map-layout.is-compact .costa-map {
-      min-height: 360px;
-      height: 360px;
+  @media (max-width: 900px) {
+    .map-toolbar {
+      justify-content: flex-start;
     }
 
     .costa-map {
-      min-height: 420px;
-      height: 64vh;
+      min-height: 440px;
+      height: 58vh;
     }
 
-    .map-main {
-      padding: 0.28rem;
-      border-radius: 18px;
-    }
-
-    .map-layout {
-      padding-bottom: 1.45rem;
-    }
-
-    .map-result-item {
-      grid-template-columns: 1fr;
-    }
-
-    .result-media {
-      width: 100%;
-      height: 148px;
-      grid-row: auto;
-    }
-
-    .result-actions {
-      grid-column: auto;
-    }
-
-    :global(.map-result-item) {
-      grid-template-columns: 1fr;
-    }
-
-    :global(.result-media) {
-      width: 100%;
-      height: 112px;
-      grid-row: auto;
-    }
-
-    :global(.result-actions) {
-      grid-column: auto;
-    }
-
-    .map-nav {
-      display: none;
-    }
-
-    .map-poi-overlay {
-      top: 0.62rem;
-      left: 0.62rem;
-      right: 0.62rem;
-      bottom: auto;
-      justify-items: start;
-      padding: 0.54rem 0.6rem;
-    }
-
-    .poi-filters-overlay {
-      justify-items: start;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.28rem;
-    }
-
-    .poi-chip-overlay {
-      font-size: 0.76rem;
-      padding: 0.14rem 0.26rem;
-      gap: 0.34rem;
-    }
-
-    .poi-chip-overlay .poi-chip-icon {
-      width: 1.1rem;
-      height: 1.1rem;
-      border-width: 1.5px;
-    }
-
-    .map-reset-wrap {
-      left: 0.62rem;
-      right: auto;
-      top: 5.95rem;
-    }
-
-    .map-reset-view-btn {
-      font-size: 0.64rem;
-      padding: 0.42rem 0.7rem;
-    }
-
-    .map-route-overlay {
-      top: auto;
-      left: 0.62rem;
-      right: 0.62rem;
-      bottom: 0.62rem;
-      width: auto;
-      border-radius: 16px;
-      border-color: rgba(255, 255, 255, 0.36);
-      background: linear-gradient(150deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.74));
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.3);
+    .map-overlay-card,
+    .map-poi-panel,
+    .map-route-panel {
+      width: min(100%, calc(100% - 2rem));
     }
   }
 </style>

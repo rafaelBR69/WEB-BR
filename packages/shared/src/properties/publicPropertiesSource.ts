@@ -70,6 +70,13 @@ const asBoolean = (value: unknown, fallback = false): boolean => {
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 
+const loadFallbackProperties = async () => {
+  const mod = await import("@shared/data/properties");
+  return clone((mod.default ?? []) as PublicProperty[]).map((property) =>
+    normalizePm0074PublicProperty(property)
+  );
+};
+
 const isListingType = (value: string | null): value is "promotion" | "unit" | "resale" | "rental" =>
   value === "promotion" || value === "unit" || value === "resale" || value === "rental";
 
@@ -224,12 +231,12 @@ const fetchAllPublicRows = async (organizationId: string | null): Promise<Generi
 };
 
 export const getPublicPropertiesWithFallback = async (options: {
-  fallbackProperties: PublicProperty[];
+  fallbackProperties?: PublicProperty[];
   organizationId?: string | null;
 }) => {
-  const fallback = clone(options.fallbackProperties).map((property) =>
-    normalizePm0074PublicProperty(property)
-  );
+  const fallback = options.fallbackProperties
+    ? clone(options.fallbackProperties).map((property) => normalizePm0074PublicProperty(property))
+    : await loadFallbackProperties();
   const requestedOrgId = asText(options.organizationId) ?? getPublicOrganizationId();
   const canQueryAllOrgs = allowAllOrganizations();
 

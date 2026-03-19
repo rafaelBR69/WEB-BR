@@ -1,4 +1,5 @@
 ---
+import "@webapp/styles/components/property-hero.css";
 import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@shared/media/supabaseImage";
 
 const { cover, title, lang } = Astro.props;
@@ -24,6 +25,8 @@ const heroSrcSet = buildSupabaseSrcSet(coverUrl, [768, 1200, 1600, 2000], {
       src={heroSrc || coverUrl}
       srcset={heroSrcSet || undefined}
       sizes="100vw"
+      width="2000"
+      height="1200"
       data-fallback-src={coverUrl}
       onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;this.srcset='';}"
       alt={alt}

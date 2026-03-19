@@ -2,7 +2,6 @@
 export const prerender = false;
 
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
-import fallbackProperties from "@shared/data/properties";
 import { formatPrice } from "@shared/presentation/common";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { buildProjectShowcaseCards, getPublicPropertiesWithFallback } from "@shared/properties/public";
@@ -15,9 +14,7 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
-const { properties } = await getPublicPropertiesWithFallback({
-  fallbackProperties,
-});
+const { properties } = await getPublicPropertiesWithFallback({});
 const navigation = buildPublicNavigation({
   lang,
   family: "catalog",

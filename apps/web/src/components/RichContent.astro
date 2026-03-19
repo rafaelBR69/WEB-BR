@@ -10,13 +10,13 @@ const { blocks } = Astro.props;
 
     if (block.type === "heading" && block.content) {
       if (block.level === 2) {
-        return <h2 key={index}>{block.content}</h2>;
+        return <h2 key={index} set:html={block.content}></h2>;
       }
-      return <h3 key={index}>{block.content}</h3>;
+      return <h3 key={index} set:html={block.content}></h3>;
     }
 
     if (block.type === "paragraph" && block.content) {
-      return <p key={index}>{block.content}</p>;
+      return <p key={index} set:html={block.content}></p>;
     }
 
     if (block.type === "list") {
@@ -31,10 +31,36 @@ const { blocks } = Astro.props;
       return (
         <ul key={index}>
           {block.items.map((text, i) => (
-            <li key={`${index}-${i}`}>{text}</li>
+            <li key={`${index}-${i}`} set:html={text}></li>
           ))}
         </ul>
       );
+    }
+
+    if (block.type === "links" && Array.isArray(block.items)) {
+      return (
+        <ul key={index} class="rich-content-links">
+          {block.items.map((item, i) => (
+            <li key={`${index}-${i}`}>
+              <a href={item.url} target="_blank" rel="noreferrer">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      );
+    }
+
+    if (block.type === "image" && block.url) {
+      return (
+        <figure key={index} class="rich-content-figure">
+          <img src={block.url} alt={block.alt ?? ""} loading="lazy" />
+        </figure>
+      );
+    }
+
+    if (block.type === "caption" && block.content) {
+      return <p key={index} class="rich-content-caption" set:html={block.content}></p>;
     }
 
     return null;

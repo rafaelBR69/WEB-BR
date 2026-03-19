@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Smoothy Sans";
-  src: url("/fonts/smoothy-sans-regular.ttf") format("truetype");
+  src: url("/fonts/smoothy-sans-regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
   font-display: swap;

@@ -1,6 +1,5 @@
 import type { APIRoute } from "astro";
 import posts from "@shared/data/posts";
-import fallbackProperties from "@shared/data/properties";
 import teamMembers from "@shared/data/team";
 import { SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { normalizeProperty, normalizePropertyCard, getPublicPropertiesWithFallback } from "@shared/properties/public";
@@ -46,7 +45,6 @@ const AGENT_URLS = SUPPORTED_LANGS.flatMap((lang) => {
 
 export const GET: APIRoute = async () => {
   const { properties } = await getPublicPropertiesWithFallback({
-    fallbackProperties,
   });
 
   const landingUrls = SUPPORTED_LANGS.flatMap((lang) => {

@@ -1,3 +1,4 @@
+import post2026InvestCostaDelSolInstabilityMiddleEast from "./post-2026-invest-costa-del-sol-instability-middle-east.json";
 import post2026VenderCasaBlancarealLegalMarketing from "./post-2026-vender-casa-blancareal-legal-marketing.json";
 import post2026WhyBuyHouseMalagaWithAgency from "./post-2026-why-buy-house-malaga-with-agency.json";
 import post2026CostaDelSolTaxes from "./post-2026-costa-del-sol-taxes.json";
@@ -21,6 +22,7 @@ export const isPostCategory = (value: string): value is PostCategory =>
   POST_CATEGORY_ORDER.includes(value as PostCategory);
 
 const posts = [
+  post2026InvestCostaDelSolInstabilityMiddleEast,
   post2026VenderCasaBlancarealLegalMarketing,
   post2026CostaDelSolTaxes,
   post2026WhyBuyHouseMalagaWithAgency,
@@ -30,4 +32,3 @@ const posts = [
 ];
 
 export default posts;
-

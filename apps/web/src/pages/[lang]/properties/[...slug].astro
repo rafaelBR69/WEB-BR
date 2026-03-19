@@ -2,7 +2,6 @@
 export const prerender = false;
 
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
-import fallbackProperties from "@shared/data/properties";
 import PropertyCard from "@webapp/components/PropertyCard.astro";
 import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
@@ -20,6 +19,8 @@ import { buildPropertyLandingHubs } from "@shared/seo/propertyLandingHubs";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
 import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
+import "@webapp/styles/components/filters.css";
+import "@webapp/styles/components/properties-grid.css";
 import "@webapp/styles/pages/properties.css";
 
 const rawSlug = Array.isArray(Astro.params.slug)
@@ -59,9 +60,7 @@ if (requestedSeoKey && requestedSeoKey !== landing.seoKey) {
   return Astro.redirect(landing.canonicalPath, 301);
 }
 
-const { properties } = await getPublicPropertiesWithFallback({
-  fallbackProperties,
-});
+const { properties } = await getPublicPropertiesWithFallback({});
 const navigation = buildPublicNavigation({
   lang,
   family: "catalog",
@@ -364,6 +363,7 @@ const t = copyByLang[lang] ?? copyByLang.es;
   noindex={content.noindex}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
+  enablePublicRealtime={true}
   {...navigation}
   structuredData={structuredData}
   og={content.ogImage ? { image: content.ogImage } : undefined}
@@ -446,6 +446,11 @@ const t = copyByLang[lang] ?? copyByLang.es;
                   features={compactMapFeatures}
                   emptyMessage={t.mapEmpty}
                   resetViewLabel={t.mapReset}
+                  mode="listing"
+                  loadStrategy="interaction"
+                  showPois={false}
+                  showZones={false}
+                  enableRouting={false}
                   compact={true}
                   fitToFeaturesOnLoad={true}
                 />

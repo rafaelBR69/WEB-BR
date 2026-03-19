@@ -33,6 +33,8 @@ const hasSlides = slides.length > 0;
               class="home-editorial-slide-media"
               src={slide.coverUrl}
               alt={slide.coverAlt}
+              width="1800"
+              height="1100"
               loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
               fetchpriority={index === 0 ? "high" : undefined}

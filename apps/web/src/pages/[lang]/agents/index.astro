@@ -206,7 +206,13 @@ const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => ({
               <article class="agent-card">
                 <a class="agent-photo" href={`/${lang}/agents/${member.slug}/`}>
                   {member.photoUrl ? (
-                    <img src={member.photoUrl} alt={member.photoAlt} loading="lazy" />
+                    <img
+                      src={member.photoUrl}
+                      alt={member.photoAlt}
+                      width="720"
+                      height="900"
+                      loading="lazy"
+                    />
                   ) : (
                     <span>{member.name.slice(0, 1)}</span>
                   )}

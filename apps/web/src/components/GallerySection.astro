@@ -1,4 +1,5 @@
 ---
+import "@webapp/styles/components/gallery.css";
 import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@shared/media/supabaseImage";
 
 const { title, items = [], category = "general", lang = "es" } = Astro.props;
@@ -131,6 +132,8 @@ items.forEach((img: any, index: number) => {
             src={previewSrc || url}
             srcset={previewSrcSet || undefined}
             sizes={previewSizes}
+            width={index === 0 ? "1280" : "640"}
+            height={index === 0 ? "960" : "480"}
             data-fallback-src={url}
             onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;this.srcset='';}"
             alt={altText}

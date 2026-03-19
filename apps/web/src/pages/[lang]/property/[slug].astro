@@ -8,9 +8,9 @@ import { formatPrice } from "@shared/presentation/common";
 import { normalizeProperty, normalizePropertyCard } from "@shared/properties/public";
 import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
 import { DEFAULT_LANG, isSupportedLang } from "@shared/i18n/languages";
-import fallbackProperties from "@shared/data/properties";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
 import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
+import "@webapp/styles/components/property-detail.css";
 
 /* =========================
    PARAMS
@@ -20,9 +20,7 @@ const lang = typeof langParam === "string" ? langParam : DEFAULT_LANG;
 if (!isSupportedLang(lang)) {
   return Astro.redirect(`/${DEFAULT_LANG}/`, 302);
 }
-const { properties } = await getPublicPropertiesWithFallback({
-  fallbackProperties,
-});
+const { properties } = await getPublicPropertiesWithFallback({});
 const navigation = buildPublicNavigation({
   lang,
   family: "catalog",
@@ -456,6 +454,7 @@ const gallerySections = [
   url={canonicalUrl}
   lang={lang}
   availableLangs={propertyLangs}
+  enableLightbox={true}
   {...navigation}
 >
   <PropertyHero

@@ -295,7 +295,13 @@ const membersByCategory = TEAM_CATEGORY_ORDER.map((categoryId) => {
                   <article class="team-card" aria-labelledby={memberHeadingId}>
                     <div class="team-photo">
                       {member.photoUrl ? (
-                        <img src={member.photoUrl} alt={member.photoAlt} loading="lazy" />
+                        <img
+                          src={member.photoUrl}
+                          alt={member.photoAlt}
+                          width="720"
+                          height="900"
+                          loading="lazy"
+                        />
                       ) : (
                         <div class="team-photo-fallback" aria-hidden="true">
                           {member.name
