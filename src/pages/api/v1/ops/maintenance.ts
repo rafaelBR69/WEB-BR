@@ -16,6 +16,17 @@ type MaintenanceRequestBody = {
   crm?: MaintenanceUpdateInput;
 };
 
+type MaintenancePatch = {
+  web?: {
+    enabled: boolean;
+    message?: string | null;
+  };
+  crm?: {
+    enabled: boolean;
+    message?: string | null;
+  };
+};
+
 const asText = (value: unknown): string | null => {
   if (typeof value !== "string") return null;
   const trimmed = value.trim();
@@ -81,12 +92,78 @@ const normalizeUpdate = (
   };
 };
 
+const parseEnabledParam = (value: string | null): boolean | null => {
+  const normalized = asText(value)?.toLowerCase();
+  if (!normalized) return null;
+  if (["1", "true", "on", "enable", "enabled", "open", "up"].includes(normalized)) return true;
+  if (["0", "false", "off", "disable", "disabled", "close", "down"].includes(normalized)) return false;
+  return null;
+};
+
+const buildPatchFromSearchParams = (
+  searchParams: URLSearchParams,
+  current: Awaited<ReturnType<typeof getCrmMaintenanceSnapshot>>
+): MaintenancePatch | null => {
+  const webEnabled = parseEnabledParam(searchParams.get("web"));
+  const crmEnabled = parseEnabledParam(searchParams.get("crm"));
+  const message = asText(searchParams.get("message"));
+
+  const patch: MaintenancePatch = {};
+
+  if (webEnabled !== null) {
+    patch.web = {
+      enabled: webEnabled,
+      message: message ?? current.web.message ?? CRM_MAINTENANCE_DEFAULT_MESSAGE,
+    };
+  }
+
+  if (crmEnabled !== null) {
+    patch.crm = {
+      enabled: crmEnabled,
+      message: message ?? current.crm.message ?? CRM_MAINTENANCE_DEFAULT_MESSAGE,
+    };
+  }
+
+  return patch.web || patch.crm ? patch : null;
+};
+
+const applyPatch = async (patch: MaintenancePatch) => {
+  if (patch.web) {
+    await updateCrmMaintenanceEntry({
+      area: "web",
+      enabled: patch.web.enabled,
+      message: patch.web.message,
+    });
+  }
+
+  if (patch.crm) {
+    await updateCrmMaintenanceEntry({
+      area: "crm",
+      enabled: patch.crm.enabled,
+      message: patch.crm.message,
+    });
+  }
+};
+
 export const GET: APIRoute = async ({ request }) => {
   if (!isAuthorized(request)) return notFound();
 
-  const snapshot = await getCrmMaintenanceSnapshot({
+  const current = await getCrmMaintenanceSnapshot({
     forceRefresh: true,
   });
+
+  const url = new URL(request.url);
+  const patch = buildPatchFromSearchParams(url.searchParams, current);
+
+  if (patch) {
+    await applyPatch(patch);
+  }
+
+  const snapshot = patch
+    ? await getCrmMaintenanceSnapshot({
+        forceRefresh: true,
+      })
+    : current;
 
   return jsonResponse({
     ok: true,
@@ -125,21 +202,24 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  if (webUpdate) {
-    await updateCrmMaintenanceEntry({
-      area: "web",
-      enabled: webUpdate.enabled,
-      message: webUpdate.message,
-    });
-  }
-
-  if (crmUpdate) {
-    await updateCrmMaintenanceEntry({
-      area: "crm",
-      enabled: crmUpdate.enabled,
-      message: crmUpdate.message,
-    });
-  }
+  await applyPatch({
+    ...(webUpdate
+      ? {
+          web: {
+            enabled: webUpdate.enabled,
+            message: webUpdate.message,
+          },
+        }
+      : {}),
+    ...(crmUpdate
+      ? {
+          crm: {
+            enabled: crmUpdate.enabled,
+            message: crmUpdate.message,
+          },
+        }
+      : {}),
+  });
 
   const snapshot = await getCrmMaintenanceSnapshot({
     forceRefresh: true,
