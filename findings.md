@@ -1,5 +1,24 @@
 # Findings
 
+## 2026-03-19 Sell-With-Us Refresh
+
+- `/sell-with-us/` currently uses a fairly generic `service-hero + service-grid` composition that reads more like an internal placeholder than a high-trust seller acquisition page.
+- The page already has solid copy structure in `apps/web/src/pages/[lang]/sell-with-us/index.astro`:
+  - hero copy
+  - proof points
+  - why-sell bullets
+  - scope-of-service bullets
+  - SEO support text
+  - form
+  - related links
+- The weak point is mostly presentation and hierarchy, not lack of content.
+- `apps/web/src/styles/pages/service-pages.css` already contains much more advanced patterns for:
+  - contact hero
+  - contact grid panels
+  - commercialization hero/layout
+  These can be reused conceptually so `sell-with-us` reaches the same quality bar.
+- Mobile-specific treatment for `sell-with-us` is currently almost nonexistent beyond generic grid collapse, so the redesign must include dedicated mobile rules.
+
 ## 2026-03-13
 
 - Surface-based deployment already works through `APP_DEPLOY_SURFACE=web|crm` in `src/middleware.ts`.

@@ -1,5 +1,20 @@
 # Task Plan
 
+## 2026-03-19 Sell-With-Us Refresh
+
+### Goal
+Convert `/sell-with-us/` into a much more professional conversion page, with a stronger hero, clearer hierarchy, better trust framing, and a mobile experience intentionally designed instead of compressed.
+
+### Current Phase
+- `completed` Review the current page, redesign it for desktop/mobile, and validate the build
+
+### Phases
+- `completed` Redesign the hero and first-screen trust framing
+- `completed` Recompose the content blocks into a clearer professional sales narrative
+- `completed` Improve the lead form presentation and related conversion support
+- `completed` Tighten the mobile/tablet layout so it feels intentional on small screens
+- `completed` Validate with `npm run build:web`
+
 ## Goal
 Separate web and CRM gradually inside the same monorepo without breaking the current app, leaving real entrypoints for `apps/web` and `apps/crm` while preserving route and deployment compatibility.
 

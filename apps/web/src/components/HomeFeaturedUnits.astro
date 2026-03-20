@@ -2,7 +2,13 @@
 import PropertyCard from "@webapp/components/PropertyCard.astro";
 import homePageContent from "@shared/data/pages/home.json";
 
-const { lang, cards = [] } = Astro.props;
+const {
+  lang,
+  cards = [],
+  viewAllHref = "",
+  viewAllLabel = "",
+  disableAutoplayOnMobile = false,
+} = Astro.props;
 const homeContent = homePageContent as Record<string, any>;
 const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLang.es;
 ---
@@ -10,13 +16,24 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
 {cards.length > 0 && (
   <section class="home-featured-units" aria-labelledby="homeFeaturedUnitsTitle">
     <div class="container">
-      <div class="home-editorial-section-head">
-        <p class="home-editorial-section-kicker">{t.eyebrow}</p>
-        <h2 id="homeFeaturedUnitsTitle" class="home-editorial-section-title">{t.title}</h2>
-        <p class="home-editorial-section-text">{t.intro}</p>
+      <div class="home-units-section-head">
+        <div class="home-editorial-section-head">
+          <p class="home-editorial-section-kicker">{t.eyebrow}</p>
+          <h2 id="homeFeaturedUnitsTitle" class="home-editorial-section-title">{t.title}</h2>
+          <p class="home-editorial-section-text">{t.intro}</p>
+        </div>
+        {viewAllHref && viewAllLabel && (
+          <a href={viewAllHref} class="home-units-view-all">
+            {viewAllLabel}
+          </a>
+        )}
       </div>
 
-      <div class="home-units-carousel" data-home-units-carousel>
+      <div
+        class="home-units-carousel"
+        data-home-units-carousel
+        data-disable-autoplay-on-mobile={disableAutoplayOnMobile ? "true" : "false"}
+      >
         <div class="home-units-carousel-head">
           <button
             type="button"
@@ -61,6 +78,8 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
     const nextButton = carousel.querySelector("[data-home-units-next]");
     const slides = Array.from(carousel.querySelectorAll(".home-units-slide"));
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobileViewport = window.matchMedia("(max-width: 720px)");
+    const disableAutoplayOnMobile = carousel.dataset.disableAutoplayOnMobile === "true";
     const autoplayMs = 5200;
 
     if (!(viewport instanceof HTMLElement) || slides.length <= 1) return;
@@ -78,6 +97,10 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
     };
 
     const getTotalPages = () => Math.max(1, Math.ceil(slides.length / getPageSize()));
+    const shouldAutoplay = () =>
+      !prefersReducedMotion.matches &&
+      getTotalPages() > 1 &&
+      !(disableAutoplayOnMobile && mobileViewport.matches);
 
     const syncButtons = () => {
       const disabled = getTotalPages() <= 1;
@@ -98,7 +121,7 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
 
     const schedule = () => {
       window.clearTimeout(timerId);
-      if (prefersReducedMotion.matches || getTotalPages() <= 1) return;
+      if (!shouldAutoplay()) return;
       timerId = window.setTimeout(() => {
         goToPage(currentPage + 1);
         schedule();
@@ -153,6 +176,7 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
       goToPage(currentPage, "auto");
       schedule();
     });
+    mobileViewport.addEventListener?.("change", schedule);
 
     syncButtons();
     schedule();

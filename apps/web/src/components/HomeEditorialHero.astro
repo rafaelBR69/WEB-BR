@@ -4,6 +4,9 @@ const {
   slides = [],
   stats = [],
   projectsPath = "/",
+  mobileQuickLinks = [],
+  mobileQuickActionsLabel = "Quick actions",
+  disableAutoplayOnMobile = false,
 } = Astro.props;
 import homePageContent from "@shared/data/pages/home.json";
 
@@ -17,6 +20,7 @@ const hasSlides = slides.length > 0;
   data-editorial-hero
   data-duration="6000"
   data-projects-path={projectsPath}
+  data-disable-autoplay-on-mobile={disableAutoplayOnMobile ? "true" : "false"}
   aria-label={t.heading}
 >
   <div class="home-editorial-hero-stage">
@@ -68,7 +72,7 @@ const hasSlides = slides.length > 0;
             </li>
           ))}
         </ul>
-        <div class="home-editorial-actions">
+        <div class="home-editorial-actions home-editorial-actions-desktop">
           <a
             class="home-editorial-cta"
             href={slides[0]?.href ?? projectsPath}
@@ -82,34 +86,8 @@ const hasSlides = slides.length > 0;
         </div>
       </div>
 
-      {slides.length > 1 ? (
-        <div class="home-editorial-progress-shell">
-          <div class="home-editorial-progress-row">
-            <div class="home-editorial-progress" aria-label={t.progressLabel}>
-              {slides.map((slide, index) => (
-                <button
-                  type="button"
-                  class:list={["home-editorial-progress-item", index === 0 && "is-active"]}
-                  data-hero-progress
-                  aria-label={`${t.progressLabel}: ${slide.title}`}
-                  aria-pressed={index === 0 ? "true" : "false"}
-                >
-                  <span class="home-editorial-progress-line"></span>
-                  <span class="home-editorial-progress-fill" data-hero-progress-fill></span>
-                </button>
-              ))}
-            </div>
-
-            <div class="home-editorial-arrow-group">
-              <button type="button" class="home-editorial-arrow" data-hero-prev aria-label={t.prev}>
-                <span aria-hidden="true">&larr;</span>
-              </button>
-              <button type="button" class="home-editorial-arrow" data-hero-next aria-label={t.next}>
-                <span aria-hidden="true">&rarr;</span>
-              </button>
-            </div>
-          </div>
-
+      {hasSlides ? (
+        <div class="home-editorial-project-shell">
           <div class="home-editorial-detail-list" aria-live="polite">
             {slides.map((slide, index) => (
               <article
@@ -118,12 +96,8 @@ const hasSlides = slides.length > 0;
                 aria-hidden={index === 0 ? "false" : "true"}
               >
                 <h2>{slide.title}</h2>
-                <p class="home-editorial-detail-location">
-                  {[slide.area, slide.province].filter(Boolean).join(" | ") || "-"}
-                </p>
                 <div class="home-editorial-detail-facts">
                   <span>{t.availableLabel} {slide.availableCount}</span>
-                  <span>{t.soldLabel} {slide.soldCount}</span>
                   <span>{t.fromLabel} {slide.priceLabel}</span>
                 </div>
               </article>
@@ -135,6 +109,20 @@ const hasSlides = slides.length > 0;
   </div>
 </section>
 
+{mobileQuickLinks.length > 0 && (
+  <nav class="home-mobile-quick-actions" aria-label={mobileQuickActionsLabel}>
+    <div class="container">
+      <div class="home-mobile-quick-actions-list">
+        {mobileQuickLinks.map((item) => (
+          <a href={item.href} class="home-mobile-quick-action">
+            <span>{item.label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </nav>
+)}
+
 <script is:inline>
   (() => {
     const hero = document.querySelector("[data-editorial-hero]");
@@ -142,22 +130,26 @@ const hasSlides = slides.length > 0;
     hero.dataset.bound = "true";
 
     const slides = Array.from(hero.querySelectorAll("[data-hero-slide]"));
-    const progressButtons = Array.from(hero.querySelectorAll("[data-hero-progress]"));
-    const fills = progressButtons.map((button) => button.querySelector("[data-hero-progress-fill]"));
     const detailCards = Array.from(hero.querySelectorAll("[data-hero-detail]"));
     const primaryCta = hero.querySelector("[data-hero-primary-cta]");
-    const prevButton = hero.querySelector("[data-hero-prev]");
-    const nextButton = hero.querySelector("[data-hero-next]");
     const defaultCtaHref = hero.getAttribute("data-projects-path") || "/";
     const duration = Number(hero.dataset.duration || "6000");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const autoplayEnabled = slides.length > 1 && !prefersReducedMotion.matches;
+    const mobileViewport = window.matchMedia("(max-width: 720px)");
+    const disableAutoplayOnMobile = hero.dataset.disableAutoplayOnMobile === "true";
+    const shouldAutoplay = () =>
+      slides.length > 1 &&
+      !prefersReducedMotion.matches &&
+      !(disableAutoplayOnMobile && mobileViewport.matches);
+    let autoplayEnabled = shouldAutoplay();
 
     let activeIndex = 0;
     let rafId = 0;
     let startTime = null;
     let elapsed = 0;
     let paused = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
     const cancelTimer = () => {
       if (rafId) {
@@ -166,22 +158,10 @@ const hasSlides = slides.length > 0;
       }
     };
 
-    const setProgress = (value) => {
-      fills.forEach((fill, index) => {
-        if (!(fill instanceof HTMLElement)) return;
-        fill.style.transform = `scaleX(${index === activeIndex ? value : 0})`;
-      });
-    };
-
     const syncUi = () => {
       slides.forEach((slide, index) => {
         slide.classList.toggle("is-active", index === activeIndex);
         slide.setAttribute("aria-hidden", index === activeIndex ? "false" : "true");
-      });
-
-      progressButtons.forEach((button, index) => {
-        button.classList.toggle("is-active", index === activeIndex);
-        button.setAttribute("aria-pressed", index === activeIndex ? "true" : "false");
       });
 
       detailCards.forEach((card, index) => {
@@ -198,6 +178,17 @@ const hasSlides = slides.length > 0;
       }
     };
 
+    const refreshAutoplay = () => {
+      autoplayEnabled = shouldAutoplay();
+      if (!autoplayEnabled) {
+        cancelTimer();
+        paused = false;
+        elapsed = 0;
+        return;
+      }
+      startAutoplay();
+    };
+
     const tick = (timestamp) => {
       if (!autoplayEnabled || paused) return;
       if (startTime === null) {
@@ -206,7 +197,6 @@ const hasSlides = slides.length > 0;
 
       elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      setProgress(progress);
 
       if (progress >= 1) {
         setActive((activeIndex + 1) % slides.length, true);
@@ -218,7 +208,6 @@ const hasSlides = slides.length > 0;
 
     const startAutoplay = () => {
       if (!autoplayEnabled) {
-        setProgress(0);
         return;
       }
       cancelTimer();
@@ -244,34 +233,10 @@ const hasSlides = slides.length > 0;
     const setActive = (nextIndex, restartAutoplay = false) => {
       activeIndex = (nextIndex + slides.length) % slides.length;
       syncUi();
-      setProgress(0);
       if (restartAutoplay) {
         startAutoplay();
       }
     };
-
-    progressButtons.forEach((button, index) => {
-      button.addEventListener("click", () => {
-        setActive(index, true);
-        if (button instanceof HTMLButtonElement) {
-          button.blur();
-        }
-      });
-    });
-
-    if (prevButton instanceof HTMLButtonElement) {
-      prevButton.addEventListener("click", () => {
-        setActive(activeIndex - 1, true);
-        prevButton.blur();
-      });
-    }
-
-    if (nextButton instanceof HTMLButtonElement) {
-      nextButton.addEventListener("click", () => {
-        setActive(activeIndex + 1, true);
-        nextButton.blur();
-      });
-    }
 
     hero.addEventListener("mouseenter", pauseAutoplay);
     hero.addEventListener("mouseleave", resumeAutoplay);
@@ -286,6 +251,21 @@ const hasSlides = slides.length > 0;
         resumeAutoplay();
       }
     });
+    hero.addEventListener("touchstart", (event) => {
+      const touch = event.changedTouches?.[0];
+      if (!touch) return;
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    }, { passive: true });
+    hero.addEventListener("touchend", (event) => {
+      if (!mobileViewport.matches) return;
+      const touch = event.changedTouches?.[0];
+      if (!touch) return;
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      if (Math.abs(deltaX) <= 48 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      setActive(activeIndex + (deltaX < 0 ? 1 : -1), autoplayEnabled);
+    }, { passive: true });
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         pauseAutoplay();
@@ -293,8 +273,10 @@ const hasSlides = slides.length > 0;
         resumeAutoplay();
       }
     });
+    mobileViewport.addEventListener?.("change", refreshAutoplay);
+    window.addEventListener("resize", refreshAutoplay);
 
     syncUi();
-    startAutoplay();
+    refreshAutoplay();
   })();
 </script>

@@ -1212,7 +1212,8 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70px;
+    min-height: 70px;
+    padding-bottom: env(safe-area-inset-bottom);
     background: #fff;
     border-top: 1px solid var(--color-border);
     display: none;
@@ -1226,6 +1227,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 70px;
+    padding: 0.6rem 0.9rem;
     text-decoration: none;
     color: var(--color-primary);
     font-size: 0.75rem;
@@ -1240,6 +1243,11 @@
     color: #fff;
 }
 
+.cta-item.primary {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
 .cta-item.contact {
     background-color: #fff;
     border-left: 1px solid var(--color-border);
@@ -1250,7 +1258,7 @@
         display: grid;
     }
     .has-mobile-sticky-cta {
-        padding-bottom: 70px; /* Space for the bar */
+        padding-bottom: calc(70px + env(safe-area-inset-bottom));
     }
 }
 

@@ -294,26 +294,316 @@
   padding-top: clamp(2.5rem, 6vw, 5rem);
 }
 
+.sell-hero__shell {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.16fr) minmax(320px, 430px);
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1.35rem, 4vw, 2.3rem);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at top right, rgba(211, 44, 67, 0.24), transparent 30%),
+    linear-gradient(120deg, rgba(19, 32, 56, 0.98) 0%, rgba(31, 47, 78, 0.95) 56%, rgba(250, 250, 250, 0.98) 56.1%, rgba(250, 250, 250, 0.98) 100%);
+  border: 1px solid rgba(18, 29, 51, 0.08);
+  box-shadow: 0 28px 54px rgba(18, 29, 51, 0.14);
+}
+
+.sell-hero__shell::after {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 26px;
+  pointer-events: none;
+}
+
+.sell-hero__copy,
+.sell-hero__aside {
+  position: relative;
+  z-index: 1;
+}
+
+.sell-hero__copy {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  min-height: 100%;
+}
+
+.sell-hero__copy .service-eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.sell-hero__copy h1 {
+  margin: 0;
+  max-width: 12ch;
+  color: #fff;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.sell-hero__copy p {
+  margin: 0;
+  max-width: 58ch;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1rem;
+  line-height: 1.76;
+}
+
+.sell-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.sell-cta {
+  border-radius: 14px;
+  background: #fff;
+  color: var(--color-primary);
+  box-shadow: 0 18px 32px rgba(18, 29, 51, 0.16);
+}
+
+.sell-cta:hover {
+  box-shadow: 0 20px 36px rgba(18, 29, 51, 0.2);
+}
+
 .sell-kpi-strip {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
-  margin-top: 0.5rem;
+  margin-top: 0.3rem;
 }
 
 .sell-kpi-chip {
   display: inline-flex;
   align-items: center;
   min-height: 2.35rem;
-  padding: 0.45rem 0.85rem;
-  border: 1px solid rgba(18, 29, 51, 0.1);
+  padding: 0.5rem 0.88rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.74);
-  color: var(--color-primary);
-  font-size: 0.76rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.74rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.sell-hero__aside {
+  display: grid;
+  align-items: stretch;
+}
+
+.sell-hero__card {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding: 1.5rem;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 247, 250, 0.96));
+  box-shadow: 0 18px 34px rgba(18, 29, 51, 0.12);
+}
+
+.sell-hero__card-eyebrow,
+.sell-panel__eyebrow {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(18, 29, 51, 0.5);
+}
+
+.sell-hero__card h2,
+.sell-panel__head h2 {
+  margin: 0;
+  color: var(--color-primary);
+}
+
+.sell-hero__card h2 {
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  line-height: 1.02;
+}
+
+.sell-hero__card p {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.72;
+}
+
+.sell-hero__card-list,
+.sell-point-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.sell-hero__card-list li,
+.sell-point-list li {
+  position: relative;
+  display: grid;
+  gap: 0;
+  padding-left: 1.2rem;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  line-height: 1.62;
+}
+
+.sell-hero__card-list li::before,
+.sell-point-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.65rem;
+  left: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  background: var(--color-accent);
+}
+
+.sell-hero__card-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 3rem;
+  padding: 0.85rem 1.15rem;
+  border-radius: 14px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.sell-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  gap: 1.15rem;
+  padding-top: 1.35rem;
+}
+
+.sell-main {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-content: start;
+}
+
+.sell-sidebar {
+  display: grid;
+  align-content: start;
+}
+
+.sell-panel,
+.sell-form-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.35rem;
+  border-radius: 28px;
+  border: 1px solid rgba(18, 29, 51, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 34px rgba(18, 29, 51, 0.08);
+}
+
+.sell-panel__head {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.sell-panel__head p {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.72;
+}
+
+.sell-panel--seo,
+.sell-form-card {
+  grid-column: 1 / -1;
+}
+
+.sell-panel--seo {
+  background:
+    radial-gradient(circle at top right, rgba(232, 220, 197, 0.16), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(246, 248, 252, 0.95));
+}
+
+.sell-seo-copy {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.sell-seo-copy p {
+  margin: 0;
+  color: var(--color-primary);
+  line-height: 1.78;
+}
+
+.sell-sidebar .sell-form-card {
+  position: sticky;
+  top: 6.5rem;
+  grid-column: auto;
+  background:
+    radial-gradient(circle at top right, rgba(232, 220, 197, 0.18), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 247, 251, 0.96));
+}
+
+.sell-form {
+  gap: 1rem;
+}
+
+.sell-form-grid {
+  gap: 0.8rem;
+}
+
+.sell-form .service-form-field span {
+  color: rgba(18, 29, 51, 0.56);
+}
+
+.sell-form .service-form-field input,
+.sell-form .service-form-field textarea {
+  min-height: 3.1rem;
+  border-radius: 14px;
+  border-color: rgba(18, 29, 51, 0.1);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.sell-form .service-form-field textarea {
+  min-height: 9rem;
+  padding-top: 0.95rem;
+}
+
+.sell-form-actions {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sell-form-submit {
+  min-height: 3.15rem;
+  padding-inline: 1.3rem;
+  background: linear-gradient(135deg, #132038 0%, #243659 100%);
+  color: #fff;
+  box-shadow: 0 18px 34px rgba(18, 29, 51, 0.18);
+}
+
+.sell-form-submit:hover {
+  box-shadow: 0 20px 38px rgba(18, 29, 51, 0.22);
+}
+
+.sell-quick-links a {
+  border-radius: 18px;
+  min-height: 4rem;
+  padding: 0.9rem 1rem;
+  border-color: rgba(18, 29, 51, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 247, 251, 0.98));
+  box-shadow: 0 12px 24px rgba(18, 29, 51, 0.05);
 }
 
 .contact-hero {
@@ -3417,6 +3707,23 @@
 }
 
 @media (max-width: 1000px) {
+  .sell-hero__shell,
+  .sell-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sell-main {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sell-sidebar {
+    order: -1;
+  }
+
+  .sell-sidebar .sell-form-card {
+    position: static;
+  }
+
   .contact-hero__shell,
   .contact-grid {
     grid-template-columns: 1fr;
@@ -3525,6 +3832,15 @@
 }
 
 @media (max-width: 900px) {
+  .sell-main {
+    grid-template-columns: 1fr;
+  }
+
+  .sell-panel,
+  .sell-form-card {
+    border-radius: 24px;
+  }
+
   .contact-hero__shell {
     background:
       linear-gradient(180deg, rgba(19, 32, 56, 0.98) 0%, rgba(31, 47, 78, 0.96) 50%, rgba(255, 255, 255, 0.98) 50.1%, rgba(255, 255, 255, 0.98) 100%);
@@ -3605,6 +3921,93 @@
 }
 
 @media (max-width: 720px) {
+  .sell-page {
+    overflow-x: hidden;
+  }
+
+  .sell-hero {
+    padding-top: 2rem;
+  }
+
+  .sell-hero__shell {
+    padding: 1.05rem;
+    border-radius: 24px;
+    background:
+      linear-gradient(180deg, rgba(19, 32, 56, 0.98) 0%, rgba(31, 47, 78, 0.96) 52%, rgba(255, 255, 255, 0.98) 52.1%, rgba(255, 255, 255, 0.98) 100%);
+  }
+
+  .sell-hero__shell::after {
+    inset: 0.8rem;
+    border-radius: 18px;
+  }
+
+  .sell-hero__copy {
+    gap: 0.9rem;
+  }
+
+  .sell-hero__copy h1 {
+    max-width: none;
+    font-size: clamp(2.35rem, 10.5vw, 3.6rem);
+  }
+
+  .sell-hero__copy p {
+    font-size: 0.95rem;
+    line-height: 1.68;
+  }
+
+  .sell-cta,
+  .sell-hero__card-link {
+    width: 100%;
+  }
+
+  .sell-kpi-strip {
+    gap: 0.45rem;
+  }
+
+  .sell-kpi-chip {
+    min-height: 2.1rem;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.62rem;
+  }
+
+  .sell-hero__card,
+  .sell-panel,
+  .sell-form-card {
+    padding: 1rem;
+    border-radius: 20px;
+  }
+
+  .sell-hero__card h2,
+  .sell-panel__head h2 {
+    font-size: clamp(1.18rem, 5.6vw, 1.55rem);
+  }
+
+  .sell-hero__card-list li,
+  .sell-point-list li {
+    font-size: 0.9rem;
+    line-height: 1.58;
+  }
+
+  .sell-layout {
+    gap: 0.95rem;
+    padding-top: 1rem;
+  }
+
+  .sell-form-actions {
+    align-items: stretch;
+  }
+
+  .sell-form-submit,
+  .sell-form-actions .service-form-status {
+    width: 100%;
+  }
+
+  .sell-quick-links a {
+    min-height: 3.7rem;
+    border-radius: 16px;
+    font-size: 0.92rem;
+  }
+
   .contact-page {
     overflow-x: hidden;
   }
@@ -4089,6 +4492,25 @@
 }
 
 @media (max-width: 560px) {
+  .sell-kpi-strip {
+    gap: 0.4rem;
+  }
+
+  .sell-kpi-chip {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sell-hero__card-list,
+  .sell-point-list {
+    gap: 0.7rem;
+  }
+
+  .sell-hero__card-list li,
+  .sell-point-list li {
+    font-size: 0.88rem;
+  }
+
   .contact-hero__shell,
   .contact-panel {
     border-radius: 18px;

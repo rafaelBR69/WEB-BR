@@ -1,5 +1,22 @@
 # Progress Log
 
+## 2026-03-19
+
+- Started a planning-with-files track for a major redesign of `/sell-with-us/`.
+- Reviewed:
+  - `apps/web/src/pages/[lang]/sell-with-us/index.astro`
+  - `apps/web/src/styles/pages/service-pages.css`
+- Confirmed the page content is broadly sufficient, but the current presentation is too generic for a serious seller-conversion page.
+- Logged the redesign goal and phase structure in `task_plan.md`.
+- Logged the initial architectural/design findings in `findings.md`.
+- Implemented a redesign of the page with:
+  - a new high-trust hero shell
+  - a more professional two-column body
+  - a seller-oriented aside/form treatment
+  - dedicated responsive behavior for tablet and mobile
+- Validation:
+  - `npm run build:web` OK
+
 ## 2026-03-13
 
 - Continued the migration from facade-based `@shared/*` modules to canonical shared implementation.

@@ -6,6 +6,7 @@ import HomeEditorialHero from "@webapp/components/HomeEditorialHero.astro";
 import HomeFeaturedServices from "@webapp/components/HomeFeaturedServices.astro";
 import HomeFeaturedUnits from "@webapp/components/HomeFeaturedUnits.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { getUiCopy } from "@shared/i18n/ui";
 import teamMembers from "@shared/data/team";
 import posts from "@shared/data/posts";
 import "@webapp/styles/pages/landing.css";
@@ -60,6 +61,7 @@ const collaboratorLogos = Object.entries(collaboratorLogoModules)
 
 const homeContent = homePageContent as Record<string, any>;
 const t = homeContent.pageByLang[lang] ?? homeContent.pageByLang.es;
+const ui = getUiCopy(lang);
 const navigation = buildPublicNavigation({
   lang,
   family: "home",
@@ -273,6 +275,48 @@ const homeStructuredData = [
 ];
 
 const currentYear = new Date().getFullYear();
+const mobileHomeCopyByLang = {
+  es: {
+    exploreProjects: "Explorar proyectos",
+    quickActionsLabel: "Accesos directos",
+    viewAllUnits: "Ver todas",
+  },
+  en: {
+    exploreProjects: "Explore projects",
+    quickActionsLabel: "Quick actions",
+    viewAllUnits: "View all",
+  },
+  de: {
+    exploreProjects: "Projekte entdecken",
+    quickActionsLabel: "Schnellzugriff",
+    viewAllUnits: "Alle ansehen",
+  },
+  fr: {
+    exploreProjects: "Explorer les projets",
+    quickActionsLabel: "Acces rapides",
+    viewAllUnits: "Voir tout",
+  },
+  it: {
+    exploreProjects: "Esplora i progetti",
+    quickActionsLabel: "Accessi rapidi",
+    viewAllUnits: "Vedi tutto",
+  },
+  nl: {
+    exploreProjects: "Projecten ontdekken",
+    quickActionsLabel: "Snelle acties",
+    viewAllUnits: "Alles bekijken",
+  },
+};
+const mobileHomeCopy =
+  mobileHomeCopyByLang[lang as keyof typeof mobileHomeCopyByLang] ?? mobileHomeCopyByLang.es;
+const projectsPath = `/${lang}/projects/`;
+const propertiesPath = `/${lang}/properties/`;
+const heroMobileQuickLinks = [
+  { href: projectsPath, label: ui.layout.navProjects },
+  { href: propertiesPath, label: ui.layout.navProperties },
+  { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization },
+  { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices },
+];
 ---
 
 <BaseLayout
@@ -286,18 +330,120 @@ const currentYear = new Date().getFullYear();
   structuredData={homeStructuredData}
   {...navigation}
   showMobileStickyCta={false}
+  mobileStickyCta={{
+    primary: { href: projectsPath, label: mobileHomeCopy.exploreProjects, variant: "primary" },
+    secondary: { href: "tel:+34952599159", label: ui.layout.call, variant: "call" },
+  }}
   preloadSmoothyFont={true}
 >
   <HomeEditorialHero
     lang={lang}
     slides={heroSlides}
     stats={heroStats}
-    projectsPath={`/${lang}/projects/`}
+    projectsPath={projectsPath}
+    mobileQuickLinks={heroMobileQuickLinks}
+    mobileQuickActionsLabel={mobileHomeCopy.quickActionsLabel}
+  />
+  <HomeFeaturedUnits
+    lang={lang}
+    cards={featuredUnits}
+    viewAllHref={propertiesPath}
+    viewAllLabel={mobileHomeCopy.viewAllUnits}
+    disableAutoplayOnMobile={true}
   />
   <HomeFeaturedServices lang={lang} />
-  <HomeFeaturedUnits lang={lang} cards={featuredUnits} />
 
   <section class="landing-about-z container">
+    <article class="z-team">
+      <div class="z-team-head">
+        <h2>{teamCopy.title}</h2>
+      </div>
+      <div class="z-team-carousel" data-team-carousel>
+        <button
+          class="z-team-arrow z-team-arrow-prev"
+          type="button"
+          aria-label={teamCopy.prev}
+          data-carousel-prev
+        >
+          <span aria-hidden="true">&larr;</span>
+        </button>
+        <div class="z-team-viewport" data-carousel-viewport>
+          <div class="z-team-track">
+            {teamCards.map((member) => (
+              <article class="z-team-card">
+                <div class="z-team-photo">
+                  <img
+                    src={member.image}
+                    alt={member.imageAlt}
+                    width="720"
+                    height="900"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="z-team-copy">
+                  <h3>{member.name}</h3>
+                  {member.role && <p class="z-team-role">{member.role}</p>}
+                  <dl class="z-team-meta">
+                    <div>
+                      <dt>{teamCopy.languages}</dt>
+                      <dd>
+                        {member.languageBadges.length > 0 ? (
+                          <ul class="z-team-flags" aria-label={teamCopy.languages}>
+                            {member.languageBadges.map((badge) => (
+                              <li class="z-team-flag" title={badge.label}>
+                                <img src={badge.flagUrl} alt={badge.label} loading="lazy" />
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          teamCopy.noLanguages
+                        )}
+                      </dd>
+                    </div>
+                  </dl>
+                  <div class="z-team-actions">
+                    {member.email && (
+                      <a class="z-team-action z-team-action-email" href={`mailto:${member.emailHref}`}>
+                        {teamCopy.emailAction}
+                      </a>
+                    )}
+                    {member.phone && (
+                      <a class="z-team-action z-team-action-phone" href={`tel:${member.phoneHref}`}>
+                        {teamCopy.phoneAction}
+                      </a>
+                    )}
+                  </div>
+                  <dl class="z-team-contact-list">
+                    {member.email && (
+                      <div>
+                        <dt>{teamCopy.email}</dt>
+                        <dd><a href={`mailto:${member.emailHref}`}>{member.email}</a></dd>
+                      </div>
+                    )}
+                    {member.phone && (
+                      <div>
+                        <dt>{teamCopy.phone}</dt>
+                        <dd><a href={`tel:${member.phoneHref}`}>{member.phone}</a></dd>
+                      </div>
+                    )}
+                  </dl>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+        <button
+          class="z-team-arrow z-team-arrow-next"
+          type="button"
+          aria-label={teamCopy.next}
+          data-carousel-next
+        >
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </article>
+
     {homeLeadPost ? (
       <article class="home-journal">
         <div class="home-journal-head">
@@ -333,34 +479,109 @@ const currentYear = new Date().getFullYear();
             </a>
           </article>
 
-          <div class="home-journal-stack">
-            {homeSecondaryPosts.map((post) => (
-              <article class="home-journal-secondary">
-                <a href={`/${lang}/post/${post.slug}/`} class="home-journal-secondary-link">
-                  {post.coverUrl ? (
-                    <img
-                      src={post.coverUrl}
-                      alt={post.coverAlt}
-                      width="960"
-                      height="720"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div class="home-journal-fallback"></div>
-                  )}
-                  <div class="home-journal-secondary-copy">
-                    <span>{post.category}</span>
-                    <h3>{post.title}</h3>
-                    <p>{post.excerpt}</p>
-                  </div>
-                </a>
-              </article>
-            ))}
-          </div>
+          <details class="home-journal-accordion" open>
+            <summary class="home-journal-summary">
+              <span>{homePostsCopy.viewAll}</span>
+            </summary>
+
+            <div class="home-journal-stack">
+              {homeSecondaryPosts.map((post) => (
+                <article class="home-journal-secondary">
+                  <a href={`/${lang}/post/${post.slug}/`} class="home-journal-secondary-link">
+                    {post.coverUrl ? (
+                      <img
+                        src={post.coverUrl}
+                        alt={post.coverAlt}
+                        width="960"
+                        height="720"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <div class="home-journal-fallback"></div>
+                    )}
+                    <div class="home-journal-secondary-copy">
+                      <span>{post.category}</span>
+                      <h3>{post.title}</h3>
+                      <p>{post.excerpt}</p>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </details>
         </div>
       </article>
     ) : null}
+
+    <article class="z-row is-reverse" id="home-contact">
+      <div class="z-media">
+        <img
+          src={extra.aboutRows[1].image}
+          alt={extra.aboutRows[1].imageAlt}
+          width="1280"
+          height="960"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="z-copy z-copy-form">
+        <h2>{formCopy.title}</h2>
+        <p>{formCopy.intro}</p>
+        <details class="z-form-disclosure" open>
+          <summary class="z-form-summary">
+            <span class="z-form-summary-open">{formCopy.toggleOpen}</span>
+            <span class="z-form-summary-close">{formCopy.toggleClose}</span>
+          </summary>
+          <form class="z-form" method="get" action={contactPath} id="landingLeadForm">
+            <div class="z-form-grid">
+              <label class="z-form-field">
+                <span>{formCopy.name}</span>
+                <input type="text" name="name" required />
+              </label>
+              <label class="z-form-field">
+                <span>{formCopy.email}</span>
+                <input type="email" name="email" required />
+              </label>
+              <label class="z-form-field">
+                <span>{formCopy.phone}</span>
+                <input type="tel" name="phone" />
+              </label>
+              <label class="z-form-field">
+                <span>{formCopy.service}</span>
+                <select name="service" required>
+                  <option value="">{formCopy.optionDefault}</option>
+                  <option value="real-estate">{formCopy.optionRealEstate}</option>
+                  <option value="legal-services">{formCopy.optionLegal}</option>
+                  <option value="commercialization">{formCopy.optionCommercialization}</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="z-form-field z-form-field-full">
+              <span>{formCopy.message}</span>
+              <textarea name="message" rows="4"></textarea>
+            </label>
+
+            <label class="z-form-consent">
+              <input type="checkbox" name="consent" required />
+              <span>
+                {formCopy.consentPrefix}{" "}
+                <a href={privacyPath}>{formCopy.consentLink}</a>{" "}
+                {formCopy.consentSuffix}
+              </span>
+            </label>
+
+            <p class="z-form-legal-note">{formCopy.legalNote}</p>
+
+            <div class="z-form-actions">
+              <button type="submit" class="z-form-submit">{formCopy.submit}</button>
+              <p class="z-form-status" id="landingLeadStatus" aria-live="polite"></p>
+            </div>
+          </form>
+        </details>
+      </div>
+    </article>
 
     <section class="home-instagram" aria-label={instagramCopy.ariaLabel}>
       <div class="home-instagram-head">
@@ -480,165 +701,6 @@ const currentYear = new Date().getFullYear();
         </div>
       </div>
     </section>
-
-    <article class="z-team">
-      <div class="z-team-head">
-        <h2>{teamCopy.title}</h2>
-      </div>
-      <div class="z-team-carousel" data-team-carousel>
-        <button
-          class="z-team-arrow z-team-arrow-prev"
-          type="button"
-          aria-label={teamCopy.prev}
-          data-carousel-prev
-        >
-          <span aria-hidden="true">&larr;</span>
-        </button>
-        <div class="z-team-viewport" data-carousel-viewport>
-          <div class="z-team-track">
-            {teamCards.map((member) => (
-              <article class="z-team-card">
-                <div class="z-team-photo">
-                  <img
-                    src={member.image}
-                    alt={member.imageAlt}
-                    width="720"
-                    height="900"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div class="z-team-copy">
-                  <h3>{member.name}</h3>
-                  {member.role && <p class="z-team-role">{member.role}</p>}
-                  <dl class="z-team-meta">
-                    <div>
-                      <dt>{teamCopy.languages}</dt>
-                      <dd>
-                        {member.languageBadges.length > 0 ? (
-                          <ul class="z-team-flags" aria-label={teamCopy.languages}>
-                            {member.languageBadges.map((badge) => (
-                              <li class="z-team-flag" title={badge.label}>
-                                <img src={badge.flagUrl} alt={badge.label} loading="lazy" />
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          teamCopy.noLanguages
-                        )}
-                      </dd>
-                    </div>
-                  </dl>
-                  <div class="z-team-actions">
-                    {member.email && (
-                      <a class="z-team-action z-team-action-email" href={`mailto:${member.emailHref}`}>
-                        {teamCopy.emailAction}
-                      </a>
-                    )}
-                    {member.phone && (
-                      <a class="z-team-action z-team-action-phone" href={`tel:${member.phoneHref}`}>
-                        {teamCopy.phoneAction}
-                      </a>
-                    )}
-                  </div>
-                  <dl class="z-team-contact-list">
-                    {member.email && (
-                      <div>
-                        <dt>{teamCopy.email}</dt>
-                        <dd><a href={`mailto:${member.emailHref}`}>{member.email}</a></dd>
-                      </div>
-                    )}
-                    {member.phone && (
-                      <div>
-                        <dt>{teamCopy.phone}</dt>
-                        <dd><a href={`tel:${member.phoneHref}`}>{member.phone}</a></dd>
-                      </div>
-                    )}
-                  </dl>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-        <button
-          class="z-team-arrow z-team-arrow-next"
-          type="button"
-          aria-label={teamCopy.next}
-          data-carousel-next
-        >
-          <span aria-hidden="true">&rarr;</span>
-        </button>
-      </div>
-    </article>
-
-    <article class="z-row is-reverse">
-      <div class="z-media">
-        <img
-          src={extra.aboutRows[1].image}
-          alt={extra.aboutRows[1].imageAlt}
-          width="1280"
-          height="960"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <div class="z-copy z-copy-form">
-        <h2>{formCopy.title}</h2>
-        <p>{formCopy.intro}</p>
-        <details class="z-form-disclosure" open>
-          <summary class="z-form-summary">
-            <span class="z-form-summary-open">{formCopy.toggleOpen}</span>
-            <span class="z-form-summary-close">{formCopy.toggleClose}</span>
-          </summary>
-          <form class="z-form" method="get" action={contactPath} id="landingLeadForm">
-            <div class="z-form-grid">
-              <label class="z-form-field">
-                <span>{formCopy.name}</span>
-                <input type="text" name="name" required />
-              </label>
-              <label class="z-form-field">
-                <span>{formCopy.email}</span>
-                <input type="email" name="email" required />
-              </label>
-              <label class="z-form-field">
-                <span>{formCopy.phone}</span>
-                <input type="tel" name="phone" />
-              </label>
-              <label class="z-form-field">
-                <span>{formCopy.service}</span>
-                <select name="service" required>
-                  <option value="">{formCopy.optionDefault}</option>
-                  <option value="real-estate">{formCopy.optionRealEstate}</option>
-                  <option value="legal-services">{formCopy.optionLegal}</option>
-                  <option value="commercialization">{formCopy.optionCommercialization}</option>
-                </select>
-              </label>
-            </div>
-
-            <label class="z-form-field z-form-field-full">
-              <span>{formCopy.message}</span>
-              <textarea name="message" rows="4"></textarea>
-            </label>
-
-            <label class="z-form-consent">
-              <input type="checkbox" name="consent" required />
-              <span>
-                {formCopy.consentPrefix}{" "}
-                <a href={privacyPath}>{formCopy.consentLink}</a>{" "}
-                {formCopy.consentSuffix}
-              </span>
-            </label>
-
-            <p class="z-form-legal-note">{formCopy.legalNote}</p>
-
-            <div class="z-form-actions">
-              <button type="submit" class="z-form-submit">{formCopy.submit}</button>
-              <p class="z-form-status" id="landingLeadStatus" aria-live="polite"></p>
-            </div>
-          </form>
-        </details>
-      </div>
-    </article>
   </section>
 
   <section class="landing-collaborators" aria-label={extra.collaboratorsAria}>
@@ -725,6 +787,7 @@ const currentYear = new Date().getFullYear();
     const homeFormDisclosure = document.querySelector(".z-form-disclosure");
     const landingLeadForm = document.getElementById("landingLeadForm");
     const landingLeadStatus = document.getElementById("landingLeadStatus");
+    const journalAccordion = document.querySelector(".home-journal-accordion");
     const teamCarousels = document.querySelectorAll("[data-team-carousel]");
 
     const syncHomeFormDisclosure = () => {
@@ -773,6 +836,14 @@ const currentYear = new Date().getFullYear();
       syncTeamCarouselState(carousel);
     };
 
+    const syncHomeJournalAccordion = () => {
+      if (!(journalAccordion instanceof HTMLDetailsElement)) {
+        return;
+      }
+
+      journalAccordion.open = window.innerWidth > 1080;
+    };
+
     if (landingLeadForm instanceof HTMLFormElement && landingLeadStatus instanceof HTMLElement) {
       landingLeadForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -810,571 +881,13 @@ const currentYear = new Date().getFullYear();
     }
 
     syncHomeFormDisclosure();
+    syncHomeJournalAccordion();
     teamCarousels.forEach(setupTeamCarousel);
     window.addEventListener("resize", () => {
       teamCarousels.forEach(syncTeamCarouselState);
     });
     window.addEventListener("resize", syncHomeFormDisclosure);
+    window.addEventListener("resize", syncHomeJournalAccordion);
   </script>
-  <style>
-    .home-editorial-hero-title,
-    .home-editorial-section-title,
-    .landing-about-z h2,
-    .landing-collaborators h2,
-    .home-instagram h2,
-    .home-media h2 {
-      font-family: 'Cormorant Garamond', serif !important;
-      font-style: normal;
-      font-weight: 600;
-    }
-
-    .home-service-copy h3 {
-      font-family: 'Smoothy Sans', 'Cormorant Garamond', serif !important;
-      text-transform: uppercase !important;
-    }
-
-    .home-instagram {
-      display: grid;
-      gap: 1.2rem;
-      margin-bottom: 2.6rem;
-    }
-
-    .home-media {
-      display: grid;
-      gap: 1.2rem;
-      margin-bottom: 2.6rem;
-      padding-top: 0.15rem;
-    }
-
-    .home-instagram-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem 2rem;
-    }
-
-    .home-media-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem 2rem;
-    }
-
-    .home-instagram-heading {
-      display: grid;
-      gap: 0.4rem;
-      max-width: 48rem;
-    }
-
-    .home-media-heading {
-      display: grid;
-      gap: 0.4rem;
-      max-width: 48rem;
-    }
-
-    .home-instagram-heading h2 {
-      margin: 0;
-      font-size: clamp(1.65rem, 2.3vw, 2.45rem);
-      line-height: 0.98;
-      color: var(--color-primary);
-    }
-
-    .home-instagram-heading p {
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      color: var(--color-muted);
-    }
-
-    .home-media-heading h2 {
-      margin: 0;
-      font-size: clamp(1.65rem, 2.3vw, 2.45rem);
-      line-height: 0.98;
-      color: var(--color-primary);
-    }
-
-    .home-media-heading p {
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      color: var(--color-muted);
-    }
-
-    .home-instagram-follow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 0.92rem 1.35rem;
-      border-radius: 0;
-      background: var(--color-primary);
-      color: var(--color-bg);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 0.72rem;
-      font-weight: 700;
-      white-space: nowrap;
-      transition: background-color 180ms ease, transform 180ms ease;
-    }
-
-    .home-media-follow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 0.92rem 1.35rem;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      background: var(--color-primary);
-      color: var(--color-bg);
-      box-shadow: 0 12px 28px rgba(32, 47, 78, 0.12);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 0.72rem;
-      font-weight: 700;
-      white-space: nowrap;
-      transition: background-color 180ms ease, transform 180ms ease;
-    }
-
-    .home-instagram-follow:hover,
-    .home-instagram-follow:focus-visible {
-      background: var(--color-accent);
-      transform: translateY(-1px);
-    }
-
-    .home-media-follow:hover,
-    .home-media-follow:focus-visible {
-      background: var(--color-accent);
-      box-shadow: 0 18px 34px rgba(211, 44, 67, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .home-instagram-follow svg {
-      width: 1.15rem;
-      height: 1.15rem;
-      flex: 0 0 auto;
-    }
-
-    .home-media-follow svg {
-      width: 1.15rem;
-      height: 1.15rem;
-      flex: 0 0 auto;
-    }
-
-    .lightwidget,
-    .lightwidget * {
-      border: 0;
-      box-sizing: border-box;
-      line-height: 1.5;
-      margin: 0;
-      padding: 0;
-      text-size-adjust: 100%;
-      vertical-align: baseline;
-    }
-
-    .lightwidget__posts {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 0.7rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .lightwidget__posts--grid .lightwidget__tile {
-      max-width: none;
-    }
-
-    .lightwidget__tile {
-      list-style: none;
-      padding: 0;
-    }
-
-    .lightwidget__link {
-      background-color: transparent;
-      color: inherit;
-      cursor: pointer;
-      display: block;
-      position: relative;
-      text-decoration: none;
-    }
-
-    .lightwidget__focus {
-      position: relative;
-    }
-
-    .lightwidget__focus:focus-visible {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 4px;
-    }
-
-    .lightwidget__photo {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1 / 1;
-      background: #d9d0c2;
-      min-height: 0;
-    }
-
-    .lightwidget__image-wrapper {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .lightwidget__image {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 240ms ease;
-    }
-
-    .lightwidget__link:hover .lightwidget__image,
-    .lightwidget__link:focus-visible .lightwidget__image {
-      transform: scale(1.03);
-    }
-
-    .lightwidget__photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(9, 10, 11, 0.16) 0%, rgba(9, 10, 11, 0.04) 34%, rgba(9, 10, 11, 0.62) 100%);
-      pointer-events: none;
-    }
-
-    .lightwidget__instagram-icon {
-      position: absolute;
-      top: 0.48rem;
-      right: 0.48rem;
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 1.3rem;
-      height: 1.3rem;
-      color: rgba(255, 255, 255, 0.96);
-    }
-
-    .lightwidget__instagram-icon svg {
-      width: 0.92rem;
-      height: 0.92rem;
-    }
-
-    .lightwidget__caption {
-      position: absolute;
-      right: 0.75rem;
-      bottom: 0.72rem;
-      left: 0.75rem;
-      z-index: 2;
-      display: -webkit-box;
-      overflow: hidden;
-      color: #fff;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.9rem, 0.95vw, 1.16rem);
-      line-height: 1.02;
-      text-shadow: 0 3px 16px rgba(0, 0, 0, 0.3);
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-    }
-
-    .home-media-widget,
-    .home-media-list {
-      margin: 0;
-      padding: 0;
-    }
-
-    .home-media-list {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .home-media-tile {
-      grid-column: span 3;
-      min-width: 0;
-    }
-
-    .home-media-tile:last-child:nth-child(4n + 1) {
-      grid-column: 5 / span 3;
-    }
-
-    .home-media-link {
-      display: block;
-      height: 100%;
-      color: inherit;
-      border-radius: 18px;
-      background: transparent;
-      overflow: hidden;
-      text-decoration: none;
-      transition:
-        transform 220ms ease,
-        box-shadow 220ms ease;
-    }
-
-    .home-media-link:hover,
-    .home-media-link:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 38px rgba(32, 47, 78, 0.14);
-    }
-
-    .home-media-link:focus-visible {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 4px;
-    }
-
-    .home-media-photo {
-      margin: 0;
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      background:
-        radial-gradient(circle at top left, rgba(211, 44, 67, 0.12), transparent 38%),
-        #d7dde8;
-      border-radius: 18px;
-    }
-
-    .home-media-image-wrapper {
-      position: absolute;
-      inset: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .home-media-image {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 240ms ease;
-    }
-
-    .home-media-link:hover .home-media-image,
-    .home-media-link:focus-visible .home-media-image {
-      transform: scale(1.03);
-    }
-
-    .home-media-photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(8, 10, 14, 0.06) 0%, rgba(8, 10, 14, 0.14) 42%, rgba(8, 10, 14, 0.76) 100%);
-      pointer-events: none;
-    }
-
-    .home-media-video-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.2rem;
-      height: 2.2rem;
-      color: #ff3b30;
-      transform: translate(-50%, -50%);
-      transition: transform 220ms ease, color 220ms ease;
-    }
-
-    .home-media-link:hover .home-media-video-icon,
-    .home-media-link:focus-visible .home-media-video-icon {
-      color: #ff5a4f;
-      transform: translate(-50%, -50%) scale(1.08);
-    }
-
-    .home-media-video-icon svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.3));
-    }
-
-    .home-media-caption {
-      position: absolute;
-      right: 0.95rem;
-      bottom: 0.88rem;
-      left: 0.95rem;
-      z-index: 2;
-      display: -webkit-box;
-      overflow: hidden;
-      color: #fff;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.98rem, 1vw, 1.22rem);
-      line-height: 1.08;
-      text-shadow: 0 3px 16px rgba(0, 0, 0, 0.3);
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-    }
-
-    @media (max-width: 1100px) {
-      .lightwidget__posts {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 0;
-        margin: 0 -0.24rem;
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .lightwidget__posts::-webkit-scrollbar {
-        display: none;
-      }
-
-      .lightwidget__posts--grid .lightwidget__tile {
-        flex: 0 0 calc(25% - 0.48rem);
-        max-width: calc(25% - 0.48rem);
-      }
-
-      .lightwidget__tile {
-        padding: 0 0.24rem;
-      }
-
-      .home-media-list {
-        display: flex;
-        gap: 0;
-        margin: 0 -0.24rem;
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .home-media-list::-webkit-scrollbar {
-        display: none;
-      }
-
-      .home-media-tile {
-        flex: 0 0 calc(33.333% - 0.48rem);
-        max-width: calc(33.333% - 0.48rem);
-        padding: 0 0.24rem;
-      }
-
-      .home-media-tile:last-child:nth-child(4n + 1) {
-        grid-column: auto;
-      }
-    }
-
-    @media (max-width: 820px) {
-      .home-instagram-head {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .home-media-head {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .home-instagram-follow {
-        align-self: flex-start;
-      }
-
-      .home-media-follow {
-        align-self: flex-start;
-      }
-
-      .lightwidget__posts {
-        margin: 0 -0.22rem;
-      }
-
-      .lightwidget__posts--grid .lightwidget__tile {
-        flex-basis: calc(41% - 0.44rem);
-        max-width: calc(41% - 0.44rem);
-      }
-
-      .lightwidget__tile {
-        padding: 0 0.22rem;
-      }
-
-      .home-media-list {
-        margin: 0 -0.22rem;
-      }
-
-      .home-media-tile {
-        flex-basis: calc(52% - 0.44rem);
-        max-width: calc(52% - 0.44rem);
-        padding: 0 0.22rem;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .home-instagram {
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .home-media {
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .home-instagram-heading h2 {
-        font-size: 1.95rem;
-      }
-
-      .home-media-heading h2 {
-        font-size: 1.95rem;
-      }
-
-      .home-instagram-heading p {
-        font-size: 0.9rem;
-      }
-
-      .home-media-heading p {
-        font-size: 0.9rem;
-      }
-
-      .home-instagram-follow {
-        padding: 0.85rem 1.2rem;
-      }
-
-      .home-media-follow {
-        padding: 0.85rem 1.2rem;
-      }
-
-      .lightwidget__posts {
-        margin: 0 -0.18rem;
-      }
-
-      .lightwidget__posts--grid .lightwidget__tile {
-        flex-basis: calc(58% - 0.36rem);
-        max-width: calc(58% - 0.36rem);
-      }
-
-      .lightwidget__tile {
-        padding: 0 0.18rem;
-      }
-
-      .lightwidget__caption {
-        font-size: 1rem;
-      }
-
-      .home-media-list {
-        margin: 0 -0.18rem;
-      }
-
-      .home-media-tile {
-        flex-basis: calc(78% - 0.36rem);
-        max-width: calc(78% - 0.36rem);
-        padding: 0 0.18rem;
-      }
-
-      .home-media-caption {
-        font-size: 1rem;
-      }
-
-      .home-media-link {
-        border-radius: 18px;
-      }
-
-      .home-media-video-icon {
-        width: 2rem;
-        height: 2rem;
-      }
-    }
-    
-  </style>
 </BaseLayout>
 

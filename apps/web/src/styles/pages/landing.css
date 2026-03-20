@@ -369,6 +369,16 @@
   gap: 1.25rem;
 }
 
+.home-journal-accordion {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.home-journal-summary {
+  display: none;
+}
+
 .home-journal-head {
   display: flex;
   align-items: end;
@@ -748,8 +758,9 @@
 }
 
 .z-team-action-phone {
-  background: transparent;
-  color: #202f4e;
+  background: #ffffff;
+  color: #d32c43;
+  border-color: rgba(211, 44, 67, 0.36);
 }
 
 .z-team-action:hover {
@@ -1194,20 +1205,70 @@
     align-items: flex-start;
   }
 
+  .home-journal-accordion {
+    gap: 0.85rem;
+  }
+
+  .home-journal-summary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    min-height: 44px;
+    padding: 0.8rem 0.95rem;
+    border: 1px solid rgba(32, 47, 78, 0.12);
+    background: #ffffff;
+    color: #202f4e;
+    cursor: pointer;
+    list-style: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .home-journal-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .home-journal-summary::after {
+    content: "+";
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .home-journal-accordion[open] .home-journal-summary::after {
+    content: "\2212";
+  }
+
+  .home-journal-accordion:not([open]) > .home-journal-stack {
+    display: none;
+  }
+
   .home-journal-grid {
     grid-template-columns: 1fr;
   }
 
   .home-journal-lead {
-    min-height: 27rem;
-  }
-
-  .home-journal-secondary {
-    min-height: auto;
+    min-height: 22.5rem;
   }
 
   .home-journal-secondary-link {
-    grid-template-columns: 8.4rem minmax(0, 1fr);
+    grid-template-columns: 7.2rem minmax(0, 1fr);
+  }
+
+  .home-journal-secondary-copy {
+    gap: 0.35rem;
+    padding: 0.85rem 0.95rem;
+  }
+
+  .home-journal-secondary-copy h3 {
+    font-size: 1.16rem;
+  }
+
+  .home-journal-secondary-copy p {
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .z-row.is-reverse .z-media,
@@ -1216,7 +1277,42 @@
   }
 
   .z-team-card {
-    flex-basis: clamp(260px, 42vw, 320px);
+    flex-basis: clamp(190px, 28vw, 240px);
+  }
+
+  .z-team-copy {
+    gap: 0.72rem;
+    padding: 0.78rem 0.78rem 0.88rem;
+  }
+
+  .z-team-copy h3 {
+    font-size: 0.96rem;
+  }
+
+  .z-team-role {
+    font-size: 0.75rem;
+  }
+
+  .z-team-action {
+    min-height: 36px;
+    padding: 0.56rem 0.62rem;
+    font-size: 0.62rem;
+  }
+
+  .z-team-contact-list dd,
+  .z-team-meta dd {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .z-team-contact-list {
+    display: none;
+  }
+
+  .z-team-flag {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
   }
 
   .z-form-grid {
@@ -1369,12 +1465,50 @@
     padding-right: 1rem;
   }
 
+  #home-contact {
+    scroll-margin-top: 6.5rem;
+  }
+
+  .home-journal-head {
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+
+  .home-journal {
+    gap: 0.95rem;
+  }
+
+  .home-journal-link {
+    align-self: flex-start;
+  }
+
+  .home-journal-summary {
+    width: 100%;
+  }
+
+  .home-journal-lead {
+    min-height: 16rem;
+  }
+
+  .home-journal-secondary-link {
+    gap: 0;
+  }
+
   .home-journal-copy {
-    padding: 1.1rem;
+    gap: 0.5rem;
+    padding: 1rem;
   }
 
   .home-journal-copy h3 {
     font-size: clamp(1.45rem, 8vw, 2rem);
+  }
+
+  .home-journal-copy p,
+  .home-journal-secondary-copy p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .z-team {
@@ -1382,12 +1516,11 @@
   }
 
   .z-team-carousel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 0.8rem;
   }
 
   .z-team-viewport {
-    grid-column: 1 / -1;
     overflow-x: auto;
     padding-bottom: 0.2rem;
   }
@@ -1397,23 +1530,44 @@
   }
 
   .z-team-card {
-    flex: 0 0 81vw;
+    flex: 0 0 min(72vw, 16.5rem);
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 14px 28px rgba(16, 24, 40, 0.08);
   }
 
+  .z-team-copy {
+    gap: 0.68rem;
+    padding: 0.78rem 0.78rem 0.88rem;
+  }
+
+  .z-team-photo {
+    aspect-ratio: 4 / 3.8;
+  }
+
+  .z-team-copy h3 {
+    font-size: 0.92rem;
+  }
+
+  .z-team-role {
+    font-size: 0.72rem;
+  }
+
+  .z-team-meta {
+    gap: 0.65rem;
+  }
+
+  .z-team-meta dd {
+    font-size: 0.78rem;
+  }
+
+  .z-team-action {
+    min-height: 34px;
+    font-size: 0.6rem;
+  }
+
   .z-team-arrow {
-    width: 40px;
-    height: 40px;
-  }
-
-  .z-team-arrow-prev {
-    justify-self: start;
-  }
-
-  .z-team-arrow-next {
-    justify-self: end;
+    display: none;
   }
 
   .z-media {
@@ -1640,20 +1794,20 @@
 
   .landing-pillars-grid .pillar-card,
   .z-team-card {
-    flex-basis: 86vw;
+    flex-basis: 78vw;
   }
 
   .z-team-copy {
-    gap: 0.88rem;
-    padding: 0.9rem 0.9rem 1rem;
+    gap: 0.62rem;
+    padding: 0.72rem 0.72rem 0.82rem;
   }
 
   .z-team-copy h3 {
-    font-size: 1.02rem;
+    font-size: 0.88rem;
   }
 
   .z-team-role {
-    font-size: 0.78rem;
+    font-size: 0.7rem;
   }
 
   .z-team-actions {
@@ -1662,15 +1816,11 @@
   }
 
   .z-team-action {
-    min-height: 40px;
+    min-height: 32px;
   }
 
   .z-team-meta dd {
-    font-size: 0.9rem;
-  }
-
-  .z-team-contact-list dd {
-    font-size: 0.86rem;
+    font-size: 0.76rem;
   }
 
   .z-team-flag {

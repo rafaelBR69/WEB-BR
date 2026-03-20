@@ -367,101 +367,145 @@ const structuredData = {
   {...navigation}
 >
   <div class="sell-page">
-    <section class="service-hero container sell-hero">
-      <span class="service-eyebrow">{t.eyebrow}</span>
-      <h1>{t.heading}</h1>
-      <p>{t.intro}</p>
-      <a href="#sellLeadForm" class="service-cta">{t.primaryCta}</a>
+    <section class="sell-hero container">
+      <div class="sell-hero__shell">
+        <div class="sell-hero__copy">
+          <span class="service-eyebrow">{t.eyebrow}</span>
+          <h1>{t.heading}</h1>
+          <p>{t.intro}</p>
 
-      <div class="sell-kpi-strip" aria-label={t.eyebrow}>
-        {t.stats.map((item) => (
-          <span class="sell-kpi-chip">{item}</span>
-        ))}
+          <div class="sell-hero__actions">
+            <a href="#sellLeadForm" class="service-cta sell-cta">{t.primaryCta}</a>
+          </div>
+
+          <div class="sell-kpi-strip" aria-label={t.eyebrow}>
+            {t.stats.map((item) => (
+              <span class="sell-kpi-chip">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <aside class="sell-hero__aside">
+          <article class="sell-hero__card">
+            <span class="sell-hero__card-eyebrow">{t.whyTitle}</span>
+            <h2>{t.panelTitle}</h2>
+            <p>{t.panelIntro}</p>
+            <ul class="sell-hero__card-list">
+              {t.whyItems.slice(0, 3).map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            <a href="#sellLeadForm" class="sell-hero__card-link">{t.primaryCta}</a>
+          </article>
+        </aside>
       </div>
     </section>
 
-    <section class="service-grid container">
-      <article class="service-panel">
-        <h2>{t.whyTitle}</h2>
-        <ul>
-          {t.whyItems.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
-      </article>
+    <section class="container sell-layout">
+      <div class="sell-main">
+        <article class="sell-panel">
+          <div class="sell-panel__head">
+            <span class="sell-panel__eyebrow">{t.eyebrow}</span>
+            <h2>{t.whyTitle}</h2>
+          </div>
+          <ul class="sell-point-list">
+            {t.whyItems.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
 
-      <article class="service-panel">
-        <h2>{t.serviceTitle}</h2>
-        <ul>
-          {t.serviceItems.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
-      </article>
+        <article class="sell-panel">
+          <div class="sell-panel__head">
+            <span class="sell-panel__eyebrow">{t.primaryCta}</span>
+            <h2>{t.serviceTitle}</h2>
+          </div>
+          <ul class="sell-point-list">
+            {t.serviceItems.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
 
-      <article class="service-panel service-panel-full">
-        <h2>{t.seoTitle}</h2>
-        {t.seoParagraphs.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
-      </article>
+        <article class="sell-panel sell-panel--seo">
+          <div class="sell-panel__head">
+            <span class="sell-panel__eyebrow">{t.eyebrow}</span>
+            <h2>{t.seoTitle}</h2>
+          </div>
+          <div class="sell-seo-copy">
+            {t.seoParagraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </article>
 
-      <article class="service-panel service-panel-form service-panel-full">
-        <h2>{t.panelTitle}</h2>
-        <p>{t.panelIntro}</p>
+        <article class="sell-panel">
+          <div class="sell-panel__head">
+            <span class="sell-panel__eyebrow">{t.relatedTitle}</span>
+            <h2>{t.relatedTitle}</h2>
+          </div>
+          <div class="quick-links sell-quick-links">
+            {t.relatedLinks.map((link) => (
+              <a href={link.href}>{link.label}</a>
+            ))}
+          </div>
+        </article>
+      </div>
 
-        <form id="sellLeadForm" class="service-form">
-          <div class="service-form-grid">
-            <label class="service-form-field">
-              <span>{t.formName}</span>
-              <input type="text" name="full_name" required />
-            </label>
-
-            <label class="service-form-field">
-              <span>{t.formEmail}</span>
-              <input type="email" name="email" required />
-            </label>
-
-            <label class="service-form-field">
-              <span>{t.formPhone}</span>
-              <input type="tel" name="phone" />
-            </label>
-
-            <label class="service-form-field">
-              <span>{t.formArea}</span>
-              <input type="text" name="area" />
-            </label>
+      <aside class="sell-sidebar">
+        <article class="sell-form-card">
+          <div class="sell-panel__head">
+            <span class="sell-panel__eyebrow">{t.panelTitle}</span>
+            <h2>{t.panelTitle}</h2>
+            <p>{t.panelIntro}</p>
           </div>
 
-          <label class="service-form-field service-form-field-full">
-            <span>{t.formMessage}</span>
-            <textarea name="message" rows="5"></textarea>
-          </label>
+          <form id="sellLeadForm" class="service-form sell-form">
+            <div class="service-form-grid sell-form-grid">
+              <label class="service-form-field">
+                <span>{t.formName}</span>
+                <input type="text" name="full_name" required />
+              </label>
 
-          <label class="service-form-consent service-form-field-full">
-            <input type="checkbox" name="consent" required />
-            <span>
-              {t.formConsentPrefix} <a href={privacyPath}>{t.formConsentLink}</a> {t.formConsentSuffix}
-            </span>
-          </label>
+              <label class="service-form-field">
+                <span>{t.formEmail}</span>
+                <input type="email" name="email" required />
+              </label>
 
-          <p class="service-form-legal-note service-form-field-full">{t.legalNote}</p>
+              <label class="service-form-field">
+                <span>{t.formPhone}</span>
+                <input type="tel" name="phone" />
+              </label>
 
-          <div class="service-form-actions">
-            <button type="submit" class="service-cta" id="sellLeadSubmit">{t.formSubmit}</button>
-            <p class="service-form-status" id="sellLeadStatus" aria-live="polite"></p>
-          </div>
-        </form>
-      </article>
+              <label class="service-form-field">
+                <span>{t.formArea}</span>
+                <input type="text" name="area" />
+              </label>
+            </div>
 
-      <article class="service-panel">
-        <h2>{t.relatedTitle}</h2>
-        <div class="quick-links">
-          {t.relatedLinks.map((link) => (
-            <a href={link.href}>{link.label}</a>
-          ))}
-        </div>
-      </article>
+            <label class="service-form-field service-form-field-full">
+              <span>{t.formMessage}</span>
+              <textarea name="message" rows="5"></textarea>
+            </label>
+
+            <label class="service-form-consent service-form-field-full">
+              <input type="checkbox" name="consent" required />
+              <span>
+                {t.formConsentPrefix} <a href={privacyPath}>{t.formConsentLink}</a> {t.formConsentSuffix}
+              </span>
+            </label>
+
+            <p class="service-form-legal-note service-form-field-full">{t.legalNote}</p>
+
+            <div class="service-form-actions sell-form-actions">
+              <button type="submit" class="service-cta sell-form-submit" id="sellLeadSubmit">
+                {t.formSubmit}
+              </button>
+              <p class="service-form-status" id="sellLeadStatus" aria-live="polite"></p>
+            </div>
+          </form>
+        </article>
+      </aside>
     </section>
   </div>
 
