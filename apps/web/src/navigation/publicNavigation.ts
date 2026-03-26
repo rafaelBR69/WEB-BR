@@ -248,14 +248,6 @@ const buildRealEstateGroup = (lang: string): NavigationGroup => {
         ],
       },
       {
-        title: copy.areas,
-        items: [
-          { label: "Mijas", href: `/${lang}/properties/mijas/` },
-          { label: "Marbella", href: `/${lang}/properties/marbella/` },
-          { label: "Fuengirola", href: `/${lang}/properties/fuengirola/` },
-        ],
-      },
-      {
         title: copy.access,
         items: [
           { label: ui.layout.navProjects, href: projectsPath },
@@ -269,30 +261,10 @@ const buildRealEstateGroup = (lang: string): NavigationGroup => {
 
 const buildLegalGroup = (lang: string): NavigationGroup => {
   const ui = getUiCopy(lang);
-  const copy = getNavCopy(lang);
 
   return {
     label: ui.layout.navLegalServices,
     href: `/${lang}/legal-services/`,
-    sections: [
-      {
-        title: copy.services,
-        items: [
-          { label: copy.contractReview, href: `/${lang}/legal-services/#coverage-contracts` },
-          { label: copy.dueDiligence, href: `/${lang}/legal-services/#coverage-due` },
-          { label: copy.taxAdvice, href: `/${lang}/legal-services/#coverage-tax` },
-          { label: copy.docs, href: `/${lang}/legal-services/#coverage-docs` },
-        ],
-      },
-      {
-        title: copy.support,
-        items: [
-          { label: copy.legalRepresentation, href: `/${lang}/legal-services/#coverage-claims` },
-          { label: copy.foreignServices, href: `/${lang}/legal-services/#coverage-foreign` },
-          { label: copy.requestLegal, href: `/${lang}/contact/?service=legal-services` },
-        ],
-      },
-    ],
   };
 };
 
@@ -358,24 +330,6 @@ const buildServiceGroup = (lang: string, section: PublicNavSection): NavigationG
   return {
     label: ui.layout.navCommercialization,
     href: `/${lang}/commercialization/`,
-    sections: [
-      {
-        title: copy.services,
-        items: [
-          { label: ui.layout.navCommercialization, href: `/${lang}/commercialization/` },
-          { label: getMarketing3dLabel(lang), href: `/${lang}/marketing-3d/` },
-          { label: ui.layout.navSellWithUs, href: `/${lang}/sell-with-us/` },
-        ],
-      },
-      {
-        title: copy.access,
-        items: [
-          { label: ui.layout.navProjects, href: `/${lang}/projects/` },
-          { label: ui.layout.navLegalServices, href: `/${lang}/legal-services/` },
-          { label: ui.layout.navContact, href: `/${lang}/contact/` },
-        ],
-      },
-    ],
   };
 };
 
