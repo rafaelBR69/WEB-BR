@@ -215,3 +215,19 @@ export const uploadClientDocumentFile = async (
     bytes: options.file.size,
   };
 };
+
+export const removeClientDocumentFile = async (
+  client: SupabaseClient,
+  options: { bucket: string; path: string }
+) => {
+  const bucket = asText(options.bucket);
+  const path = asText(options.path);
+  if (!bucket || !path) {
+    throw new Error("storage_delete_missing_reference");
+  }
+
+  const { error } = await client.storage.from(bucket).remove([path]);
+  if (error) {
+    throw new Error(`storage_delete_error:${error.message}`);
+  }
+};

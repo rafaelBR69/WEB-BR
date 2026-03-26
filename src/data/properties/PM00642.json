@@ -2,12 +2,12 @@
   "id": "PM00642",
   "priority": 89,
   "slugs": {
-    "es": "obra-nueva-luminal-home-fuengirola-torreblanca",
-    "en": "new-build-luminal-home-fuengirola-torreblanca",
-    "de": "neubau-luminal-home-fuengirola-torreblanca",
-    "fr": "programme-neuf-luminal-home-fuengirola-torreblanca",
-    "it": "nuova-costruzione-luminal-home-fuengirola-torreblanca",
-    "nl": "nieuwbouw-luminal-home-fuengirola-torreblanca"
+    "es": "obra-nueva-fuengirola-torreblanca",
+    "en": "new-build-fuengirola-torreblanca",
+    "de": "neubau-fuengirola-torreblanca",
+    "fr": "programme-neuf-fuengirola-torreblanca",
+    "it": "nuova-costruzione-fuengirola-torreblanca",
+    "nl": "nieuwbouw-fuengirola-torreblanca"
   },
   "status": "available",
   "listing_type": "promotion",
@@ -67,12 +67,12 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/cover/home.jpg",
       "alt": {
-        "es": "Luminal Home en Fuengirola",
-        "en": "Luminal Home in Fuengirola",
-        "de": "Luminal Home in Fuengirola",
-        "fr": "Luminal Home a Fuengirola",
-        "it": "Luminal Home a Fuengirola",
-        "nl": "Luminal Home in Fuengirola"
+        "es": "Apartamentos en Fuengirola",
+        "en": "Apartments in Fuengirola",
+        "de": "Apartments in Fuengirola",
+        "fr": "Appartements a Fuengirola",
+        "it": "Appartamenti a Fuengirola",
+        "nl": "Appartementen in Fuengirola"
       }
     },
     "gallery": {
@@ -107,50 +107,50 @@
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "obra nueva luminal home fuengirola torreblanca",
-      "en": "luminal home new build fuengirola torreblanca",
-      "de": "luminal home neubau fuengirola torreblanca",
-      "fr": "programme neuf luminal home fuengirola torreblanca",
-      "it": "nuova costruzione luminal home fuengirola torreblanca",
-      "nl": "luminal home nieuwbouw fuengirola torreblanca"
+      "es": "obra nueva fuengirola torreblanca",
+      "en": "new build fuengirola torreblanca",
+      "de": "neubau fuengirola torreblanca",
+      "fr": "programme neuf fuengirola torreblanca",
+      "it": "nuova costruzione fuengirola torreblanca",
+      "nl": "nieuwbouw fuengirola torreblanca"
     },
     "meta_description": {
-      "es": "Luminal Home en Fuengirola - Torreblanca. Promocion de unifamiliares en comercialización desde 249.000 EUR.",
-      "en": "Luminal Home in Fuengirola - Torreblanca. Family homes under commercialization from EUR 249,000.",
-      "de": "Luminal Home in Fuengirola - Torreblanca. Einfamilienhaeuser in Vermarktung ab 249.000 EUR.",
-      "fr": "Luminal Home a Fuengirola - Torreblanca. Maisons familiales en commercialisation a partir de 249 000 EUR.",
-      "it": "Luminal Home a Fuengirola - Torreblanca. Case unifamiliari in commercializzazione da 249.000 EUR.",
-      "nl": "Luminal Home in Fuengirola - Torreblanca. Eengezinswoningen in verkoop vanaf EUR 249.000."
+      "es": "Apartamentos en Fuengirola - Torreblanca. Promocion de unifamiliares en comercialización desde 249.000 EUR.",
+      "en": "Apartments in Fuengirola - Torreblanca. Family homes under commercialization from EUR 249,000.",
+      "de": "Apartments in Fuengirola - Torreblanca. Einfamilienhaeuser in Vermarktung ab 249.000 EUR.",
+      "fr": "Appartements a Fuengirola - Torreblanca. Maisons familiales en commercialisation a partir de 249 000 EUR.",
+      "it": "Appartamenti a Fuengirola - Torreblanca. Case unifamiliari in commercializzazione da 249.000 EUR.",
+      "nl": "Appartementen in Fuengirola - Torreblanca. Eengezinswoningen in verkoop vanaf EUR 249.000."
     }
   },
   "translations": {
     "es": {
-      "title": "Luminal Home: obra nueva en Fuengirola - Torreblanca",
+      "title": "Apartamentos en Fuengirola - Torreblanca",
       "intro": "Promocion de viviendas unifamiliares en fase de comercialización.",
       "description": []
     },
     "en": {
-      "title": "Luminal Home: new build in Fuengirola - Torreblanca",
+      "title": "Apartments in Fuengirola - Torreblanca",
       "intro": "Family-home development currently under commercialization.",
       "description": []
     },
     "de": {
-      "title": "Luminal Home: Neubau in Fuengirola - Torreblanca",
+      "title": "Apartments in Fuengirola - Torreblanca",
       "intro": "Neubauprojekt mit Einfamilienhaeusern in Vermarktung.",
       "description": []
     },
     "fr": {
-      "title": "Luminal Home : programme neuf a Fuengirola - Torreblanca",
+      "title": "Appartements a Fuengirola - Torreblanca",
       "intro": "Programme de maisons familiales en phase de commercialisation.",
       "description": []
     },
     "it": {
-      "title": "Luminal Home: nuova costruzione a Fuengirola - Torreblanca",
+      "title": "Appartamenti a Fuengirola - Torreblanca",
       "intro": "Progetto di abitazioni unifamiliari in fase di commercializzazione.",
       "description": []
     },
     "nl": {
-      "title": "Luminal Home: nieuwbouw in Fuengirola - Torreblanca",
+      "title": "Appartementen in Fuengirola - Torreblanca",
       "intro": "Project met eengezinswoningen in verkoopfase.",
       "description": []
     }

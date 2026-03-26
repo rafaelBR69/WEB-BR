@@ -12,9 +12,11 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
       <article class="crm-card crm-half">
         <h3>Filtros</h3>
         <form id="portal-content-filter" class="crm-form">
-          <label for="portal-content-filter-project">
-            Promocion (filtro avanzado)
-            <input id="portal-content-filter-project" name="project_property_id" type="text" placeholder="opcional para enfocar proyecto" />
+          <label for="portal-content-filter-project-select">
+            Promocion
+            <select id="portal-content-filter-project-select" name="project_property_id">
+              <option value="">Todas las promociones</option>
+            </select>
           </label>
           <label for="portal-content-filter-language">
             Idioma
@@ -52,9 +54,11 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
         <h3>Crear / editar bloque</h3>
         <form id="portal-content-form" class="crm-form">
           <input type="hidden" id="portal-content-id" name="id" />
-          <label for="portal-content-project">
+          <label for="portal-content-project-select">
             Promocion
-            <input id="portal-content-project" name="project_property_id" type="text" required />
+            <select id="portal-content-project-select" name="project_property_id" required>
+              <option value="">Selecciona una promocion</option>
+            </select>
           </label>
           <label for="portal-content-language">
             Idioma

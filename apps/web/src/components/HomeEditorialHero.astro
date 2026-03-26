@@ -88,6 +88,46 @@ const hasSlides = slides.length > 0;
 
       {hasSlides ? (
         <div class="home-editorial-project-shell">
+          {slides.length > 1 ? (
+            <div class="home-editorial-progress-shell">
+              <div class="home-editorial-progress-row">
+                <div class="home-editorial-progress" aria-label={t.progressLabel}>
+                  {slides.map((slide, index) => (
+                    <button
+                      type="button"
+                      class:list={["home-editorial-progress-item", index === 0 && "is-active"]}
+                      data-hero-progress
+                      aria-label={`${t.progressLabel}: ${slide.title}`}
+                      aria-pressed={index === 0 ? "true" : "false"}
+                    >
+                      <span class="home-editorial-progress-line"></span>
+                      <span class="home-editorial-progress-fill" data-hero-progress-fill></span>
+                    </button>
+                  ))}
+                </div>
+
+                <div class="home-editorial-arrow-group">
+                  <button
+                    type="button"
+                    class="home-editorial-arrow"
+                    data-hero-prev
+                    aria-label={t.prev}
+                  >
+                    <span aria-hidden="true">&larr;</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="home-editorial-arrow"
+                    data-hero-next
+                    aria-label={t.next}
+                  >
+                    <span aria-hidden="true">&rarr;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
           <div class="home-editorial-detail-list" aria-live="polite">
             {slides.map((slide, index) => (
               <article
@@ -130,8 +170,12 @@ const hasSlides = slides.length > 0;
     hero.dataset.bound = "true";
 
     const slides = Array.from(hero.querySelectorAll("[data-hero-slide]"));
+    const progressButtons = Array.from(hero.querySelectorAll("[data-hero-progress]"));
+    const fills = progressButtons.map((button) => button.querySelector("[data-hero-progress-fill]"));
     const detailCards = Array.from(hero.querySelectorAll("[data-hero-detail]"));
     const primaryCta = hero.querySelector("[data-hero-primary-cta]");
+    const prevButton = hero.querySelector("[data-hero-prev]");
+    const nextButton = hero.querySelector("[data-hero-next]");
     const defaultCtaHref = hero.getAttribute("data-projects-path") || "/";
     const duration = Number(hero.dataset.duration || "6000");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -158,10 +202,22 @@ const hasSlides = slides.length > 0;
       }
     };
 
+    const setProgress = (value) => {
+      fills.forEach((fill, index) => {
+        if (!(fill instanceof HTMLElement)) return;
+        fill.style.transform = `translateY(-50%) scaleX(${index === activeIndex ? value : 0})`;
+      });
+    };
+
     const syncUi = () => {
       slides.forEach((slide, index) => {
         slide.classList.toggle("is-active", index === activeIndex);
         slide.setAttribute("aria-hidden", index === activeIndex ? "false" : "true");
+      });
+
+      progressButtons.forEach((button, index) => {
+        button.classList.toggle("is-active", index === activeIndex);
+        button.setAttribute("aria-pressed", index === activeIndex ? "true" : "false");
       });
 
       detailCards.forEach((card, index) => {
@@ -184,6 +240,7 @@ const hasSlides = slides.length > 0;
         cancelTimer();
         paused = false;
         elapsed = 0;
+        setProgress(0);
         return;
       }
       startAutoplay();
@@ -197,6 +254,7 @@ const hasSlides = slides.length > 0;
 
       elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
+      setProgress(progress);
 
       if (progress >= 1) {
         setActive((activeIndex + 1) % slides.length, true);
@@ -208,6 +266,7 @@ const hasSlides = slides.length > 0;
 
     const startAutoplay = () => {
       if (!autoplayEnabled) {
+        setProgress(0);
         return;
       }
       cancelTimer();
@@ -233,10 +292,34 @@ const hasSlides = slides.length > 0;
     const setActive = (nextIndex, restartAutoplay = false) => {
       activeIndex = (nextIndex + slides.length) % slides.length;
       syncUi();
+      setProgress(0);
       if (restartAutoplay) {
         startAutoplay();
       }
     };
+
+    progressButtons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        setActive(index, true);
+        if (button instanceof HTMLButtonElement) {
+          button.blur();
+        }
+      });
+    });
+
+    if (prevButton instanceof HTMLButtonElement) {
+      prevButton.addEventListener("click", () => {
+        setActive(activeIndex - 1, true);
+        prevButton.blur();
+      });
+    }
+
+    if (nextButton instanceof HTMLButtonElement) {
+      nextButton.addEventListener("click", () => {
+        setActive(activeIndex + 1, true);
+        nextButton.blur();
+      });
+    }
 
     hero.addEventListener("mouseenter", pauseAutoplay);
     hero.addEventListener("mouseleave", resumeAutoplay);

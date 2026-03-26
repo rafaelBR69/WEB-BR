@@ -8,6 +8,12 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
       <p class="crm-inline-note">
         Vista operativa con datos reales de reservas importadas, tanto en modo global como por promocion concreta.
       </p>
+      <div class="crm-actions-row" style="margin-top:1rem">
+        <a id="clients-kpi-open-list" href="/crm/clients/" class="crm-button crm-button-soft">
+          Abrir listado completo
+        </a>
+        <a href="/crm/clients/nuevo/" class="crm-button crm-button-primary">Nuevo cliente</a>
+      </div>
       <form id="clients-kpi-org-form" class="crm-form crm-form-compact">
         <label>Ambito
           <select id="clients-kpi-promotion-select">
@@ -514,6 +520,10 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
       box-shadow: 0 20px 34px -28px rgba(15, 42, 72, 0.6);
       display: grid;
       gap: 1rem;
+    }
+
+    .crm-layout-panel[hidden] {
+      display: none;
     }
 
     .crm-layout-panel-head {

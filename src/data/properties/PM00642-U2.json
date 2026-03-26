@@ -4,12 +4,12 @@
   "listing_type": "unit",
   "parent_id": "PM00642",
   "slugs": {
-    "es": "vivienda-u2-luminal-home",
-    "en": "unit-u2-luminal-home",
-    "de": "einheit-u2-luminal-home",
-    "fr": "unite-u2-luminal-home",
-    "it": "unita-u2-luminal-home",
-    "nl": "unit-u2-luminal-home"
+    "es": "vivienda-u2-fuengirola-torreblanca",
+    "en": "unit-u2-fuengirola-torreblanca",
+    "de": "einheit-u2-fuengirola-torreblanca",
+    "fr": "unite-u2-fuengirola-torreblanca",
+    "it": "unita-u2-fuengirola-torreblanca",
+    "nl": "unit-u2-fuengirola-torreblanca"
   },
   "status": "available",
   "featured": false,
@@ -65,8 +65,8 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/cover/home.jpg",
       "alt": {
-        "es": "Luminal Home vivienda U2",
-        "en": "Luminal Home unit U2"
+        "es": "Vivienda U2",
+        "en": "Unit U2"
       }
     },
     "gallery": {
@@ -101,42 +101,42 @@
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "vivienda u2 luminal home",
-      "en": "unit u2 luminal home"
+      "es": "vivienda u2 fuengirola torreblanca",
+      "en": "unit u2 fuengirola torreblanca"
     },
     "meta_description": {
-      "es": "Vivienda U2 en Luminal Home. 2 dormitorios, 2 banos y 99.11 m2. Precio: 309.000 EUR.",
-      "en": "Unit U2 at Luminal Home. 2 bedrooms, 2 bathrooms and 99.11 m2. Price: EUR 309,000."
+      "es": "Vivienda U2 en Fuengirola - Torreblanca. 2 dormitorios, 2 banos y 99.11 m2. Precio: 309.000 EUR.",
+      "en": "Unit U2 in Fuengirola - Torreblanca. 2 bedrooms, 2 bathrooms and 99.11 m2. Price: EUR 309,000."
     }
   },
   "translations": {
     "es": {
-      "title": "Vivienda U2 en Luminal Home",
+      "title": "Vivienda U2 en Fuengirola - Torreblanca",
       "intro": "Unidad disponible en BL5, Planta 1.",
       "description": []
     },
     "en": {
-      "title": "Unit U2 at Luminal Home",
+      "title": "Unit U2 in Fuengirola - Torreblanca",
       "intro": "Available unit in BL5, Floor 1.",
       "description": []
     },
     "de": {
-      "title": "Einheit U2 in Luminal Home",
+      "title": "Einheit U2 in Fuengirola - Torreblanca",
       "intro": "Verfuegbare Einheit in BL5, Etage 1.",
       "description": []
     },
     "fr": {
-      "title": "Unite U2 a Luminal Home",
+      "title": "Unite U2 a Fuengirola - Torreblanca",
       "intro": "Unite disponible en BL5, Etage 1.",
       "description": []
     },
     "it": {
-      "title": "Unita U2 a Luminal Home",
+      "title": "Unita U2 a Fuengirola - Torreblanca",
       "intro": "Unita disponibile in BL5, Piano 1.",
       "description": []
     },
     "nl": {
-      "title": "Unit U2 in Luminal Home",
+      "title": "Unit U2 in Fuengirola - Torreblanca",
       "intro": "Beschikbare unit in BL5, verdieping 1.",
       "description": []
     }

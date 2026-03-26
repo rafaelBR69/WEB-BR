@@ -12,6 +12,7 @@ import {
   LEAD_ORIGIN_TYPES,
   LEAD_KINDS,
   LEAD_OPERATION_INTERESTS,
+  parseLeadStatus,
   normalizeLeadStatus,
   normalizeLeadOriginType,
   normalizeLeadKind,
@@ -21,10 +22,9 @@ import {
   normalizeNationality,
   normalizeNationalityKey,
   asFiniteNumber,
-  buildLeadRows
+  buildLeadRows,
+  resolveLeadPropertyContext,
 } from "@shared/leads/domain";
-
-const PROPERTY_CONTEXT_SELECT_COLUMNS = ["id", "legacy_code", "parent_property_id", "record_type"].join(", ");
 
 const TREATED_NEW_STATUS = "new";
 
@@ -94,8 +94,8 @@ type CreateLeadBody = {
   property_legacy_code?: string | null;
   discarded_reason?: string | null;
 };
-
-
+const hasOwn = (value: unknown, key: string) =>
+  Boolean(value && typeof value === "object" && Object.prototype.hasOwnProperty.call(value, key));
 
 const parseTreatedFilter = (value: string | null): { ok: boolean; value: boolean | null } => {
   if (!value) return { ok: true, value: null };
@@ -178,188 +178,6 @@ const findContactByIdentity = async (
   return null;
 };
 
-const resolvePropertyIdForMutation = async (
-  client: NonNullable<ReturnType<typeof getSupabaseServerClient>>,
-  organizationId: string,
-  input: {
-    propertyId: string | null;
-    projectId: string | null;
-    propertyLegacyCode: string | null;
-  }
-): Promise<{
-  propertyId: string | null;
-  propertyLegacyCode: string | null;
-  propertyRecordType: string | null;
-  projectId: string | null;
-  projectLegacyCode: string | null;
-  projectRecordType: string | null;
-  error: string | null;
-}> => {
-  const readPropertyById = async (propertyId: string, errorPrefix: string) => {
-    const { data, error } = await client
-      .schema("crm")
-      .from("properties")
-      .select(PROPERTY_CONTEXT_SELECT_COLUMNS)
-      .eq("organization_id", organizationId)
-      .eq("id", propertyId)
-      .maybeSingle();
-    if (error) return { row: null, error: `${errorPrefix}:${error.message}` };
-    return { row: (data as Record<string, unknown> | null) ?? null, error: null };
-  };
-
-  const buildContext = async (propertyRow: Record<string, unknown> | null) => {
-    if (!propertyRow) {
-      return {
-        propertyId: null,
-        propertyLegacyCode: null,
-        propertyRecordType: null,
-        projectId: null,
-        projectLegacyCode: null,
-        projectRecordType: null,
-        error: null,
-      };
-    }
-
-    const propertyId = asUuid(propertyRow.id);
-    if (!propertyId) {
-      return {
-        propertyId: null,
-        propertyLegacyCode: null,
-        propertyRecordType: null,
-        projectId: null,
-        projectLegacyCode: null,
-        projectRecordType: null,
-        error: "property_invalid_shape",
-      };
-    }
-
-    let projectRow = propertyRow;
-    const parentPropertyId = asUuid(propertyRow.parent_property_id);
-    if (parentPropertyId) {
-      const parentRead = await readPropertyById(parentPropertyId, "db_project_parent_read_error");
-      if (parentRead.error) {
-        return {
-          propertyId,
-          propertyLegacyCode: asText(propertyRow.legacy_code),
-          propertyRecordType: asText(propertyRow.record_type),
-          projectId: null,
-          projectLegacyCode: null,
-          projectRecordType: null,
-          error: parentRead.error,
-        };
-      }
-      if (parentRead.row) projectRow = parentRead.row;
-    }
-
-    return {
-      propertyId,
-      propertyLegacyCode: asText(propertyRow.legacy_code),
-      propertyRecordType: asText(propertyRow.record_type),
-      projectId: asUuid(projectRow.id),
-      projectLegacyCode: asText(projectRow.legacy_code),
-      projectRecordType: asText(projectRow.record_type),
-      error: null,
-    };
-  };
-
-  if (input.propertyId) {
-    const propertyRead = await readPropertyById(input.propertyId, "db_property_read_error");
-    if (propertyRead.error) {
-      return {
-        propertyId: null,
-        propertyLegacyCode: null,
-        propertyRecordType: null,
-        projectId: null,
-        projectLegacyCode: null,
-        projectRecordType: null,
-        error: propertyRead.error,
-      };
-    }
-    if (!propertyRead.row) {
-      return {
-        propertyId: null,
-        propertyLegacyCode: null,
-        propertyRecordType: null,
-        projectId: null,
-        projectLegacyCode: null,
-        projectRecordType: null,
-        error: "property_id_not_found",
-      };
-    }
-    return buildContext(propertyRead.row);
-  }
-
-  if (input.projectId) {
-    const projectRead = await readPropertyById(input.projectId, "db_project_read_error");
-    if (projectRead.error) {
-      return {
-        propertyId: null,
-        propertyLegacyCode: null,
-        propertyRecordType: null,
-        projectId: null,
-        projectLegacyCode: null,
-        projectRecordType: null,
-        error: projectRead.error,
-      };
-    }
-    if (!projectRead.row) {
-      return {
-        propertyId: null,
-        propertyLegacyCode: null,
-        propertyRecordType: null,
-        projectId: null,
-        projectLegacyCode: null,
-        projectRecordType: null,
-        error: "project_id_not_found",
-      };
-    }
-    return buildContext(projectRead.row);
-  }
-
-  if (input.propertyLegacyCode) {
-    const { data, error } = await client
-      .schema("crm")
-      .from("properties")
-      .select(PROPERTY_CONTEXT_SELECT_COLUMNS)
-      .eq("organization_id", organizationId)
-      .eq("legacy_code", input.propertyLegacyCode)
-      .maybeSingle();
-    if (error) {
-      return {
-        propertyId: null,
-        propertyLegacyCode: null,
-        propertyRecordType: null,
-        projectId: null,
-        projectLegacyCode: null,
-        projectRecordType: null,
-        error: `db_property_legacy_read_error:${error.message}`,
-      };
-    }
-    if (!data) {
-      return {
-        propertyId: null,
-        propertyLegacyCode: null,
-        propertyRecordType: null,
-        projectId: null,
-        projectLegacyCode: null,
-        projectRecordType: null,
-        error: "property_legacy_code_not_found",
-      };
-    }
-    return buildContext(data as unknown as Record<string, unknown>);
-  }
-
-  return {
-    propertyId: null,
-    propertyLegacyCode: null,
-    propertyRecordType: null,
-    projectId: null,
-    projectLegacyCode: null,
-    projectRecordType: null,
-    error: null,
-  };
-};
-
 export const GET: APIRoute = async ({ url, cookies }) => {
   const organizationIdHint = asText(url.searchParams.get("organization_id"));
   const q = asText(url.searchParams.get("q"))?.toLowerCase() ?? "";
@@ -377,14 +195,14 @@ export const GET: APIRoute = async ({ url, cookies }) => {
   const nationalityFilter = normalizeNationalityKey(nationalityRaw);
   const treatedFilter = parseTreatedFilter(asText(url.searchParams.get("treated")));
 
-  const status = statusRaw ? normalizeLeadStatus(statusRaw, "new") : null;
+  const status = statusRaw ? parseLeadStatus(statusRaw) : null;
   const originType = originTypeRaw ? normalizeLeadOriginType(originTypeRaw, "other") : null;
   const operationInterest = operationInterestRaw ? normalizeOperationInterest(operationInterestRaw, "sale") : null;
   const leadKind = leadKindRaw ? normalizeLeadKind(leadKindRaw, "buyer") : null;
   const projectId = projectIdRaw ? asUuid(projectIdRaw) : null;
   const propertyId = propertyIdRaw ? asUuid(propertyIdRaw) : null;
 
-  if (statusRaw && status !== statusRaw) {
+  if (statusRaw && !status) {
     return jsonResponse({ ok: false, error: "invalid_status" }, { status: 422 });
   }
   if (originTypeRaw && originType !== originTypeRaw) {
@@ -663,6 +481,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const nationality = normalizeNationality(body.nationality);
   const message = asText(body.message);
   const source = asText(body.source) ?? "crm_manual";
+  const parsedStatus = hasOwn(body, "status") ? parseLeadStatus(body.status) : null;
   const status = normalizeLeadStatus(asText(body.status), "new");
   const originType = normalizeLeadOriginType(asText(body.origin_type), "other");
   const leadKind = normalizeLeadKind(asText(body.lead_kind), "buyer");
@@ -678,9 +497,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const projectIdInput = asUuid(body.project_id);
   const propertyLegacyCode = asText(body.property_legacy_code);
   const discardedReasonInput = asText(body.discarded_reason);
+  const isDisposedStatus = status === "discarded" || status === "junk";
 
   if (!fullName) {
     return jsonResponse({ ok: false, error: "full_name_required" }, { status: 422 });
+  }
+  if (hasOwn(body, "status") && !parsedStatus) {
+    return jsonResponse({ ok: false, error: "invalid_status" }, { status: 422 });
   }
   if (!email && !phone) {
     return jsonResponse({ ok: false, error: "email_or_phone_required" }, { status: 422 });
@@ -703,6 +526,9 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   if (agencyContactIdInput && !agencyIdInput) {
     return jsonResponse({ ok: false, error: "agency_id_required_for_agency_contact" }, { status: 422 });
   }
+  if (status === "discarded" && !discardedReasonInput) {
+    return jsonResponse({ ok: false, error: "discarded_reason_required" }, { status: 422 });
+  }
 
   const access = await resolveCrmOrgAccess(cookies, {
     organizationIdHint,
@@ -723,13 +549,16 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const client = getSupabaseServerClient();
   if (!client) return jsonResponse({ ok: false, error: "supabase_not_configured" }, { status: 500 });
 
-  if (agencyIdInput) {
+  const persistedAgencyId = originType === "agency" ? agencyIdInput : null;
+  const persistedAgencyContactId = originType === "agency" ? agencyContactIdInput : null;
+
+  if (persistedAgencyId) {
     const { data: agencyRow, error: agencyError } = await client
       .schema("crm")
       .from("agencies")
       .select("id")
       .eq("organization_id", organizationId)
-      .eq("id", agencyIdInput)
+      .eq("id", persistedAgencyId)
       .maybeSingle();
 
     if (agencyError) {
@@ -749,13 +578,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   }
 
   let agencyContactRow: Record<string, unknown> | null = null;
-  if (agencyContactIdInput) {
+  if (persistedAgencyContactId) {
     const { data: row, error: agencyContactError } = await client
       .schema("crm")
       .from("agency_contacts")
       .select("id, agency_id, contact_id, role, relation_status")
       .eq("organization_id", organizationId)
-      .eq("id", agencyContactIdInput)
+      .eq("id", persistedAgencyContactId)
       .maybeSingle();
 
     if (agencyContactError) {
@@ -773,7 +602,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       return jsonResponse({ ok: false, error: "agency_contact_not_found" }, { status: 422 });
     }
 
-    if (asUuid(row.agency_id) !== agencyIdInput) {
+    if (asUuid(row.agency_id) !== persistedAgencyId) {
       return jsonResponse({ ok: false, error: "agency_contact_not_belongs_to_agency" }, { status: 422 });
     }
 
@@ -829,7 +658,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     return jsonResponse({ ok: false, error: "contact_id_missing_after_insert" }, { status: 500 });
   }
 
-  const propertyResolution = await resolvePropertyIdForMutation(client, organizationId, {
+  const propertyResolution = await resolveLeadPropertyContext(client, organizationId, {
     propertyId: propertyIdInput,
     projectId: projectIdInput,
     propertyLegacyCode,
@@ -839,9 +668,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   }
 
   const nowIso = new Date().toISOString();
-  const discardedReason =
-    status === "discarded" ? discardedReasonInput ?? "manual_discarded" : null;
-  const discardedAt = status === "discarded" ? nowIso : null;
+  const discardedReason = status === "discarded" ? discardedReasonInput : isDisposedStatus ? discardedReasonInput : null;
+  const discardedAt = isDisposedStatus ? nowIso : null;
   let agencyContactInfo: Record<string, unknown> | null = null;
   if (agencyContactRow) {
     const contactId = asUuid(agencyContactRow.contact_id);
@@ -861,7 +689,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     organization_id: organizationId,
     contact_id: contactId,
     property_id: propertyResolution.propertyId,
-    agency_id: agencyIdInput,
+    agency_id: persistedAgencyId,
     lead_kind: leadKind,
     origin_type: originType,
     source,
@@ -883,11 +711,14 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         property_legacy_code: propertyResolution.propertyLegacyCode ?? propertyLegacyCode,
         project_id: propertyResolution.projectId,
         project_legacy_code: propertyResolution.projectLegacyCode,
-        agency_id: agencyIdInput,
-        agency_contact_id: agencyContactIdInput,
+        agency_id: persistedAgencyId,
+        agency_contact_id: persistedAgencyContactId,
         agency_contact_name: asText(agencyContactInfo?.full_name),
         agency_contact_email: asText(agencyContactInfo?.email),
         agency_contact_phone: asText(agencyContactInfo?.phone),
+        origin_type: originType,
+        lead_kind: leadKind,
+        operation_interest: operationInterest,
         source,
         message,
       },

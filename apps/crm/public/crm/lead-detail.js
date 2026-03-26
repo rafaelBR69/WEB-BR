@@ -108,6 +108,10 @@
     actionWhatsApp: $("action-whatsapp"),
     actionEmail: $("action-email"),
     actionCall: $("action-call"),
+    dealSummary: $("lead-deal-summary"),
+    dealButton: $("lead-deal-open-btn"),
+    notificationsSummary: $("lead-notifications-summary"),
+    notificationsList: $("lead-notifications-list"),
     // data fields
     dFullName: $("d-full-name"),
     dEmail: $("d-email"),
@@ -139,6 +143,23 @@
 
   const fmt = (v) => toText(v) || "—";
 
+  const redirectToLogin = () => {
+    const loginUrl = new URL("/crm/login/", window.location.origin);
+    loginUrl.searchParams.set("next", `${window.location.pathname}${window.location.search}`);
+    window.location.href = `${loginUrl.pathname}${loginUrl.search}`;
+  };
+
+  const isCrmAuthError = (response, payload) => {
+    const code = toText(payload?.error);
+    return (
+      response.status === 401 ||
+      code === "auth_token_required" ||
+      code === "refresh_token_required" ||
+      code === "invalid_refresh_token" ||
+      code === "crm_auth_required"
+    );
+  };
+
   const formatCurrency = (v) => {
     const n = Number(v);
     if (isNaN(n) || n === 0) return "—";
@@ -162,6 +183,16 @@
     return `/crm/agencies/${encodeURIComponent(agencyId)}${orgId ? `?organization_id=${encodeURIComponent(orgId)}` : ""}`;
   };
 
+  const buildDealUrl = (dealId) => {
+    const orgId = currentOrganizationId();
+    return `/crm/deals/${encodeURIComponent(dealId)}${orgId ? `?organization_id=${encodeURIComponent(orgId)}` : ""}`;
+  };
+
+  const buildNotificationsUrl = () => {
+    const orgId = currentOrganizationId();
+    return `/crm/notifications/${orgId ? `?organization_id=${encodeURIComponent(orgId)}` : ""}`;
+  };
+
   const setText = (node, value) => {
     if (node) node.textContent = value;
   };
@@ -175,6 +206,10 @@
   const request = async (url, init) => {
     const res = await fetch(url, init);
     const payload = await res.json().catch(() => ({}));
+    if (isCrmAuthError(res, payload)) {
+      redirectToLogin();
+      throw new Error(payload.error || `Error ${res.status}`);
+    }
     if (!res.ok || !payload.ok) throw new Error(payload.error || payload.message || `Error ${res.status}`);
     return payload;
   };
@@ -182,6 +217,37 @@
   const syncConvertButton = () => {
     if (!el.convertButton) return;
     el.convertButton.textContent = state.lead?.lead_kind === "agency" ? "Convertir a Agencia" : "Convertir a Cliente";
+  };
+
+  const renderDealSummary = (lead) => {
+    if (!el.dealSummary || !el.dealButton) return;
+    const summary = lead?.deals_summary || null;
+    const openDeal = summary?.open_deal || null;
+    const recent = Array.isArray(summary?.recent) ? summary.recent : [];
+
+    if (!summary || !summary.total) {
+      el.dealSummary.innerHTML = `<span class="ld-empty">No hay deals ligados a este lead.</span>`;
+      el.dealButton.textContent = "Crear deal";
+      return;
+    }
+
+    const recentHtml = recent
+      .slice(0, 3)
+      .map((deal) => `<li><a href="${esc(buildDealUrl(deal.id))}" style="color:inherit">${esc(deal.title || deal.id)}</a> | ${esc(deal.stage || "-")}</li>`)
+      .join("");
+
+    el.dealSummary.innerHTML = `
+      <div style="display:grid;gap:0.55rem">
+        <div><strong>${esc(String(summary.total))}</strong> deals | abiertos ${esc(String(summary.open_total ?? 0))}</div>
+        ${
+          openDeal
+            ? `<div><a href="${esc(buildDealUrl(openDeal.id))}" style="color:var(--ld-primary);font-weight:700;text-decoration:none">${esc(openDeal.title || openDeal.id)}</a></div>`
+            : `<div class="ld-label">No hay deal abierto en este momento.</div>`
+        }
+        ${recentHtml ? `<ul style="margin:0;padding-left:1.1rem">${recentHtml}</ul>` : ""}
+      </div>
+    `;
+    el.dealButton.textContent = openDeal ? "Abrir deal" : "Crear deal";
   };
 
   const renderAgencySource = (lead) => {
@@ -214,6 +280,42 @@
     `;
     setText(el.signalAgency, agencyName);
     setText(el.signalAgencyContact, contactName || "Sin contacto principal");
+  };
+
+  const renderNotifications = (lead) => {
+    if (!el.notificationsSummary || !el.notificationsList) return;
+    const summary = lead?.notifications_summary || null;
+    const active = Array.isArray(summary?.active_notifications) ? summary.active_notifications : [];
+
+    if (!summary || !summary.total) {
+      el.notificationsSummary.innerHTML = `<span class="ld-empty">Sin alertas activas para este lead.</span>`;
+      el.notificationsList.innerHTML = "";
+      return;
+    }
+
+    const priority = toText(summary.max_priority) || "normal";
+    el.notificationsSummary.innerHTML = `
+      <div style="display:grid;gap:0.55rem">
+        <div><strong>${esc(String(summary.open_total ?? 0))}</strong> abiertas | urgentes ${esc(String(summary.urgent_total ?? 0))} | overdue ${esc(String(summary.overdue_total ?? 0))}</div>
+        <div class="ld-label">Prioridad maxima: ${esc(priority)}</div>
+        <div><a href="${esc(buildNotificationsUrl())}" style="color:var(--ld-primary);font-weight:700;text-decoration:none">Abrir centro de notificaciones</a></div>
+      </div>
+    `;
+
+    el.notificationsList.innerHTML = active.length
+      ? active
+          .slice(0, 4)
+          .map(
+            (item) => `
+              <article style="padding:0.8rem 0.9rem;border:1px solid rgba(20,50,77,0.1);border-radius:16px;background:#fff9ef">
+                <strong style="display:block;color:var(--ld-primary)">${esc(item.title || "Alerta")}</strong>
+                <small style="display:block;margin-top:0.25rem;color:#5e7288">${esc(item.priority || "normal")} | ${esc(item.rule_key || "manual")}</small>
+                <small style="display:block;margin-top:0.35rem;color:#334155">${esc(item.body || "")}</small>
+              </article>
+            `
+          )
+          .join("")
+      : `<span class="ld-empty">Sin alertas abiertas.</span>`;
   };
 
   const renderLead = () => {
@@ -301,6 +403,8 @@
     }
     renderAgencySource(l);
     setText(el.signalInterest, interestLabels[l.operation_interest] || fmt(l.operation_interest));
+    renderDealSummary(l);
+    renderNotifications(l);
 
     // Timeline
     if (el.timeline) {
@@ -460,6 +564,30 @@
       }
     });
   }
+
+  el.dealButton?.addEventListener("click", async () => {
+    const openDealId = toText(state.lead?.deals_summary?.open_deal?.id);
+    if (openDealId) {
+      window.location.href = buildDealUrl(openDealId);
+      return;
+    }
+
+    try {
+      const orgId = currentOrganizationId();
+      const payload = await request(`${apiBase}/${state.leadId}/deal`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ organization_id: orgId || null }),
+      });
+      const dealId = toText(payload?.data?.id);
+      if (dealId) {
+        setFeedback(payload?.meta?.created === false ? "Deal abierto existente localizado. Redirigiendo..." : "Deal creado. Redirigiendo...", "ok");
+        setTimeout(() => { window.location.href = buildDealUrl(dealId); }, 700);
+      }
+    } catch (err) {
+      setFeedback(err.message, "error");
+    }
+  });
 
   state.leadId = window.__crmLeadDetailId;
   if (state.leadId) loadLead();

@@ -32,20 +32,18 @@ const navItems: NavItem[] = [
   { key: "properties", label: "Propiedades", href: "/crm/properties/" },
   { key: "clients", label: "Clientes", href: "/crm/clients/dashboard/" },
   { key: "portal", label: "Portal", href: "/crm/portal/" },
-  { key: "contracts", label: "Contratos", href: "/crm/contracts/" },
-  { key: "invoices", label: "Facturacion", href: "/crm/invoices/" },
 ];
 
 const propertiesSubNav: SubNavItem[] = [
   { href: "/crm/properties/dashboard/", label: "Dashboard" },
   { href: "/crm/properties/listado/", label: "Listado" },
   { href: "/crm/properties/nueva/", label: "Nueva propiedad" },
-  { href: "/crm/properties/ficha/", label: "Ficha y media" },
 ];
 
 const clientsSubNav: SubNavItem[] = [
   { href: "/crm/clients/dashboard/", label: "Dashboard KPI", exact: true },
   { href: "/crm/clients/", label: "Listado clientes", exact: true },
+  { href: "/crm/clients/nuevo/", label: "Nuevo cliente", exact: true },
   { href: "/crm/clients/?client_role=provider", label: "Proveedores", exact: true },
   { href: "/crm/agencies/", label: "Agencias", exact: true },
 ];

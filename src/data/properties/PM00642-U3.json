@@ -4,12 +4,12 @@
   "listing_type": "unit",
   "parent_id": "PM00642",
   "slugs": {
-    "es": "vivienda-u3-luminal-home",
-    "en": "unit-u3-luminal-home",
-    "de": "einheit-u3-luminal-home",
-    "fr": "unite-u3-luminal-home",
-    "it": "unita-u3-luminal-home",
-    "nl": "unit-u3-luminal-home"
+    "es": "vivienda-u3-fuengirola-torreblanca",
+    "en": "unit-u3-fuengirola-torreblanca",
+    "de": "einheit-u3-fuengirola-torreblanca",
+    "fr": "unite-u3-fuengirola-torreblanca",
+    "it": "unita-u3-fuengirola-torreblanca",
+    "nl": "unit-u3-fuengirola-torreblanca"
   },
   "status": "available",
   "featured": false,
@@ -66,8 +66,8 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM00642/cover/home.jpg",
       "alt": {
-        "es": "Luminal Home vivienda U3",
-        "en": "Luminal Home unit U3"
+        "es": "Vivienda U3",
+        "en": "Unit U3"
       }
     },
     "gallery": {
@@ -102,42 +102,42 @@
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "vivienda u3 luminal home",
-      "en": "unit u3 luminal home"
+      "es": "vivienda u3 fuengirola torreblanca",
+      "en": "unit u3 fuengirola torreblanca"
     },
     "meta_description": {
-      "es": "Vivienda U3 en Luminal Home. 3 dormitorios, 2 banos, 132.66 m2 y terraza de 17.12 m2. Precio: 429.000 EUR.",
-      "en": "Unit U3 at Luminal Home. 3 bedrooms, 2 bathrooms, 132.66 m2 and 17.12 m2 terrace. Price: EUR 429,000."
+      "es": "Vivienda U3 en Fuengirola - Torreblanca. 3 dormitorios, 2 banos, 132.66 m2 y terraza de 17.12 m2. Precio: 429.000 EUR.",
+      "en": "Unit U3 in Fuengirola - Torreblanca. 3 bedrooms, 2 bathrooms, 132.66 m2 and 17.12 m2 terrace. Price: EUR 429,000."
     }
   },
   "translations": {
     "es": {
-      "title": "Vivienda U3 en Luminal Home",
+      "title": "Vivienda U3 en Fuengirola - Torreblanca",
       "intro": "Unidad disponible en BL4, Planta 2.",
       "description": []
     },
     "en": {
-      "title": "Unit U3 at Luminal Home",
+      "title": "Unit U3 in Fuengirola - Torreblanca",
       "intro": "Available unit in BL4, Floor 2.",
       "description": []
     },
     "de": {
-      "title": "Einheit U3 in Luminal Home",
+      "title": "Einheit U3 in Fuengirola - Torreblanca",
       "intro": "Verfuegbare Einheit in BL4, Etage 2.",
       "description": []
     },
     "fr": {
-      "title": "Unite U3 a Luminal Home",
+      "title": "Unite U3 a Fuengirola - Torreblanca",
       "intro": "Unite disponible en BL4, Etage 2.",
       "description": []
     },
     "it": {
-      "title": "Unita U3 a Luminal Home",
+      "title": "Unita U3 a Fuengirola - Torreblanca",
       "intro": "Unita disponibile in BL4, Piano 2.",
       "description": []
     },
     "nl": {
-      "title": "Unit U3 in Luminal Home",
+      "title": "Unit U3 in Fuengirola - Torreblanca",
       "intro": "Beschikbare unit in BL4, verdieping 2.",
       "description": []
     }

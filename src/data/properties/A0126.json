@@ -2,12 +2,12 @@
   "id": "A0126",
   "priority": 90,
   "slugs": {
-    "es": "adosados-obra-nueva-sunhill-fuengirola",
-    "en": "new-build-townhouses-sunhill-fuengirola",
-    "de": "neubau-reihenhaeuser-sunhill-fuengirola",
-    "fr": "maisons-jumelees-neuves-sunhill-fuengirola",
-    "it": "villette-nuova-costruzione-sunhill-fuengirola",
-    "nl": "nieuwbouw-herenhuizen-sunhill-fuengirola"
+    "es": "adosados-obra-nueva-fuengirola",
+    "en": "new-build-townhouses-fuengirola",
+    "de": "neubau-reihenhaeuser-fuengirola",
+    "fr": "maisons-jumelees-neuves-fuengirola",
+    "it": "villette-nuova-costruzione-fuengirola",
+    "nl": "nieuwbouw-herenhuizen-fuengirola"
   },
   "status": "available",
   "listing_type": "promotion",
@@ -77,12 +77,12 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/cover/facade.jpg",
       "alt": {
-        "es": "Sunhill en Fuengirola",
-        "en": "Sunhill in Fuengirola",
-        "de": "Sunhill in Fuengirola",
-        "fr": "Sunhill a Fuengirola",
-        "it": "Sunhill a Fuengirola",
-        "nl": "Sunhill in Fuengirola"
+        "es": "Adosados de obra nueva en Fuengirola",
+        "en": "New-build townhouses in Fuengirola",
+        "de": "Neubau-Reihenhaeuser in Fuengirola",
+        "fr": "Maisons jumelees neuves a Fuengirola",
+        "it": "Villette di nuova costruzione a Fuengirola",
+        "nl": "Nieuwbouw herenhuizen in Fuengirola"
       }
     },
     "gallery": {
@@ -134,30 +134,30 @@
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "adosados obra nueva fuengirola sunhill",
-      "en": "sunhill new build townhouses fuengirola",
-      "de": "sunhill neubau reihenhaeuser fuengirola",
-      "fr": "sunhill maisons jumelees neuves fuengirola",
-      "it": "sunhill villette nuova costruzione fuengirola",
-      "nl": "sunhill nieuwbouw herenhuizen fuengirola"
+      "es": "adosados obra nueva fuengirola",
+      "en": "new build townhouses fuengirola",
+      "de": "neubau reihenhaeuser fuengirola",
+      "fr": "maisons jumelees neuves fuengirola",
+      "it": "villette nuova costruzione fuengirola",
+      "nl": "nieuwbouw herenhuizen fuengirola"
     },
     "meta_description": {
-      "es": "Sunhill en Fuengirola: adosados de obra nueva de 2 dormitorios con piscina comunitaria, gimnasio, sauna y precios desde 298.000 EUR.",
-      "en": "Sunhill in Fuengirola: 2-bedroom new-build townhouses with communal pool, gym, sauna and prices from EUR 298,000.",
-      "de": "Sunhill in Fuengirola: Neubau-Reihenhaeuser mit 2 Schlafzimmern, Gemeinschaftspool, Fitnessraum, Sauna und Preisen ab 298.000 EUR.",
-      "fr": "Sunhill a Fuengirola : maisons jumel ees neuves de 2 chambres avec piscine commune, salle de sport, sauna et prix a partir de 298 000 EUR.",
-      "it": "Sunhill a Fuengirola: villette di nuova costruzione con 2 camere, piscina condominiale, palestra, sauna e prezzi da 298.000 EUR.",
-      "nl": "Sunhill in Fuengirola: nieuwbouw herenhuizen met 2 slaapkamers, gemeenschappelijk zwembad, fitnessruimte, sauna en prijzen vanaf EUR 298.000."
+      "es": "Adosados de obra nueva en Fuengirola con 2 dormitorios, piscina comunitaria, gimnasio, sauna y precios desde 298.000 EUR.",
+      "en": "New-build townhouses in Fuengirola with 2 bedrooms, communal pool, gym, sauna and prices from EUR 298,000.",
+      "de": "Neubau-Reihenhaeuser in Fuengirola mit 2 Schlafzimmern, Gemeinschaftspool, Fitnessraum, Sauna und Preisen ab 298.000 EUR.",
+      "fr": "Maisons jumelees neuves a Fuengirola avec 2 chambres, piscine commune, salle de sport, sauna et prix a partir de 298 000 EUR.",
+      "it": "Villette di nuova costruzione a Fuengirola con 2 camere, piscina condominiale, palestra, sauna e prezzi da 298.000 EUR.",
+      "nl": "Nieuwbouw herenhuizen in Fuengirola met 2 slaapkamers, gemeenschappelijk zwembad, fitnessruimte, sauna en prijzen vanaf EUR 298.000."
     }
   },
   "translations": {
     "es": {
-      "title": "Sunhill: adosados de obra nueva en Fuengirola",
+      "title": "Adosados de obra nueva en Fuengirola",
       "intro": "Promocion de adosados de 2 dormitorios en Fuengirola, con piscina comunitaria, gimnasio, sauna y precios desde 298.000 EUR.",
       "description": [
         {
           "type": "paragraph",
-          "content": "Sunhill es una promocion de adosados de obra nueva en Fuengirola, planteada para quien busca una vivienda residencial funcional con zonas comunes de bienestar y un rango de acceso competitivo."
+          "content": "Promocion de adosados de obra nueva en Fuengirola, planteada para quien busca una vivienda residencial funcional con zonas comunes de bienestar y un rango de acceso competitivo."
         },
         {
           "type": "paragraph",
@@ -166,27 +166,27 @@
       ]
     },
     "en": {
-      "title": "Sunhill: new-build townhouses in Fuengirola",
+      "title": "New-build townhouses in Fuengirola",
       "intro": "2-bedroom townhouse development in Fuengirola with communal pool, gym, sauna and prices from EUR 298,000.",
       "description": []
     },
     "de": {
-      "title": "Sunhill: Neubau-Reihenhaeuser in Fuengirola",
+      "title": "Neubau-Reihenhaeuser in Fuengirola",
       "intro": "Neubauprojekt mit Reihenhaeusern mit 2 Schlafzimmern, Gemeinschaftspool, Fitnessraum, Sauna und Preisen ab 298.000 EUR.",
       "description": []
     },
     "fr": {
-      "title": "Sunhill : maisons jumel ees neuves a Fuengirola",
+      "title": "Maisons jumel ees neuves a Fuengirola",
       "intro": "Programme de maisons de 2 chambres a Fuengirola avec piscine commune, salle de sport, sauna et prix a partir de 298 000 EUR.",
       "description": []
     },
     "it": {
-      "title": "Sunhill: villette di nuova costruzione a Fuengirola",
+      "title": "Villette di nuova costruzione a Fuengirola",
       "intro": "Progetto di villette con 2 camere a Fuengirola, piscina condominiale, palestra, sauna e prezzi da 298.000 EUR.",
       "description": []
     },
     "nl": {
-      "title": "Sunhill: nieuwbouw herenhuizen in Fuengirola",
+      "title": "Nieuwbouw herenhuizen in Fuengirola",
       "intro": "Project met herenhuizen met 2 slaapkamers in Fuengirola, gemeenschappelijk zwembad, fitnessruimte, sauna en prijzen vanaf EUR 298.000.",
       "description": []
     }

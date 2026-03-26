@@ -25,7 +25,7 @@ const backUrl = `/crm/clients/${Astro.url.search}`;
         </nav>
         <div class="cd-topbar-actions">
           <button id="client-edit-toggle" type="button" class="cd-btn cd-btn-ghost">Editar</button>
-          <button id="client-delete" type="button" class="cd-btn cd-btn-danger">Eliminar</button>
+          <div id="client-status-quick-actions" style="display:flex;flex-wrap:wrap;gap:0.5rem"></div>
         </div>
       </div>
     </section>
@@ -303,6 +303,27 @@ const backUrl = `/crm/clients/${Astro.url.search}`;
 
       <!-- RIGHT SIDEBAR -->
       <div class="cd-col-sidebar">
+
+        <div class="cd-card">
+          <div class="cd-card-header">
+            <h3 class="cd-card-title">Seguimiento</h3>
+          </div>
+          <div id="client-notifications-summary" class="cd-empty">Cargando alertas...</div>
+          <div id="client-notifications-list" style="margin-top:0.85rem;display:grid;gap:0.65rem"></div>
+        </div>
+
+        <div class="cd-card">
+          <div class="cd-card-header">
+            <h3 class="cd-card-title">Deals</h3>
+          </div>
+          <div id="client-deals-summary" class="cd-empty">Cargando deals...</div>
+          <ul id="client-deals-list" style="margin:0.85rem 0 0;padding-left:1.25rem;list-style:disc;font-size:0.92rem;color:#14324d;line-height:1.6"></ul>
+          <div class="cd-form-actions" style="margin-top:1rem">
+            <button id="client-deals-open-btn" type="button" class="cd-btn cd-btn-primary" style="width:100%">
+              Nuevo deal
+            </button>
+          </div>
+        </div>
 
         <!-- Propiedad asignada -->
         <div class="cd-card">

@@ -4,12 +4,12 @@
   "listing_type": "unit",
   "parent_id": "A0126",
   "slugs": {
-    "es": "adosado-obra-nueva-sunhill-fuengirola-planta-1",
-    "en": "new-build-townhouse-sunhill-fuengirola-floor-1",
-    "de": "neubau-reihenhaus-sunhill-fuengirola-etage-1",
-    "fr": "maison-neuve-sunhill-fuengirola-etage-1",
-    "it": "villetta-nuova-sunhill-fuengirola-piano-1",
-    "nl": "nieuwbouw-herenhuis-sunhill-fuengirola-verdieping-1"
+    "es": "adosado-obra-nueva-fuengirola-planta-1",
+    "en": "new-build-townhouse-fuengirola-floor-1",
+    "de": "neubau-reihenhaus-fuengirola-etage-1",
+    "fr": "maison-neuve-fuengirola-etage-1",
+    "it": "villetta-nuova-fuengirola-piano-1",
+    "nl": "nieuwbouw-herenhuis-fuengirola-verdieping-1"
   },
   "status": "available",
   "featured": false,
@@ -71,8 +71,8 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0126/cover/facade.jpg",
       "alt": {
-        "es": "Sunhill vivienda Planta 1 en Fuengirola",
-        "en": "Sunhill floor 1 home in Fuengirola"
+        "es": "Adosado de obra nueva en Fuengirola | Planta 1",
+        "en": "New-build townhouse in Fuengirola | Floor 1"
       }
     },
     "gallery": {
@@ -124,42 +124,42 @@
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "adosado obra nueva sunhill fuengirola planta 1",
-      "en": "new build townhouse sunhill fuengirola floor 1"
+      "es": "adosado obra nueva fuengirola planta 1",
+      "en": "new build townhouse fuengirola floor 1"
     },
     "meta_description": {
-      "es": "Adosado de obra nueva en Sunhill, Fuengirola. 2 dormitorios, 2 banos, 81.96 m2 construidos y 14 m2 de terraza. Precio: 298.000 EUR.",
-      "en": "New-build townhouse at Sunhill, Fuengirola. 2 bedrooms, 2 bathrooms, 81.96 sqm built and 14 sqm terrace. Price: EUR 298,000."
+      "es": "Adosado de obra nueva en Fuengirola. 2 dormitorios, 2 banos, 81.96 m2 construidos y 14 m2 de terraza. Precio: 298.000 EUR.",
+      "en": "New-build townhouse in Fuengirola. 2 bedrooms, 2 bathrooms, 81.96 sqm built and 14 sqm terrace. Price: EUR 298,000."
     }
   },
   "translations": {
     "es": {
-      "title": "Adosado de obra nueva en Sunhill, Fuengirola | Planta 1",
+      "title": "Adosado de obra nueva en Fuengirola | Planta 1",
       "intro": "Unidad disponible de 2 dormitorios con 81.96 m2 construidos, 14 m2 de terraza y aparcamiento privado descubierto.",
       "description": []
     },
     "en": {
-      "title": "New-build townhouse at Sunhill, Fuengirola | Floor 1",
+      "title": "New-build townhouse in Fuengirola | Floor 1",
       "intro": "Available 2-bedroom unit with 81.96 sqm built area, a 14 sqm terrace and private outdoor parking.",
       "description": []
     },
     "de": {
-      "title": "Neubau-Reihenhaus in Sunhill, Fuengirola | Etage 1",
+      "title": "Neubau-Reihenhaus in Fuengirola | Etage 1",
       "intro": "Verfuegbare Einheit mit 2 Schlafzimmern, 81.96 m2 bebauter Flaeche, 14 m2 Terrasse und privatem Aussenstellplatz.",
       "description": []
     },
     "fr": {
-      "title": "Maison neuve a Sunhill, Fuengirola | Etage 1",
+      "title": "Maison neuve a Fuengirola | Etage 1",
       "intro": "Unite disponible avec 2 chambres, 81.96 m2 construits, terrasse de 14 m2 et stationnement prive exterieur.",
       "description": []
     },
     "it": {
-      "title": "Villetta di nuova costruzione a Sunhill, Fuengirola | Piano 1",
+      "title": "Villetta di nuova costruzione a Fuengirola | Piano 1",
       "intro": "Unita disponibile con 2 camere, 81.96 m2 costruiti, terrazza di 14 m2 e parcheggio privato scoperto.",
       "description": []
     },
     "nl": {
-      "title": "Nieuwbouw herenhuis in Sunhill, Fuengirola | Verdieping 1",
+      "title": "Nieuwbouw herenhuis in Fuengirola | Verdieping 1",
       "intro": "Beschikbare unit met 2 slaapkamers, 81.96 m2 bebouwd oppervlak, 14 m2 terras en prive buitenparking.",
       "description": []
     }

@@ -1,22 +1,43 @@
-﻿---
+---
 import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
 ---
 <CrmLayout title="CRM | Notificaciones" section="notifications">
   <div class="crm-stack" data-crm-notifications="true">
     <section class="crm-card crm-full">
-      <h2>Modulo de notificaciones admin</h2>
-      <p>
-        Centro de avisos para mensajes, correos y recordatorios de seguimiento (volver a contactar leads).
-      </p>
-      <p class="crm-inline-note">
-        Acceso limitado a admin autorizado con sesion portal <code>portal_agent_admin</code>
-        (admin principal: <strong>rafael@blancareal.com</strong>).
-      </p>
+      <div class="crm-actions-row" style="justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div>
+          <p class="crm-context-eyebrow">Seguimiento operativo</p>
+          <h2 style="margin:0.35rem 0 0.5rem">Centro de notificaciones</h2>
+          <p class="crm-inline-note">
+            Bandeja unica para alertas manuales y alertas sistemicas de leads, deals y reservas.
+          </p>
+        </div>
+        <div class="crm-actions-row">
+          <button id="crm-notifications-sync-dry" type="button" class="crm-button crm-button-soft">
+            Dry run sync admin
+          </button>
+          <button id="crm-notifications-sync-run" type="button" class="crm-button">
+            Ejecutar sync admin
+          </button>
+        </div>
+      </div>
+      <form id="crm-notifications-org-form" class="crm-form crm-form-compact" style="margin-top:1rem">
+        <label>
+          organization_id
+          <input id="crm-notifications-organization-id" name="organization_id" type="text" autocomplete="off" />
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Actualizar contexto</button>
+          <span id="crm-notifications-org-source" class="crm-badge warn">Sin configurar</span>
+        </div>
+      </form>
+      <p id="crm-notifications-org-help" class="crm-inline-note"></p>
+      <p id="crm-notifications-summary" class="crm-inline-note" style="margin-top:0.75rem"></p>
     </section>
 
     <section class="crm-grid">
       <article class="crm-card crm-half">
-        <h3>Nueva notificacion</h3>
+        <h3>Nueva notificacion manual</h3>
         <form id="crm-notification-create-form" class="crm-form">
           <label>
             Titulo
@@ -59,22 +80,63 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
             <input name="recipient_phone" type="tel" autocomplete="tel" placeholder="+34..." />
           </label>
           <label>
-            Lead ID (opcional)
-            <input name="lead_id" type="text" autocomplete="off" spellcheck="false" />
+            Relacion
+            <select id="crm-notifications-create-entity-type" name="create_entity_type">
+              <option value="generic" selected>Generica</option>
+              <option value="lead">Lead</option>
+              <option value="client">Cliente</option>
+              <option value="deal">Deal</option>
+            </select>
           </label>
-          <label>
-            Promocion ID (opcional)
-            <input name="project_property_id" type="text" autocomplete="off" spellcheck="false" />
+          <label id="crm-notifications-create-lead-field" class="crm-col-2" hidden>
+            Lead
+            <input
+              id="crm-notifications-create-lead-search"
+              type="text"
+              list="crm-notifications-create-lead-options"
+              autocomplete="off"
+              placeholder="Busca por nombre, email o promocion"
+            />
+            <input id="crm-notifications-create-lead-id" name="lead_id" type="hidden" />
+            <datalist id="crm-notifications-create-lead-options"></datalist>
           </label>
+          <label id="crm-notifications-create-client-field" class="crm-col-2" hidden>
+            Cliente
+            <input
+              id="crm-notifications-create-client-search"
+              type="text"
+              list="crm-notifications-create-client-options"
+              autocomplete="off"
+              placeholder="Busca por nombre, email o codigo"
+            />
+            <input id="crm-notifications-create-client-id" name="client_id" type="hidden" />
+            <datalist id="crm-notifications-create-client-options"></datalist>
+          </label>
+          <label id="crm-notifications-create-deal-field" class="crm-col-2" hidden>
+            Deal
+            <input
+              id="crm-notifications-create-deal-search"
+              type="text"
+              list="crm-notifications-create-deal-options"
+              autocomplete="off"
+              placeholder="Busca por deal, cliente o propiedad"
+            />
+            <input id="crm-notifications-create-deal-id" name="deal_id" type="hidden" />
+            <datalist id="crm-notifications-create-deal-options"></datalist>
+          </label>
+          <input id="crm-notifications-create-entity-type-api" name="entity_type" type="hidden" value="generic" />
+          <p id="crm-notifications-create-entity-help" class="crm-inline-note crm-col-2">
+            Notificacion manual generica sin entidad ligada.
+          </p>
           <label>
-            Vencimiento / recordatorio
+            Vence
             <input name="due_at" type="datetime-local" />
           </label>
           <label class="crm-col-2">
             Mensaje
-            <textarea name="body" rows="4" placeholder="Contexto para el equipo comercial..."></textarea>
+            <textarea name="body" rows="4" placeholder="Contexto interno o instruccion comercial..."></textarea>
           </label>
-          <div class="crm-col-2 crm-actions-row">
+          <div class="crm-actions-row crm-col-2">
             <button type="submit" class="crm-button">Crear notificacion</button>
           </div>
         </form>
@@ -83,6 +145,16 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
       <article class="crm-card crm-half">
         <h3>Filtros de bandeja</h3>
         <form id="crm-notifications-filter-form" class="crm-form">
+          <label>
+            Vista
+            <select name="view">
+              <option value="mine">Mias</option>
+              <option value="team">Equipo</option>
+              <option value="escalated">Escaladas</option>
+              <option value="system">Sistemicas</option>
+              <option value="manual">Manuales</option>
+            </select>
+          </label>
           <label>
             Estado
             <select name="status" data-dictionary="notification-status">
@@ -96,29 +168,36 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
             </select>
           </label>
           <label>
-            Tipo
-            <select name="notification_type" data-dictionary="notification-type">
-              <option value="">Todos</option>
-              <option value="in_app_message">in_app_message</option>
-              <option value="email_outreach">email_outreach</option>
-              <option value="lead_follow_up">lead_follow_up</option>
-              <option value="call_reminder">call_reminder</option>
-              <option value="system_alert">system_alert</option>
+            Source
+            <select name="source_type">
+              <option value="">Todas</option>
+              <option value="system">system</option>
+              <option value="manual">manual</option>
             </select>
           </label>
           <label>
-            Canal
-            <select name="channel" data-dictionary="notification-channel">
-              <option value="">Todos</option>
-              <option value="in_app">in_app</option>
-              <option value="email">email</option>
-              <option value="whatsapp">whatsapp</option>
-              <option value="phone">phone</option>
+            Entidad
+            <select name="entity_type">
+              <option value="">Todas</option>
+              <option value="lead">lead</option>
+              <option value="deal">deal</option>
+              <option value="client">client</option>
+              <option value="reservation">reservation</option>
+            </select>
+          </label>
+          <label>
+            Prioridad
+            <select name="priority" data-dictionary="notification-priority">
+              <option value="">Todas</option>
+              <option value="low">low</option>
+              <option value="normal">normal</option>
+              <option value="high">high</option>
+              <option value="urgent">urgent</option>
             </select>
           </label>
           <label>
             Buscar
-            <input name="q" type="search" placeholder="titulo, email, texto..." />
+            <input name="q" type="search" placeholder="titulo, regla, entidad..." />
           </label>
           <label>
             Vence desde
@@ -143,36 +222,56 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
             </button>
           </div>
         </form>
-        <p id="crm-notifications-summary" class="crm-inline-note"></p>
+        <div class="crm-actions-row" style="justify-content:space-between;align-items:center;gap:0.75rem;flex-wrap:wrap">
+          <p id="crm-notifications-meta" class="crm-inline-note" style="margin:0"></p>
+          <div class="crm-actions-row">
+            <button id="crm-notifications-page-prev" type="button" class="crm-button crm-button-soft">Anterior</button>
+            <span id="crm-notifications-page-label" class="crm-inline-note">Pagina 1</span>
+            <button id="crm-notifications-page-next" type="button" class="crm-button crm-button-soft">Siguiente</button>
+          </div>
+        </div>
       </article>
     </section>
 
     <section class="crm-card crm-full">
-      <p id="crm-notifications-meta" class="crm-inline-note"></p>
       <div class="crm-table-wrap">
         <table class="crm-table" aria-describedby="crm-notifications-meta">
           <caption class="sr-only">Listado de notificaciones CRM</caption>
           <thead>
             <tr>
-              <th>Creada</th>
-              <th>Tipo / Canal</th>
-              <th>Titulo</th>
-              <th>Destino</th>
-              <th>Vence</th>
+              <th>Creada / vence</th>
+              <th>Prioridad</th>
+              <th>Titulo / entidad</th>
+              <th>Asignacion</th>
               <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="crm-notifications-tbody">
-            <tr><td colspan="7">Cargando notificaciones...</td></tr>
+            <tr><td colspan="6">Cargando notificaciones...</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
     <section class="crm-card crm-full">
+      <div class="crm-actions-row" style="justify-content:space-between;align-items:flex-start">
+        <div>
+          <h3 style="margin:0">Detalle de notificacion</h3>
+          <p class="crm-inline-note">Carga completa bajo demanda para no penalizar la bandeja principal.</p>
+        </div>
+        <button id="crm-notifications-detail-clear" type="button" class="crm-button crm-button-soft">
+          Limpiar detalle
+        </button>
+      </div>
+      <div id="crm-notifications-detail" style="margin-top:1rem">
+        <p class="crm-inline-note">Selecciona una alerta para ver body, metadata y contexto completo.</p>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
       <p id="crm-notifications-feedback" class="crm-feedback" role="status" aria-live="polite">
-        Listo para operar notificaciones.
+        Centro de notificaciones listo.
       </p>
     </section>
   </div>

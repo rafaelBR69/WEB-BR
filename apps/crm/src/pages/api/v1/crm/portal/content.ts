@@ -3,6 +3,7 @@ import { jsonResponse, methodNotAllowed, parseJsonBody } from "@shared/api/json"
 import { getSupabaseServerClient, hasSupabaseServerClient } from "@shared/supabase/server";
 import { CRM_EDITOR_ROLES, resolveCrmOrgAccess } from "@shared/crm/access";
 import { asBoolean, asNumber, asObject, asText, asUuid, normalizePortalAudience, toPositiveInt } from "@shared/portal/domain";
+import { isPortalMockFallbackEnabled, portalMockFallbackDisabledResponse } from "@shared/http/portal/mockFallback";
 
 type CreatePortalContentBody = {
   organization_id?: string;
@@ -99,6 +100,12 @@ export const GET: APIRoute = async ({ url, cookies }) => {
   }
 
   if (!hasSupabaseServerClient()) {
+    if (!isPortalMockFallbackEnabled()) {
+      return portalMockFallbackDisabledResponse(
+        "portal_content_backend_unavailable",
+        "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
+      );
+    }
     return jsonResponse({
       ok: true,
       data: [],
@@ -204,6 +211,12 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   }
 
   if (!hasSupabaseServerClient()) {
+    if (!isPortalMockFallbackEnabled()) {
+      return portalMockFallbackDisabledResponse(
+        "portal_content_backend_unavailable",
+        "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
+      );
+    }
     return jsonResponse(
       {
         ok: true,
@@ -318,6 +331,12 @@ export const PATCH: APIRoute = async ({ request, cookies }) => {
   }
 
   if (!hasSupabaseServerClient()) {
+    if (!isPortalMockFallbackEnabled()) {
+      return portalMockFallbackDisabledResponse(
+        "portal_content_backend_unavailable",
+        "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
+      );
+    }
     return jsonResponse({
       ok: true,
       data: {
@@ -388,6 +407,12 @@ export const DELETE: APIRoute = async ({ request, url, cookies }) => {
   }
 
   if (!hasSupabaseServerClient()) {
+    if (!isPortalMockFallbackEnabled()) {
+      return portalMockFallbackDisabledResponse(
+        "portal_content_backend_unavailable",
+        "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
+      );
+    }
     return jsonResponse({
       ok: true,
       data: {

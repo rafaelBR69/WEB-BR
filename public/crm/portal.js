@@ -10,11 +10,10 @@
     portalProjects: [],
     portalProjectsLoadedForOrg: null,
     portalProjectsById: new Map(),
+    portalAccounts: [],
     portalAccountsById: new Map(),
     lastInviteShare: null,
   };
-
-  const PORTAL_SESSION_KEY = "portal.session.v1";
 
   const el = {
     orgForm: document.getElementById("crm-portal-org-form"),
@@ -32,7 +31,7 @@
     inviteTypeInput: document.getElementById("portal-invite-type"),
     inviteRoleInput: document.getElementById("portal-invite-role"),
     inviteProjectSelect: document.getElementById("portal-invite-project-select"),
-    inviteProjectManualInput: document.getElementById("portal-invite-project-manual"),
+    inviteProjectFilterSelect: document.getElementById("portal-invites-project-select"),
     inviteCode: document.getElementById("portal-invite-code"),
     inviteShare: document.getElementById("portal-invite-share"),
     inviteShareSummary: document.getElementById("portal-invite-share-summary"),
@@ -57,15 +56,17 @@
     usersMeta: document.getElementById("portal-users-meta"),
     usersTbody: document.getElementById("portal-users-tbody"),
     membershipForm: document.getElementById("portal-membership-form"),
-    membershipAccountInput: document.getElementById("portal-membership-account-id"),
+    membershipAccountSelect: document.getElementById("portal-membership-account-select"),
     membershipProjectSelect: document.getElementById("portal-membership-project-select"),
-    membershipProjectManualInput: document.getElementById("portal-membership-project-manual"),
     membershipsFilterForm: document.getElementById("portal-memberships-filter"),
+    membershipsAccountSelect: document.getElementById("portal-memberships-account-select"),
     membershipsTbody: document.getElementById("portal-memberships-tbody"),
     contentFilterForm: document.getElementById("portal-content-filter"),
     contentFilterClearBtn: document.getElementById("portal-content-filter-clear"),
+    contentFilterProjectSelect: document.getElementById("portal-content-filter-project-select"),
     contentForm: document.getElementById("portal-content-form"),
     contentIdInput: document.getElementById("portal-content-id"),
+    contentProjectSelect: document.getElementById("portal-content-project-select"),
     contentNewBtn: document.getElementById("portal-content-new"),
     contentMeta: document.getElementById("portal-content-meta"),
     contentTbody: document.getElementById("portal-content-tbody"),
@@ -84,6 +85,7 @@
     documentsTbody: document.getElementById("portal-documents-tbody"),
     logsFilterForm: document.getElementById("portal-logs-filter"),
     logsClearBtn: document.getElementById("portal-logs-clear"),
+    logsProjectSelect: document.getElementById("portal-logs-project-select"),
     logsMeta: document.getElementById("portal-logs-meta"),
     logsTbody: document.getElementById("portal-logs-tbody"),
   };
@@ -126,85 +128,6 @@
   const publicationLabel = (published) =>
     published ? dictLabel("publication", "published", "Publicado") : dictLabel("publication", "draft", "Borrador");
   const logEventTypeLabel = (value) => dictLabel("log-event-type", value, value || "-");
-
-  const parseJsonSafe = (raw) => {
-    try {
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
-  };
-
-  const readPortalSessionFromStorage = (storage) => {
-    try {
-      const raw = storage.getItem(PORTAL_SESSION_KEY);
-      const parsed = parseJsonSafe(raw);
-      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
-      return parsed;
-    } catch {
-      return null;
-    }
-  };
-
-  const loadPortalSession = () =>
-    readPortalSessionFromStorage(window.localStorage) ?? readPortalSessionFromStorage(window.sessionStorage);
-
-  const buildPortalAuthHeaders = () => {
-    const session = loadPortalSession();
-    const accessToken = toText(session?.accessToken ?? session?.access_token);
-    if (!accessToken) return null;
-
-    const tokenType = toText(session?.tokenType ?? session?.token_type) ?? "bearer";
-    return {
-      Authorization: `${tokenType} ${accessToken}`.trim(),
-    };
-  };
-
-  const createErrorWithCode = (code, details) => {
-    const error = new Error(details || code);
-    error.code = code;
-    return error;
-  };
-
-  const isLogsAccessErrorCode = (value) => {
-    const code = toText(value) || "";
-    return (
-      code === "portal_admin_session_required" ||
-      code === "portal_admin_role_required" ||
-      code === "portal_logs_admin_only" ||
-      code === "portal_logs_email_not_allowed" ||
-      code === "auth_token_required" ||
-      code === "invalid_auth_token" ||
-      code === "portal_account_not_found" ||
-      code === "portal_account_not_found_for_auth_user" ||
-      code === "portal_account_not_active"
-    );
-  };
-
-  const requestPortalAdmin = async (url, init = {}) => {
-    const session = loadPortalSession();
-    const role = toText(session?.role ?? session?.portalAccount?.role);
-    const headers = buildPortalAuthHeaders();
-    if (!headers?.Authorization) {
-      throw createErrorWithCode(
-        "portal_admin_session_required",
-        "Inicia sesion en /es/portal/login con cuenta admin para acceder a logs."
-      );
-    }
-    if (role && role !== "portal_agent_admin") {
-      throw createErrorWithCode(
-        "portal_admin_role_required",
-        "La sesion portal activa no tiene rol portal_agent_admin."
-      );
-    }
-    return request(url, {
-      ...init,
-      headers: {
-        ...(init.headers || {}),
-        ...headers,
-      },
-    });
-  };
 
   const statusClass = (value) => {
     const status = toText(value) || "";
@@ -348,12 +271,6 @@
     return label ?? "Cuenta portal";
   };
 
-  const resolveProjectPropertyIdFromForm = (formData, selectFieldName, manualFieldName) => {
-    const selected = toText(formData.get(selectFieldName));
-    const manual = toText(formData.get(manualFieldName));
-    return manual ?? selected ?? null;
-  };
-
   const isSelfSignupInvite = (entry) => {
     const row = asObject(entry);
     const metadata = asObject(row.metadata);
@@ -465,17 +382,44 @@
     }
   };
 
+  const setPortalAccountSelectOptions = (select, accounts, emptyLabel) => {
+    if (!(select instanceof HTMLSelectElement)) return;
+    const current = toText(select.value);
+    const options = [
+      `<option value="">${esc(emptyLabel)}</option>`,
+      ...accounts.map((entry) => {
+        const id = toText(entry.id);
+        if (!id) return "";
+        const selected = current === id ? " selected" : "";
+        return `<option value="${esc(id)}"${selected}>${esc(getPortalAccountLabel(id))}</option>`;
+      }),
+    ];
+    select.innerHTML = options.join("");
+
+    if (current && !accounts.some((entry) => toText(entry.id) === current)) {
+      const orphan = document.createElement("option");
+      orphan.value = current;
+      orphan.textContent = `${getPortalAccountLabel(current)} (no visible en el filtro actual)`;
+      orphan.selected = true;
+      select.appendChild(orphan);
+    }
+  };
+
   const renderProjectSelectors = () => {
+    const projectOnlyRows = state.portalProjects.filter((entry) => (toText(entry?.record_type) ?? "project") === "project");
     setProjectSelectOptions(
       el.inviteProjectSelect,
-      state.portalProjects,
+      projectOnlyRows,
       "Sin vincular a promocion concreta"
     );
+    setProjectSelectOptions(el.inviteProjectFilterSelect, projectOnlyRows, "Todas");
     setProjectSelectOptions(
       el.membershipProjectSelect,
-      state.portalProjects,
+      projectOnlyRows,
       "Selecciona una promocion"
     );
+    setProjectSelectOptions(el.contentFilterProjectSelect, projectOnlyRows, "Todas las promociones");
+    setProjectSelectOptions(el.contentProjectSelect, projectOnlyRows, "Selecciona una promocion");
     setProjectSelectOptions(
       el.documentsFilterPropertySelect,
       state.portalProjects,
@@ -488,9 +432,15 @@
     );
     setProjectSelectOptions(
       el.documentsTreeProjectSelect,
-      state.portalProjects.filter((entry) => (toText(entry?.record_type) ?? "project") === "project"),
+      projectOnlyRows,
       "Selecciona una promocion"
     );
+    setProjectSelectOptions(el.logsProjectSelect, projectOnlyRows, "Todas");
+  };
+
+  const renderPortalAccountSelectors = () => {
+    setPortalAccountSelectOptions(el.membershipAccountSelect, state.portalAccounts, "Selecciona una cuenta portal");
+    setPortalAccountSelectOptions(el.membershipsAccountSelect, state.portalAccounts, "Todas las cuentas");
   };
 
   const loadPortalProjects = async ({ force = false } = {}) => {
@@ -946,11 +896,7 @@
     state.lastInviteShare = null;
     renderInviteShare(null);
     const formData = new FormData(el.inviteForm);
-    const projectPropertyId = resolveProjectPropertyIdFromForm(
-      formData,
-      "project_property_id",
-      "project_property_id_manual"
-    );
+    const projectPropertyId = toText(formData.get("project_property_id"));
     const payload = {
       organization_id: state.organizationId,
       email: toText(formData.get("email")),
@@ -1096,8 +1042,9 @@
   // USERS + MEMBERSHIPS
   const renderUsers = (rows = [], meta = {}) => {
     if (!(el.usersTbody instanceof HTMLElement)) return;
+    state.portalAccounts = rows.filter((entry) => toText(entry?.id));
     state.portalAccountsById.clear();
-    rows.forEach((entry) => {
+    state.portalAccounts.forEach((entry) => {
       const id = toText(entry?.id);
       if (!id) return;
       const metadata = asObject(entry?.metadata);
@@ -1106,6 +1053,7 @@
       const label = fullName && email ? `${fullName} | ${email}` : fullName || email || "Cuenta portal";
       state.portalAccountsById.set(id, label);
     });
+    renderPortalAccountSelectors();
 
     if (!rows.length) {
       el.usersTbody.innerHTML = '<tr><td colspan="6">No hay cuentas portal con este filtro.</td></tr>';
@@ -1242,15 +1190,10 @@
   const saveMembership = async () => {
     if (!ensureOrganization() || !(el.membershipForm instanceof HTMLFormElement)) return;
     const formData = new FormData(el.membershipForm);
-    const projectPropertyId = resolveProjectPropertyIdFromForm(
-      formData,
-      "project_property_id",
-      "project_property_id_manual"
-    );
     const payload = {
       organization_id: state.organizationId,
       portal_account_id: toText(formData.get("portal_account_id")),
-      project_property_id: projectPropertyId,
+      project_property_id: toText(formData.get("project_property_id")),
       access_scope: toText(formData.get("access_scope")) || "read",
       status: toText(formData.get("status")) || "active",
       dispute_window_hours: Number(formData.get("dispute_window_hours") || 48),
@@ -1267,9 +1210,6 @@
       body: JSON.stringify(payload),
     });
 
-    if (el.membershipProjectManualInput instanceof HTMLInputElement) {
-      el.membershipProjectManualInput.value = "";
-    }
     await Promise.all([loadUsers(), loadMemberships()]);
     setFeedback("Membresia guardada correctamente.", "ok");
   };
@@ -1430,7 +1370,7 @@
     }
 
     const projectInput = el.contentForm.elements.namedItem("project_property_id");
-    if (projectInput instanceof HTMLInputElement) projectInput.focus();
+    if (projectInput instanceof HTMLSelectElement) projectInput.focus();
   };
 
   const saveContent = async () => {
@@ -1467,7 +1407,7 @@
     if (!contentId) {
       resetContentForm();
       const projectField = el.contentForm.elements.namedItem("project_property_id");
-      if (projectField instanceof HTMLInputElement) projectField.focus();
+      if (projectField instanceof HTMLSelectElement) projectField.focus();
     }
     setFeedback(contentId ? "Bloque actualizado." : "Bloque creado.", "ok");
   };
@@ -1861,80 +1801,67 @@
       per_page: toText(filterForm?.get("per_page")) || "50",
       page: "1",
     };
-    try {
-      const payload = await requestPortalAdmin(buildApiUrl("/api/v1/portal/access-logs", params));
-      renderLogs(Array.isArray(payload?.data) ? payload.data : [], asObject(payload?.meta));
-    } catch (error) {
-      if (!isLogsAccessErrorCode(error?.code)) throw error;
-      renderLogs([], {
-        count: 0,
-        total: 0,
-        page: 1,
-        total_pages: 1,
-      });
-      if (el.logsMeta instanceof HTMLElement) {
-        el.logsMeta.textContent =
-          "Acceso restringido: inicia sesion con portal_agent_admin autorizado (rafael@blancareal.com).";
-      }
-      setFeedback(
-        "Logs bloqueados para esta sesion. Solo admin autorizado puede acceder.",
-        "error"
-      );
-    }
+    const payload = await request(buildApiUrl("/api/v1/portal/access-logs", params));
+    renderLogs(Array.isArray(payload?.data) ? payload.data : [], asObject(payload?.meta));
   };
 
   // DASHBOARD
   const loadDashboard = async () => {
     if (!ensureOrganization()) return;
     const base = { organization_id: state.organizationId, page: "1", per_page: "1" };
+    const kpiTargets = [
+      {
+        element: el.kpiInvites,
+        loader: () => request(buildApiUrl("/api/v1/portal/invites", base)),
+      },
+      {
+        element: el.kpiSignupRequests,
+        loader: () =>
+          request(
+            buildApiUrl("/api/v1/crm/portal/registration-requests", {
+              ...base,
+              approval_status: "requested",
+            })
+          ),
+      },
+      {
+        element: el.kpiUsers,
+        loader: () => request(buildApiUrl("/api/v1/crm/portal/users", base)),
+      },
+      {
+        element: el.kpiContent,
+        loader: () => request(buildApiUrl("/api/v1/crm/portal/content", base)),
+      },
+      {
+        element: el.kpiDocuments,
+        loader: () => request(buildApiUrl("/api/v1/crm/portal/documents", base)),
+      },
+      {
+        element: el.kpiLogs,
+        loader: () => request(buildApiUrl("/api/v1/portal/access-logs", { ...base, per_page: "5" })),
+      },
+    ];
 
-    const [invitesPayload, signupRequestsPayload, usersPayload, contentPayload, documentsPayload] = await Promise.all([
-      request(buildApiUrl("/api/v1/portal/invites", base)),
-      request(
-        buildApiUrl("/api/v1/crm/portal/registration-requests", {
-          ...base,
-          approval_status: "requested",
-        })
-      ),
-      request(buildApiUrl("/api/v1/crm/portal/users", base)),
-      request(buildApiUrl("/api/v1/crm/portal/content", base)),
-      request(buildApiUrl("/api/v1/crm/portal/documents", base)),
-    ]);
+    const results = await Promise.allSettled(kpiTargets.map((entry) => entry.loader()));
+    let unavailableCount = 0;
 
-    let logsPayload = null;
-    try {
-      logsPayload = await requestPortalAdmin(buildApiUrl("/api/v1/portal/access-logs", { ...base, per_page: "5" }));
-    } catch (error) {
-      if (!isLogsAccessErrorCode(error?.code)) throw error;
-      logsPayload = null;
-    }
-
-    if (el.kpiInvites instanceof HTMLElement) {
-      el.kpiInvites.textContent = String(Number(invitesPayload?.meta?.total || invitesPayload?.meta?.count || 0));
-    }
-    if (el.kpiSignupRequests instanceof HTMLElement) {
-      el.kpiSignupRequests.textContent = String(
-        Number(signupRequestsPayload?.meta?.total || signupRequestsPayload?.meta?.count || 0)
-      );
-    }
-    if (el.kpiUsers instanceof HTMLElement) {
-      el.kpiUsers.textContent = String(Number(usersPayload?.meta?.total || usersPayload?.meta?.count || 0));
-    }
-    if (el.kpiContent instanceof HTMLElement) {
-      el.kpiContent.textContent = String(Number(contentPayload?.meta?.total || contentPayload?.meta?.count || 0));
-    }
-    if (el.kpiDocuments instanceof HTMLElement) {
-      el.kpiDocuments.textContent = String(
-        Number(documentsPayload?.meta?.total || documentsPayload?.meta?.count || 0)
-      );
-    }
-    if (el.kpiLogs instanceof HTMLElement) {
-      if (logsPayload) {
-        el.kpiLogs.textContent = String(Number(logsPayload?.meta?.total || logsPayload?.meta?.count || 0));
-      } else {
-        el.kpiLogs.textContent = "Privado";
+    results.forEach((result, index) => {
+      const target = kpiTargets[index];
+      if (!(target.element instanceof HTMLElement)) return;
+      if (result.status === "fulfilled") {
+        target.element.textContent = String(Number(result.value?.meta?.total || result.value?.meta?.count || 0));
+        return;
       }
+      unavailableCount += 1;
+      target.element.textContent = "ND";
+      target.element.title = result.reason instanceof Error ? result.reason.message : String(result.reason);
+    });
+
+    if (unavailableCount > 0) {
+      setFeedback("Dashboard portal cargado con capas no disponibles marcadas como ND.", "error");
+      return;
     }
+    setFeedback("Dashboard portal actualizado con datos reales.", "ok");
   };
 
   const handleOrgSubmit = async (event) => {
@@ -1954,12 +1881,14 @@
     state.portalProjects = [];
     state.portalProjectsLoadedForOrg = null;
     state.portalProjectsById = new Map();
+    state.portalAccounts = [];
     state.portalAccountsById.clear();
     state.lastInviteShare = null;
     persistOrganization();
     updateUrlOrganization();
     renderOrganizationContext();
     renderProjectSelectors();
+    renderPortalAccountSelectors();
     renderInviteShare(null);
     setFeedback(
       !nextId && fallbackOrganizationId
@@ -1984,12 +1913,14 @@
     state.portalProjects = [];
     state.portalProjectsLoadedForOrg = null;
     state.portalProjectsById = new Map();
+    state.portalAccounts = [];
     state.portalAccountsById.clear();
     state.lastInviteShare = null;
     persistOrganization();
     updateUrlOrganization();
     renderOrganizationContext();
     renderProjectSelectors();
+    renderPortalAccountSelectors();
     renderInviteShare(null);
   };
 
@@ -2057,6 +1988,14 @@
         }
         await loadDocuments();
       } else if (page === "logs") {
+        try {
+          await loadPortalProjects();
+        } catch {
+          state.portalProjects = [];
+          state.portalProjectsLoadedForOrg = null;
+          state.portalProjectsById = new Map();
+          renderProjectSelectors();
+        }
         await loadLogs();
       }
       setFeedback("Datos actualizados.", "ok");
@@ -2074,22 +2013,6 @@
 
   if (el.inviteTypeInput instanceof HTMLSelectElement) {
     el.inviteTypeInput.addEventListener("change", normalizeInviteRoleByType);
-  }
-
-  if (el.inviteProjectSelect instanceof HTMLSelectElement && el.inviteProjectManualInput instanceof HTMLInputElement) {
-    el.inviteProjectSelect.addEventListener("change", () => {
-      if (toText(el.inviteProjectSelect.value)) {
-        el.inviteProjectManualInput.value = "";
-      }
-    });
-  }
-
-  if (el.membershipProjectSelect instanceof HTMLSelectElement && el.membershipProjectManualInput instanceof HTMLInputElement) {
-    el.membershipProjectSelect.addEventListener("change", () => {
-      if (toText(el.membershipProjectSelect.value)) {
-        el.membershipProjectManualInput.value = "";
-      }
-    });
   }
 
   if (el.documentsPropertySelect instanceof HTMLSelectElement) {
@@ -2344,9 +2267,9 @@
     if (useButton) {
       const accountId = toText(useButton.getAttribute("data-account-id"));
       if (!accountId) return;
-      if (el.membershipAccountInput instanceof HTMLInputElement) {
-        el.membershipAccountInput.value = accountId;
-        el.membershipAccountInput.focus();
+      if (el.membershipAccountSelect instanceof HTMLSelectElement) {
+        el.membershipAccountSelect.value = accountId;
+        el.membershipAccountSelect.focus();
         setFeedback("Cuenta portal preparada en el formulario de membresia.", "ok");
       }
     }

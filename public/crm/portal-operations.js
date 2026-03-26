@@ -21,7 +21,6 @@
     visitsFilterForm: document.getElementById("portal-ops-visits-filter"),
     visitsFilterClearBtn: document.getElementById("portal-ops-visits-clear"),
     visitsFilterProjectSelect: document.getElementById("portal-ops-visits-project-select"),
-    visitsFilterProjectManualInput: document.getElementById("portal-ops-visits-project-manual"),
     visitsMeta: document.getElementById("portal-ops-visits-meta"),
     visitsTbody: document.getElementById("portal-ops-visits-tbody"),
     visitForm: document.getElementById("portal-ops-visit-form"),
@@ -31,7 +30,6 @@
     commissionsFilterForm: document.getElementById("portal-ops-commissions-filter"),
     commissionsFilterClearBtn: document.getElementById("portal-ops-commissions-clear"),
     commissionsFilterProjectSelect: document.getElementById("portal-ops-commissions-project-select"),
-    commissionsFilterProjectManualInput: document.getElementById("portal-ops-commissions-project-manual"),
     commissionsMeta: document.getElementById("portal-ops-commissions-meta"),
     commissionsTbody: document.getElementById("portal-ops-commissions-tbody"),
     commissionForm: document.getElementById("portal-ops-commission-form"),
@@ -291,12 +289,6 @@
     return state.portalProjects;
   };
 
-  const resolveProjectPropertyIdFromForm = (formData, selectFieldName, manualFieldName) => {
-    const selected = toText(formData.get(selectFieldName));
-    const manual = toText(formData.get(manualFieldName));
-    return manual ?? selected ?? null;
-  };
-
   const clearForm = (form) => {
     if (!(form instanceof HTMLFormElement)) return;
     form.reset();
@@ -360,9 +352,7 @@
   const loadVisits = async () => {
     if (!ensureOrganization()) return;
     const filterForm = el.visitsFilterForm instanceof HTMLFormElement ? new FormData(el.visitsFilterForm) : null;
-    const projectPropertyId = filterForm
-      ? resolveProjectPropertyIdFromForm(filterForm, "project_property_id", "project_property_id_manual")
-      : null;
+    const projectPropertyId = filterForm ? toText(filterForm.get("project_property_id")) : null;
 
     const params = {
       organization_id: state.organizationId,
@@ -485,9 +475,7 @@
   const loadCommissions = async () => {
     if (!ensureOrganization()) return;
     const filterForm = el.commissionsFilterForm instanceof HTMLFormElement ? new FormData(el.commissionsFilterForm) : null;
-    const projectPropertyId = filterForm
-      ? resolveProjectPropertyIdFromForm(filterForm, "project_property_id", "project_property_id_manual")
-      : null;
+    const projectPropertyId = filterForm ? toText(filterForm.get("project_property_id")) : null;
 
     const params = {
       organization_id: state.organizationId,
@@ -660,24 +648,6 @@
     });
   }
 
-  if (
-    el.visitsFilterProjectSelect instanceof HTMLSelectElement &&
-    el.visitsFilterProjectManualInput instanceof HTMLInputElement
-  ) {
-    el.visitsFilterProjectSelect.addEventListener("change", () => {
-      if (toText(el.visitsFilterProjectSelect.value)) el.visitsFilterProjectManualInput.value = "";
-    });
-  }
-
-  if (
-    el.commissionsFilterProjectSelect instanceof HTMLSelectElement &&
-    el.commissionsFilterProjectManualInput instanceof HTMLInputElement
-  ) {
-    el.commissionsFilterProjectSelect.addEventListener("change", () => {
-      if (toText(el.commissionsFilterProjectSelect.value)) el.commissionsFilterProjectManualInput.value = "";
-    });
-  }
-
   if (el.visitsFilterForm instanceof HTMLFormElement) {
     el.visitsFilterForm.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -695,7 +665,6 @@
 
   el.visitsFilterClearBtn?.addEventListener("click", () => {
     clearForm(el.visitsFilterForm);
-    if (el.visitsFilterProjectManualInput instanceof HTMLInputElement) el.visitsFilterProjectManualInput.value = "";
     void (async () => {
       try {
         await loadVisits();
@@ -753,9 +722,6 @@
 
   el.commissionsFilterClearBtn?.addEventListener("click", () => {
     clearForm(el.commissionsFilterForm);
-    if (el.commissionsFilterProjectManualInput instanceof HTMLInputElement) {
-      el.commissionsFilterProjectManualInput.value = "";
-    }
     void (async () => {
       try {
         await loadCommissions();

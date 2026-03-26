@@ -1,52 +1,155 @@
 ---
 import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
-import { DashboardContainer } from "@crmapp/components/crm/dashboard/DashboardContainer";
-import "@crmapp/styles/crm/dashboard.css";
+import "@crmapp/styles/crm/home-dashboard.css";
 ---
-<CrmLayout title="CRM | Dashboard" section="dashboard">
-  <div class="crm-stack">
-    <section class="crm-card crm-full">
-      <div class="crm-lead-detail-head">
-        <h2>Dashboard de Leads</h2>
+<CrmLayout title="CRM | Cockpit" section="dashboard">
+  <div class="crm-stack crm-home-dashboard" data-crm-home-dashboard="true">
+    <section class="crm-card crm-full crm-home-hero">
+      <div class="crm-home-hero-head">
+        <div>
+          <p class="crm-context-eyebrow">Cockpit diario</p>
+          <h2>Cockpit CRM</h2>
+          <p id="crm-home-context" class="crm-inline-note">
+            Resumen operativo de leads, deals, reservas, portal y notificaciones.
+          </p>
+        </div>
+        <div id="crm-home-quick-links" class="crm-actions-row crm-home-quick-links">
+          <a class="crm-button crm-button-soft" href="/crm/leads/">Leads</a>
+          <a class="crm-button crm-button-soft" href="/crm/deals/">Deals</a>
+        </div>
       </div>
-      <DashboardContainer client:load />
+
+      <form id="crm-home-filters" class="crm-form crm-form-compact crm-home-filters">
+        <label>
+          Vista
+          <select id="crm-home-scope" name="scope">
+            <option value="mine" selected>Mi vista</option>
+            <option value="team">Equipo</option>
+          </select>
+        </label>
+        <label>
+          Horizonte
+          <select id="crm-home-window" name="window">
+            <option value="today">Hoy</option>
+            <option value="7d" selected>7 dias</option>
+            <option value="30d">30 dias</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Actualizar</button>
+          <button id="crm-home-refresh" type="button" class="crm-button crm-button-soft">Recargar</button>
+        </div>
+      </form>
     </section>
 
-    <section class="crm-grid">
-      <article class="crm-card crm-half">
-        <h2>Arranque CRM (fase actual)</h2>
-        <ul class="crm-list">
-          <li>Area CRM separada de la web publica en `/crm`.</li>
-          <li>Endpoints base disponibles en `/api/v1/*`.</li>
-          <li>Modelo SQL inicial en `supabase/sql/001_crm_core.sql`.</li>
-          <li>Soporte de propiedades de venta y alquiler desde el esquema base.</li>
-        </ul>
+    <section id="crm-home-alerts" class="crm-grid crm-home-alerts" aria-live="polite"></section>
+    <section id="crm-home-summary" class="crm-grid crm-home-summary" aria-live="polite"></section>
+
+    <section class="crm-grid crm-home-visual-grid">
+      <article class="crm-card crm-half crm-home-panel crm-home-visual-panel">
+        <div class="crm-home-panel-head">
+          <div>
+            <h3>Radar ejecutivo</h3>
+            <p class="crm-inline-note">KPIs reales del dia: captacion, riesgo, reservas y notificaciones abiertas.</p>
+          </div>
+        </div>
+        <div id="crm-home-executive-chart" class="crm-home-chart-block">
+          <p class="crm-inline-note">Cargando radar ejecutivo...</p>
+        </div>
       </article>
 
-      <article class="crm-card crm-half">
-        <h2>Modulos incluidos</h2>
-        <div class="crm-links">
-          <a class="crm-link" href="/crm/admin/permisos/">Permisos</a>
-          <a class="crm-link" href="/crm/leads/">Leads</a>
-          <a class="crm-link" href="/crm/properties/">Propiedades</a>
-          <a class="crm-link" href="/crm/clients/">Clientes</a>
-          <a class="crm-link" href="/crm/portal/">Portal</a>
-          <a class="crm-link" href="/crm/contracts/">Contratos</a>
-          <a class="crm-link" href="/crm/invoices/">Facturacion</a>
+      <article class="crm-card crm-half crm-home-panel crm-home-visual-panel">
+        <div class="crm-home-panel-head">
+          <div>
+            <h3>Reservas por estado</h3>
+            <p class="crm-inline-note">Lectura local y fiable del embudo real de reservas por estado.</p>
+          </div>
+        </div>
+        <div id="crm-home-reservations-chart" class="crm-home-chart-block">
+          <p class="crm-inline-note">Cargando reservas...</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="crm-grid crm-home-main-grid">
+      <article class="crm-card crm-half crm-home-panel">
+        <div class="crm-home-panel-head">
+          <div>
+            <h3>Mi bandeja</h3>
+            <p class="crm-inline-note">Pendientes personales priorizados por urgencia real.</p>
+          </div>
+          <button id="crm-home-mine-toggle" type="button" class="crm-button crm-button-soft" hidden>Ver mas</button>
+        </div>
+        <div id="crm-home-inbox-mine" class="crm-home-inbox-list">
+          <p class="crm-inline-note">Cargando pendientes personales...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half crm-home-panel">
+        <div class="crm-home-panel-head">
+          <div>
+            <h3>Equipo</h3>
+            <p class="crm-inline-note">Incidencias compartidas sin ownership fiable o pendientes de equipo.</p>
+          </div>
+          <button id="crm-home-team-toggle" type="button" class="crm-button crm-button-soft" hidden>Ver mas</button>
+        </div>
+        <div id="crm-home-inbox-team" class="crm-home-inbox-list">
+          <p class="crm-inline-note">Cargando pendientes de equipo...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half crm-home-panel">
+        <div class="crm-home-panel-head">
+          <div>
+            <h3>Pipeline comercial</h3>
+            <p class="crm-inline-note">Estado actual del pipeline, valor esperado y riesgos de cierre.</p>
+          </div>
+        </div>
+        <div id="crm-home-pipeline" class="crm-home-metrics">
+          <p class="crm-inline-note">Cargando pipeline...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half crm-home-panel">
+        <div class="crm-home-panel-head">
+          <div>
+            <h3>Clientes y reservas</h3>
+            <p class="crm-inline-note">Embudo real de reservas y documentacion pendiente.</p>
+          </div>
+        </div>
+        <div id="crm-home-reservations" class="crm-home-metrics">
+          <p class="crm-inline-note">Cargando reservas...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half crm-home-panel">
+        <div class="crm-home-panel-head">
+          <div>
+            <h3>Portal operativa</h3>
+            <p class="crm-inline-note">Solicitudes de visita y comisiones pendientes.</p>
+          </div>
+        </div>
+        <div id="crm-home-portal" class="crm-home-metrics">
+          <p class="crm-inline-note">Cargando operativa portal...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half crm-home-panel">
+        <div class="crm-home-panel-head">
+          <div>
+            <h3>Notificaciones</h3>
+            <p class="crm-inline-note">Snapshot de alertas abiertas reales del centro de notificaciones.</p>
+          </div>
+        </div>
+        <div id="crm-home-notifications" class="crm-home-metrics">
+          <p class="crm-inline-note">Cargando notificaciones...</p>
         </div>
       </article>
     </section>
 
     <section class="crm-card crm-full">
-      <h2>Endpoints listos para empezar</h2>
-      <div class="crm-links">
-        <a class="crm-link" href="/api/v1/health">GET /api/v1/health</a>
-        <a class="crm-link" href="/api/v1/leads">GET /api/v1/leads</a>
-        <a class="crm-link" href="/api/v1/properties">GET /api/v1/properties</a>
-        <a class="crm-link" href="/api/v1/clients">GET /api/v1/clients</a>
-        <a class="crm-link" href="/api/v1/contracts">GET /api/v1/contracts</a>
-        <a class="crm-link" href="/api/v1/invoices">GET /api/v1/invoices</a>
-      </div>
+      <p id="crm-home-feedback" class="crm-feedback" role="status" aria-live="polite">Listo para cargar el cockpit.</p>
     </section>
   </div>
+  <script is:inline src="/crm/home-dashboard.js"></script>
 </CrmLayout>

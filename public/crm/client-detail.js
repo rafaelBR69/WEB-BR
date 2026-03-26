@@ -1,5 +1,6 @@
 (() => {
   const apiBase = "/api/v1/clients";
+  const detailNoticeStorageKey = "crm.clients.detail.notice";
 
   const statusLabels = {
     active: "Activo",
@@ -76,7 +77,7 @@
     title: document.getElementById("client-detail-title"),
     subtitle: document.getElementById("client-detail-subtitle"),
     editToggle: document.getElementById("client-edit-toggle"),
-    deleteButton: document.getElementById("client-delete"),
+    statusQuickActions: document.getElementById("client-status-quick-actions"),
     editForm: document.getElementById("client-edit-form"),
     editPanel: document.getElementById("client-edit-panel"),
     editCancel: document.getElementById("client-edit-cancel"),
@@ -86,6 +87,11 @@
     assignmentSummary: document.getElementById("client-assignment-summary"),
     linkedProjectsList: document.getElementById("client-linked-projects"),
     linkedProjectsBlock: document.getElementById("client-linked-projects-block"),
+    dealsSummary: document.getElementById("client-deals-summary"),
+    dealsList: document.getElementById("client-deals-list"),
+    dealsButton: document.getElementById("client-deals-open-btn"),
+    notificationsSummary: document.getElementById("client-notifications-summary"),
+    notificationsList: document.getElementById("client-notifications-list"),
     propertyForm: document.getElementById("client-property-form"),
     propertySelect: document.getElementById("client-property-id"),
     propertyClear: document.getElementById("client-property-clear"),
@@ -125,6 +131,55 @@
   const toNumber = (value) => {
     const parsed = Number(value);
     return Number.isFinite(parsed) ? parsed : null;
+  };
+
+  const errorMessageFromUnknown = (error) =>
+    error instanceof Error ? error.message : String(error ?? "unknown_error");
+
+  const humanizeClientError = (error) => {
+    const raw = errorMessageFromUnknown(error);
+    if (raw.includes("invalid_property_record_type")) {
+      return "Solo puedes asignar viviendas unit/single.";
+    }
+    if (raw.includes("Only 2 active buyers")) {
+      return "La vivienda ya tiene dos compradores activos.";
+    }
+    if (raw.includes("Only 1 active primary buyer")) {
+      return "La vivienda ya tiene un titular principal activo.";
+    }
+    if (raw.includes("invalid_property_assignment")) {
+      return "La asignacion de vivienda no cumple las reglas del backend.";
+    }
+    if (raw.includes("db_table_missing_property_client_links")) {
+      return "Falta la tabla de asignacion property_client_links.";
+    }
+    if (raw.includes("client_documents_requires_supabase")) {
+      return "La gestion documental requiere Supabase activo.";
+    }
+    if (raw.includes("storage_delete_failed")) {
+      return "No se pudo borrar el archivo en storage.";
+    }
+    if (raw.includes("document_storage_reference_missing")) {
+      return "El documento no tiene referencia valida de storage.";
+    }
+    return raw;
+  };
+
+  const redirectToLogin = () => {
+    const loginUrl = new URL("/crm/login/", window.location.origin);
+    loginUrl.searchParams.set("next", `${window.location.pathname}${window.location.search}`);
+    window.location.href = `${loginUrl.pathname}${loginUrl.search}`;
+  };
+
+  const isCrmAuthError = (response, payload) => {
+    const code = toText(payload?.error);
+    return (
+      response.status === 401 ||
+      code === "auth_token_required" ||
+      code === "refresh_token_required" ||
+      code === "invalid_refresh_token" ||
+      code === "crm_auth_required"
+    );
   };
 
   const formatDate = (value) => {
@@ -170,12 +225,60 @@
     } catch {
       payload = null;
     }
+    if (isCrmAuthError(response, payload)) {
+      redirectToLogin();
+      throw new Error(toText(payload?.error) || `http_${response.status}`);
+    }
     if (!response.ok || !payload?.ok) {
       const errorCode = payload?.error || `http_${response.status}`;
       const details = payload?.details || payload?.message || (raw ? raw.slice(0, 220) : null);
       throw new Error(details ? `${errorCode}: ${details}` : errorCode);
     }
     return payload;
+  };
+
+  const buildDealUrl = (dealId) => {
+    const params = new URLSearchParams();
+    if (state.organizationId) params.set("organization_id", state.organizationId);
+    return `/crm/deals/${encodeURIComponent(dealId)}/${params.toString() ? `?${params.toString()}` : ""}`;
+  };
+
+  const buildDealCreateUrl = () => {
+    const params = new URLSearchParams();
+    if (state.organizationId) params.set("organization_id", state.organizationId);
+    params.set("client_id", state.clientId);
+    const propertyId = toText(state.assignment?.assigned_property_id);
+    if (propertyId) params.set("property_id", propertyId);
+    return `/crm/deals/nuevo/${params.toString() ? `?${params.toString()}` : ""}`;
+  };
+
+  const buildNotificationsUrl = () => {
+    const params = new URLSearchParams();
+    if (state.organizationId) params.set("organization_id", state.organizationId);
+    return `/crm/notifications/${params.toString() ? `?${params.toString()}` : ""}`;
+  };
+
+  const readDetailNotice = () => {
+    try {
+      const raw = window.sessionStorage.getItem(detailNoticeStorageKey);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+      return parsed;
+    } catch {
+      return null;
+    }
+  };
+
+  const consumeDetailNotice = () => {
+    const parsed = readDetailNotice();
+    if (!parsed || toText(parsed.clientId) !== state.clientId) return null;
+    try {
+      window.sessionStorage.removeItem(detailNoticeStorageKey);
+    } catch {
+      // no-op
+    }
+    return parsed;
   };
 
   const field = (name) => {
@@ -307,6 +410,37 @@
       el.actionCall.href = c.phone ? `tel:${c.phone}` : "#";
       el.actionCall.classList.toggle("is-disabled", !c.phone);
     }
+
+    renderStatusQuickActions();
+  };
+
+  const renderStatusQuickActions = () => {
+    if (!(el.statusQuickActions instanceof HTMLElement) || !state.client) return;
+    const currentStatus = toText(state.client.client_status) || "active";
+    const actionsByStatus = {
+      active: [
+        { nextStatus: "inactive", label: "Inactivar", className: "cd-btn cd-btn-ghost" },
+        { nextStatus: "discarded", label: "Descartar", className: "cd-btn cd-btn-ghost" },
+        { nextStatus: "blacklisted", label: "Bloquear", className: "cd-btn cd-btn-danger" },
+      ],
+      inactive: [
+        { nextStatus: "active", label: "Reactivar", className: "cd-btn cd-btn-ghost" },
+        { nextStatus: "discarded", label: "Descartar", className: "cd-btn cd-btn-ghost" },
+        { nextStatus: "blacklisted", label: "Bloquear", className: "cd-btn cd-btn-danger" },
+      ],
+      discarded: [
+        { nextStatus: "active", label: "Reactivar", className: "cd-btn cd-btn-ghost" },
+        { nextStatus: "blacklisted", label: "Bloquear", className: "cd-btn cd-btn-danger" },
+      ],
+      blacklisted: [{ nextStatus: "active", label: "Reactivar", className: "cd-btn cd-btn-ghost" }],
+    };
+    const actions = actionsByStatus[currentStatus] || actionsByStatus.active;
+    el.statusQuickActions.innerHTML = actions
+      .map(
+        (action) =>
+          `<button type="button" class="${esc(action.className)}" data-client-status-action="${esc(action.nextStatus)}">${esc(action.label)}</button>`
+      )
+      .join("");
   };
 
   const renderDataFields = () => {
@@ -376,6 +510,58 @@
           </div>
         </div>
       `).join("");
+    }
+
+    const summary = c.deals_summary || null;
+    if (el.dealsSummary) {
+      if (!summary || !summary.total) {
+        el.dealsSummary.textContent = "Sin deals ligados a este cliente.";
+      } else {
+        el.dealsSummary.textContent = `${summary.total} deals | abiertos ${summary.open_total ?? 0} | cerrados ${summary.closed_total ?? 0}`;
+      }
+    }
+    if (el.dealsList) {
+      const recent = Array.isArray(summary?.recent) ? summary.recent : [];
+      el.dealsList.innerHTML = recent
+        .slice(0, 5)
+        .map((deal) => `<li><a href="${esc(buildDealUrl(deal.id))}" style="color:inherit">${esc(deal.title || deal.id)}</a> | ${esc(deal.stage || "-")}</li>`)
+        .join("");
+    }
+    if (el.dealsButton instanceof HTMLButtonElement) {
+      el.dealsButton.textContent = summary?.open_deal?.id ? "Abrir deal abierto" : "Nuevo deal";
+    }
+
+    const notificationsSummary = c.notifications_summary || null;
+    const activeNotifications = Array.isArray(notificationsSummary?.active_notifications)
+      ? notificationsSummary.active_notifications
+      : [];
+    if (el.notificationsSummary) {
+      if (!notificationsSummary || !notificationsSummary.total) {
+        el.notificationsSummary.textContent = "Sin alertas activas para este cliente o sus reservas.";
+      } else {
+        el.notificationsSummary.innerHTML = `
+          <strong>${esc(String(notificationsSummary.open_total ?? 0))}</strong> abiertas |
+          urgentes ${esc(String(notificationsSummary.urgent_total ?? 0))} |
+          overdue ${esc(String(notificationsSummary.overdue_total ?? 0))}<br />
+          <a class="crm-link" href="${esc(buildNotificationsUrl())}">Abrir centro de notificaciones</a>
+        `;
+      }
+    }
+    if (el.notificationsList) {
+      el.notificationsList.innerHTML = activeNotifications.length
+        ? activeNotifications
+            .slice(0, 4)
+            .map(
+              (item) => `
+                <article style="padding:0.8rem 0.9rem;border:1px solid rgba(20,50,77,0.08);border-radius:14px">
+                  <strong>${esc(item.title || "Alerta")}</strong><br />
+                  <small>${esc(item.priority || "normal")} | ${esc(item.rule_key || "manual")}</small><br />
+                  <small>${esc(item.body || "")}</small>
+                </article>
+              `
+            )
+            .join("")
+        : "";
     }
   };
 
@@ -465,7 +651,7 @@
 
   const toggleEditMode = (enabled) => {
     state.editMode = Boolean(enabled);
-    if (el.editForm) el.editForm.hidden = !state.editMode;
+    if (el.editPanel) el.editPanel.hidden = !state.editMode;
     if (el.editToggle) {
       el.editToggle.textContent = state.editMode ? "Cerrar edición" : "Editar";
       el.editToggle.classList.add("crm-button");
@@ -494,13 +680,20 @@
         const link = doc.public_url
           ? `<a href="${esc(doc.public_url)}" target="_blank" rel="noreferrer">Abrir</a>`
           : "<span>Sin URL publica</span>";
+        const privacyLabel = doc.is_private ? "Privado" : "Publico";
+        const privacyActionLabel = doc.is_private ? "Hacer publico" : "Marcar privado";
         return `
-          <li>
+          <article style="padding:0.9rem 1rem;border:1px solid rgba(20,50,77,0.08);border-radius:14px;display:grid;gap:0.45rem">
             <strong>${esc(doc.title || kindLabel)}</strong><br />
-            <small>${esc(kindLabel)} | ${esc(createdAt)} | ${esc(fileSize)}</small><br />
-            <small>${esc(pathLabel)}</small><br />
-            ${link}
-          </li>
+            <small>${esc(kindLabel)} | ${esc(createdAt)} | ${esc(fileSize)} | ${esc(privacyLabel)}</small><br />
+            <small>${esc(pathLabel)}</small>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+              ${link}
+              <button type="button" class="cd-btn cd-btn-ghost" data-document-action="rename" data-document-id="${esc(doc.id)}">Renombrar</button>
+              <button type="button" class="cd-btn cd-btn-ghost" data-document-action="privacy" data-document-id="${esc(doc.id)}">${esc(privacyActionLabel)}</button>
+              <button type="button" class="cd-btn cd-btn-danger" data-document-action="delete" data-document-id="${esc(doc.id)}">Borrar</button>
+            </div>
+          </article>
         `;
       })
       .join("");
@@ -639,7 +832,12 @@
     const payload = await request(`/api/v1/properties?${params.toString()}`);
     const rows = Array.isArray(payload?.data) ? payload.data : [];
     state.properties = rows
-      .filter((row) => row && (row.record_type === "unit" || row.record_type === "single"))
+      .filter(
+        (row) =>
+          row &&
+          (row.record_type === "unit" || row.record_type === "single") &&
+          toText(row.status) !== "archived"
+      )
       .sort((a, b) => propertyLabel(a).localeCompare(propertyLabel(b), "es"));
     renderPropertyOptions();
   };
@@ -665,8 +863,42 @@
         notes: notes || null,
       }),
     });
-    await loadAssignment();
+    await Promise.all([loadClient(), loadAssignment()]);
   };
+
+  const persistClientStatus = async (nextStatus) => {
+    const response = await request(`${apiBase}/${encodeURIComponent(state.clientId)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        organization_id: state.organizationId || null,
+        client_status: nextStatus,
+      }),
+    });
+    state.client = response?.data || state.client;
+    renderHeader();
+    renderDataFields();
+    fillEditForm();
+  };
+
+  const updateDocument = async (documentId, patch) =>
+    request(`${apiBase}/${encodeURIComponent(state.clientId)}/documents/${encodeURIComponent(documentId)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        organization_id: state.organizationId || null,
+        ...patch,
+      }),
+    });
+
+  const removeDocument = async (documentId) =>
+    request(`${apiBase}/${encodeURIComponent(state.clientId)}/documents/${encodeURIComponent(documentId)}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        organization_id: state.organizationId || null,
+      }),
+    });
 
   el.editToggle?.addEventListener("click", () => {
     if (!state.client) return;
@@ -675,6 +907,11 @@
   });
 
   el.editCancel?.addEventListener("click", () => {
+    fillEditForm();
+    toggleEditMode(false);
+  });
+
+  el.editCancel2?.addEventListener("click", () => {
     fillEditForm();
     toggleEditMode(false);
   });
@@ -713,22 +950,46 @@
     }
   });
 
-  el.deleteButton?.addEventListener("click", async () => {
-    const confirmed = window.confirm(
-      "Se eliminara este cliente del CRM. Esta accion no se puede deshacer."
-    );
-    if (!confirmed) return;
+  el.statusQuickActions?.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const button = target.closest("[data-client-status-action]");
+    if (!(button instanceof HTMLButtonElement)) return;
+    const nextStatus = toText(button.dataset.clientStatusAction);
+    if (!nextStatus) return;
+
+    if (nextStatus === "discarded" || nextStatus === "blacklisted") {
+      const confirmed = window.confirm(
+        nextStatus === "blacklisted"
+          ? "El cliente quedara bloqueado para operativa comercial normal. Continuar?"
+          : "El cliente quedara marcado como descartado. Continuar?"
+      );
+      if (!confirmed) return;
+    }
 
     try {
-      const params = new URLSearchParams();
-      if (state.organizationId) params.set("organization_id", state.organizationId);
-      await request(`${apiBase}/${encodeURIComponent(state.clientId)}?${params.toString()}`, {
-        method: "DELETE",
-      });
-      window.location.href = "/crm/clients/";
+      await persistClientStatus(nextStatus);
+      const successLabel =
+        nextStatus === "active"
+          ? "Cliente reactivado."
+          : nextStatus === "inactive"
+            ? "Cliente inactivado."
+            : nextStatus === "discarded"
+              ? "Cliente descartado."
+              : "Cliente bloqueado.";
+      setFeedback(successLabel, "ok");
     } catch (error) {
-      setFeedback(`Error eliminando cliente: ${error.message}`, "error");
+      setFeedback(`Error cambiando estado: ${humanizeClientError(error)}`, "error");
     }
+  });
+
+  el.dealsButton?.addEventListener("click", async () => {
+    const openDealId = toText(state.client?.deals_summary?.open_deal?.id);
+    if (openDealId) {
+      window.location.href = buildDealUrl(openDealId);
+      return;
+    }
+    window.location.href = buildDealCreateUrl();
   });
 
   el.propertyForm?.addEventListener("submit", async (event) => {
@@ -745,7 +1006,7 @@
         "ok"
       );
     } catch (error) {
-      setFeedback(`Error guardando propiedad asignada: ${error.message}`, "error");
+      setFeedback(`Error guardando propiedad asignada: ${humanizeClientError(error)}`, "error");
     }
   });
 
@@ -754,7 +1015,53 @@
       await persistAssignment({ propertyId: null, buyerRole: "primary", notes: null });
       setFeedback("Asignacion de vivienda eliminada.", "ok");
     } catch (error) {
-      setFeedback(`Error quitando asignacion: ${error.message}`, "error");
+      setFeedback(`Error quitando asignacion: ${humanizeClientError(error)}`, "error");
+    }
+  });
+
+  el.docsList?.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const actionNode = target.closest("[data-document-action]");
+    if (!(actionNode instanceof HTMLElement)) return;
+    const action = toText(actionNode.dataset.documentAction);
+    const documentId = toText(actionNode.dataset.documentId);
+    if (!action || !documentId) return;
+
+    const documentRow = state.documents.find((entry) => toText(entry.id) === documentId);
+    if (!documentRow) return;
+
+    try {
+      if (action === "rename") {
+        const nextTitle = window.prompt("Nuevo titulo del documento", documentRow.title || "");
+        if (nextTitle == null) return;
+        const trimmedTitle = toText(nextTitle);
+        if (!trimmedTitle) {
+          setFeedback("El titulo no puede quedar vacio.", "error");
+          return;
+        }
+        await updateDocument(documentId, { title: trimmedTitle });
+        await loadDocuments();
+        setFeedback("Documento renombrado.", "ok");
+        return;
+      }
+
+      if (action === "privacy") {
+        await updateDocument(documentId, { is_private: documentRow.is_private !== true });
+        await loadDocuments();
+        setFeedback(documentRow.is_private ? "Documento marcado como publico." : "Documento marcado como privado.", "ok");
+        return;
+      }
+
+      if (action === "delete") {
+        const confirmed = window.confirm("Se borrara el documento del storage y del CRM. Continuar?");
+        if (!confirmed) return;
+        await removeDocument(documentId);
+        await loadDocuments();
+        setFeedback("Documento borrado.", "ok");
+      }
+    } catch (error) {
+      setFeedback(`Error gestionando documento: ${humanizeClientError(error)}`, "error");
     }
   });
 
@@ -834,9 +1141,14 @@
         return;
       }
 
-      setFeedback("Ficha cargada.", "ok");
+      const detailNotice = consumeDetailNotice();
+      if (detailNotice?.message) {
+        setFeedback(String(detailNotice.message), detailNotice.kind === "error" ? "error" : "ok");
+      } else {
+        setFeedback("Ficha cargada.", "ok");
+      }
     } catch (error) {
-      setFeedback(`Error cargando ficha: ${error.message}`, "error");
+      setFeedback(`Error cargando ficha: ${humanizeClientError(error)}`, "error");
       if (el.docsList) {
         el.docsList.innerHTML = "<li>No se pudo cargar la documentacion.</li>";
       }

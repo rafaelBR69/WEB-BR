@@ -84,3 +84,27 @@
   - the compact map auto-fits to the currently filtered unit set, so it reframes when city/area filters narrow the catalog
 - Validation:
   - `npm run build:web` OK
+
+## 2026-03-24
+
+- Used the planning-with-files workflow for the requested notifications/follow-up system across leads, deals, and clients.
+- Reviewed the current primitives already present in the repo:
+  - `supabase/sql/013_crm_notifications.sql`
+  - `apps/crm/src/pages/api/v1/crm/notifications.ts`
+  - `packages/shared/src/dashboard/home-crud.ts`
+  - ownership fields in `crm.leads` and `crm.deals`
+- Confirmed the repo already has:
+  - notification persistence
+  - admin CRUD
+  - stale-item heuristics in the dashboard
+  - role/permission support for notifications
+- Confirmed the main gap is orchestration, not storage:
+  - missing entity coverage for `deal`, `client`, and `reservation`
+  - missing assignment by user-id
+  - missing rule engine / idempotent sync
+  - missing entity-level notification surfaces
+- Added a dedicated planning track in `task_plan.md` and logged the architectural findings in `findings.md`.
+- Outcome of this session:
+  - defined the problem as a CRM-wide operational notification system
+  - identified the strongest existing reuse points
+  - prepared a phased implementation plan to ship safely without duplicating alerts

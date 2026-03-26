@@ -1,0 +1,90 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Deals" section="deals">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <h2>Deals</h2>
+      <p class="crm-inline-note">
+        Oportunidades comerciales de venta conectadas con leads, clientes y propiedades.
+      </p>
+    </section>
+
+    <section class="crm-card crm-full">
+      <form id="deals-filter-form" class="crm-form crm-form-compact">
+        <label>Buscar
+          <input name="q" type="search" placeholder="Titulo, cliente, lead, propiedad..." />
+        </label>
+        <label>Stage
+          <select name="stage">
+            <option value="">Todos</option>
+            <option value="qualification">Cualificacion</option>
+            <option value="visit">Visita</option>
+            <option value="offer">Oferta</option>
+            <option value="negotiation">Negociacion</option>
+            <option value="reservation">Reserva</option>
+            <option value="contract">Contrato</option>
+            <option value="won">Ganada</option>
+            <option value="lost">Perdida</option>
+          </select>
+        </label>
+        <label>Promocion
+          <select name="project_id" id="deals-project-select">
+            <option value="">Todas</option>
+          </select>
+        </label>
+        <label class="crm-checkbox-label crm-toggle-label">
+          <input name="only_open" id="deals-only-open" type="checkbox" checked />
+          <span>Solo abiertos</span>
+        </label>
+        <label>Por pagina
+          <select name="per_page" id="deals-per-page">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-soft">Aplicar</button>
+          <button id="deals-filter-clear" type="button" class="crm-button crm-button-soft">Limpiar</button>
+          <a id="deals-create-link" href="/crm/deals/nuevo/" class="crm-button crm-button-primary">Nuevo deal</a>
+        </div>
+      </form>
+
+      <p id="deals-context-note" class="crm-inline-note">Sin contexto heredado.</p>
+      <p id="deals-meta" class="crm-inline-note"></p>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>Titulo</th>
+              <th>Stage</th>
+              <th>Cliente</th>
+              <th>Lead</th>
+              <th>Propiedad</th>
+              <th>Valor</th>
+              <th>Probabilidad</th>
+              <th>Actualizado</th>
+            </tr>
+          </thead>
+          <tbody id="deals-tbody">
+            <tr>
+              <td colspan="8">Cargando deals...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="deals-pagination" class="crm-pagination">
+        <button type="button" class="crm-button crm-button-soft" data-page-action="prev">Anterior</button>
+        <p id="deals-page-info" class="crm-inline-note">Pagina 1 de 1</p>
+        <button type="button" class="crm-button crm-button-soft" data-page-action="next">Siguiente</button>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="deals-feedback" class="crm-feedback">Listo para operar.</p>
+    </section>
+  </div>
+  <script is:inline src="/crm/deals.js"></script>
+</CrmLayout>

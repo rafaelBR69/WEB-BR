@@ -211,6 +211,30 @@ const backUrl = `/crm/leads/${Astro.url.search}`;
 
         <div class="ld-card">
           <div class="ld-card-header">
+            <h3 class="ld-card-title">Seguimiento</h3>
+          </div>
+          <div id="lead-notifications-summary" class="ld-property-block">
+            <span class="ld-empty">Cargando alertas...</span>
+          </div>
+          <div id="lead-notifications-list" style="margin-top:0.85rem;display:grid;gap:0.65rem"></div>
+        </div>
+
+        <div class="ld-card">
+          <div class="ld-card-header">
+            <h3 class="ld-card-title">Deal de oportunidad</h3>
+          </div>
+          <div id="lead-deal-summary" class="ld-property-block">
+            <span class="ld-empty">Comprobando oportunidades...</span>
+          </div>
+          <div class="ld-form-actions" style="margin-top:1rem">
+            <button id="lead-deal-open-btn" type="button" class="ld-btn ld-btn-primary" style="width:100%">
+              Crear deal
+            </button>
+          </div>
+        </div>
+
+        <div class="ld-card">
+          <div class="ld-card-header">
             <h3 class="ld-card-title">Origen por agencia</h3>
           </div>
           <div id="d-agency" class="ld-property-block">

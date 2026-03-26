@@ -152,6 +152,7 @@
     orgMeta: document.getElementById("clients-kpi-org-meta"),
     promoMeta: document.getElementById("clients-kpi-promo-meta"),
     promotionSelect: document.getElementById("clients-kpi-promotion-select"),
+    openListLink: document.getElementById("clients-kpi-open-list"),
     statusFilterSelect: document.getElementById("clients-kpi-status-filter"),
     onlyActiveCheckbox: document.getElementById("clients-kpi-only-active"),
     selectTopButton: document.getElementById("clients-kpi-select-top"),
@@ -928,6 +929,19 @@
     el.promotionSelect.value = state.selectedPromotionId || ALL_PROMOTIONS_VALUE;
   };
 
+  const renderListDrilldown = () => {
+    if (!(el.openListLink instanceof HTMLAnchorElement)) return;
+    const params = new URLSearchParams();
+    if (state.organizationId) params.set("organization_id", state.organizationId);
+    if (!isAllPromotionsSelected() && toText(state.selectedPromotionId)) {
+      params.set("project_id", state.selectedPromotionId);
+    }
+    el.openListLink.href = `/crm/clients/${params.toString() ? `?${params.toString()}` : ""}`;
+    el.openListLink.textContent = isAllPromotionsSelected()
+      ? "Abrir listado completo"
+      : "Abrir listado filtrado";
+  };
+
   const renderChannel = (promotion) => {
     if (!el.channelDonut || !el.channelLegend) return;
     if (!isWidgetShown("panels", "overview")) {
@@ -1421,6 +1435,7 @@
   const renderDashboard = () => {
     renderFilterControls();
     renderPromotionSelect();
+    setLayoutPanelOpen(state.layoutPanelOpen);
     applyDashboardLayout();
     renderLayoutEditor();
     const promotion = getActiveDashboardView();
@@ -1431,6 +1446,7 @@
     renderCompare();
     renderPromotionsTable();
     renderPromotionMeta(promotion);
+    renderListDrilldown();
     resizeCharts();
   };
 

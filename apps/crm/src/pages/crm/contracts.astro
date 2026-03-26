@@ -5,34 +5,12 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
   <div class="crm-stack">
     <section class="crm-card crm-full">
       <h2>Contratos</h2>
-      <div class="crm-table-wrap">
-        <table class="crm-table">
-          <thead>
-            <tr>
-              <th>Contrato</th>
-              <th>Cliente</th>
-              <th>Propiedad</th>
-              <th>Tipo</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>CTR-2026-0009</td>
-              <td>Arancha Molina</td>
-              <td>PM0011-B1P2_2A</td>
-              <td>Compraventa</td>
-              <td><span class="crm-badge warn">sent</span></td>
-            </tr>
-            <tr>
-              <td>CTR-2026-0010</td>
-              <td>Tom van Dijk</td>
-              <td>RENT-1043</td>
-              <td>Arrendamiento</td>
-              <td><span class="crm-badge ok">signed</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <p class="crm-inline-note">
+        Modulo temporalmente fuera de navegacion hasta conectar CRUD real sobre <code>crm.contracts</code>.
+      </p>
+      <div class="crm-actions-row">
+        <a class="crm-link" href="/crm/deals/">Volver a deals</a>
+        <a class="crm-link" href="/crm/clients/dashboard/">Volver a clientes</a>
       </div>
     </section>
   </div>

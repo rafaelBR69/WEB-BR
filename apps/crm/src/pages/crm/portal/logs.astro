@@ -7,8 +7,7 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
       <h2>Auditoria de accesos portal</h2>
       <p>Lectura operativa de eventos de seguridad y actividad.</p>
       <p class="crm-inline-note">
-        Acceso restringido a sesion <code>portal_agent_admin</code> autorizada (admin principal:
-        <strong>rafael@blancareal.com</strong>).
+        Acceso restringido a perfiles CRM autorizados con permisos de lectura del portal.
       </p>
     </section>
 
@@ -31,6 +30,12 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
             <option value="visit_confirmed">visit_confirmed</option>
             <option value="commission_updated">commission_updated</option>
             <option value="document_downloaded">document_downloaded</option>
+          </select>
+        </label>
+        <label for="portal-logs-project-select">
+          Promocion
+          <select id="portal-logs-project-select" name="project_property_id">
+            <option value="">Todas</option>
           </select>
         </label>
         <label for="portal-logs-email">

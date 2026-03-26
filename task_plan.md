@@ -122,3 +122,34 @@ Remove the standalone `real-estate` landing as a full experience and move its ma
 - `completed` Phase 3: Feed the map with filtered/current-context features and area-aware zoom behavior
 - `completed` Phase 4: Reduce `/real-estate/` to a redirect or remove its standalone UX safely
 - `pending` Phase 5: Validate navigation, filters, and map focus behavior across cities/areas
+
+---
+
+## 2026-03-24 CRM Notifications Orchestration
+
+### Goal
+Design a real notifications and follow-up orchestration layer for CRM that covers leads, deals, and clients/reservations, assigning tasks to the right commercial owner and surfacing stale records directly in their profiles, lists, dashboard, and notifications center.
+
+### Current Phase
+- `completed` Phase 1: Audit the current notification primitives, ownership fields, and dashboard-derived inactivity signals
+- `in_progress` Phase 2: Define the target product model, business rules, and phased implementation plan
+
+### Phases
+- `completed` Phase 1: Audit existing notification table, API, ownership fields, and stale-record logic
+- `pending` Phase 2: Define notification taxonomy, SLA rules, and ownership model across leads, deals, and clients
+- `pending` Phase 3: Extend data model for entity coverage, recurrence, read state, and rule provenance
+- `pending` Phase 4: Build automatic rule engine and sync jobs for stale leads, overdue deals, and reservation/client follow-up
+- `pending` Phase 5: Add per-entity notification surfaces in lead, deal, client, and reservation profiles
+- `pending` Phase 6: Expand the notifications center into role-aware inboxes for each commercial and team managers
+- `pending` Phase 7: Connect dashboard, list badges, counters, and escalation flows
+- `pending` Phase 8: Validate permissions, deduplication, snooze/reassign flows, and production safety
+
+### Delivery Rules
+- Automatic notifications must be idempotent: the same rule should not create duplicates every time a sync runs.
+- Ownership must default to the most reliable responsible user available:
+  - lead -> `assigned_to`
+  - deal -> `owner_id`
+  - reservation/client follow-up -> derived commercial owner or fallback team queue
+- The profile of each entity must show both the current alert state and the notification history relevant to that entity.
+- Notifications must distinguish system-derived alerts from manually created reminders.
+- Escalations to team/admin queues must happen only after a clear inactivity threshold, not immediately.

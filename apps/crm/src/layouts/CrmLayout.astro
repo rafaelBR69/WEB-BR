@@ -24,30 +24,34 @@ const defaultOrganizationId = String(
 
 const navItems: NavItem[] = [
   { key: "dashboard", label: "Dashboard", href: "/crm/" },
-  { key: "profile", label: "Perfil", href: "/crm/profile/" },
-  { key: "admin", label: "Permisos", href: "/crm/admin/permisos/" },
   { key: "leads", label: "Leads", href: "/crm/leads/dashboard/" },
+  { key: "clients", label: "Clientes", href: "/crm/clients/dashboard/" },
+  { key: "deals", label: "Deals", href: "/crm/deals/" },
+  { key: "properties", label: "Propiedades", href: "/crm/properties/" },
   { key: "agencies", label: "Agencias", href: "/crm/agencies/dashboard/" },
   { key: "notifications", label: "Notificaciones", href: "/crm/notifications/" },
-  { key: "properties", label: "Propiedades", href: "/crm/properties/" },
-  { key: "clients", label: "Clientes", href: "/crm/clients/dashboard/" },
   { key: "portal", label: "Portal", href: "/crm/portal/" },
-  { key: "contracts", label: "Contratos", href: "/crm/contracts/" },
-  { key: "invoices", label: "Facturacion", href: "/crm/invoices/" },
+  { key: "admin", label: "Permisos", href: "/crm/admin/permisos/" },
+  { key: "profile", label: "Perfil", href: "/crm/profile/" },
 ];
 
 const propertiesSubNav: SubNavItem[] = [
   { href: "/crm/properties/dashboard/", label: "Dashboard" },
   { href: "/crm/properties/listado/", label: "Listado" },
   { href: "/crm/properties/nueva/", label: "Nueva propiedad" },
-  { href: "/crm/properties/ficha/", label: "Ficha y media" },
 ];
 
 const clientsSubNav: SubNavItem[] = [
   { href: "/crm/clients/dashboard/", label: "Dashboard KPI", exact: true },
   { href: "/crm/clients/", label: "Listado clientes", exact: true },
+  { href: "/crm/clients/nuevo/", label: "Nuevo cliente", exact: true },
   { href: "/crm/clients/?client_role=provider", label: "Proveedores", exact: true },
   { href: "/crm/agencies/", label: "Agencias", exact: true },
+];
+
+const dealsSubNav: SubNavItem[] = [
+  { href: "/crm/deals/", label: "Listado", exact: true },
+  { href: "/crm/deals/nuevo/", label: "Nuevo deal", exact: true },
 ];
 
 const agenciesSubNav: SubNavItem[] = [
@@ -85,6 +89,7 @@ const subNavBySection: Record<string, SubNavItem[]> = {
   agencies: agenciesSubNav,
   properties: propertiesSubNav,
   clients: clientsSubNav,
+  deals: dealsSubNav,
   portal: portalSubNav,
 };
 

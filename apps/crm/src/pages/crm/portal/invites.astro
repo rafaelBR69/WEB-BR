@@ -38,17 +38,6 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
             </select>
             <small class="crm-field-help">Solo promociones de Mis Propiedades.</small>
           </label>
-          <label for="portal-invite-project-manual" class="crm-col-2">
-            Promocion manual (opcional)
-            <input
-              id="portal-invite-project-manual"
-              name="project_property_id_manual"
-              type="text"
-              autocomplete="off"
-              spellcheck="false"
-              placeholder="Usar solo si no aparece en el selector"
-            />
-          </label>
           <label for="portal-invite-expires">
             Caduca en (horas)
             <input id="portal-invite-expires" name="expires_hours" type="number" min="1" max="720" value="72" />
@@ -196,9 +185,11 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
           Email
           <input id="portal-invites-email" name="email" type="search" placeholder="filtro exacto por email" />
         </label>
-        <label for="portal-invites-project">
-          Promocion (filtro avanzado)
-          <input id="portal-invites-project" name="project_property_id" type="text" placeholder="opcional" />
+        <label for="portal-invites-project-select">
+          Promocion
+          <select id="portal-invites-project-select" name="project_property_id">
+            <option value="">Todas</option>
+          </select>
         </label>
         <label for="portal-invites-per-page">
           Por pagina

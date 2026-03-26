@@ -1,0 +1,74 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+---
+<CrmLayout title="CRM | Nuevo deal" section="deals">
+  <div class="crm-stack">
+    <section class="crm-card crm-full">
+      <h2>Nuevo deal</h2>
+      <p class="crm-inline-note">
+        Alta operativa de una oportunidad. Puedes venir desde lead o cliente y reutilizar un deal abierto si ya existe.
+      </p>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="deal-create-context" class="crm-inline-note">Sin contexto precargado.</p>
+      <form id="deal-create-form" class="crm-form">
+        <label>Origen del deal
+          <select name="context_type" id="deal-create-context-type">
+            <option value="lead">Desde lead</option>
+            <option value="client">Desde cliente</option>
+          </select>
+        </label>
+        <label id="deal-create-lead-field">Lead
+          <input id="deal-create-lead-search" type="text" list="deal-create-lead-options" placeholder="Busca por nombre, email o promocion" autocomplete="off" />
+          <input id="deal-create-lead-id" name="lead_id" type="hidden" />
+          <datalist id="deal-create-lead-options"></datalist>
+        </label>
+        <label id="deal-create-client-field" hidden>Cliente
+          <input id="deal-create-client-search" type="text" list="deal-create-client-options" placeholder="Busca por nombre, email o codigo" autocomplete="off" />
+          <input id="deal-create-client-id" name="client_id" type="hidden" />
+          <datalist id="deal-create-client-options"></datalist>
+        </label>
+        <label>Propiedad operativa
+          <input id="deal-create-property-search" type="text" list="deal-create-property-options" placeholder="Selecciona una vivienda operativa" autocomplete="off" />
+          <input id="deal-create-property-id" name="property_id" type="hidden" />
+          <datalist id="deal-create-property-options"></datalist>
+          <small id="deal-create-property-helper" class="crm-inline-note">Sin restriccion de promocion activa.</small>
+        </label>
+        <label>Titulo
+          <input name="title" type="text" placeholder="Se autogenera si lo dejas vacio" />
+        </label>
+        <label>Stage
+          <select name="stage">
+            <option value="qualification">Cualificacion</option>
+            <option value="visit">Visita</option>
+            <option value="offer">Oferta</option>
+            <option value="negotiation">Negociacion</option>
+            <option value="reservation">Reserva</option>
+            <option value="contract">Contrato</option>
+            <option value="won">Ganada</option>
+            <option value="lost">Perdida</option>
+          </select>
+        </label>
+        <label>Fecha cierre prevista
+          <input name="expected_close_date" type="date" />
+        </label>
+        <label>Valor esperado
+          <input name="expected_value" type="number" min="0" step="0.01" />
+        </label>
+        <label>Probabilidad
+          <input name="probability" type="number" min="0" max="100" step="1" value="20" />
+        </label>
+        <div class="crm-actions-row">
+          <button type="submit" class="crm-button crm-button-primary">Crear / reutilizar deal</button>
+          <a href="/crm/deals/" class="crm-button crm-button-soft">Cancelar</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="deal-create-feedback" class="crm-feedback">Completa el formulario para crear la oportunidad.</p>
+    </section>
+  </div>
+  <script is:inline src="/crm/deal-create.js"></script>
+</CrmLayout>

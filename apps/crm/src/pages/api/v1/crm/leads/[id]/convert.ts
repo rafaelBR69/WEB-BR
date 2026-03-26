@@ -1,9 +1,10 @@
 import type { APIRoute } from "astro";
 import { jsonResponse, methodNotAllowed, parseJsonBody } from "@shared/api/json";
 import { resolveCrmOrgAccess } from "@shared/crm/access";
+import { attachConvertedClientToDeals } from "@shared/deals/crud";
 import { getSupabaseServerClient } from "@shared/supabase/server";
 import { asObject, asText, asUuid } from "@shared/portal/domain";
-import { CONTACT_SELECT_COLUMNS, LEAD_SELECT_COLUMNS, normalizeLeadKind } from "@shared/leads/domain";
+import { CONTACT_SELECT_COLUMNS, LEAD_SELECT_COLUMNS } from "@shared/leads/domain";
 
 const buildClientCode = () => `CLI-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
 
@@ -22,6 +23,16 @@ const readLeadRow = async (
 
   if (error) throw new Error(`db_lead_read_error:${error.message}`);
   return (data as Record<string, unknown> | null) ?? null;
+};
+
+const buildLeadConversionUpdate = (lead: Record<string, unknown>, clientId: string) => {
+  return {
+    status: "converted",
+    converted_client_id: clientId,
+    converted_at: new Date().toISOString(),
+    discarded_reason: null,
+    discarded_at: null,
+  };
 };
 
 const createOrReuseClientFromLead = async (
@@ -55,17 +66,26 @@ const createOrReuseClientFromLead = async (
     const { error: updateLeadError } = await client
       .schema("crm")
       .from("leads")
-      .update({
-        status: "converted",
-        converted_client_id: existingClientId,
-        converted_at: new Date().toISOString(),
-      })
+      .update(buildLeadConversionUpdate(lead, existingClientId))
       .eq("id", asUuid(lead.id))
       .eq("organization_id", organizationId);
 
     if (updateLeadError) {
       throw new Error(`db_lead_update_error:${updateLeadError.message}`);
     }
+
+    const { error: updateContactError } = await client
+      .schema("crm")
+      .from("contacts")
+      .update({ contact_type: "client" })
+      .eq("id", contactId)
+      .eq("organization_id", organizationId);
+
+    if (updateContactError) {
+      throw new Error(`db_contact_update_error:${updateContactError.message}`);
+    }
+
+    await attachConvertedClientToDeals(client, organizationId, asText(lead.id), existingClientId);
 
     return existingClientId;
   }
@@ -120,11 +140,7 @@ const createOrReuseClientFromLead = async (
   const { error: updateLeadError } = await client
     .schema("crm")
     .from("leads")
-    .update({
-      status: "converted",
-      converted_client_id: newClientId,
-      converted_at: new Date().toISOString(),
-    })
+    .update(buildLeadConversionUpdate(lead, newClientId))
     .eq("id", asUuid(lead.id))
     .eq("organization_id", organizationId);
 
@@ -142,6 +158,8 @@ const createOrReuseClientFromLead = async (
   if (updateContactError) {
     throw new Error(`db_contact_update_error:${updateContactError.message}`);
   }
+
+  await attachConvertedClientToDeals(client, organizationId, asText(lead.id), newClientId);
 
   return newClientId;
 };

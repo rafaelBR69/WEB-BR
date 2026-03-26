@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { jsonResponse, methodNotAllowed, parseJsonBody } from "@shared/api/json";
 import { getSupabaseServerClient, hasSupabaseServerClient } from "@shared/supabase/server";
 import { CRM_EDITOR_ROLES, resolveCrmOrgAccess } from "@shared/crm/access";
+import { isPortalMockFallbackEnabled, portalMockFallbackDisabledResponse } from "@shared/http/portal/mockFallback";
 import {
   asBoolean,
   asNumber,
@@ -242,6 +243,12 @@ export const GET: APIRoute = async ({ url, cookies }) => {
   }
 
   if (!hasSupabaseServerClient()) {
+    if (!isPortalMockFallbackEnabled()) {
+      return portalMockFallbackDisabledResponse(
+        "portal_documents_backend_unavailable",
+        "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
+      );
+    }
     return jsonResponse({
       ok: true,
       data: [],
@@ -398,6 +405,12 @@ export const PATCH: APIRoute = async ({ request, cookies }) => {
   }
 
   if (!hasSupabaseServerClient()) {
+    if (!isPortalMockFallbackEnabled()) {
+      return portalMockFallbackDisabledResponse(
+        "portal_documents_backend_unavailable",
+        "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
+      );
+    }
     if (requestedPropertyId) {
       updatePayload.property_id = requestedPropertyId;
       updatePayload.project_property_id = requestedPropertyId;
@@ -501,6 +514,12 @@ export const DELETE: APIRoute = async ({ request, url, cookies }) => {
   }
 
   if (!hasSupabaseServerClient()) {
+    if (!isPortalMockFallbackEnabled()) {
+      return portalMockFallbackDisabledResponse(
+        "portal_documents_backend_unavailable",
+        "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
+      );
+    }
     return jsonResponse({
       ok: true,
       data: {

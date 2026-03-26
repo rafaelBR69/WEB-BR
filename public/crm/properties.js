@@ -154,6 +154,8 @@
     propertyClientVerifiedList: document.getElementById("property-client-verified-list"),
     propertyClientCandidateList: document.getElementById("property-client-candidate-list"),
     propertyClientRefresh: document.getElementById("property-client-refresh"),
+    propertyArchiveToggle: document.getElementById("property-archive-toggle"),
+    propertyArchiveHint: document.getElementById("property-archive-hint"),
     projectPageTitle: document.getElementById("project-page-title"),
     projectPageSubtitle: document.getElementById("project-page-subtitle"),
     projectPageMeta: document.getElementById("project-page-meta"),
@@ -372,6 +374,12 @@
   const isCompactViewport = () =>
     typeof window !== "undefined" && window.matchMedia("(max-width: 900px)").matches;
 
+  const pinCurrentPropertyForReload = (item = selected()) => {
+    const propertyId = toText(item?.id);
+    if (!propertyId || !el.propertyPageTitle) return;
+    state.requestedPropertyId = propertyId;
+  };
+
   const openPropertyEditor = (id) => {
     const propertyId = toText(id);
     if (!propertyId) return;
@@ -385,6 +393,11 @@
   const openPropertyPage = (id) => {
     const propertyId = toText(id);
     if (!propertyId) return;
+    const known = findKnownPropertyById(propertyId);
+    if (known?.record_type === "project") {
+      openProjectPage(propertyId);
+      return;
+    }
     navigateTo(`/crm/properties/propiedad/${encodeURIComponent(propertyId)}/`);
   };
 
@@ -1771,10 +1784,21 @@
     const rows = Array.isArray(payload.data) ? payload.data : [];
     rows.forEach((row) => cachePropertyLegacyCode(row));
 
-    const project =
+    let project =
       rows.find((row) => row.record_type === "project" && row.id === projectId) ||
       rows.find((row) => row.record_type === "project") ||
       null;
+
+    if (!project) {
+      try {
+        const directProject = await fetchPropertyById(projectId);
+        if (directProject?.record_type === "project") {
+          project = directProject;
+        }
+      } catch {
+        // Keep the promotion view usable even if the direct fallback fails.
+      }
+    }
 
     const units = rows
       .filter((row) => row.record_type === "unit" && row.parent_property_id === projectId)
@@ -1888,6 +1912,7 @@
   };
 
   const renderTable = () => {
+    const hasInlineEditor = Boolean(el.editForm);
     if (el.tbody) {
       if (!state.items.length) {
         el.tbody.innerHTML = "<tr><td colspan='5'>Sin resultados con los filtros actuales.</td></tr>";
@@ -1896,6 +1921,22 @@
           .map((item) => {
             const current = state.selectedId === item.id ? "crm-row-selected" : "";
             const badge = statusClass[item.status] || "warn";
+            const openLabel = item.record_type === "project" ? "Abrir promocion" : "Abrir propiedad";
+            const selectLabel = item.record_type === "project" ? "Editar promocion" : "Editar";
+            const actionsHtml = hasInlineEditor
+              ? `
+                  <button type="button" class="crm-mini-btn" data-action="select" data-id="${esc(item.id)}">${esc(
+                    selectLabel
+                  )}</button>
+                  <button type="button" class="crm-mini-btn" data-action="open-page" data-id="${esc(item.id)}">${esc(
+                    openLabel
+                  )}</button>
+                `
+              : `
+                  <button type="button" class="crm-mini-btn" data-action="open-page" data-id="${esc(item.id)}">${esc(
+                    openLabel
+                  )}</button>
+                `;
             return `
               <tr class="${current}">
                 <td data-label="Propiedad"><strong>${esc(propertyLabel(item))}</strong><br /><small>Ref: ${esc(propertyRef(item))}</small></td>
@@ -1903,8 +1944,7 @@
                 <td data-label="Precio">${esc(money(item))}</td>
                 <td data-label="Disponibilidad"><span class="crm-badge ${badge}">${esc(statusLabels[item.status] || item.status || "-")}</span></td>
                 <td data-label="Acciones" class="crm-actions-row crm-cell-optional crm-cell-actions">
-                  <button type="button" class="crm-mini-btn" data-action="select" data-id="${esc(item.id)}">Editar</button>
-                  <button type="button" class="crm-mini-btn" data-action="open-page" data-id="${esc(item.id)}">Pagina</button>
+                  ${actionsHtml}
                 </td>
               </tr>
             `;
@@ -1918,14 +1958,17 @@
       el.mobileList.innerHTML = "<p class='crm-inline-note'>Sin resultados con los filtros actuales.</p>";
       return;
     }
-
-    const hasInlineEditor = Boolean(el.editForm);
     el.mobileList.innerHTML = state.items
       .map((item) => {
         const availability = availabilityBadge(item);
         const selectedClass = state.selectedId === item.id ? "is-selected" : "";
         const mainAction = hasInlineEditor ? "select" : "open-page";
-        const mainLabel = hasInlineEditor ? "Editar ficha" : "Abrir propiedad";
+        const openLabel = item.record_type === "project" ? "Abrir promocion" : "Abrir propiedad";
+        const mainLabel = hasInlineEditor
+          ? item.record_type === "project"
+            ? "Editar promocion"
+            : "Editar ficha"
+          : openLabel;
         return `
           <article class="crm-mobile-property-card ${selectedClass}">
             <button type="button" class="crm-mobile-property-hit" data-action="${mainAction}" data-id="${esc(item.id)}">
@@ -2092,6 +2135,36 @@
       .join("");
   };
 
+  const syncPropertyArchiveAction = (item) => {
+    if (!el.propertyArchiveToggle) return;
+
+    if (!item) {
+      el.propertyArchiveToggle.hidden = true;
+      el.propertyArchiveToggle.disabled = true;
+      el.propertyArchiveToggle.textContent = "Archivar propiedad";
+      el.propertyArchiveToggle.removeAttribute("data-next-status");
+      if (el.propertyArchiveHint) {
+        el.propertyArchiveHint.hidden = true;
+        el.propertyArchiveHint.textContent = "";
+      }
+      return;
+    }
+
+    const isArchived = item.status === "archived";
+    el.propertyArchiveToggle.hidden = false;
+    el.propertyArchiveToggle.disabled = false;
+    el.propertyArchiveToggle.textContent = isArchived
+      ? "Reactivar como disponible"
+      : "Archivar propiedad";
+    el.propertyArchiveToggle.setAttribute("data-next-status", isArchived ? "available" : "archived");
+
+    if (!el.propertyArchiveHint) return;
+    el.propertyArchiveHint.hidden = false;
+    el.propertyArchiveHint.textContent = isArchived
+      ? "Reactivar devuelve la propiedad al flujo activo con estado Disponible."
+      : "Archivar la saca del flujo activo por defecto sin borrarla.";
+  };
+
   const fillEditor = (item) => {
     if (!el.editForm) return;
     if (!item) {
@@ -2108,8 +2181,14 @@
       state.propertyClientLoading = false;
       state.propertyClientPropertyId = null;
       renderPropertyClientLinks();
+      syncPropertyArchiveAction(null);
       if (el.coverBox) el.coverBox.innerHTML = "<p>Selecciona una propiedad para gestionar portada y galeria.</p>";
       if (el.mediaBoard) el.mediaBoard.innerHTML = "";
+      return;
+    }
+
+    if (el.propertyPageTitle && item.record_type === "project") {
+      openProjectPage(item.id);
       return;
     }
 
@@ -2175,6 +2254,7 @@
     }
     syncProjectPortalFieldRules(el.editForm, item);
     el.editForm.elements.commercialization_notes.value = item.commercialization_notes || "";
+    syncPropertyArchiveAction(item);
     renderMedia(item);
     void loadPropertyClientLinks(item);
   };
@@ -2522,6 +2602,12 @@
         } else if (current?.record_type === "unit" && current.parent_property_id) {
           state.selectedProjectId = current.parent_property_id;
         }
+      }
+
+      const currentSelection = selected();
+      if (el.propertyPageTitle && currentSelection?.record_type === "project") {
+        openProjectPage(currentSelection.id);
+        return;
       }
 
       if (el.clientLinkTbody || el.clientLinkSummary) {
@@ -2899,6 +2985,7 @@
         "ok",
         { toast: true }
       );
+      pinCurrentPropertyForReload(current);
       await loadProperties({ preserveSelection: true });
     } catch (error) {
       const rawMessage = String(error?.message || "db_update_error");
@@ -2968,6 +3055,7 @@
         "ok",
         { toast: true }
       );
+      pinCurrentPropertyForReload(current);
       await loadProperties({ preserveSelection: true });
     } catch (error) {
       const rawMessage = String(error?.message || "error_subiendo_media");
@@ -3017,9 +3105,46 @@
         }),
       });
       setFeedback("Galeria actualizada.", "ok", { toast: true });
+      pinCurrentPropertyForReload(current);
       await loadProperties({ preserveSelection: true });
     } catch (error) {
       setFeedback(`Error actualizando galeria: ${error.message}`, "error", { toast: true });
+    }
+  });
+
+  el.propertyArchiveToggle?.addEventListener("click", async () => {
+    const current = selected();
+    if (!current) {
+      setFeedback("Selecciona una propiedad antes de cambiar su estado.", "error", { toast: true });
+      return;
+    }
+
+    const nextStatus = current.status === "archived" ? "available" : "archived";
+    setFeedback(
+      nextStatus === "archived" ? "Archivando propiedad..." : "Reactivando propiedad...",
+      "ok"
+    );
+
+    try {
+      await request(`${apiBase}/${encodeURIComponent(current.id)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          organization_id: state.organizationId || null,
+          status: nextStatus,
+        }),
+      });
+      pinCurrentPropertyForReload(current);
+      await loadProperties({ preserveSelection: true });
+      setFeedback(
+        nextStatus === "archived"
+          ? "Propiedad archivada. Queda fuera del flujo activo por defecto."
+          : "Propiedad reactivada como disponible.",
+        "ok",
+        { toast: true }
+      );
+    } catch (error) {
+      setFeedback(`Error actualizando estado: ${error.message}`, "error", { toast: true });
     }
   });
 

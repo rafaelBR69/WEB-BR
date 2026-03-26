@@ -115,3 +115,41 @@
   1. move the compact map into `/properties/`
   2. wire it to filtered/current context
   3. then demote `/real-estate/` to a redirect or thin shell
+
+## 2026-03-24 CRM Notifications Orchestration
+
+- The repo already has a usable primitive, not just an idea:
+  - `crm.notifications` table in [013_crm_notifications.sql](/c:/Users/elena/Desktop/WEB-BR/supabase/sql/013_crm_notifications.sql)
+  - CRUD/admin API in [notifications.ts](/c:/Users/elena/Desktop/WEB-BR/apps/crm/src/pages/api/v1/crm/notifications.ts)
+  - dashboard-derived stale-item logic in [home-crud.ts](/c:/Users/elena/Desktop/WEB-BR/packages/shared/src/dashboard/home-crud.ts)
+- Current notifications are still too narrow for the target workflow:
+  - table only links directly to `lead_id` and `project_property_id`
+  - no first-class `client_id`, `deal_id`, `reservation_id`
+  - no explicit `read_at`, `snoozed_until`, `rule_key`, `rule_hash`, `escalated_at`, `assigned_user_id`
+- Ownership fields already exist and should drive assignment:
+  - leads -> `assigned_to`
+  - deals -> `owner_id`
+  - notifications today only store `assignee_email`, which is weaker than user-id ownership
+- The dashboard already contains the first version of rule logic we can reuse:
+  - `lead_new_unworked`
+  - `lead_stalled`
+  - `deal_overdue`
+  - `deal_missing_close_date`
+  - `reservation_docs_missing`
+  - `visit_request_pending`
+  - `commission_pending`
+  - `notification_due`
+- That means the correct next step is not inventing rules from zero. It is extracting those heuristics into a canonical notification/rules service and persisting the derived alerts.
+- For the user request "22 days without contact", `updated_at` alone is not enough long-term:
+  - good for a V1 stale-record trigger
+  - but V2 should prefer a true "last meaningful touch" field derived from call/email/note/activity or explicit follow-up timestamps
+- Clients should not get the same inactivity model as leads:
+  - leads -> contact urgency and qualification SLA
+  - deals -> stage stagnation and overdue close date
+  - clients/reservations -> reservation documentation, pending contract, post-reservation silence, missing onboarding steps
+- The most valuable surfaces are:
+  - entity profile banners/cards
+  - list row badges/counters
+  - dashboard inbox
+  - notifications center filtered by assignee/team
+  - escalation views for managers/admins

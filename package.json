@@ -5,11 +5,12 @@
   "scripts": {
     "dev": "node scripts/run-surface.mjs web dev --config ./apps/web/astro.config.mjs",
     "dev:web": "node scripts/run-surface.mjs web dev --config ./apps/web/astro.config.mjs",
-    "dev:crm": "astro dev --port 4322",
+    "dev:crm": "node scripts/run-surface.mjs crm dev --config ./apps/crm/astro.config.mjs --port 4322",
     "dev:crm:surface": "node scripts/run-surface.mjs crm dev --config ./apps/crm/astro.config.mjs --port 4322",
     "build": "astro build",
     "build:web": "node scripts/run-surface.mjs web build --config ./apps/web/astro.config.mjs",
     "build:crm": "node scripts/run-surface.mjs crm build --config ./apps/crm/astro.config.mjs",
+    "audit:crm-surface": "node scripts/audit-crm-surface-integrity.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "pois:fetch": "node scripts/fetch-pois-overpass.mjs",
@@ -35,7 +36,8 @@
     "properties:media-optimize-queue": "node scripts/process-media-optimize-queue.mjs",
     "properties:storage-clean-orphans": "node scripts/cleanup-crm-property-storage-orphans.mjs",
     "portal:documents-migrate-private": "node scripts/migrate-portal-documents-private-bucket.mjs",
-    "crm:user:upsert": "node scripts/upsert-crm-user.mjs"
+    "crm:user:upsert": "node scripts/upsert-crm-user.mjs",
+    "notifications:sync": "node --experimental-strip-types scripts/sync-crm-notifications.ts"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.4",
