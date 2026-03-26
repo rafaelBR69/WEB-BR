@@ -9,7 +9,6 @@ const SITE_URL = "https://blancareal.com";
 
 const CORE_URLS = SUPPORTED_LANGS.flatMap((lang) => [
   `/${lang}/`,
-  `/${lang}/real-estate/`,
   `/${lang}/properties/`,
   `/${lang}/legal-services/`,
   `/${lang}/commercialization/`,

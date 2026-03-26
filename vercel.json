@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/:lang(es|en|de|fr|it|nl)/real-estate",
+      "destination": "/:lang/properties",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(es|en|de|fr|it|nl)/real-estate/",
+      "destination": "/:lang/properties/",
+      "permanent": true
+    }
+  ]
+}

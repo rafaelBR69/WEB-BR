@@ -237,7 +237,7 @@ const buildRealEstateGroup = (lang: string): NavigationGroup => {
 
   return {
     label: ui.layout.navRealEstate,
-    href: `/${lang}/real-estate/`,
+    href: `/${lang}/properties/`,
     sections: [
       {
         title: copy.catalog,
@@ -368,7 +368,7 @@ const buildHomeNavLinks = (lang: string): NavigationLink[] => {
   const ui = getUiCopy(lang);
 
   return [
-    { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+    { href: `/${lang}/properties/`, label: ui.layout.navRealEstate },
     { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices },
     { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization },
     { href: `/${lang}/about/`, label: ui.layout.navAbout },
@@ -419,7 +419,7 @@ const buildEditorialNavigation = (lang: string): PublicNavigationConfig => {
   return {
     headerVariant: "default",
     headerNavItems: [
-      { href: `/${lang}/real-estate/`, label: ui.layout.navRealEstate },
+      { href: `/${lang}/properties/`, label: ui.layout.navRealEstate },
       { href: `/${lang}/commercialization/`, label: ui.layout.navCommercialization },
       { href: `/${lang}/legal-services/`, label: ui.layout.navLegalServices },
       { href: `/${lang}/posts/`, label: ui.layout.navPosts },
