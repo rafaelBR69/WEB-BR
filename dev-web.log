@@ -1,0 +1,8 @@
+
+> web-br@0.0.1 dev:web
+> node scripts/run-surface.mjs web dev --config ./apps/web/astro.config.mjs
+
+[2m15:45:35[22m [34m[@astrojs/node][39m Enabling sessions with filesystem storage
+[2m15:45:35[22m [34m[types][39m Generated [2m2ms[22m
+[2m15:45:35[22m [34m[content][39m Syncing content
+[2m15:45:36[22m [34m[content][39m Synced content
