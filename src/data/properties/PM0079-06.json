@@ -22,7 +22,7 @@
     "nl"
   ],
   "transaction": "sale",
-  "price": 452536.0,
+  "price": 452536,
   "currency": "EUR",
   "location": {
     "country": "ES",
@@ -41,7 +41,7 @@
     "area_m2": 121.74,
     "usable_area_m2": 102.1,
     "terrace_m2": 42.8,
-    "garden_m2": 85.0,
+    "garden_m2": 85,
     "bedrooms": 3,
     "bathrooms": null,
     "garages": null,
@@ -58,7 +58,7 @@
   ],
   "media": {
     "cover": {
-      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/units/PM0079-06.webp",
       "alt": {
         "es": "Nylva Homes en Manilva - obra nueva",
         "en": "Nylva Homes in Manilva - new build",

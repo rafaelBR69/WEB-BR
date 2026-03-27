@@ -12,6 +12,24 @@ export const createAstroConfig = ({
   distDir = path.join(repoRoot, "dist"),
   cacheDir = path.join(rootDir, ".astro", "vite-cache"),
 } = {}) => {
+  const port = Number(process.env.PORT || 4321);
+  const hmrHost = process.env.HMR_HOST?.trim();
+  const hmrPort = process.env.HMR_PORT ? Number(process.env.HMR_PORT) : undefined;
+  const hmrClientPort = process.env.HMR_CLIENT_PORT
+    ? Number(process.env.HMR_CLIENT_PORT)
+    : undefined;
+  const hmrProtocol = process.env.HMR_PROTOCOL?.trim();
+
+  const hmrConfig =
+    hmrHost || hmrPort || hmrClientPort || hmrProtocol
+      ? {
+          protocol: hmrProtocol || "ws",
+          ...(hmrHost ? { host: hmrHost } : {}),
+          ...(hmrClientPort ? { clientPort: hmrClientPort } : {}),
+          ...(hmrPort ? { port: hmrPort } : {}),
+        }
+      : undefined;
+
   const adapter = process.env.VERCEL
     ? vercel()
     : node({
@@ -27,19 +45,14 @@ export const createAstroConfig = ({
     adapter,
     server: {
       host: true,
-      port: Number(process.env.PORT || 4321),
+      port,
     },
     vite: {
       cacheDir,
       server: {
         host: true,
         strictPort: true,
-        hmr: {
-          protocol: "ws",
-          host: process.env.HMR_HOST || "localhost",
-          clientPort: Number(process.env.HMR_CLIENT_PORT || process.env.PORT || 4321),
-          port: Number(process.env.HMR_PORT || process.env.PORT || 4321),
-        },
+        ...(hmrConfig ? { hmr: hmrConfig } : {}),
       },
       resolve: {
         alias: {

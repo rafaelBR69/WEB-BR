@@ -1,0 +1,237 @@
+{
+  "project_id": "PM0074",
+  "project_title": "Almitak (Orion Collection): obra nueva en Manilva",
+  "expected_filename_pattern": "<LEGACY_CODE>.<ext>",
+  "children": [
+    {
+      "id": "PM0074-P1_1A",
+      "title": "Unidad P1-1A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_1A.json"
+    },
+    {
+      "id": "PM0074-P1_1B",
+      "title": "Unidad P1-1B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_1B.json"
+    },
+    {
+      "id": "PM0074-P1_1C",
+      "title": "Unidad P1-1C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_1C.json"
+    },
+    {
+      "id": "PM0074-P1_2A",
+      "title": "Unidad P1-2A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_2A.json"
+    },
+    {
+      "id": "PM0074-P1_2B",
+      "title": "Unidad P1-2B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_2B.json"
+    },
+    {
+      "id": "PM0074-P1_2C",
+      "title": "Unidad P1-2C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_2C.json"
+    },
+    {
+      "id": "PM0074-P1_3A",
+      "title": "Unidad P1-3A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_3A.json"
+    },
+    {
+      "id": "PM0074-P1_3B",
+      "title": "Unidad P1-3B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_3B.json"
+    },
+    {
+      "id": "PM0074-P1_3C",
+      "title": "Unidad P1-3C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_3C.json"
+    },
+    {
+      "id": "PM0074-P1_4A",
+      "title": "Unidad P1-4A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_4A.json"
+    },
+    {
+      "id": "PM0074-P1_4B",
+      "title": "Unidad P1-4B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_4B.json"
+    },
+    {
+      "id": "PM0074-P1_4C",
+      "title": "Unidad P1-4C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_4C.json"
+    },
+    {
+      "id": "PM0074-P1_ATA",
+      "title": "Unidad P1-ATA en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_ATA.json"
+    },
+    {
+      "id": "PM0074-P1_BA",
+      "title": "Unidad P1-BA en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_BA.json"
+    },
+    {
+      "id": "PM0074-P1_BB",
+      "title": "Unidad P1-BB en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_BB.json"
+    },
+    {
+      "id": "PM0074-P1_BC",
+      "title": "Unidad P1-BC en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P1_BC.json"
+    },
+    {
+      "id": "PM0074-P2_1A",
+      "title": "Unidad P2-1A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_1A.json"
+    },
+    {
+      "id": "PM0074-P2_1B",
+      "title": "Unidad P2-1B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_1B.json"
+    },
+    {
+      "id": "PM0074-P2_1C",
+      "title": "Unidad P2-1C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_1C.json"
+    },
+    {
+      "id": "PM0074-P2_2A",
+      "title": "Unidad P2-2A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_2A.json"
+    },
+    {
+      "id": "PM0074-P2_2B",
+      "title": "Unidad P2-2B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_2B.json"
+    },
+    {
+      "id": "PM0074-P2_2C",
+      "title": "Unidad P2-2C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_2C.json"
+    },
+    {
+      "id": "PM0074-P2_3A",
+      "title": "Unidad P2-3A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_3A.json"
+    },
+    {
+      "id": "PM0074-P2_3B",
+      "title": "Unidad P2-3B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_3B.json"
+    },
+    {
+      "id": "PM0074-P2_3C",
+      "title": "Unidad P2-3C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_3C.json"
+    },
+    {
+      "id": "PM0074-P2_4A",
+      "title": "Unidad P2-4A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_4A.json"
+    },
+    {
+      "id": "PM0074-P2_4B",
+      "title": "Unidad P2-4B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_4B.json"
+    },
+    {
+      "id": "PM0074-P2_4C",
+      "title": "Unidad P2-4C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_4C.json"
+    },
+    {
+      "id": "PM0074-P2_ATA",
+      "title": "Unidad P2-ATA en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_ATA.json"
+    },
+    {
+      "id": "PM0074-P2_ATB",
+      "title": "Unidad P2-ATB en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_ATB.json"
+    },
+    {
+      "id": "PM0074-P2_BA",
+      "title": "Unidad P2-BA en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_BA.json"
+    },
+    {
+      "id": "PM0074-P2_BB",
+      "title": "Unidad P2-BB en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P2_BB.json"
+    },
+    {
+      "id": "PM0074-P3_1A",
+      "title": "Unidad P3-1A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_1A.json"
+    },
+    {
+      "id": "PM0074-P3_1B",
+      "title": "Unidad P3-1B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_1B.json"
+    },
+    {
+      "id": "PM0074-P3_1C",
+      "title": "Unidad P3-1C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_1C.json"
+    },
+    {
+      "id": "PM0074-P3_2A",
+      "title": "Unidad P3-2A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_2A.json"
+    },
+    {
+      "id": "PM0074-P3_2B",
+      "title": "Unidad P3-2B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_2B.json"
+    },
+    {
+      "id": "PM0074-P3_2C",
+      "title": "Unidad P3-2C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_2C.json"
+    },
+    {
+      "id": "PM0074-P3_3A",
+      "title": "Unidad P3-3A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_3A.json"
+    },
+    {
+      "id": "PM0074-P3_3B",
+      "title": "Unidad P3-3B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_3B.json"
+    },
+    {
+      "id": "PM0074-P3_3C",
+      "title": "Unidad P3-3C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_3C.json"
+    },
+    {
+      "id": "PM0074-P3_4A",
+      "title": "Unidad P3-4A en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_4A.json"
+    },
+    {
+      "id": "PM0074-P3_4B",
+      "title": "Unidad P3-4B en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_4B.json"
+    },
+    {
+      "id": "PM0074-P3_4C",
+      "title": "Unidad P3-4C en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_4C.json"
+    },
+    {
+      "id": "PM0074-P3_ATA",
+      "title": "Unidad P3-ATA en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_ATA.json"
+    },
+    {
+      "id": "PM0074-P3_BA",
+      "title": "Unidad P3-BA en Orion Collection: Almitak",
+      "file": "src/data/properties/PM0074-P3_BA.json"
+    }
+  ]
+}

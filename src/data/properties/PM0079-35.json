@@ -22,7 +22,7 @@
     "nl"
   ],
   "transaction": "sale",
-  "price": 361326.0,
+  "price": 361326,
   "currency": "EUR",
   "location": {
     "country": "ES",
@@ -58,7 +58,7 @@
   ],
   "media": {
     "cover": {
-      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/units/PM0079-35.webp",
       "alt": {
         "es": "Nylva Homes en Manilva - obra nueva",
         "en": "Nylva Homes in Manilva - new build",

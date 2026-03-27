@@ -1,0 +1,232 @@
+{
+  "project_id": "PM0079",
+  "project_title": "Nylva Homes: obra nueva en Manilva",
+  "expected_filename_pattern": "<LEGACY_CODE>.<ext>",
+  "children": [
+    {
+      "id": "PM0079-01",
+      "title": "Unidad 1 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-01.json"
+    },
+    {
+      "id": "PM0079-02",
+      "title": "Unidad 2 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-02.json"
+    },
+    {
+      "id": "PM0079-03",
+      "title": "Unidad 3 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-03.json"
+    },
+    {
+      "id": "PM0079-04",
+      "title": "Unidad 4 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-04.json"
+    },
+    {
+      "id": "PM0079-05",
+      "title": "Unidad 5 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-05.json"
+    },
+    {
+      "id": "PM0079-06",
+      "title": "Unidad 6 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-06.json"
+    },
+    {
+      "id": "PM0079-07",
+      "title": "Unidad 7 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-07.json"
+    },
+    {
+      "id": "PM0079-08",
+      "title": "Unidad 8 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-08.json"
+    },
+    {
+      "id": "PM0079-09",
+      "title": "Unidad 9 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-09.json"
+    },
+    {
+      "id": "PM0079-10",
+      "title": "Unidad 10 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-10.json"
+    },
+    {
+      "id": "PM0079-11",
+      "title": "Unidad 11 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-11.json"
+    },
+    {
+      "id": "PM0079-12",
+      "title": "Unidad 12 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-12.json"
+    },
+    {
+      "id": "PM0079-13",
+      "title": "Unidad 13 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-13.json"
+    },
+    {
+      "id": "PM0079-14",
+      "title": "Unidad 14 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-14.json"
+    },
+    {
+      "id": "PM0079-15",
+      "title": "Unidad 15 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-15.json"
+    },
+    {
+      "id": "PM0079-16",
+      "title": "Unidad 16 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-16.json"
+    },
+    {
+      "id": "PM0079-17",
+      "title": "Unidad 17 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-17.json"
+    },
+    {
+      "id": "PM0079-18",
+      "title": "Unidad 18 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-18.json"
+    },
+    {
+      "id": "PM0079-19",
+      "title": "Unidad 19 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-19.json"
+    },
+    {
+      "id": "PM0079-20",
+      "title": "Unidad 20 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-20.json"
+    },
+    {
+      "id": "PM0079-21",
+      "title": "Unidad 21 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-21.json"
+    },
+    {
+      "id": "PM0079-22",
+      "title": "Unidad 22 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-22.json"
+    },
+    {
+      "id": "PM0079-23",
+      "title": "Unidad 23 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-23.json"
+    },
+    {
+      "id": "PM0079-24",
+      "title": "Unidad 24 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-24.json"
+    },
+    {
+      "id": "PM0079-25",
+      "title": "Unidad 25 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-25.json"
+    },
+    {
+      "id": "PM0079-26",
+      "title": "Unidad 26 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-26.json"
+    },
+    {
+      "id": "PM0079-27",
+      "title": "Unidad 27 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-27.json"
+    },
+    {
+      "id": "PM0079-28",
+      "title": "Unidad 28 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-28.json"
+    },
+    {
+      "id": "PM0079-29",
+      "title": "Unidad 29 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-29.json"
+    },
+    {
+      "id": "PM0079-30",
+      "title": "Unidad 30 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-30.json"
+    },
+    {
+      "id": "PM0079-31",
+      "title": "Unidad 31 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-31.json"
+    },
+    {
+      "id": "PM0079-32",
+      "title": "Unidad 32 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-32.json"
+    },
+    {
+      "id": "PM0079-33",
+      "title": "Unidad 33 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-33.json"
+    },
+    {
+      "id": "PM0079-34",
+      "title": "Unidad 34 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-34.json"
+    },
+    {
+      "id": "PM0079-35",
+      "title": "Unidad 35 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-35.json"
+    },
+    {
+      "id": "PM0079-36",
+      "title": "Unidad 36 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-36.json"
+    },
+    {
+      "id": "PM0079-37",
+      "title": "Unidad 37 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-37.json"
+    },
+    {
+      "id": "PM0079-38",
+      "title": "Unidad 38 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-38.json"
+    },
+    {
+      "id": "PM0079-39",
+      "title": "Unidad 39 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-39.json"
+    },
+    {
+      "id": "PM0079-40",
+      "title": "Unidad 40 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-40.json"
+    },
+    {
+      "id": "PM0079-41",
+      "title": "Unidad 41 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-41.json"
+    },
+    {
+      "id": "PM0079-42",
+      "title": "Unidad 42 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-42.json"
+    },
+    {
+      "id": "PM0079-43",
+      "title": "Unidad 43 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-43.json"
+    },
+    {
+      "id": "PM0079-44",
+      "title": "Unidad 44 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-44.json"
+    },
+    {
+      "id": "PM0079-45",
+      "title": "Unidad 45 en Nylva Homes (Manilva)",
+      "file": "src/data/properties/PM0079-45.json"
+    }
+  ]
+}

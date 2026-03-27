@@ -2,7 +2,6 @@ export const PROMOTION_EDITORIAL_ORDER = [
   "PM0079",
   "PM0074",
   "PM0011",
-  "PM0084",
 ] as const;
 
 const PROMOTION_EDITORIAL_RANK = new Map(
