@@ -1,0 +1,227 @@
+{
+  "id": "PT0402",
+  "priority": 65,
+  "slugs": {
+    "es": "piso-2-dormitorios-bel-air-estepona",
+    "en": "2-bedroom-apartment-bel-air-estepona",
+    "de": "wohnung-2-schlafzimmer-bel-air-estepona",
+    "fr": "appartement-2-chambres-bel-air-estepona",
+    "it": "appartamento-2-camere-bel-air-estepona",
+    "nl": "appartement-2-slaapkamers-bel-air-estepona"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 425000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Estepona",
+    "area": "Bel-Air",
+    "address_line": "Calle del Tenis 24, Residencial Las Jacarandas, Urbanizacion Bel-Air, Bloque 10 (A) 2oA",
+    "coordinates": {
+      "lat": 36.46674574653425,
+      "lng": -5.042546205230278
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "segunda_mano",
+    "area_m2": 116,
+    "terrace_m2": 42.8,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "storage_rooms": null,
+    "floor_level": 2,
+    "floor_label": "Planta 2",
+    "building_block": "10 (A)",
+    "building_door": "A",
+    "elevator": true,
+    "condition": "good",
+    "ibi_yearly": 624,
+    "community_fees_monthly": null,
+    "waste_yearly": 133,
+    "full_address": "Calle del Tenis 24, Residencial Las Jacarandas, Urbanizacion Bel-Air, Bloque 10 (A) 2oA, Estepona, Malaga",
+    "owner_asking_price": 403750,
+    "price_negotiable": 400000,
+    "published_price_blancareal": 425000,
+    "commission_br_percent": 5,
+    "commission_br_eur_no_vat": 21250,
+    "parking_notes": "Privado cubierto",
+    "storage_room_notes": null,
+    "pool_notes": "Comunitaria",
+    "sea_views_notes": "Si",
+    "elevator_notes": "Si",
+    "source_import_date": "2026-03-30",
+    "notes": "Buen estado. Residencial Las Jacarandas, Urbanizacion Bel-Air, con plaza de aparcamiento privado cubierto, piscina comunitaria, vistas al mar y ascensor."
+  },
+  "features": [
+    "garage",
+    "communal_pool",
+    "sea_views",
+    "elevator"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT402/cover/views.jpg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT402/cover/views.jpg",
+    "gallery": {
+      "living": [],
+      "bedroom": [],
+      "kitchen": [],
+      "bathroom": [],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT402/cover/views.jpg"
+      ],
+      "interior": [],
+      "views": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT402/cover/views.jpg"
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "piso en venta bel-air estepona",
+      "en": "apartment for sale bel-air estepona",
+      "de": "wohnung kaufen bel-air estepona",
+      "fr": "appartement a vendre bel-air estepona",
+      "it": "appartamento in vendita bel-air estepona",
+      "nl": "appartement te koop bel-air estepona"
+    },
+    "meta_description": {
+      "es": "Piso de 2 dormitorios con 116 m2 construidos, terraza de 42,8 m2, garaje privado cubierto, piscina comunitaria y vistas al mar en Bel-Air, Estepona.",
+      "en": "2-bedroom apartment with 116 sqm built area, 42.8 sqm terrace, private covered parking, communal pool and sea views in Bel-Air, Estepona.",
+      "de": "Wohnung mit 2 Schlafzimmern, 116 m2 bebauter Flache, 42,8 m2 Terrasse, privatem ueberdachtem Stellplatz, Gemeinschaftspool und Meerblick in Bel-Air, Estepona.",
+      "fr": "Appartement de 2 chambres avec 116 m2 construits, terrasse de 42,8 m2, parking prive couvert, piscine commune et vue mer a Bel-Air, Estepona.",
+      "it": "Appartamento con 2 camere da letto, 116 m2 costruiti, terrazza di 42,8 m2, parcheggio privato coperto, piscina condominiale e vista mare a Bel-Air, Estepona.",
+      "nl": "Appartement met 2 slaapkamers, 116 m2 bebouwde oppervlakte, terras van 42,8 m2, prive overdekte parkeerplaats, gemeenschappelijk zwembad en zeezicht in Bel-Air, Estepona."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Piso de 2 dormitorios en Bel-Air, Estepona",
+      "intro": "Propiedad de segunda mano con 116 m2 construidos, terraza de 42,8 m2 y posicion residencial consolidada dentro de Las Jacarandas, en Bel-Air.",
+      "excerpt": "Propiedad de segunda mano con 116 m2 construidos, terraza de 42,8 m2 y posicion residencial consolidada dentro de Las Jacarandas, en Bel-Air.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda se ubica en Calle del Tenis 24, dentro del Residencial Las Jacarandas en la urbanizacion Bel-Air, y ofrece 2 dormitorios, 2 banos y una distribucion comoda para residencia habitual, segunda vivienda o compra patrimonial."
+        },
+        {
+          "type": "paragraph",
+          "content": "Incluye terraza de 42,8 m2, plaza de aparcamiento privado cubierto, piscina comunitaria, vistas al mar y ascensor, en buen estado general y con una implantacion muy competitiva dentro del eje residencial entre Estepona y la Nueva Milla de Oro."
+        }
+      ],
+      "seo": {
+        "title": "Piso de 2 dormitorios en Bel-Air, Estepona | BlancaReal",
+        "description": "Piso en Bel-Air, Estepona, con 2 dormitorios, terraza de 42,8 m2, garaje cubierto, piscina comunitaria y vistas al mar."
+      }
+    },
+    "en": {
+      "title": "2-bedroom apartment in Bel-Air, Estepona",
+      "intro": "Resale property with 116 sqm built area, a 42.8 sqm terrace and an established residential position within Las Jacarandas in Bel-Air.",
+      "excerpt": "Resale property with 116 sqm built area, a 42.8 sqm terrace and an established residential position within Las Jacarandas in Bel-Air.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The property is located on Calle del Tenis 24, within Residencial Las Jacarandas in the Bel-Air urbanisation, and offers 2 bedrooms, 2 bathrooms and a practical layout for full-time living, a second home or a long-term asset purchase."
+        },
+        {
+          "type": "paragraph",
+          "content": "It includes a 42.8 sqm terrace, private covered parking, communal pool, sea views and lift access, presented in good overall condition and well placed within the residential corridor between Estepona and the New Golden Mile."
+        }
+      ],
+      "seo": {
+        "title": "2-bedroom apartment in Bel-Air, Estepona | BlancaReal",
+        "description": "Apartment in Bel-Air, Estepona, with 2 bedrooms, 42.8 sqm terrace, covered parking, communal pool and sea views."
+      }
+    },
+    "de": {
+      "title": "Wohnung mit 2 Schlafzimmern in Bel-Air, Estepona",
+      "intro": "Gebrauchtimmobilie mit 116 m2 bebauter Flache, 42,8 m2 Terrasse und etablierter Wohnlage innerhalb von Las Jacarandas in Bel-Air.",
+      "excerpt": "Gebrauchtimmobilie mit 116 m2 bebauter Flache, 42,8 m2 Terrasse und etablierter Wohnlage innerhalb von Las Jacarandas in Bel-Air.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Immobilie befindet sich in der Calle del Tenis 24 innerhalb des Residencial Las Jacarandas in der Urbanisation Bel-Air und bietet 2 Schlafzimmer, 2 Bader und einen funktionalen Grundriss fuer Hauptwohnsitz, Zweitwohnsitz oder langfristigen Vermoegensaufbau."
+        },
+        {
+          "type": "paragraph",
+          "content": "Sie verfuegt ueber eine Terrasse von 42,8 m2, privaten ueberdachten Stellplatz, Gemeinschaftspool, Meerblick und Aufzug, in gutem Allgemeinzustand und mit starker Lage im Wohnkorridor zwischen Estepona und der New Golden Mile."
+        }
+      ],
+      "seo": {
+        "title": "Wohnung mit 2 Schlafzimmern in Bel-Air, Estepona | BlancaReal",
+        "description": "Wohnung in Bel-Air, Estepona, mit 2 Schlafzimmern, 42,8 m2 Terrasse, ueberdachtem Stellplatz, Gemeinschaftspool und Meerblick."
+      }
+    },
+    "fr": {
+      "title": "Appartement de 2 chambres a Bel-Air, Estepona",
+      "intro": "Bien de revente avec 116 m2 construits, terrasse de 42,8 m2 et position residentielle etablie au sein de Las Jacarandas a Bel-Air.",
+      "excerpt": "Bien de revente avec 116 m2 construits, terrasse de 42,8 m2 et position residentielle etablie au sein de Las Jacarandas a Bel-Air.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le bien est situe Calle del Tenis 24, dans le Residencial Las Jacarandas au sein de l urbanisation Bel-Air, et propose 2 chambres, 2 salles de bain et une distribution adaptee a une residence principale, secondaire ou a un achat patrimonial."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il comprend une terrasse de 42,8 m2, un parking prive couvert, une piscine commune, une vue mer et un ascenseur, en bon etat general et avec un positionnement solide dans le corridor residentiel entre Estepona et la Nouvelle Mile d Or."
+        }
+      ],
+      "seo": {
+        "title": "Appartement de 2 chambres a Bel-Air, Estepona | BlancaReal",
+        "description": "Appartement a Bel-Air, Estepona, avec 2 chambres, terrasse de 42,8 m2, parking couvert, piscine commune et vue mer."
+      }
+    },
+    "it": {
+      "title": "Appartamento con 2 camere da letto a Bel-Air, Estepona",
+      "intro": "Proprieta di seconda mano con 116 m2 costruiti, terrazza di 42,8 m2 e posizionamento residenziale consolidato all interno di Las Jacarandas a Bel-Air.",
+      "excerpt": "Proprieta di seconda mano con 116 m2 costruiti, terrazza di 42,8 m2 e posizionamento residenziale consolidato all interno di Las Jacarandas a Bel-Air.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La proprieta si trova in Calle del Tenis 24, all interno del Residencial Las Jacarandas nell urbanizzazione Bel-Air, e offre 2 camere da letto, 2 bagni e una distribuzione pratica per residenza principale, seconda casa o acquisto patrimoniale."
+        },
+        {
+          "type": "paragraph",
+          "content": "Include terrazza di 42,8 m2, parcheggio privato coperto, piscina condominiale, vista mare e ascensore, in buono stato generale e con un posizionamento competitivo nel corridoio residenziale tra Estepona e la New Golden Mile."
+        }
+      ],
+      "seo": {
+        "title": "Appartamento con 2 camere da letto a Bel-Air, Estepona | BlancaReal",
+        "description": "Appartamento a Bel-Air, Estepona, con 2 camere, terrazza di 42,8 m2, parcheggio coperto, piscina condominiale e vista mare."
+      }
+    },
+    "nl": {
+      "title": "Appartement met 2 slaapkamers in Bel-Air, Estepona",
+      "intro": "Wederverkoopwoning met 116 m2 bebouwde oppervlakte, een terras van 42,8 m2 en een gevestigde woonpositie binnen Las Jacarandas in Bel-Air.",
+      "excerpt": "Wederverkoopwoning met 116 m2 bebouwde oppervlakte, een terras van 42,8 m2 en een gevestigde woonpositie binnen Las Jacarandas in Bel-Air.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "De woning ligt aan Calle del Tenis 24, binnen Residencial Las Jacarandas in de urbanisatie Bel-Air, en biedt 2 slaapkamers, 2 badkamers en een praktische indeling voor permanente bewoning, een tweede verblijf of langetermijninvestering."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning beschikt over een terras van 42,8 m2, prive overdekte parking, gemeenschappelijk zwembad, zeezicht en een lift, verkeert in goede algemene staat en ligt sterk binnen de residentiele corridor tussen Estepona en de New Golden Mile."
+        }
+      ],
+      "seo": {
+        "title": "Appartement met 2 slaapkamers in Bel-Air, Estepona | BlancaReal",
+        "description": "Appartement in Bel-Air, Estepona, met 2 slaapkamers, terras van 42,8 m2, overdekte parking, gemeenschappelijk zwembad en zeezicht."
+      }
+    }
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "id": "A0451",
+  "priority": 64,
+  "slugs": {
+    "es": "piso-3-dormitorios-paseo-maritimo-fuengirola",
+    "en": "3-bedroom-apartment-paseo-maritimo-fuengirola",
+    "de": "wohnung-3-schlafzimmer-paseo-maritimo-fuengirola",
+    "fr": "appartement-3-chambres-paseo-maritimo-fuengirola",
+    "it": "appartamento-3-camere-paseo-maritimo-fuengirola",
+    "nl": "appartement-3-slaapkamers-paseo-maritimo-fuengirola"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 650000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Paseo Maritimo",
+    "address_line": "Calle Sardina, Paseo Maritimo",
+    "coordinates": {
+      "lat": 36.55652576253192,
+      "lng": -4.610819642670275
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "segunda_mano",
+    "area_m2": 98,
+    "terrace_m2": 18,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "garages": null,
+    "storage_rooms": null,
+    "floor_level": 2,
+    "floor_label": "Planta 2",
+    "elevator": true,
+    "condition": "good",
+    "ibi_yearly": null,
+    "community_fees_monthly": null,
+    "waste_yearly": null,
+    "full_address": "Calle Sardina, Paseo Maritimo, Fuengirola, Malaga",
+    "reference_drive": "A0451",
+    "reference_web": "A0451",
+    "captured_at": null,
+    "owner_1_name": null,
+    "owner_2_name": null,
+    "owner_tax_id": null,
+    "owner_phone": null,
+    "owner_email": null,
+    "blancareal_has_keys": null,
+    "collaboration_agency_name": null,
+    "collaboration_fee_percent": null,
+    "collaboration_agreement_signed": null,
+    "collaboration_contact_phone": null,
+    "collaboration_contact_email": null,
+    "owner_asking_price": 650000,
+    "price_negotiable": null,
+    "published_price_blancareal": 650000,
+    "commission_br_percent": 2.25,
+    "commission_br_eur_no_vat": 14625,
+    "parking_notes": "No dispone",
+    "storage_room_notes": "No",
+    "pool_notes": "No",
+    "sea_views_notes": "Si",
+    "elevator_notes": "Si",
+    "virtual_tour_url": "https://bit.ly/466Q9za",
+    "source_import_date": "2026-03-30",
+    "notes": "Buen estado. Vivienda en Calle Sardina, entorno del Paseo Maritimo de Fuengirola, con vistas al mar y tour virtual 3D disponible."
+  },
+  "features": [
+    "sea_views",
+    "elevator"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/cover/vistas-1.jpeg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/cover/vistas-1.jpeg",
+    "gallery": {
+      "living": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/cover/vistas-1.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/salon-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/salon-02.jpeg"
+      ],
+      "bedroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/dormitorio-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/dormitorio-02.jpeg"
+      ],
+      "kitchen": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/cocina-01.jpeg"
+      ],
+      "bathroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/bano-01.jpeg"
+      ],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/cover/vistas-1.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/exterior/exterior-01.jpeg"
+      ],
+      "interior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/salon-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/salon-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/dormitorio-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/dormitorio-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/cocina-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/interior/bano-01.jpeg"
+      ],
+      "views": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/views/vistas-1.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0451/zonaz-comunes/zonas-comunes-01.jpeg"
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "piso en venta paseo maritimo fuengirola",
+      "en": "apartment for sale paseo maritimo fuengirola",
+      "de": "wohnung kaufen paseo maritimo fuengirola",
+      "fr": "appartement a vendre paseo maritimo fuengirola",
+      "it": "appartamento in vendita paseo maritimo fuengirola",
+      "nl": "appartement te koop paseo maritimo fuengirola"
+    },
+    "meta_description": {
+      "es": "Piso de 3 dormitorios con 98 m2 construidos, terraza de 18 m2, vistas al mar y ascensor en el entorno del Paseo Maritimo de Fuengirola.",
+      "en": "3-bedroom apartment with 98 sqm built area, 18 sqm terrace, sea views and lift access in the Paseo Maritimo area of Fuengirola.",
+      "de": "Wohnung mit 3 Schlafzimmern, 98 m2 bebauter Flache, 18 m2 Terrasse, Meerblick und Aufzug im Bereich Paseo Maritimo in Fuengirola.",
+      "fr": "Appartement de 3 chambres avec 98 m2 construits, terrasse de 18 m2, vue mer et ascenseur dans le secteur Paseo Maritimo a Fuengirola.",
+      "it": "Appartamento con 3 camere da letto, 98 m2 costruiti, terrazza di 18 m2, vista mare e ascensore nella zona Paseo Maritimo di Fuengirola.",
+      "nl": "Appartement met 3 slaapkamers, 98 m2 bebouwde oppervlakte, terras van 18 m2, zeezicht en lift in de omgeving van Paseo Maritimo in Fuengirola."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Piso de 3 dormitorios en Paseo Maritimo, Fuengirola",
+      "intro": "Propiedad de segunda mano con 98 m2 construidos, terraza de 18 m2, vistas al mar y una posicion muy competitiva en el frente urbano de Fuengirola.",
+      "excerpt": "Propiedad de segunda mano con 98 m2 construidos, terraza de 18 m2, vistas al mar y una posicion muy competitiva en el frente urbano de Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda ofrece 3 dormitorios, 2 banos y una distribucion funcional en planta segunda, con ascensor y salida exterior orientada a quien busca vivir o invertir en una de las zonas con mayor demanda peatonal de Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Cuenta con vistas al mar, terraza de 18 m2 y recorrido virtual 3D disponible para una primera visita remota. La propiedad se comercializa sin garaje, sin trastero y sin piscina, en buen estado general."
+        },
+        {
+          "type": "links",
+          "items": [
+            {
+              "label": "Ver tour 3D",
+              "url": "https://bit.ly/466Q9za"
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "Piso de 3 dormitorios en Paseo Maritimo, Fuengirola | BlancaReal",
+        "description": "Piso en Fuengirola con 3 dormitorios, terraza de 18 m2, vistas al mar y ascensor en la zona de Paseo Maritimo."
+      }
+    },
+    "en": {
+      "title": "3-bedroom apartment in Paseo Maritimo, Fuengirola",
+      "intro": "Resale property with 98 sqm built area, an 18 sqm terrace, sea views and a strong position in Fuengirola s urban seafront setting.",
+      "excerpt": "Resale property with 98 sqm built area, an 18 sqm terrace, sea views and a strong position in Fuengirola s urban seafront setting.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The apartment offers 3 bedrooms, 2 bathrooms and a practical second-floor layout, with lift access and outdoor space suited to buyers looking to live in or invest in one of Fuengirola s most active waterfront areas."
+        },
+        {
+          "type": "paragraph",
+          "content": "It includes sea views, an 18 sqm terrace and an available 3D virtual tour for a first remote visit. The property is marketed without garage, storage room or pool, and is presented in good overall condition."
+        },
+        {
+          "type": "links",
+          "items": [
+            {
+              "label": "View 3D tour",
+              "url": "https://bit.ly/466Q9za"
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "3-bedroom apartment in Paseo Maritimo, Fuengirola | BlancaReal",
+        "description": "Apartment in Fuengirola with 3 bedrooms, 18 sqm terrace, sea views and lift access in the Paseo Maritimo area."
+      }
+    },
+    "de": {
+      "title": "Wohnung mit 3 Schlafzimmern in Paseo Maritimo, Fuengirola",
+      "intro": "Gebrauchtimmobilie mit 98 m2 bebauter Flache, 18 m2 Terrasse, Meerblick und starker Lage an der urbanen Meeresfront von Fuengirola.",
+      "excerpt": "Gebrauchtimmobilie mit 98 m2 bebauter Flache, 18 m2 Terrasse, Meerblick und starker Lage an der urbanen Meeresfront von Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Wohnung bietet 3 Schlafzimmer, 2 Bader und einen funktionalen Grundriss in der zweiten Etage, mit Aufzug und Aussenflache fur Kaufer, die in einer der aktivsten Uferlagen Fuengirolas wohnen oder investieren moechten."
+        },
+        {
+          "type": "paragraph",
+          "content": "Sie verfugt uber Meerblick, eine Terrasse von 18 m2 und eine verfuegbare 3D-Besichtigung fuer den ersten Remote-Eindruck. Die Immobilie wird ohne Garage, ohne Abstellraum und ohne Pool in gutem Allgemeinzustand angeboten."
+        },
+        {
+          "type": "links",
+          "items": [
+            {
+              "label": "3D-Tour ansehen",
+              "url": "https://bit.ly/466Q9za"
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "Wohnung mit 3 Schlafzimmern in Paseo Maritimo, Fuengirola | BlancaReal",
+        "description": "Wohnung in Fuengirola mit 3 Schlafzimmern, 18 m2 Terrasse, Meerblick und Aufzug im Bereich Paseo Maritimo."
+      }
+    },
+    "fr": {
+      "title": "Appartement de 3 chambres a Paseo Maritimo, Fuengirola",
+      "intro": "Bien de revente avec 98 m2 construits, terrasse de 18 m2, vue mer et emplacement fort sur la facade urbaine de Fuengirola.",
+      "excerpt": "Bien de revente avec 98 m2 construits, terrasse de 18 m2, vue mer et emplacement fort sur la facade urbaine de Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le logement propose 3 chambres, 2 salles de bain et une distribution fonctionnelle au deuxieme etage, avec ascenseur et espace exterieur pour ceux qui souhaitent vivre ou investir dans l un des secteurs les plus actifs du front de mer de Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il dispose d une vue mer, d une terrasse de 18 m2 et d une visite virtuelle 3D disponible pour une premiere decouverte a distance. Le bien est commercialise sans garage, sans debarras et sans piscine, en bon etat general."
+        },
+        {
+          "type": "links",
+          "items": [
+            {
+              "label": "Voir la visite 3D",
+              "url": "https://bit.ly/466Q9za"
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "Appartement de 3 chambres a Paseo Maritimo, Fuengirola | BlancaReal",
+        "description": "Appartement a Fuengirola avec 3 chambres, terrasse de 18 m2, vue mer et ascenseur dans le secteur Paseo Maritimo."
+      }
+    },
+    "it": {
+      "title": "Appartamento con 3 camere da letto a Paseo Maritimo, Fuengirola",
+      "intro": "Proprieta di seconda mano con 98 m2 costruiti, terrazza di 18 m2, vista mare e posizionamento forte sul fronte urbano di Fuengirola.",
+      "excerpt": "Proprieta di seconda mano con 98 m2 costruiti, terrazza di 18 m2, vista mare e posizionamento forte sul fronte urbano di Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "L appartamento offre 3 camere da letto, 2 bagni e una distribuzione funzionale al secondo piano, con ascensore e spazio esterno pensato per chi desidera vivere o investire in una delle aree piu attive del lungomare urbano di Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Dispone di vista mare, terrazza di 18 m2 e tour virtuale 3D disponibile per una prima visita a distanza. La proprieta e commercializzata senza garage, senza ripostiglio e senza piscina, in buono stato generale."
+        },
+        {
+          "type": "links",
+          "items": [
+            {
+              "label": "Guarda il tour 3D",
+              "url": "https://bit.ly/466Q9za"
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "Appartamento con 3 camere da letto a Paseo Maritimo, Fuengirola | BlancaReal",
+        "description": "Appartamento a Fuengirola con 3 camere, terrazza di 18 m2, vista mare e ascensore nella zona Paseo Maritimo."
+      }
+    },
+    "nl": {
+      "title": "Appartement met 3 slaapkamers in Paseo Maritimo, Fuengirola",
+      "intro": "Wederverkoopwoning met 98 m2 bebouwde oppervlakte, een terras van 18 m2, zeezicht en een sterke ligging aan de stedelijke zeefrontzone van Fuengirola.",
+      "excerpt": "Wederverkoopwoning met 98 m2 bebouwde oppervlakte, een terras van 18 m2, zeezicht en een sterke ligging aan de stedelijke zeefrontzone van Fuengirola.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Het appartement beschikt over 3 slaapkamers, 2 badkamers en een functionele indeling op de tweede verdieping, met lift en buitenruimte voor kopers die willen wonen of investeren in een van de meest dynamische kustzones van Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning heeft zeezicht, een terras van 18 m2 en een beschikbare 3D virtuele tour voor een eerste bezoek op afstand. De woning wordt aangeboden zonder garage, zonder berging en zonder zwembad, en verkeert in goede algemene staat."
+        },
+        {
+          "type": "links",
+          "items": [
+            {
+              "label": "Bekijk de 3D-tour",
+              "url": "https://bit.ly/466Q9za"
+            }
+          ]
+        }
+      ],
+      "seo": {
+        "title": "Appartement met 3 slaapkamers in Paseo Maritimo, Fuengirola | BlancaReal",
+        "description": "Appartement in Fuengirola met 3 slaapkamers, terras van 18 m2, zeezicht en lift in de zone Paseo Maritimo."
+      }
+    }
+  }
+}
