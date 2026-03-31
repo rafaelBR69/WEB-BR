@@ -2,7 +2,11 @@ import type { APIRoute } from "astro";
 import posts from "@shared/data/posts";
 import teamMembers from "@shared/data/team";
 import { SUPPORTED_LANGS } from "@shared/i18n/languages";
-import { normalizeProperty, normalizePropertyCard, getPublicPropertiesWithFallback } from "@shared/properties/public";
+import {
+  normalizeProperty,
+  normalizePublicPropertyCards,
+  getPublicPropertiesWithFallback,
+} from "@shared/properties/public";
 import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
 
 const SITE_URL = "https://blancareal.com";
@@ -47,10 +51,7 @@ export const GET: APIRoute = async () => {
   });
 
   const landingUrls = SUPPORTED_LANGS.flatMap((lang) => {
-    const cards = properties
-      .map((property) => normalizePropertyCard(property, lang))
-      .filter(Boolean)
-      .filter((card) => card.visible);
+    const cards = normalizePublicPropertyCards(properties, lang).filter((card) => card.visible);
 
     return evaluatePropertyLandingEligibility({ lang, cards })
       .filter((entry) => entry.showInSitemap)

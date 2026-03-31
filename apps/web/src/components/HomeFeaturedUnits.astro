@@ -57,7 +57,13 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
           <div class="home-units-track">
             {cards.map((card) => (
               <div class="home-units-slide">
-                <PropertyCard data={card} lang={lang} />
+                <PropertyCard
+                  data={card}
+                  lang={lang}
+                  maxGallerySlides={1}
+                  compact={true}
+                  disableSrcSet={true}
+                />
               </div>
             ))}
           </div>

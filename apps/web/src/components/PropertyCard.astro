@@ -6,14 +6,19 @@ import FeatureBadge from "@webapp/components/FeatureBadge.astro";
 import { buildSupabaseImageUrl, buildSupabaseSrcSet } from "@shared/media/supabaseImage";
 import { getUiCopy } from "@shared/i18n/ui";
 
-const { data, lang } = Astro.props;
+const { data, lang, maxGallerySlides, compact = false, disableSrcSet = false } = Astro.props;
+const galleryLimit =
+  typeof maxGallerySlides === "number" && Number.isFinite(maxGallerySlides)
+    ? Math.max(1, Math.floor(maxGallerySlides))
+    : null;
 const galleryItems = Array.isArray(data.galleryPreview) && data.galleryPreview.length
   ? data.galleryPreview
   : data.cover
     ? [data.cover]
     : [];
+const visibleGalleryItems = galleryLimit ? galleryItems.slice(0, galleryLimit) : galleryItems;
 
-const gallerySlides = galleryItems
+const gallerySlides = visibleGalleryItems
   .map((item) => {
     const url = typeof item === "string" ? item : item?.url;
     if (!url) return null;
@@ -24,8 +29,12 @@ const gallerySlides = galleryItems
     return {
       url,
       alt,
-      src: buildSupabaseImageUrl(url, { width: 720, quality: 72 }) ?? url,
-      srcSet: buildSupabaseSrcSet(url, [320, 480, 640, 720], { quality: 72 }) || "",
+      src: buildSupabaseImageUrl(url, { width: compact ? 560 : 720, quality: 72 }) ?? url,
+      srcSet: disableSrcSet
+        ? ""
+        : buildSupabaseSrcSet(url, compact ? [320, 480, 560] : [320, 480, 640, 720], {
+            quality: 72,
+          }) || "",
     };
   })
   .filter(Boolean);
@@ -44,9 +53,25 @@ const galleryCopyByLang = {
   nl: { prev: "Vorige afbeelding", next: "Volgende afbeelding" },
 };
 const galleryUi = galleryCopyByLang[lang] ?? galleryCopyByLang.es;
+const compactLabelsByLang = {
+  es: { bedrooms: "dorm.", bathrooms: "banos" },
+  en: { bedrooms: "beds", bathrooms: "baths" },
+  de: { bedrooms: "sz.", bathrooms: "bader" },
+  fr: { bedrooms: "ch.", bathrooms: "sdb" },
+  it: { bedrooms: "cam.", bathrooms: "bagni" },
+  nl: { bedrooms: "slk.", bathrooms: "baden" },
+};
+const compactLabels = compactLabelsByLang[lang] ?? compactLabelsByLang.es;
+const compactSummary = [
+  data.details.bedrooms ? `${data.details.bedrooms} ${compactLabels.bedrooms}` : null,
+  data.details.bathrooms ? `${data.details.bathrooms} ${compactLabels.bathrooms}` : null,
+  areaValue ? areaValue : null,
+]
+  .filter(Boolean)
+  .join(" · ");
 ---
 
-<article class="property-card">
+<article class:list={["property-card", compact && "is-compact"]}>
   <div class="card-image" data-gallery-size={gallerySlides.length}>
     {gallerySlides.length > 0 ? (
       <div class="card-gallery" data-gallery-index="0">
@@ -56,7 +81,7 @@ const galleryUi = galleryCopyByLang[lang] ?? galleryCopyByLang.es;
               <img
                 src={slide.src}
                 srcset={slide.srcSet || undefined}
-                sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 380px"
+                sizes={compact ? "(max-width: 768px) 88vw, (max-width: 1200px) 32vw, 280px" : "(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 380px"}
                 width="720"
                 height="540"
                 data-fallback-src={slide.url}
@@ -131,7 +156,7 @@ const galleryUi = galleryCopyByLang[lang] ?? galleryCopyByLang.es;
       </div>
     </header>
 
-    {!data.isPromotion && (
+    {!compact && !data.isPromotion && (
       <ul class="meta">
         {data.details.bedrooms && (
           <li class="meta-item">
@@ -171,7 +196,9 @@ const galleryUi = galleryCopyByLang[lang] ?? galleryCopyByLang.es;
       </ul>
     )}
 
-    {data.features.length > 0 && (
+    {compact && compactSummary && <p class="compact-meta">{compactSummary}</p>}
+
+    {!compact && data.features.length > 0 && (
       <div class="features">
         {data.features.slice(0, 3).map((f) => (
           <FeatureBadge icon={f.icon} label={f.label} />
@@ -188,60 +215,6 @@ const galleryUi = galleryCopyByLang[lang] ?? galleryCopyByLang.es;
   </div>
 </article>
 
-<script is:inline>
-  if (!window.__advancePropertyCard) {
-    window.__advancePropertyCard = (gallery, direction) => {
-      if (!gallery) return;
-      const track = gallery.querySelector(".card-gallery-track");
-      const slides = Array.from(gallery.querySelectorAll(".card-gallery-slide"));
-      if (!track || slides.length <= 1) return;
-
-      const currentIndex = Number(gallery.dataset.galleryIndex || "0");
-      const nextIndex = (currentIndex + direction + slides.length) % slides.length;
-
-      gallery.dataset.galleryIndex = String(nextIndex);
-      track.style.transform = `translateX(-${nextIndex * 100}%)`;
-
-      const dots = gallery.querySelectorAll(".card-gallery-dot");
-      dots.forEach((dot, index) => {
-        dot.classList.toggle("is-active", index === nextIndex);
-      });
-    };
-  }
-
-  if (!window.__propertyCardSwipeBound) {
-    window.__propertyCardSwipeBound = true;
-    let startX = 0;
-    let startY = 0;
-    let activeGallery = null;
-
-    document.addEventListener("touchstart", (event) => {
-      const gallery = event.target.closest(".card-gallery");
-      if (!gallery) return;
-      const touch = event.changedTouches?.[0];
-      if (!touch) return;
-      activeGallery = gallery;
-      startX = touch.clientX;
-      startY = touch.clientY;
-    }, { passive: true });
-
-    document.addEventListener("touchend", (event) => {
-      if (!activeGallery) return;
-      const touch = event.changedTouches?.[0];
-      if (!touch) {
-        activeGallery = null;
-        return;
-      }
-
-      const deltaX = touch.clientX - startX;
-      const deltaY = touch.clientY - startY;
-      const isHorizontalGesture = Math.abs(deltaX) > 36 && Math.abs(deltaX) > Math.abs(deltaY);
-
-      if (isHorizontalGesture) {
-        window.__advancePropertyCard?.(activeGallery, deltaX < 0 ? 1 : -1);
-      }
-
-      activeGallery = null;
-    }, { passive: true });
-  }
+<script>
+  import "@webapp/scripts/property-card";
 </script>

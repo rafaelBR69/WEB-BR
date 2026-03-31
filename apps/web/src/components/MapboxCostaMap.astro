@@ -3,6 +3,7 @@ const {
   token,
   styleUrl = "mapbox://styles/mapbox/standard",
   features = [],
+  featuresUrl = "",
   poisUrl = "/data/pois.geojson",
   zonesUrl = "/data/zones.geojson",
   poiFilters = [
@@ -38,6 +39,9 @@ const featureCollection = {
   type: "FeatureCollection",
   features,
 };
+const serializedFeatureCollection = featureCollection.features.length
+  ? JSON.stringify(featureCollection)
+  : "";
 
 const shouldRenderExploreButton =
   mode === "detail" && !(showPois && showZones && enableRouting);
@@ -52,7 +56,8 @@ const shouldRenderExploreButton =
     data-mode={mode}
     data-load-strategy={loadStrategy}
     data-fit-to-features={fitToFeaturesOnLoad ? "true" : "false"}
-    data-features={JSON.stringify(featureCollection)}
+    data-features={serializedFeatureCollection || undefined}
+    data-features-url={featuresUrl || undefined}
     data-pois-url={poisUrl}
     data-zones-url={zonesUrl}
     data-poi-filters={JSON.stringify(poiFilters)}

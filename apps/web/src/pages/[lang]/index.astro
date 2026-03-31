@@ -67,10 +67,36 @@ const navigation = buildPublicNavigation({
   family: "home",
   section: "home",
 });
-const { properties } = await getPublicPropertiesWithFallback({});
+const HOME_PROJECT_IDS = ["PM0079", "PM0074", "PM0011"];
+const [
+  { properties: homeProjects },
+  { properties: homeProjectUnits },
+  { count: availableHomesCountRaw },
+] = await Promise.all([
+  getPublicPropertiesWithFallback({
+    query: {
+      ids: HOME_PROJECT_IDS,
+      listingTypes: ["promotion"],
+    },
+  }),
+  getPublicPropertiesWithFallback({
+    query: {
+      listingTypes: ["unit"],
+      parentIds: HOME_PROJECT_IDS,
+    },
+  }),
+  getPublicPropertiesWithFallback({
+    query: {
+      listingTypes: ["unit"],
+      statuses: ["available"],
+      countOnly: true,
+    },
+  }),
+]);
+const properties = [...homeProjects, ...homeProjectUnits];
 
 const projectCards = buildProjectShowcaseCards(properties, lang, {
-  allowedIds: ["PM0079", "PM0074", "PM0011"],
+  allowedIds: HOME_PROJECT_IDS,
   limit: 4,
 });
 
@@ -78,12 +104,10 @@ const featuredUnits = buildFeaturedChildUnitCards(properties, lang, {
   limit: 20,
 });
 
-const availableHomesCount = properties.filter((property) => {
-  if (property.status !== "available") return false;
-  if (property.listing_type !== "unit") return false;
-  if (!property.slugs?.[lang]) return false;
-  return true;
-}).length;
+const availableHomesCount =
+  typeof availableHomesCountRaw === "number" && Number.isFinite(availableHomesCountRaw)
+    ? availableHomesCountRaw
+    : 0;
 
 const formattedAvailableHomesCount = new Intl.NumberFormat(lang).format(availableHomesCount);
 

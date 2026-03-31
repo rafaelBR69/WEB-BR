@@ -1,6 +1,9 @@
 import type { APIRoute } from "astro";
 import { SUPPORTED_LANGS } from "@shared/i18n/languages";
-import { getPublicPropertiesWithFallback, normalizePropertyCard } from "@shared/properties/public";
+import {
+  getPublicPropertiesWithFallback,
+  normalizePublicPropertyCards,
+} from "@shared/properties/public";
 import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
 
 export const GET: APIRoute = async ({ url }) => {
@@ -13,10 +16,7 @@ export const GET: APIRoute = async ({ url }) => {
   });
 
   const report = langs.flatMap((lang) => {
-    const cards = properties
-      .map((property) => normalizePropertyCard(property, lang))
-      .filter(Boolean)
-      .filter((card) => card.visible);
+    const cards = normalizePublicPropertyCards(properties, lang).filter((card) => card.visible);
 
     return evaluatePropertyLandingEligibility({
       lang,

@@ -6,13 +6,10 @@ import PropertyCard from "@webapp/components/PropertyCard.astro";
 import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
 
-import { normalizePropertyCard } from "@shared/properties/public";
+import { normalizePublicPropertyCards } from "@shared/properties/public";
 import { normalizePropertyList } from "@shared/properties/public";
 import { buildFilters } from "@shared/properties/public";
 import { applyFilters } from "@shared/properties/public";
-import { normalizeCity } from "@shared/properties/public";
-import { normalizeArea } from "@shared/properties/public";
-import { isVillaFloorLabel, normalizeFloorFilterLabel } from "@shared/properties/public";
 import { displayLocation, formatPropertyType } from "@shared/presentation/common";
 import { TYPES, MARKET_TYPE } from "@shared/data/properties/taxonomies";
 import { FEATURES } from "@shared/i18n/features";
@@ -20,6 +17,10 @@ import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingE
 import { buildPropertyLandingHubs } from "@shared/seo/propertyLandingHubs";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
+import {
+  appendCatalogFiltersToSearchParams,
+  parseCatalogActiveFilters,
+} from "@shared/properties/catalogFilters";
 import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/components/filters.css";
 import "@webapp/styles/components/properties-grid.css";
@@ -365,13 +366,6 @@ const renderText = (
 ========================= */
 const { searchParams } = Astro.url;
 
-const getMultiParam = (key) => {
-  const values = searchParams.getAll(key)
-    .map((v) => String(v).trim())
-    .filter(Boolean);
-  return values.length ? values : null;
-};
-
 const toggleMulti = (current, value) => {
   const next = new Set(current || []);
   if (next.has(value)) {
@@ -382,63 +376,6 @@ const toggleMulti = (current, value) => {
   return Array.from(next);
 };
 
-const normalizeTypeParam = (value) => {
-  if (!value) return null;
-  const normalized = String(value).toLowerCase().trim();
-  if (TYPES[normalized]) return normalized;
-
-  for (const [key, def] of Object.entries(TYPES)) {
-    if (def.label?.[lang]?.toLowerCase() === normalized) return key;
-    if (def.label?.es?.toLowerCase() === normalized) return key;
-  }
-
-  return normalized;
-};
-
-const activeFilters = {
-  city: getMultiParam("city")
-    ? [...new Set(getMultiParam("city").map((v) => normalizeCity(v)).filter(Boolean))]
-    : null,
-
-  area: getMultiParam("area")
-    ? [...new Set(getMultiParam("area").map((v) => normalizeArea(v)).filter(Boolean))]
-    : null,
-
-  type: getMultiParam("type")
-    ? getMultiParam("type").map((v) => normalizeTypeParam(v))
-    : null,
-  feature: getMultiParam("feature")
-    ? [...new Set(getMultiParam("feature").map((v) => String(v).trim()).filter(Boolean))]
-    : null,
-  market: searchParams.get("market") || null,
-
-  bedrooms: getMultiParam("bedrooms")
-    ? getMultiParam("bedrooms").map((v) => Number(v)).filter((v) => !Number.isNaN(v))
-    : null,
-
-  floor: getMultiParam("floor")
-    ? [...new Set(
-        getMultiParam("floor")
-          .map((v) => normalizeFloorFilterLabel(v))
-          .filter((v): v is string => typeof v === "string" && !isVillaFloorLabel(v))
-      )]
-    : null,
-
-  priceMin: searchParams.get("priceMin")
-    ? Number(searchParams.get("priceMin"))
-    : null,
-
-  priceMax: searchParams.get("priceMax")
-    ? Number(searchParams.get("priceMax"))
-    : null,
-  search: searchParams.get("q")
-    ? String(searchParams.get("q")).trim()
-    : null,
-  ref: searchParams.get("ref")
-    ? String(searchParams.get("ref")).trim()
-    : null,
-};
-
 const hasTechnicalFilters =
   searchParams.has("sort") ||
   searchParams.has("page");
@@ -446,10 +383,7 @@ const hasTechnicalFilters =
 /* =========================
    LISTADO NORMALIZADO
 ========================= */
-const cards = properties
-  .map((p) => normalizePropertyCard(p, lang))
-  .filter(Boolean)
-  .filter((p) => p.visible);
+const cards = normalizePublicPropertyCards(properties, lang).filter((card) => card.visible);
 const eligibleLandings = evaluatePropertyLandingEligibility({
   lang,
   cards,
@@ -461,14 +395,11 @@ const catalogPriceBounds = {
   min: allCardPrices.length ? Math.min(...allCardPrices) : 0,
   max: allCardPrices.length ? Math.max(...allCardPrices) : 5000000,
 };
-
-if (typeof activeFilters.priceMin === "number" && activeFilters.priceMin <= catalogPriceBounds.min) {
-  activeFilters.priceMin = null;
-}
-
-if (typeof activeFilters.priceMax === "number" && activeFilters.priceMax >= catalogPriceBounds.max) {
-  activeFilters.priceMax = null;
-}
+const activeFilters = parseCatalogActiveFilters({
+  searchParams,
+  lang,
+  priceBounds: catalogPriceBounds,
+});
 
 /* =========================
    APLICAR FILTROS
@@ -748,43 +679,21 @@ const featuredShowcaseCard = sortedCards[0] ?? null;
 const listingCards = featuredShowcaseCard
   ? sortedCards.filter((card) => String(card.id) !== String(featuredShowcaseCard.id))
   : sortedCards;
-const compactMapFeatures = sortedUnitCards
-  .map((card) => {
-    const property = propertyById.get(String(card.id ?? ""));
-    const lng = Number(property?.location?.coordinates?.lng);
-    const lat = Number(property?.location?.coordinates?.lat);
-    if (!Number.isFinite(lng) || !Number.isFinite(lat) || !card.slug) return null;
-    const coverUrl =
-      typeof card.cover === "string"
-        ? card.cover
-        : String(card.cover?.url ?? "");
-
-    return {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [lng, lat],
-      },
-      properties: {
-        id: card.id,
-        title: card.title,
-        area: property?.location?.area ?? "",
-        city: property?.location?.city ?? "",
-        coverUrl,
-        coverUrlFallback: coverUrl,
-        listingType: "unit",
-        availableUnits: "",
-        summaryPrice: card.price ?? "",
-        summaryCurrency: card.currency ?? "EUR",
-        summaryBedroomsMin: card.details?.bedrooms ?? "",
-        summaryBedroomsMax: card.details?.bedrooms ?? "",
-        summaryAreaMin: card.details?.area_m2 ?? "",
-        summaryAreaMax: card.details?.area_m2 ?? "",
-        href: `/${lang}/property/${card.slug}/`,
-      },
-    };
-  })
-  .filter(Boolean);
+const canRenderCompactMapFeature = (card) => {
+  const property = propertyById.get(String(card.id ?? ""));
+  const lng = Number(property?.location?.coordinates?.lng);
+  const lat = Number(property?.location?.coordinates?.lat);
+  return Number.isFinite(lng) && Number.isFinite(lat) && Boolean(card.slug);
+};
+const compactMapFeatureCount = sortedUnitCards.filter((card) => canRenderCompactMapFeature(card)).length;
+const buildMapFeaturesUrl = (filters) => {
+  const params = new URLSearchParams();
+  params.set("lang", lang);
+  appendCatalogFiltersToSearchParams(params, filters);
+  const query = params.toString();
+  return `/api/v1/properties/map${query ? `?${query}` : ""}`;
+};
+const compactMapFeaturesUrl = buildMapFeaturesUrl(activeFilters);
 ---
 
 <BaseLayout
@@ -793,7 +702,6 @@ const compactMapFeatures = sortedUnitCards
   noindex={pageNoindex}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
-  enablePublicRealtime={true}
   {...navigation}
 >
   <div class={`properties-page ${isFiltered ? 'is-filtered' : ''}`}>
@@ -1322,14 +1230,14 @@ const compactMapFeatures = sortedUnitCards
           </section>
         )}
 
-        {(compactMapFeatures.length > 0 || featuredShowcaseCard) && (
+        {(compactMapFeatureCount > 0 || featuredShowcaseCard) && (
           <section class="properties-showcase-row" aria-label="Context showcase">
-            {compactMapFeatures.length > 0 && (
+            {compactMapFeatureCount > 0 && (
               <div class="properties-showcase-map">
                 <MapboxCostaMap
                   token={mapboxToken}
                   styleUrl={mapboxStyle}
-                  features={compactMapFeatures}
+                  featuresUrl={compactMapFeaturesUrl}
                   emptyMessage={t.mapEmpty}
                   resetViewLabel={t.mapReset}
                   mode="listing"
@@ -1344,7 +1252,7 @@ const compactMapFeatures = sortedUnitCards
             )}
             {featuredShowcaseCard && (
               <div class="properties-showcase-featured">
-                <PropertyCard data={featuredShowcaseCard} lang={lang} />
+                <PropertyCard data={featuredShowcaseCard} lang={lang} maxGallerySlides={1} />
               </div>
             )}
           </section>
@@ -1361,7 +1269,7 @@ const compactMapFeatures = sortedUnitCards
           <>
             <section class="properties-grid">
               {listingCards.map((data) => (
-                <PropertyCard data={data} lang={lang} />
+                <PropertyCard data={data} lang={lang} maxGallerySlides={1} />
               ))}
             </section>
           </>

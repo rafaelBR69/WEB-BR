@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { existsSync } from "node:fs";
 import path from "node:path";
 
 const [surface, command, ...rest] = process.argv.slice(2);
@@ -16,7 +17,16 @@ if (surface !== "web" && surface !== "crm") {
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptDir, "..");
-const astroBin = path.join(repoRoot, "node_modules", "astro", "astro.js");
+const astroEntrypoints = [
+  path.join(repoRoot, "node_modules", "astro", "astro.js"),
+  path.join(repoRoot, "node_modules", "astro", "bin", "astro.mjs"),
+];
+const astroBin = astroEntrypoints.find((candidate) => existsSync(candidate));
+
+if (!astroBin) {
+  console.error("Could not resolve Astro CLI entrypoint in node_modules/astro.");
+  process.exit(1);
+}
 
 const child = spawn(process.execPath, [astroBin, command, ...rest], {
   stdio: "inherit",

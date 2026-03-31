@@ -2,6 +2,11 @@ import { comparePromotionEditorialOrder, getPromotionEditorialRank } from "../co
 import { normalizePropertyCard } from "./normalizePropertyCard";
 
 type PublicProperty = Record<string, any>;
+const projectShowcaseCache = new WeakMap<PublicProperty[], Map<string, ProjectShowcaseCard[]>>();
+const featuredUnitShowcaseCache = new WeakMap<
+  PublicProperty[],
+  Map<string, FeaturedChildUnitCard[]>
+>();
 
 export type ProjectDemandLevel = "last_units" | "high_demand" | "open";
 
@@ -82,32 +87,33 @@ const mergeUnitWithParentMedia = (unit: PublicProperty, parent: PublicProperty) 
       : (parent.features ?? []),
 });
 
-export function buildProjectShowcaseCards(
+const buildProjectShowcaseCardsBase = (
   properties: PublicProperty[],
-  lang: string,
-  options: {
-    limit?: number;
-    allowedIds?: readonly string[];
-  } = {}
-): ProjectShowcaseCard[] {
-  const byId = new Map(properties.map((property) => [String(property.id), property]));
-  const allowedIds = Array.isArray(options.allowedIds) && options.allowedIds.length
-    ? new Set(options.allowedIds.map((id) => String(id)))
-    : null;
+  lang: string
+): ProjectShowcaseCard[] => {
+  const unitsByParentId = properties.reduce((map, property) => {
+    if (
+      property?.listing_type !== "unit" ||
+      property?.status === "private" ||
+      !property?.parent_id
+    ) {
+      return map;
+    }
+
+    const parentId = String(property.parent_id);
+    const current = map.get(parentId) ?? [];
+    current.push(property);
+    map.set(parentId, current);
+    return map;
+  }, new Map<string, PublicProperty[]>());
 
   return properties
     .filter((property) => property.listing_type === "promotion")
     .filter((property) => property.status !== "private")
     .filter((property) => isOwnProject(property))
     .filter((property) => property.slugs?.[lang])
-    .filter((property) => (allowedIds ? allowedIds.has(String(property.id)) : true))
     .map((project) => {
-      const units = properties.filter(
-        (item) =>
-          String(item.parent_id) === String(project.id) &&
-          item.listing_type === "unit" &&
-          item.status !== "private"
-      );
+      const units = unitsByParentId.get(String(project.id)) ?? [];
 
       const availableUnits = units.filter((item) => item.status === "available");
       const soldUnits = units.filter((item) => item.status === "sold");
@@ -177,17 +183,41 @@ export function buildProjectShowcaseCards(
       if (byDemand !== 0) return byDemand;
 
       return left.id.localeCompare(right.id, "es");
-    })
-    .slice(0, typeof options.limit === "number" ? options.limit : Number.POSITIVE_INFINITY);
-}
+    });
+};
 
-export function buildFeaturedChildUnitCards(
+export function buildProjectShowcaseCards(
   properties: PublicProperty[],
   lang: string,
   options: {
     limit?: number;
+    allowedIds?: readonly string[];
   } = {}
-): FeaturedChildUnitCard[] {
+): ProjectShowcaseCard[] {
+  const cachedByLang = projectShowcaseCache.get(properties);
+  const cachedCards = cachedByLang?.get(lang);
+  const baseCards = cachedCards ?? buildProjectShowcaseCardsBase(properties, lang);
+
+  if (!cachedCards) {
+    const nextCache = cachedByLang ?? new Map<string, ProjectShowcaseCard[]>();
+    nextCache.set(lang, baseCards);
+    projectShowcaseCache.set(properties, nextCache);
+  }
+
+  const allowedIds = Array.isArray(options.allowedIds) && options.allowedIds.length
+    ? new Set(options.allowedIds.map((id) => String(id)))
+    : null;
+  const filteredCards = allowedIds
+    ? baseCards.filter((card) => allowedIds.has(String(card.id)))
+    : baseCards;
+
+  return filteredCards.slice(0, typeof options.limit === "number" ? options.limit : Number.POSITIVE_INFINITY);
+}
+
+const buildFeaturedChildUnitCardsBase = (
+  properties: PublicProperty[],
+  lang: string
+): FeaturedChildUnitCard[] => {
   const byId = new Map(properties.map((property) => [String(property.id), property]));
   const grouped = properties
     .filter((property) => property.listing_type === "unit")
@@ -241,17 +271,17 @@ export function buildFeaturedChildUnitCards(
     });
   });
 
-  const limit = typeof options.limit === "number" ? options.limit : 20;
   const selection: FeaturedChildUnitCard[] = [];
+  const totalCards = Array.from(grouped.values()).reduce((sum, cards) => sum + cards.length, 0);
   let cursor = 0;
 
-  while (selection.length < limit) {
+  while (selection.length < totalCards) {
     let pushedInRound = false;
 
     parentIds.forEach((parentId) => {
       const cards = grouped.get(parentId) ?? [];
       const next = cards[cursor];
-      if (!next || selection.length >= limit) return;
+      if (!next || selection.length >= totalCards) return;
       selection.push(next);
       pushedInRound = true;
     });
@@ -261,4 +291,25 @@ export function buildFeaturedChildUnitCards(
   }
 
   return selection;
+};
+
+export function buildFeaturedChildUnitCards(
+  properties: PublicProperty[],
+  lang: string,
+  options: {
+    limit?: number;
+  } = {}
+): FeaturedChildUnitCard[] {
+  const cachedByLang = featuredUnitShowcaseCache.get(properties);
+  const cachedCards = cachedByLang?.get(lang);
+  const baseCards = cachedCards ?? buildFeaturedChildUnitCardsBase(properties, lang);
+
+  if (!cachedCards) {
+    const nextCache = cachedByLang ?? new Map<string, FeaturedChildUnitCard[]>();
+    nextCache.set(lang, baseCards);
+    featuredUnitShowcaseCache.set(properties, nextCache);
+  }
+
+  const limit = typeof options.limit === "number" ? options.limit : 20;
+  return baseCards.slice(0, limit);
 }

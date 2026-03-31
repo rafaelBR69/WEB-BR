@@ -5,7 +5,7 @@ import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import PropertyCard from "@webapp/components/PropertyCard.astro";
 import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
-import { normalizePropertyCard } from "@shared/properties/public";
+import { normalizePublicPropertyCards } from "@shared/properties/public";
 import { applyFilters } from "@shared/properties/public";
 import { INDEXABLE_CITIES } from "@shared/config/seoSlugs";
 import {
@@ -18,6 +18,7 @@ import { buildPropertyLandingSchema } from "@shared/seo/buildPropertyLandingSche
 import { buildPropertyLandingHubs } from "@shared/seo/propertyLandingHubs";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { comparePromotionEditorialOrder } from "@shared/config/promotionOrder";
+import { appendCatalogFiltersToSearchParams } from "@shared/properties/catalogFilters";
 import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/components/filters.css";
 import "@webapp/styles/components/properties-grid.css";
@@ -68,10 +69,7 @@ const navigation = buildPublicNavigation({
   properties,
 });
 
-const cards = properties
-  .map((property) => normalizePropertyCard(property, lang))
-  .filter(Boolean)
-  .filter((card) => card.visible);
+const cards = normalizePublicPropertyCards(properties, lang).filter((card) => card.visible);
 const eligibleLandings = evaluatePropertyLandingEligibility({
   lang,
   cards,
@@ -193,43 +191,21 @@ const featuredShowcaseCard = sortedCards[0] ?? null;
 const listingCards = featuredShowcaseCard
   ? sortedCards.filter((card) => String(card.id) !== String(featuredShowcaseCard.id))
   : sortedCards;
-const compactMapFeatures = sortedUnitCards
-  .map((card) => {
-    const property = propertyById.get(String(card.id ?? ""));
-    const lng = Number(property?.location?.coordinates?.lng);
-    const lat = Number(property?.location?.coordinates?.lat);
-    if (!Number.isFinite(lng) || !Number.isFinite(lat) || !card.slug) return null;
-    const coverUrl =
-      typeof card.cover === "string"
-        ? card.cover
-        : String(card.cover?.url ?? "");
-
-    return {
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [lng, lat],
-      },
-      properties: {
-        id: card.id,
-        title: card.title,
-        area: property?.location?.area ?? "",
-        city: property?.location?.city ?? "",
-        coverUrl,
-        coverUrlFallback: coverUrl,
-        listingType: "unit",
-        availableUnits: "",
-        summaryPrice: card.price ?? "",
-        summaryCurrency: card.currency ?? "EUR",
-        summaryBedroomsMin: card.details?.bedrooms ?? "",
-        summaryBedroomsMax: card.details?.bedrooms ?? "",
-        summaryAreaMin: card.details?.area_m2 ?? "",
-        summaryAreaMax: card.details?.area_m2 ?? "",
-        href: `/${lang}/property/${card.slug}/`,
-      },
-    };
-  })
-  .filter(Boolean);
+const canRenderCompactMapFeature = (card) => {
+  const property = propertyById.get(String(card.id ?? ""));
+  const lng = Number(property?.location?.coordinates?.lng);
+  const lat = Number(property?.location?.coordinates?.lat);
+  return Number.isFinite(lng) && Number.isFinite(lat) && Boolean(card.slug);
+};
+const compactMapFeatureCount = sortedUnitCards.filter((card) => canRenderCompactMapFeature(card)).length;
+const buildMapFeaturesUrl = (filters) => {
+  const params = new URLSearchParams();
+  params.set("lang", lang);
+  appendCatalogFiltersToSearchParams(params, filters);
+  const query = params.toString();
+  return `/api/v1/properties/map${query ? `?${query}` : ""}`;
+};
+const compactMapFeaturesUrl = buildMapFeaturesUrl(landing.queryFilters);
 
 const copyByLang = {
   es: {
@@ -363,7 +339,6 @@ const t = copyByLang[lang] ?? copyByLang.es;
   noindex={content.noindex}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
-  enablePublicRealtime={true}
   {...navigation}
   structuredData={structuredData}
   og={content.ogImage ? { image: content.ogImage } : undefined}
@@ -436,14 +411,14 @@ const t = copyByLang[lang] ?? copyByLang.es;
           </section>
         )}
 
-        {(compactMapFeatures.length > 0 || featuredShowcaseCard) && (
+        {(compactMapFeatureCount > 0 || featuredShowcaseCard) && (
           <section class="properties-showcase-row" aria-label="Landing catalogue showcase">
-            {compactMapFeatures.length > 0 && (
+            {compactMapFeatureCount > 0 && (
               <div class="properties-showcase-map">
                 <MapboxCostaMap
                   token={mapboxToken}
                   styleUrl={mapboxStyle}
-                  features={compactMapFeatures}
+                  featuresUrl={compactMapFeaturesUrl}
                   emptyMessage={t.mapEmpty}
                   resetViewLabel={t.mapReset}
                   mode="listing"
@@ -458,7 +433,7 @@ const t = copyByLang[lang] ?? copyByLang.es;
             )}
             {featuredShowcaseCard && (
               <div class="properties-showcase-featured">
-                <PropertyCard data={featuredShowcaseCard} lang={lang} />
+                <PropertyCard data={featuredShowcaseCard} lang={lang} maxGallerySlides={1} />
               </div>
             )}
           </section>
@@ -474,7 +449,7 @@ const t = copyByLang[lang] ?? copyByLang.es;
         ) : (
           <section class="properties-grid">
             {listingCards.map((data) => (
-              <PropertyCard data={data} lang={lang} />
+              <PropertyCard data={data} lang={lang} maxGallerySlides={1} />
             ))}
           </section>
         )}

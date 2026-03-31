@@ -13,6 +13,8 @@ import {
   resolvePrimaryMediaItem,
 } from "@shared/properties/resolvePropertyMedia";
 
+const normalizedPropertyCardsCache = new WeakMap<object[], Map<string, NormalizedPropertyCard[]>>();
+
 export function normalizePropertyCard(property: any, lang: string) {
   if (!property) return null;
 
@@ -98,4 +100,32 @@ export function normalizePropertyCard(property: any, lang: string) {
     searchTokens,
     searchScore: 0,
   };
+}
+
+export type NormalizedPropertyCard = NonNullable<ReturnType<typeof normalizePropertyCard>>;
+
+export function normalizePublicPropertyCards(
+  properties: any[],
+  lang: string
+): NormalizedPropertyCard[] {
+  if (!Array.isArray(properties) || properties.length === 0) {
+    return [];
+  }
+
+  const cacheKey = properties as object[];
+  const cachedByLang = normalizedPropertyCardsCache.get(cacheKey);
+  const cachedCards = cachedByLang?.get(lang);
+  if (cachedCards) {
+    return cachedCards;
+  }
+
+  const cards = properties.filter(Boolean)
+    .map((property) => normalizePropertyCard(property, lang))
+    .filter((card): card is NormalizedPropertyCard => Boolean(card));
+
+  const nextCache = cachedByLang ?? new Map<string, NormalizedPropertyCard[]>();
+  nextCache.set(lang, cards);
+  normalizedPropertyCardsCache.set(cacheKey, nextCache);
+
+  return cards;
 }

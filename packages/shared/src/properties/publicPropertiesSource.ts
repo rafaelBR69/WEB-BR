@@ -6,6 +6,50 @@ import { normalizePm0074PublicProperty } from "@/utils/normalizePm0074PublicProp
 
 type GenericRecord = Record<string, unknown>;
 type PublicProperty = Record<string, unknown>;
+type PublicPropertiesResult = {
+  properties: PublicProperty[];
+  source: string;
+  count: number | null;
+};
+type FallbackLoader = () => Promise<PublicProperty[]>;
+type PublicListingType = "promotion" | "unit" | "resale" | "rental";
+export type PublicPropertiesQuery = {
+  ids?: string[];
+  listingTypes?: PublicListingType[];
+  statuses?: string[];
+  parentIds?: string[];
+  onlyOwnProjects?: boolean;
+  limit?: number;
+  slug?: string;
+  slugLang?: string;
+  countOnly?: boolean;
+};
+type NormalizedPublicPropertiesQuery = {
+  ids: string[];
+  listingTypes: PublicListingType[];
+  statuses: string[];
+  parentIds: string[];
+  onlyOwnProjects: boolean;
+  limit: number | null;
+  slug: string | null;
+  slugLang: string | null;
+  countOnly: boolean;
+};
+
+const PUBLIC_PROPERTIES_CACHE_TTL_MS = (() => {
+  const parsed = Number(import.meta.env.PUBLIC_PROPERTIES_CACHE_TTL_MS ?? 60_000);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+})();
+
+const publicPropertiesCache = new Map<
+  string,
+  {
+    expiresAt: number;
+    value: PublicPropertiesResult | null;
+    promise: Promise<PublicPropertiesResult> | null;
+  }
+>();
+let fallbackPropertiesPromise: Promise<PublicProperty[]> | null = null;
 
 const SELECT_COLUMNS = [
   "id",
@@ -70,15 +114,72 @@ const asBoolean = (value: unknown, fallback = false): boolean => {
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 
+const normalizeFallbackProperties = (properties: PublicProperty[]) =>
+  clone(properties).map((property) => normalizePm0074PublicProperty(property));
+
 const loadFallbackProperties = async () => {
-  const mod = await import("@shared/data/properties");
-  return clone((mod.default ?? []) as PublicProperty[]).map((property) =>
-    normalizePm0074PublicProperty(property)
+  if (fallbackPropertiesPromise) {
+    return fallbackPropertiesPromise;
+  }
+
+  fallbackPropertiesPromise = import("@shared/data/properties").then((mod) =>
+    normalizeFallbackProperties((mod.default ?? []) as PublicProperty[])
   );
+
+  return fallbackPropertiesPromise;
+};
+
+const createFallbackLoader = (fallbackProperties?: PublicProperty[]): FallbackLoader => {
+  let promise: Promise<PublicProperty[]> | null = null;
+
+  return () => {
+    if (promise) {
+      return promise;
+    }
+
+    promise = fallbackProperties
+      ? Promise.resolve(normalizeFallbackProperties(fallbackProperties))
+      : loadFallbackProperties();
+
+    return promise;
+  };
 };
 
 const isListingType = (value: string | null): value is "promotion" | "unit" | "resale" | "rental" =>
   value === "promotion" || value === "unit" || value === "resale" || value === "rental";
+
+const normalizeStringList = (values: unknown): string[] => {
+  if (!Array.isArray(values)) return [];
+  return Array.from(
+    new Set(
+      values
+        .map((value) => (typeof value === "string" ? value.trim() : ""))
+        .filter(Boolean)
+    )
+  ).sort((left, right) => left.localeCompare(right, undefined, { numeric: true }));
+};
+
+const normalizeListingTypes = (values: unknown): PublicListingType[] =>
+  normalizeStringList(values).filter((value): value is PublicListingType => isListingType(value));
+
+const normalizeLimit = (value: unknown) => {
+  const parsed = typeof value === "number" ? value : Number(value);
+  return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : null;
+};
+
+const normalizePublicPropertiesQuery = (
+  query?: PublicPropertiesQuery
+): NormalizedPublicPropertiesQuery => ({
+  ids: normalizeStringList(query?.ids),
+  listingTypes: normalizeListingTypes(query?.listingTypes),
+  statuses: normalizeStringList(query?.statuses),
+  parentIds: normalizeStringList(query?.parentIds),
+  onlyOwnProjects: query?.onlyOwnProjects === true,
+  limit: normalizeLimit(query?.limit),
+  slug: asText(query?.slug),
+  slugLang: asText(query?.slugLang),
+  countOnly: query?.countOnly === true,
+});
 
 const toListingType = (row: GenericRecord) => {
   const listingType = asText(row.listing_type);
@@ -118,6 +219,11 @@ const getPublicOrganizationId = () =>
   null;
 
 const allowAllOrganizations = () => import.meta.env.PUBLIC_CRM_ALLOW_ALL_ORGS === "true";
+const OWN_PROJECT_BUSINESS_TYPE = "owned_and_commercialized";
+const getPublicPropertiesCacheKey = (
+  organizationId: string | null,
+  query: NormalizedPublicPropertiesQuery
+) => `${organizationId ?? "__all__"}::${JSON.stringify(query)}`;
 
 const getLanguages = (translations: GenericRecord, slugs: GenericRecord) => {
   const keys = new Set<string>([
@@ -171,7 +277,7 @@ const mapCrmRowToPublicProperty = (
     listing_type: listingType,
     record_type: asText(row.record_type) ?? "single",
     project_business_type: asText(row.project_business_type),
-    is_own_project: asText(row.project_business_type) === "owned_and_commercialized",
+    is_own_project: asText(row.project_business_type) === OWN_PROJECT_BUSINESS_TYPE,
     status,
     featured: asBoolean(row.is_featured, false),
     is_public: asBoolean(row.is_public, true),
@@ -199,13 +305,136 @@ const mapCrmRowToPublicProperty = (
   };
 };
 
-const fetchAllPublicRows = async (organizationId: string | null): Promise<GenericRecord[]> => {
+const matchesPublicPropertiesQuery = (
+  property: PublicProperty,
+  query: NormalizedPublicPropertiesQuery
+) => {
+  const id = String(property.id ?? "").trim();
+  const listingType = String(property.listing_type ?? "").trim();
+  const status = String(property.status ?? "").trim();
+  const parentId = String(property.parent_id ?? "").trim();
+  const slugValue =
+    query.slug && query.slugLang ? asText(asRecord(property.slugs)[query.slugLang]) : null;
+  const isOwnProject =
+    property.is_own_project === true ||
+    property.project_business_type === OWN_PROJECT_BUSINESS_TYPE;
+
+  if (query.ids.length > 0 && !query.ids.includes(id)) return false;
+  if (query.listingTypes.length > 0 && !query.listingTypes.includes(listingType as PublicListingType)) {
+    return false;
+  }
+  if (query.statuses.length > 0 && !query.statuses.includes(status)) return false;
+  if (query.parentIds.length > 0 && !query.parentIds.includes(parentId)) return false;
+  if (query.slug && query.slugLang && slugValue !== query.slug) return false;
+  if (query.onlyOwnProjects && !isOwnProject) return false;
+  return true;
+};
+
+const filterPublicPropertiesByQuery = (
+  properties: PublicProperty[],
+  query: NormalizedPublicPropertiesQuery
+) => properties.filter((property) => matchesPublicPropertiesQuery(property, query));
+
+const countPublicPropertiesQueryMatches = (
+  properties: PublicProperty[],
+  query: NormalizedPublicPropertiesQuery
+) => filterPublicPropertiesByQuery(properties, query).length;
+
+const applyPublicPropertiesQuery = (
+  properties: PublicProperty[],
+  query: NormalizedPublicPropertiesQuery
+) => {
+  const filtered = filterPublicPropertiesByQuery(properties, query);
+  return query.limit ? filtered.slice(0, query.limit) : filtered;
+};
+
+const resolveParentCrmIds = async (organizationId: string | null, parentIds: string[]) => {
+  if (!parentIds.length) return [];
+
+  const client = getSupabaseServerClient();
+  if (!client) return [];
+
+  let query = client
+    .schema("crm")
+    .from("properties")
+    .select("id")
+    .eq("is_public", true)
+    .in("legacy_code", parentIds);
+
+  if (organizationId) query = query.eq("organization_id", organizationId);
+
+  const { data, error } = await query;
+  if (error) throw new Error(error.message);
+
+  return Array.from(
+    new Set(
+      ((data ?? []) as GenericRecord[])
+        .map((row) => asText(row.id))
+        .filter((value): value is string => Boolean(value))
+    )
+  );
+};
+
+const applySupabasePublicPropertiesFilters = (
+  query: any,
+  organizationId: string | null,
+  queryOptions: NormalizedPublicPropertiesQuery,
+  parentCrmIds: string[]
+) => {
+  if (organizationId) query = query.eq("organization_id", organizationId);
+  if (queryOptions.ids.length > 0) query = query.in("legacy_code", queryOptions.ids);
+  if (queryOptions.listingTypes.length > 0) query = query.in("listing_type", queryOptions.listingTypes);
+  if (queryOptions.statuses.length > 0) query = query.in("status", queryOptions.statuses);
+  if (queryOptions.slug && queryOptions.slugLang) {
+    query = query.contains("slugs", { [queryOptions.slugLang]: queryOptions.slug });
+  }
+  if (queryOptions.onlyOwnProjects) {
+    query = query.eq("project_business_type", OWN_PROJECT_BUSINESS_TYPE);
+  }
+  if (parentCrmIds.length > 0) query = query.in("parent_property_id", parentCrmIds);
+  return query;
+};
+
+const fetchPublicRowsCount = async (
+  organizationId: string | null,
+  queryOptions: NormalizedPublicPropertiesQuery
+) => {
+  const client = getSupabaseServerClient();
+  if (!client) return 0;
+
+  const parentCrmIds = await resolveParentCrmIds(organizationId, queryOptions.parentIds);
+  if (queryOptions.parentIds.length > 0 && parentCrmIds.length === 0) {
+    return 0;
+  }
+
+  let query = client
+    .schema("crm")
+    .from("properties")
+    .select("id", { count: "exact", head: true })
+    .eq("is_public", true);
+
+  query = applySupabasePublicPropertiesFilters(query, organizationId, queryOptions, parentCrmIds);
+
+  const { count, error } = await query;
+  if (error) throw new Error(error.message);
+
+  return typeof count === "number" ? count : 0;
+};
+
+const fetchAllPublicRows = async (
+  organizationId: string | null,
+  queryOptions: NormalizedPublicPropertiesQuery
+): Promise<GenericRecord[]> => {
   const client = getSupabaseServerClient();
   if (!client) return [];
 
   const pageSize = 500;
   let from = 0;
   const rows: GenericRecord[] = [];
+  const parentCrmIds = await resolveParentCrmIds(organizationId, queryOptions.parentIds);
+  if (queryOptions.parentIds.length > 0 && parentCrmIds.length === 0) {
+    return [];
+  }
 
   while (true) {
     let query = client
@@ -216,7 +445,7 @@ const fetchAllPublicRows = async (organizationId: string | null): Promise<Generi
       .order("updated_at", { ascending: false })
       .range(from, from + pageSize - 1);
 
-    if (organizationId) query = query.eq("organization_id", organizationId);
+    query = applySupabasePublicPropertiesFilters(query, organizationId, queryOptions, parentCrmIds);
 
     const { data, error } = await query;
     if (error) throw new Error(error.message);
@@ -230,28 +459,79 @@ const fetchAllPublicRows = async (organizationId: string | null): Promise<Generi
   return rows;
 };
 
-export const getPublicPropertiesWithFallback = async (options: {
-  fallbackProperties?: PublicProperty[];
-  organizationId?: string | null;
-}) => {
-  const fallback = options.fallbackProperties
-    ? clone(options.fallbackProperties).map((property) => normalizePm0074PublicProperty(property))
-    : await loadFallbackProperties();
-  const requestedOrgId = asText(options.organizationId) ?? getPublicOrganizationId();
-  const canQueryAllOrgs = allowAllOrganizations();
+const buildFallbackPublicPropertiesResult = async (
+  fallbackLoader: FallbackLoader,
+  queryOptions: NormalizedPublicPropertiesQuery,
+  source: string
+): Promise<PublicPropertiesResult> => {
+  const fallbackProperties = await fallbackLoader();
+  if (queryOptions.countOnly) {
+    return {
+      properties: [],
+      source,
+      count: countPublicPropertiesQueryMatches(fallbackProperties, queryOptions),
+    };
+  }
 
+  return {
+    properties: applyPublicPropertiesQuery(fallbackProperties, queryOptions),
+    source,
+    count: null,
+  };
+};
+
+const resolvePublicProperties = async ({
+  fallbackLoader,
+  requestedOrgId,
+  canQueryAllOrgs,
+  queryOptions,
+}: {
+  fallbackLoader: FallbackLoader;
+  requestedOrgId: string | null;
+  canQueryAllOrgs: boolean;
+  queryOptions: NormalizedPublicPropertiesQuery;
+}): Promise<PublicPropertiesResult> => {
   if (!hasSupabaseServerClient()) {
-    return { properties: fallback, source: "fallback_json_no_supabase" as const };
+    return buildFallbackPublicPropertiesResult(
+      fallbackLoader,
+      queryOptions,
+      "fallback_json_no_supabase"
+    );
   }
 
   if (!requestedOrgId && !canQueryAllOrgs) {
-    return { properties: fallback, source: "fallback_json_no_org_scope" as const };
+    return buildFallbackPublicPropertiesResult(
+      fallbackLoader,
+      queryOptions,
+      "fallback_json_no_org_scope"
+    );
   }
 
   try {
-    const rows = await fetchAllPublicRows(requestedOrgId ?? null);
+    if (queryOptions.countOnly) {
+      const count = await fetchPublicRowsCount(requestedOrgId ?? null, queryOptions);
+      if (count > 0) {
+        return {
+          properties: [],
+          source: "supabase_crm_properties_count",
+          count,
+        };
+      }
+
+      return buildFallbackPublicPropertiesResult(
+        fallbackLoader,
+        queryOptions,
+        "fallback_json_no_rows"
+      );
+    }
+
+    const rows = await fetchAllPublicRows(requestedOrgId ?? null, queryOptions);
     if (!rows.length) {
-      return { properties: fallback, source: "fallback_json_no_rows" as const };
+      return buildFallbackPublicPropertiesResult(
+        fallbackLoader,
+        queryOptions,
+        "fallback_json_no_rows"
+      );
     }
 
     const parentLegacyCodeById = new Map<string, string>();
@@ -261,18 +541,89 @@ export const getPublicPropertiesWithFallback = async (options: {
       if (id && legacyCode) parentLegacyCodeById.set(id, legacyCode);
     });
 
-    const mapped = rows
-      .map((row) => mapCrmRowToPublicProperty(row, parentLegacyCodeById))
-      .map((row) => (row ? normalizePm0074PublicProperty(row) : row))
-      .filter((row): row is PublicProperty => Boolean(row))
-      .sort((a, b) => String(a.id ?? "").localeCompare(String(b.id ?? ""), undefined, { numeric: true }));
+    const mapped = applyPublicPropertiesQuery(
+      rows
+        .map((row) => mapCrmRowToPublicProperty(row, parentLegacyCodeById))
+        .map((row) => (row ? normalizePm0074PublicProperty(row) : row))
+        .filter((row): row is PublicProperty => Boolean(row))
+        .sort((a, b) => String(a.id ?? "").localeCompare(String(b.id ?? ""), undefined, { numeric: true })),
+      queryOptions
+    );
 
     if (!mapped.length) {
-      return { properties: fallback, source: "fallback_json_empty_mapping" as const };
+      return buildFallbackPublicPropertiesResult(
+        fallbackLoader,
+        queryOptions,
+        "fallback_json_empty_mapping"
+      );
     }
 
-    return { properties: mapped, source: "supabase_crm_properties" as const };
+    return { properties: mapped, source: "supabase_crm_properties", count: null };
   } catch {
-    return { properties: fallback, source: "fallback_json_query_error" as const };
+    return buildFallbackPublicPropertiesResult(
+      fallbackLoader,
+      queryOptions,
+      "fallback_json_query_error"
+    );
   }
+};
+
+export const getPublicPropertiesWithFallback = async (options: {
+  fallbackProperties?: PublicProperty[];
+  organizationId?: string | null;
+  query?: PublicPropertiesQuery;
+}) => {
+  const requestedOrgId = asText(options.organizationId) ?? getPublicOrganizationId();
+  const canQueryAllOrgs = allowAllOrganizations();
+  const fallbackLoader = createFallbackLoader(options.fallbackProperties);
+  const queryOptions = normalizePublicPropertiesQuery(options.query);
+
+  const shouldUseCache = PUBLIC_PROPERTIES_CACHE_TTL_MS > 0 && !options.fallbackProperties;
+  if (!shouldUseCache) {
+    return resolvePublicProperties({
+      fallbackLoader,
+      requestedOrgId,
+      canQueryAllOrgs,
+      queryOptions,
+    });
+  }
+
+  const cacheKey = getPublicPropertiesCacheKey(requestedOrgId ?? null, queryOptions);
+  const now = Date.now();
+  const cached = publicPropertiesCache.get(cacheKey);
+
+  if (cached?.value && cached.expiresAt > now) {
+    return cached.value;
+  }
+
+  if (cached?.promise) {
+    return cached.promise;
+  }
+
+  const promise = resolvePublicProperties({
+    fallbackLoader,
+    requestedOrgId,
+    canQueryAllOrgs,
+    queryOptions,
+  })
+    .then((result) => {
+      publicPropertiesCache.set(cacheKey, {
+        expiresAt: Date.now() + PUBLIC_PROPERTIES_CACHE_TTL_MS,
+        value: result,
+        promise: null,
+      });
+      return result;
+    })
+    .catch((error) => {
+      publicPropertiesCache.delete(cacheKey);
+      throw error;
+    });
+
+  publicPropertiesCache.set(cacheKey, {
+    expiresAt: cached?.expiresAt ?? 0,
+    value: cached?.value ?? null,
+    promise,
+  });
+
+  return promise;
 };

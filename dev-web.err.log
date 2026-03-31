@@ -1,7 +1,0 @@
-[31m[1m15:45:36[22m [ERROR] [vite][39m [31mWebSocket server error: Port 4321 is already in use[39m
-Port 4321 is already in use
-  [1mLocation:[22m
-    [4mC:\Users\elena\Desktop\WEB-BR\node_modules\vite\dist\node\chunks\dep-D4NMHUTW.js:25023:18[24m
-  [1mStack trace:[22m
-[2m    at Server.onError (file:///C:/Users/elena/Desktop/WEB-BR/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:25023:18)
-    at emitErrorNT (node:net:1976:8)[22m

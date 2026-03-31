@@ -1,3 +1,5 @@
+import mapboxCssUrl from "mapbox-gl/dist/mapbox-gl.css?url";
+
 type Feature = {
   id?: string | number;
   geometry?: {
@@ -23,6 +25,7 @@ type MapState = {
   map: any;
   mapboxgl: any;
   featureCollection: FeatureCollection;
+  featureCollectionPromise: Promise<FeatureCollection> | null;
   activePoiCategories: Set<string>;
   extrasLoaded: boolean;
   routeOrigin: [number, number] | null;
@@ -31,6 +34,7 @@ type MapState = {
 };
 
 const mapStates = new WeakMap<HTMLElement, MapState>();
+let mapboxStylesheetPromise: Promise<void> | null = null;
 
 const parseBoolean = (value: string | undefined) => value === "true";
 
@@ -55,6 +59,9 @@ const toFeatureCollection = (features: Feature[]): FeatureCollection => ({
   features,
 });
 
+const normalizeFeatureCollection = (value: FeatureCollection | null | undefined): FeatureCollection =>
+  toFeatureCollection(withStableFeatures(Array.isArray(value?.features) ? value.features : []));
+
 const withStableFeatures = (features: Feature[]) =>
   features
     .filter((feature) => Array.isArray(feature.geometry?.coordinates))
@@ -62,6 +69,80 @@ const withStableFeatures = (features: Feature[]) =>
       ...feature,
       id: feature.id ?? `feature-${index + 1}`,
     }));
+
+const ensureMapboxStylesheet = () => {
+  if (typeof document === "undefined") {
+    return Promise.resolve();
+  }
+
+  if (mapboxStylesheetPromise) {
+    return mapboxStylesheetPromise;
+  }
+
+  const href = String(mapboxCssUrl || "").trim();
+  if (!href) {
+    return Promise.resolve();
+  }
+
+  const existing = document.querySelector<HTMLLinkElement>(
+    `link[rel="stylesheet"][href="${href}"]`
+  );
+  if (existing) {
+    mapboxStylesheetPromise = Promise.resolve();
+    return mapboxStylesheetPromise;
+  }
+
+  mapboxStylesheetPromise = new Promise((resolve) => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.dataset.mapboxStyles = "true";
+    link.addEventListener("load", () => resolve(), { once: true });
+    link.addEventListener("error", () => resolve(), { once: true });
+    document.head.append(link);
+  });
+
+  return mapboxStylesheetPromise;
+};
+
+const loadFeatureCollection = async (root: HTMLElement, state: MapState) => {
+  if (state.featureCollection.features.length > 0) {
+    return state.featureCollection;
+  }
+
+  const featuresUrl = String(root.dataset.featuresUrl ?? "").trim();
+  if (!featuresUrl) {
+    return state.featureCollection;
+  }
+
+  if (state.featureCollectionPromise) {
+    return state.featureCollectionPromise;
+  }
+
+  const promise = fetch(featuresUrl, {
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then(async (response) => {
+      if (!response.ok) {
+        return state.featureCollection;
+      }
+
+      const payload = await response.json();
+      const normalized = normalizeFeatureCollection(payload as FeatureCollection);
+      state.featureCollection = normalized;
+      state.featureCollectionPromise = null;
+      return normalized;
+    })
+    .catch(() => {
+      state.featureCollectionPromise = null;
+      return state.featureCollection;
+    });
+
+  state.featureCollectionPromise = promise;
+  return promise;
+};
 
 const buildPopupHtml = (
   feature: Feature,
@@ -372,10 +453,11 @@ const bootMap = async (root: HTMLElement) => {
     loading: true,
     map: null,
     mapboxgl: null,
-    featureCollection: parseJson<FeatureCollection>(root.dataset.features, {
+    featureCollection: normalizeFeatureCollection(parseJson<FeatureCollection>(root.dataset.features, {
       type: "FeatureCollection",
       features: [],
-    }),
+    })),
+    featureCollectionPromise: null,
     activePoiCategories: new Set<string>(),
     extrasLoaded: false,
     routeOrigin: null,
@@ -398,11 +480,11 @@ const bootMap = async (root: HTMLElement) => {
 
   const [{ default: mapboxgl }] = await Promise.all([
     import("mapbox-gl"),
-    import("mapbox-gl/dist/mapbox-gl.css"),
+    ensureMapboxStylesheet(),
   ]);
 
   const compactMode = root.closest(".is-compact") instanceof HTMLElement;
-  const featureCollection = toFeatureCollection(withStableFeatures(state.featureCollection.features || []));
+  const featureCollection = await loadFeatureCollection(root, state);
 
   mapboxgl.accessToken = root.dataset.token || "";
   const map = new mapboxgl.Map({
