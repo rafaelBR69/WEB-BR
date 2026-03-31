@@ -29,6 +29,7 @@ const isWebAllowedApiPath = (pathname: string): boolean => {
   if (pathname === "/api/v1/health") return true;
   if (isPrivateOpsMaintenancePath(pathname)) return true;
   if (pathname === "/api/v1/leads") return true;
+  if (pathname === "/api/v1/properties/map") return true;
   return pathname.startsWith("/api/v1/portal/");
 };
 
