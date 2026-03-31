@@ -18,7 +18,11 @@ const sortUnitCardsForMap = (cards: any[]) =>
 export const GET: APIRoute = async ({ url }) => {
   const requestedLang = String(url.searchParams.get("lang") ?? DEFAULT_LANG).trim().toLowerCase();
   const lang = isSupportedLang(requestedLang) ? requestedLang : DEFAULT_LANG;
-  const { properties } = await getPublicPropertiesWithFallback({});
+  const { properties } = await getPublicPropertiesWithFallback({
+    query: {
+      selectProfile: "card",
+    },
+  });
 
   const cards = normalizeVisiblePublicPropertyCards(properties, lang);
 

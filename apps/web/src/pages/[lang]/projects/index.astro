@@ -18,6 +18,7 @@ const { properties: projectPromotions } = await getPublicPropertiesWithFallback(
   query: {
     listingTypes: ["promotion"],
     onlyOwnProjects: true,
+    selectProfile: "card",
   },
 });
 const projectIds = projectPromotions
@@ -28,6 +29,7 @@ const { properties: projectUnits } = projectIds.length
       query: {
         listingTypes: ["unit"],
         parentIds: projectIds,
+        selectProfile: "card",
       },
     })
   : { properties: [] };

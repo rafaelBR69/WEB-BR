@@ -77,12 +77,14 @@ const [
     query: {
       ids: HOME_PROJECT_IDS,
       listingTypes: ["promotion"],
+      selectProfile: "card",
     },
   }),
   getPublicPropertiesWithFallback({
     query: {
       listingTypes: ["unit"],
       parentIds: HOME_PROJECT_IDS,
+      selectProfile: "card",
     },
   }),
   getPublicPropertiesWithFallback({

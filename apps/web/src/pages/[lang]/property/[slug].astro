@@ -30,6 +30,7 @@ const [{ properties: navPromotions }, { properties: propertyByLangMatches }] = a
     query: {
       listingTypes: ["promotion"],
       onlyOwnProjects: true,
+      selectProfile: "card",
     },
   }),
   getPublicPropertiesWithFallback({
@@ -48,6 +49,7 @@ const { properties: navProjectUnits } = navProjectIds.length
       query: {
         listingTypes: ["unit"],
         parentIds: navProjectIds,
+        selectProfile: "card",
       },
     })
   : { properties: [] };

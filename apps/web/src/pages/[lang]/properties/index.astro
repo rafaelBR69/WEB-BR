@@ -32,7 +32,11 @@ if (!isSupportedLang(langParam)) {
 }
 
 const lang = langParam;
-const { properties } = await getPublicPropertiesWithFallback({});
+const { properties } = await getPublicPropertiesWithFallback({
+  query: {
+    selectProfile: "card",
+  },
+});
 const navigation = buildPublicNavigation({
   lang,
   family: "catalog",

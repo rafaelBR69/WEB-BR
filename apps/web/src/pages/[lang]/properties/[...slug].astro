@@ -61,7 +61,11 @@ if (requestedSeoKey && requestedSeoKey !== landing.seoKey) {
   return Astro.redirect(landing.canonicalPath, 301);
 }
 
-const { properties } = await getPublicPropertiesWithFallback({});
+const { properties } = await getPublicPropertiesWithFallback({
+  query: {
+    selectProfile: "card",
+  },
+});
 const navigation = buildPublicNavigation({
   lang,
   family: "catalog",

@@ -13,6 +13,9 @@ export const GET: APIRoute = async ({ url }) => {
     : [...SUPPORTED_LANGS];
 
   const { properties, source } = await getPublicPropertiesWithFallback({
+    query: {
+      selectProfile: "card",
+    },
   });
 
   const report = langs.flatMap((lang) => {

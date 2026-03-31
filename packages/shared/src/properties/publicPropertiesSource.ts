@@ -23,6 +23,7 @@ export type PublicPropertiesQuery = {
   slug?: string;
   slugLang?: string;
   countOnly?: boolean;
+  selectProfile?: "full" | "card";
 };
 type NormalizedPublicPropertiesQuery = {
   ids: string[];
@@ -34,6 +35,7 @@ type NormalizedPublicPropertiesQuery = {
   slug: string | null;
   slugLang: string | null;
   countOnly: boolean;
+  selectProfile: "full" | "card";
 };
 
 const PUBLIC_PROPERTIES_CACHE_TTL_MS = (() => {
@@ -51,7 +53,7 @@ const publicPropertiesCache = new Map<
 >();
 let fallbackPropertiesPromise: Promise<PublicProperty[]> | null = null;
 
-const SELECT_COLUMNS = [
+const FULL_SELECT_COLUMNS = [
   "id",
   "organization_id",
   "website_id",
@@ -75,6 +77,26 @@ const SELECT_COLUMNS = [
   "seo",
   "created_at",
   "updated_at",
+  "parent_property_id",
+].join(", ");
+
+const CARD_SELECT_COLUMNS = [
+  "id",
+  "legacy_code",
+  "record_type",
+  "project_business_type",
+  "operation_type",
+  "listing_type",
+  "status",
+  "price_sale",
+  "price_rent_monthly",
+  "price_currency",
+  "property_data",
+  "location",
+  "features",
+  "media",
+  "translations",
+  "slugs",
   "parent_property_id",
 ].join(", ");
 
@@ -179,6 +201,7 @@ const normalizePublicPropertiesQuery = (
   slug: asText(query?.slug),
   slugLang: asText(query?.slugLang),
   countOnly: query?.countOnly === true,
+  selectProfile: query?.selectProfile === "card" ? "card" : "full",
 });
 
 const toListingType = (row: GenericRecord) => {
@@ -348,16 +371,26 @@ const applyPublicPropertiesQuery = (
   return query.limit ? filtered.slice(0, query.limit) : filtered;
 };
 
-const resolveParentCrmIds = async (organizationId: string | null, parentIds: string[]) => {
-  if (!parentIds.length) return [];
+const resolveParentCrmReferences = async (organizationId: string | null, parentIds: string[]) => {
+  if (!parentIds.length) {
+    return {
+      ids: [] as string[],
+      legacyCodeById: new Map<string, string>(),
+    };
+  }
 
   const client = getSupabaseServerClient();
-  if (!client) return [];
+  if (!client) {
+    return {
+      ids: [] as string[],
+      legacyCodeById: new Map<string, string>(),
+    };
+  }
 
   let query = client
     .schema("crm")
     .from("properties")
-    .select("id")
+    .select("id, legacy_code")
     .eq("is_public", true)
     .in("legacy_code", parentIds);
 
@@ -366,13 +399,23 @@ const resolveParentCrmIds = async (organizationId: string | null, parentIds: str
   const { data, error } = await query;
   if (error) throw new Error(error.message);
 
-  return Array.from(
+  const ids = Array.from(
     new Set(
       ((data ?? []) as GenericRecord[])
         .map((row) => asText(row.id))
         .filter((value): value is string => Boolean(value))
     )
   );
+  const legacyCodeById = new Map<string, string>();
+  ((data ?? []) as GenericRecord[]).forEach((row) => {
+    const id = asText(row.id);
+    const legacyCode = asText(row.legacy_code);
+    if (id && legacyCode) {
+      legacyCodeById.set(id, legacyCode);
+    }
+  });
+
+  return { ids, legacyCodeById };
 };
 
 const applySupabasePublicPropertiesFilters = (
@@ -402,8 +445,8 @@ const fetchPublicRowsCount = async (
   const client = getSupabaseServerClient();
   if (!client) return 0;
 
-  const parentCrmIds = await resolveParentCrmIds(organizationId, queryOptions.parentIds);
-  if (queryOptions.parentIds.length > 0 && parentCrmIds.length === 0) {
+  const parentCrmReferences = await resolveParentCrmReferences(organizationId, queryOptions.parentIds);
+  if (queryOptions.parentIds.length > 0 && parentCrmReferences.ids.length === 0) {
     return 0;
   }
 
@@ -413,7 +456,12 @@ const fetchPublicRowsCount = async (
     .select("id", { count: "exact", head: true })
     .eq("is_public", true);
 
-  query = applySupabasePublicPropertiesFilters(query, organizationId, queryOptions, parentCrmIds);
+  query = applySupabasePublicPropertiesFilters(
+    query,
+    organizationId,
+    queryOptions,
+    parentCrmReferences.ids
+  );
 
   const { count, error } = await query;
   if (error) throw new Error(error.message);
@@ -424,28 +472,44 @@ const fetchPublicRowsCount = async (
 const fetchAllPublicRows = async (
   organizationId: string | null,
   queryOptions: NormalizedPublicPropertiesQuery
-): Promise<GenericRecord[]> => {
+): Promise<{
+  rows: GenericRecord[];
+  parentLegacyCodeById: Map<string, string>;
+}> => {
   const client = getSupabaseServerClient();
-  if (!client) return [];
+  if (!client) {
+    return {
+      rows: [],
+      parentLegacyCodeById: new Map<string, string>(),
+    };
+  }
 
   const pageSize = 500;
   let from = 0;
   const rows: GenericRecord[] = [];
-  const parentCrmIds = await resolveParentCrmIds(organizationId, queryOptions.parentIds);
-  if (queryOptions.parentIds.length > 0 && parentCrmIds.length === 0) {
-    return [];
+  const parentCrmReferences = await resolveParentCrmReferences(organizationId, queryOptions.parentIds);
+  if (queryOptions.parentIds.length > 0 && parentCrmReferences.ids.length === 0) {
+    return {
+      rows: [],
+      parentLegacyCodeById: parentCrmReferences.legacyCodeById,
+    };
   }
 
   while (true) {
     let query = client
       .schema("crm")
       .from("properties")
-      .select(SELECT_COLUMNS)
+      .select(queryOptions.selectProfile === "card" ? CARD_SELECT_COLUMNS : FULL_SELECT_COLUMNS)
       .eq("is_public", true)
       .order("updated_at", { ascending: false })
       .range(from, from + pageSize - 1);
 
-    query = applySupabasePublicPropertiesFilters(query, organizationId, queryOptions, parentCrmIds);
+    query = applySupabasePublicPropertiesFilters(
+      query,
+      organizationId,
+      queryOptions,
+      parentCrmReferences.ids
+    );
 
     const { data, error } = await query;
     if (error) throw new Error(error.message);
@@ -456,7 +520,10 @@ const fetchAllPublicRows = async (
     from += pageSize;
   }
 
-  return rows;
+  return {
+    rows,
+    parentLegacyCodeById: parentCrmReferences.legacyCodeById,
+  };
 };
 
 const buildFallbackPublicPropertiesResult = async (
@@ -525,7 +592,7 @@ const resolvePublicProperties = async ({
       );
     }
 
-    const rows = await fetchAllPublicRows(requestedOrgId ?? null, queryOptions);
+    const { rows, parentLegacyCodeById } = await fetchAllPublicRows(requestedOrgId ?? null, queryOptions);
     if (!rows.length) {
       return buildFallbackPublicPropertiesResult(
         fallbackLoader,
@@ -534,7 +601,6 @@ const resolvePublicProperties = async ({
       );
     }
 
-    const parentLegacyCodeById = new Map<string, string>();
     rows.forEach((row) => {
       const id = asText(row.id);
       const legacyCode = asText(row.legacy_code);
