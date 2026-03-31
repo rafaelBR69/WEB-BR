@@ -4,7 +4,20 @@ import {
   sortFloorFilterLabels,
 } from "@shared/properties/floorFilter";
 
-export function buildFilters(cards: any[]) {
+export type PropertyFilters = {
+  types: string[];
+  cities: string[];
+  areas: Record<string, string[]>;
+  markets: string[];
+  bedrooms: number[];
+  floors: string[];
+  listingTypes: string[];
+  price: { min: number; max: number };
+};
+
+const buildFiltersCache = new WeakMap<object[], PropertyFilters>();
+
+const buildFiltersBase = (cards: any[]): PropertyFilters => {
   const visible = cards.filter((card) => card.visible && card.status !== "sold");
   const uniq = (values: any[]) => [...new Set(values.filter(Boolean))];
   const uniqNumbers = (values: any[]) =>
@@ -35,6 +48,10 @@ export function buildFilters(cards: any[]) {
     }
   });
 
+  const priceValues = visible
+    .map((card) => card.price)
+    .filter((value) => typeof value === "number" && Number.isFinite(value));
+
   return {
     types: uniq(visible.map((card) => card.typeKey)),
     cities: uniq(visible.map((card) => card.cityKey)),
@@ -44,8 +61,33 @@ export function buildFilters(cards: any[]) {
     floors,
     listingTypes: uniq(visible.map((card) => card.listingType)),
     price: {
-      min: Math.min(...visible.map((card) => card.price).filter(Boolean)),
-      max: Math.max(...visible.map((card) => card.price).filter(Boolean)),
+      min: priceValues.length ? Math.min(...priceValues) : 0,
+      max: priceValues.length ? Math.max(...priceValues) : 0,
     },
   };
+};
+
+export function buildFilters(cards: any[]) {
+  if (!Array.isArray(cards) || cards.length === 0) {
+    return {
+      types: [],
+      cities: [],
+      areas: {},
+      markets: [],
+      bedrooms: [],
+      floors: [],
+      listingTypes: [],
+      price: { min: 0, max: 0 },
+    };
+  }
+
+  const cacheKey = cards as object[];
+  const cached = buildFiltersCache.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
+  const filters = buildFiltersBase(cards);
+  buildFiltersCache.set(cacheKey, filters);
+  return filters;
 }

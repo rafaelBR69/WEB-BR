@@ -3,7 +3,7 @@ import { DEFAULT_LANG, isSupportedLang } from "@shared/i18n/languages";
 import {
   applyFilters,
   getPublicPropertiesWithFallback,
-  normalizePublicPropertyCards,
+  normalizeVisiblePublicPropertyCards,
 } from "@shared/properties/public";
 import { parseCatalogActiveFilters } from "@shared/properties/catalogFilters";
 import { buildCompactPropertyMapFeatures } from "@shared/properties/compactMapFeatures";
@@ -20,7 +20,7 @@ export const GET: APIRoute = async ({ url }) => {
   const lang = isSupportedLang(requestedLang) ? requestedLang : DEFAULT_LANG;
   const { properties } = await getPublicPropertiesWithFallback({});
 
-  const cards = normalizePublicPropertyCards(properties, lang).filter((card) => card.visible);
+  const cards = normalizeVisiblePublicPropertyCards(properties, lang);
 
   const allCardPrices = cards
     .map((card) => card.price)

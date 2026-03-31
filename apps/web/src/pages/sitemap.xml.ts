@@ -4,7 +4,7 @@ import teamMembers from "@shared/data/team";
 import { SUPPORTED_LANGS } from "@shared/i18n/languages";
 import {
   normalizeProperty,
-  normalizePublicPropertyCards,
+  normalizeVisiblePublicPropertyCards,
   getPublicPropertiesWithFallback,
 } from "@shared/properties/public";
 import { evaluatePropertyLandingEligibility } from "@shared/seo/propertyLandingEligibility";
@@ -51,7 +51,7 @@ export const GET: APIRoute = async () => {
   });
 
   const landingUrls = SUPPORTED_LANGS.flatMap((lang) => {
-    const cards = normalizePublicPropertyCards(properties, lang).filter((card) => card.visible);
+    const cards = normalizeVisiblePublicPropertyCards(properties, lang);
 
     return evaluatePropertyLandingEligibility({ lang, cards })
       .filter((entry) => entry.showInSitemap)

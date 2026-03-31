@@ -131,6 +131,11 @@ const countVisibleResults = (cards: NormalizedCard[], landing: PropertyLandingMo
 
 const cityBySlug = new Map(SEO_LANDING_CITIES.map((city) => [city.slug, city]));
 const typeBySlug = new Map(SEO_LANDING_TYPES.map((type) => [type.slug, type]));
+const allPropertyLandingsCache = new Map<string, PropertyLandingModel[]>();
+const propertyLandingEligibilityCache = new WeakMap<
+  object[],
+  Map<string, PropertyLandingEligibility[]>
+>();
 
 const resolvePublicationConfig = (
   landing: PropertyLandingModel
@@ -152,9 +157,16 @@ const resolvePublicationConfig = (
 };
 
 export function buildAllPropertyLandings(lang: string): PropertyLandingModel[] {
-  return buildAllPropertyLandingSlugSegments()
+  const cached = allPropertyLandingsCache.get(lang);
+  if (cached) {
+    return cached;
+  }
+
+  const landings = buildAllPropertyLandingSlugSegments()
     .map((slugSegments) => resolvePropertyLanding({ lang, slugSegments }))
     .filter((landing): landing is PropertyLandingModel => Boolean(landing));
+  allPropertyLandingsCache.set(lang, landings);
+  return landings;
 }
 
 export function evaluatePropertyLandingEligibility({
@@ -164,7 +176,14 @@ export function evaluatePropertyLandingEligibility({
   lang: string;
   cards: NormalizedCard[];
 }): PropertyLandingEligibility[] {
-  return buildAllPropertyLandings(lang).map((landing) => {
+  const cacheKey = cards as object[];
+  const cachedByLang = propertyLandingEligibilityCache.get(cacheKey);
+  const cachedEntries = cachedByLang?.get(lang);
+  if (cachedEntries) {
+    return cachedEntries;
+  }
+
+  const entries = buildAllPropertyLandings(lang).map((landing) => {
     const publication = resolvePublicationConfig(landing);
     const resultCount = countVisibleResults(cards, landing);
     const isIndexable = publication.enabled && landing.indexable && resultCount >= landing.minResults;
@@ -187,6 +206,12 @@ export function evaluatePropertyLandingEligibility({
       score: landing.demandScore * 100 + Math.min(resultCount, 99),
     };
   });
+
+  const nextCache = cachedByLang ?? new Map<string, PropertyLandingEligibility[]>();
+  nextCache.set(lang, entries);
+  propertyLandingEligibilityCache.set(cacheKey, nextCache);
+
+  return entries;
 }
 
 export function buildPropertyLandingEligibilityMap(entries: PropertyLandingEligibility[]) {

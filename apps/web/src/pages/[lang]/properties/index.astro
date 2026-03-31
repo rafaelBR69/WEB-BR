@@ -6,7 +6,7 @@ import PropertyCard from "@webapp/components/PropertyCard.astro";
 import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
 
-import { normalizePublicPropertyCards } from "@shared/properties/public";
+import { normalizeVisiblePublicPropertyCards } from "@shared/properties/public";
 import { normalizePropertyList } from "@shared/properties/public";
 import { buildFilters } from "@shared/properties/public";
 import { applyFilters } from "@shared/properties/public";
@@ -383,11 +383,7 @@ const hasTechnicalFilters =
 /* =========================
    LISTADO NORMALIZADO
 ========================= */
-const cards = normalizePublicPropertyCards(properties, lang).filter((card) => card.visible);
-const eligibleLandings = evaluatePropertyLandingEligibility({
-  lang,
-  cards,
-});
+const cards = normalizeVisiblePublicPropertyCards(properties, lang);
 const allCardPrices = cards
   .map((card) => card.price)
   .filter((value): value is number => typeof value === "number" && Number.isFinite(value));
@@ -607,6 +603,13 @@ const isFiltered = !!(
   activeFilters.search ||
   activeFilters.ref
 );
+const shouldRenderSeoHubs = !isFiltered && !hasTechnicalFilters;
+const eligibleLandings = shouldRenderSeoHubs
+  ? evaluatePropertyLandingEligibility({
+      lang,
+      cards,
+    })
+  : [];
 // formatFloorLabel defined above (identity)
 
 const formatMarketLabel = (value) => {
@@ -665,7 +668,7 @@ const activeFilterChips = [
   }] : []),
 ];
 
-const seoHubSections = !isFiltered
+const seoHubSections = shouldRenderSeoHubs
   ? buildPropertyLandingHubs({
       lang,
       eligibleLandings,

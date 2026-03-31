@@ -5,7 +5,7 @@ import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import PropertyCard from "@webapp/components/PropertyCard.astro";
 import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
-import { normalizePublicPropertyCards } from "@shared/properties/public";
+import { normalizeVisiblePublicPropertyCards } from "@shared/properties/public";
 import { applyFilters } from "@shared/properties/public";
 import { INDEXABLE_CITIES } from "@shared/config/seoSlugs";
 import {
@@ -69,7 +69,7 @@ const navigation = buildPublicNavigation({
   properties,
 });
 
-const cards = normalizePublicPropertyCards(properties, lang).filter((card) => card.visible);
+const cards = normalizeVisiblePublicPropertyCards(properties, lang);
 const eligibleLandings = evaluatePropertyLandingEligibility({
   lang,
   cards,
