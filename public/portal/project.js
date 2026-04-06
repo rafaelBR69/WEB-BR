@@ -272,7 +272,7 @@ const renderUnits = () => {
           : null;
       const bathroomsText =
         Number.isFinite(bathroomsValue) && bathroomsValue >= 0
-          ? `${bathroomsValue.toFixed(0)} ${isSpanish ? "banos" : "baths"}`
+          ? `${bathroomsValue.toFixed(0)} ${isSpanish ? "baños" : "baths"}`
           : null;
       const floorLabel = toText(row.floor_label);
       const updatedAt = formatDateTime(toText(row.updated_at), locale);

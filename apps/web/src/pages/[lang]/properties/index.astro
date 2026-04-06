@@ -692,7 +692,7 @@ const canRenderCompactMapFeature = (card) => {
   const lat = Number(property?.location?.coordinates?.lat);
   return Number.isFinite(lng) && Number.isFinite(lat) && Boolean(card.slug);
 };
-const compactMapFeatureCount = sortedUnitCards.filter((card) => canRenderCompactMapFeature(card)).length;
+const compactMapFeatureCount = sortedCards.filter((card) => canRenderCompactMapFeature(card)).length;
 const buildMapFeaturesUrl = (filters) => {
   const params = new URLSearchParams();
   params.set("lang", lang);

@@ -139,7 +139,7 @@ const renderProperties = () => {
       const bedroomsValue = Number(item.bedrooms);
       const bedroomsText = Number.isFinite(bedroomsValue) ? `${bedroomsValue.toFixed(0)} ${isSpanish ? "hab" : "beds"}` : null;
       const bathroomsValue = Number(item.bathrooms);
-      const bathroomsText = Number.isFinite(bathroomsValue) ? `${bathroomsValue.toFixed(0)} ${isSpanish ? "banos" : "baths"}` : null;
+      const bathroomsText = Number.isFinite(bathroomsValue) ? `${bathroomsValue.toFixed(0)} ${isSpanish ? "baños" : "baths"}` : null;
       const salePrice = formatCurrency(item.price_sale, item.currency ?? "EUR", locale);
       const rentPrice = formatCurrency(item.price_rent_monthly, item.currency ?? "EUR", locale);
       const updatedAt = formatDateTime(toText(item.updated_at), locale);

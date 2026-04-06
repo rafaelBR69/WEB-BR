@@ -733,7 +733,7 @@
 
 .z-team-actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 0.55rem;
 }
 
@@ -741,6 +741,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   min-height: 42px;
   padding: 0.7rem 0.85rem;
   border: 1px solid #202f4e;

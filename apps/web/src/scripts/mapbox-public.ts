@@ -419,13 +419,6 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
               .join("");
 
             poiFiltersEl.querySelectorAll<HTMLElement>("[data-poi-category]").forEach((button) => {
-              const categoryId = button.dataset.poiCategory;
-              if (categoryId) {
-                state.activePoiCategories.add(categoryId);
-                button.classList.add("is-active");
-                setPoiVisibility(map, categoryId, true);
-              }
-
               button.addEventListener("click", () => {
                 const categoryId = button.dataset.poiCategory;
                 if (!categoryId) return;
@@ -530,38 +523,42 @@ const bootMap = async (root: HTMLElement) => {
   };
 
   map.on("load", async () => {
+    const shouldCluster = !compactMode && featureCollection.features.length > 24;
+
     map.addSource("properties", {
       type: "geojson",
       data: featureCollection,
-      cluster: featureCollection.features.length > 16,
+      cluster: shouldCluster,
       clusterRadius: 54,
     });
 
-    map.addLayer({
-      id: "clusters",
-      type: "circle",
-      source: "properties",
-      filter: ["has", "point_count"],
-      paint: {
-        "circle-color": "#202f4e",
-        "circle-radius": ["step", ["get", "point_count"], 19, 12, 24, 24, 29],
-        "circle-opacity": 0.92,
-      },
-    });
+    if (shouldCluster) {
+      map.addLayer({
+        id: "clusters",
+        type: "circle",
+        source: "properties",
+        filter: ["has", "point_count"],
+        paint: {
+          "circle-color": "#202f4e",
+          "circle-radius": ["step", ["get", "point_count"], 19, 12, 24, 24, 29],
+          "circle-opacity": 0.92,
+        },
+      });
 
-    map.addLayer({
-      id: "cluster-count",
-      type: "symbol",
-      source: "properties",
-      filter: ["has", "point_count"],
-      layout: {
-        "text-field": ["get", "point_count_abbreviated"],
-        "text-size": 12,
-      },
-      paint: {
-        "text-color": "#ffffff",
-      },
-    });
+      map.addLayer({
+        id: "cluster-count",
+        type: "symbol",
+        source: "properties",
+        filter: ["has", "point_count"],
+        layout: {
+          "text-field": ["get", "point_count_abbreviated"],
+          "text-size": 12,
+        },
+        paint: {
+          "text-color": "#ffffff",
+        },
+      });
+    }
 
     map.addLayer({
       id: "points",
@@ -570,24 +567,28 @@ const bootMap = async (root: HTMLElement) => {
       filter: ["!", ["has", "point_count"]],
       paint: {
         "circle-color": "#d32c43",
-        "circle-radius": compactMode ? 7 : 8,
+        "circle-radius": compactMode ? 9 : 8,
         "circle-stroke-color": "#ffffff",
-        "circle-stroke-width": 2,
+        "circle-stroke-width": compactMode ? 2.6 : 2,
       },
     });
 
-    map.on("click", "clusters", (event: any) => {
-      const cluster = map.queryRenderedFeatures(event.point, { layers: ["clusters"] })[0];
-      const clusterId = cluster?.properties?.cluster_id;
-      if (clusterId == null) return;
-      map.getSource("properties").getClusterExpansionZoom(clusterId, (_error: unknown, zoom: number) => {
-        map.easeTo({
-          center: cluster.geometry.coordinates,
-          zoom,
-          duration: 650,
-        });
+    if (shouldCluster) {
+      map.on("click", "clusters", (event: any) => {
+        const cluster = map.queryRenderedFeatures(event.point, { layers: ["clusters"] })[0];
+        const clusterId = cluster?.properties?.cluster_id;
+        if (clusterId == null) return;
+        map
+          .getSource("properties")
+          .getClusterExpansionZoom(clusterId, (_error: unknown, zoom: number) => {
+            map.easeTo({
+              center: cluster.geometry.coordinates,
+              zoom,
+              duration: 650,
+            });
+          });
       });
-    });
+    }
 
     map.on("click", "points", (event: any) => {
       const feature = event.features?.[0] as Feature | undefined;
