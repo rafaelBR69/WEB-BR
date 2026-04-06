@@ -492,7 +492,7 @@ const bootMap = async (root: HTMLElement) => {
     style: root.dataset.style || "mapbox://styles/mapbox/standard",
     center: [-4.92, 36.58],
     zoom: compactMode ? 9.8 : 10.4,
-    cooperativeGestures: true,
+    cooperativeGestures: false,
     attributionControl: false,
   });
 

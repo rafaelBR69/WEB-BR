@@ -8,7 +8,7 @@ import {
 import { parseCatalogActiveFilters } from "@shared/properties/catalogFilters";
 import { buildCompactPropertyMapFeatures } from "@shared/properties/compactMapFeatures";
 
-const sortUnitCardsForMap = (cards: any[]) =>
+const sortCardsForMap = (cards: any[]) =>
   [...cards].sort((left, right) => {
     const byPriority = (right.priority ?? 0) - (left.priority ?? 0);
     if (byPriority !== 0) return byPriority;
@@ -40,12 +40,9 @@ export const GET: APIRoute = async ({ url }) => {
     priceBounds: catalogPriceBounds,
   });
 
-  const filteredUnitCards = applyFilters(cards, {
-    ...activeFilters,
-    listingType: "unit",
-  });
-  const sortedUnitCards = sortUnitCardsForMap(filteredUnitCards);
-  const features = buildCompactPropertyMapFeatures(sortedUnitCards, properties, lang);
+  const filteredCards = applyFilters(cards, activeFilters);
+  const sortedCards = sortCardsForMap(filteredCards);
+  const features = buildCompactPropertyMapFeatures(sortedCards, properties, lang);
 
   return new Response(
     JSON.stringify({
