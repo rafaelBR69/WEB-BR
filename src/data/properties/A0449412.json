@@ -1,0 +1,169 @@
+{
+  "id": "A0449412",
+  "priority": 85,
+  "slugs": {
+    "es": "apartamento-2-dormitorios-san-pedro-de-alcantara",
+    "en": "2-bedroom-apartment-san-pedro-de-alcantara",
+    "de": "2-schlafzimmer-apartment-san-pedro-de-alcantara",
+    "fr": "appartement-2-chambres-san-pedro-de-alcantara",
+    "it": "appartamento-2-camere-san-pedro-de-alcantara",
+    "nl": "2-slaapkamer-appartement-san-pedro-de-alcantara"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": 617400,
+  "currency": "EUR",
+  "pricing": {
+    "from": 617400,
+    "currency": "EUR"
+  },
+  "phase": "Comercializacion",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "San Pedro de Alcantara",
+    "area": "Alcantara del Mar",
+    "address_line": "Alcantara del Mar, San Pedro de Alcantara",
+    "coordinates": {
+      "lat": 36.47843294216684,
+      "lng": -4.993242172823544
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 110.9,
+    "terrace_m2": null,
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "floors": 1,
+    "parking_type": "privado_cubierto",
+    "sea_views": false,
+    "elevator": true,
+    "community_pool": false,
+    "private_pool": true,
+    "delivery_date": "2028-06-01",
+    "sales_stage": "Comercializacion",
+    "property_group": "APARTAMENTOS",
+    "commercial_agency": "BlancaReal",
+    "full_address": "Alcantara del Mar, San Pedro de Alcantara, Malaga",
+    "reference_drive": "A0449412",
+    "reference_web": "A0449412",
+    "source_import_date": "2026-04-06",
+    "parking_notes": "Privado cubierto",
+    "pool_notes": "Privada",
+    "sea_views_notes": "No",
+    "elevator_notes": "Si",
+    "notes": "Promocion externa comercializada por BlancaReal. Alcantara del Mar se presenta como un apartamento de obra nueva de 2 dormitorios en San Pedro de Alcantara con parking privado cubierto, ascensor y piscina privada."
+  },
+  "features": ["new_build", "private_parking", "elevator"],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/cover/salon-02.jpg",
+      "alt": {
+        "es": "Apartamento de 2 dormitorios en San Pedro de Alcantara",
+        "en": "2-bedroom apartment in San Pedro de Alcantara",
+        "de": "Apartment mit 2 Schlafzimmern in San Pedro de Alcantara",
+        "fr": "Appartement 2 chambres a San Pedro de Alcantara",
+        "it": "Appartamento con 2 camere a San Pedro de Alcantara",
+        "nl": "Appartement met 2 slaapkamers in San Pedro de Alcantara"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/cover/salon-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/exterior/terraza-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/exterior/terraza-02.jpg" }
+      ],
+      "interior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/bano-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/bano-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/cocina-salon.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/cocina.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/dormitorio-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/dormitorio-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/dormitorio-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/dormitorio-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/dormitorio-05.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/interior/salon-01.jpg" }
+      ],
+      "views": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/cover/salon-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449412/exterior/terraza-01.jpg" }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento 2 dormitorios san pedro de alcantara",
+      "en": "2 bedroom apartment san pedro de alcantara",
+      "de": "2 schlafzimmer apartment san pedro de alcantara",
+      "fr": "appartement 2 chambres san pedro de alcantara",
+      "it": "appartamento 2 camere san pedro de alcantara",
+      "nl": "2 slaapkamer appartement san pedro de alcantara"
+    },
+    "meta_description": {
+      "es": "Apartamento de 2 dormitorios en San Pedro de Alcantara desde 617.400 EUR, con parking privado cubierto, ascensor y piscina privada.",
+      "en": "2-bedroom apartment in San Pedro de Alcantara from EUR 617,400 with private covered parking, lift and private pool."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Apartamento de 2 dormitorios en San Pedro de Alcantara",
+      "intro": "Apartamento de obra nueva en San Pedro de Alcantara desde 617.400 EUR, con 2 dormitorios, parking privado cubierto, ascensor y piscina privada.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Este apartamento de 2 dormitorios en San Pedro de Alcantara ofrece un formato actual y comodo para vivir o invertir, cerca de la playa, servicios y conexiones clave de la Costa del Sol."
+        },
+        {
+          "type": "paragraph",
+          "content": "La vivienda combina parking privado cubierto, ascensor y piscina privada, con entrega aproximada prevista para junio de 2028."
+        }
+      ]
+    },
+    "en": {
+      "title": "2-Bedroom Apartment in San Pedro de Alcantara",
+      "intro": "New-build apartment in San Pedro de Alcantara from EUR 617,400, with 2 bedrooms, private covered parking, lift and private pool.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "This 2-bedroom apartment in San Pedro de Alcantara offers a modern and comfortable layout for living or investing, close to the beach, amenities and key Costa del Sol connections."
+        },
+        {
+          "type": "paragraph",
+          "content": "The home combines private covered parking, lift access and a private pool, with estimated delivery scheduled for June 2028."
+        }
+      ]
+    },
+    "de": {
+      "title": "Apartment mit 2 Schlafzimmern in San Pedro de Alcantara",
+      "intro": "Neubau-Apartment in San Pedro de Alcantara ab 617.400 EUR mit 2 Schlafzimmern, privatem ueberdachtem Stellplatz, Aufzug und privatem Pool.",
+      "description": []
+    },
+    "fr": {
+      "title": "Appartement 2 chambres a San Pedro de Alcantara",
+      "intro": "Appartement neuf a San Pedro de Alcantara a partir de 617 400 EUR avec 2 chambres, parking prive couvert, ascenseur et piscine privee.",
+      "description": []
+    },
+    "it": {
+      "title": "Appartamento con 2 camere a San Pedro de Alcantara",
+      "intro": "Appartamento di nuova costruzione a San Pedro de Alcantara da 617.400 EUR con 2 camere, parcheggio privato coperto, ascensore e piscina privata.",
+      "description": []
+    },
+    "nl": {
+      "title": "Appartement met 2 slaapkamers in San Pedro de Alcantara",
+      "intro": "Nieuwbouwappartement in San Pedro de Alcantara vanaf EUR 617.400 met 2 slaapkamers, prive overdekte parking, lift en privezwembad.",
+      "description": []
+    }
+  }
+}

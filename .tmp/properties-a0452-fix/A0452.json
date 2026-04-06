@@ -1,0 +1,343 @@
+{
+  "id": "A0452",
+  "priority": 65,
+  "slugs": {
+    "es": "pisos-venta-el-higueron-fuengirola-a0452",
+    "en": "apartments-for-sale-el-higueron-fuengirola-a0452",
+    "de": "wohnungen-zum-kauf-el-higueron-fuengirola-a0452",
+    "fr": "appartements-a-vendre-el-higueron-fuengirola-a0452",
+    "it": "appartamenti-in-vendita-el-higueron-fuengirola-a0452",
+    "nl": "appartementen-te-koop-el-higueron-fuengirola-a0452"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 499150,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "El Higueron",
+    "address_line": "El Higueron, portal 2",
+    "coordinates": {
+      "lat": 36.576670240516805,
+      "lng": -4.599219689608224
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "segunda_mano",
+    "condition": "good",
+    "year_built": 2026,
+    "area_m2": 108,
+    "usable_area_m2": null,
+    "terrace_m2": 31,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "floor_level": 0,
+    "floor_label": "Planta baja",
+    "unit_code": "Bajo, portal 2",
+    "parking_type": "privado_descubierto",
+    "elevator": true,
+    "sea_views": true,
+    "community_pool": true,
+    "property_group": "UNIFAMILIARES",
+    "full_address": "El Higueron, portal 2, Fuengirola, Malaga",
+    "reference_drive": "A0452",
+    "reference_web": "A0452",
+    "source_import_date": "2026-04-06",
+    "parking_notes": "Privado descubierto",
+    "pool_notes": "Comunitaria",
+    "sea_views_notes": "Si",
+    "elevator_notes": "Si",
+    "notes": "Piso de segunda mano en El Higueron con 108 m2 construidos, 31 m2 de terraza, vistas al mar, ascensor, piscina comunitaria y gimnasio, en buen estado general."
+  },
+  "features": [
+    "sea_views",
+    "elevator",
+    "communal_pool",
+    "private_parking",
+    "gym"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/cover/cover.jpg",
+      "alt": {
+        "es": "Pisos en venta en El Higueron",
+        "en": "Apartments for sale in El Higueron",
+        "de": "Wohnungen zum Kauf in El Higueron",
+        "fr": "Appartements a vendre a El Higueron",
+        "it": "Appartamenti in vendita a El Higueron",
+        "nl": "Appartementen te koop in El Higueron"
+      }
+    },
+    "gallery": {
+      "living": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-03.jpg"
+        }
+      ],
+      "bedroom": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-03.jpg"
+        }
+      ],
+      "kitchen": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/cocina-01.jpg"
+        }
+      ],
+      "bathroom": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/bano-01.jpg"
+        }
+      ],
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/cover/cover.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/exterior/views-exterior-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/exterior/views-exterior-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/facade/facade-02.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-03.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/cocina-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-03.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/bano-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/views-interior-01.png"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/exterior/views-exterior-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/exterior/views-exterior-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/views-interior-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/zonas-comunes/gym-zonas-comunes-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/zonas-comunes/piscina-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/zonas-comunes/piscina-02.jpg"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "piso en venta el higueron fuengirola",
+      "en": "apartment for sale el higueron fuengirola",
+      "de": "wohnung kaufen el higueron fuengirola",
+      "fr": "appartement a vendre el higueron fuengirola",
+      "it": "appartamento in vendita el higueron fuengirola",
+      "nl": "appartement te koop el higueron fuengirola"
+    },
+    "meta_description": {
+      "es": "Piso en venta en El Higueron, Fuengirola. Propiedad de segunda mano con 2 dormitorios, 2 banos, 108 m2 construidos, 31 m2 de terraza, vistas al mar y piscina comunitaria. Precio: 499.150 EUR.",
+      "en": "Apartment for sale in El Higueron, Fuengirola. Resale property with 2 bedrooms, 2 bathrooms, 108 sqm built area, 31 sqm terrace, sea views and communal pool. Price: EUR 499,150.",
+      "de": "Wohnung zum Kauf in El Higueron, Fuengirola. Gebrauchtimmobilie mit 2 Schlafzimmern, 2 Badern, 108 m2 bebauter Flache, 31 m2 Terrasse, Meerblick und Gemeinschaftspool. Preis: 499.150 EUR.",
+      "fr": "Appartement a vendre a El Higueron, Fuengirola. Bien de seconde main avec 2 chambres, 2 salles de bain, 108 m2 construits, 31 m2 de terrasse, vue mer et piscine commune. Prix : 499 150 EUR.",
+      "it": "Appartamento in vendita a El Higueron, Fuengirola. Proprieta di seconda mano con 2 camere, 2 bagni, 108 m2 costruiti, terrazza di 31 m2, vista mare e piscina condominiale. Prezzo: 499.150 EUR.",
+      "nl": "Appartement te koop in El Higueron, Fuengirola. Wederverkoopwoning met 2 slaapkamers, 2 badkamers, 108 m2 bebouwd oppervlak, 31 m2 terras, zeezicht en gemeenschappelijk zwembad. Prijs: EUR 499.150."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Pisos en venta en El Higueron",
+      "intro": "Piso en planta baja en El Higueron, Fuengirola, con amplia terraza, vistas al mar y zonas comunes cuidadas, en un enclave residencial bien conectado con playa, servicios y acceso rapido.",
+      "excerpt": "Piso en planta baja en El Higueron, Fuengirola, con amplia terraza, vistas al mar y zonas comunes cuidadas, en un enclave residencial bien conectado con playa, servicios y acceso rapido.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda se ubica en planta baja, portal 2, dentro de un entorno residencial de El Higueron orientado a comprador que prioriza amplitud exterior, vistas despejadas y cercania a Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Incluye 2 dormitorios, 2 banos, 31 m2 de terrazas, aparcamiento privado descubierto, ascensor, vistas al mar, gimnasio y piscina comunitaria, en buen estado general."
+        },
+        {
+          "type": "paragraph",
+          "content": "El precio publicado es de 499.150 EUR sin IVA."
+        }
+      ],
+      "seo": {
+        "title": "Pisos en venta en El Higueron | BlancaReal",
+        "description": "Piso de segunda mano en El Higueron, Fuengirola, con 2 dormitorios, 31 m2 de terraza, vistas al mar, piscina comunitaria y precio de 499.150 EUR."
+      }
+    },
+    "en": {
+      "title": "Apartments for sale in El Higueron",
+      "intro": "Ground-floor apartment in El Higueron, Fuengirola, with a generous terrace, sea views and well-kept communal areas, in a residential setting close to the beach, services and fast connections.",
+      "excerpt": "Ground-floor apartment in El Higueron, Fuengirola, with a generous terrace, sea views and well-kept communal areas, in a residential setting close to the beach, services and fast connections.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "This ground-floor home in portal 2 is positioned within El Higueron for buyers seeking outdoor space, open views and a close connection to Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "It offers 2 bedrooms, 2 bathrooms, a 31 sqm terrace, private outdoor parking, lift access, sea views, gym facilities and a communal pool, presented in good overall condition."
+        },
+        {
+          "type": "paragraph",
+          "content": "Published price: EUR 499,150 excluding VAT."
+        }
+      ],
+      "seo": {
+        "title": "Apartments for sale in El Higueron | BlancaReal",
+        "description": "Resale property in El Higueron, Fuengirola, with 2 bedrooms, a 31 sqm terrace, sea views, communal pool and price of EUR 499,150."
+      }
+    },
+    "de": {
+      "title": "Wohnungen zum Kauf in El Higueron",
+      "intro": "Erdgeschosswohnung in El Higueron, Fuengirola, mit grosser Terrasse, Meerblick und gepflegten Gemeinschaftsbereichen, in einer gut angebundenen Wohnlage nahe Strand, Services und schnellen Verbindungen.",
+      "excerpt": "Erdgeschosswohnung in El Higueron, Fuengirola, mit grosser Terrasse, Meerblick und gepflegten Gemeinschaftsbereichen, in einer gut angebundenen Wohnlage nahe Strand, Services und schnellen Verbindungen.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Wohnung befindet sich im Erdgeschoss, Portal 2, in einer Wohnlage von El Higueron fur Kaufer, die Aussenflache, offene Aussicht und schnelle Anbindung an Fuengirola suchen."
+        },
+        {
+          "type": "paragraph",
+          "content": "Sie bietet 2 Schlafzimmer, 2 Bader, 31 m2 Terrassen, privaten Aussenstellplatz, Aufzug, Meerblick, Fitnessraum und Gemeinschaftspool, in gutem Allgemeinzustand."
+        },
+        {
+          "type": "paragraph",
+          "content": "Veroffentlichter Preis: 499.150 EUR ohne MwSt."
+        }
+      ],
+      "seo": {
+        "title": "Wohnungen zum Kauf in El Higueron | BlancaReal",
+        "description": "Gebrauchtimmobilie in El Higueron, Fuengirola, mit 2 Schlafzimmern, 31 m2 Terrasse, Meerblick, Gemeinschaftspool und Preis von 499.150 EUR."
+      }
+    },
+    "fr": {
+      "title": "Appartements a vendre a El Higueron",
+      "intro": "Appartement en rez-de-chaussee a El Higueron, Fuengirola, avec grande terrasse, vue mer et espaces communs soignes, dans un environnement residentiel proche de la plage, des services et des acces rapides.",
+      "excerpt": "Appartement en rez-de-chaussee a El Higueron, Fuengirola, avec grande terrasse, vue mer et espaces communs soignes, dans un environnement residentiel proche de la plage, des services et des acces rapides.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le logement se situe en rez-de-chaussee, portail 2, dans un cadre residentiel de El Higueron adapte aux acheteurs qui recherchent terrasse, vues degagees et proximite de Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il comprend 2 chambres, 2 salles de bain, 31 m2 de terrasses, parking prive exterieur, ascenseur, vue mer, salle de sport et piscine commune, en bon etat general."
+        },
+        {
+          "type": "paragraph",
+          "content": "Prix publie : 499 150 EUR hors TVA."
+        }
+      ],
+      "seo": {
+        "title": "Appartements a vendre a El Higueron | BlancaReal",
+        "description": "Bien de seconde main a El Higueron, Fuengirola, avec 2 chambres, terrasse de 31 m2, vue mer, piscine commune et prix de 499 150 EUR."
+      }
+    },
+    "it": {
+      "title": "Appartamenti in vendita a El Higueron",
+      "intro": "Appartamento al piano terra a El Higueron, Fuengirola, con ampia terrazza, vista mare e spazi comuni curati, in un contesto residenziale vicino a spiaggia, servizi e collegamenti rapidi.",
+      "excerpt": "Appartamento al piano terra a El Higueron, Fuengirola, con ampia terrazza, vista mare e spazi comuni curati, in un contesto residenziale vicino a spiaggia, servizi e collegamenti rapidi.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "L unita si trova al piano terra, portale 2, in un contesto residenziale di El Higueron pensato per chi cerca spazio esterno, viste aperte e collegamento rapido con Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Include 2 camere, 2 bagni, 31 m2 di terrazze, parcheggio privato scoperto, ascensore, vista mare, palestra e piscina condominiale, in buono stato generale."
+        },
+        {
+          "type": "paragraph",
+          "content": "Prezzo pubblicato: 499.150 EUR IVA esclusa."
+        }
+      ],
+      "seo": {
+        "title": "Appartamenti in vendita a El Higueron | BlancaReal",
+        "description": "Proprieta di seconda mano a El Higueron, Fuengirola, con 2 camere, terrazza di 31 m2, vista mare, piscina condominiale e prezzo di 499.150 EUR."
+      }
+    },
+    "nl": {
+      "title": "Appartementen te koop in El Higueron",
+      "intro": "Appartement op de begane grond in El Higueron, Fuengirola, met ruim terras, zeezicht en verzorgde gemeenschappelijke zones, in een woonomgeving dicht bij strand, voorzieningen en snelle verbindingen.",
+      "excerpt": "Appartement op de begane grond in El Higueron, Fuengirola, met ruim terras, zeezicht en verzorgde gemeenschappelijke zones, in een woonomgeving dicht bij strand, voorzieningen en snelle verbindingen.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "De woning ligt op de begane grond, portal 2, in een residentiele omgeving van El Higueron voor kopers die buitenruimte, open uitzicht en een goede aansluiting op Fuengirola zoeken."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning beschikt over 2 slaapkamers, 2 badkamers, 31 m2 terrassen, prive buitenparking, lift, zeezicht, fitnessruimte en een gemeenschappelijk zwembad, in goede algemene staat."
+        },
+        {
+          "type": "paragraph",
+          "content": "Gepubliceerde prijs: EUR 499.150 exclusief btw."
+        }
+      ],
+      "seo": {
+        "title": "Appartementen te koop in El Higueron | BlancaReal",
+        "description": "Wederverkoopwoning in El Higueron, Fuengirola, met 2 slaapkamers, 31 m2 terras, zeezicht, gemeenschappelijk zwembad en een prijs van EUR 499.150."
+      }
+    }
+  }
+}

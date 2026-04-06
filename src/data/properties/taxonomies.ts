@@ -264,12 +264,12 @@ export const CITIES = {
 
   nueva_andalucia: {
     label: {
-      es: "Nueva Andalucia",
-      en: "Nueva Andalucia",
-      fr: "Nueva Andalucia",
-      it: "Nueva Andalucia",
-      nl: "Nueva Andalucia",
-      de: "Nueva Andalucia",
+      es: "Nueva Andalucía",
+      en: "Nueva Andalucía",
+      fr: "Nueva Andalucía",
+      it: "Nueva Andalucía",
+      nl: "Nueva Andalucía",
+      de: "Nueva Andalucía",
     },
   },
 

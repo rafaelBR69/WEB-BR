@@ -1,0 +1,167 @@
+{
+  "id": "A044921",
+  "priority": 86,
+  "slugs": {
+    "es": "villas-obra-nueva-calahonda-mijas",
+    "en": "new-build-villas-calahonda-mijas",
+    "de": "neubau-villen-calahonda-mijas",
+    "fr": "villas-neuves-calahonda-mijas",
+    "it": "ville-nuova-costruzione-calahonda-mijas",
+    "nl": "nieuwbouw-villas-calahonda-mijas"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": 1650000,
+  "currency": "EUR",
+  "pricing": {
+    "from": 1650000,
+    "currency": "EUR"
+  },
+  "phase": "Licencia obtenida",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Calahonda",
+    "address_line": "Calahonda, Mijas Costa",
+    "coordinates": {
+      "lat": 36.492073849682484,
+      "lng": -4.721916747282094
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 464.8,
+    "terrace_m2": 322.92,
+    "bedrooms": 4,
+    "bathrooms": 4,
+    "garages": 1,
+    "floors": 2,
+    "parking_type": "privado_descubierto",
+    "sea_views": true,
+    "elevator": false,
+    "community_pool": false,
+    "private_pool": true,
+    "sales_stage": "Licencia obtenida",
+    "property_group": "UNIFAMILIARES",
+    "commercial_agency": "BlancaReal",
+    "full_address": "Calahonda, Mijas Costa, Malaga",
+    "reference_drive": "A044921",
+    "reference_web": "A044921",
+    "source_import_date": "2026-04-06",
+    "parking_notes": "Privado descubierto",
+    "pool_notes": "Privada",
+    "sea_views_notes": "Si",
+    "elevator_notes": "No",
+    "notes": "Promocion externa comercializada por BlancaReal. Conjunto de 7 villas de obra nueva en Calahonda con piscina privada, vistas al mar y licencia obtenida."
+  },
+  "features": ["new_build", "sea_views", "private_parking"],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/cover/exterior-villas.jpg",
+      "alt": {
+        "es": "Villas de obra nueva en Calahonda",
+        "en": "New-build villas in Calahonda",
+        "de": "Neubau-Villen in Calahonda",
+        "fr": "Villas neuves a Calahonda",
+        "it": "Ville di nuova costruzione a Calahonda",
+        "nl": "Nieuwbouw villa's in Calahonda"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/cover/exterior-villas.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior-03.jpg" }
+      ],
+      "interior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/salon-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/salon-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/salon-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/salon-comedor.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/cocina-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/domitorio-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/dormitorio-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/habitacion-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/habitacion-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/bano-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/bano-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/Bano-lantana-villas-2.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/bano-lantana-villas-3.jpg" }
+      ],
+      "views": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/cover/exterior-villas.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior-03.jpg" }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "villas obra nueva calahonda mijas",
+      "en": "new build villas calahonda mijas"
+    },
+    "meta_description": {
+      "es": "Promocion de 7 villas de obra nueva en Calahonda, Mijas, con piscina privada, vistas al mar y precios desde 1.650.000 EUR.",
+      "en": "Development of 7 new-build villas in Calahonda, Mijas, with private pool, sea views and prices from EUR 1,650,000."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Villas de obra nueva en Calahonda",
+      "intro": "Promocion de 7 villas en Calahonda, Mijas, con piscina privada, vistas al mar y licencia obtenida, pensada para quien busca vivienda unifamiliar contemporanea en Costa del Sol.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "El proyecto reune 7 villas de obra nueva en Calahonda con tipologias unifamiliares de 2 plantas, amplias superficies interiores y zonas exteriores privadas."
+        },
+        {
+          "type": "paragraph",
+          "content": "La promocion se comercializa desde 1.650.000 EUR y combina piscina privada, aparcamiento exterior privado y vistas al mar dentro de una localizacion consolidada de Mijas Costa."
+        }
+      ]
+    },
+    "en": {
+      "title": "New-build villas in Calahonda",
+      "intro": "Development of 7 villas in Calahonda, Mijas, with private pool, sea views and licence granted, designed for buyers seeking a contemporary detached home on the Costa del Sol.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The project brings together 7 new-build villas in Calahonda with 2-floor layouts, generous interior spaces and private outdoor areas."
+        },
+        {
+          "type": "paragraph",
+          "content": "Priced from EUR 1,650,000, the development combines private pool, outdoor parking and sea views within an established Mijas Costa location."
+        }
+      ]
+    },
+    "de": {
+      "title": "Neubau-Villen in Calahonda",
+      "intro": "Projekt mit 7 Villen in Calahonda, Mijas, mit privatem Pool, Meerblick und erteilter Baugenehmigung.",
+      "description": []
+    },
+    "fr": {
+      "title": "Villas neuves a Calahonda",
+      "intro": "Programme de 7 villas a Calahonda, Mijas, avec piscine privee, vue mer et licence obtenue.",
+      "description": []
+    },
+    "it": {
+      "title": "Ville di nuova costruzione a Calahonda",
+      "intro": "Progetto di 7 ville a Calahonda, Mijas, con piscina privata, vista mare e licenza ottenuta.",
+      "description": []
+    },
+    "nl": {
+      "title": "Nieuwbouw villa's in Calahonda",
+      "intro": "Project met 7 villa's in Calahonda, Mijas, met privezwembad, zeezicht en verkregen vergunning.",
+      "description": []
+    }
+  }
+}

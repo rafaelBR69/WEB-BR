@@ -1,1370 +1,1370 @@
-﻿{
-    "pageByLang":  {
-                       "es":  {
-                                  "title":  "BlancaReal | Inmobiliaria, legal y comercializaciÃ³n en Costa del Sol",
-                                  "description":  "Compra, vende o invierte en Costa del Sol con un equipo inmobiliario, legal y comercial bajo una misma firma.",
-                                  "heroEyebrow":  "BlancaReal Group",
-                                  "heroHeading":  "Compra, vende o invierte en Costa del Sol con respaldo real",
-                                  "heroText":  "Desde 1969 acompaÃ±amos operaciones residenciales e inversiones con equipo comercial y jurÃ­dico propio.",
-                                  "heroPrimaryCta":  "Explorar propiedades",
-                                  "heroSecondaryCta":  "Hablar con el equipo",
-                                  "heroTrustLabel":  "SeÃ±ales de confianza BlancaReal",
-                                  "heroTrustItems":  [
-                                                         {
-                                                             "value":  "+1.000",
-                                                             "label":  "clientes acompaÃ±ados"
-                                                         },
-                                                         {
-                                                             "value":  "__YEARS_ACTIVE__+",
-                                                             "label":  "aÃ±os en Costa del Sol"
-                                                         },
-                                                         {
-                                                             "value":  "6",
-                                                             "label":  "idiomas"
-                                                         },
-                                                         {
-                                                             "value":  "Legal propio",
-                                                             "label":  "asesoramiento jurÃ­dico integrado"
-                                                         }
-                                                     ],
-                                  "pillarsHeading":  "Tres Ã¡reas conectadas, una sola firma",
-                                  "pillarsText":  "Inmobiliaria, legal y comercializaciÃ³n coordinadas para que cada operaciÃ³n avance con mÃ¡s claridad, velocidad y control.",
-                                  "navBuy":  "Comprar vivienda",
-                                  "navLegal":  "Asesoramiento legal",
-                                  "navPartners":  "Promotoras y agentes",
-                                  "navAbout":  "Quiénes somos",
-                                  "navAgents":  "Agentes",
-                                  "navContact":  "Contacto",
-                                  "navPromoters":  "Promotoras",
-                                  "servicesJump":  "Ver servicios",
-                                  "servicesSwipe":  "Desliza para explorar",
-                                  "blocks":  {
-                                                 "realEstate":  {
-                                                                    "title":  "Inmobiliaria",
-                                                                    "text":  "Propiedades, mapa, filtros y acompaÃ±amiento para comprar con criterio.",
-                                                                    "cta":  "Entrar en Inmobiliaria",
-                                                                    "imageAlt":  "Bloque inmobiliario de BlancaReal"
-                                                                },
-                                                 "legal":  {
-                                                               "title":  "Servicios Legales",
-                                                               "text":  "Asesoramiento jurÃ­dico para compraventa, inversiÃ³n, herencias y alquiler.",
-                                                               "cta":  "Entrar en Legal",
-                                                               "imageAlt":  "Bloque de servicios legales BlancaReal"
-                                                           },
-                                                 "commercialization":  {
-                                                                           "title":  "Comercialización",
-                                                                           "text":  "Estrategia, posicionamiento y ventas para promotoras y producto residencial.",
-                                                                           "cta":  "Entrar en ComercializaciÃ³n",
-                                                                           "imageAlt":  "Bloque de comercialización BlancaReal"
-                                                                       }
-                                             }
-                              },
-                       "en":  {
-                                  "title":  "BlancaReal | Home",
-                                  "description":  "BlancaReal combines Real Estate, legal services and commercialization in one ecosystem.",
-                                  "heroEyebrow":  "BlancaReal Group",
-                                  "heroHeading":  "Your property on the Costa del Sol, with true local experts",
-                                  "heroText":  "Costa del Sol since 1969, with in-house sales and legal support for buyers, sellers and investors.",
-                                  "heroPrimaryCta":  "View properties",
-                                  "heroSecondaryCta":  "Talk to an agent",
-                                  "heroTrustLabel":  "BlancaReal trust indicators",
-                                  "heroTrustItems":  [
-                                                         {
-                                                             "value":  "1,000+",
-                                                             "label":  "families supported"
-                                                         },
-                                                         {
-                                                             "value":  "__YEARS_ACTIVE__+",
-                                                             "label":  "years of experience"
-                                                         },
-                                                         {
-                                                             "value":  "6",
-                                                             "label":  "languages"
-                                                         },
-                                                         {
-                                                             "value":  "In-house legal",
-                                                             "label":  "integrated legal support"
-                                                         }
-                                                     ],
-                                  "pillarsHeading":  "Three connected business lines",
-                                  "pillarsText":  "Access each area from this main landing page with a clear and unified navigation.",
-                                  "navBuy":  "Buy property",
-                                  "navLegal":  "Legal advice",
-                                  "navPartners":  "Developers and agents",
-                                  "navAbout":  "About us",
-                                  "navAgents":  "Agents",
-                                  "navContact":  "Contact",
-                                  "navPromoters":  "Developers",
-                                  "servicesJump":  "View services",
-                                  "servicesSwipe":  "Swipe to explore",
-                                  "blocks":  {
-                                                 "realEstate":  {
-                                                                    "title":  "Real Estate",
-                                                                    "text":  "Map, properties, filters and real estate operations.",
-                                                                    "cta":  "Enter Real Estate",
-                                                                    "imageAlt":  "BlancaReal Real Estate block"
-                                                                },
-                                                 "legal":  {
-                                                               "title":  "Legal Services",
-                                                               "text":  "Legal coverage for buying, renting and investment.",
-                                                               "cta":  "Enter Legal Services",
-                                                               "imageAlt":  "BlancaReal legal services block"
-                                                           },
-                                                 "commercialization":  {
-                                                                           "title":  "Commercialization",
-                                                                           "text":  "Sales strategy for developers and residential inventory.",
-                                                                           "cta":  "Enter Commercialization",
-                                                                           "imageAlt":  "BlancaReal commercialization block"
-                                                                       }
-                                             }
-                              },
-                       "de":  {
-                                  "title":  "BlancaReal | Start",
-                                  "description":  "BlancaReal vereint Immobilien, Rechtsservice und Vermarktung in einem Portal.",
-                                  "heroEyebrow":  "BlancaReal Group",
-                                  "heroHeading":  "Ihre Immobilie an der Costa del Sol, mit echten lokalen Experten",
-                                  "heroText":  "Seit 1969 an der Costa del Sol, mit eigenem Vertriebs- und Rechtsteam fuer Kaeufer, Verkaeufer und Investoren.",
-                                  "heroPrimaryCta":  "Immobilien ansehen",
-                                  "heroSecondaryCta":  "Mit einem Berater sprechen",
-                                  "heroTrustLabel":  "Vertrauensindikatoren von BlancaReal",
-                                  "heroTrustItems":  [
-                                                         {
-                                                             "value":  "1.000+",
-                                                             "label":  "begleitete Familien"
-                                                         },
-                                                         {
-                                                             "value":  "__YEARS_ACTIVE__+",
-                                                             "label":  "Jahre Erfahrung"
-                                                         },
-                                                         {
-                                                             "value":  "6",
-                                                             "label":  "Sprachen"
-                                                         },
-                                                         {
-                                                             "value":  "Eigenes Legal",
-                                                             "label":  "integrierte Rechtsbegleitung"
-                                                         }
-                                                     ],
-                                  "pillarsHeading":  "Drei vernetzte Geschaeftsbereiche",
-                                  "pillarsText":  "Greifen Sie von dieser Startseite klar und einheitlich auf jeden Bereich zu.",
-                                  "navBuy":  "Immobilie kaufen",
-                                  "navLegal":  "Rechtsberatung",
-                                  "navPartners":  "Bautraeger und Agenten",
-                                  "navAbout":  "Ueber uns",
-                                  "navAgents":  "Agenten",
-                                  "navContact":  "Kontakt",
-                                  "navPromoters":  "Bautraeger",
-                                  "servicesJump":  "Services ansehen",
-                                  "servicesSwipe":  "Wischen zum Entdecken",
-                                  "blocks":  {
-                                                 "realEstate":  {
-                                                                    "title":  "Immobilien",
-                                                                    "text":  "Karte, Immobilien, Filter und Immobilien-Operationen.",
-                                                                    "cta":  "Zu Immobilien",
-                                                                    "imageAlt":  "Immobilienbereich von BlancaReal"
-                                                                },
-                                                 "legal":  {
-                                                               "title":  "Rechtsservice",
-                                                               "text":  "Juristische Betreuung fuer Kauf, Miete und Investition.",
-                                                               "cta":  "Zu Rechtsservice",
-                                                               "imageAlt":  "Rechtsservice Bereich von BlancaReal"
-                                                           },
-                                                 "commercialization":  {
-                                                                           "title":  "Vermarktung",
-                                                                           "text":  "Vertriebsstrategie fuer Bautraeger und Wohnprojekte.",
-                                                                           "cta":  "Zu Vermarktung",
-                                                                           "imageAlt":  "Vermarktungsbereich von BlancaReal"
-                                                                       }
-                                             }
-                              },
-                       "fr":  {
-                                  "title":  "BlancaReal | Accueil",
-                                  "description":  "BlancaReal reunit immobilier, services juridiques et commercialisation en un seul portail.",
-                                  "heroEyebrow":  "BlancaReal Group",
-                                  "heroHeading":  "Votre bien sur la Costa del Sol, avec de vrais experts locaux",
-                                  "heroText":  "Costa del Sol depuis 1969, avec equipe commerciale et juridique interne pour acheteurs, vendeurs et investisseurs.",
-                                  "heroPrimaryCta":  "Voir les proprietes",
-                                  "heroSecondaryCta":  "Parler a un agent",
-                                  "heroTrustLabel":  "Indicateurs de confiance BlancaReal",
-                                  "heroTrustItems":  [
-                                                         {
-                                                             "value":  "1 000+",
-                                                             "label":  "familles accompagnees"
-                                                         },
-                                                         {
-                                                             "value":  "__YEARS_ACTIVE__+",
-                                                             "label":  "ans d experience"
-                                                         },
-                                                         {
-                                                             "value":  "6",
-                                                             "label":  "langues"
-                                                         },
-                                                         {
-                                                             "value":  "Legal interne",
-                                                             "label":  "support juridique integre"
-                                                         }
-                                                     ],
-                                  "pillarsHeading":  "Trois lignes d activite connectees",
-                                  "pillarsText":  "Accedez a chaque pole depuis cette page principale avec une navigation claire.",
-                                  "navBuy":  "Acheter un bien",
-                                  "navLegal":  "Conseil juridique",
-                                  "navPartners":  "Promoteurs et agents",
-                                  "navAbout":  "Qui sommes-nous",
-                                  "navAgents":  "Agents",
-                                  "navContact":  "Contact",
-                                  "navPromoters":  "Promoteurs",
-                                  "servicesJump":  "Voir les services",
-                                  "servicesSwipe":  "Faites glisser pour explorer",
-                                  "blocks":  {
-                                                 "realEstate":  {
-                                                                    "title":  "Immobilier",
-                                                                    "text":  "Carte, proprietes, filtres et operations immobilieres.",
-                                                                    "cta":  "Entrer dans l immobilier",
-                                                                    "imageAlt":  "Bloc immobilier BlancaReal"
-                                                                },
-                                                 "legal":  {
-                                                               "title":  "Services Juridiques",
-                                                               "text":  "Couverture juridique pour achat, location et investissement.",
-                                                               "cta":  "Entrer dans le service juridique",
-                                                               "imageAlt":  "Bloc services juridiques BlancaReal"
-                                                           },
-                                                 "commercialization":  {
-                                                                           "title":  "Commercialisation",
-                                                                           "text":  "Strategie commerciale pour promoteurs et produit residentiel.",
-                                                                           "cta":  "Entrer dans Commercialisation",
-                                                                           "imageAlt":  "Bloc commercialisation BlancaReal"
-                                                                       }
-                                             }
-                              },
-                       "it":  {
-                                  "title":  "BlancaReal | Home",
-                                  "description":  "BlancaReal unisce immobiliare, servizi legali e commercializzazione in un unico portale.",
-                                  "heroEyebrow":  "BlancaReal Group",
-                                  "heroHeading":  "La tua proprieta in Costa del Sol, con veri esperti locali",
-                                  "heroText":  "Costa del Sol dal 1969, con team commerciale e legale interno per acquirenti, venditori e investitori.",
-                                  "heroPrimaryCta":  "Vedi proprieta",
-                                  "heroSecondaryCta":  "Parla con un agente",
-                                  "heroTrustLabel":  "Indicatori di fiducia BlancaReal",
-                                  "heroTrustItems":  [
-                                                         {
-                                                             "value":  "1.000+",
-                                                             "label":  "famiglie seguite"
-                                                         },
-                                                         {
-                                                             "value":  "__YEARS_ACTIVE__+",
-                                                             "label":  "anni di esperienza"
-                                                         },
-                                                         {
-                                                             "value":  "6",
-                                                             "label":  "lingue"
-                                                         },
-                                                         {
-                                                             "value":  "Legal interno",
-                                                             "label":  "supporto giuridico integrato"
-                                                         }
-                                                     ],
-                                  "pillarsHeading":  "Tre linee di business connesse",
-                                  "pillarsText":  "Accedi a ogni area da questa home principale con navigazione chiara e unificata.",
-                                  "navBuy":  "Comprare casa",
-                                  "navLegal":  "Consulenza legale",
-                                  "navPartners":  "Promotori e agenti",
-                                  "navAbout":  "Chi siamo",
-                                  "navAgents":  "Agenti",
-                                  "navContact":  "Contatto",
-                                  "navPromoters":  "Promotori",
-                                  "servicesJump":  "Vedi servizi",
-                                  "servicesSwipe":  "Scorri per esplorare",
-                                  "blocks":  {
-                                                 "realEstate":  {
-                                                                    "title":  "Immobiliare",
-                                                                    "text":  "Mappa, proprieta, filtri e operazioni immobiliari.",
-                                                                    "cta":  "Entra in Immobiliare",
-                                                                    "imageAlt":  "Blocco immobiliare BlancaReal"
-                                                                },
-                                                 "legal":  {
-                                                               "title":  "Servizi Legali",
-                                                               "text":  "Copertura legale per acquisto, affitto e investimento.",
-                                                               "cta":  "Entra nei Servizi Legali",
-                                                               "imageAlt":  "Blocco servizi legali BlancaReal"
-                                                           },
-                                                 "commercialization":  {
-                                                                           "title":  "Commercializzazione",
-                                                                           "text":  "Strategia commerciale per promotori e prodotto residenziale.",
-                                                                           "cta":  "Entra in Commercializzazione",
-                                                                           "imageAlt":  "Blocco commercializzazione BlancaReal"
-                                                                       }
-                                             }
-                              },
-                       "nl":  {
-                                  "title":  "BlancaReal | Home",
-                                  "description":  "BlancaReal combineert vastgoed, juridische diensten en commercialisatie in een portal.",
-                                  "heroEyebrow":  "BlancaReal Group",
-                                  "heroHeading":  "Uw woning aan de Costa del Sol, met echte lokale experts",
-                                  "heroText":  "Sinds 1969 actief aan de Costa del Sol, met eigen sales- en juridisch team voor kopers, verkopers en investeerders.",
-                                  "heroPrimaryCta":  "Bekijk woningen",
-                                  "heroSecondaryCta":  "Praat met een agent",
-                                  "heroTrustLabel":  "Vertrouwensindicatoren van BlancaReal",
-                                  "heroTrustItems":  [
-                                                         {
-                                                             "value":  "1.000+",
-                                                             "label":  "begeleide families"
-                                                         },
-                                                         {
-                                                             "value":  "__YEARS_ACTIVE__+",
-                                                             "label":  "jaar ervaring"
-                                                         },
-                                                         {
-                                                             "value":  "6",
-                                                             "label":  "talen"
-                                                         },
-                                                         {
-                                                             "value":  "Eigen legal",
-                                                             "label":  "geintegreerde juridische steun"
-                                                         }
-                                                     ],
-                                  "pillarsHeading":  "Drie verbonden businesslijnen",
-                                  "pillarsText":  "Ga vanuit deze hoofdlanding naar elk domein met duidelijke en uniforme navigatie.",
-                                  "navBuy":  "Woning kopen",
-                                  "navLegal":  "Juridisch advies",
-                                  "navPartners":  "Ontwikkelaars en agenten",
-                                  "navAbout":  "Over ons",
-                                  "navAgents":  "Agenten",
-                                  "navContact":  "Contact",
-                                  "navPromoters":  "Projectontwikkelaars",
-                                  "servicesJump":  "Bekijk diensten",
-                                  "servicesSwipe":  "Swipe om te ontdekken",
-                                  "blocks":  {
-                                                 "realEstate":  {
-                                                                    "title":  "Vastgoed",
-                                                                    "text":  "Kaart, woningen, filters en vastgoedoperaties.",
-                                                                    "cta":  "Ga naar Vastgoed",
-                                                                    "imageAlt":  "Vastgoedblok van BlancaReal"
-                                                                },
-                                                 "legal":  {
-                                                               "title":  "Juridische Diensten",
-                                                               "text":  "Juridische begeleiding bij aankoop, verhuur en investering.",
-                                                               "cta":  "Ga naar Juridische Diensten",
-                                                               "imageAlt":  "Juridische diensten blok van BlancaReal"
-                                                           },
-                                                 "commercialization":  {
-                                                                           "title":  "Commercialisatie",
-                                                                           "text":  "Commerciele strategie voor ontwikkelaars en residentieel aanbod.",
-                                                                           "cta":  "Ga naar Commercialisatie",
-                                                                           "imageAlt":  "Commercialisatie blok van BlancaReal"
-                                                                       }
-                                             }
-                              }
-                   },
-    "heroStatsByLang":  {
-                            "es":  [
-                                       {
-                                           "value":  "Desde 1969",
-                                           "label":  "operando en Costa del Sol"
-                                       },
-                                       {
-                                           "value":  "__AVAILABLE_HOMES_COUNT__",
-                                           "label":  "viviendas activas"
-                                       },
-                                       {
-                                           "value":  "1.000+",
-                                           "label":  "clientes acompaÃ±ados"
-                                       },
-                                       {
-                                           "value":  "Legal + Ventas",
-                                           "label":  "equipo interno coordinado"
-                                       }
-                                   ],
-                            "en":  [
-                                       {
-                                           "value":  "Since 1969",
-                                           "label":  "serving Costa del Sol"
-                                       },
-                                       {
-                                           "value":  "__AVAILABLE_HOMES_COUNT__",
-                                           "label":  "homes available"
-                                       },
-                                       {
-                                           "value":  "1,000+",
-                                           "label":  "families assisted"
-                                       },
-                                       {
-                                           "value":  "Legal + Sales",
-                                           "label":  "integrated team"
-                                       }
-                                   ],
-                            "de":  [
-                                       {
-                                           "value":  "Seit 1969",
-                                           "label":  "an der Costa del Sol"
-                                       },
-                                       {
-                                           "value":  "__AVAILABLE_HOMES_COUNT__",
-                                           "label":  "verfuegbare Wohnungen"
-                                       },
-                                       {
-                                           "value":  "1.000+",
-                                           "label":  "begleitete Familien"
-                                       },
-                                       {
-                                           "value":  "Recht + Vertrieb",
-                                           "label":  "integriertes Team"
-                                       }
-                                   ],
-                            "fr":  [
-                                       {
-                                           "value":  "Depuis 1969",
-                                           "label":  "sur la Costa del Sol"
-                                       },
-                                       {
-                                           "value":  "__AVAILABLE_HOMES_COUNT__",
-                                           "label":  "logements disponibles"
-                                       },
-                                       {
-                                           "value":  "1 000+",
-                                           "label":  "familles accompagnees"
-                                       },
-                                       {
-                                           "value":  "Juridique + Ventes",
-                                           "label":  "equipe integree"
-                                       }
-                                   ],
-                            "it":  [
-                                       {
-                                           "value":  "Dal 1969",
-                                           "label":  "in Costa del Sol"
-                                       },
-                                       {
-                                           "value":  "__AVAILABLE_HOMES_COUNT__",
-                                           "label":  "abitazioni disponibili"
-                                       },
-                                       {
-                                           "value":  "1.000+",
-                                           "label":  "famiglie assistite"
-                                       },
-                                       {
-                                           "value":  "Legale + Vendite",
-                                           "label":  "team integrato"
-                                       }
-                                   ],
-                            "nl":  [
-                                       {
-                                           "value":  "Sinds 1969",
-                                           "label":  "aan de Costa del Sol"
-                                       },
-                                       {
-                                           "value":  "__AVAILABLE_HOMES_COUNT__",
-                                           "label":  "beschikbare woningen"
-                                       },
-                                       {
-                                           "value":  "1.000+",
-                                           "label":  "begeleide families"
-                                       },
-                                       {
-                                           "value":  "Juridisch + Verkoop",
-                                           "label":  "geintegreerd team"
-                                       }
-                                   ]
-                        },
-    "extraByLang":  {
-                        "es":  {
-                                   "aboutRows":  [
-                                                     {
-                                                         "title":  "Trayectoria y confianza",
-                                                         "text":  "MÃ¡s de cinco dÃ©cadas asesorando compras, ventas e inversiones con conocimiento real del mercado local.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Promoción residencial en Costa del Sol"
-                                                     },
-                                                     {
-                                                         "title":  "Servicios integrados",
-                                                         "text":  "Reunimos intermediaciÃ³n inmobiliaria, comercializaciÃ³n de obra nueva y apoyo legal-fiscal para que la operaciÃ³n no se rompa entre proveedores.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
-                                                         "imageAlt":  "Equipo y servicios inmobiliarios integrados"
-                                                     },
-                                                     {
-                                                         "title":  "Cobertura local e internacional",
-                                                         "text":  "Desde Calahonda atendemos a clientes nacionales e internacionales con enfoque local, criterio comercial y atenciÃ³n multilingÃ¼e.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Vista de Costa del Sol con promociones residenciales"
-                                                     }
-                                                 ],
-                                   "collaboratorsTitle":  "Red de colaboradores estratÃ©gicos",
-                                   "collaboratorsAria":  "Ruleta de colaboradores de BlancaReal",
-                                   "collaborators":  [
-                                                         "Promotoras asociadas",
-                                                         "Despachos legales",
-                                                         "Notarias locales",
-                                                         "Tasadores homologados",
-                                                         "Brokers hipotecarios",
-                                                         "Arquitectos y técnicos",
-                                                         "Gestores patrimoniales",
-                                                         "Especialistas de marketing"
-                                                     ],
-                                   "footerTagline":  "Inmobiliaria, asesoramiento legal y comercializaciÃ³n en Costa del Sol.",
-                                   "footerSections":  "Secciones",
-                                   "footerContact":  "Contacto",
-                                   "footerLegal":  "Legal",
-                                   "footerRights":  "Todos los derechos reservados.",
-                                   "privacy":  "Política de privacidad",
-                                   "cookies":  "Cookies"
-                               },
-                        "en":  {
-                                   "aboutRows":  [
-                                                     {
-                                                         "title":  "Track record and trust",
-                                                         "text":  "BlancaReal has operated on Costa del Sol since 1969 and has supported more than 1,000 families in real estate operations.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Residential development on Costa del Sol"
-                                                     },
-                                                     {
-                                                         "title":  "Integrated services",
-                                                         "text":  "We combine Real Estate, commercialization, legal-tax advisory and asset management to cover the full operation lifecycle.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
-                                                         "imageAlt":  "Integrated real estate service model"
-                                                     },
-                                                     {
-                                                         "title":  "Local and international reach",
-                                                         "text":  "From our Calahonda office in Mijas Costa, we serve local and international clients with multilingual support.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Costa del Sol view with residential projects"
-                                                     }
-                                                 ],
-                                   "collaboratorsTitle":  "Strategic collaborators",
-                                   "collaboratorsAria":  "BlancaReal collaborators wheel",
-                                   "collaborators":  [
-                                                         "Associated developers",
-                                                         "Legal firms",
-                                                         "Local notaries",
-                                                         "Certified appraisers",
-                                                         "Mortgage brokers",
-                                                         "Architects and surveyors",
-                                                         "Asset managers",
-                                                         "Marketing specialists"
-                                                     ],
-                                   "footerTagline":  "Real estate and integrated services on Costa del Sol.",
-                                   "footerSections":  "Sections",
-                                   "footerContact":  "Contact",
-                                   "footerLegal":  "Legal",
-                                   "footerRights":  "All rights reserved.",
-                                   "privacy":  "Privacy policy",
-                                   "cookies":  "Cookies"
-                               },
-                        "de":  {
-                                   "aboutRows":  [
-                                                     {
-                                                         "title":  "Erfahrung und Vertrauen",
-                                                         "text":  "BlancaReal ist seit 1969 an der Costa del Sol taetig und hat mehr als 1.000 Familien bei Immobilienoperationen begleitet.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Wohnprojekt an der Costa del Sol"
-                                                     },
-                                                     {
-                                                         "title":  "Integrierte Leistungen",
-                                                         "text":  "Wir verbinden Immobilien, Vermarktung, Rechts- und Steuerberatung sowie Asset-Management in einem Modell.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
-                                                         "imageAlt":  "Integriertes Immobilien-Servicemodell"
-                                                     },
-                                                     {
-                                                         "title":  "Lokal und international",
-                                                         "text":  "Vom Standort Calahonda in Mijas Costa betreuen wir lokale und internationale Kunden mit mehrsprachigem Team.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Blick auf die Costa del Sol mit Wohnprojekten"
-                                                     }
-                                                 ],
-                                   "collaboratorsTitle":  "Strategische Partner",
-                                   "collaboratorsAria":  "Partner-Rad von BlancaReal",
-                                   "collaborators":  [
-                                                         "Partner-Bautraeger",
-                                                         "Rechtskanzleien",
-                                                         "Lokale Notare",
-                                                         "Zertifizierte Gutachter",
-                                                         "Hypothekenmakler",
-                                                         "Architekten und Techniker",
-                                                         "Asset Manager",
-                                                         "Marketing-Spezialisten"
-                                                     ],
-                                   "footerTagline":  "Immobilien und integrierte Services an der Costa del Sol.",
-                                   "footerSections":  "Bereiche",
-                                   "footerContact":  "Kontakt",
-                                   "footerLegal":  "Rechtliches",
-                                   "footerRights":  "Alle Rechte vorbehalten.",
-                                   "privacy":  "Datenschutz",
-                                   "cookies":  "Cookies"
-                               },
-                        "fr":  {
-                                   "aboutRows":  [
-                                                     {
-                                                         "title":  "Experience et confiance",
-                                                         "text":  "BlancaReal opere sur la Costa del Sol depuis 1969 et a accompagne plus de 1 000 familles.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Programme residentiel sur la Costa del Sol"
-                                                     },
-                                                     {
-                                                         "title":  "Services integres",
-                                                         "text":  "Nous combinons immobilier, commercialisation, conseil juridique-fiscal et gestion patrimoniale dans un seul modele.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
-                                                         "imageAlt":  "Modele immobilier integre"
-                                                     },
-                                                     {
-                                                         "title":  "Portee locale et internationale",
-                                                         "text":  "Depuis Calahonda a Mijas Costa, nous accompagnons des clients locaux et internationaux en plusieurs langues.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Vue de la Costa del Sol avec projets residentiels"
-                                                     }
-                                                 ],
-                                   "collaboratorsTitle":  "Collaborateurs strategiques",
-                                   "collaboratorsAria":  "Roulette des collaborateurs BlancaReal",
-                                   "collaborators":  [
-                                                         "Promoteurs associes",
-                                                         "Cabinets juridiques",
-                                                         "Notaires locaux",
-                                                         "Experts agrees",
-                                                         "Courtiers hypothecaires",
-                                                         "Architectes et techniciens",
-                                                         "Gestionnaires d actifs",
-                                                         "Specialistes marketing"
-                                                     ],
-                                   "footerTagline":  "Immobilier et services integres sur la Costa del Sol.",
-                                   "footerSections":  "Sections",
-                                   "footerContact":  "Contact",
-                                   "footerLegal":  "Legal",
-                                   "footerRights":  "Tous droits reserves.",
-                                   "privacy":  "Politique de confidentialite",
-                                   "cookies":  "Cookies"
-                               },
-                        "it":  {
-                                   "aboutRows":  [
-                                                     {
-                                                         "title":  "Esperienza e fiducia",
-                                                         "text":  "BlancaReal opera in Costa del Sol dal 1969 e ha supportato oltre 1.000 famiglie nelle operazioni immobiliari.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Sviluppo residenziale in Costa del Sol"
-                                                     },
-                                                     {
-                                                         "title":  "Servizi integrati",
-                                                         "text":  "Uniamo immobiliare, commercializzazione, consulenza legale-fiscale e gestione patrimoniale in un unico modello operativo.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
-                                                         "imageAlt":  "Modello integrato di servizi immobiliari"
-                                                     },
-                                                     {
-                                                         "title":  "Copertura locale e internazionale",
-                                                         "text":  "Dalla sede di Calahonda a Mijas Costa seguiamo clienti locali e internazionali con team multilingue.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Vista Costa del Sol con progetti residenziali"
-                                                     }
-                                                 ],
-                                   "collaboratorsTitle":  "Collaboratori strategici",
-                                   "collaboratorsAria":  "Ruota collaboratori BlancaReal",
-                                   "collaborators":  [
-                                                         "Promotori associati",
-                                                         "Studi legali",
-                                                         "Notai locali",
-                                                         "Periti certificati",
-                                                         "Broker mutui",
-                                                         "Architetti e tecnici",
-                                                         "Asset manager",
-                                                         "Specialisti marketing"
-                                                     ],
-                                   "footerTagline":  "Real estate e servizi integrati in Costa del Sol.",
-                                   "footerSections":  "Sezioni",
-                                   "footerContact":  "Contatto",
-                                   "footerLegal":  "Legale",
-                                   "footerRights":  "Tutti i diritti riservati.",
-                                   "privacy":  "Privacy policy",
-                                   "cookies":  "Cookies"
-                               },
-                        "nl":  {
-                                   "aboutRows":  [
-                                                     {
-                                                         "title":  "Ervaring en vertrouwen",
-                                                         "text":  "BlancaReal is sinds 1969 actief aan de Costa del Sol en begeleidde meer dan 1.000 families bij vastgoedoperaties.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Residentieel project aan de Costa del Sol"
-                                                     },
-                                                     {
-                                                         "title":  "Geintegreerde diensten",
-                                                         "text":  "Wij combineren vastgoed, commercialisatie, juridisch-fiscaal advies en vermogensbeheer in een integraal model.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
-                                                         "imageAlt":  "Geintegreerd vastgoed servicemodel"
-                                                     },
-                                                     {
-                                                         "title":  "Lokale en internationale dekking",
-                                                         "text":  "Vanuit Calahonda in Mijas Costa bedienen we lokale en internationale klanten met meertalige ondersteuning.",
-                                                         "image":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-                                                         "imageAlt":  "Uitzicht op Costa del Sol met residentiele projecten"
-                                                     }
-                                                 ],
-                                   "collaboratorsTitle":  "Strategische samenwerkingen",
-                                   "collaboratorsAria":  "Samenwerkingsroulette BlancaReal",
-                                   "collaborators":  [
-                                                         "Geassocieerde ontwikkelaars",
-                                                         "Juridische kantoren",
-                                                         "Lokale notarissen",
-                                                         "Gecertificeerde taxateurs",
-                                                         "Hypotheekmakelaars",
-                                                         "Architecten en technici",
-                                                         "Vermogensbeheerders",
-                                                         "Marketing specialisten"
-                                                     ],
-                                   "footerTagline":  "Vastgoed en geintegreerde diensten aan de Costa del Sol.",
-                                   "footerSections":  "Secties",
-                                   "footerContact":  "Contact",
-                                   "footerLegal":  "Juridisch",
-                                   "footerRights":  "Alle rechten voorbehouden.",
-                                   "privacy":  "Privacybeleid",
-                                   "cookies":  "Cookies"
-                               }
-                    },
-    "formByLang":  {
-                       "es":  {
-                                  "title":  "CuÃ©ntanos quÃ© necesitas",
-                                  "intro":  "Si buscas comprar, vender, invertir o comercializar una promociÃ³n, te orientamos desde el primer paso.",
-                                  "toggleOpen":  "Abrir formulario",
-                                  "toggleClose":  "Cerrar formulario",
-                                  "name":  "Nombre",
-                                  "email":  "Email",
-                                  "phone":  "TelÃ©fono",
-                                  "service":  "Â¿En quÃ© Ã¡rea te ayudamos?",
-                                  "message":  "Mensaje",
-                                  "optionDefault":  "Elige un servicio",
-                                  "optionRealEstate":  "Inmobiliaria",
-                                  "optionLegal":  "Asesoramiento legal",
-                                  "optionCommercialization":  "ComercializaciÃ³n",
-                                  "consentPrefix":  "He leÃ­do y acepto la",
-                                  "consentLink":  "polÃ­tica de privacidad",
-                                  "consentSuffix":  "antes de continuar.",
-                                  "legalNote":  "Usaremos estos datos solo para preparar tu solicitud y llevarte al formulario seguro de contacto.",
-                                  "redirecting":  "Te llevamos al formulario seguro de contacto...",
-                                  "submit":  "Continuar"
-                              },
-                       "en":  {
-                                  "title":  "Request personalized advice",
-                                  "intro":  "Share your objective and the BlancaReal team will contact you.",
-                                  "toggleOpen":  "Open form",
-                                  "toggleClose":  "Close form",
-                                  "name":  "Name",
-                                  "email":  "Email",
-                                  "phone":  "Phone",
-                                  "service":  "Service",
-                                  "message":  "Message",
-                                  "optionDefault":  "Select a service",
-                                  "optionRealEstate":  "Real Estate",
-                                  "optionLegal":  "Legal Services",
-                                  "optionCommercialization":  "Commercialization",
-                                  "consentPrefix":  "I have read and accept the",
-                                  "consentLink":  "privacy policy",
-                                  "consentSuffix":  "before continuing.",
-                                  "legalNote":  "Your data will only be used to prepare your request and move you to the secure contact form.",
-                                  "redirecting":  "Opening the secure contact form...",
-                                  "submit":  "Continue to form"
-                              },
-                       "de":  {
-                                  "title":  "Persoenliche Beratung anfordern",
-                                  "intro":  "Teilen Sie Ihr Ziel mit und das BlancaReal Team kontaktiert Sie.",
-                                  "toggleOpen":  "Formular oeffnen",
-                                  "toggleClose":  "Formular schliessen",
-                                  "name":  "Name",
-                                  "email":  "E-Mail",
-                                  "phone":  "Telefon",
-                                  "service":  "Service",
-                                  "message":  "Nachricht",
-                                  "optionDefault":  "Service waehlen",
-                                  "optionRealEstate":  "Immobilien",
-                                  "optionLegal":  "Rechtsservice",
-                                  "optionCommercialization":  "Vermarktung",
-                                  "consentPrefix":  "Ich habe die",
-                                  "consentLink":  "Datenschutzerklaerung",
-                                  "consentSuffix":  "gelesen und akzeptiere sie vor dem Fortfahren.",
-                                  "legalNote":  "Ihre Daten werden nur verwendet, um Ihre Anfrage vorzubereiten und Sie zum sicheren Kontaktformular weiterzuleiten.",
-                                  "redirecting":  "Das sichere Kontaktformular wird geoeffnet...",
-                                  "submit":  "Zum Formular weiter"
-                              },
-                       "fr":  {
-                                  "title":  "Demander un accompagnement personnalise",
-                                  "intro":  "Partagez votre objectif et l equipe BlancaReal vous contactera.",
-                                  "toggleOpen":  "Ouvrir le formulaire",
-                                  "toggleClose":  "Fermer le formulaire",
-                                  "name":  "Nom",
-                                  "email":  "Email",
-                                  "phone":  "Telephone",
-                                  "service":  "Service",
-                                  "message":  "Message",
-                                  "optionDefault":  "Selectionner un service",
-                                  "optionRealEstate":  "Immobilier",
-                                  "optionLegal":  "Services juridiques",
-                                  "optionCommercialization":  "Commercialisation",
-                                  "consentPrefix":  "J ai lu et j accepte la",
-                                  "consentLink":  "politique de confidentialite",
-                                  "consentSuffix":  "avant de continuer.",
-                                  "legalNote":  "Vos donnees seront utilisees uniquement pour preparer votre demande et vous rediriger vers le formulaire de contact securise.",
-                                  "redirecting":  "Ouverture du formulaire de contact securise...",
-                                  "submit":  "Continuer vers le formulaire"
-                              },
-                       "it":  {
-                                  "title":  "Richiedi consulenza personalizzata",
-                                  "intro":  "Condividi il tuo obiettivo e il team BlancaReal ti contattera.",
-                                  "toggleOpen":  "Apri il modulo",
-                                  "toggleClose":  "Chiudi il modulo",
-                                  "name":  "Nome",
-                                  "email":  "Email",
-                                  "phone":  "Telefono",
-                                  "service":  "Servizio",
-                                  "message":  "Messaggio",
-                                  "optionDefault":  "Seleziona un servizio",
-                                  "optionRealEstate":  "Immobiliare",
-                                  "optionLegal":  "Servizi legali",
-                                  "optionCommercialization":  "Commercializzazione",
-                                  "consentPrefix":  "Ho letto e accetto la",
-                                  "consentLink":  "privacy policy",
-                                  "consentSuffix":  "prima di continuare.",
-                                  "legalNote":  "I tuoi dati saranno usati solo per preparare la richiesta e portarti al modulo di contatto sicuro.",
-                                  "redirecting":  "Apertura del modulo di contatto sicuro...",
-                                  "submit":  "Continua al modulo"
-                              },
-                       "nl":  {
-                                  "title":  "Vraag persoonlijk advies aan",
-                                  "intro":  "Deel uw doel en het BlancaReal team neemt contact met u op.",
-                                  "toggleOpen":  "Formulier openen",
-                                  "toggleClose":  "Formulier sluiten",
-                                  "name":  "Naam",
-                                  "email":  "Email",
-                                  "phone":  "Telefoon",
-                                  "service":  "Dienst",
-                                  "message":  "Bericht",
-                                  "optionDefault":  "Selecteer een dienst",
-                                  "optionRealEstate":  "Vastgoed",
-                                  "optionLegal":  "Juridische diensten",
-                                  "optionCommercialization":  "Commercialisatie",
-                                  "consentPrefix":  "Ik heb het",
-                                  "consentLink":  "privacybeleid",
-                                  "consentSuffix":  "gelezen en aanvaard voordat ik verder ga.",
-                                  "legalNote":  "Uw gegevens worden alleen gebruikt om uw aanvraag voor te bereiden en u naar het beveiligde contactformulier te brengen.",
-                                  "redirecting":  "Beveiligd contactformulier wordt geopend...",
-                                  "submit":  "Ga naar formulier"
-                              }
-                   },
-    "instagramByLang":  {
-                            "es":  {
-                                       "eyebrow":  "Instagram",
-                                       "title":  "Lo que estamos moviendo ahora",
-                                       "intro":  "Proyectos, novedades y vida inmobiliaria de BlancaReal en Instagram.",
-                                       "cta":  "Seguir",
-                                       "ariaLabel":  "Publicaciones de Instagram de BlancaReal"
-                                   },
-                            "en":  {
-                                       "eyebrow":  "Instagram",
-                                       "title":  "Stay In The Know",
-                                       "intro":  "Join BlancaReal on Instagram.",
-                                       "cta":  "Follow",
-                                       "ariaLabel":  "BlancaReal Instagram posts"
-                                   },
-                            "de":  {
-                                       "eyebrow":  "Instagram",
-                                       "title":  "Bleiben Sie auf dem Laufenden",
-                                       "intro":  "Folgen Sie BlancaReal auf Instagram.",
-                                       "cta":  "Folgen",
-                                       "ariaLabel":  "Instagram-Beitraege von BlancaReal"
-                                   },
-                            "fr":  {
-                                       "eyebrow":  "Instagram",
-                                       "title":  "Restez informe",
-                                       "intro":  "Suivez BlancaReal sur Instagram.",
-                                       "cta":  "Suivre",
-                                       "ariaLabel":  "Publications Instagram de BlancaReal"
-                                   },
-                            "it":  {
-                                       "eyebrow":  "Instagram",
-                                       "title":  "Resta aggiornato",
-                                       "intro":  "Segui BlancaReal su Instagram.",
-                                       "cta":  "Segui",
-                                       "ariaLabel":  "Post Instagram di BlancaReal"
-                                   },
-                            "nl":  {
-                                       "eyebrow":  "Instagram",
-                                       "title":  "Blijf op de hoogte",
-                                       "intro":  "Volg BlancaReal op Instagram.",
-                                       "cta":  "Volgen",
-                                       "ariaLabel":  "Instagram-posts van BlancaReal"
-                                   }
-                        },
-    "youtubeByLang":  {
-                          "es":  {
-                                     "title":  "YouTube",
-                                     "intro":  "Recorridos, promociones y contenido para entender mejor cada proyecto.",
-                                     "cta":  "Ver canal",
-                                     "ariaLabel":  "Videos de YouTube de BlancaReal"
-                                 },
-                          "en":  {
-                                     "title":  "YouTube",
-                                     "intro":  "Discover tours, projects and BlancaReal videos.",
-                                     "cta":  "Watch videos",
-                                     "ariaLabel":  "BlancaReal YouTube videos"
-                                 },
-                          "de":  {
-                                     "title":  "YouTube",
-                                     "intro":  "Entdecken Sie Rundgaenge, Projekte und Videos von BlancaReal.",
-                                     "cta":  "Videos ansehen",
-                                     "ariaLabel":  "YouTube-Videos von BlancaReal"
-                                 },
-                          "fr":  {
-                                     "title":  "YouTube",
-                                     "intro":  "Decouvrez visites, projets et videos de BlancaReal.",
-                                     "cta":  "Voir les videos",
-                                     "ariaLabel":  "Videos YouTube de BlancaReal"
-                                 },
-                          "it":  {
-                                     "title":  "YouTube",
-                                     "intro":  "Scopri tour, progetti e video di BlancaReal.",
-                                     "cta":  "Guarda i video",
-                                     "ariaLabel":  "Video YouTube di BlancaReal"
-                                 },
-                          "nl":  {
-                                     "title":  "YouTube",
-                                     "intro":  "Ontdek tours, projecten en video\u0027s van BlancaReal.",
-                                     "cta":  "Bekijk video\u0027s",
-                                     "ariaLabel":  "YouTube-video\u0027s van BlancaReal"
-                                 }
-                      },
-    "teamByLang":  {
-                       "es":  {
-                                  "title":  "Nuestro equipo",
-                                  "prev":  "Ver perfil anterior",
-                                  "next":  "Ver siguiente perfil",
-                                  "languages":  "Idiomas",
-                                  "email":  "Correo",
-                                  "phone":  "Teléfono",
-                                  "emailAction":  "Enviar correo",
-                                  "phoneAction":  "Llamar",
-                                  "noLanguages":  "Consultar"
-                              },
-                       "en":  {
-                                  "title":  "Our team",
-                                  "prev":  "View previous profile",
-                                  "next":  "View next profile",
-                                  "languages":  "Languages",
-                                  "email":  "Email",
-                                  "phone":  "Phone",
-                                  "emailAction":  "Send email",
-                                  "phoneAction":  "Call",
-                                  "noLanguages":  "Ask us"
-                              },
-                       "de":  {
-                                  "title":  "Unser Team",
-                                  "prev":  "Vorheriges Profil anzeigen",
-                                  "next":  "Naechstes Profil anzeigen",
-                                  "languages":  "Sprachen",
-                                  "email":  "E-Mail",
-                                  "phone":  "Telefon",
-                                  "emailAction":  "E-Mail senden",
-                                  "phoneAction":  "Anrufen",
-                                  "noLanguages":  "Anfragen"
-                              },
-                       "fr":  {
-                                  "title":  "Notre equipe",
-                                  "prev":  "Voir le profil precedent",
-                                  "next":  "Voir le profil suivant",
-                                  "languages":  "Langues",
-                                  "email":  "Email",
-                                  "phone":  "Telephone",
-                                  "emailAction":  "Envoyer un email",
-                                  "phoneAction":  "Appeler",
-                                  "noLanguages":  "Nous consulter"
-                              },
-                       "it":  {
-                                  "title":  "Il nostro team",
-                                  "prev":  "Vedi il profilo precedente",
-                                  "next":  "Vedi il profilo successivo",
-                                  "languages":  "Lingue",
-                                  "email":  "Email",
-                                  "phone":  "Telefono",
-                                  "emailAction":  "Invia email",
-                                  "phoneAction":  "Chiama",
-                                  "noLanguages":  "Da consultare"
-                              },
-                       "nl":  {
-                                  "title":  "Ons team",
-                                  "prev":  "Bekijk vorig profiel",
-                                  "next":  "Bekijk volgend profiel",
-                                  "languages":  "Talen",
-                                  "email":  "Email",
-                                  "phone":  "Telefoon",
-                                  "emailAction":  "Email sturen",
-                                  "phoneAction":  "Bellen",
-                                  "noLanguages":  "Vraag het ons"
-                              }
-                   },
-    "teamLanguageBadges":  {
-                               "es":  {
-                                          "label":  "Español",
-                                          "flagUrl":  "/flags/es.svg"
-                                      },
-                               "en":  {
-                                          "label":  "English",
-                                          "flagUrl":  "/flags/gb.svg"
-                                      },
-                               "fr":  {
-                                          "label":  "Francais",
-                                          "flagUrl":  "/flags/fr.svg"
-                                      },
-                               "de":  {
-                                          "label":  "Deutsch",
-                                          "flagUrl":  "/flags/de.svg"
-                                      },
-                               "nl":  {
-                                          "label":  "Nederlands",
-                                          "flagUrl":  "/flags/nl.svg"
-                                      },
-                               "it":  {
-                                          "label":  "Italiano",
-                                          "flagUrl":  "/flags/it.svg"
-                                      }
-                           },
-    "postsByLang":  {
-                        "es":  {
-                                   "eyebrow":  "Revista BlancaReal",
-                                   "title":  "AnÃ¡lisis, producto y contexto para decidir mejor",
-                                   "intro":  "ArtÃ­culos para entender el mercado, descubrir promociones y resolver dudas antes de comprar, vender o invertir.",
-                                   "viewAll":  "Ir a la revista"
-                               },
-                        "en":  {
-                                   "eyebrow":  "BlancaReal Journal",
-                                   "title":  "Recent reads on market, product and advisory",
-                                   "intro":  "An editorial selection from our journal to frame the market, explain services and highlight recent deals or developments.",
-                                   "viewAll":  "View journal"
-                               },
-                        "de":  {
-                                   "eyebrow":  "BlancaReal Magazin",
-                                   "title":  "Aktuelle Inhalte zu Markt, Produkt und Beratung",
-                                   "intro":  "Eine redaktionelle Auswahl aus unserem Magazin, um den Markt einzuordnen, Services zu erklaeren und aktuelle Projekte oder Transaktionen hervorzuheben.",
-                                   "viewAll":  "Magazin ansehen"
-                               },
-                        "fr":  {
-                                   "eyebrow":  "Journal BlancaReal",
-                                   "title":  "Lectures recentes sur le marche, le produit et le conseil",
-                                   "intro":  "Une selection editoriale de notre journal pour donner du contexte au marche, expliquer nos services et mettre en avant des projets ou operations recentes.",
-                                   "viewAll":  "Voir le journal"
-                               },
-                        "it":  {
-                                   "eyebrow":  "Rivista BlancaReal",
-                                   "title":  "Letture recenti su mercato, prodotto e consulenza",
-                                   "intro":  "Una selezione editoriale della nostra rivista per dare contesto al mercato, spiegare i servizi e mettere in evidenza progetti o operazioni recenti.",
-                                   "viewAll":  "Vedi la rivista"
-                               },
-                        "nl":  {
-                                   "eyebrow":  "BlancaReal Magazine",
-                                   "title":  "Recente stukken over markt, product en advies",
-                                   "intro":  "Een redactionele selectie uit ons magazine om de markt te duiden, diensten uit te leggen en recente projecten of transacties uit te lichten.",
-                                   "viewAll":  "Bekijk magazine"
-                               }
-                    },
-    "editorialHeroByLang":  {
-                                "es":  {
-                                           "eyebrow":  "Grupo BlancaReal",
-                                           "heading":  "Propiedades y promociones con base real en Costa del Sol",
-                                           "text":  "Obra nueva, producto seleccionado y acompaÃ±amiento legal integrado para comprar, vender o invertir con mÃ¡s seguridad.",
-                                           "primaryCta":  "Ver promociÃ³n",
-                                           "secondaryCta":  "Ver proyectos",
-                                           "projectLabel":  "PromociÃ³n destacada",
-                                           "locationLabel":  "Ubicación",
-                                           "fromLabel":  "Desde",
-                                           "availableLabel":  "Disponibles",
-                                           "soldLabel":  "Vendidas",
-                                           "progressLabel":  "Seleccionar promociÃ³n destacada",
-                                           "detailLabel":  "Promoción activa",
-                                           "prev":  "PromociÃ³n anterior",
-                                           "next":  "PromociÃ³n siguiente"
-                                       },
-                                "en":  {
-                                           "eyebrow":  "BlancaReal Group",
-                                           "heading":  "The Costa del Sol Luxury Marketplace",
-                                           "text":  "Our own developments, premium commercialization and integrated legal guidance for buyers and investors.",
-                                           "primaryCta":  "View project",
-                                           "secondaryCta":  "View all projects",
-                                           "projectLabel":  "Featured development",
-                                           "locationLabel":  "Location",
-                                           "fromLabel":  "From",
-                                           "availableLabel":  "Available",
-                                           "soldLabel":  "Sold",
-                                           "progressLabel":  "Select featured project",
-                                           "detailLabel":  "Active development",
-                                           "prev":  "Previous project",
-                                           "next":  "Next project"
-                                       },
-                                "de":  {
-                                           "eyebrow":  "BlancaReal Gruppe",
-                                           "heading":  "Der Luxus-Marktplatz der Costa del Sol",
-                                           "text":  "Eigene Projekte, Premium-Vermarktung und integrierte Rechtsbegleitung fuer Kaeufer und Investoren.",
-                                           "primaryCta":  "Projekt ansehen",
-                                           "secondaryCta":  "Alle Projekte ansehen",
-                                           "projectLabel":  "Top-Projekt",
-                                           "locationLabel":  "Lage",
-                                           "fromLabel":  "Ab",
-                                           "availableLabel":  "Verfuegbar",
-                                           "soldLabel":  "Verkauft",
-                                           "progressLabel":  "Top-Projekt auswaehlen",
-                                           "detailLabel":  "Aktives Projekt",
-                                           "prev":  "Vorheriges Projekt",
-                                           "next":  "Naechstes Projekt"
-                                       },
-                                "fr":  {
-                                           "eyebrow":  "Groupe BlancaReal",
-                                           "heading":  "Le marketplace luxe de la Costa del Sol",
-                                           "text":  "Programmes propres, commercialisation premium et accompagnement juridique integre pour acheteurs et investisseurs.",
-                                           "primaryCta":  "Voir le programme",
-                                           "secondaryCta":  "Voir tous les programmes",
-                                           "projectLabel":  "Programme phare",
-                                           "locationLabel":  "Localisation",
-                                           "fromLabel":  "A partir de",
-                                           "availableLabel":  "Disponibles",
-                                           "soldLabel":  "Vendues",
-                                           "progressLabel":  "Selectionner le programme phare",
-                                           "detailLabel":  "Programme actif",
-                                           "prev":  "Programme precedent",
-                                           "next":  "Programme suivant"
-                                       },
-                                "it":  {
-                                           "eyebrow":  "Gruppo BlancaReal",
-                                           "heading":  "Il luxury marketplace della Costa del Sol",
-                                           "text":  "Progetti propri, commercializzazione premium e supporto legale integrato per acquirenti e investitori.",
-                                           "primaryCta":  "Vedi progetto",
-                                           "secondaryCta":  "Vedi tutti i progetti",
-                                           "projectLabel":  "Progetto in evidenza",
-                                           "locationLabel":  "Posizione",
-                                           "fromLabel":  "Da",
-                                           "availableLabel":  "Disponibili",
-                                           "soldLabel":  "Vendute",
-                                           "progressLabel":  "Seleziona il progetto in evidenza",
-                                           "detailLabel":  "Progetto attivo",
-                                           "prev":  "Progetto precedente",
-                                           "next":  "Progetto successivo"
-                                       },
-                                "nl":  {
-                                           "eyebrow":  "BlancaReal Groep",
-                                           "heading":  "De luxe marketplace van de Costa del Sol",
-                                           "text":  "Eigen projecten, premium commercialisatie en geintegreerde juridische begeleiding voor kopers en investeerders.",
-                                           "primaryCta":  "Bekijk project",
-                                           "secondaryCta":  "Bekijk alle projecten",
-                                           "projectLabel":  "Uitgelicht project",
-                                           "locationLabel":  "Locatie",
-                                           "fromLabel":  "Vanaf",
-                                           "availableLabel":  "Beschikbaar",
-                                           "soldLabel":  "Verkocht",
-                                           "progressLabel":  "Selecteer uitgelicht project",
-                                           "detailLabel":  "Actief project",
-                                           "prev":  "Vorig project",
-                                           "next":  "Volgend project"
-                                       }
-                            },
-    "featuredServicesByLang":  {
-                                   "es":  {
-                                              "eyebrow":  "Servicios clave",
-                                              "title":  "Tres áreas que refuerzan cada operación",
-                                              "intro":  "Servicios legales, comercialización residencial y marketing 3D para coordinar estrategia, presentación y cierre bajo la misma marca.",
-                                              "cards":  [
-                                                            {
-                                                                "href":  "/__LANG__/legal-services/",
-                                                                "image":  "/images/home-sections/legal-services/legal.jpg",
-                                                                "title":  "Servicios legales",
-                                                                "text":  "Cobertura jurídica para compraventas, contratos, fiscalidad e inversores nacionales e internacionales.",
-                                                                "cta":  "Ver servicios legales"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/commercialization/",
-                                                                "image":  "/images/home-sections/commercialization/entrada.png",
-                                                                "title":  "Comercialización",
-                                                                "text":  "Lanzamiento, posicionamiento y ventas para promociones y producto residencial con foco en absorción real.",
-                                                                "cta":  "Ver comercialización"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/marketing-3d/",
-                                                                "image":  "/images/home-sections/marketing-3d/dron.jpg",
-                                                                "title":  "Marketing 3D",
-                                                                "text":  "Fotografía, dron, modelado 3D y campañas visuales para presentar cada activo con más impacto.",
-                                                                "cta":  "Ver marketing 3D"
-                                                            }
-                                                        ]
-                                          },
-                                   "en":  {
-                                              "eyebrow":  "Featured services",
-                                              "title":  "Three lines supporting every operation",
-                                              "intro":  "Legal services, residential commercialization and 3D marketing aligned under one brand.",
-                                              "cards":  [
-                                                            {
-                                                                "href":  "/__LANG__/legal-services/",
-                                                                "image":  "/images/home-sections/legal-services/legal.jpg",
-                                                                "title":  "Legal services",
-                                                                "text":  "Integrated legal support for transactions, contracts and international investors.",
-                                                                "cta":  "Explore legal services"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/commercialization/",
-                                                                "image":  "/images/home-sections/commercialization/entrada.png",
-                                                                "title":  "Commercialization",
-                                                                "text":  "Strategy, positioning and sales for developments and residential stock.",
-                                                                "cta":  "Explore commercialization"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/marketing-3d/",
-                                                                "image":  "/images/home-sections/marketing-3d/dron.jpg",
-                                                                "title":  "3D marketing",
-                                                                "text":  "Photography, drone footage, 3D modeling and launch visuals to present each asset with stronger impact.",
-                                                                "cta":  "Explore 3D marketing"
-                                                            }
-                                                        ]
-                                          },
-                                   "de":  {
-                                              "eyebrow":  "Top-Services",
-                                              "title":  "Drei Bereiche fuer jede Operation",
-                                              "intro":  "Rechtsservice, Vermarktung und 3D-Marketing unter einer Marke gebuendelt.",
-                                              "cards":  [
-                                                            {
-                                                                "href":  "/__LANG__/legal-services/",
-                                                                "image":  "/images/home-sections/legal-services/legal.jpg",
-                                                                "title":  "Rechtsservice",
-                                                                "text":  "Integrierte Rechtsbegleitung fuer Transaktionen, Vertraege und internationale Investoren.",
-                                                                "cta":  "Rechtsservice ansehen"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/commercialization/",
-                                                                "image":  "/images/home-sections/commercialization/entrada.png",
-                                                                "title":  "Vermarktung",
-                                                                "text":  "Strategie, Positionierung und Vertrieb fuer Projekte und Wohnprodukt.",
-                                                                "cta":  "Vermarktung ansehen"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/marketing-3d/",
-                                                                "image":  "/images/home-sections/marketing-3d/dron.jpg",
-                                                                "title":  "3D-Marketing",
-                                                                "text":  "Foto, Drohne, 3D-Visualisierung und Kampagnen fuer eine staerkere Praesentation jeder Immobilie.",
-                                                                "cta":  "3D-Marketing ansehen"
-                                                            }
-                                                        ]
-                                          },
-                                   "fr":  {
-                                              "eyebrow":  "Services en vedette",
-                                              "title":  "Trois poles pour renforcer chaque operation",
-                                              "intro":  "Services juridiques, commercialisation residentielle et marketing 3D reunis sous une meme marque.",
-                                              "cards":  [
-                                                            {
-                                                                "href":  "/__LANG__/legal-services/",
-                                                                "image":  "/images/home-sections/legal-services/legal.jpg",
-                                                                "title":  "Services juridiques",
-                                                                "text":  "Accompagnement juridique integre pour operations, contrats et investisseurs internationaux.",
-                                                                "cta":  "Explorer le juridique"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/commercialization/",
-                                                                "image":  "/images/home-sections/commercialization/entrada.png",
-                                                                "title":  "Commercialisation",
-                                                                "text":  "Strategie, positionnement et ventes pour programmes et stock residentiel.",
-                                                                "cta":  "Explorer la commercialisation"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/marketing-3d/",
-                                                                "image":  "/images/home-sections/marketing-3d/dron.jpg",
-                                                                "title":  "Marketing 3D",
-                                                                "text":  "Photo, drone, modelisation 3D et visuels de campagne pour mieux presenter chaque actif.",
-                                                                "cta":  "Explorer le marketing 3D"
-                                                            }
-                                                        ]
-                                          },
-                                   "it":  {
-                                              "eyebrow":  "Servizi in evidenza",
-                                              "title":  "Tre aree a supporto di ogni operazione",
-                                              "intro":  "Servizi legali, commercializzazione residenziale e marketing 3D sotto un unico marchio.",
-                                              "cards":  [
-                                                            {
-                                                                "href":  "/__LANG__/legal-services/",
-                                                                "image":  "/images/home-sections/legal-services/legal.jpg",
-                                                                "title":  "Servizi legali",
-                                                                "text":  "Supporto legale integrato per operazioni, contratti e investitori internazionali.",
-                                                                "cta":  "Esplora servizi legali"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/commercialization/",
-                                                                "image":  "/images/home-sections/commercialization/entrada.png",
-                                                                "title":  "Commercializzazione",
-                                                                "text":  "Strategia, posizionamento e vendite per progetti e stock residenziale.",
-                                                                "cta":  "Esplora commercializzazione"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/marketing-3d/",
-                                                                "image":  "/images/home-sections/marketing-3d/dron.jpg",
-                                                                "title":  "Marketing 3D",
-                                                                "text":  "Foto, drone, modellazione 3D e campagne visive per presentare ogni asset con piu impatto.",
-                                                                "cta":  "Esplora marketing 3D"
-                                                            }
-                                                        ]
-                                          },
-                                   "nl":  {
-                                              "eyebrow":  "Uitgelichte diensten",
-                                              "title":  "Drie lijnen achter elke operatie",
-                                              "intro":  "Juridische diensten, residentiele commercialisatie en 3D-marketing binnen een merk.",
-                                              "cards":  [
-                                                            {
-                                                                "href":  "/__LANG__/legal-services/",
-                                                                "image":  "/images/home-sections/legal-services/legal.jpg",
-                                                                "title":  "Juridische diensten",
-                                                                "text":  "Geintegreerde juridische ondersteuning voor transacties, contracten en internationale investeerders.",
-                                                                "cta":  "Verken juridische diensten"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/commercialization/",
-                                                                "image":  "/images/home-sections/commercialization/entrada.png",
-                                                                "title":  "Commercialisatie",
-                                                                "text":  "Strategie, positionering en verkoop voor projecten en residentieel aanbod.",
-                                                                "cta":  "Verken commercialisatie"
-                                                            },
-                                                            {
-                                                                "href":  "/__LANG__/marketing-3d/",
-                                                                "image":  "/images/home-sections/marketing-3d/dron.jpg",
-                                                                "title":  "3D-marketing",
-                                                                "text":  "Fotografie, drone, 3D-modellering en campagnebeelden om elk object sterker te presenteren.",
-                                                                "cta":  "Verken 3D-marketing"
-                                                            }
-                                                        ]
-                                          }
-                               },
-    "featuredUnitsByLang":  {
-                                "es":  {
-                                           "eyebrow":  "Propiedades destacadas",
-                                           "title":  "Inventario activo con disponibilidad real",
-                                           "intro":  "Una selecciÃ³n actual de viviendas y unidades en comercializaciÃ³n para que veas lo que hoy sÃ­ puedes valorar.",
-                                           "prev":  "Ver grupo anterior",
-                                           "next":  "Ver grupo siguiente"
-                                       },
-                                "en":  {
-                                           "eyebrow":  "Featured properties",
-                                           "title":  "A rotating selection of child units ready to capture demand",
-                                           "intro":  "20 available child units from our own developments, continuously rotating to surface active inventory.",
-                                           "prev":  "View previous group",
-                                           "next":  "View next group"
-                                       },
-                                "de":  {
-                                           "eyebrow":  "Top-Immobilien",
-                                           "title":  "Eine rotierende Auswahl an verfuegbaren Einheiten",
-                                           "intro":  "20 verfuegbare Einheiten aus unseren eigenen Projekten in kontinuierlicher Rotation fuer das aktive Inventar.",
-                                           "prev":  "Vorherige Gruppe anzeigen",
-                                           "next":  "Naechste Gruppe anzeigen"
-                                       },
-                                "fr":  {
-                                           "eyebrow":  "Biens en vedette",
-                                           "title":  "Une selection rotative d unites disponibles",
-                                           "intro":  "20 unites disponibles issues de nos propres programmes, mises en rotation pour valoriser le stock actif.",
-                                           "prev":  "Voir le groupe precedent",
-                                           "next":  "Voir le groupe suivant"
-                                       },
-                                "it":  {
-                                           "eyebrow":  "Immobili in evidenza",
-                                           "title":  "Una selezione rotante di unita disponibili",
-                                           "intro":  "20 unita disponibili dei nostri progetti propri, in rotazione continua per dare visibilita allo stock attivo.",
-                                           "prev":  "Vedi gruppo precedente",
-                                           "next":  "Vedi gruppo successivo"
-                                       },
-                                "nl":  {
-                                           "eyebrow":  "Uitgelichte woningen",
-                                           "title":  "Een roterende selectie van beschikbare units",
-                                           "intro":  "20 beschikbare child units uit onze eigen projecten, doorlopend in rotatie om actief aanbod zichtbaar te houden.",
-                                           "prev":  "Bekijk vorige groep",
-                                           "next":  "Bekijk volgende groep"
-                                       }
-                            }
+{
+  "pageByLang": {
+    "es": {
+      "title": "BlancaReal | Inmobiliaria, legal y comercialización en Costa del Sol",
+      "description": "Compra, venta e inversión en Costa del Sol con un equipo inmobiliario, legal y comercial bajo una misma firma.",
+      "heroEyebrow": "BlancaReal Group",
+      "heroHeading": "Compra, venta e inversión en Costa del Sol con respaldo real",
+      "heroText": "Desde 1969 acompañamos operaciones residenciales e inversiones con equipo comercial y jurídico propio.",
+      "heroPrimaryCta": "Explorar propiedades",
+      "heroSecondaryCta": "Contactar con el equipo",
+      "heroTrustLabel": "Señales de confianza BlancaReal",
+      "heroTrustItems": [
+        {
+          "value": "+1.000",
+          "label": "clientes acompañados"
+        },
+        {
+          "value": "__YEARS_ACTIVE__+",
+          "label": "años en Costa del Sol"
+        },
+        {
+          "value": "6",
+          "label": "idiomas"
+        },
+        {
+          "value": "Legal propio",
+          "label": "asesoramiento jurídico integrado"
+        }
+      ],
+      "pillarsHeading": "Tres áreas conectadas, una sola firma",
+      "pillarsText": "Inmobiliaria, legal y comercialización coordinadas para que cada operación avance con más claridad, velocidad y control.",
+      "navBuy": "Comprar vivienda",
+      "navLegal": "Asesoramiento legal",
+      "navPartners": "Promotoras y agentes",
+      "navAbout": "Quiénes somos",
+      "navAgents": "Agentes",
+      "navContact": "Contacto",
+      "navPromoters": "Promotoras",
+      "servicesJump": "Ver servicios",
+      "servicesSwipe": "Desliza para explorar",
+      "blocks": {
+        "realEstate": {
+          "title": "Inmobiliaria",
+          "text": "Propiedades, mapa, filtros y acompañamiento para comprar con criterio.",
+          "cta": "Entrar en Inmobiliaria",
+          "imageAlt": "Bloque inmobiliario de BlancaReal"
+        },
+        "legal": {
+          "title": "Servicios Legales",
+          "text": "Asesoramiento jurídico para compraventa, inversión, herencias y alquiler.",
+          "cta": "Entrar en Legal",
+          "imageAlt": "Bloque de servicios legales BlancaReal"
+        },
+        "commercialization": {
+          "title": "Comercialización",
+          "text": "Estrategia, posicionamiento y ventas para promotoras y producto residencial.",
+          "cta": "Entrar en Comercialización",
+          "imageAlt": "Bloque de comercialización BlancaReal"
+        }
+      }
+    },
+    "en": {
+      "title": "BlancaReal | Home",
+      "description": "BlancaReal combines Real Estate, legal services and commercialization in one ecosystem.",
+      "heroEyebrow": "BlancaReal Group",
+      "heroHeading": "Your property on the Costa del Sol, with true local experts",
+      "heroText": "Costa del Sol since 1969, with in-house sales and legal support for buyers, sellers and investors.",
+      "heroPrimaryCta": "View properties",
+      "heroSecondaryCta": "Contact an agent",
+      "heroTrustLabel": "BlancaReal trust indicators",
+      "heroTrustItems": [
+        {
+          "value": "1,000+",
+          "label": "families supported"
+        },
+        {
+          "value": "__YEARS_ACTIVE__+",
+          "label": "years of experience"
+        },
+        {
+          "value": "6",
+          "label": "languages"
+        },
+        {
+          "value": "In-house legal",
+          "label": "integrated legal support"
+        }
+      ],
+      "pillarsHeading": "Three connected business lines",
+      "pillarsText": "Access each area from this main landing page with a clear and unified navigation.",
+      "navBuy": "Buy property",
+      "navLegal": "Legal advice",
+      "navPartners": "Developers and agents",
+      "navAbout": "About us",
+      "navAgents": "Agents",
+      "navContact": "Contact",
+      "navPromoters": "Developers",
+      "servicesJump": "View services",
+      "servicesSwipe": "Swipe to explore",
+      "blocks": {
+        "realEstate": {
+          "title": "Real Estate",
+          "text": "Map, properties, filters and real estate operations.",
+          "cta": "Enter Real Estate",
+          "imageAlt": "BlancaReal Real Estate block"
+        },
+        "legal": {
+          "title": "Legal Services",
+          "text": "Legal coverage for buying, renting and investment.",
+          "cta": "Enter Legal Services",
+          "imageAlt": "BlancaReal legal services block"
+        },
+        "commercialization": {
+          "title": "Commercialization",
+          "text": "Sales strategy for developers and residential inventory.",
+          "cta": "Enter Commercialization",
+          "imageAlt": "BlancaReal commercialization block"
+        }
+      }
+    },
+    "de": {
+      "title": "BlancaReal | Start",
+      "description": "BlancaReal vereint Immobilien, Rechtsservice und Vermarktung in einem Portal.",
+      "heroEyebrow": "BlancaReal Group",
+      "heroHeading": "Ihre Immobilie an der Costa del Sol, mit echten lokalen Experten",
+      "heroText": "Seit 1969 an der Costa del Sol, mit eigenem Vertriebs- und Rechtsteam fuer Kaeufer, Verkaeufer und Investoren.",
+      "heroPrimaryCta": "Immobilien ansehen",
+      "heroSecondaryCta": "Mit einem Berater sprechen",
+      "heroTrustLabel": "Vertrauensindikatoren von BlancaReal",
+      "heroTrustItems": [
+        {
+          "value": "1.000+",
+          "label": "begleitete Familien"
+        },
+        {
+          "value": "__YEARS_ACTIVE__+",
+          "label": "Jahre Erfahrung"
+        },
+        {
+          "value": "6",
+          "label": "Sprachen"
+        },
+        {
+          "value": "Eigenes Legal",
+          "label": "integrierte Rechtsbegleitung"
+        }
+      ],
+      "pillarsHeading": "Drei vernetzte Geschaeftsbereiche",
+      "pillarsText": "Greifen Sie von dieser Startseite klar und einheitlich auf jeden Bereich zu.",
+      "navBuy": "Immobilie kaufen",
+      "navLegal": "Rechtsberatung",
+      "navPartners": "Bautraeger und Agenten",
+      "navAbout": "Ueber uns",
+      "navAgents": "Agenten",
+      "navContact": "Kontakt",
+      "navPromoters": "Bautraeger",
+      "servicesJump": "Services ansehen",
+      "servicesSwipe": "Wischen zum Entdecken",
+      "blocks": {
+        "realEstate": {
+          "title": "Immobilien",
+          "text": "Karte, Immobilien, Filter und Immobilien-Operationen.",
+          "cta": "Zu Immobilien",
+          "imageAlt": "Immobilienbereich von BlancaReal"
+        },
+        "legal": {
+          "title": "Rechtsservice",
+          "text": "Juristische Betreuung fuer Kauf, Miete und Investition.",
+          "cta": "Zu Rechtsservice",
+          "imageAlt": "Rechtsservice Bereich von BlancaReal"
+        },
+        "commercialization": {
+          "title": "Vermarktung",
+          "text": "Vertriebsstrategie fuer Bautraeger und Wohnprojekte.",
+          "cta": "Zu Vermarktung",
+          "imageAlt": "Vermarktungsbereich von BlancaReal"
+        }
+      }
+    },
+    "fr": {
+      "title": "BlancaReal | Accueil",
+      "description": "BlancaReal reunit immobilier, services juridiques et commercialisation en un seul portail.",
+      "heroEyebrow": "BlancaReal Group",
+      "heroHeading": "Votre bien sur la Costa del Sol, avec de vrais experts locaux",
+      "heroText": "Costa del Sol depuis 1969, avec equipe commerciale et juridique interne pour acheteurs, vendeurs et investisseurs.",
+      "heroPrimaryCta": "Voir les proprietes",
+      "heroSecondaryCta": "Contacter un agent",
+      "heroTrustLabel": "Indicateurs de confiance BlancaReal",
+      "heroTrustItems": [
+        {
+          "value": "1 000+",
+          "label": "familles accompagnees"
+        },
+        {
+          "value": "__YEARS_ACTIVE__+",
+          "label": "ans d experience"
+        },
+        {
+          "value": "6",
+          "label": "langues"
+        },
+        {
+          "value": "Legal interne",
+          "label": "support juridique integre"
+        }
+      ],
+      "pillarsHeading": "Trois lignes d activite connectees",
+      "pillarsText": "Accedez a chaque pole depuis cette page principale avec une navigation claire.",
+      "navBuy": "Acheter un bien",
+      "navLegal": "Conseil juridique",
+      "navPartners": "Promoteurs et agents",
+      "navAbout": "Qui sommes-nous",
+      "navAgents": "Agents",
+      "navContact": "Contact",
+      "navPromoters": "Promoteurs",
+      "servicesJump": "Voir les services",
+      "servicesSwipe": "Faites glisser pour explorer",
+      "blocks": {
+        "realEstate": {
+          "title": "Immobilier",
+          "text": "Carte, proprietes, filtres et operations immobilieres.",
+          "cta": "Entrer dans l immobilier",
+          "imageAlt": "Bloc immobilier BlancaReal"
+        },
+        "legal": {
+          "title": "Services Juridiques",
+          "text": "Couverture juridique pour achat, location et investissement.",
+          "cta": "Entrer dans le service juridique",
+          "imageAlt": "Bloc services juridiques BlancaReal"
+        },
+        "commercialization": {
+          "title": "Commercialisation",
+          "text": "Strategie commerciale pour promoteurs et produit residentiel.",
+          "cta": "Entrer dans Commercialisation",
+          "imageAlt": "Bloc commercialisation BlancaReal"
+        }
+      }
+    },
+    "it": {
+      "title": "BlancaReal | Home",
+      "description": "BlancaReal unisce immobiliare, servizi legali e commercializzazione in un unico portale.",
+      "heroEyebrow": "BlancaReal Group",
+      "heroHeading": "Consulenza immobiliare in Costa del Sol, con veri esperti locali",
+      "heroText": "Costa del Sol dal 1969, con team commerciale e legale interno per acquirenti, venditori e investitori.",
+      "heroPrimaryCta": "Vedi proprieta",
+      "heroSecondaryCta": "Contatti un agente",
+      "heroTrustLabel": "Indicatori di fiducia BlancaReal",
+      "heroTrustItems": [
+        {
+          "value": "1.000+",
+          "label": "famiglie seguite"
+        },
+        {
+          "value": "__YEARS_ACTIVE__+",
+          "label": "anni di esperienza"
+        },
+        {
+          "value": "6",
+          "label": "lingue"
+        },
+        {
+          "value": "Legal interno",
+          "label": "supporto giuridico integrato"
+        }
+      ],
+      "pillarsHeading": "Tre linee di business connesse",
+      "pillarsText": "Accedi a ogni area da questa home principale con navigazione chiara e unificata.",
+      "navBuy": "Comprare casa",
+      "navLegal": "Consulenza legale",
+      "navPartners": "Promotori e agenti",
+      "navAbout": "Chi siamo",
+      "navAgents": "Agenti",
+      "navContact": "Contatto",
+      "navPromoters": "Promotori",
+      "servicesJump": "Vedi servizi",
+      "servicesSwipe": "Scorri per esplorare",
+      "blocks": {
+        "realEstate": {
+          "title": "Immobiliare",
+          "text": "Mappa, proprieta, filtri e operazioni immobiliari.",
+          "cta": "Entra in Immobiliare",
+          "imageAlt": "Blocco immobiliare BlancaReal"
+        },
+        "legal": {
+          "title": "Servizi Legali",
+          "text": "Copertura legale per acquisto, affitto e investimento.",
+          "cta": "Entra nei Servizi Legali",
+          "imageAlt": "Blocco servizi legali BlancaReal"
+        },
+        "commercialization": {
+          "title": "Commercializzazione",
+          "text": "Strategia commerciale per promotori e prodotto residenziale.",
+          "cta": "Entra in Commercializzazione",
+          "imageAlt": "Blocco commercializzazione BlancaReal"
+        }
+      }
+    },
+    "nl": {
+      "title": "BlancaReal | Home",
+      "description": "BlancaReal combineert vastgoed, juridische diensten en commercialisatie in een portal.",
+      "heroEyebrow": "BlancaReal Group",
+      "heroHeading": "Uw woning aan de Costa del Sol, met echte lokale experts",
+      "heroText": "Sinds 1969 actief aan de Costa del Sol, met eigen sales- en juridisch team voor kopers, verkopers en investeerders.",
+      "heroPrimaryCta": "Bekijk woningen",
+      "heroSecondaryCta": "Praat met een agent",
+      "heroTrustLabel": "Vertrouwensindicatoren van BlancaReal",
+      "heroTrustItems": [
+        {
+          "value": "1.000+",
+          "label": "begeleide families"
+        },
+        {
+          "value": "__YEARS_ACTIVE__+",
+          "label": "jaar ervaring"
+        },
+        {
+          "value": "6",
+          "label": "talen"
+        },
+        {
+          "value": "Eigen legal",
+          "label": "geintegreerde juridische steun"
+        }
+      ],
+      "pillarsHeading": "Drie verbonden businesslijnen",
+      "pillarsText": "Ga vanuit deze hoofdlanding naar elk domein met duidelijke en uniforme navigatie.",
+      "navBuy": "Woning kopen",
+      "navLegal": "Juridisch advies",
+      "navPartners": "Ontwikkelaars en agenten",
+      "navAbout": "Over ons",
+      "navAgents": "Agenten",
+      "navContact": "Contact",
+      "navPromoters": "Projectontwikkelaars",
+      "servicesJump": "Bekijk diensten",
+      "servicesSwipe": "Swipe om te ontdekken",
+      "blocks": {
+        "realEstate": {
+          "title": "Vastgoed",
+          "text": "Kaart, woningen, filters en vastgoedoperaties.",
+          "cta": "Ga naar Vastgoed",
+          "imageAlt": "Vastgoedblok van BlancaReal"
+        },
+        "legal": {
+          "title": "Juridische Diensten",
+          "text": "Juridische begeleiding bij aankoop, verhuur en investering.",
+          "cta": "Ga naar Juridische Diensten",
+          "imageAlt": "Juridische diensten blok van BlancaReal"
+        },
+        "commercialization": {
+          "title": "Commercialisatie",
+          "text": "Commerciele strategie voor ontwikkelaars en residentieel aanbod.",
+          "cta": "Ga naar Commercialisatie",
+          "imageAlt": "Commercialisatie blok van BlancaReal"
+        }
+      }
+    }
+  },
+  "heroStatsByLang": {
+    "es": [
+      {
+        "value": "Desde 1969",
+        "label": "operando en Costa del Sol"
+      },
+      {
+        "value": "__AVAILABLE_HOMES_COUNT__",
+        "label": "viviendas activas"
+      },
+      {
+        "value": "1.000+",
+        "label": "clientes acompañados"
+      },
+      {
+        "value": "Legal + Ventas",
+        "label": "equipo interno coordinado"
+      }
+    ],
+    "en": [
+      {
+        "value": "Since 1969",
+        "label": "serving Costa del Sol"
+      },
+      {
+        "value": "__AVAILABLE_HOMES_COUNT__",
+        "label": "homes available"
+      },
+      {
+        "value": "1,000+",
+        "label": "families assisted"
+      },
+      {
+        "value": "Legal + Sales",
+        "label": "integrated team"
+      }
+    ],
+    "de": [
+      {
+        "value": "Seit 1969",
+        "label": "an der Costa del Sol"
+      },
+      {
+        "value": "__AVAILABLE_HOMES_COUNT__",
+        "label": "verfuegbare Wohnungen"
+      },
+      {
+        "value": "1.000+",
+        "label": "begleitete Familien"
+      },
+      {
+        "value": "Recht + Vertrieb",
+        "label": "integriertes Team"
+      }
+    ],
+    "fr": [
+      {
+        "value": "Depuis 1969",
+        "label": "sur la Costa del Sol"
+      },
+      {
+        "value": "__AVAILABLE_HOMES_COUNT__",
+        "label": "logements disponibles"
+      },
+      {
+        "value": "1 000+",
+        "label": "familles accompagnees"
+      },
+      {
+        "value": "Juridique + Ventes",
+        "label": "equipe integree"
+      }
+    ],
+    "it": [
+      {
+        "value": "Dal 1969",
+        "label": "in Costa del Sol"
+      },
+      {
+        "value": "__AVAILABLE_HOMES_COUNT__",
+        "label": "abitazioni disponibili"
+      },
+      {
+        "value": "1.000+",
+        "label": "famiglie assistite"
+      },
+      {
+        "value": "Legale + Vendite",
+        "label": "team integrato"
+      }
+    ],
+    "nl": [
+      {
+        "value": "Sinds 1969",
+        "label": "aan de Costa del Sol"
+      },
+      {
+        "value": "__AVAILABLE_HOMES_COUNT__",
+        "label": "beschikbare woningen"
+      },
+      {
+        "value": "1.000+",
+        "label": "begeleide families"
+      },
+      {
+        "value": "Juridisch + Verkoop",
+        "label": "geintegreerd team"
+      }
+    ]
+  },
+  "extraByLang": {
+    "es": {
+      "aboutRows": [
+        {
+          "title": "Trayectoria y confianza",
+          "text": "Más de cinco décadas asesorando compras, ventas e inversiones con conocimiento real del mercado local.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Promoción residencial en Costa del Sol"
+        },
+        {
+          "title": "Servicios integrados",
+          "text": "Reunimos intermediación inmobiliaria, comercialización de obra nueva y apoyo legal-fiscal para que la operación no se rompa entre proveedores.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+          "imageAlt": "Equipo y servicios inmobiliarios integrados"
+        },
+        {
+          "title": "Cobertura local e internacional",
+          "text": "Desde Calahonda atendemos a clientes nacionales e internacionales con enfoque local, criterio comercial y atención multilingüe.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Vista de Costa del Sol con promociones residenciales"
+        }
+      ],
+      "collaboratorsTitle": "Red de colaboradores estratégicos",
+      "collaboratorsAria": "Ruleta de colaboradores de BlancaReal",
+      "collaborators": [
+        "Promotoras asociadas",
+        "Despachos legales",
+        "Notarias locales",
+        "Tasadores homologados",
+        "Brokers hipotecarios",
+        "Arquitectos y técnicos",
+        "Gestores patrimoniales",
+        "Especialistas de marketing"
+      ],
+      "footerTagline": "Inmobiliaria, asesoramiento legal y comercialización en Costa del Sol.",
+      "footerSections": "Secciones",
+      "footerContact": "Contacto",
+      "footerLegal": "Legal",
+      "footerRights": "Todos los derechos reservados.",
+      "privacy": "Política de privacidad",
+      "cookies": "Cookies"
+    },
+    "en": {
+      "aboutRows": [
+        {
+          "title": "Track record and trust",
+          "text": "BlancaReal has operated on Costa del Sol since 1969 and has supported more than 1,000 families in real estate operations.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Residential development on Costa del Sol"
+        },
+        {
+          "title": "Integrated services",
+          "text": "We combine Real Estate, commercialization, legal-tax advisory and asset management to cover the full operation lifecycle.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+          "imageAlt": "Integrated real estate service model"
+        },
+        {
+          "title": "Local and international reach",
+          "text": "From our Calahonda office in Mijas Costa, we serve local and international clients with multilingual support.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Costa del Sol view with residential projects"
+        }
+      ],
+      "collaboratorsTitle": "Strategic collaborators",
+      "collaboratorsAria": "BlancaReal collaborators wheel",
+      "collaborators": [
+        "Associated developers",
+        "Legal firms",
+        "Local notaries",
+        "Certified appraisers",
+        "Mortgage brokers",
+        "Architects and surveyors",
+        "Asset managers",
+        "Marketing specialists"
+      ],
+      "footerTagline": "Real estate and integrated services on Costa del Sol.",
+      "footerSections": "Sections",
+      "footerContact": "Contact",
+      "footerLegal": "Legal",
+      "footerRights": "All rights reserved.",
+      "privacy": "Privacy policy",
+      "cookies": "Cookies"
+    },
+    "de": {
+      "aboutRows": [
+        {
+          "title": "Erfahrung und Vertrauen",
+          "text": "BlancaReal ist seit 1969 an der Costa del Sol taetig und hat mehr als 1.000 Familien bei Immobilienoperationen begleitet.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Wohnprojekt an der Costa del Sol"
+        },
+        {
+          "title": "Integrierte Leistungen",
+          "text": "Wir verbinden Immobilien, Vermarktung, Rechts- und Steuerberatung sowie Asset-Management in einem Modell.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+          "imageAlt": "Integriertes Immobilien-Servicemodell"
+        },
+        {
+          "title": "Lokal und international",
+          "text": "Vom Standort Calahonda in Mijas Costa betreuen wir lokale und internationale Kunden mit mehrsprachigem Team.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Blick auf die Costa del Sol mit Wohnprojekten"
+        }
+      ],
+      "collaboratorsTitle": "Strategische Partner",
+      "collaboratorsAria": "Partner-Rad von BlancaReal",
+      "collaborators": [
+        "Partner-Bautraeger",
+        "Rechtskanzleien",
+        "Lokale Notare",
+        "Zertifizierte Gutachter",
+        "Hypothekenmakler",
+        "Architekten und Techniker",
+        "Asset Manager",
+        "Marketing-Spezialisten"
+      ],
+      "footerTagline": "Immobilien und integrierte Services an der Costa del Sol.",
+      "footerSections": "Bereiche",
+      "footerContact": "Kontakt",
+      "footerLegal": "Rechtliches",
+      "footerRights": "Alle Rechte vorbehalten.",
+      "privacy": "Datenschutz",
+      "cookies": "Cookies"
+    },
+    "fr": {
+      "aboutRows": [
+        {
+          "title": "Experience et confiance",
+          "text": "BlancaReal opere sur la Costa del Sol depuis 1969 et a accompagne plus de 1 000 familles.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Programme residentiel sur la Costa del Sol"
+        },
+        {
+          "title": "Services integres",
+          "text": "Nous combinons immobilier, commercialisation, conseil juridique-fiscal et gestion patrimoniale dans un seul modele.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+          "imageAlt": "Modele immobilier integre"
+        },
+        {
+          "title": "Portee locale et internationale",
+          "text": "Depuis Calahonda a Mijas Costa, nous accompagnons des clients locaux et internationaux en plusieurs langues.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Vue de la Costa del Sol avec projets residentiels"
+        }
+      ],
+      "collaboratorsTitle": "Collaborateurs strategiques",
+      "collaboratorsAria": "Roulette des collaborateurs BlancaReal",
+      "collaborators": [
+        "Promoteurs associes",
+        "Cabinets juridiques",
+        "Notaires locaux",
+        "Experts agrees",
+        "Courtiers hypothecaires",
+        "Architectes et techniciens",
+        "Gestionnaires d actifs",
+        "Specialistes marketing"
+      ],
+      "footerTagline": "Immobilier et services integres sur la Costa del Sol.",
+      "footerSections": "Sections",
+      "footerContact": "Contact",
+      "footerLegal": "Legal",
+      "footerRights": "Tous droits reserves.",
+      "privacy": "Politique de confidentialite",
+      "cookies": "Cookies"
+    },
+    "it": {
+      "aboutRows": [
+        {
+          "title": "Esperienza e fiducia",
+          "text": "BlancaReal opera in Costa del Sol dal 1969 e ha supportato oltre 1.000 famiglie nelle operazioni immobiliari.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Sviluppo residenziale in Costa del Sol"
+        },
+        {
+          "title": "Servizi integrati",
+          "text": "Uniamo immobiliare, commercializzazione, consulenza legale-fiscale e gestione patrimoniale in un unico modello operativo.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+          "imageAlt": "Modello integrato di servizi immobiliari"
+        },
+        {
+          "title": "Copertura locale e internazionale",
+          "text": "Dalla sede di Calahonda a Mijas Costa seguiamo clienti locali e internazionali con team multilingue.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Vista Costa del Sol con progetti residenziali"
+        }
+      ],
+      "collaboratorsTitle": "Collaboratori strategici",
+      "collaboratorsAria": "Ruota collaboratori BlancaReal",
+      "collaborators": [
+        "Promotori associati",
+        "Studi legali",
+        "Notai locali",
+        "Periti certificati",
+        "Broker mutui",
+        "Architetti e tecnici",
+        "Asset manager",
+        "Specialisti marketing"
+      ],
+      "footerTagline": "Real estate e servizi integrati in Costa del Sol.",
+      "footerSections": "Sezioni",
+      "footerContact": "Contatto",
+      "footerLegal": "Legale",
+      "footerRights": "Tutti i diritti riservati.",
+      "privacy": "Privacy policy",
+      "cookies": "Cookies"
+    },
+    "nl": {
+      "aboutRows": [
+        {
+          "title": "Ervaring en vertrouwen",
+          "text": "BlancaReal is sinds 1969 actief aan de Costa del Sol en begeleidde meer dan 1.000 families bij vastgoedoperaties.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Residentieel project aan de Costa del Sol"
+        },
+        {
+          "title": "Geintegreerde diensten",
+          "text": "Wij combineren vastgoed, commercialisatie, juridisch-fiscaal advies en vermogensbeheer in een integraal model.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
+          "imageAlt": "Geintegreerd vastgoed servicemodel"
+        },
+        {
+          "title": "Lokale en internationale dekking",
+          "text": "Vanuit Calahonda in Mijas Costa bedienen we lokale en internationale klanten met meertalige ondersteuning.",
+          "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
+          "imageAlt": "Uitzicht op Costa del Sol met residentiele projecten"
+        }
+      ],
+      "collaboratorsTitle": "Strategische samenwerkingen",
+      "collaboratorsAria": "Samenwerkingsroulette BlancaReal",
+      "collaborators": [
+        "Geassocieerde ontwikkelaars",
+        "Juridische kantoren",
+        "Lokale notarissen",
+        "Gecertificeerde taxateurs",
+        "Hypotheekmakelaars",
+        "Architecten en technici",
+        "Vermogensbeheerders",
+        "Marketing specialisten"
+      ],
+      "footerTagline": "Vastgoed en geintegreerde diensten aan de Costa del Sol.",
+      "footerSections": "Secties",
+      "footerContact": "Contact",
+      "footerLegal": "Juridisch",
+      "footerRights": "Alle rechten voorbehouden.",
+      "privacy": "Privacybeleid",
+      "cookies": "Cookies"
+    }
+  },
+  "formByLang": {
+    "es": {
+      "title": "Indíquenos qué necesita",
+      "intro": "Si desea comprar, vender, invertir o comercializar una promoción, le orientamos desde el primer paso.",
+      "toggleOpen": "Abrir formulario",
+      "toggleClose": "Cerrar formulario",
+      "name": "Nombre",
+      "email": "Email",
+      "phone": "Teléfono",
+      "service": "¿En qué área podemos ayudarle?",
+      "message": "Mensaje",
+      "optionDefault": "Elige un servicio",
+      "optionRealEstate": "Inmobiliaria",
+      "optionLegal": "Asesoramiento legal",
+      "optionCommercialization": "Comercialización",
+      "consentPrefix": "He leído y acepto la",
+      "consentLink": "política de privacidad",
+      "consentSuffix": "antes de continuar.",
+      "legalNote": "Usaremos estos datos solo para preparar su solicitud y dirigirle al formulario seguro de contacto.",
+      "redirecting": "Le dirigimos al formulario seguro de contacto...",
+      "submit": "Continuar"
+    },
+    "en": {
+      "title": "Request personalized advice",
+      "intro": "Share your objective and the BlancaReal team will contact you.",
+      "toggleOpen": "Open form",
+      "toggleClose": "Close form",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "service": "Service",
+      "message": "Message",
+      "optionDefault": "Select a service",
+      "optionRealEstate": "Real Estate",
+      "optionLegal": "Legal Services",
+      "optionCommercialization": "Commercialization",
+      "consentPrefix": "I have read and accept the",
+      "consentLink": "privacy policy",
+      "consentSuffix": "before continuing.",
+      "legalNote": "Your data will only be used to prepare your request and move you to the secure contact form.",
+      "redirecting": "Opening the secure contact form...",
+      "submit": "Continue to form"
+    },
+    "de": {
+      "title": "Persoenliche Beratung anfordern",
+      "intro": "Teilen Sie Ihr Ziel mit und das BlancaReal Team kontaktiert Sie.",
+      "toggleOpen": "Formular oeffnen",
+      "toggleClose": "Formular schliessen",
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "service": "Service",
+      "message": "Nachricht",
+      "optionDefault": "Service waehlen",
+      "optionRealEstate": "Immobilien",
+      "optionLegal": "Rechtsservice",
+      "optionCommercialization": "Vermarktung",
+      "consentPrefix": "Ich habe die",
+      "consentLink": "Datenschutzerklaerung",
+      "consentSuffix": "gelesen und akzeptiere sie vor dem Fortfahren.",
+      "legalNote": "Ihre Daten werden nur verwendet, um Ihre Anfrage vorzubereiten und Sie zum sicheren Kontaktformular weiterzuleiten.",
+      "redirecting": "Das sichere Kontaktformular wird geoeffnet...",
+      "submit": "Zum Formular weiter"
+    },
+    "fr": {
+      "title": "Demander un accompagnement personnalise",
+      "intro": "Partagez votre objectif et l equipe BlancaReal vous contactera.",
+      "toggleOpen": "Ouvrir le formulaire",
+      "toggleClose": "Fermer le formulaire",
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Telephone",
+      "service": "Service",
+      "message": "Message",
+      "optionDefault": "Selectionner un service",
+      "optionRealEstate": "Immobilier",
+      "optionLegal": "Services juridiques",
+      "optionCommercialization": "Commercialisation",
+      "consentPrefix": "J ai lu et j accepte la",
+      "consentLink": "politique de confidentialite",
+      "consentSuffix": "avant de continuer.",
+      "legalNote": "Vos donnees seront utilisees uniquement pour preparer votre demande et vous rediriger vers le formulaire de contact securise.",
+      "redirecting": "Ouverture du formulaire de contact securise...",
+      "submit": "Continuer vers le formulaire"
+    },
+    "it": {
+      "title": "Richiedi consulenza personalizzata",
+      "intro": "Condivida il Suo obiettivo e il team BlancaReal La contattera.",
+      "toggleOpen": "Apri il modulo",
+      "toggleClose": "Chiudi il modulo",
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telefono",
+      "service": "Servizio",
+      "message": "Messaggio",
+      "optionDefault": "Seleziona un servizio",
+      "optionRealEstate": "Immobiliare",
+      "optionLegal": "Servizi legali",
+      "optionCommercialization": "Commercializzazione",
+      "consentPrefix": "Ho letto e accetto la",
+      "consentLink": "privacy policy",
+      "consentSuffix": "prima di continuare.",
+      "legalNote": "I Suoi dati saranno usati solo per preparare la richiesta e indirizzarLa al modulo di contatto sicuro.",
+      "redirecting": "Apertura del modulo di contatto sicuro...",
+      "submit": "Continua al modulo"
+    },
+    "nl": {
+      "title": "Vraag persoonlijk advies aan",
+      "intro": "Deel uw doel en het BlancaReal team neemt contact met u op.",
+      "toggleOpen": "Formulier openen",
+      "toggleClose": "Formulier sluiten",
+      "name": "Naam",
+      "email": "Email",
+      "phone": "Telefoon",
+      "service": "Dienst",
+      "message": "Bericht",
+      "optionDefault": "Selecteer een dienst",
+      "optionRealEstate": "Vastgoed",
+      "optionLegal": "Juridische diensten",
+      "optionCommercialization": "Commercialisatie",
+      "consentPrefix": "Ik heb het",
+      "consentLink": "privacybeleid",
+      "consentSuffix": "gelezen en aanvaard voordat ik verder ga.",
+      "legalNote": "Uw gegevens worden alleen gebruikt om uw aanvraag voor te bereiden en u naar het beveiligde contactformulier te brengen.",
+      "redirecting": "Beveiligd contactformulier wordt geopend...",
+      "submit": "Ga naar formulier"
+    }
+  },
+  "instagramByLang": {
+    "es": {
+      "eyebrow": "Instagram",
+      "title": "Lo que estamos moviendo ahora",
+      "intro": "Proyectos, novedades y vida inmobiliaria de BlancaReal en Instagram.",
+      "cta": "Seguir",
+      "ariaLabel": "Publicaciones de Instagram de BlancaReal"
+    },
+    "en": {
+      "eyebrow": "Instagram",
+      "title": "Stay In The Know",
+      "intro": "Join BlancaReal on Instagram.",
+      "cta": "Follow",
+      "ariaLabel": "BlancaReal Instagram posts"
+    },
+    "de": {
+      "eyebrow": "Instagram",
+      "title": "Bleiben Sie auf dem Laufenden",
+      "intro": "Folgen Sie BlancaReal auf Instagram.",
+      "cta": "Folgen",
+      "ariaLabel": "Instagram-Beitraege von BlancaReal"
+    },
+    "fr": {
+      "eyebrow": "Instagram",
+      "title": "Restez informe",
+      "intro": "Suivez BlancaReal sur Instagram.",
+      "cta": "Suivre",
+      "ariaLabel": "Publications Instagram de BlancaReal"
+    },
+    "it": {
+      "eyebrow": "Instagram",
+      "title": "Resta aggiornato",
+      "intro": "Segui BlancaReal su Instagram.",
+      "cta": "Segui",
+      "ariaLabel": "Post Instagram di BlancaReal"
+    },
+    "nl": {
+      "eyebrow": "Instagram",
+      "title": "Blijf op de hoogte",
+      "intro": "Volg BlancaReal op Instagram.",
+      "cta": "Volgen",
+      "ariaLabel": "Instagram-posts van BlancaReal"
+    }
+  },
+  "youtubeByLang": {
+    "es": {
+      "title": "YouTube",
+      "intro": "Recorridos, promociones y contenido para entender mejor cada proyecto.",
+      "cta": "Ver canal",
+      "ariaLabel": "Videos de YouTube de BlancaReal"
+    },
+    "en": {
+      "title": "YouTube",
+      "intro": "Discover tours, projects and BlancaReal videos.",
+      "cta": "Watch videos",
+      "ariaLabel": "BlancaReal YouTube videos"
+    },
+    "de": {
+      "title": "YouTube",
+      "intro": "Entdecken Sie Rundgaenge, Projekte und Videos von BlancaReal.",
+      "cta": "Videos ansehen",
+      "ariaLabel": "YouTube-Videos von BlancaReal"
+    },
+    "fr": {
+      "title": "YouTube",
+      "intro": "Decouvrez visites, projets et videos de BlancaReal.",
+      "cta": "Voir les videos",
+      "ariaLabel": "Videos YouTube de BlancaReal"
+    },
+    "it": {
+      "title": "YouTube",
+      "intro": "Scopri tour, progetti e video di BlancaReal.",
+      "cta": "Guarda i video",
+      "ariaLabel": "Video YouTube di BlancaReal"
+    },
+    "nl": {
+      "title": "YouTube",
+      "intro": "Ontdek tours, projecten en video's van BlancaReal.",
+      "cta": "Bekijk video's",
+      "ariaLabel": "YouTube-video's van BlancaReal"
+    }
+  },
+  "teamByLang": {
+    "es": {
+      "title": "Nuestro equipo",
+      "prev": "Ver perfil anterior",
+      "next": "Ver siguiente perfil",
+      "languages": "Idiomas",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "emailAction": "Enviar correo",
+      "phoneAction": "Llamar",
+      "noLanguages": "Consultar"
+    },
+    "en": {
+      "title": "Our team",
+      "prev": "View previous profile",
+      "next": "View next profile",
+      "languages": "Languages",
+      "email": "Email",
+      "phone": "Phone",
+      "emailAction": "Send email",
+      "phoneAction": "Call",
+      "noLanguages": "Ask us"
+    },
+    "de": {
+      "title": "Unser Team",
+      "prev": "Vorheriges Profil anzeigen",
+      "next": "Naechstes Profil anzeigen",
+      "languages": "Sprachen",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "emailAction": "E-Mail senden",
+      "phoneAction": "Anrufen",
+      "noLanguages": "Anfragen"
+    },
+    "fr": {
+      "title": "Notre equipe",
+      "prev": "Voir le profil precedent",
+      "next": "Voir le profil suivant",
+      "languages": "Langues",
+      "email": "Email",
+      "phone": "Telephone",
+      "emailAction": "Envoyer un email",
+      "phoneAction": "Appeler",
+      "noLanguages": "Nous consulter"
+    },
+    "it": {
+      "title": "Il nostro team",
+      "prev": "Vedi il profilo precedente",
+      "next": "Vedi il profilo successivo",
+      "languages": "Lingue",
+      "email": "Email",
+      "phone": "Telefono",
+      "emailAction": "Invia email",
+      "phoneAction": "Chiama",
+      "noLanguages": "Da consultare"
+    },
+    "nl": {
+      "title": "Ons team",
+      "prev": "Bekijk vorig profiel",
+      "next": "Bekijk volgend profiel",
+      "languages": "Talen",
+      "email": "Email",
+      "phone": "Telefoon",
+      "emailAction": "Email sturen",
+      "phoneAction": "Bellen",
+      "noLanguages": "Vraag het ons"
+    }
+  },
+  "teamLanguageBadges": {
+    "es": {
+      "label": "Español",
+      "flagUrl": "/flags/es.svg"
+    },
+    "en": {
+      "label": "English",
+      "flagUrl": "/flags/gb.svg"
+    },
+    "fr": {
+      "label": "Francais",
+      "flagUrl": "/flags/fr.svg"
+    },
+    "de": {
+      "label": "Deutsch",
+      "flagUrl": "/flags/de.svg"
+    },
+    "nl": {
+      "label": "Nederlands",
+      "flagUrl": "/flags/nl.svg"
+    },
+    "it": {
+      "label": "Italiano",
+      "flagUrl": "/flags/it.svg"
+    }
+  },
+  "postsByLang": {
+    "es": {
+      "eyebrow": "Revista BlancaReal",
+      "title": "Análisis, producto y contexto para decidir mejor",
+      "intro": "Artículos para entender el mercado, descubrir promociones y resolver dudas antes de comprar, vender o invertir.",
+      "viewAll": "Ir a la revista"
+    },
+    "en": {
+      "eyebrow": "BlancaReal Journal",
+      "title": "Recent reads on market, product and advisory",
+      "intro": "An editorial selection from our journal to frame the market, explain services and highlight recent deals or developments.",
+      "viewAll": "View journal"
+    },
+    "de": {
+      "eyebrow": "BlancaReal Magazin",
+      "title": "Aktuelle Inhalte zu Markt, Produkt und Beratung",
+      "intro": "Eine redaktionelle Auswahl aus unserem Magazin, um den Markt einzuordnen, Services zu erklaeren und aktuelle Projekte oder Transaktionen hervorzuheben.",
+      "viewAll": "Magazin ansehen"
+    },
+    "fr": {
+      "eyebrow": "Journal BlancaReal",
+      "title": "Lectures recentes sur le marche, le produit et le conseil",
+      "intro": "Une selection editoriale de notre journal pour donner du contexte au marche, expliquer nos services et mettre en avant des projets ou operations recentes.",
+      "viewAll": "Voir le journal"
+    },
+    "it": {
+      "eyebrow": "Rivista BlancaReal",
+      "title": "Letture recenti su mercato, prodotto e consulenza",
+      "intro": "Una selezione editoriale della nostra rivista per dare contesto al mercato, spiegare i servizi e mettere in evidenza progetti o operazioni recenti.",
+      "viewAll": "Vedi la rivista"
+    },
+    "nl": {
+      "eyebrow": "BlancaReal Magazine",
+      "title": "Recente stukken over markt, product en advies",
+      "intro": "Een redactionele selectie uit ons magazine om de markt te duiden, diensten uit te leggen en recente projecten of transacties uit te lichten.",
+      "viewAll": "Bekijk magazine"
+    }
+  },
+  "editorialHeroByLang": {
+    "es": {
+      "eyebrow": "Grupo BlancaReal",
+      "heading": "Propiedades y promociones con base real en Costa del Sol",
+      "text": "Obra nueva, producto seleccionado y acompañamiento legal integrado para comprar, vender o invertir con más seguridad.",
+      "primaryCta": "Ver promoción",
+      "secondaryCta": "Ver proyectos",
+      "projectLabel": "Promoción destacada",
+      "locationLabel": "Ubicación",
+      "fromLabel": "Desde",
+      "availableLabel": "Disponibles",
+      "soldLabel": "Vendidas",
+      "progressLabel": "Seleccionar promoción destacada",
+      "detailLabel": "Promoción activa",
+      "prev": "Promoción anterior",
+      "next": "Promoción siguiente"
+    },
+    "en": {
+      "eyebrow": "BlancaReal Group",
+      "heading": "The Costa del Sol Luxury Marketplace",
+      "text": "Our own developments, premium commercialization and integrated legal guidance for buyers and investors.",
+      "primaryCta": "View project",
+      "secondaryCta": "View all projects",
+      "projectLabel": "Featured development",
+      "locationLabel": "Location",
+      "fromLabel": "From",
+      "availableLabel": "Available",
+      "soldLabel": "Sold",
+      "progressLabel": "Select featured project",
+      "detailLabel": "Active development",
+      "prev": "Previous project",
+      "next": "Next project"
+    },
+    "de": {
+      "eyebrow": "BlancaReal Gruppe",
+      "heading": "Der Luxus-Marktplatz der Costa del Sol",
+      "text": "Eigene Projekte, Premium-Vermarktung und integrierte Rechtsbegleitung fuer Kaeufer und Investoren.",
+      "primaryCta": "Projekt ansehen",
+      "secondaryCta": "Alle Projekte ansehen",
+      "projectLabel": "Top-Projekt",
+      "locationLabel": "Lage",
+      "fromLabel": "Ab",
+      "availableLabel": "Verfuegbar",
+      "soldLabel": "Verkauft",
+      "progressLabel": "Top-Projekt auswaehlen",
+      "detailLabel": "Aktives Projekt",
+      "prev": "Vorheriges Projekt",
+      "next": "Naechstes Projekt"
+    },
+    "fr": {
+      "eyebrow": "Groupe BlancaReal",
+      "heading": "Le marketplace luxe de la Costa del Sol",
+      "text": "Programmes propres, commercialisation premium et accompagnement juridique integre pour acheteurs et investisseurs.",
+      "primaryCta": "Voir le programme",
+      "secondaryCta": "Voir tous les programmes",
+      "projectLabel": "Programme phare",
+      "locationLabel": "Localisation",
+      "fromLabel": "A partir de",
+      "availableLabel": "Disponibles",
+      "soldLabel": "Vendues",
+      "progressLabel": "Selectionner le programme phare",
+      "detailLabel": "Programme actif",
+      "prev": "Programme precedent",
+      "next": "Programme suivant"
+    },
+    "it": {
+      "eyebrow": "Gruppo BlancaReal",
+      "heading": "Il luxury marketplace della Costa del Sol",
+      "text": "Progetti propri, commercializzazione premium e supporto legale integrato per acquirenti e investitori.",
+      "primaryCta": "Vedi progetto",
+      "secondaryCta": "Vedi tutti i progetti",
+      "projectLabel": "Progetto in evidenza",
+      "locationLabel": "Posizione",
+      "fromLabel": "Da",
+      "availableLabel": "Disponibili",
+      "soldLabel": "Vendute",
+      "progressLabel": "Seleziona il progetto in evidenza",
+      "detailLabel": "Progetto attivo",
+      "prev": "Progetto precedente",
+      "next": "Progetto successivo"
+    },
+    "nl": {
+      "eyebrow": "BlancaReal Groep",
+      "heading": "De luxe marketplace van de Costa del Sol",
+      "text": "Eigen projecten, premium commercialisatie en geintegreerde juridische begeleiding voor kopers en investeerders.",
+      "primaryCta": "Bekijk project",
+      "secondaryCta": "Bekijk alle projecten",
+      "projectLabel": "Uitgelicht project",
+      "locationLabel": "Locatie",
+      "fromLabel": "Vanaf",
+      "availableLabel": "Beschikbaar",
+      "soldLabel": "Verkocht",
+      "progressLabel": "Selecteer uitgelicht project",
+      "detailLabel": "Actief project",
+      "prev": "Vorig project",
+      "next": "Volgend project"
+    }
+  },
+  "featuredServicesByLang": {
+    "es": {
+      "eyebrow": "Servicios clave",
+      "title": "Tres áreas que refuerzan cada operación",
+      "intro": "Servicios legales, comercialización residencial y marketing 3D para coordinar estrategia, presentación y cierre bajo la misma marca.",
+      "cards": [
+        {
+          "href": "/__LANG__/legal-services/",
+          "image": "/images/home-sections/legal-services/legal.jpg",
+          "title": "Servicios legales",
+          "text": "Cobertura jurídica para compraventas, contratos, fiscalidad e inversores nacionales e internacionales.",
+          "cta": "Ver servicios legales"
+        },
+        {
+          "href": "/__LANG__/commercialization/",
+          "image": "/images/home-sections/commercialization/entrada.png",
+          "title": "Comercialización",
+          "text": "Lanzamiento, posicionamiento y ventas para promociones y producto residencial con foco en absorción real.",
+          "cta": "Ver comercialización"
+        },
+        {
+          "href": "/__LANG__/marketing-3d/",
+          "image": "/images/home-sections/marketing-3d/dron.jpg",
+          "title": "Marketing 3D",
+          "text": "Fotografía, dron, modelado 3D y campañas visuales para presentar cada activo con más impacto.",
+          "cta": "Ver marketing 3D"
+        }
+      ]
+    },
+    "en": {
+      "eyebrow": "Featured services",
+      "title": "Three lines supporting every operation",
+      "intro": "Legal services, residential commercialization and 3D marketing aligned under one brand.",
+      "cards": [
+        {
+          "href": "/__LANG__/legal-services/",
+          "image": "/images/home-sections/legal-services/legal.jpg",
+          "title": "Legal services",
+          "text": "Integrated legal support for transactions, contracts and international investors.",
+          "cta": "Explore legal services"
+        },
+        {
+          "href": "/__LANG__/commercialization/",
+          "image": "/images/home-sections/commercialization/entrada.png",
+          "title": "Commercialization",
+          "text": "Strategy, positioning and sales for developments and residential stock.",
+          "cta": "Explore commercialization"
+        },
+        {
+          "href": "/__LANG__/marketing-3d/",
+          "image": "/images/home-sections/marketing-3d/dron.jpg",
+          "title": "3D marketing",
+          "text": "Photography, drone footage, 3D modeling and launch visuals to present each asset with stronger impact.",
+          "cta": "Explore 3D marketing"
+        }
+      ]
+    },
+    "de": {
+      "eyebrow": "Top-Services",
+      "title": "Drei Bereiche fuer jede Operation",
+      "intro": "Rechtsservice, Vermarktung und 3D-Marketing unter einer Marke gebuendelt.",
+      "cards": [
+        {
+          "href": "/__LANG__/legal-services/",
+          "image": "/images/home-sections/legal-services/legal.jpg",
+          "title": "Rechtsservice",
+          "text": "Integrierte Rechtsbegleitung fuer Transaktionen, Vertraege und internationale Investoren.",
+          "cta": "Rechtsservice ansehen"
+        },
+        {
+          "href": "/__LANG__/commercialization/",
+          "image": "/images/home-sections/commercialization/entrada.png",
+          "title": "Vermarktung",
+          "text": "Strategie, Positionierung und Vertrieb fuer Projekte und Wohnprodukt.",
+          "cta": "Vermarktung ansehen"
+        },
+        {
+          "href": "/__LANG__/marketing-3d/",
+          "image": "/images/home-sections/marketing-3d/dron.jpg",
+          "title": "3D-Marketing",
+          "text": "Foto, Drohne, 3D-Visualisierung und Kampagnen fuer eine staerkere Praesentation jeder Immobilie.",
+          "cta": "3D-Marketing ansehen"
+        }
+      ]
+    },
+    "fr": {
+      "eyebrow": "Services en vedette",
+      "title": "Trois poles pour renforcer chaque operation",
+      "intro": "Services juridiques, commercialisation residentielle et marketing 3D reunis sous une meme marque.",
+      "cards": [
+        {
+          "href": "/__LANG__/legal-services/",
+          "image": "/images/home-sections/legal-services/legal.jpg",
+          "title": "Services juridiques",
+          "text": "Accompagnement juridique integre pour operations, contrats et investisseurs internationaux.",
+          "cta": "Explorer le juridique"
+        },
+        {
+          "href": "/__LANG__/commercialization/",
+          "image": "/images/home-sections/commercialization/entrada.png",
+          "title": "Commercialisation",
+          "text": "Strategie, positionnement et ventes pour programmes et stock residentiel.",
+          "cta": "Explorer la commercialisation"
+        },
+        {
+          "href": "/__LANG__/marketing-3d/",
+          "image": "/images/home-sections/marketing-3d/dron.jpg",
+          "title": "Marketing 3D",
+          "text": "Photo, drone, modelisation 3D et visuels de campagne pour mieux presenter chaque actif.",
+          "cta": "Explorer le marketing 3D"
+        }
+      ]
+    },
+    "it": {
+      "eyebrow": "Servizi in evidenza",
+      "title": "Tre aree a supporto di ogni operazione",
+      "intro": "Servizi legali, commercializzazione residenziale e marketing 3D sotto un unico marchio.",
+      "cards": [
+        {
+          "href": "/__LANG__/legal-services/",
+          "image": "/images/home-sections/legal-services/legal.jpg",
+          "title": "Servizi legali",
+          "text": "Supporto legale integrato per operazioni, contratti e investitori internazionali.",
+          "cta": "Esplora servizi legali"
+        },
+        {
+          "href": "/__LANG__/commercialization/",
+          "image": "/images/home-sections/commercialization/entrada.png",
+          "title": "Commercializzazione",
+          "text": "Strategia, posizionamento e vendite per progetti e stock residenziale.",
+          "cta": "Esplora commercializzazione"
+        },
+        {
+          "href": "/__LANG__/marketing-3d/",
+          "image": "/images/home-sections/marketing-3d/dron.jpg",
+          "title": "Marketing 3D",
+          "text": "Foto, drone, modellazione 3D e campagne visive per presentare ogni asset con piu impatto.",
+          "cta": "Esplora marketing 3D"
+        }
+      ]
+    },
+    "nl": {
+      "eyebrow": "Uitgelichte diensten",
+      "title": "Drie lijnen achter elke operatie",
+      "intro": "Juridische diensten, residentiele commercialisatie en 3D-marketing binnen een merk.",
+      "cards": [
+        {
+          "href": "/__LANG__/legal-services/",
+          "image": "/images/home-sections/legal-services/legal.jpg",
+          "title": "Juridische diensten",
+          "text": "Geintegreerde juridische ondersteuning voor transacties, contracten en internationale investeerders.",
+          "cta": "Verken juridische diensten"
+        },
+        {
+          "href": "/__LANG__/commercialization/",
+          "image": "/images/home-sections/commercialization/entrada.png",
+          "title": "Commercialisatie",
+          "text": "Strategie, positionering en verkoop voor projecten en residentieel aanbod.",
+          "cta": "Verken commercialisatie"
+        },
+        {
+          "href": "/__LANG__/marketing-3d/",
+          "image": "/images/home-sections/marketing-3d/dron.jpg",
+          "title": "3D-marketing",
+          "text": "Fotografie, drone, 3D-modellering en campagnebeelden om elk object sterker te presenteren.",
+          "cta": "Verken 3D-marketing"
+        }
+      ]
+    }
+  },
+  "featuredUnitsByLang": {
+    "es": {
+      "eyebrow": "Propiedades destacadas",
+      "title": "Inventario activo con disponibilidad real",
+      "intro": "Una selección actual de viviendas y unidades en comercialización para que veas lo que hoy sí puedes valorar.",
+      "prev": "Ver grupo anterior",
+      "next": "Ver grupo siguiente"
+    },
+    "en": {
+      "eyebrow": "Featured properties",
+      "title": "A rotating selection of child units ready to capture demand",
+      "intro": "20 available child units from our own developments, continuously rotating to surface active inventory.",
+      "prev": "View previous group",
+      "next": "View next group"
+    },
+    "de": {
+      "eyebrow": "Top-Immobilien",
+      "title": "Eine rotierende Auswahl an verfuegbaren Einheiten",
+      "intro": "20 verfuegbare Einheiten aus unseren eigenen Projekten in kontinuierlicher Rotation fuer das aktive Inventar.",
+      "prev": "Vorherige Gruppe anzeigen",
+      "next": "Naechste Gruppe anzeigen"
+    },
+    "fr": {
+      "eyebrow": "Biens en vedette",
+      "title": "Une selection rotative d unites disponibles",
+      "intro": "20 unites disponibles issues de nos propres programmes, mises en rotation pour valoriser le stock actif.",
+      "prev": "Voir le groupe precedent",
+      "next": "Voir le groupe suivant"
+    },
+    "it": {
+      "eyebrow": "Immobili in evidenza",
+      "title": "Una selezione rotante di unita disponibili",
+      "intro": "20 unita disponibili dei nostri progetti propri, in rotazione continua per dare visibilita allo stock attivo.",
+      "prev": "Vedi gruppo precedente",
+      "next": "Vedi gruppo successivo"
+    },
+    "nl": {
+      "eyebrow": "Uitgelichte woningen",
+      "title": "Een roterende selectie van beschikbare units",
+      "intro": "20 beschikbare child units uit onze eigen projecten, doorlopend in rotatie om actief aanbod zichtbaar te houden.",
+      "prev": "Bekijk vorige groep",
+      "next": "Bekijk volgende groep"
+    }
+  }
 }

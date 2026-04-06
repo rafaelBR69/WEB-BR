@@ -1,0 +1,229 @@
+{
+  "id": "PT0402",
+  "priority": 65,
+  "slugs": {
+    "es": "apartamento-venta-bel-air-malaga",
+    "en": "apartment-for-sale-bel-air-malaga",
+    "de": "wohnung-kaufen-bel-air-malaga",
+    "fr": "appartement-a-vendre-bel-air-malaga",
+    "it": "appartamento-in-vendita-bel-air-malaga",
+    "nl": "appartement-te-koop-bel-air-malaga"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 425000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Estepona",
+    "area": "Bel-Air",
+    "address_line": "Calle del Tenis 24, Residencial Las Jacarandas, Urbanizacion Bel-Air, Bloque 10 (A) 2oA",
+    "coordinates": {
+      "lat": 36.46796764612383,
+      "lng": -5.043103499663178
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "segunda_mano",
+    "area_m2": 116,
+    "terrace_m2": 42.8,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "storage_rooms": null,
+    "floor_level": 2,
+    "floor_label": "Planta 2",
+    "building_block": "10 (A)",
+    "building_door": "A",
+    "elevator": true,
+    "condition": "good",
+    "ibi_yearly": 624,
+    "community_fees_monthly": null,
+    "waste_yearly": 133,
+    "full_address": "Calle del Tenis 24, Residencial Las Jacarandas, Urbanizacion Bel-Air, Bloque 10 (A) 2oA, Estepona, Malaga",
+    "owner_asking_price": 403750,
+    "price_negotiable": 400000,
+    "published_price_blancareal": 425000,
+    "commission_br_percent": 5,
+    "commission_br_eur_no_vat": 21250,
+    "parking_notes": "Privado cubierto",
+    "storage_room_notes": null,
+    "pool_notes": "Comunitaria",
+    "sea_views_notes": "Si",
+    "elevator_notes": "Si",
+    "source_import_date": "2026-03-30",
+    "notes": "Buen estado. Apartamento en venta en Bel-Air, Malaga, con 116 m2 construidos, terraza de 42,8 m2, aparcamiento privado cubierto, piscina comunitaria, vistas al mar y ascensor."
+  },
+  "features": [
+    "garage",
+    "communal_pool",
+    "sea_views",
+    "elevator"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
+    "gallery": {
+      "living": [],
+      "bedroom": [],
+      "kitchen": [],
+      "bathroom": [],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/zonas-comunes/comunidad-views.jpeg"
+      ],
+      "interior": [],
+      "views": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/zonas-comunes/comunidad-views.jpeg"
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento en venta bel-air malaga",
+      "en": "apartment for sale bel-air malaga",
+      "de": "wohnung kaufen bel-air malaga",
+      "fr": "appartement a vendre bel-air malaga",
+      "it": "appartamento in vendita bel-air malaga",
+      "nl": "appartement te koop bel-air malaga"
+    },
+    "meta_description": {
+      "es": "Apartamento en venta en Bel-Air, Malaga, con 2 dormitorios, 116 m2 construidos, terraza de 42,8 m2, garaje privado cubierto, piscina comunitaria y vistas al mar.",
+      "en": "Apartment for sale in Bel-Air, Malaga, with 2 bedrooms, 116 sqm built area, 42.8 sqm terrace, private covered parking, communal pool and sea views.",
+      "de": "Wohnung zum Kauf in Bel-Air, Malaga, mit 2 Schlafzimmern, 116 m2 bebauter Flache, 42,8 m2 Terrasse, privatem ueberdachtem Stellplatz, Gemeinschaftspool und Meerblick.",
+      "fr": "Appartement a vendre a Bel-Air, Malaga, avec 2 chambres, 116 m2 construits, terrasse de 42,8 m2, parking prive couvert, piscine commune et vue mer.",
+      "it": "Appartamento in vendita a Bel-Air, Malaga, con 2 camere da letto, 116 m2 costruiti, terrazza di 42,8 m2, parcheggio privato coperto, piscina condominiale e vista mare.",
+      "nl": "Appartement te koop in Bel-Air, Malaga, met 2 slaapkamers, 116 m2 bebouwde oppervlakte, terras van 42,8 m2, prive overdekte parkeerplaats, gemeenschappelijk zwembad en zeezicht."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Apartamento en venta en Bel-Air, Malaga",
+      "intro": "Propiedad de segunda mano con 116 m2 construidos, terraza de 42,8 m2 y posicion residencial consolidada dentro de Las Jacarandas, en Bel-Air, Malaga.",
+      "excerpt": "Propiedad de segunda mano con 116 m2 construidos, terraza de 42,8 m2 y posicion residencial consolidada dentro de Las Jacarandas, en Bel-Air, Malaga.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda se ubica en Calle del Tenis 24, dentro del Residencial Las Jacarandas en la urbanizacion Bel-Air, y ofrece 2 dormitorios, 2 banos y una distribucion comoda para residencia habitual, segunda vivienda o compra patrimonial."
+        },
+        {
+          "type": "paragraph",
+          "content": "Incluye terraza de 42,8 m2, plaza de aparcamiento privado cubierto, piscina comunitaria, vistas al mar y ascensor, en buen estado general y con una implantacion muy competitiva dentro del eje residencial de Bel-Air, Malaga."
+        }
+      ],
+      "seo": {
+        "title": "Apartamento en venta en Bel-Air, Malaga | BlancaReal",
+        "description": "Apartamento en Bel-Air, Malaga, con 2 dormitorios, terraza de 42,8 m2, garaje cubierto, piscina comunitaria y vistas al mar."
+      }
+    },
+    "en": {
+      "title": "Apartment for sale in Bel-Air, Malaga",
+      "intro": "Resale property with 116 sqm built area, a 42.8 sqm terrace and an established residential position within Las Jacarandas in Bel-Air, Malaga.",
+      "excerpt": "Resale property with 116 sqm built area, a 42.8 sqm terrace and an established residential position within Las Jacarandas in Bel-Air, Malaga.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The property is located on Calle del Tenis 24, within Residencial Las Jacarandas in the Bel-Air urbanisation, and offers 2 bedrooms, 2 bathrooms and a practical layout for full-time living, a second home or a long-term asset purchase."
+        },
+        {
+          "type": "paragraph",
+          "content": "It includes a 42.8 sqm terrace, private covered parking, communal pool, sea views and lift access, presented in good overall condition and well placed within the Bel-Air, Malaga residential corridor."
+        }
+      ],
+      "seo": {
+        "title": "Apartment for sale in Bel-Air, Malaga | BlancaReal",
+        "description": "Apartment in Bel-Air, Malaga, with 2 bedrooms, 42.8 sqm terrace, covered parking, communal pool and sea views."
+      }
+    },
+    "de": {
+      "title": "Wohnung zum Kauf in Bel-Air, Malaga",
+      "intro": "Gebrauchtimmobilie mit 116 m2 bebauter Flache, 42,8 m2 Terrasse und etablierter Wohnlage innerhalb von Las Jacarandas in Bel-Air, Malaga.",
+      "excerpt": "Gebrauchtimmobilie mit 116 m2 bebauter Flache, 42,8 m2 Terrasse und etablierter Wohnlage innerhalb von Las Jacarandas in Bel-Air, Malaga.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Immobilie befindet sich in der Calle del Tenis 24 innerhalb des Residencial Las Jacarandas in der Urbanisation Bel-Air und bietet 2 Schlafzimmer, 2 Bader und einen funktionalen Grundriss fuer Hauptwohnsitz, Zweitwohnsitz oder langfristigen Vermoegensaufbau."
+        },
+        {
+          "type": "paragraph",
+          "content": "Sie verfuegt ueber eine Terrasse von 42,8 m2, privaten ueberdachten Stellplatz, Gemeinschaftspool, Meerblick und Aufzug, in gutem Allgemeinzustand und mit starker Lage im Wohnkorridor von Bel-Air, Malaga."
+        }
+      ],
+      "seo": {
+        "title": "Wohnung zum Kauf in Bel-Air, Malaga | BlancaReal",
+        "description": "Wohnung in Bel-Air, Malaga, mit 2 Schlafzimmern, 42,8 m2 Terrasse, ueberdachtem Stellplatz, Gemeinschaftspool und Meerblick."
+      }
+    },
+    "fr": {
+      "title": "Appartement a vendre a Bel-Air, Malaga",
+      "intro": "Bien de revente avec 116 m2 construits, terrasse de 42,8 m2 et position residentielle etablie au sein de Las Jacarandas a Bel-Air, Malaga.",
+      "excerpt": "Bien de revente avec 116 m2 construits, terrasse de 42,8 m2 et position residentielle etablie au sein de Las Jacarandas a Bel-Air, Malaga.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le bien est situe Calle del Tenis 24, dans le Residencial Las Jacarandas au sein de l urbanisation Bel-Air, et propose 2 chambres, 2 salles de bain et une distribution adaptee a une residence principale, secondaire ou a un achat patrimonial."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il comprend une terrasse de 42,8 m2, un parking prive couvert, une piscine commune, une vue mer et un ascenseur, en bon etat general et avec un positionnement solide dans le corridor residentiel de Bel-Air, Malaga."
+        }
+      ],
+      "seo": {
+        "title": "Appartement a vendre a Bel-Air, Malaga | BlancaReal",
+        "description": "Appartement a Bel-Air, Malaga, avec 2 chambres, terrasse de 42,8 m2, parking couvert, piscine commune et vue mer."
+      }
+    },
+    "it": {
+      "title": "Appartamento in vendita a Bel-Air, Malaga",
+      "intro": "Proprieta di seconda mano con 116 m2 costruiti, terrazza di 42,8 m2 e posizionamento residenziale consolidato all interno di Las Jacarandas a Bel-Air, Malaga.",
+      "excerpt": "Proprieta di seconda mano con 116 m2 costruiti, terrazza di 42,8 m2 e posizionamento residenziale consolidato all interno di Las Jacarandas a Bel-Air, Malaga.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La proprieta si trova in Calle del Tenis 24, all interno del Residencial Las Jacarandas nell urbanizzazione Bel-Air, e offre 2 camere da letto, 2 bagni e una distribuzione pratica per residenza principale, seconda casa o acquisto patrimoniale."
+        },
+        {
+          "type": "paragraph",
+          "content": "Include terrazza di 42,8 m2, parcheggio privato coperto, piscina condominiale, vista mare e ascensore, in buono stato generale e con un posizionamento competitivo nel corridoio residenziale di Bel-Air, Malaga."
+        }
+      ],
+      "seo": {
+        "title": "Appartamento in vendita a Bel-Air, Malaga | BlancaReal",
+        "description": "Appartamento a Bel-Air, Malaga, con 2 camere, terrazza di 42,8 m2, parcheggio coperto, piscina condominiale e vista mare."
+      }
+    },
+    "nl": {
+      "title": "Appartement te koop in Bel-Air, Malaga",
+      "intro": "Wederverkoopwoning met 116 m2 bebouwde oppervlakte, een terras van 42,8 m2 en een gevestigde woonpositie binnen Las Jacarandas in Bel-Air, Malaga.",
+      "excerpt": "Wederverkoopwoning met 116 m2 bebouwde oppervlakte, een terras van 42,8 m2 en een gevestigde woonpositie binnen Las Jacarandas in Bel-Air, Malaga.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "De woning ligt aan Calle del Tenis 24, binnen Residencial Las Jacarandas in de urbanisatie Bel-Air, en biedt 2 slaapkamers, 2 badkamers en een praktische indeling voor permanente bewoning, een tweede verblijf of langetermijninvestering."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning beschikt over een terras van 42,8 m2, prive overdekte parking, gemeenschappelijk zwembad, zeezicht en een lift, verkeert in goede algemene staat en ligt sterk binnen de residentiele corridor van Bel-Air, Malaga."
+        }
+      ],
+      "seo": {
+        "title": "Appartement te koop in Bel-Air, Malaga | BlancaReal",
+        "description": "Appartement in Bel-Air, Malaga, met 2 slaapkamers, terras van 42,8 m2, overdekte parking, gemeenschappelijk zwembad en zeezicht."
+      }
+    }
+  }
+}

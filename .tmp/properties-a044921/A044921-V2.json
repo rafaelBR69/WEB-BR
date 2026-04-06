@@ -1,0 +1,26 @@
+{
+  "id": "A044921-V2",
+  "priority": 69,
+  "listing_type": "unit",
+  "parent_id": "A044921",
+  "slugs": { "es": "villa-2-calahonda-mijas", "en": "villa-2-calahonda-mijas", "de": "villa-2-calahonda-mijas", "fr": "villa-2-calahonda-mijas", "it": "villa-2-calahonda-mijas", "nl": "villa-2-calahonda-mijas" },
+  "status": "available",
+  "featured": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "location": { "country": "ES", "province": "Malaga", "city": "Mijas", "area": "Calahonda", "coordinates": { "lat": 36.51162385658065, "lng": -4.730218545432794 } },
+  "property": { "type": "villa", "market": "obra_nueva", "condition": "new", "area_m2": 386.67, "terrace_m2": 299.26, "garden_m2": 209.95, "plot_area_m2": 501.32, "bedrooms": 5, "bathrooms": 5, "garages": 2, "floors": 2, "floor_label": "Villa de 2 plantas", "unit_code": "Villa 2", "parking_type": "privado_descubierto", "sea_views": true, "elevator": false, "private_pool": true, "sales_stage": "Licencia obtenida", "property_group": "UNIFAMILIARES" },
+  "features": ["new_build", "sea_views", "private_parking"],
+  "media": { "cover": { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/cover/exterior-villas.jpg", "alt": { "es": "Villa 2 en Calahonda", "en": "Villa 2 in Calahonda" } }, "gallery": { "exterior": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior-03.jpg" }], "interior": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/salon-comedor.jpg" }], "views": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/cover/exterior-villas.jpg" }], "floorplan": [] } },
+  "seo": { "focus_keyphrase": { "es": "villa 2 calahonda mijas", "en": "villa 2 calahonda mijas" }, "meta_description": { "es": "Villa 2 en Calahonda, Mijas. Parcela de 501,32 m2, 386,67 m2 construidos y piscina privada.", "en": "Villa 2 in Calahonda, Mijas. 501.32 sqm plot, 386.67 sqm built area and private pool." } },
+  "translations": {
+    "es": { "title": "Villa 2 en Calahonda", "intro": "Villa 2 de obra nueva en Calahonda con 386,67 m2 construidos, parcela de 501,32 m2, piscina privada y terrazas exteriores de gran formato.", "description": [] },
+    "en": { "title": "Villa 2 in Calahonda", "intro": "New-build Villa 2 in Calahonda with 386.67 sqm built area, a 501.32 sqm plot, private pool and large outdoor terraces.", "description": [] },
+    "de": { "title": "Villa 2 in Calahonda", "intro": "Neubau Villa 2 in Calahonda mit 386,67 m2 bebauter Flaeche, 501,32 m2 Grundstueck, privatem Pool und grossen Terrassen.", "description": [] },
+    "fr": { "title": "Villa 2 a Calahonda", "intro": "Villa 2 neuve a Calahonda avec 386,67 m2 construits, parcelle de 501,32 m2, piscine privee et grandes terrasses.", "description": [] },
+    "it": { "title": "Villa 2 a Calahonda", "intro": "Villa 2 di nuova costruzione a Calahonda con 386,67 m2 costruiti, lotto di 501,32 m2, piscina privata e grandi terrazze.", "description": [] },
+    "nl": { "title": "Villa 2 in Calahonda", "intro": "Nieuwbouw Villa 2 in Calahonda met 386,67 m2 bebouwd, perceel van 501,32 m2, privezwembad en grote terrassen.", "description": [] }
+  }
+}

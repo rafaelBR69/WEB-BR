@@ -1,0 +1,346 @@
+{
+  "id": "A0452",
+  "priority": 65,
+  "slugs": {
+    "es": "pisos-venta-el-higueron-fuengirola-a0452",
+    "en": "apartments-for-sale-el-higueron-fuengirola-a0452",
+    "de": "wohnungen-zum-kauf-el-higueron-fuengirola-a0452",
+    "fr": "appartements-a-vendre-el-higueron-fuengirola-a0452",
+    "it": "appartamenti-in-vendita-el-higueron-fuengirola-a0452",
+    "nl": "appartementen-te-koop-el-higueron-fuengirola-a0452"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 499150,
+  "currency": "EUR",
+  "phase": "Entrega proxima",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "El Higueron",
+    "address_line": "El Higueron, portal 2",
+    "coordinates": {
+      "lat": 36.576670240516805,
+      "lng": -4.599219689608224
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "condition": "new",
+    "year_built": 2026,
+    "area_m2": 108,
+    "usable_area_m2": null,
+    "terrace_m2": 31,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "garages": 1,
+    "floor_level": 0,
+    "floor_label": "Planta baja",
+    "unit_code": "Bajo, portal 2",
+    "parking_type": "privado_descubierto",
+    "elevator": true,
+    "sea_views": true,
+    "community_pool": true,
+    "delivery_date": "2026-06-01",
+    "sales_stage": "Entrega proxima",
+    "property_group": "UNIFAMILIARES",
+    "full_address": "El Higueron, portal 2, Fuengirola, Malaga",
+    "reference_drive": "A0452",
+    "reference_web": "A0452",
+    "source_import_date": "2026-04-06",
+    "parking_notes": "Privado descubierto",
+    "pool_notes": "Comunitaria",
+    "sea_views_notes": "Si",
+    "elevator_notes": "Si",
+    "notes": "Piso de obra nueva en El Higueron con 108 m2 construidos, 31 m2 de terraza, vistas al mar, ascensor, piscina comunitaria y gimnasio. Entrega aproximada prevista para junio de 2026."
+  },
+  "features": [
+    "new_build",
+    "sea_views",
+    "elevator",
+    "communal_pool",
+    "private_parking",
+    "gym"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/cover/cover.jpg",
+      "alt": {
+        "es": "Pisos en venta en El Higueron",
+        "en": "Apartments for sale in El Higueron",
+        "de": "Wohnungen zum Kauf in El Higueron",
+        "fr": "Appartements a vendre a El Higueron",
+        "it": "Appartamenti in vendita a El Higueron",
+        "nl": "Appartementen te koop in El Higueron"
+      }
+    },
+    "gallery": {
+      "living": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-03.jpg"
+        }
+      ],
+      "bedroom": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-03.jpg"
+        }
+      ],
+      "kitchen": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/cocina-01.jpg"
+        }
+      ],
+      "bathroom": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/bano-01.jpg"
+        }
+      ],
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/cover/cover.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/exterior/views-exterior-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/exterior/views-exterior-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/facade/facade-02.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/salon-03.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/cocina-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/dormitorio-03.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/bano-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/views-interior-01.png"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/exterior/views-exterior-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/exterior/views-exterior-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/interior/views-interior-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/zonas-comunes/gym-zonas-comunes-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/zonas-comunes/piscina-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0452/zonas-comunes/piscina-02.jpg"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "pisos en venta el higueron fuengirola",
+      "en": "apartments for sale el higueron fuengirola",
+      "de": "wohnungen kaufen el higueron fuengirola",
+      "fr": "appartements a vendre el higueron fuengirola",
+      "it": "appartamenti in vendita el higueron fuengirola",
+      "nl": "appartementen te koop el higueron fuengirola"
+    },
+    "meta_description": {
+      "es": "Pisos en venta en El Higueron, Fuengirola. Propiedad de obra nueva con 2 dormitorios, 2 banos, 108 m2 construidos, 31 m2 de terraza, vistas al mar y piscina comunitaria. Precio: 499.150 EUR.",
+      "en": "Apartments for sale in El Higueron, Fuengirola. New-build property with 2 bedrooms, 2 bathrooms, 108 sqm built area, 31 sqm terrace, sea views and communal pool. Price: EUR 499,150.",
+      "de": "Wohnungen zum Kauf in El Higueron, Fuengirola. Neubauimmobilie mit 2 Schlafzimmern, 2 Badern, 108 m2 bebauter Flache, 31 m2 Terrasse, Meerblick und Gemeinschaftspool. Preis: 499.150 EUR.",
+      "fr": "Appartements a vendre a El Higueron, Fuengirola. Bien neuf avec 2 chambres, 2 salles de bain, 108 m2 construits, 31 m2 de terrasse, vue mer et piscine commune. Prix : 499 150 EUR.",
+      "it": "Appartamenti in vendita a El Higueron, Fuengirola. Proprieta di nuova costruzione con 2 camere, 2 bagni, 108 m2 costruiti, terrazza di 31 m2, vista mare e piscina condominiale. Prezzo: 499.150 EUR.",
+      "nl": "Appartementen te koop in El Higueron, Fuengirola. Nieuwbouwwoning met 2 slaapkamers, 2 badkamers, 108 m2 bebouwd oppervlak, 31 m2 terras, zeezicht en gemeenschappelijk zwembad. Prijs: EUR 499.150."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Pisos en venta en El Higueron",
+      "intro": "Propiedad de obra nueva en El Higueron con 2 dormitorios, 108 m2 construidos, 31 m2 de terraza, vistas al mar, ascensor y garaje privado descubierto.",
+      "excerpt": "Propiedad de obra nueva en El Higueron con 2 dormitorios, 108 m2 construidos, 31 m2 de terraza, vistas al mar, ascensor y garaje privado descubierto.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda se ubica en planta baja, portal 2, dentro de un entorno residencial de El Higueron orientado a comprador que prioriza obra nueva, terraza exterior y cercania a Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Incluye 2 dormitorios, 2 banos, 31 m2 de terrazas, aparcamiento privado descubierto, ascensor, vistas al mar, gimnasio y piscina comunitaria. La entrega aproximada esta prevista para el 1 de junio de 2026."
+        },
+        {
+          "type": "paragraph",
+          "content": "El precio publicado es de 499.150 EUR sin IVA."
+        }
+      ],
+      "seo": {
+        "title": "Pisos en venta en El Higueron | BlancaReal",
+        "description": "Propiedad de obra nueva en El Higueron, Fuengirola, con 2 dormitorios, 31 m2 de terraza, vistas al mar, piscina comunitaria y precio de 499.150 EUR."
+      }
+    },
+    "en": {
+      "title": "Apartments for sale in El Higueron",
+      "intro": "New-build property in El Higueron with 2 bedrooms, 108 sqm built area, a 31 sqm terrace, sea views, lift access and private outdoor parking.",
+      "excerpt": "New-build property in El Higueron with 2 bedrooms, 108 sqm built area, a 31 sqm terrace, sea views, lift access and private outdoor parking.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "This ground-floor home in portal 2 is positioned within El Higueron for buyers seeking a new-build product with outdoor space and close connection to Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "It offers 2 bedrooms, 2 bathrooms, a 31 sqm terrace, private outdoor parking, lift access, sea views, gym facilities and a communal pool. Approximate delivery is scheduled for June 1, 2026."
+        },
+        {
+          "type": "paragraph",
+          "content": "Published price: EUR 499,150 excluding VAT."
+        }
+      ],
+      "seo": {
+        "title": "Apartments for sale in El Higueron | BlancaReal",
+        "description": "New-build property in El Higueron, Fuengirola, with 2 bedrooms, a 31 sqm terrace, sea views, communal pool and price of EUR 499,150."
+      }
+    },
+    "de": {
+      "title": "Wohnungen zum Kauf in El Higueron",
+      "intro": "Neubauimmobilie in El Higueron mit 2 Schlafzimmern, 108 m2 bebauter Flache, 31 m2 Terrasse, Meerblick, Aufzug und privatem Aussenstellplatz.",
+      "excerpt": "Neubauimmobilie in El Higueron mit 2 Schlafzimmern, 108 m2 bebauter Flache, 31 m2 Terrasse, Meerblick, Aufzug und privatem Aussenstellplatz.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Wohnung befindet sich im Erdgeschoss, Portal 2, in einer Wohnlage von El Higueron fur Kaufer, die Neubauqualitat, Aussenflache und schnelle Anbindung an Fuengirola suchen."
+        },
+        {
+          "type": "paragraph",
+          "content": "Sie bietet 2 Schlafzimmer, 2 Bader, 31 m2 Terrassen, privaten Aussenstellplatz, Aufzug, Meerblick, Fitnessraum und Gemeinschaftspool. Die voraussichtliche Ubergabe ist fur den 1. Juni 2026 geplant."
+        },
+        {
+          "type": "paragraph",
+          "content": "Veroffentlichter Preis: 499.150 EUR ohne MwSt."
+        }
+      ],
+      "seo": {
+        "title": "Wohnungen zum Kauf in El Higueron | BlancaReal",
+        "description": "Neubauimmobilie in El Higueron, Fuengirola, mit 2 Schlafzimmern, 31 m2 Terrasse, Meerblick, Gemeinschaftspool und Preis von 499.150 EUR."
+      }
+    },
+    "fr": {
+      "title": "Appartements a vendre a El Higueron",
+      "intro": "Bien neuf a El Higueron avec 2 chambres, 108 m2 construits, terrasse de 31 m2, vue mer, ascenseur et parking prive exterieur.",
+      "excerpt": "Bien neuf a El Higueron avec 2 chambres, 108 m2 construits, terrasse de 31 m2, vue mer, ascenseur et parking prive exterieur.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le logement se situe en rez-de-chaussee, portail 2, dans un cadre residentiel de El Higueron adapte aux acheteurs qui recherchent un bien neuf avec terrasse et proximite de Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il comprend 2 chambres, 2 salles de bain, 31 m2 de terrasses, parking prive exterieur, ascenseur, vue mer, salle de sport et piscine commune. La livraison approximative est prevue pour le 1 juin 2026."
+        },
+        {
+          "type": "paragraph",
+          "content": "Prix publie : 499 150 EUR hors TVA."
+        }
+      ],
+      "seo": {
+        "title": "Appartements a vendre a El Higueron | BlancaReal",
+        "description": "Bien neuf a El Higueron, Fuengirola, avec 2 chambres, terrasse de 31 m2, vue mer, piscine commune et prix de 499 150 EUR."
+      }
+    },
+    "it": {
+      "title": "Appartamenti in vendita a El Higueron",
+      "intro": "Proprieta di nuova costruzione a El Higueron con 2 camere, 108 m2 costruiti, terrazza di 31 m2, vista mare, ascensore e parcheggio privato scoperto.",
+      "excerpt": "Proprieta di nuova costruzione a El Higueron con 2 camere, 108 m2 costruiti, terrazza di 31 m2, vista mare, ascensore e parcheggio privato scoperto.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "L unita si trova al piano terra, portale 2, in un contesto residenziale di El Higueron pensato per chi cerca una soluzione nuova con spazio esterno e collegamento rapido con Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Include 2 camere, 2 bagni, 31 m2 di terrazze, parcheggio privato scoperto, ascensore, vista mare, palestra e piscina condominiale. La consegna approssimativa e prevista per il 1 giugno 2026."
+        },
+        {
+          "type": "paragraph",
+          "content": "Prezzo pubblicato: 499.150 EUR IVA esclusa."
+        }
+      ],
+      "seo": {
+        "title": "Appartamenti in vendita a El Higueron | BlancaReal",
+        "description": "Proprieta di nuova costruzione a El Higueron, Fuengirola, con 2 camere, terrazza di 31 m2, vista mare, piscina condominiale e prezzo di 499.150 EUR."
+      }
+    },
+    "nl": {
+      "title": "Appartementen te koop in El Higueron",
+      "intro": "Nieuwbouwwoning in El Higueron met 2 slaapkamers, 108 m2 bebouwde oppervlakte, een terras van 31 m2, zeezicht, lift en prive buitenparking.",
+      "excerpt": "Nieuwbouwwoning in El Higueron met 2 slaapkamers, 108 m2 bebouwde oppervlakte, een terras van 31 m2, zeezicht, lift en prive buitenparking.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "De woning ligt op de begane grond, portal 2, in een residentiele omgeving van El Higueron voor kopers die nieuwbouw, buitenruimte en een goede aansluiting op Fuengirola zoeken."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning beschikt over 2 slaapkamers, 2 badkamers, 31 m2 terrassen, prive buitenparking, lift, zeezicht, fitnessruimte en een gemeenschappelijk zwembad. De geschatte oplevering staat gepland voor 1 juni 2026."
+        },
+        {
+          "type": "paragraph",
+          "content": "Gepubliceerde prijs: EUR 499.150 exclusief btw."
+        }
+      ],
+      "seo": {
+        "title": "Appartementen te koop in El Higueron | BlancaReal",
+        "description": "Nieuwbouwwoning in El Higueron, Fuengirola, met 2 slaapkamers, 31 m2 terras, zeezicht, gemeenschappelijk zwembad en een prijs van EUR 499.150."
+      }
+    }
+  }
+}

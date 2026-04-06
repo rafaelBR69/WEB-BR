@@ -18,7 +18,7 @@
     "cover": {
       "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/posts/post-2026-costa-del-sol-taxes/taxes.jpg",
       "alt": {
-        "es": "Vista exterior de una promocion en Costa del Sol",
+        "es": "Vista exterior de una promoción en Costa del Sol",
         "en": "Exterior view of a Costa del Sol development",
         "de": "Aussenansicht einer Wohnanlage an der Costa del Sol",
         "fr": "Vue exterieure d un programme sur la Costa del Sol",
@@ -30,7 +30,7 @@
   "author": {
     "name": "Equipo BlancaReal",
     "role": {
-      "es": "Asesoria inmobiliaria",
+      "es": "Asesoría inmobiliaria",
       "en": "Property advisory",
       "de": "Immobilienberatung",
       "fr": "Conseil immobilier",
@@ -40,22 +40,22 @@
   },
   "seo": {
     "meta_description": {
-      "es": "Si IVA, ITP o AJD te suenan a siglas de un codigo desconocido, en este articulo resolveras tus dudas sobre los impuestos a pagar al comprar una vivienda en Costa del Sol (Andalucia).",
+      "es": "Si IVA, ITP o AJD le suenan a siglas de un codigo desconocido, este articulo aclara las dudas sobre los impuestos a pagar al comprar una vivienda en Costa del Sol (Andalucia).",
       "en": "If VAT, ITP, AJD sounds like acronyms of an unknown code, in this article you will solve all your doubts about the taxes to be paid when buying a property in Costa del Sol (Andalucía).",
       "de": "Wenn IVA, ITP oder AJD wie Kuerzel eines unbekannten Codes klingen, klaert dieser Artikel Ihre Fragen zu den Steuern beim Immobilienkauf an der Costa del Sol (Andalusien).",
       "fr": "Si TVA, ITP ou AJD ressemblent a des sigles d un code inconnu, cet article repond a toutes vos questions sur les taxes a payer lors de l achat d un bien sur la Costa del Sol (Andalousie).",
-      "it": "Se IVA, ITP o AJD ti sembrano sigle di un codice sconosciuto, in questo articolo chiarirai tutti i dubbi sulle tasse da pagare acquistando un immobile in Costa del Sol (Andalusia).",
+      "it": "Se IVA, ITP o AJD Le sembrano sigle di un codice sconosciuto, questo articolo chiarisce i dubbi sulle tasse da pagare acquistando un immobile in Costa del Sol (Andalusia).",
       "nl": "Als btw, ITP of AJD klinken als afkortingen van een onbekende code, dan beantwoordt dit artikel al je vragen over de belastingen bij aankoop van een woning aan de Costa del Sol (Andalusië)."
     }
   },
   "translations": {
     "es": {
-      "title": "Impuestos al comprar vivienda en Costa del Sol (Andalucia): obra nueva vs segunda mano",
-      "excerpt": "Lo que realmente se paga en Andalucia: IVA o ITP segun el tipo de compra, AJD y los costes habituales de notaria y registro.",
+      "title": "Impuestos al comprar vivienda en Costa del Sol (Andalucia): obra nueva vs segúnda mano",
+      "excerpt": "Lo que realmente se paga en Andalucia: IVA o ITP según el tipo de compra, AJD y los costes habituales de notaría y registro.",
       "content": [
         {
           "type": "paragraph",
-          "content": "Los aspectos fiscales y legales suelen ser lo mas complejo en una compraventa o alquiler. En la Costa del Sol (Andalucia), lo primero es definir la naturaleza de la compra: obra nueva o segunda mano. A partir de ahi cambian los impuestos."
+          "content": "Los aspectos fiscales y legales suelen ser lo más complejo en una compraventa o alquiler. En la Costa del Sol (Andalucia), lo primero es definir la naturaleza de la compra: obra nueva o segúnda mano. A partir de ahi cambian los impuestos."
         },
         {
           "type": "heading",
@@ -64,29 +64,29 @@
         },
         {
           "type": "paragraph",
-          "content": "Obra nueva (obra nueva): se aplica IVA, generalmente el 10% del precio de compra en vivienda residencial estandar. Si se adquiere suelo/parcela (no una vivienda terminada), puede aplicar IVA del 21% segun la operacion y la condicion del vendedor."
+          "content": "Obra nueva (obra nueva): se aplica IVA, generalmente el 10% del precio de compra en vivienda residencial estandar. Si se adquiere suelo/parcela (no una vivienda terminada), puede aplicar IVA del 21% según la operación y la condicion del vendedor."
         },
         {
           "type": "paragraph",
-          "content": "Segunda mano (reventa): se paga ITP. En Andalucia, el tipo general es el 7% sobre el precio declarado, pudiendo existir tipos reducidos en supuestos concretos."
+          "content": "Segúnda mano (reventa): se paga ITP. En Andalucia, el tipo general es el 7% sobre el precio declarado, pudiendo existir tipos reducidos en supuestos concretos."
         },
         {
           "type": "heading",
           "level": 3,
-          "content": "AJD (Actos Juridicos Documentados)"
+          "content": "AJD (Actos Jurídicos Documentados)"
         },
         {
           "type": "paragraph",
-          "content": "El AJD grava determinados documentos notariales (escrituras publicas). En Andalucia, con caracter general, aplica en obra nueva (y en ciertos documentos hipotecarios segun el caso) y el tipo general es el 1,2%."
+          "content": "El AJD grava determinados documentos notariales (escrituras publicas). En Andalucia, con caracter general, aplica en obra nueva (y en ciertos documentos hipotecarios según el caso) y el tipo general es el 1,2%."
         },
         {
           "type": "heading",
           "level": 3,
-          "content": "Notaria"
+          "content": "Notaría"
         },
         {
           "type": "paragraph",
-          "content": "Los honorarios de notaria estan regulados y dependen principalmente del precio y de la complejidad de la escritura. Como referencia realista, suelen situarse entre varios cientos y alrededor de un par de miles de euros en operaciones residenciales normales."
+          "content": "Los honorarios de notaría estan regulados y dependen principalmente del precio y de la complejidad de la escritura. Como referencia realista, suelen situarse entre varios cientos y alrededor de un par de miles de euros en operaciones residenciales normales."
         },
         {
           "type": "heading",
@@ -95,7 +95,7 @@
         },
         {
           "type": "paragraph",
-          "content": "Inscribir la vivienda es altamente recomendable para proteger la titularidad y evitar problemas futuros. Los aranceles tambien estan regulados y suelen oscilar desde unos cientos de euros hasta alrededor de 1.500 euros, en funcion del precio y del documento."
+          "content": "Inscribir la vivienda es altamente recomendable para proteger la titularidad y evitar problemas futuros. Los aranceles también estan regulados y suelen oscilar desde unos cientos de euros hasta alrededor de 1.500 euros, en funcion del precio y del documento."
         },
         {
           "type": "heading",
@@ -107,12 +107,12 @@
           "items": [
             "Los porcentajes generales online son aproximaciones: el resultado final depende del tipo de inmueble y de la base imponible.",
             "Si hay hipoteca, aparecen costes adicionales (por ejemplo, tasacion y, en su caso, gestoria).",
-            "Pueden existir reducciones o particularidades segun el perfil del comprador o la operacion."
+            "Pueden existir reducciones o particularidades según el perfil del comprador o la operación."
           ]
         },
         {
           "type": "paragraph",
-          "content": "En BlancaReal ofrecemos soporte administrativo, legal y fiscal durante todo el proceso. Contacta con nosotros y calculamos los costes exactos de tu compra en Andalucia antes de firmar."
+          "content": "En BlancaReal ofrecemos soporte administrativo, legal y fiscal durante todo el proceso. Contacte con nosotros y calculamos los costes exactos de su compra en Andalucia antes de firmar."
         }
       ]
     },
@@ -447,7 +447,7 @@
         },
         {
           "type": "paragraph",
-          "content": "BlancaReal biedt administratieve, juridische en fiscale ondersteuning tijdens het hele proces. Neem contact met ons op en wij berekenen de exacte kosten voor jouw aankoop in Andalusië voordat je tekent."
+          "content": "BlancaReal biedt administratieve, juridische en fiscale ondersteuning tijdens het hele proces. Neem contact met ons op en wij berekenen de exacte kosten voor uw aankoop in Andalusië voordat u tekent."
         }
       ]
     }

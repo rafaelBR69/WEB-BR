@@ -1,0 +1,120 @@
+{
+  "id": "A04492-V2",
+  "priority": 68,
+  "listing_type": "unit",
+  "parent_id": "A04492",
+  "slugs": {
+    "es": "villa-2-pernet-villas-estepona",
+    "en": "villa-2-pernet-villas-estepona",
+    "de": "villa-2-pernet-villas-estepona",
+    "fr": "villa-2-pernet-villas-estepona",
+    "it": "villa-2-pernet-villas-estepona",
+    "nl": "villa-2-pernet-villas-estepona"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": 1850000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Estepona",
+    "area": "Monte Biarritz",
+    "coordinates": {
+      "lat": 36.47489866431958,
+      "lng": -5.018527548528826
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 321.07,
+    "terrace_m2": 254.6,
+    "garden_m2": 212.85,
+    "plot_area_m2": 555.89,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "garages": 1,
+    "floors": 2,
+    "floor_label": "Villa de 2 plantas",
+    "unit_code": "Villa 2",
+    "parking_type": "privado_descubierto",
+    "sea_views": true,
+    "elevator": false,
+    "private_pool": true,
+    "delivery_date": "2026-09-01",
+    "sales_stage": "Obras",
+    "property_group": "UNIFAMILIARES",
+    "notes": "Villa 2 con precio de 1.850.000 EUR sin IVA, 321,07 m2 construidos cerrados, 94 m2 de terraza cubierta, 160,60 m2 de terraza descubierta, 212,85 m2 de jardin y rooftop privado."
+  },
+  "features": ["new_build", "terrace", "sea_views", "private_parking"],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/cover/facade-01.jpg",
+      "alt": {
+        "es": "Villa 2 en Pernet Villas",
+        "en": "Villa 2 at Pernet Villas"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/exterior-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/terraza-02.jpg" }
+      ],
+      "interior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/salon-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/cocina-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/bano-02.jpg" }
+      ],
+      "views": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/views-interior.jpg" }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "villa 2 pernet villas estepona",
+      "en": "villa 2 pernet villas estepona"
+    },
+    "meta_description": {
+      "es": "Villa 2 en Pernet Villas, Estepona. Precio 1.850.000 EUR, parcela de 555,89 m2, 321,07 m2 construidos, jardin privado y rooftop.",
+      "en": "Villa 2 at Pernet Villas, Estepona. Price EUR 1,850,000, 555.89 sqm plot, 321.07 sqm built area, private garden and rooftop."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Villa 2 en Pernet Villas",
+      "intro": "Villa 2 en Monte Biarritz con precio de 1.850.000 EUR, 321,07 m2 construidos, parcela de 555,89 m2, jardin privado y rooftop, entre Estepona y San Pedro.",
+      "description": []
+    },
+    "en": {
+      "title": "Villa 2 at Pernet Villas",
+      "intro": "Villa 2 in Monte Biarritz priced at EUR 1,850,000, with 321.07 sqm built area, a 555.89 sqm plot, private garden and rooftop, between Estepona and San Pedro.",
+      "description": []
+    },
+    "de": {
+      "title": "Villa 2 in Pernet Villas",
+      "intro": "Villa 2 in Monte Biarritz mit 321,07 m2 bebauter Flaeche, 555,89 m2 Grundstueck, Privatgarten und Dachterrasse.",
+      "description": []
+    },
+    "fr": {
+      "title": "Villa 2 a Pernet Villas",
+      "intro": "Villa 2 a Monte Biarritz avec 321,07 m2 construits, parcelle de 555,89 m2, jardin prive et rooftop.",
+      "description": []
+    },
+    "it": {
+      "title": "Villa 2 a Pernet Villas",
+      "intro": "Villa 2 a Monte Biarritz con 321,07 m2 costruiti, lotto di 555,89 m2, giardino privato e rooftop.",
+      "description": []
+    },
+    "nl": {
+      "title": "Villa 2 in Pernet Villas",
+      "intro": "Villa 2 in Monte Biarritz met 321,07 m2 bebouwd, perceel van 555,89 m2, prive tuin en rooftop.",
+      "description": []
+    }
+  }
+}

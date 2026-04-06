@@ -1,0 +1,170 @@
+{
+  "id": "A0449411",
+  "priority": 84,
+  "slugs": {
+    "es": "alcantara-del-mar-obra-nueva-estepona",
+    "en": "alcantara-del-mar-new-build-estepona",
+    "de": "alcantara-del-mar-neubau-estepona",
+    "fr": "alcantara-del-mar-programme-neuf-estepona",
+    "it": "alcantara-del-mar-nuova-costruzione-estepona",
+    "nl": "alcantara-del-mar-nieuwbouw-estepona"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": 439000,
+  "currency": "EUR",
+  "pricing": {
+    "from": 439000,
+    "currency": "EUR"
+  },
+  "phase": "Comercialización",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Estepona",
+    "area": "Alcantara del Mar",
+    "address_line": "Alcantara del Mar, Estepona",
+    "coordinates": {
+      "lat": 36.47840549387289,
+      "lng": -4.993196657842916
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 76.9,
+    "terrace_m2": null,
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "garages": 1,
+    "floors": 1,
+    "parking_type": "privado_cubierto",
+    "sea_views": false,
+    "elevator": true,
+    "community_pool": false,
+    "private_pool": true,
+    "delivery_date": "2028-06-01",
+    "sales_stage": "Comercialización",
+    "property_group": "UNIFAMILIARES",
+    "commercial_agency": "BlancaReal",
+    "full_address": "Alcantara del Mar, Estepona, Malaga",
+    "reference_drive": "A0449411",
+    "reference_web": "A0449411",
+    "source_import_date": "2026-04-06",
+    "parking_notes": "Privado cubierto",
+    "pool_notes": "Privada",
+    "sea_views_notes": "No",
+    "elevator_notes": "Si",
+    "notes": "Promoción externa comercializada por BlancaReal. Alcantara del Mar es un desarrollo de obra nueva con tipologia unifamiliar, parking privado cubierto, ascensor y piscina privada."
+  },
+  "features": ["new_build", "private_parking", "elevator"],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/cover/terraza-02.jpg",
+      "alt": {
+        "es": "Alcantara del Mar en Estepona",
+        "en": "Alcantara del Mar in Estepona",
+        "de": "Alcantara del Mar in Estepona",
+        "fr": "Alcantara del Mar a Estepona",
+        "it": "Alcantara del Mar a Estepona",
+        "nl": "Alcantara del Mar in Estepona"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/cover/terraza-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/exterior/terraza-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/exterior/facade-01.jpg" }
+      ],
+      "interior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/bano-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/bano-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/cocina-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/comedor-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/dormitorio-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/dormitorio-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/dormitorio-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/dormitorio-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/dormitorio-05.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/salon-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/interior/salon-cocina.jpg" }
+      ],
+      "views": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/cover/terraza-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A0449411/exterior/terraza-01.jpg" }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "alcantara del mar obra nueva estepona",
+      "en": "alcantara del mar new build estepona",
+      "de": "alcantara del mar neubau estepona",
+      "fr": "alcantara del mar programme neuf estepona",
+      "it": "alcantara del mar nuova costruzione estepona",
+      "nl": "alcantara del mar nieuwbouw estepona"
+    },
+    "meta_description": {
+      "es": "Alcantara del Mar en Estepona. Promoción de obra nueva con precio desde 439.000 EUR, parking privado cubierto, ascensor y piscina privada.",
+      "en": "Alcantara del Mar in Estepona. New-build development from EUR 439,000 with private covered parking, lift and private pool."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Alcantara del Mar: obra nueva en Estepona",
+      "intro": "Promoción de obra nueva en Estepona con precio desde 439.000 EUR, tipología unifamiliar, parking privado cubierto, ascensor y piscina privada.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Alcantara del Mar se presenta como una propuesta residencial de obra nueva orientada a comprador que prioriza comodidad, accesibilidad y un formato doméstico funcional en la Costa del Sol."
+        },
+        {
+          "type": "paragraph",
+          "content": "La promoción combina parking privado cubierto, ascensor y piscina privada, con entrega aproximada prevista para junio de 2028."
+        }
+      ]
+    },
+    "en": {
+      "title": "Alcantara del Mar: new build in Estepona",
+      "intro": "New-build development in Estepona from EUR 439,000 with single-family typology, private covered parking, lift and private pool.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Alcantara del Mar is positioned as a new-build residential option for buyers who prioritise comfort, accessibility and a practical home format on the Costa del Sol."
+        },
+        {
+          "type": "paragraph",
+          "content": "The development combines private covered parking, lift access and a private pool, with estimated delivery scheduled for June 2028."
+        }
+      ]
+    },
+    "de": {
+      "title": "Alcantara del Mar: Neubau in Estepona",
+      "intro": "Neubauprojekt in Estepona ab 439.000 EUR mit Einfamilienhaus-Typologie, privatem ueberdachtem Stellplatz, Aufzug und privatem Pool.",
+      "description": []
+    },
+    "fr": {
+      "title": "Alcantara del Mar : programme neuf a Estepona",
+      "intro": "Programme neuf a Estepona a partir de 439 000 EUR avec typologie unifamiliale, parking prive couvert, ascenseur et piscine privee.",
+      "description": []
+    },
+    "it": {
+      "title": "Alcantara del Mar: nuova costruzione a Estepona",
+      "intro": "Progetto di nuova costruzione a Estepona da 439.000 EUR con tipologia unifamiliare, parcheggio privato coperto, ascensore e piscina privata.",
+      "description": []
+    },
+    "nl": {
+      "title": "Alcantara del Mar: nieuwbouw in Estepona",
+      "intro": "Nieuwbouwproject in Estepona vanaf EUR 439.000 met eengezinswoning-typologie, prive overdekte parking, lift en privezwembad.",
+      "description": []
+    }
+  }
+}

@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import RichContent from "@webapp/components/RichContent.astro";
 import PropertyHero from "@webapp/components/PropertyHero.astro";
@@ -88,6 +88,7 @@ const property = propertyByLangSlug ?? propertyByAnySlug;
 if (!property) {
   throw new Error(`Property not found: ${lang}/${slug}`);
 }
+const propertyLegacyCode = String(property.legacy_code ?? property.id ?? slug).trim();
 
 const [parentPropertyResult, projectUnitsResult] = await Promise.all([
   property.parent_id
@@ -263,10 +264,10 @@ const getUnitFloorplanUrl = (unit) => {
 
 const copyByLang = {
   es: {
-    quickSheet: "Ficha rapida",
+    quickSheet: "Ficha rápida",
     executiveSummary: "Resumen ejecutivo",
     introSubtitle:
-      "Una vision clara de la propiedad con los datos que mas importan al decidir una visita.",
+      "Una visión clara de la propiedad con los datos que más importan al decidir una visita.",
     price: "Precio",
     bedrooms: "Dormitorios",
     bathrooms: "Banos",
@@ -277,7 +278,7 @@ const copyByLang = {
     orientation: "Orientacion",
     garages: "Plazas de garaje",
     seeAvailableUnits: "Ver viviendas disponibles",
-    summaryNote: "Mas abajo encontrara el listado completo de unidades disponibles.",
+    summaryNote: "Más abajo encontrara el listado completo de unidades disponibles.",
     availability: "Disponibilidad",
     availableHomes: "Viviendas disponibles",
     availableHomesCaption: "Listado de viviendas disponibles",
@@ -297,11 +298,11 @@ const copyByLang = {
     viewUnit: "Ver unidad",
     presentation: "Presentacion",
     aboutProperty: "Sobre esta propiedad",
-    readMore: "Leer mas",
+    readMore: "Leer más",
     readLess: "Leer menos",
-    location: "Ubicacion",
+    location: "Ubicación",
     lifeInArea: "Vida en",
-    advisoryText: "Esta propiedad se encuentra en una de las zonas mas privilegiadas de",
+    advisoryText: "Esta propiedad se encuentra en una de las zonas más privilegiadas de",
     advisoryText2:
       "Nuestro equipo de expertos locales le guiara en cada paso para asegurar que su transicion a este exclusivo entorno sea impecable.",
     exploreAllProperties: "Explorar todas las propiedades",
@@ -332,13 +333,21 @@ const copyByLang = {
     namePlaceholder: "Su nombre",
     emailLabel: "Email",
     emailPlaceholder: "Email de contacto",
+    phoneLabel: "Teléfono",
+    phonePlaceholder: "Teléfono de contacto",
+    messageLabel: "Mensaje",
+    messagePlaceholder: "Indíquenos qué necesita o cuándo le conviene la visita",
+    consentText: "Acepto la política de privacidad y autorizo el tratamiento de mis datos para esta solicitud.",
     sendRequest: "Enviar solicitud",
+    formSending: "Enviando...",
+    formSuccess: "Solicitud enviada. Nuestro equipo revisará esta propiedad y le contactará pronto.",
+    formError: "No se pudo enviar la solicitud. Revisa los datos e intentalo de nuevo.",
     specialReference: "Referencia especial",
-    mapLocation: "Localizacion",
-    privilegedLocation: "Ubicacion privilegiada",
-    mapTitleIn: "Mapa de ubicacion en",
+    mapLocation: "Localización",
+    privilegedLocation: "Ubicación privilegiada",
+    mapTitleIn: "Mapa de ubicación en",
     mapNote:
-      "* La ubicacion exacta se proporcionara tras agendar una visita privada por motivos de seguridad y privacidad.",
+      "* La ubicación exacta se proporcionara tras agendar una visita privada por motivos de seguridad y privacidad.",
   },
   en: {
     quickSheet: "Quick facts",
@@ -410,7 +419,15 @@ const copyByLang = {
     namePlaceholder: "Your name",
     emailLabel: "Email",
     emailPlaceholder: "Contact email",
+    phoneLabel: "Phone",
+    phonePlaceholder: "Contact phone",
+    messageLabel: "Message",
+    messagePlaceholder: "Describe the required assistance or the preferred viewing window",
+    consentText: "I accept the privacy policy and authorize the processing of my data for this request.",
     sendRequest: "Send request",
+    formSending: "Sending...",
+    formSuccess: "Request sent. Our team will review this property and contact you shortly.",
+    formError: "The request could not be sent. Please review the details and try again.",
     specialReference: "Special reference",
     mapLocation: "Location",
     privilegedLocation: "Prime location",
@@ -830,11 +847,12 @@ const gallerySections = [
             <details class="concierge-expandable">
               <summary class="btn-premium outline">{t.scheduleVisit}</summary>
               <div class="expandable-content">
-                <form class="luxury-form" onsubmit="event.preventDefault()">
+                <form class="luxury-form" id="propertyLeadForm">
                   <label class="sr-only" for="visit-name">{t.nameLabel}</label>
                   <input
                     id="visit-name"
                     type="text"
+                    name="full_name"
                     placeholder={t.namePlaceholder}
                     autocomplete="name"
                     required
@@ -843,11 +861,34 @@ const gallerySections = [
                   <input
                     id="visit-email"
                     type="email"
+                    name="email"
                     placeholder={t.emailPlaceholder}
                     autocomplete="email"
                     required
                   />
-                  <button type="submit" class="btn-send">{t.sendRequest}</button>
+                  <label class="sr-only" for="visit-phone">{t.phoneLabel}</label>
+                  <input
+                    id="visit-phone"
+                    type="tel"
+                    name="phone"
+                    placeholder={t.phonePlaceholder}
+                    autocomplete="tel"
+                  />
+                  <label class="sr-only" for="visit-message">{t.messageLabel}</label>
+                  <textarea
+                    id="visit-message"
+                    name="message"
+                    rows="4"
+                    placeholder={t.messagePlaceholder}
+                  ></textarea>
+                  <input type="hidden" name="property_legacy_code" value={propertyLegacyCode} />
+                  <input type="hidden" name="lang" value={lang} />
+                  <label class="luxury-form-consent">
+                    <input type="checkbox" name="consent" required />
+                    <span>{t.consentText}</span>
+                  </label>
+                  <button type="submit" class="btn-send" id="propertyLeadSubmit">{t.sendRequest}</button>
+                  <p class="lead-form-status" id="propertyLeadStatus" aria-live="polite"></p>
                 </form>
               </div>
             </details>
@@ -861,6 +902,86 @@ const gallerySections = [
       </div>
     </aside>
   </div>
+
+  <script
+    is:inline
+    define:vars={{
+      propertyLeadLang: lang,
+      propertyLeadSource: "website_property_schedule_visit",
+      propertyLeadOperation: property.operation_type ?? property.transaction ?? "sale",
+      propertyLeadCopy: {
+        sending: t.formSending,
+        success: t.formSuccess,
+        error: t.formError,
+        submit: t.sendRequest,
+      },
+    }}
+  >
+    const leadForm = document.getElementById("propertyLeadForm");
+    const leadSubmit = document.getElementById("propertyLeadSubmit");
+    const leadStatus = document.getElementById("propertyLeadStatus");
+
+    if (
+      leadForm instanceof HTMLFormElement &&
+      leadSubmit instanceof HTMLButtonElement &&
+      leadStatus instanceof HTMLElement
+    ) {
+      leadForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        leadStatus.textContent = "";
+        leadStatus.classList.remove("is-error", "is-success");
+
+        const formData = new FormData(leadForm);
+        const payload = {
+          full_name: String(formData.get("full_name") ?? "").trim(),
+          email: String(formData.get("email") ?? "").trim(),
+          phone: String(formData.get("phone") ?? "").trim(),
+          message: String(formData.get("message") ?? "").trim(),
+          consent: formData.get("consent") === "on",
+          property_legacy_code: String(formData.get("property_legacy_code") ?? "").trim(),
+          lang: String(formData.get("lang") ?? propertyLeadLang).trim(),
+          source: propertyLeadSource,
+          origin_type: "website",
+          lead_kind: "buyer",
+          operation_interest: propertyLeadOperation,
+        };
+
+        if (!payload.full_name || !payload.email || !payload.property_legacy_code || payload.consent !== true) {
+          leadStatus.textContent = propertyLeadCopy.error;
+          leadStatus.classList.add("is-error");
+          return;
+        }
+
+        leadSubmit.disabled = true;
+        leadSubmit.textContent = propertyLeadCopy.sending;
+
+        try {
+          const response = await fetch("/api/v1/leads", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error(`property_lead_submit_failed_${response.status}`);
+          }
+
+          leadForm.reset();
+          leadStatus.textContent = propertyLeadCopy.success;
+          leadStatus.classList.add("is-success");
+        } catch (error) {
+          leadStatus.textContent = propertyLeadCopy.error;
+          leadStatus.classList.add("is-error");
+          console.error(error);
+        } finally {
+          leadSubmit.disabled = false;
+          leadSubmit.textContent = propertyLeadCopy.submit;
+        }
+      });
+    }
+  </script>
 
   {data.location.coordinates && (
     <section class="section-map" aria-labelledby="map-title">

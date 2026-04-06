@@ -1,0 +1,232 @@
+{
+  "id": "A04492",
+  "priority": 85,
+  "slugs": {
+    "es": "pernet-villas-obra-nueva-estepona",
+    "en": "pernet-villas-new-build-estepona",
+    "de": "pernet-villas-neubau-estepona",
+    "fr": "pernet-villas-programme-neuf-estepona",
+    "it": "pernet-villas-nuova-costruzione-estepona",
+    "nl": "pernet-villas-nieuwbouw-estepona"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 1850000,
+  "currency": "EUR",
+  "pricing": {
+    "from": 1850000,
+    "currency": "EUR"
+  },
+  "phase": "Obras",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Estepona",
+    "area": "Monte Biarritz",
+    "address_line": "Monte Biarritz, Estepona",
+    "coordinates": {
+      "lat": 36.47489866431958,
+      "lng": -5.018527548528826
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 329.84,
+    "terrace_m2": 269,
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "plot_area_m2": 555,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "garages": 1,
+    "floors": 2,
+    "parking_type": "privado_descubierto",
+    "sea_views": true,
+    "elevator": false,
+    "private_pool": true,
+    "delivery_date": "2026-09-01",
+    "sales_stage": "Obras",
+    "property_group": "UNIFAMILIARES",
+    "commercial_agency": "BlancaReal",
+    "full_address": "Monte Biarritz, Estepona, Malaga",
+    "reference_drive": "A04492",
+    "reference_web": "A04492",
+    "source_import_date": "2026-04-06",
+    "parking_notes": "Privado descubierto",
+    "pool_notes": "Privada",
+    "sea_views_notes": "Si",
+    "elevator_notes": "No",
+    "notes": "Promocion externa comercializada por BlancaReal. Pernet Villas es un conjunto de 2 villas en Monte Biarritz, entre Estepona y San Pedro de Alcantara, con arquitectura contemporanea, rooftop privado, vistas al mar y entrega prevista para septiembre de 2026."
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "private_parking"
+  ],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/cover/facade-01.jpg",
+      "alt": {
+        "es": "Pernet Villas en Estepona",
+        "en": "Pernet Villas in Estepona",
+        "de": "Pernet Villas in Estepona",
+        "fr": "Pernet Villas a Estepona",
+        "it": "Pernet Villas a Estepona",
+        "nl": "Pernet Villas in Estepona"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/cover/facade-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/exterior-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/exterior-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/facade-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/terraza-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/terraza-02.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/bano-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/bano-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/bano-03.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/cocina-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/cocina-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/despacho-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/dormitorio-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/dormitorio-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/salon-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/salon-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/salon-03.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/vestidor.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/views-interior.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/terraza-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/exterior/terraza-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/interior/views-interior.jpg"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "pernet villas obra nueva estepona",
+      "en": "pernet villas new build estepona",
+      "de": "pernet villas neubau estepona",
+      "fr": "pernet villas programme neuf estepona",
+      "it": "pernet villas nuova costruzione estepona",
+      "nl": "pernet villas nieuwbouw estepona"
+    },
+    "meta_description": {
+      "es": "Pernet Villas en Monte Biarritz, Estepona. Promoción de 2 villas de obra nueva con rooftop privado, jardines y una ubicación conectada entre El Campanario, Marbella y Puerto Banus.",
+      "en": "Pernet Villas in Monte Biarritz, Estepona. A 2-villa new-build development with private rooftop, gardens and a connected location between El Campanario, Marbella and Puerto Banus."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Pernet Villas: obra nueva en Estepona",
+      "intro": "Promoción de 2 villas en Monte Biarritz, entre Estepona y San Pedro de Alcantara, con arquitectura contemporanea, rooftop privado, vistas al mar y precios desde 1.850.000 EUR.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Pernet Villas se posiciona en Monte Biarritz como un proyecto residencial de escala reducida, orientado a comprador que busca diseno contemporaneo, privacidad y acceso rapido a la Golden Mile, Puerto Banus y Marbella."
+        },
+        {
+          "type": "paragraph",
+          "content": "El proyecto integra jardines pensados con sensibilidad paisajistica, grandes ventanales correderos, cocina abierta con isla y una terraza rooftop concebida como espacio flexible para descanso o reuniones al aire libre, con entrega prevista para septiembre de 2026."
+        }
+      ]
+    },
+    "en": {
+      "title": "Pernet Villas: new build in Estepona",
+      "intro": "A 2-villa development in Monte Biarritz, between Estepona and San Pedro de Alcantara, with contemporary architecture, private rooftop, sea views and prices from EUR 1,850,000.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Pernet Villas is positioned in Monte Biarritz as a boutique residential project for buyers seeking contemporary design, privacy and quick access to the Golden Mile, Puerto Banus and Marbella."
+        },
+        {
+          "type": "paragraph",
+          "content": "The project combines landscaped gardens, large sliding windows, an open-plan island kitchen and a rooftop terrace designed as a flexible outdoor lounge or entertaining area, with estimated delivery in September 2026."
+        }
+      ]
+    },
+    "de": {
+      "title": "Pernet Villas: Neubau in Estepona",
+      "intro": "Projekt mit 2 Villen in Monte Biarritz zwischen Estepona und San Pedro de Alcantara mit zeitgemaesser Architektur und privater Dachterrasse.",
+      "description": []
+    },
+    "fr": {
+      "title": "Pernet Villas : programme neuf a Estepona",
+      "intro": "Programme de 2 villas a Monte Biarritz, entre Estepona et San Pedro de Alcantara, avec architecture contemporaine et rooftop prive.",
+      "description": []
+    },
+    "it": {
+      "title": "Pernet Villas: nuova costruzione a Estepona",
+      "intro": "Progetto di 2 ville a Monte Biarritz, tra Estepona e San Pedro de Alcantara, con architettura contemporanea e rooftop privato.",
+      "description": []
+    },
+    "nl": {
+      "title": "Pernet Villas: nieuwbouw in Estepona",
+      "intro": "Project met 2 villa's in Monte Biarritz, tussen Estepona en San Pedro de Alcantara, met eigentijdse architectuur en prive rooftop.",
+      "description": []
+    }
+  }
+}

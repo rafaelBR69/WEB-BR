@@ -1,0 +1,181 @@
+{
+  "id": "A044942",
+  "priority": 87,
+  "slugs": {
+    "es": "casas-adosadas-san-pedro-de-alcantara",
+    "en": "townhouses-san-pedro-de-alcantara",
+    "de": "reihenhaeuser-san-pedro-de-alcantara",
+    "fr": "maisons-mitoyennes-san-pedro-de-alcantara",
+    "it": "case-a-schiera-san-pedro-de-alcantara",
+    "nl": "geschakelde-woningen-san-pedro-de-alcantara"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": 1248157,
+  "currency": "EUR",
+  "pricing": {
+    "from": 1248157,
+    "currency": "EUR"
+  },
+  "phase": "Comercializacion",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "San Pedro de Alcantara",
+    "area": "Alcantara del Mar",
+    "address_line": "Alcantara del Mar, San Pedro de Alcantara",
+    "coordinates": {
+      "lat": 36.47847868930185,
+      "lng": -4.993253551568702
+    }
+  },
+  "property": {
+    "type": "townhouse",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 254.8,
+    "terrace_m2": null,
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "garages": 1,
+    "floors": 2,
+    "parking_type": "privado_cubierto",
+    "sea_views": false,
+    "elevator": false,
+    "community_pool": false,
+    "private_pool": true,
+    "delivery_date": "2028-06-01",
+    "sales_stage": "Comercializacion",
+    "property_group": "ADOSADOS",
+    "commercial_agency": "BlancaReal",
+    "full_address": "Alcantara del Mar, San Pedro de Alcantara, Malaga",
+    "reference_drive": "A044942",
+    "reference_web": "A044942",
+    "source_import_date": "2026-04-06",
+    "parking_notes": "Privado cubierto",
+    "pool_notes": "Privada",
+    "sea_views_notes": "No",
+    "elevator_notes": "No",
+    "notes": "Promocion externa comercializada por BlancaReal. Alcantara del Mar se presenta como una promocion de casas adosadas de obra nueva en San Pedro de Alcantara con parking privado cubierto y piscina privada."
+  },
+  "features": ["new_build", "private_parking"],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/cover/terraza-04.jpg",
+      "alt": {
+        "es": "Casas adosadas en San Pedro de Alcantara",
+        "en": "Townhouses in San Pedro de Alcantara",
+        "de": "Reihenhaeuser in San Pedro de Alcantara",
+        "fr": "Maisons mitoyennes a San Pedro de Alcantara",
+        "it": "Case a schiera a San Pedro de Alcantara",
+        "nl": "Geschakelde woningen in San Pedro de Alcantara"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/cover/terraza-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/facades/facade-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/facades/facade-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/facades/facade-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/facades/plano-cielo.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/exterior/terraza-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/exterior/terraza-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/exterior/terraza-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/exterior/terraza-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/exterior/terraza-05.jpg" }
+      ],
+      "interior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/bano-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/bano-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/bno-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/cocina-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/comedor-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/dormitorio-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/dormitorio-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/dormitorio-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/dormitorio-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/dormitorio-05.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/dormitorio-06.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/salon-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/salon-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/salon-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/interior/salon-05.jpg" }
+      ],
+      "views": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/cover/terraza-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/facades/plano-cielo.jpg" }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "casas adosadas san pedro de alcantara",
+      "en": "townhouses san pedro de alcantara",
+      "de": "reihenhaeuser san pedro de alcantara",
+      "fr": "maisons mitoyennes san pedro de alcantara",
+      "it": "case a schiera san pedro de alcantara",
+      "nl": "geschakelde woningen san pedro de alcantara"
+    },
+    "meta_description": {
+      "es": "Casas adosadas en San Pedro de Alcantara desde 1.248.157 EUR, con 4 dormitorios, parking privado cubierto y piscina privada.",
+      "en": "Townhouses in San Pedro de Alcantara from EUR 1,248,157 with 4 bedrooms, private covered parking and private pool."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Casas adosadas en San Pedro de Alcantara",
+      "intro": "Promocion de casas adosadas de obra nueva en San Pedro de Alcantara desde 1.248.157 EUR, con 4 dormitorios, parking privado cubierto y piscina privada.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Estas casas adosadas en San Pedro de Alcantara ofrecen una distribucion amplia en dos plantas, pensada para quien busca mas espacio interior y exterior cerca de la playa y los servicios."
+        },
+        {
+          "type": "paragraph",
+          "content": "La promocion combina parking privado cubierto y piscina privada, con entrega aproximada prevista para junio de 2028."
+        }
+      ]
+    },
+    "en": {
+      "title": "Townhouses in San Pedro de Alcantara",
+      "intro": "New-build townhouses in San Pedro de Alcantara from EUR 1,248,157, with 4 bedrooms, private covered parking and private pool.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "These townhouses in San Pedro de Alcantara offer a spacious two-storey layout for buyers seeking more indoor and outdoor living close to the beach and local amenities."
+        },
+        {
+          "type": "paragraph",
+          "content": "The development combines private covered parking and a private pool, with estimated delivery scheduled for June 2028."
+        }
+      ]
+    },
+    "de": {
+      "title": "Reihenhaeuser in San Pedro de Alcantara",
+      "intro": "Neubau-Reihenhaeuser in San Pedro de Alcantara ab 1.248.157 EUR mit 4 Schlafzimmern, privatem ueberdachtem Stellplatz und privatem Pool.",
+      "description": []
+    },
+    "fr": {
+      "title": "Maisons mitoyennes a San Pedro de Alcantara",
+      "intro": "Maisons mitoyennes neuves a San Pedro de Alcantara a partir de 1 248 157 EUR avec 4 chambres, parking prive couvert et piscine privee.",
+      "description": []
+    },
+    "it": {
+      "title": "Case a schiera a San Pedro de Alcantara",
+      "intro": "Case a schiera di nuova costruzione a San Pedro de Alcantara da 1.248.157 EUR con 4 camere, parcheggio privato coperto e piscina privata.",
+      "description": []
+    },
+    "nl": {
+      "title": "Geschakelde woningen in San Pedro de Alcantara",
+      "intro": "Nieuwbouw geschakelde woningen in San Pedro de Alcantara vanaf EUR 1.248.157 met 4 slaapkamers, prive overdekte parking en privezwembad.",
+      "description": []
+    }
+  }
+}

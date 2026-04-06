@@ -597,9 +597,34 @@
   transition: border-color 0.3s;
 }
 
-.luxury-form input:focus {
+.luxury-form textarea {
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  background-color: var(--color-bg);
+  transition: border-color 0.3s;
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.luxury-form input:focus,
+.luxury-form textarea:focus {
   outline: none;
   border-color: var(--color-accent);
+}
+
+.luxury-form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.luxury-form-consent input {
+  margin: 0.2rem 0 0 0;
 }
 
 .btn-send {
@@ -617,6 +642,25 @@
 
 .btn-send:hover { 
   background-color: var(--color-accent);
+}
+
+.btn-send:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.lead-form-status {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.lead-form-status.is-success {
+  color: #0f766e;
+}
+
+.lead-form-status.is-error {
+  color: #b91c1c;
 }
 
 /* Property Reference */

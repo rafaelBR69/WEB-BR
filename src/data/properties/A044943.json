@@ -1,0 +1,191 @@
+{
+  "id": "A044943",
+  "priority": 88,
+  "slugs": {
+    "es": "villas-san-pedro-de-alcantara",
+    "en": "villas-san-pedro-de-alcantara",
+    "de": "villen-san-pedro-de-alcantara",
+    "fr": "villas-san-pedro-de-alcantara",
+    "it": "ville-san-pedro-de-alcantara",
+    "nl": "villas-san-pedro-de-alcantara"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": 2167250,
+  "currency": "EUR",
+  "pricing": {
+    "from": 2167250,
+    "currency": "EUR"
+  },
+  "phase": "Comercializacion",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "San Pedro de Alcantara",
+    "area": "Alcantara del Mar",
+    "address_line": "Alcantara del Mar, San Pedro de Alcantara",
+    "coordinates": {
+      "lat": 36.47847258968541,
+      "lng": -4.993238379908492
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 450.1,
+    "terrace_m2": null,
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "bedrooms": 6,
+    "bathrooms": 6,
+    "garages": 1,
+    "floors": 2,
+    "parking_type": "privado_cubierto",
+    "sea_views": false,
+    "elevator": false,
+    "community_pool": false,
+    "private_pool": true,
+    "delivery_date": "2029-06-01",
+    "sales_stage": "Comercializacion",
+    "property_group": "VILLAS",
+    "commercial_agency": "BlancaReal",
+    "full_address": "Alcantara del Mar, San Pedro de Alcantara, Malaga",
+    "reference_drive": "A044943",
+    "reference_web": "A044943",
+    "source_import_date": "2026-04-06",
+    "parking_notes": "Privado cubierto",
+    "pool_notes": "Privada",
+    "sea_views_notes": "No",
+    "elevator_notes": "No",
+    "notes": "Promocion externa comercializada por BlancaReal. Alcantara del Mar se presenta como una promocion de villas de obra nueva en San Pedro de Alcantara con parking privado cubierto, piscina privada, gimnasio y sauna."
+  },
+  "features": ["new_build", "private_parking", "private_pool", "gym", "sauna"],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/cover/terraza-04.jpg",
+      "alt": {
+        "es": "Villas en San Pedro de Alcantara",
+        "en": "Villas in San Pedro de Alcantara",
+        "de": "Villen in San Pedro de Alcantara",
+        "fr": "Villas a San Pedro de Alcantara",
+        "it": "Ville a San Pedro de Alcantara",
+        "nl": "Villas in San Pedro de Alcantara"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/cover/terraza-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/exterior/terraza-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/exterior/terraza-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/exterior/terraza-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/exterior/terraza-04.jpg" }
+      ],
+      "interior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/salon/salon-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/salon/salon-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/salon/salon-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/salon/salon-05.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/salon/salon-06.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/salon/salon-07.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/salon/salon-09.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/dormitorio-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/dormitorio-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/dormitorio-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/dormitorio-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/dormitorio-05.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/dormitorio-06.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/dormitorio-07.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/vestidor-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/vestidor-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/dormitorio/vestidor-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/bano/bano-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/bano/bano-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/bano/bano-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/bano/bano-05.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/bano/bano-06.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/bano/bano-07.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/bano/bano-08.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/bano/bano-09.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/cocina/cocina-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/cocina/cocina-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/sauna/sauna.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/gimnasio/gimnasio.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/interior/gimnasio/gimnasio-2.jpg" }
+      ],
+      "views": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/cover/terraza-04.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/exterior/terraza-01.jpg" }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "villas san pedro de alcantara",
+      "en": "villas san pedro de alcantara",
+      "de": "villen san pedro de alcantara",
+      "fr": "villas san pedro de alcantara",
+      "it": "ville san pedro de alcantara",
+      "nl": "villas san pedro de alcantara"
+    },
+    "meta_description": {
+      "es": "Villas en San Pedro de Alcantara desde 2.167.250 EUR, con 6 dormitorios, parking privado cubierto, piscina privada, gimnasio y sauna.",
+      "en": "Villas in San Pedro de Alcantara from EUR 2,167,250 with 6 bedrooms, private covered parking, private pool, gym and sauna."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Villas en San Pedro de Alcantara",
+      "intro": "Promocion de villas de obra nueva en San Pedro de Alcantara desde 2.167.250 EUR, con 6 dormitorios, parking privado cubierto, piscina privada, gimnasio y sauna.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Estas villas en San Pedro de Alcantara ofrecen una distribucion de gran formato en dos plantas, pensada para quien busca amplitud, privacidad y zonas de bienestar cerca de la playa."
+        },
+        {
+          "type": "paragraph",
+          "content": "La promocion combina parking privado cubierto, piscina privada, gimnasio y sauna, con entrega aproximada prevista para junio de 2029."
+        }
+      ]
+    },
+    "en": {
+      "title": "Villas in San Pedro de Alcantara",
+      "intro": "New-build villas in San Pedro de Alcantara from EUR 2,167,250, with 6 bedrooms, private covered parking, private pool, gym and sauna.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "These villas in San Pedro de Alcantara offer a large two-storey layout for buyers seeking privacy, generous space and wellness areas close to the beach and amenities."
+        },
+        {
+          "type": "paragraph",
+          "content": "The development combines private covered parking, a private pool, gym and sauna, with estimated delivery scheduled for June 2029."
+        }
+      ]
+    },
+    "de": {
+      "title": "Villen in San Pedro de Alcantara",
+      "intro": "Neubau-Villen in San Pedro de Alcantara ab 2.167.250 EUR mit 6 Schlafzimmern, privatem ueberdachtem Stellplatz, privatem Pool, Fitnessraum und Sauna.",
+      "description": []
+    },
+    "fr": {
+      "title": "Villas a San Pedro de Alcantara",
+      "intro": "Villas neuves a San Pedro de Alcantara a partir de 2 167 250 EUR avec 6 chambres, parking prive couvert, piscine privee, salle de sport et sauna.",
+      "description": []
+    },
+    "it": {
+      "title": "Ville a San Pedro de Alcantara",
+      "intro": "Ville di nuova costruzione a San Pedro de Alcantara da 2.167.250 EUR con 6 camere, parcheggio privato coperto, piscina privata, palestra e sauna.",
+      "description": []
+    },
+    "nl": {
+      "title": "Villas in San Pedro de Alcantara",
+      "intro": "Nieuwbouwvilla's in San Pedro de Alcantara vanaf EUR 2.167.250 met 6 slaapkamers, prive overdekte parking, privezwembad, fitnessruimte en sauna.",
+      "description": []
+    }
+  }
+}

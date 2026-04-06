@@ -1,0 +1,263 @@
+{
+  "id": "PT0403",
+  "priority": 66,
+  "slugs": {
+    "es": "casa-adosada-venta-fuengirola",
+    "en": "townhouse-for-sale-fuengirola",
+    "de": "reihenhaus-kaufen-fuengirola",
+    "fr": "maison-mitoyenne-a-vendre-fuengirola",
+    "it": "casa-a-schiera-in-vendita-fuengirola",
+    "nl": "geschakelde-woning-te-koop-fuengirola"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 940000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Fuengirola",
+    "address_line": "Fuengirola",
+    "coordinates": {
+      "lat": 36.553228957625734,
+      "lng": -4.62186807706451
+    }
+  },
+  "property": {
+    "type": "townhouse",
+    "market": "segunda_mano",
+    "area_m2": 326,
+    "terrace_m2": 60,
+    "bedrooms": 3,
+    "bathrooms": 3.5,
+    "garages": 1,
+    "storage_rooms": null,
+    "elevator": false,
+    "floors": null,
+    "condition": "good",
+    "ibi_yearly": 590,
+    "community_fees_monthly": 0,
+    "waste_yearly": 68,
+    "full_address": "Fuengirola, Malaga",
+    "parking_notes": "Privado cubierto",
+    "storage_room_notes": null,
+    "pool_notes": "No",
+    "sea_views_notes": "No",
+    "elevator_notes": "No",
+    "source_import_date": "2026-04-06",
+    "notes": "Buen estado. Casa adosada en venta en Fuengirola con 326 m2 construidos, 60 m2 de terrazas, parking privado cubierto y sin piscina, ascensor ni vistas al mar."
+  },
+  "features": [
+    "garage",
+    "private_terrace"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/cover/Fachada-01.jpeg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/cover/Fachada-01.jpeg",
+    "gallery": {
+      "living": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Salon-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/salon-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Salon-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Salon-04.jpeg"
+      ],
+      "bedroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Domitorio1-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Dormitorio1-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Dormitorio2.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/dormitorio3-01%20(1).jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/dormitorio3-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Buhardilla-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Sotano-01.jpeg"
+      ],
+      "kitchen": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Cocina-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Cocina-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/exterior/Cocina-04.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/comedor-01.jpeg"
+      ],
+      "bathroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Bano1-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/bano2-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Bano3.jpeg"
+      ],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/cover/Fachada-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/exterior/Fachada-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/exterior/Fachada-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/exterior/Terraza-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/exterior/Terraza-02.jpeg"
+      ],
+      "interior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Bano1-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/bano2-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Bano3.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Buhardilla-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Cocina-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Cocina-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Domitorio1-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Dormitorio1-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Dormitorio2.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/dormitorio3-01%20(1).jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/dormitorio3-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Escalera-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Hall-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Salon-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/salon-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Salon-03.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Salon-04.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/interior/Sotano-01.jpeg"
+      ],
+      "views": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/cover/Fachada-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT403/exterior/Terraza-01.jpeg"
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "casa adosada en venta fuengirola",
+      "en": "townhouse for sale fuengirola",
+      "de": "reihenhaus kaufen fuengirola",
+      "fr": "maison mitoyenne a vendre fuengirola",
+      "it": "casa a schiera in vendita fuengirola",
+      "nl": "geschakelde woning te koop fuengirola"
+    },
+    "meta_description": {
+      "es": "Casa adosada en venta en Fuengirola con 3 dormitorios, 326 m2 construidos, 60 m2 de terrazas, garaje privado cubierto y buen estado general.",
+      "en": "Townhouse for sale in Fuengirola with 3 bedrooms, 326 sqm built area, 60 sqm terraces, private covered parking and good overall condition.",
+      "de": "Reihenhaus zum Kauf in Fuengirola mit 3 Schlafzimmern, 326 m2 bebauter Flache, 60 m2 Terrassen, privatem ueberdachtem Stellplatz und gutem Allgemeinzustand.",
+      "fr": "Maison mitoyenne a vendre a Fuengirola avec 3 chambres, 326 m2 construits, 60 m2 de terrasses, parking prive couvert et bon etat general.",
+      "it": "Casa a schiera in vendita a Fuengirola con 3 camere da letto, 326 m2 costruiti, 60 m2 di terrazze, parcheggio privato coperto e buono stato generale.",
+      "nl": "Geschakelde woning te koop in Fuengirola met 3 slaapkamers, 326 m2 bebouwde oppervlakte, 60 m2 terrassen, prive overdekte parking en goede algemene staat."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Casa adosada en venta en Fuengirola",
+      "intro": "Casa adosada de segunda mano en Fuengirola, con 326 m2 construidos, 60 m2 de terrazas y una distribucion amplia para vida familiar cerca del mar y los servicios.",
+      "excerpt": "Casa adosada de segunda mano en Fuengirola, con 326 m2 construidos, 60 m2 de terrazas y una distribucion amplia para vida familiar cerca del mar y los servicios.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda ofrece 3 dormitorios, 3 banos completos y un aseo, junto con una distribucion generosa para residencia habitual o segunda vivienda en Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Incluye parking privado cubierto, varias terrazas y buen estado general, sin piscina, ascensor ni vistas al mar, con gastos anuales y mensuales claramente definidos."
+        }
+      ],
+      "seo": {
+        "title": "Casa adosada en venta en Fuengirola | BlancaReal",
+        "description": "Casa adosada en Fuengirola con 3 dormitorios, 60 m2 de terrazas, garaje cubierto y buen estado general."
+      }
+    },
+    "en": {
+      "title": "Townhouse for sale in Fuengirola",
+      "intro": "Resale townhouse in Fuengirola with 326 sqm built area, 60 sqm of terraces and a spacious layout for family living close to the sea and everyday amenities.",
+      "excerpt": "Resale townhouse in Fuengirola with 326 sqm built area, 60 sqm of terraces and a spacious layout for family living close to the sea and everyday amenities.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The property offers 3 bedrooms, 3 full bathrooms and a guest toilet, with a generous layout suited to full-time living or use as a second home in Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "It includes private covered parking, several terraces and good overall condition, without pool, lift or sea views, and with clearly defined annual and monthly running costs."
+        }
+      ],
+      "seo": {
+        "title": "Townhouse for sale in Fuengirola | BlancaReal",
+        "description": "Townhouse in Fuengirola with 3 bedrooms, 60 sqm of terraces, covered parking and good overall condition."
+      }
+    },
+    "de": {
+      "title": "Reihenhaus zum Kauf in Fuengirola",
+      "intro": "Gebrauchtes Reihenhaus in Fuengirola mit 326 m2 bebauter Flache, 60 m2 Terrassen und grosszuegigem Grundriss fuer Familienleben nahe Meer und Infrastruktur.",
+      "excerpt": "Gebrauchtes Reihenhaus in Fuengirola mit 326 m2 bebauter Flache, 60 m2 Terrassen und grosszuegigem Grundriss fuer Familienleben nahe Meer und Infrastruktur.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Immobilie bietet 3 Schlafzimmer, 3 vollwertige Baeder und ein Gaeste-WC sowie einen grosszuegigen Grundriss fuer Hauptwohnsitz oder Zweitwohnsitz in Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Sie verfuegt ueber privaten ueberdachten Stellplatz, mehrere Terrassen und guten Allgemeinzustand, ohne Pool, Aufzug oder Meerblick, bei klar ausgewiesenen laufenden Kosten."
+        }
+      ],
+      "seo": {
+        "title": "Reihenhaus zum Kauf in Fuengirola | BlancaReal",
+        "description": "Reihenhaus in Fuengirola mit 3 Schlafzimmern, 60 m2 Terrassen, ueberdachtem Stellplatz und gutem Allgemeinzustand."
+      }
+    },
+    "fr": {
+      "title": "Maison mitoyenne a vendre a Fuengirola",
+      "intro": "Maison mitoyenne de revente a Fuengirola avec 326 m2 construits, 60 m2 de terrasses et une distribution spacieuse pour la vie familiale pres de la mer et des services.",
+      "excerpt": "Maison mitoyenne de revente a Fuengirola avec 326 m2 construits, 60 m2 de terrasses et une distribution spacieuse pour la vie familiale pres de la mer et des services.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le bien propose 3 chambres, 3 salles de bain completes et un toilette d invite, avec une distribution adaptee a une residence principale ou secondaire a Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il comprend un parking prive couvert, plusieurs terrasses et un bon etat general, sans piscine, ascenseur ni vue mer, avec des charges annuelles et mensuelles clairement definies."
+        }
+      ],
+      "seo": {
+        "title": "Maison mitoyenne a vendre a Fuengirola | BlancaReal",
+        "description": "Maison mitoyenne a Fuengirola avec 3 chambres, 60 m2 de terrasses, parking couvert et bon etat general."
+      }
+    },
+    "it": {
+      "title": "Casa a schiera in vendita a Fuengirola",
+      "intro": "Casa a schiera di seconda mano a Fuengirola con 326 m2 costruiti, 60 m2 di terrazze e una distribuzione ampia per la vita familiare vicino al mare e ai servizi.",
+      "excerpt": "Casa a schiera di seconda mano a Fuengirola con 326 m2 costruiti, 60 m2 di terrazze e una distribuzione ampia per la vita familiare vicino al mare e ai servizi.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La proprieta offre 3 camere da letto, 3 bagni completi e un bagno di cortesia, con una distribuzione generosa adatta a residenza principale o seconda casa a Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "Include parcheggio privato coperto, varie terrazze e buono stato generale, senza piscina, ascensore o vista mare, con costi annuali e mensili ben definiti."
+        }
+      ],
+      "seo": {
+        "title": "Casa a schiera in vendita a Fuengirola | BlancaReal",
+        "description": "Casa a schiera a Fuengirola con 3 camere, 60 m2 di terrazze, parcheggio coperto e buono stato generale."
+      }
+    },
+    "nl": {
+      "title": "Geschakelde woning te koop in Fuengirola",
+      "intro": "Wederverkoop geschakelde woning in Fuengirola met 326 m2 bebouwde oppervlakte, 60 m2 terrassen en een ruime indeling voor gezinsleven dicht bij zee en voorzieningen.",
+      "excerpt": "Wederverkoop geschakelde woning in Fuengirola met 326 m2 bebouwde oppervlakte, 60 m2 terrassen en een ruime indeling voor gezinsleven dicht bij zee en voorzieningen.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "De woning beschikt over 3 slaapkamers, 3 volledige badkamers en een gastentoilet, met een royale indeling voor permanente bewoning of gebruik als tweede verblijf in Fuengirola."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning heeft prive overdekte parking, meerdere terrassen en verkeert in goede algemene staat, zonder zwembad, lift of zeezicht, met duidelijk omschreven vaste lasten."
+        }
+      ],
+      "seo": {
+        "title": "Geschakelde woning te koop in Fuengirola | BlancaReal",
+        "description": "Geschakelde woning in Fuengirola met 3 slaapkamers, 60 m2 terrassen, overdekte parking en goede algemene staat."
+      }
+    }
+  }
+}

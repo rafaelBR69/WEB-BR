@@ -71,7 +71,7 @@ const marketing3dLabelByLang: Record<string, string> = {
 
 const navCopyByLang = {
   es: {
-    catalog: "Catalogo",
+    catalog: "Catálogo",
     areas: "Zonas",
     access: "Accesos",
     services: "Servicios",
@@ -81,16 +81,16 @@ const navCopyByLang = {
     resale: "Segunda mano",
     allProperties: "Todas las propiedades",
     allProjects: "Todos los proyectos",
-    latestProjects: "Ultimos proyectos",
-    requestLegal: "Solicitar asesoria",
-    contractReview: "Revision y contratos",
+    latestProjects: "Últimos proyectos",
+    requestLegal: "Solicitar asesoría",
+    contractReview: "Revisión y contratos",
     dueDiligence: "Due diligence inmobiliaria",
-    taxAdvice: "Asesoria fiscal",
-    docs: "Tramites y documentacion",
-    legalRepresentation: "Representacion legal",
+    taxAdvice: "Asesoría fiscal",
+    docs: "Trámites y documentación",
+    legalRepresentation: "Representación legal",
     foreignServices: "Servicios para extranjeros",
-    valuation: "Solicitar valoracion",
-    company: "Compania",
+    valuation: "Solicitar valoración",
+    company: "Compañía",
   },
   en: {
     catalog: "Catalog",
@@ -159,7 +159,7 @@ const navCopyByLang = {
     company: "Entreprise",
   },
   it: {
-    catalog: "Catalogo",
+    catalog: "Catálogo",
     areas: "Aree",
     access: "Accessi",
     services: "Servizi",

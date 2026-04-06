@@ -1,0 +1,26 @@
+{
+  "id": "A044921-V7",
+  "priority": 69,
+  "listing_type": "unit",
+  "parent_id": "A044921",
+  "slugs": { "es": "villa-7-calahonda-mijas", "en": "villa-7-calahonda-mijas", "de": "villa-7-calahonda-mijas", "fr": "villa-7-calahonda-mijas", "it": "villa-7-calahonda-mijas", "nl": "villa-7-calahonda-mijas" },
+  "status": "available",
+  "featured": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "location": { "country": "ES", "province": "Malaga", "city": "Mijas", "area": "Calahonda", "coordinates": { "lat": 36.492073849682484, "lng": -4.721916747282094 } },
+  "property": { "type": "villa", "market": "obra_nueva", "condition": "new", "area_m2": 328.42, "terrace_m2": 277.98, "garden_m2": 204.05, "plot_area_m2": 464.87, "bedrooms": 4, "bathrooms": 5, "garages": 2, "floors": 2, "floor_label": "Villa de 2 plantas", "unit_code": "Villa 7", "parking_type": "privado_descubierto", "sea_views": true, "elevator": false, "private_pool": true, "sales_stage": "Licencia obtenida", "property_group": "UNIFAMILIARES" },
+  "features": ["new_build", "sea_views", "private_parking"],
+  "media": { "cover": { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/cover/exterior-villas.jpg", "alt": { "es": "Villa 7 en Calahonda", "en": "Villa 7 in Calahonda" } }, "gallery": { "exterior": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/cover/exterior-villas.jpg" }], "interior": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/bano-lantana-villas-3.jpg" }], "views": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior-03.jpg" }], "floorplan": [] } },
+  "seo": { "focus_keyphrase": { "es": "villa 7 calahonda mijas", "en": "villa 7 calahonda mijas" }, "meta_description": { "es": "Villa 7 en Calahonda, Mijas. Parcela de 464,87 m2, 328,42 m2 construidos y piscina privada.", "en": "Villa 7 in Calahonda, Mijas. 464.87 sqm plot, 328.42 sqm built area and private pool." } },
+  "translations": {
+    "es": { "title": "Villa 7 en Calahonda", "intro": "Villa 7 de obra nueva en Calahonda con 328,42 m2 construidos, parcela de 464,87 m2, piscina privada y terrazas amplias con vistas al mar.", "description": [] },
+    "en": { "title": "Villa 7 in Calahonda", "intro": "New-build Villa 7 in Calahonda with 328.42 sqm built area, a 464.87 sqm plot, private pool and generous terraces with sea views.", "description": [] },
+    "de": { "title": "Villa 7 in Calahonda", "intro": "Neubau Villa 7 in Calahonda mit 328,42 m2 bebauter Flaeche, 464,87 m2 Grundstueck und privatem Pool.", "description": [] },
+    "fr": { "title": "Villa 7 a Calahonda", "intro": "Villa 7 neuve a Calahonda avec 328,42 m2 construits, parcelle de 464,87 m2 et piscine privee.", "description": [] },
+    "it": { "title": "Villa 7 a Calahonda", "intro": "Villa 7 di nuova costruzione a Calahonda con 328,42 m2 costruiti, lotto di 464,87 m2 e piscina privata.", "description": [] },
+    "nl": { "title": "Villa 7 in Calahonda", "intro": "Nieuwbouw Villa 7 in Calahonda met 328,42 m2 bebouwd, perceel van 464,87 m2 en privezwembad.", "description": [] }
+  }
+}

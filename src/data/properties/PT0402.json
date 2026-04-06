@@ -2,12 +2,12 @@
   "id": "PT0402",
   "priority": 65,
   "slugs": {
-    "es": "piso-2-dormitorios-bel-air-estepona",
-    "en": "2-bedroom-apartment-bel-air-estepona",
-    "de": "wohnung-2-schlafzimmer-bel-air-estepona",
-    "fr": "appartement-2-chambres-bel-air-estepona",
-    "it": "appartamento-2-camere-bel-air-estepona",
-    "nl": "appartement-2-slaapkamers-bel-air-estepona"
+    "es": "apartamento-venta-bel-air-malaga",
+    "en": "apartment-for-sale-bel-air-malaga",
+    "de": "wohnung-kaufen-bel-air-malaga",
+    "fr": "appartement-a-vendre-bel-air-malaga",
+    "it": "appartamento-in-vendita-bel-air-malaga",
+    "nl": "appartement-te-koop-bel-air-malaga"
   },
   "status": "available",
   "featured": false,
@@ -30,8 +30,8 @@
     "area": "Bel-Air",
     "address_line": "Calle del Tenis 24, Residencial Las Jacarandas, Urbanizacion Bel-Air, Bloque 10 (A) 2oA",
     "coordinates": {
-      "lat": 36.46674574653425,
-      "lng": -5.042546205230278
+      "lat": 36.46796764612383,
+      "lng": -5.043103499663178
     }
   },
   "property": {
@@ -64,7 +64,7 @@
     "sea_views_notes": "Si",
     "elevator_notes": "Si",
     "source_import_date": "2026-03-30",
-    "notes": "Buen estado. Residencial Las Jacarandas, Urbanizacion Bel-Air, con plaza de aparcamiento privado cubierto, piscina comunitaria, vistas al mar y ascensor."
+    "notes": "Buen estado. Apartamento en venta en Bel-Air, Malaga, con 116 m2 construidos, terraza de 42,8 m2, aparcamiento privado cubierto, piscina comunitaria, vistas al mar y ascensor."
   },
   "features": [
     "garage",
@@ -73,65 +73,67 @@
     "elevator"
   ],
   "media": {
-    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT402/cover/views.jpg",
-    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT402/cover/views.jpg",
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
     "gallery": {
       "living": [],
       "bedroom": [],
       "kitchen": [],
       "bathroom": [],
       "exterior": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT402/cover/views.jpg"
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/zonas-comunes/comunidad-views.jpeg"
       ],
       "interior": [],
       "views": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT402/cover/views.jpg"
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/zonas-comunes/comunidad-views.jpeg"
       ],
       "floorplan": []
     }
   },
   "seo": {
     "focus_keyphrase": {
-      "es": "piso en venta bel-air estepona",
-      "en": "apartment for sale bel-air estepona",
-      "de": "wohnung kaufen bel-air estepona",
-      "fr": "appartement a vendre bel-air estepona",
-      "it": "appartamento in vendita bel-air estepona",
-      "nl": "appartement te koop bel-air estepona"
+      "es": "apartamento en venta bel-air malaga",
+      "en": "apartment for sale bel-air malaga",
+      "de": "wohnung kaufen bel-air malaga",
+      "fr": "appartement a vendre bel-air malaga",
+      "it": "appartamento in vendita bel-air malaga",
+      "nl": "appartement te koop bel-air malaga"
     },
     "meta_description": {
-      "es": "Piso de 2 dormitorios con 116 m2 construidos, terraza de 42,8 m2, garaje privado cubierto, piscina comunitaria y vistas al mar en Bel-Air, Estepona.",
-      "en": "2-bedroom apartment with 116 sqm built area, 42.8 sqm terrace, private covered parking, communal pool and sea views in Bel-Air, Estepona.",
-      "de": "Wohnung mit 2 Schlafzimmern, 116 m2 bebauter Flache, 42,8 m2 Terrasse, privatem ueberdachtem Stellplatz, Gemeinschaftspool und Meerblick in Bel-Air, Estepona.",
-      "fr": "Appartement de 2 chambres avec 116 m2 construits, terrasse de 42,8 m2, parking prive couvert, piscine commune et vue mer a Bel-Air, Estepona.",
-      "it": "Appartamento con 2 camere da letto, 116 m2 costruiti, terrazza di 42,8 m2, parcheggio privato coperto, piscina condominiale e vista mare a Bel-Air, Estepona.",
-      "nl": "Appartement met 2 slaapkamers, 116 m2 bebouwde oppervlakte, terras van 42,8 m2, prive overdekte parkeerplaats, gemeenschappelijk zwembad en zeezicht in Bel-Air, Estepona."
+      "es": "Apartamento en venta en Bel-Air, Málaga, con 2 dormitorios, 116 m2 construidos, terraza de 42,8 m2, garaje privado cubierto, piscina comunitaria y vistas al mar.",
+      "en": "Apartment for sale in Bel-Air, Malaga, with 2 bedrooms, 116 sqm built area, 42.8 sqm terrace, private covered parking, communal pool and sea views.",
+      "de": "Wohnung zum Kauf in Bel-Air, Malaga, mit 2 Schlafzimmern, 116 m2 bebauter Flache, 42,8 m2 Terrasse, privatem ueberdachtem Stellplatz, Gemeinschaftspool und Meerblick.",
+      "fr": "Appartement a vendre a Bel-Air, Malaga, avec 2 chambres, 116 m2 construits, terrasse de 42,8 m2, parking prive couvert, piscine commune et vue mer.",
+      "it": "Appartamento in vendita a Bel-Air, Malaga, con 2 camere da letto, 116 m2 costruiti, terrazza di 42,8 m2, parcheggio privato coperto, piscina condominiale e vista mare.",
+      "nl": "Appartement te koop in Bel-Air, Malaga, met 2 slaapkamers, 116 m2 bebouwde oppervlakte, terras van 42,8 m2, prive overdekte parkeerplaats, gemeenschappelijk zwembad en zeezicht."
     }
   },
   "translations": {
     "es": {
-      "title": "Piso de 2 dormitorios en Bel-Air, Estepona",
-      "intro": "Propiedad de segunda mano con 116 m2 construidos, terraza de 42,8 m2 y posicion residencial consolidada dentro de Las Jacarandas, en Bel-Air.",
-      "excerpt": "Propiedad de segunda mano con 116 m2 construidos, terraza de 42,8 m2 y posicion residencial consolidada dentro de Las Jacarandas, en Bel-Air.",
+      "title": "Apartamento en venta en Bel-Air, Málaga",
+      "intro": "Piso en Bel-Air, Málaga, con amplia terraza, vistas al mar y urbanizacion consolidada, ubicado entre servicios, golf y playa, ideal para segúnda residencia o para vivir todo el ano.",
+      "excerpt": "Piso en Bel-Air, Málaga, con amplia terraza, vistas al mar y urbanizacion consolidada, ubicado entre servicios, golf y playa, ideal para segúnda residencia o para vivir todo el ano.",
       "description": [
         {
           "type": "paragraph",
-          "content": "La vivienda se ubica en Calle del Tenis 24, dentro del Residencial Las Jacarandas en la urbanizacion Bel-Air, y ofrece 2 dormitorios, 2 banos y una distribucion comoda para residencia habitual, segunda vivienda o compra patrimonial."
+          "content": "La vivienda se ubica en Calle del Tenis 24, dentro del Residencial Las Jacarandas en la urbanizacion Bel-Air, y ofrece 2 dormitorios, 2 banos y una distribucion comoda para residencia habitual, segúnda vivienda o compra patrimonial."
         },
         {
           "type": "paragraph",
-          "content": "Incluye terraza de 42,8 m2, plaza de aparcamiento privado cubierto, piscina comunitaria, vistas al mar y ascensor, en buen estado general y con una implantacion muy competitiva dentro del eje residencial entre Estepona y la Nueva Milla de Oro."
+          "content": "Incluye terraza de 42,8 m2, plaza de aparcamiento privado cubierto, piscina comunitaria, vistas al mar y ascensor, en buen estado general y con una implantacion muy competitiva dentro del eje residencial de Bel-Air, Málaga."
         }
       ],
       "seo": {
-        "title": "Piso de 2 dormitorios en Bel-Air, Estepona | BlancaReal",
-        "description": "Piso en Bel-Air, Estepona, con 2 dormitorios, terraza de 42,8 m2, garaje cubierto, piscina comunitaria y vistas al mar."
+        "title": "Apartamento en venta en Bel-Air, Málaga | BlancaReal",
+        "description": "Apartamento en Bel-Air, Málaga, con 2 dormitorios, terraza de 42,8 m2, garaje cubierto, piscina comunitaria y vistas al mar."
       }
     },
     "en": {
-      "title": "2-bedroom apartment in Bel-Air, Estepona",
-      "intro": "Resale property with 116 sqm built area, a 42.8 sqm terrace and an established residential position within Las Jacarandas in Bel-Air.",
-      "excerpt": "Resale property with 116 sqm built area, a 42.8 sqm terrace and an established residential position within Las Jacarandas in Bel-Air.",
+      "title": "Apartment for sale in Bel-Air, Malaga",
+      "intro": "Apartment in Bel-Air, Malaga, with a generous terrace, sea views and a consolidated residential setting, close to services, golf and the beach, ideal as a second home or year-round residence.",
+      "excerpt": "Apartment in Bel-Air, Malaga, with a generous terrace, sea views and a consolidated residential setting, close to services, golf and the beach, ideal as a second home or year-round residence.",
       "description": [
         {
           "type": "paragraph",
@@ -139,18 +141,18 @@
         },
         {
           "type": "paragraph",
-          "content": "It includes a 42.8 sqm terrace, private covered parking, communal pool, sea views and lift access, presented in good overall condition and well placed within the residential corridor between Estepona and the New Golden Mile."
+          "content": "It includes a 42.8 sqm terrace, private covered parking, communal pool, sea views and lift access, presented in good overall condition and well placed within the Bel-Air, Malaga residential corridor."
         }
       ],
       "seo": {
-        "title": "2-bedroom apartment in Bel-Air, Estepona | BlancaReal",
-        "description": "Apartment in Bel-Air, Estepona, with 2 bedrooms, 42.8 sqm terrace, covered parking, communal pool and sea views."
+        "title": "Apartment for sale in Bel-Air, Malaga | BlancaReal",
+        "description": "Apartment in Bel-Air, Malaga, with 2 bedrooms, 42.8 sqm terrace, covered parking, communal pool and sea views."
       }
     },
     "de": {
-      "title": "Wohnung mit 2 Schlafzimmern in Bel-Air, Estepona",
-      "intro": "Gebrauchtimmobilie mit 116 m2 bebauter Flache, 42,8 m2 Terrasse und etablierter Wohnlage innerhalb von Las Jacarandas in Bel-Air.",
-      "excerpt": "Gebrauchtimmobilie mit 116 m2 bebauter Flache, 42,8 m2 Terrasse und etablierter Wohnlage innerhalb von Las Jacarandas in Bel-Air.",
+      "title": "Wohnung zum Kauf in Bel-Air, Malaga",
+      "intro": "Wohnung in Bel-Air, Malaga, mit grosser Terrasse, Meerblick und etablierter Wohnanlage, nahe Services, Golf und Strand, ideal als Zweitwohnsitz oder zum ganzjahrigen Wohnen an der Costa del Sol.",
+      "excerpt": "Wohnung in Bel-Air, Malaga, mit grosser Terrasse, Meerblick und etablierter Wohnanlage, nahe Services, Golf und Strand, ideal als Zweitwohnsitz oder zum ganzjahrigen Wohnen an der Costa del Sol.",
       "description": [
         {
           "type": "paragraph",
@@ -158,18 +160,18 @@
         },
         {
           "type": "paragraph",
-          "content": "Sie verfuegt ueber eine Terrasse von 42,8 m2, privaten ueberdachten Stellplatz, Gemeinschaftspool, Meerblick und Aufzug, in gutem Allgemeinzustand und mit starker Lage im Wohnkorridor zwischen Estepona und der New Golden Mile."
+          "content": "Sie verfuegt ueber eine Terrasse von 42,8 m2, privaten ueberdachten Stellplatz, Gemeinschaftspool, Meerblick und Aufzug, in gutem Allgemeinzustand und mit starker Lage im Wohnkorridor von Bel-Air, Malaga."
         }
       ],
       "seo": {
-        "title": "Wohnung mit 2 Schlafzimmern in Bel-Air, Estepona | BlancaReal",
-        "description": "Wohnung in Bel-Air, Estepona, mit 2 Schlafzimmern, 42,8 m2 Terrasse, ueberdachtem Stellplatz, Gemeinschaftspool und Meerblick."
+        "title": "Wohnung zum Kauf in Bel-Air, Malaga | BlancaReal",
+        "description": "Wohnung in Bel-Air, Malaga, mit 2 Schlafzimmern, 42,8 m2 Terrasse, ueberdachtem Stellplatz, Gemeinschaftspool und Meerblick."
       }
     },
     "fr": {
-      "title": "Appartement de 2 chambres a Bel-Air, Estepona",
-      "intro": "Bien de revente avec 116 m2 construits, terrasse de 42,8 m2 et position residentielle etablie au sein de Las Jacarandas a Bel-Air.",
-      "excerpt": "Bien de revente avec 116 m2 construits, terrasse de 42,8 m2 et position residentielle etablie au sein de Las Jacarandas a Bel-Air.",
+      "title": "Appartement a vendre a Bel-Air, Malaga",
+      "intro": "Appartement a Bel-Air, Malaga, avec grande terrasse, vue mer et residence etablie, proche des services, du golf et de la plage, ideal comme residence secondaire ou principale toute l annee.",
+      "excerpt": "Appartement a Bel-Air, Malaga, avec grande terrasse, vue mer et residence etablie, proche des services, du golf et de la plage, ideal comme residence secondaire ou principale toute l annee.",
       "description": [
         {
           "type": "paragraph",
@@ -177,18 +179,18 @@
         },
         {
           "type": "paragraph",
-          "content": "Il comprend une terrasse de 42,8 m2, un parking prive couvert, une piscine commune, une vue mer et un ascenseur, en bon etat general et avec un positionnement solide dans le corridor residentiel entre Estepona et la Nouvelle Mile d Or."
+          "content": "Il comprend une terrasse de 42,8 m2, un parking prive couvert, une piscine commune, une vue mer et un ascenseur, en bon etat general et avec un positionnement solide dans le corridor residentiel de Bel-Air, Malaga."
         }
       ],
       "seo": {
-        "title": "Appartement de 2 chambres a Bel-Air, Estepona | BlancaReal",
-        "description": "Appartement a Bel-Air, Estepona, avec 2 chambres, terrasse de 42,8 m2, parking couvert, piscine commune et vue mer."
+        "title": "Appartement a vendre a Bel-Air, Malaga | BlancaReal",
+        "description": "Appartement a Bel-Air, Malaga, avec 2 chambres, terrasse de 42,8 m2, parking couvert, piscine commune et vue mer."
       }
     },
     "it": {
-      "title": "Appartamento con 2 camere da letto a Bel-Air, Estepona",
-      "intro": "Proprieta di seconda mano con 116 m2 costruiti, terrazza di 42,8 m2 e posizionamento residenziale consolidato all interno di Las Jacarandas a Bel-Air.",
-      "excerpt": "Proprieta di seconda mano con 116 m2 costruiti, terrazza di 42,8 m2 e posizionamento residenziale consolidato all interno di Las Jacarandas a Bel-Air.",
+      "title": "Appartamento in vendita a Bel-Air, Malaga",
+      "intro": "Appartamento a Bel-Air, Malaga, con ampia terrazza, vista mare e contesto residenziale consolidato, vicino a servizi, golf e spiaggia, ideale come seconda casa o residenza stabile tutto l anno.",
+      "excerpt": "Appartamento a Bel-Air, Malaga, con ampia terrazza, vista mare e contesto residenziale consolidato, vicino a servizi, golf e spiaggia, ideale come seconda casa o residenza stabile tutto l anno.",
       "description": [
         {
           "type": "paragraph",
@@ -196,18 +198,18 @@
         },
         {
           "type": "paragraph",
-          "content": "Include terrazza di 42,8 m2, parcheggio privato coperto, piscina condominiale, vista mare e ascensore, in buono stato generale e con un posizionamento competitivo nel corridoio residenziale tra Estepona e la New Golden Mile."
+          "content": "Include terrazza di 42,8 m2, parcheggio privato coperto, piscina condominiale, vista mare e ascensore, in buono stato generale e con un posizionamento competitivo nel corridoio residenziale di Bel-Air, Malaga."
         }
       ],
       "seo": {
-        "title": "Appartamento con 2 camere da letto a Bel-Air, Estepona | BlancaReal",
-        "description": "Appartamento a Bel-Air, Estepona, con 2 camere, terrazza di 42,8 m2, parcheggio coperto, piscina condominiale e vista mare."
+        "title": "Appartamento in vendita a Bel-Air, Malaga | BlancaReal",
+        "description": "Appartamento a Bel-Air, Malaga, con 2 camere, terrazza di 42,8 m2, parcheggio coperto, piscina condominiale e vista mare."
       }
     },
     "nl": {
-      "title": "Appartement met 2 slaapkamers in Bel-Air, Estepona",
-      "intro": "Wederverkoopwoning met 116 m2 bebouwde oppervlakte, een terras van 42,8 m2 en een gevestigde woonpositie binnen Las Jacarandas in Bel-Air.",
-      "excerpt": "Wederverkoopwoning met 116 m2 bebouwde oppervlakte, een terras van 42,8 m2 en een gevestigde woonpositie binnen Las Jacarandas in Bel-Air.",
+      "title": "Appartement te koop in Bel-Air, Malaga",
+      "intro": "Appartement in Bel-Air, Malaga, met ruim terras, zeezicht en een gevestigde residentiele omgeving, dicht bij voorzieningen, golf en strand, ideaal als tweede verblijf of om het hele jaar te wonen.",
+      "excerpt": "Appartement in Bel-Air, Malaga, met ruim terras, zeezicht en een gevestigde residentiele omgeving, dicht bij voorzieningen, golf en strand, ideaal als tweede verblijf of om het hele jaar te wonen.",
       "description": [
         {
           "type": "paragraph",
@@ -215,12 +217,12 @@
         },
         {
           "type": "paragraph",
-          "content": "De woning beschikt over een terras van 42,8 m2, prive overdekte parking, gemeenschappelijk zwembad, zeezicht en een lift, verkeert in goede algemene staat en ligt sterk binnen de residentiele corridor tussen Estepona en de New Golden Mile."
+          "content": "De woning beschikt over een terras van 42,8 m2, prive overdekte parking, gemeenschappelijk zwembad, zeezicht en een lift, verkeert in goede algemene staat en ligt sterk binnen de residentiele corridor van Bel-Air, Malaga."
         }
       ],
       "seo": {
-        "title": "Appartement met 2 slaapkamers in Bel-Air, Estepona | BlancaReal",
-        "description": "Appartement in Bel-Air, Estepona, met 2 slaapkamers, terras van 42,8 m2, overdekte parking, gemeenschappelijk zwembad en zeezicht."
+        "title": "Appartement te koop in Bel-Air, Malaga | BlancaReal",
+        "description": "Appartement in Bel-Air, Malaga, met 2 slaapkamers, terras van 42,8 m2, overdekte parking, gemeenschappelijk zwembad en zeezicht."
       }
     }
   }

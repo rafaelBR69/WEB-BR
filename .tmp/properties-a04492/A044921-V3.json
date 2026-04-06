@@ -1,0 +1,26 @@
+{
+  "id": "A044921-V3",
+  "priority": 69,
+  "listing_type": "unit",
+  "parent_id": "A044921",
+  "slugs": { "es": "villa-3-calahonda-mijas", "en": "villa-3-calahonda-mijas", "de": "villa-3-calahonda-mijas", "fr": "villa-3-calahonda-mijas", "it": "villa-3-calahonda-mijas", "nl": "villa-3-calahonda-mijas" },
+  "status": "available",
+  "featured": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "location": { "country": "ES", "province": "Malaga", "city": "Mijas", "area": "Calahonda", "coordinates": { "lat": 36.492073849682484, "lng": -4.721916747282094 } },
+  "property": { "type": "villa", "market": "obra_nueva", "condition": "new", "area_m2": 350.26, "terrace_m2": 298.69, "garden_m2": 145.19, "plot_area_m2": 500.84, "bedrooms": 5, "bathrooms": 5, "garages": 2, "floors": 2, "floor_label": "Villa de 2 plantas", "unit_code": "Villa 3", "parking_type": "privado_descubierto", "sea_views": true, "elevator": false, "private_pool": true, "sales_stage": "Licencia obtenida", "property_group": "UNIFAMILIARES" },
+  "features": ["new_build", "sea_views", "private_parking"],
+  "media": { "cover": { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/cover/exterior-villas.jpg", "alt": { "es": "Villa 3 en Calahonda", "en": "Villa 3 in Calahonda" } }, "gallery": { "exterior": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior-02.jpg" }], "interior": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/interior/salon-02.jpg" }], "views": [{ "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044921/exterior/exterior-03.jpg" }], "floorplan": [] } },
+  "seo": { "focus_keyphrase": { "es": "villa 3 calahonda mijas", "en": "villa 3 calahonda mijas" }, "meta_description": { "es": "Villa 3 en Calahonda, Mijas. Parcela de 500,84 m2, 350,26 m2 construidos y piscina privada.", "en": "Villa 3 in Calahonda, Mijas. 500.84 sqm plot, 350.26 sqm built area and private pool." } },
+  "translations": {
+    "es": { "title": "Villa 3 en Calahonda", "intro": "Villa 3 de obra nueva en Calahonda con 350,26 m2 construidos, parcela de 500,84 m2, piscina privada y vistas abiertas al mar.", "description": [] },
+    "en": { "title": "Villa 3 in Calahonda", "intro": "New-build Villa 3 in Calahonda with 350.26 sqm built area, a 500.84 sqm plot, private pool and open sea views.", "description": [] },
+    "de": { "title": "Villa 3 in Calahonda", "intro": "Neubau Villa 3 in Calahonda mit 350,26 m2 bebauter Flaeche, 500,84 m2 Grundstueck, privatem Pool und offenem Meerblick.", "description": [] },
+    "fr": { "title": "Villa 3 a Calahonda", "intro": "Villa 3 neuve a Calahonda avec 350,26 m2 construits, parcelle de 500,84 m2, piscine privee et vue mer degagee.", "description": [] },
+    "it": { "title": "Villa 3 a Calahonda", "intro": "Villa 3 di nuova costruzione a Calahonda con 350,26 m2 costruiti, lotto di 500,84 m2, piscina privata e vista mare aperta.", "description": [] },
+    "nl": { "title": "Villa 3 in Calahonda", "intro": "Nieuwbouw Villa 3 in Calahonda met 350,26 m2 bebouwd, perceel van 500,84 m2, privezwembad en open zeezicht.", "description": [] }
+  }
+}
