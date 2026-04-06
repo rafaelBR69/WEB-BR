@@ -228,9 +228,9 @@ const copyByLang = {
     emptyText:
       "Esta URL queda publicada como landing util, pero ahora mismo no tiene inventario suficiente para indexarse con fuerza.",
     backToProperties: "Ver todas las propiedades",
-    footerTitle: "Necesita una selección más precisa?",
+    footerTitle: "¿No encuentra lo que busca?",
     footerText:
-      "Podemos ayudarle a refinar la busqueda por zona, tipologia, presupuesto o estrategia de compra.",
+      "Tenemos propiedad off-market para compradores exigentes, contacte con BlancaReal directamente para descubrirlas.",
   },
   en: {
     eyebrow: "Costa del Sol",
@@ -248,9 +248,9 @@ const copyByLang = {
     emptyText:
       "This URL can still exist as a useful landing, but it currently does not have enough live stock to justify strong indexation.",
     backToProperties: "View all properties",
-    footerTitle: "Need a more precise shortlist?",
+    footerTitle: "Did not find what you are looking for?",
     footerText:
-      "We can refine the search by area, property type, budget or buying strategy.",
+      "We have off-market property for demanding buyers. Contact BlancaReal directly to discover it.",
   },
   de: {
     eyebrow: "Costa del Sol",
@@ -268,9 +268,9 @@ const copyByLang = {
     emptyText:
       "Diese URL bleibt als nuetzliche Landingpage bestehen, hat aktuell aber nicht genug Live-Inventar fuer eine starke Indexierung.",
     backToProperties: "Alle Immobilien ansehen",
-    footerTitle: "Brauchen Sie eine praezisere Auswahl?",
+    footerTitle: "Haben Sie nicht gefunden, was Sie suchen?",
     footerText:
-      "Wir koennen die Suche nach Gebiet, Immobilientyp, Budget oder Kaufstrategie verfeinern.",
+      "Wir haben Off-Market-Immobilien fuer anspruchsvolle Kaeufer. Kontaktieren Sie BlancaReal direkt, um sie zu entdecken.",
   },
   fr: {
     eyebrow: "Costa del Sol",
@@ -288,9 +288,9 @@ const copyByLang = {
     emptyText:
       "Cette URL peut rester une landing utile, mais elle ne dispose pas encore d un stock suffisant pour une forte indexation.",
     backToProperties: "Voir toutes les proprietes",
-    footerTitle: "Besoin d une selection plus precise ?",
+    footerTitle: "Vous ne trouvez pas ce que vous cherchez ?",
     footerText:
-      "Nous pouvons affiner la recherche par zone, typologie, budget ou strategie d achat.",
+      "Nous disposons de biens off-market pour des acheteurs exigeants. Contactez directement BlancaReal pour les decouvrir.",
   },
   it: {
     eyebrow: "Costa del Sol",
@@ -308,9 +308,9 @@ const copyByLang = {
     emptyText:
       "Questa URL puo restare una landing utile, ma in questo momento non ha abbastanza stock live per una forte indicizzazione.",
     backToProperties: "Vedi tutte le proprieta",
-    footerTitle: "Hai bisogno di una selezione piu precisa?",
+    footerTitle: "Non trova quello che cerca?",
     footerText:
-      "Possiamo affinare la ricerca per zona, tipologia, budget o strategia di acquisto.",
+      "Abbiamo proprieta off-market per acquirenti esigenti. Contatti direttamente BlancaReal per scoprirle.",
   },
   nl: {
     eyebrow: "Costa del Sol",
@@ -328,9 +328,9 @@ const copyByLang = {
     emptyText:
       "Deze URL kan nuttig blijven als landing, maar heeft nu niet genoeg live aanbod voor sterke indexatie.",
     backToProperties: "Bekijk alle woningen",
-    footerTitle: "Meer gerichte shortlist nodig?",
+    footerTitle: "Vindt u niet wat u zoekt?",
     footerText:
-      "We kunnen de zoekopdracht verfijnen op gebied, woningtype, budget of aankoopstrategie.",
+      "Wij hebben off-market woningen voor veeleisende kopers. Neem rechtstreeks contact op met BlancaReal om ze te ontdekken.",
   },
 };
 
@@ -427,7 +427,7 @@ const t = copyByLang[lang] ?? copyByLang.es;
                   resetViewLabel={t.mapReset}
                   mode="listing"
                   loadStrategy="visible"
-                  showPois={false}
+                  showPois={true}
                   showZones={true}
                   enableRouting={false}
                   compact={true}

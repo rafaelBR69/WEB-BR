@@ -396,6 +396,18 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
 
             map.on("click", `pois-${filter.id}`, handler);
             map.on("click", `pois-symbol-${filter.id}`, handler);
+            map.on("mouseenter", `pois-${filter.id}`, () => {
+              map.getCanvas().style.cursor = "pointer";
+            });
+            map.on("mouseenter", `pois-symbol-${filter.id}`, () => {
+              map.getCanvas().style.cursor = "pointer";
+            });
+            map.on("mouseleave", `pois-${filter.id}`, () => {
+              map.getCanvas().style.cursor = "";
+            });
+            map.on("mouseleave", `pois-symbol-${filter.id}`, () => {
+              map.getCanvas().style.cursor = "";
+            });
           });
 
           if (poiFiltersEl) {
@@ -407,6 +419,13 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
               .join("");
 
             poiFiltersEl.querySelectorAll<HTMLElement>("[data-poi-category]").forEach((button) => {
+              const categoryId = button.dataset.poiCategory;
+              if (categoryId) {
+                state.activePoiCategories.add(categoryId);
+                button.classList.add("is-active");
+                setPoiVisibility(map, categoryId, true);
+              }
+
               button.addEventListener("click", () => {
                 const categoryId = button.dataset.poiCategory;
                 if (!categoryId) return;
