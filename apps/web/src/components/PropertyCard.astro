@@ -62,16 +62,31 @@ const compactLabelsByLang = {
   nl: { bedrooms: "slk.", bathrooms: "baden" },
 };
 const compactLabels = compactLabelsByLang[lang] ?? compactLabelsByLang.es;
+const scarcityCopyByLang = {
+  es: { one: "\u00DAltima unidad", many: "Quedan {count} unidades" },
+  en: { one: "Last unit", many: "{count} units left" },
+  de: { one: "Letzte Einheit", many: "Nur noch {count} Einheiten" },
+  fr: { one: "Derniere unite", many: "Plus que {count} unites" },
+  it: { one: "Ultima unita", many: "Restano {count} unita" },
+  nl: { one: "Laatste unit", many: "Nog {count} units beschikbaar" },
+};
+const scarcityUi = scarcityCopyByLang[lang] ?? scarcityCopyByLang.es;
 const compactSummary = [
   data.details.bedrooms ? `${data.details.bedrooms} ${compactLabels.bedrooms}` : null,
   data.details.bathrooms ? `${data.details.bathrooms} ${compactLabels.bathrooms}` : null,
   areaValue ? areaValue : null,
 ]
   .filter(Boolean)
-  .join(" · ");
+  .join(" \u00B7 ");
+const scarcityLabel =
+  data.shouldHighlightScarcity && typeof data.availableUnitsCount === "number"
+    ? data.availableUnitsCount === 1
+      ? scarcityUi.one
+      : scarcityUi.many.replace("{count}", String(data.availableUnitsCount))
+    : "";
 ---
 
-<article class:list={["property-card", compact && "is-compact"]}>
+<article class:list={["property-card", compact && "is-compact", data.shouldHighlightScarcity && "is-scarcity"]}>
   <div class="card-image" data-gallery-size={gallerySlides.length}>
     {gallerySlides.length > 0 ? (
       <div class="card-gallery" data-gallery-index="0">
@@ -129,6 +144,12 @@ const compactSummary = [
         {ui.propertyCard.newBuild}
       </span>
     )}
+
+    {scarcityLabel && (
+      <span class="badge-scarcity">
+        {scarcityLabel}
+      </span>
+    )}
   </div>
 
   <div class="card-content">
@@ -138,6 +159,8 @@ const compactSummary = [
           {data.title}
         </a>
       </h3>
+
+      {data.location?.line && <p class="card-location">{data.location.line}</p>}
 
       <div class="price-row">
         {data.isPromotion ? (

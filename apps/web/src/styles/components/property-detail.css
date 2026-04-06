@@ -439,8 +439,8 @@
 
 @media (min-width: 1200px) {
   .property-sidebar {
-    position: sticky;
-    top: 6.5rem; /* Asegura espacio suficiente respecto al header sticky (4rem) + margen (2.5rem) */
+    position: relative;
+    top: auto;
     align-self: start;
     height: fit-content;
   }

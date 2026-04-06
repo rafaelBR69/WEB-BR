@@ -2,11 +2,11 @@ const getLangCode = () => String(document.documentElement?.lang || "es").toLower
 
 const LIGHTBOX_COPY = {
   es: {
-    dialogLabel: "Galeria de imagenes",
-    close: "Cerrar galeria",
+    dialogLabel: "Galería de imágenes",
+    close: "Cerrar galería",
     prev: "Imagen anterior",
     next: "Siguiente imagen",
-    counter: "Imagen {current} de {total}",
+    counter: "{total} {imagesWord} · imagen {current}",
   },
   en: {
     dialogLabel: "Image gallery",
@@ -174,6 +174,7 @@ document.addEventListener("click", (event) => {
     counter.textContent = renderTemplate(copy.counter, {
       current: currentIndex + 1,
       total: items.length,
+      imagesWord: items.length === 1 ? "imagen" : "imágenes",
     });
     preloadAdjacent();
   };

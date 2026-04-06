@@ -7,6 +7,7 @@ const featuredUnitShowcaseCache = new WeakMap<
   PublicProperty[],
   Map<string, FeaturedChildUnitCard[]>
 >();
+const homeFeaturedCardsCache = new WeakMap<PublicProperty[], Map<string, ReturnType<typeof normalizePropertyCard>[]>>();
 
 export type ProjectDemandLevel = "last_units" | "high_demand" | "open";
 
@@ -308,6 +309,134 @@ export function buildFeaturedChildUnitCards(
     const nextCache = cachedByLang ?? new Map<string, FeaturedChildUnitCard[]>();
     nextCache.set(lang, baseCards);
     featuredUnitShowcaseCache.set(properties, nextCache);
+  }
+
+  const limit = typeof options.limit === "number" ? options.limit : 20;
+  return baseCards.slice(0, limit);
+}
+
+const buildHomeFeaturedCardsBase = (
+  properties: PublicProperty[],
+  lang: string
+) => {
+  const byId = new Map(properties.map((property) => [String(property.id), property]));
+  const availableUnitsByPromotionId = properties.reduce((map, property) => {
+    if (
+      property?.listing_type === "unit" &&
+      property?.status === "available" &&
+      property?.parent_id
+    ) {
+      const parentId = String(property.parent_id);
+      map.set(parentId, (map.get(parentId) ?? 0) + 1);
+    }
+    return map;
+  }, new Map<string, number>());
+
+  const ownPromotionCards = properties
+    .filter((property) => property?.listing_type === "promotion")
+    .filter((property) => property?.status === "available")
+    .filter((property) => isOwnProject(property))
+    .sort((left, right) => {
+      const byEditorial =
+        getPromotionEditorialRank(String(left.id)) - getPromotionEditorialRank(String(right.id));
+      if (byEditorial !== 0) return byEditorial;
+
+      const byPriority =
+        (typeof right.priority === "number" ? right.priority : 0) -
+        (typeof left.priority === "number" ? left.priority : 0);
+      if (byPriority !== 0) return byPriority;
+
+      return String(left.id).localeCompare(String(right.id), "es");
+    })
+    .map((property) => {
+      const card = normalizePropertyCard(property, lang);
+      if (!card) return null;
+      const availableUnitsCount = availableUnitsByPromotionId.get(String(card.id ?? "")) ?? 0;
+      return {
+        ...card,
+        availableUnitsCount,
+        shouldHighlightScarcity: availableUnitsCount > 0 && availableUnitsCount < 10,
+      };
+    })
+    .filter((card): card is NonNullable<typeof card> => Boolean(card?.visible));
+
+  const otherCards = properties
+    .filter((property) => property?.status === "available")
+    .filter((property) => !(
+      property?.listing_type === "promotion" &&
+      isOwnProject(property)
+    ))
+    .filter((property) => {
+      if (property?.listing_type !== "unit" || !property?.parent_id) return true;
+      const parent = byId.get(String(property.parent_id));
+      return !isOwnProject(parent);
+    })
+    .sort((left, right) => {
+      const featuredDelta = Number(right?.featured === true) - Number(left?.featured === true);
+      if (featuredDelta !== 0) return featuredDelta;
+
+      const byPriority =
+        (typeof right.priority === "number" ? right.priority : 0) -
+        (typeof left.priority === "number" ? left.priority : 0);
+      if (byPriority !== 0) return byPriority;
+
+      const listingOrder = (value: string | null | undefined) =>
+        value === "promotion" ? 0 : value === "single" ? 1 : 2;
+      const byListingType = listingOrder(left?.listing_type) - listingOrder(right?.listing_type);
+      if (byListingType !== 0) return byListingType;
+
+      const leftPrice =
+        typeof left?.price === "number"
+          ? left.price
+          : typeof left?.pricing?.from === "number"
+            ? left.pricing.from
+            : Number.POSITIVE_INFINITY;
+      const rightPrice =
+        typeof right?.price === "number"
+          ? right.price
+          : typeof right?.pricing?.from === "number"
+            ? right.pricing.from
+            : Number.POSITIVE_INFINITY;
+      if (leftPrice !== rightPrice) return leftPrice - rightPrice;
+
+      return String(left?.id ?? "").localeCompare(String(right?.id ?? ""), "es", { numeric: true });
+    })
+    .map((property) => {
+      if (property?.listing_type === "unit" && property?.parent_id) {
+        const parent = byId.get(String(property.parent_id));
+        if (parent) {
+          return normalizePropertyCard(mergeUnitWithParentMedia(property, parent), lang);
+        }
+      }
+
+      return normalizePropertyCard(property, lang);
+    })
+    .filter((card): card is NonNullable<typeof card> => Boolean(card?.visible));
+
+  const seen = new Set<string>();
+  return [...ownPromotionCards, ...otherCards].filter((card) => {
+    const id = String(card.id ?? "");
+    if (!id || seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  });
+};
+
+export function buildHomeFeaturedCards(
+  properties: PublicProperty[],
+  lang: string,
+  options: {
+    limit?: number;
+  } = {}
+) {
+  const cachedByLang = homeFeaturedCardsCache.get(properties);
+  const cachedCards = cachedByLang?.get(lang);
+  const baseCards = cachedCards ?? buildHomeFeaturedCardsBase(properties, lang);
+
+  if (!cachedCards) {
+    const nextCache = cachedByLang ?? new Map<string, ReturnType<typeof normalizePropertyCard>[]>();
+    nextCache.set(lang, baseCards);
+    homeFeaturedCardsCache.set(properties, nextCache);
   }
 
   const limit = typeof options.limit === "number" ? options.limit : 20;

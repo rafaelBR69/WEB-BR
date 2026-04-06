@@ -311,22 +311,23 @@ const copyByLang = {
     propertiesInCity: "Propiedades en {city}",
     sameTypeInCity: "{type} en {city}",
     viewProject: "Ver proyecto",
-    visualCatalog: "Catalogo visual",
-    propertyImmersion: "Inmersion en la propiedad",
-    galleryLiving: "Salon",
+    visualCatalog: "Catálogo visual",
+    propertyImmersion: "Inmersión en la propiedad",
+    galleryLiving: "Salón",
     galleryBedroom: "Dormitorios",
     galleryKitchen: "Cocina",
-    galleryBathroom: "Banos",
+    galleryBathroom: "Baños",
     galleryExterior: "Exterior y alrededores",
     galleryInterior: "Interior general",
     galleryViews: "Zonas comunes y vistas",
-    galleryPlans: "Planimetria",
-    investment: "Inversion",
-    conciergeTitle: "Servicio concierge",
+    galleryPlans: "Planimetría",
+    investment: "Inversión",
+    conciergeTitle: "Quiero saber más",
     conciergeDesc: "Solicite informacion personalizada o agende una visita privada.",
     callNow: "Llamar ahora",
     requestDossier: "Solicitar dossier",
-    dossierOfficeIntro: "Nuestra oficina de",
+    dossierOfficeIntro: "Nuestra oficina en",
+    dossierOfficeLocation: "Calahonda",
     dossierOfficeOutro: "le enviara los detalles completos.",
     scheduleVisit: "Agendar visita",
     nameLabel: "Nombre",
@@ -408,11 +409,12 @@ const copyByLang = {
     galleryViews: "Communal areas and views",
     galleryPlans: "Floorplans",
     investment: "Investment",
-    conciergeTitle: "Concierge service",
+    conciergeTitle: "I want to know more",
     conciergeDesc: "Request personalized information or schedule a private viewing.",
     callNow: "Call now",
     requestDossier: "Request dossier",
     dossierOfficeIntro: "Our office in",
+    dossierOfficeLocation: "Calahonda",
     dossierOfficeOutro: "will send you the full details.",
     scheduleVisit: "Schedule visit",
     nameLabel: "Name",
@@ -438,6 +440,16 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.en;
+const conciergeTitleByLang = {
+  es: "Quiero saber más",
+  en: "I want to know more",
+  de: "Ich möchte mehr erfahren",
+  fr: "Je veux en savoir plus",
+  it: "Voglio saperne di più",
+  nl: "Ik wil meer weten",
+};
+const conciergeTitle =
+  conciergeTitleByLang[lang as keyof typeof conciergeTitleByLang] ?? t.conciergeTitle;
 const cityConfigByKey = new Map(SEO_LANDING_CITIES.map((city) => [city.cityKey, city]));
 const typeConfigByKey = new Map(SEO_LANDING_TYPES.map((type) => [type.typeKey, type]));
 const resolveCityLandingByKeys = (cityKey) => {
@@ -826,7 +838,7 @@ const gallerySections = [
         )}
 
         <div class="concierge-actions">
-          <h3 class="concierge-title">{t.conciergeTitle}</h3>
+          <h3 class="concierge-title">{conciergeTitle}</h3>
           <p class="concierge-desc">{t.conciergeDesc}</p>
 
           <div class="action-buttons">
@@ -836,7 +848,7 @@ const gallerySections = [
               <summary class="btn-premium secondary">{t.requestDossier}</summary>
               <div class="expandable-content">
                 <p>
-                  {t.dossierOfficeIntro} <strong>{data.location.province}</strong> {t.dossierOfficeOutro}
+                  {t.dossierOfficeIntro} <strong>{t.dossierOfficeLocation}</strong> {t.dossierOfficeOutro}
                 </p>
                 <a href={`mailto:${agent.email}?subject=Dossier Ref: ${data.id || slug}`} class="email-direct">
                   {agent.email}

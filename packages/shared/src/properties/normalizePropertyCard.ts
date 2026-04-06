@@ -19,6 +19,24 @@ const visibleNormalizedPropertyCardsCache = new WeakMap<
   Map<string, NormalizedPropertyCard[]>
 >();
 
+const LOCATION_LABEL_FIXES = new Map<string, string>([
+  ["malaga", "Málaga"],
+  ["cadiz", "Cádiz"],
+  ["cordoba", "Córdoba"],
+  ["jaen", "Jaén"],
+]);
+
+const formatLocationLabel = (value: unknown) => {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+
+  const fixed = LOCATION_LABEL_FIXES.get(trimmed.toLowerCase());
+  if (fixed) return fixed;
+
+  return trimmed;
+};
+
 export function normalizePropertyCard(property: any, lang: string) {
   if (!property) return null;
 
@@ -40,6 +58,13 @@ export function normalizePropertyCard(property: any, lang: string) {
   const areaKey = location.area
     ? normalizeArea(location.area)
     : null;
+  const isOwnProject =
+    property.is_own_project === true ||
+    property.project_business_type === "owned_and_commercialized";
+  const locationParts = [location.province, location.city, location.area]
+    .map((part) => formatLocationLabel(part))
+    .filter((part): part is string => Boolean(part))
+    .filter((part, index, list) => list.indexOf(part) === index);
 
   const features = (property.features || [])
     .map((key: string) => formatFeature(key, lang))
@@ -77,6 +102,7 @@ export function normalizePropertyCard(property: any, lang: string) {
     listingType,
     isPromotion,
     isUnit,
+    isOwnProject,
     parentId: property.parent_id ?? null,
     priceFrom,
     priceDisplay: isPromotion ? priceFrom : price,
@@ -84,6 +110,13 @@ export function normalizePropertyCard(property: any, lang: string) {
     cityKey,
     marketKey,
     areaKey,
+    location: {
+      province: formatLocationLabel(location.province),
+      city: formatLocationLabel(location.city),
+      area: formatLocationLabel(location.area),
+      parts: locationParts,
+      line: locationParts.join(" · "),
+    },
     details: {
       bedrooms: raw.bedrooms ?? null,
       bathrooms: raw.bathrooms ?? null,
@@ -123,8 +156,37 @@ export function normalizePublicPropertyCards(
     return cachedCards;
   }
 
+  const availableUnitsByPromotionId = properties.reduce((map, property) => {
+    if (
+      property?.listing_type === "unit" &&
+      property?.status === "available" &&
+      property?.parent_id
+    ) {
+      const parentId = String(property.parent_id);
+      map.set(parentId, (map.get(parentId) ?? 0) + 1);
+    }
+    return map;
+  }, new Map<string, number>());
+
   const cards = properties.filter(Boolean)
-    .map((property) => normalizePropertyCard(property, lang))
+    .map((property) => {
+      const card = normalizePropertyCard(property, lang);
+      if (!card) return null;
+
+      const availableUnitsCount =
+        card.isPromotion ? availableUnitsByPromotionId.get(String(card.id ?? "")) ?? 0 : null;
+
+      return {
+        ...card,
+        availableUnitsCount,
+        shouldHighlightScarcity:
+          card.isPromotion &&
+          card.isOwnProject === true &&
+          typeof availableUnitsCount === "number" &&
+          availableUnitsCount > 0 &&
+          availableUnitsCount < 10,
+      };
+    })
     .filter((card): card is NormalizedPropertyCard => Boolean(card));
 
   const nextCache = cachedByLang ?? new Map<string, NormalizedPropertyCard[]>();
