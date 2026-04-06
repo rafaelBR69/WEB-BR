@@ -227,6 +227,70 @@ const resolvedHeaderNavItems =
     ? headerNavItems
     : defaultHeaderNavItems;
 
+const realEstateSubmenuCopyByLang = {
+  es: {
+    allProperties: "Todas las propiedades",
+    exclusiveProjects: "Proyectos exclusivos de BlancaReal",
+    resale: "Segunda mano",
+    sellWithUs: "Vende con nosotros",
+  },
+  en: {
+    allProperties: "All properties",
+    exclusiveProjects: "BlancaReal exclusive projects",
+    resale: "Resale",
+    sellWithUs: "Sell with us",
+  },
+  de: {
+    allProperties: "Alle Immobilien",
+    exclusiveProjects: "Exklusive BlancaReal-Projekte",
+    resale: "Bestand",
+    sellWithUs: "Mit uns verkaufen",
+  },
+  fr: {
+    allProperties: "Toutes les proprietes",
+    exclusiveProjects: "Programmes exclusifs de BlancaReal",
+    resale: "Revente",
+    sellWithUs: "Vendez avec nous",
+  },
+  it: {
+    allProperties: "Tutte le proprieta",
+    exclusiveProjects: "Progetti esclusivi di BlancaReal",
+    resale: "Usato",
+    sellWithUs: "Vendi con noi",
+  },
+  nl: {
+    allProperties: "Alle woningen",
+    exclusiveProjects: "Exclusieve projecten van BlancaReal",
+    resale: "Bestaande bouw",
+    sellWithUs: "Verkoop met ons",
+  },
+} as const;
+
+const realEstateSubmenuCopy =
+  realEstateSubmenuCopyByLang[lang as keyof typeof realEstateSubmenuCopyByLang] ??
+  realEstateSubmenuCopyByLang.es;
+
+const realEstateSubmenuItems = [
+  { href: `/${lang}/properties/`, label: realEstateSubmenuCopy.allProperties },
+  { href: `/${lang}/projects/`, label: realEstateSubmenuCopy.exclusiveProjects },
+  { href: `/${lang}/properties/?market=segunda_mano`, label: realEstateSubmenuCopy.resale },
+  { href: `/${lang}/sell-with-us/`, label: realEstateSubmenuCopy.sellWithUs },
+];
+
+const resolvedHeaderDesktopItems = resolvedHeaderNavItems.map((item) =>
+  item.href === `/${lang}/properties/`
+    ? {
+        ...item,
+        sections: [
+          {
+            title: "",
+            items: realEstateSubmenuItems,
+          },
+        ],
+      }
+    : item,
+);
+
 const defaultSideMenuSections = [
   {
     title: ui.layout.menuMain,
@@ -236,10 +300,7 @@ const defaultSideMenuSections = [
         href: `/${lang}/properties/`,
         label: ui.layout.navRealEstate,
         description: ui.layout.menuRealEstateHint,
-        children: [
-          { href: `/${lang}/properties/`, label: ui.layout.navProperties },
-          { href: `/${lang}/projects/`, label: ui.layout.navProjects },
-        ],
+        children: realEstateSubmenuItems,
       },
     ],
   },
@@ -517,11 +578,34 @@ if (!isPortalPage && !Astro.response.headers.has("Cache-Control")) {
           <>
             <nav class="main-nav desktop-only">
               <ul class="nav-links">
-                {resolvedHeaderNavItems.map((item) => (
-                  <li>
-                    <a href={item.href} class={isActiveHref(item.href) ? "active" : ""}>
+                {resolvedHeaderDesktopItems.map((item) => (
+                  <li class={Array.isArray(item.sections) && item.sections.length > 0 ? `landing-nav-group ${isMenuItemActive(item) ? "is-active" : ""}` : undefined}>
+                    <a
+                      href={item.href}
+                      class={Array.isArray(item.sections) && item.sections.length > 0 ? `landing-nav-group-trigger ${isMenuItemActive(item) ? "active" : ""}` : isActiveHref(item.href) ? "active" : ""}
+                    >
                       {item.label}
                     </a>
+                    {Array.isArray(item.sections) && item.sections.length > 0 ? (
+                      <div class="landing-nav-dropdown">
+                        <div class="landing-nav-dropdown-grid">
+                          {item.sections.map((section) => (
+                            <section class="landing-nav-dropdown-section">
+                              {section.title ? <p>{section.title}</p> : null}
+                              <ul>
+                                {section.items.map((entry) => (
+                                  <li>
+                                    <a href={entry.href} class={isActiveHref(entry.href) ? "active" : ""}>
+                                      {entry.label}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </section>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
                   </li>
                 ))}
               </ul>

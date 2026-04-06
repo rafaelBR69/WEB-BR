@@ -5,6 +5,7 @@ import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import HomeEditorialHero from "@webapp/components/HomeEditorialHero.astro";
 import HomeFeaturedServices from "@webapp/components/HomeFeaturedServices.astro";
 import HomeFeaturedUnits from "@webapp/components/HomeFeaturedUnits.astro";
+import HomeSocialHub from "@webapp/components/HomeSocialHub.astro";
 import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
 import { getUiCopy } from "@shared/i18n/ui";
 import teamMembers from "@shared/data/team";
@@ -43,6 +44,15 @@ const collaboratorLogoModules = import.meta.glob(
   { eager: true, query: "?url", import: "default" },
 );
 
+const collaboratorFallbackAltByLang = {
+  es: "Colaborador estrategico",
+  en: "Strategic collaborator",
+  de: "Strategischer Partner",
+  fr: "Collaborateur strategique",
+  it: "Collaboratore strategico",
+  nl: "Strategische partner",
+} as const;
+
 const formatCollaboratorLogoName = (filePath) =>
   filePath
     .split("/")
@@ -50,7 +60,9 @@ const formatCollaboratorLogoName = (filePath) =>
     ?.replace(/\.[^.]+$/, "")
     .replace(/[-_]+/g, " ")
     .replace(/\s+/g, " ")
-    .trim() ?? "Colaborador estrategico";
+    .trim() ??
+  collaboratorFallbackAltByLang[lang as keyof typeof collaboratorFallbackAltByLang] ??
+  collaboratorFallbackAltByLang.es;
 
 const collaboratorLogos = Object.entries(collaboratorLogoModules)
   .map(([filePath, src]) => ({
@@ -128,80 +140,11 @@ const heroPosterUrl = heroSlides[0]?.coverUrl ?? HERO_POSTER_URL;
 
 const extra = homeContent.extraByLang[lang] ?? homeContent.extraByLang.es;
 const formCopy = homeContent.formByLang[lang] ?? homeContent.formByLang.es;
-const instagramCopy = homeContent.instagramByLang[lang] ?? homeContent.instagramByLang.es;
-const youtubeCopy = homeContent.youtubeByLang[lang] ?? homeContent.youtubeByLang.es;
 const TEAM_LANGUAGE_BADGES = homeContent.teamLanguageBadges as Record<
   string,
   { label: string; flagUrl: string }
 >;
 const teamCopy = homeContent.teamByLang[lang] ?? homeContent.teamByLang.es;
-const instagramProfileUrl = "https://www.instagram.com/blancarealspain/";
-const instagramPosts = [
-  {
-    url: "https://www.instagram.com/p/DV08Ab3jDzV/",
-    title: "Dia de la tortilla en familia",
-    image:
-      "https://scontent.cdninstagram.com/v/t51.82787-15/650622774_18307387921273221_3348331166899999006_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=dcvtcmnuGX0Q7kNvwG2XRav&_nc_oc=Adkm5l7iXMNQpMM7PvIuEQkZi9T2esp6xJYJ9oIGF8GuGNnBTf9fhDBk2PtojVBJIPw&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=ssjkmdhjjYoilbz-zX1a1w&_nc_ss=8&oh=00_AfwcVxPEDuB6419A7sHkzUMkFXVgwhAULmLVUDDMFCms8w&oe=69C07273",
-  },
-  {
-    url: "https://www.instagram.com/p/DVvIpOAjK_B/",
-    title: "Lifestyle projects on the Costa del Sol",
-    image:
-      "https://scontent.cdninstagram.com/v/t51.82787-15/649519592_18306952042273221_1364462954814181504_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=3vUf8YkF_OUQ7kNvwGzPgpB&_nc_oc=AdniXaI8UV0pxZXb6hskQfAMJdlDB3yAnnIV6VmEe0_ZVIawJky7NAg6xUbuJktM79U&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=2UL_Z6e-yWb_MjjcUneSaw&_nc_ss=8&oh=00_Afz1DGrngbz6ydz6R6ABLcBkc960JXUNRBI-XoG8na4H7A&oe=69C0775D",
-  },
-  {
-    url: "https://www.instagram.com/p/DUnpVmVjIoy/",
-    title: "Nuestras promociones siguen en perfecto estado",
-    image:
-      "https://scontent.cdninstagram.com/v/t51.82787-15/632080180_18303776722273221_4801950088628679154_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=OtlhrdMKZboQ7kNvwGQ1J4e&_nc_oc=AdkpjCg8WibtagaIg--7UefzWgxQH9W2MmSzNOAgpLSZzdKoe-8Zp0uILucVEd2VOI8&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=lVqWSQfkblWtEW_wvgujZA&_nc_ss=8&oh=00_Afzfg5Hdysv_FxcQ04hoVgTYRwDrmogFnMP-fgsRfRseMw&oe=69C0647C",
-  },
-  {
-    url: "https://www.instagram.com/p/DVOQYqAjBxY/",
-    title: "Luxury villas in Torreblanca, Fuengirola",
-    image:
-      "https://scontent.cdninstagram.com/v/t51.82787-15/642461079_18305358940273221_6062423964266999021_n.webp?stp=c288.0.864.864a_dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=4Hz9EcT9ZRsQ7kNvwHDbYWZ&_nc_oc=Adka_TQAwPPn2m55OyXHLbp-RFhsmzwX6ZKPJpzYoa9vK6tDnn7mfqE2S4NhC7OwT9E&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=swp1KuY4pwAC33Dc7vfHIA&_nc_ss=8&oh=00_Afw-2Fqo3B0VII_KUUQvFCNWmLEMCIdaPIz0wTYNL322CA&oe=69C05D8A",
-  },
-  {
-    url: "https://www.instagram.com/p/DTxImRpjNNE/",
-    title: "Despertar cada dia frente al mar",
-    image:
-      "https://scontent.cdninstagram.com/v/t51.82787-15/619850521_18300872167273221_3675599708415453825_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=K6A31Jn69KQQ7kNvwHlAIrH&_nc_oc=AdnlqHrvlV9KbMKB4m1xcxUssVy4QYfnaSQBFujH5OuP5Da3D2qZcsbznfuMw7TCeEU&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=GxA3HiS6GPhfjxmHRqnxZw&_nc_ss=8&oh=00_AfxSowEJlEBYSUg-RoxRhLKF8BNTjAfli2wQaT01c5vJQA&oe=69C052E0",
-  },
-  {
-    url: "https://www.instagram.com/p/DTffWKyjM06/",
-    title: "The future begins here",
-    image:
-      "https://scontent.cdninstagram.com/v/t51.82787-15/615399797_18300040270273221_1873871616694110556_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=sMH0rnV-FOsQ7kNvwFNXfSH&_nc_oc=AdnvqWd9Om6Pj3VcUq6NEnkq31VreGH5C0n4brODm2mBIyOScAhrZAjIh5zCJG2hOjw&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=f7KKzXzILY5M8kuPYrBzTQ&_nc_ss=8&oh=00_AfzfMtDKOIaHk8jAcCi39I0FoMNOdY0JPiiFJELYrN6rkA&oe=69C052F4",
-  },
-];
-const youtubeHubUrl = "https://www.youtube.com/watch?v=gKg4CPHCtL8";
-const youtubeVideos = [
-  {
-    url: "https://youtu.be/gKg4CPHCtL8?si=4k2-FXuYdSBTVm_J",
-    title: "Video destacado de BlancaReal",
-    image: "https://i.ytimg.com/vi/gKg4CPHCtL8/maxresdefault.jpg",
-  },
-  {
-    url: "https://youtu.be/Z5i1V_h4am4?si=xGe1ofwK-9g5a8-z",
-    title: "Recorrido inmobiliario en Costa del Sol",
-    image: "https://i.ytimg.com/vi/Z5i1V_h4am4/maxresdefault.jpg",
-  },
-  {
-    url: "https://youtu.be/TRpcobBeRqw?si=IgdXs3nK6FPckP7u",
-    title: "Promocion y estilo de vida BlancaReal",
-    image: "https://i.ytimg.com/vi/TRpcobBeRqw/maxresdefault.jpg",
-  },
-  {
-    url: "https://youtu.be/XEsSWWHKn28?si=QjTtYzBoBmC6dUX7",
-    title: "Proyecto residencial en video",
-    image: "https://i.ytimg.com/vi/XEsSWWHKn28/maxresdefault.jpg",
-  },
-  {
-    url: "https://youtu.be/bSjWyx8wMfw?si=j7sGAwDcx4IGts0f",
-    title: "Visita y presentacion de propiedad",
-    image: "https://i.ytimg.com/vi/bSjWyx8wMfw/maxresdefault.jpg",
-  },
-];
 
 const teamCards = teamMembers.map((member) => ({
   name: member.name,
@@ -210,6 +153,7 @@ const teamCards = teamMembers.map((member) => ({
   phone: member.phone ?? "",
   emailHref: member.email ?? member.emails?.[0]?.address ?? "",
   phoneHref: String(member.phone ?? "").replace(/\s+/g, ""),
+  whatsappHref: String(member.phone ?? "").replace(/\D+/g, ""),
   image: member.photo?.url ?? "",
   imageAlt: member.photo?.alt?.[lang] ?? member.photo?.alt?.es ?? member.name,
   languageBadges: Array.isArray(member.spoken_languages)
@@ -429,6 +373,16 @@ const heroMobileQuickLinks = [
                     </div>
                   </dl>
                   <div class="z-team-actions">
+                    {member.phone && member.whatsappHref && (
+                      <a
+                        class="z-team-action z-team-action-whatsapp"
+                        href={`https://wa.me/${member.whatsappHref}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {teamCopy.whatsappAction}
+                      </a>
+                    )}
                     {member.email && (
                       <a class="z-team-action z-team-action-email" href={`mailto:${member.emailHref}`}>
                         {teamCopy.emailAction}
@@ -440,20 +394,6 @@ const heroMobileQuickLinks = [
                       </a>
                     )}
                   </div>
-                  <dl class="z-team-contact-list">
-                    {member.email && (
-                      <div>
-                        <dt>{teamCopy.email}</dt>
-                        <dd><a href={`mailto:${member.emailHref}`}>{member.email}</a></dd>
-                      </div>
-                    )}
-                    {member.phone && (
-                      <div>
-                        <dt>{teamCopy.phone}</dt>
-                        <dd><a href={`tel:${member.phoneHref}`}>{member.phone}</a></dd>
-                      </div>
-                    )}
-                  </dl>
                 </div>
               </article>
             ))}
@@ -609,124 +549,7 @@ const heroMobileQuickLinks = [
       </div>
     </article>
 
-    <section class="home-instagram" aria-label={instagramCopy.ariaLabel}>
-      <div class="home-instagram-head">
-        <div class="home-instagram-heading">
-          <h2>{instagramCopy.title}</h2>
-          <p>{instagramCopy.intro}</p>
-        </div>
-        <a
-          href={instagramProfileUrl}
-          class="home-instagram-follow"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <span>{instagramCopy.cta}</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14"></path>
-            <path d="m12 5 7 7-7 7"></path>
-          </svg>
-        </a>
-      </div>
-
-      <div class="lightwidget home-instagram-widget" data-id="blancareal-instagram">
-        <ul class="lightwidget__posts lightwidget__posts--hover-show-instagram-icon lightwidget__posts--image-format-square lightwidget__posts--grid">
-        {instagramPosts.map((post) => (
-          <li class="lightwidget__tile">
-            <a
-              href={post.url}
-              class="lightwidget__link lightwidget__focus"
-              target="_blank"
-              rel="noreferrer"
-              aria-label={post.title}
-            >
-              <figure class="lightwidget__photo">
-                <picture class="lightwidget__image-wrapper">
-                  <img
-                    width="1080"
-                    height="1080"
-                    alt={post.title}
-                    class="lightwidget__image"
-                    sizes="(max-width: 1200px) 33vw, 17vw"
-                    src={post.image}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-                <span class="lightwidget__instagram-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="4" y="4" width="16" height="16" rx="3.75"></rect>
-                    <circle cx="12" cy="12" r="3.4"></circle>
-                    <circle cx="17.2" cy="6.9" r="0.9" fill="currentColor" stroke="none"></circle>
-                  </svg>
-                </span>
-                <figcaption class="lightwidget__caption">{post.title}</figcaption>
-              </figure>
-            </a>
-          </li>
-        ))}
-        </ul>
-      </div>
-    </section>
-
-    <section class="home-media home-youtube" aria-label={youtubeCopy.ariaLabel}>
-      <div class="home-media-head">
-        <div class="home-media-heading">
-          <h2>{youtubeCopy.title}</h2>
-          <p>{youtubeCopy.intro}</p>
-        </div>
-        <a
-          href={youtubeHubUrl}
-          class="home-media-follow home-youtube-follow"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <span>{youtubeCopy.cta}</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14"></path>
-            <path d="m12 5 7 7-7 7"></path>
-          </svg>
-        </a>
-      </div>
-
-      <div class="home-media-widget" data-id="blancareal-youtube">
-        <div class="home-media-list">
-          {youtubeVideos.map((video) => (
-            <article class="home-media-tile">
-              <a
-                href={video.url}
-                class="home-media-link"
-                target="_blank"
-                rel="noreferrer"
-                aria-label={video.title}
-              >
-                <figure class="home-media-photo">
-                  <picture class="home-media-image-wrapper">
-                    <img
-                      width="480"
-                      height="360"
-                      alt={video.title}
-                      class="home-media-image"
-                      sizes="(max-width: 1200px) 33vw, 20vw"
-                      src={video.image}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </picture>
-                  <span class="home-media-video-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M21.8 7.2a2.9 2.9 0 0 0-2-2c-1.8-.5-7.8-.5-7.8-.5s-6 0-7.8.5a2.9 2.9 0 0 0-2 2A30.9 30.9 0 0 0 1.7 12a30.9 30.9 0 0 0 .5 4.8 2.9 2.9 0 0 0 2 2c1.8.5 7.8.5 7.8.5s6 0 7.8-.5a2.9 2.9 0 0 0 2-2 30.9 30.9 0 0 0 .5-4.8 30.9 30.9 0 0 0-.5-4.8Z"></path>
-                      <path d="m10 15.5 5.2-3.5L10 8.5Z" fill="#fff"></path>
-                    </svg>
-                  </span>
-                  <figcaption class="home-media-caption">{video.title}</figcaption>
-                </figure>
-              </a>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+    <HomeSocialHub lang={lang} />
   </section>
 
   <section class="landing-collaborators" aria-label={extra.collaboratorsAria}>

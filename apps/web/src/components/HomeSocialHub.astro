@@ -1,0 +1,100 @@
+---
+import homePageContent from "@shared/data/pages/home.json";
+
+const { lang } = Astro.props;
+
+const homeContent = homePageContent as Record<string, any>;
+const socialCopy = homeContent.socialHubByLang?.[lang] ?? homeContent.socialHubByLang?.es;
+const socialLinks = (homeContent.socialLinks ?? []).map((link: Record<string, any>) => ({
+  ...link,
+  label: link.label?.[lang] ?? link.label?.es ?? link.label ?? link.platform,
+}));
+const socialLinkLabels = Object.fromEntries(
+  socialLinks.map((link: Record<string, any>) => [link.platform, link.label]),
+);
+const socialFeedItems = (homeContent.socialFeedItems ?? []).map((item: Record<string, any>) => ({
+  ...item,
+  title: item.title?.[lang] ?? item.title?.es ?? item.title,
+  excerpt: item.excerpt?.[lang] ?? item.excerpt?.es ?? item.excerpt,
+}));
+
+const fallbackPlatformLabel = (platform: string) =>
+  platform.length ? `${platform.charAt(0).toUpperCase()}${platform.slice(1)}` : platform;
+
+const getPlatformLabel = (platform: string) =>
+  socialLinkLabels[platform] ?? fallbackPlatformLabel(platform);
+
+const iconMap: Record<string, string> = {
+  linkedin:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3C4.14 3 3.3 3.82 3.3 4.88c0 1.04.82 1.88 1.91 1.88h.02c1.13 0 1.93-.84 1.93-1.88C7.14 3.82 6.36 3 5.25 3ZM20.7 13.03c0-3.46-1.85-5.07-4.32-5.07-1.99 0-2.88 1.09-3.37 1.86V8.5H9.63c.04.88 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.12-.92.27-.68.87-1.38 1.89-1.38 1.33 0 1.87 1.02 1.87 2.5V20h3.38v-6.97Z"/></svg>',
+  instagram:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.75 3h8.5A4.75 4.75 0 0 1 21 7.75v8.5A4.75 4.75 0 0 1 16.25 21h-8.5A4.75 4.75 0 0 1 3 16.25v-8.5A4.75 4.75 0 0 1 7.75 3Zm0 1.8A2.95 2.95 0 0 0 4.8 7.75v8.5a2.95 2.95 0 0 0 2.95 2.95h8.5a2.95 2.95 0 0 0 2.95-2.95v-8.5a2.95 2.95 0 0 0-2.95-2.95h-8.5Zm8.9 1.35a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7.6A4.4 4.4 0 1 1 7.6 12 4.4 4.4 0 0 1 12 7.6Zm0 1.8A2.6 2.6 0 1 0 14.6 12 2.6 2.6 0 0 0 12 9.4Z"/></svg>',
+  youtube:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.6 7.2a2.9 2.9 0 0 0-2.04-2.04C17.77 4.7 12 4.7 12 4.7s-5.77 0-7.56.46A2.9 2.9 0 0 0 2.4 7.2C1.94 9 1.94 12 1.94 12s0 3 .46 4.8a2.9 2.9 0 0 0 2.04 2.04c1.79.46 7.56.46 7.56.46s5.77 0 7.56-.46a2.9 2.9 0 0 0 2.04-2.04c.46-1.8.46-4.8.46-4.8s0-3-.46-4.8ZM9.7 15.64V8.36L15.76 12 9.7 15.64Z"/></svg>',
+  facebook:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.34 21v-7.53h2.53l.38-2.94h-2.91V8.65c0-.85.23-1.44 1.45-1.44h1.55V4.58c-.27-.04-1.19-.11-2.25-.11-2.22 0-3.75 1.36-3.75 3.84v2.22H7.8v2.94h2.54V21h3Z"/></svg>',
+  tiktok:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.65 3h2.84a5.35 5.35 0 0 0 3.24 3.24v2.88a8.16 8.16 0 0 1-3.24-.67v6.2a5.65 5.65 0 1 1-5.65-5.65c.32 0 .64.03.95.08v2.9a2.74 2.74 0 1 0 1.86 2.6V3Z"/></svg>',
+  whatsapp:
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2.25a9.73 9.73 0 0 0-8.32 14.76L2.25 21.75l4.87-1.43a9.75 9.75 0 1 0 4.92-18.07Zm0 17.72a8.03 8.03 0 0 1-4.1-1.13l-.3-.18-2.89.85.94-2.81-.19-.29a8.03 8.03 0 1 1 6.54 3.56Zm4.4-6.02c-.24-.12-1.41-.7-1.63-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.95-1.2-.72-.64-1.21-1.43-1.35-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.79-.2-.47-.4-.41-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.68 2.56 4.07 3.59.57.25 1.02.4 1.37.51.58.18 1.11.15 1.53.09.47-.07 1.41-.58 1.61-1.13.2-.55.2-1.03.14-1.13-.06-.1-.22-.16-.46-.28Z"/></svg>',
+};
+
+const getIcon = (platform: string) => iconMap[platform] ?? iconMap.instagram;
+---
+
+<section class="home-social" aria-label={socialCopy.ariaLabel}>
+  <div class="home-social-head">
+    <div class="home-social-heading">
+      <p class="home-social-eyebrow">{socialCopy.eyebrow}</p>
+      <h2>{socialCopy.title}</h2>
+      <p>{socialCopy.intro}</p>
+    </div>
+  </div>
+
+  <div class="home-social-grid">
+    {socialFeedItems.map((item) => (
+      <article class="home-social-card" data-platform={item.platform}>
+        <a href={item.href} class="home-social-card-link" target="_blank" rel="noreferrer">
+          <div class="home-social-media">
+            <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
+          </div>
+
+          <div class="home-social-copy">
+            <div class="home-social-badges">
+              <span class="home-social-platform">
+                <span class="home-social-platform-icon" aria-hidden="true" set:html={getIcon(item.platform)} />
+                <span>{getPlatformLabel(item.platform)}</span>
+              </span>
+              <span class="home-social-type">
+                {socialCopy.types?.[item.contentType] ?? item.contentType}
+              </span>
+            </div>
+
+            <h3>{item.title}</h3>
+            <p>{item.excerpt}</p>
+            <span class="home-social-card-cta">{socialCopy.cardCta}</span>
+          </div>
+        </a>
+      </article>
+    ))}
+  </div>
+
+  <div class="home-social-links-wrap">
+    <p class="home-social-links-label">{socialCopy.linksLabel}</p>
+
+    <div class="home-social-links">
+      {socialLinks.map((link) => (
+        <a
+          href={link.href}
+          class="home-social-link"
+          data-platform={link.platform}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span class="home-social-link-icon" aria-hidden="true" set:html={getIcon(link.platform)} />
+          <span>{link.label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

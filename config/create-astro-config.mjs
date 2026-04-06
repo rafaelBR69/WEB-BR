@@ -56,6 +56,22 @@ export const createAstroConfig = ({
       },
       resolve: {
         alias: {
+          "astro/entrypoints/prerender": path.join(
+            repoRoot,
+            "node_modules",
+            "astro",
+            "dist",
+            "entrypoints",
+            "prerender.js",
+          ),
+          "astro/entrypoints/legacy": path.join(
+            repoRoot,
+            "node_modules",
+            "astro",
+            "dist",
+            "entrypoints",
+            "legacy.js",
+          ),
           "@": path.join(repoRoot, "src"),
           "@shared": path.join(repoRoot, "packages", "shared", "src"),
           "@webapp": path.join(repoRoot, "apps", "web", "src"),

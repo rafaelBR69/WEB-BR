@@ -80,6 +80,8 @@ const navCopyByLang = {
     newBuild: "Obra nueva",
     resale: "Segunda mano",
     allProperties: "Todas las propiedades",
+    exclusiveProjects: "Proyectos exclusivos de BlancaReal",
+    sellWithUs: "Vende con nosotros",
     allProjects: "Todos los proyectos",
     latestProjects: "Últimos proyectos",
     requestLegal: "Solicitar asesoría",
@@ -102,6 +104,8 @@ const navCopyByLang = {
     newBuild: "New build",
     resale: "Resale",
     allProperties: "All properties",
+    exclusiveProjects: "BlancaReal exclusive projects",
+    sellWithUs: "Sell with us",
     allProjects: "All projects",
     latestProjects: "Latest projects",
     requestLegal: "Request advice",
@@ -124,6 +128,8 @@ const navCopyByLang = {
     newBuild: "Neubau",
     resale: "Bestand",
     allProperties: "Alle Immobilien",
+    exclusiveProjects: "Exklusive BlancaReal-Projekte",
+    sellWithUs: "Mit uns verkaufen",
     allProjects: "Alle Projekte",
     latestProjects: "Aktuelle Projekte",
     requestLegal: "Beratung anfragen",
@@ -146,6 +152,8 @@ const navCopyByLang = {
     newBuild: "Programme neuf",
     resale: "Revente",
     allProperties: "Toutes les proprietes",
+    exclusiveProjects: "Programmes exclusifs de BlancaReal",
+    sellWithUs: "Vendez avec nous",
     allProjects: "Tous les programmes",
     latestProjects: "Derniers programmes",
     requestLegal: "Demander un conseil",
@@ -168,6 +176,8 @@ const navCopyByLang = {
     newBuild: "Nuova costruzione",
     resale: "Usato",
     allProperties: "Tutte le proprieta",
+    exclusiveProjects: "Progetti esclusivi di BlancaReal",
+    sellWithUs: "Vendi con noi",
     allProjects: "Tutti i progetti",
     latestProjects: "Ultimi progetti",
     requestLegal: "Richiedi consulenza",
@@ -190,6 +200,8 @@ const navCopyByLang = {
     newBuild: "Nieuwbouw",
     resale: "Bestaande bouw",
     allProperties: "Alle woningen",
+    exclusiveProjects: "Exclusieve projecten van BlancaReal",
+    sellWithUs: "Verkoop met ons",
     allProjects: "Alle projecten",
     latestProjects: "Laatste projecten",
     requestLegal: "Advies aanvragen",
@@ -230,29 +242,19 @@ const buildCatalogUrl = (
 };
 
 const buildRealEstateGroup = (lang: string): NavigationGroup => {
-  const ui = getUiCopy(lang);
   const copy = getNavCopy(lang);
-  const projectsPath = `/${lang}/projects/`;
-  const contactPath = `/${lang}/contact/`;
 
   return {
-    label: ui.layout.navRealEstate,
+    label: getUiCopy(lang).layout.navRealEstate,
     href: `/${lang}/properties/`,
     sections: [
       {
         title: copy.catalog,
         items: [
           { label: copy.allProperties, href: `/${lang}/properties/` },
-          { label: copy.newBuild, href: buildCatalogUrl(lang, { market: "obra_nueva" }) },
+          { label: copy.exclusiveProjects, href: `/${lang}/projects/` },
           { label: copy.resale, href: buildCatalogUrl(lang, { market: "segunda_mano" }) },
-        ],
-      },
-      {
-        title: copy.access,
-        items: [
-          { label: ui.layout.navProjects, href: projectsPath },
-          { label: ui.layout.navContact, href: contactPath },
-          { label: ui.layout.navSellWithUs, href: `/${lang}/sell-with-us/` },
+          { label: copy.sellWithUs, href: `/${lang}/sell-with-us/` },
         ],
       },
     ],

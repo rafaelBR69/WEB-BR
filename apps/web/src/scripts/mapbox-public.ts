@@ -655,13 +655,6 @@ const initRoot = (root: HTMLElement) => {
   if (root.dataset.mapboxBound === "true") return;
   root.dataset.mapboxBound = "true";
 
-  const activateButton = root.querySelector<HTMLElement>("[data-map-activate]");
-  if (activateButton) {
-    activateButton.addEventListener("click", async () => {
-      await bootMap(root);
-    });
-  }
-
   const resetButton = root.querySelector<HTMLElement>("[data-map-reset]");
   if (resetButton) {
     resetButton.addEventListener("click", async () => {

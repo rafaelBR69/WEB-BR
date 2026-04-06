@@ -24,7 +24,6 @@ const {
   routeSelectionHint = "Selecciona una vivienda para comenzar la ruta.",
   openDetailLabel = "Ver ficha",
   resetViewLabel = "Reiniciar mapa",
-  activateMapLabel = "Activar mapa",
   exploreAreaLabel = "Explorar zona",
   compact = false,
   fitToFeaturesOnLoad = false,
@@ -90,14 +89,9 @@ const shouldRenderExploreButton =
         <p class="map-overlay-eyebrow">{mode === "listing" ? "Vista interactiva" : "Mapa"}</p>
         <p class="map-overlay-text">
           {mode === "listing"
-            ? "Carga el mapa solo cuando quieras explorar la ubicacion."
-            : "Activa el mapa avanzado solo cuando quieras explorar el entorno."}
+            ? "Preparando la vista del mapa."
+            : "Preparando el mapa y su entorno interactivo."}
         </p>
-        {loadStrategy === "interaction" && (
-          <button type="button" class="map-action" data-map-activate>
-            {activateMapLabel}
-          </button>
-        )}
       </div>
 
       <div class="map-poi-panel" data-map-poi-panel hidden>

@@ -321,8 +321,6 @@ const hasSlides = slides.length > 0;
       });
     }
 
-    hero.addEventListener("mouseenter", pauseAutoplay);
-    hero.addEventListener("mouseleave", resumeAutoplay);
     hero.addEventListener("focusin", (event) => {
       const target = event.target;
       if (!(target instanceof HTMLElement) || !target.matches(":focus-visible")) return;
@@ -352,7 +350,7 @@ const hasSlides = slides.length > 0;
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         pauseAutoplay();
-      } else if (!hero.matches(":hover")) {
+      } else {
         resumeAutoplay();
       }
     });
