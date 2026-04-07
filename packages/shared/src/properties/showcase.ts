@@ -32,6 +32,7 @@ export type ProjectShowcaseCard = {
   coverAlt: string;
   href: string;
   priority: number;
+  shouldHighlightScarcity: boolean;
 };
 
 export type FeaturedChildUnitCard = ReturnType<typeof normalizePropertyCard> & {
@@ -144,6 +145,7 @@ const buildProjectShowcaseCardsBase = (
           : soldPercent >= 65
             ? "high_demand"
             : "open";
+      const shouldHighlightScarcity = availableUnits.length > 0 && availableUnits.length < 10;
 
       return {
         id: String(project.id),
@@ -171,6 +173,7 @@ const buildProjectShowcaseCardsBase = (
           String(project.id),
         href: `/${lang}/property/${project.slugs[lang]}/`,
         priority: typeof project.priority === "number" ? project.priority : 0,
+        shouldHighlightScarcity,
       };
     })
     .sort((left, right) => {

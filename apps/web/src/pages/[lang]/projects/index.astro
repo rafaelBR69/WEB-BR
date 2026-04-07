@@ -58,12 +58,14 @@ const seoByLang = {
     beds: "Dorm.",
     area: "Superficie",
     cta: "Ver proyecto",
-    emptyTitle: "Aun no hay proyectos exclusivos publicados",
+    availabilityLive: "Disponibilidad activa",
+    availabilityLow: "Menos de 10 unidades disponibles",
+    emptyTitle: "Aún no hay proyectos exclusivos publicados",
     emptyText:
-      "Cuando activemos una promoción en exclusiva aparecera aqui con su disponibilidad.",
-    statusLastUnits: "Ultimas unidades",
+      "Cuando activemos una promoción en exclusiva aparecerá aquí con su disponibilidad.",
+    statusLastUnits: "Últimas unidades",
     statusHighDemand: "Alta demanda",
-    statusOpen: "comercialización activa",
+    statusOpen: "Comercialización activa",
   },
   en: {
     title: "Exclusive projects | BlancaReal",
@@ -81,6 +83,8 @@ const seoByLang = {
     beds: "Beds",
     area: "Area",
     cta: "View project",
+    availabilityLive: "Live availability",
+    availabilityLow: "Fewer than 10 units available",
     emptyTitle: "No exclusive projects published yet",
     emptyText:
       "Once an exclusive development is published it will appear here with availability.",
@@ -104,6 +108,8 @@ const seoByLang = {
     beds: "SZ",
     area: "Flaeche",
     cta: "Projekt ansehen",
+    availabilityLive: "Live-Verfuegbarkeit",
+    availabilityLow: "Weniger als 10 Einheiten verfuegbar",
     emptyTitle: "Noch keine exklusiven Projekte veroeffentlicht",
     emptyText:
       "Sobald ein exklusives Projekt veroeffentlicht wird, erscheint es hier mit Verfuegbarkeit.",
@@ -127,6 +133,8 @@ const seoByLang = {
     beds: "Ch.",
     area: "Surface",
     cta: "Voir le programme",
+    availabilityLive: "Disponibilite en direct",
+    availabilityLow: "Moins de 10 unites disponibles",
     emptyTitle: "Aucun programme exclusif publie pour le moment",
     emptyText:
       "Lorsqu'un programme exclusif sera publie, il apparaitra ici avec sa disponibilite.",
@@ -150,6 +158,8 @@ const seoByLang = {
     beds: "Cam.",
     area: "Superficie",
     cta: "Vedi progetto",
+    availabilityLive: "Disponibilita live",
+    availabilityLow: "Meno di 10 unita disponibili",
     emptyTitle: "Nessun progetto esclusivo pubblicato",
     emptyText:
       "Quando pubblicheremo un progetto esclusivo apparira qui con la disponibilita.",
@@ -173,6 +183,8 @@ const seoByLang = {
     beds: "Slaapk.",
     area: "Oppervlakte",
     cta: "Bekijk project",
+    availabilityLive: "Live beschikbaarheid",
+    availabilityLow: "Minder dan 10 units beschikbaar",
     emptyTitle: "Nog geen exclusieve projecten gepubliceerd",
     emptyText:
       "Zodra een exclusief project wordt gepubliceerd, verschijnt het hier met beschikbaarheid.",
@@ -275,7 +287,15 @@ const demandLabelByLevel = {
               </p>
             )}
 
-            <a href={card.href} class="project-cta">{t.cta}</a>
+            <div class="project-actions">
+              <div class:list={["project-availability", card.shouldHighlightScarcity && "is-scarcity"]}>
+                <span class="project-availability-label">
+                  {card.shouldHighlightScarcity ? t.availabilityLow : t.availabilityLive}
+                </span>
+                <strong>{card.availableCount} {t.available}</strong>
+              </div>
+              <a href={card.href} class="project-cta">{t.cta}</a>
+            </div>
           </div>
         </article>
       ))}
