@@ -1,212 +1,298 @@
 {
-    "id":  "PM0079-08",
-    "priority":  70,
-    "listing_type":  "unit",
-    "parent_id":  "PM0079",
-    "slugs":  {
-                  "es":  "unidad-8-nylva-homes-manilva",
-                  "en":  "unit-8-nylva-homes-manilva",
-                  "de":  "einheit-8-nylva-homes-manilva",
-                  "fr":  "unite-8-nylva-homes-manilva",
-                  "it":  "unita-8-nylva-homes-manilva",
-                  "nl":  "unit-8-nylva-homes-manilva"
-              },
-    "status":  "sold",
-    "featured":  false,
-    "languages":  [
-                      "es",
-                      "en",
-                      "de",
-                      "fr",
-                      "it",
-                      "nl"
-                  ],
-    "transaction":  "sale",
-    "price":  null,
-    "currency":  "EUR",
-    "location":  {
-                     "country":  "ES",
-                     "province":  "Málaga",
-                     "city":  "Manilva",
-                     "area":  "Manilva - Sotogrande",
-                     "coordinates":  {
-                                         "lat":  36.32369757380338,
-                                         "lng":  -5.253296331945576
-                                     }
-                 },
-    "property":  {
-                     "type":  "apartment",
-                     "market":  "obra_nueva",
-                     "year_built":  2026,
-                     "area_m2":  102.41,
-                     "usable_area_m2":  88.3,
-                     "terrace_m2":  19.2,
-                     "garden_m2":  null,
-                     "bedrooms":  2,
-                     "bathrooms":  null,
-                     "garages":  null,
-                     "floor_level":  1,
-                     "orientation":  null,
-                     "condition":  "new",
-                     "floor_label":  "Planta 1"
-                 },
-    "features":  [
-                     "new_build",
-                     "terrace",
-                     "sea_views",
-                     "green_areas"
-                 ],
-    "media":  {
-                  "cover":  null,
-                  "gallery":  {
-                                  "exterior":  [
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-01.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-02.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-03.png"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-04.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-05.webp"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-06.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-07.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-08.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-09.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-01.JPG"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-02.JPG"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-03.JPG"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-02.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-03.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-04.jpeg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-05.jpeg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-06.jpeg"
-                                                   }
-                                               ],
-                                  "interior":  [
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bathroom-01.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bedroom-01.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bedroom-02.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/kitchen-01.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/kitchen-02.jpg"
-                                                   }
-                                               ],
-                                  "views":  [
-                                                {
-                                                    "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-1-Nylva-Homes0.jpg"
-                                                },
-                                                {
-                                                    "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-2-Nylva-Homes0.jpg"
-                                                },
-                                                {
-                                                    "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-3-Nylva-Homes0.jpg"
-                                                }
-                                            ],
-                                  "floorplan":  [
-                                                    {
-                                                        "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/planos/plano-08.pdf"
-                                                    }
-                                                ]
-                              }
-              },
-    "seo":  {
-                "focus_keyphrase":  {
-                                        "es":  "apartamento en manilva unidad 8",
-                                        "en":  "apartment in manilva unit 8",
-                                        "de":  "apartment in manilva einheit 8",
-                                        "it":  "appartamento a manilva unita 8",
-                                        "nl":  "appartement in manilva unit 8",
-                                        "fr":  "appartement a manilva unite 8"
-                                    },
-                "meta_description":  {
-                                         "es":  "Unidad en Nylva Homes, Manilva. Consulte disponibilidad y detalles.",
-                                         "en":  "Unit at Nylva Homes, Manilva. Check availability and details.",
-                                         "de":  "Einheit in Nylva Homes, Manilva. VerfÃ¼gbarkeit und Details.",
-                                         "it":  "UnitÃ  in Nylva Homes, Manilva. Verifica disponibilitÃ  e dettagli.",
-                                         "nl":  "Unit in Nylva Homes, Manilva. Bekijk beschikbaarheid en details.",
-                                         "fr":  "UnitÃ© Ã  Nylva Homes, Manilva. Voir disponibilitÃ© et dÃ©tails."
-                                     }
-            },
-    "translations":  {
-                         "es":  {
-                                    "title":  "Unidad 8 en Nylva Homes (Manilva)",
-                                    "intro":  "Unidad disponible en la promociÃ³n Nylva Homes en Manilva.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "en":  {
-                                    "title":  "Unit 8 at Nylva Homes (Manilva)",
-                                    "intro":  "Available unit in the Nylva Homes development in Manilva.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "de":  {
-                                    "title":  "Einheit 8 in Nylva Homes (Manilva)",
-                                    "intro":  "VerfÃ¼gbare Einheit in der Wohnanlage Nylva Homes in Manilva.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "fr":  {
-                                    "title":  "Unit? 8 ? Nylva Homes (Manilva)",
-                                    "intro":  "UnitÃ© disponible dans le programme Nylva Homes Ã  Manilva.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "it":  {
-                                    "title":  "Unit? 8 a Nylva Homes (Manilva)",
-                                    "intro":  "UnitÃ  disponibile nel complesso Nylva Homes a Manilva.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "nl":  {
-                                    "title":  "Unit 8 in Nylva Homes (Manilva)",
-                                    "intro":  "Beschikbare unit in het project Nylva Homes in Manilva.",
-                                    "description":  [
-
-                                                    ]
-                                }
-                     }
+  "id": "PM0079-08",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM0079",
+  "slugs": {
+    "es": "unidad-8-nylva-homes-manilva",
+    "en": "unit-8-nylva-homes-manilva",
+    "de": "einheit-8-nylva-homes-manilva",
+    "fr": "unite-8-nylva-homes-manilva",
+    "it": "unita-8-nylva-homes-manilva",
+    "nl": "unit-8-nylva-homes-manilva"
+  },
+  "status": "sold",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Málaga",
+    "city": "Manilva",
+    "area": "Manilva - Sotogrande",
+    "coordinates": {
+      "lat": 36.32369757380338,
+      "lng": -5.253296331945576
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2026,
+    "area_m2": 102.41,
+    "usable_area_m2": 88.3,
+    "terrace_m2": 19.2,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": null,
+    "garages": null,
+    "floor_level": 1,
+    "orientation": null,
+    "condition": "new",
+    "floor_label": "Planta 1"
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas"
+  ],
+  "media": {
+    "cover": null,
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-03.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-04.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-05.webp"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-06.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-07.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-08.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/exterior/facade-09.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-01.JPG"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-02.JPG"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-01/obra-03.JPG"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-03.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-04.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-05.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/obras/fase-02/obra-06.jpeg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bathroom-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bedroom-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/bedroom-02.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/kitchen-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/interior/kitchen-02.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-1-Nylva-Homes0.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-2-Nylva-Homes0.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/views/Vistas-atico-edificio-3-Nylva-Homes0.jpg"
+        }
+      ],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/planos/plano-08.pdf"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento en manilva unidad 8",
+      "en": "apartment in manilva unit 8",
+      "de": "apartment in manilva einheit 8",
+      "it": "appartamento a manilva unita 8",
+      "nl": "appartement in manilva unit 8",
+      "fr": "appartement a manilva unite 8"
+    },
+    "meta_description": {
+      "es": "Unidad en Nylva Homes, Manilva. Consulte disponibilidad y detalles.",
+      "en": "Unit at Nylva Homes, Manilva. Check availability and details.",
+      "de": "Einheit in Nylva Homes, Manilva. VerfÃ¼gbarkeit und Details.",
+      "it": "UnitÃ  in Nylva Homes, Manilva. Verifica disponibilitÃ  e dettagli.",
+      "nl": "Unit in Nylva Homes, Manilva. Bekijk beschikbaarheid en details.",
+      "fr": "UnitÃ© Ã  Nylva Homes, Manilva. Voir disponibilitÃ© et dÃ©tails."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Unidad 8 en Nylva Homes (Manilva)",
+      "intro": "Unidad disponible en la promociÃ³n Nylva Homes en Manilva.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Ventajas de la Promocion: Exclusividad y Estilo de Vida"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes redefine el concepto de hogar contemporaneo con una promocion de obra nueva que combina diseno vanguardista y sostenibilidad. Este exclusivo residencial destaca por sus amplias zonas comunes, piscina de diseno y espacios verdes pensados para el bienestar. Con una arquitectura que maximiza la luz natural, cada vivienda ofrece un refugio de tranquilidad sin renunciar a la modernidad. Es la inversion ideal para quienes buscan calidad de vida, seguridad y un entorno sofisticado."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Ubicacion y Conectividad: Comodidad y Servicios"
+        },
+        {
+          "type": "paragraph",
+          "content": "La ubicacion estrategica de Nylva Homes es su mayor activo para el dia a dia. Situada con un acceso directo a la autovia, permite una movilidad agil hacia los principales nucleos urbanos y servicios. A un paso de la promocion, encontraras una completa oferta de servicios: desde supermercados de grandes superficies y farmacias hasta centros educativos y deportivos. Vivir aqui significa reducir el estres de los nucleos urbanos, disfrutando de la comodidad de un entorno perfectamente conectado."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Calidades y Confort: Detalles Tecnicos y Acabados"
+        },
+        {
+          "type": "paragraph",
+          "content": "Basada en una memoria de calidades premium, cada unidad de Nylva Homes ha sido proyectada con materiales de alta gama. Destacan sus suelos de gres porcelanico de gran formato y un sistema de climatizacion mediante aerotermia, garantizando maxima eficiencia energetica y ahorro. Las cocinas, integradas y totalmente equipadas, junto con la carpinteria exterior de rotura de puente termico, aseguran un aislamiento acustico y termico superior. Cada detalle, desde la griferia de diseno hasta el doble acristalamiento, esta pensado para ofrecer un confort inigualable y una durabilidad excepcional."
+        }
+      ]
+    },
+    "en": {
+      "title": "Unit 8 at Nylva Homes (Manilva)",
+      "intro": "Available unit in the Nylva Homes development in Manilva.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, calm and comfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes consists of 45 exclusive apartments in Manilva with a modern exterior design to enjoy its magnificent terraces, offering open views of the sea, Gibraltar and Africa."
+        },
+        {
+          "type": "paragraph",
+          "content": "Its architecture offers natural light and privacy in all its homes, while creating ample outdoor spaces. The home you have always dreamed of."
+        }
+      ]
+    },
+    "de": {
+      "title": "Einheit 8 in Nylva Homes (Manilva)",
+      "intro": "VerfÃ¼gbare Einheit in der Wohnanlage Nylva Homes in Manilva.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, Ruhe und Komfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes ist eine Wohnanlage mit 45 exklusiven Apartments in der Region Manilva-Sotogrande mit modernem Außendesign und großzügigen Terrassen mit offenem Blick auf das Meer, Gibraltar und Afrika."
+        },
+        {
+          "type": "paragraph",
+          "content": "Die Architektur bietet in allen Wohnungen viel Tageslicht und Privatsphäre und schafft zugleich großzügige Außenbereiche. Das Zuhause, das Sie sich immer gewünscht haben."
+        }
+      ]
+    },
+    "fr": {
+      "title": "Unit? 8 ? Nylva Homes (Manilva)",
+      "intro": "UnitÃ© disponible dans le programme Nylva Homes Ã  Manilva.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, calme et confort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes est un programme de 45 appartements exclusifs à Manilva-Sotogrande, au design extérieur moderne, avec de magnifiques terrasses offrant des vues ouvertes sur la mer, Gibraltar et l’Afrique."
+        },
+        {
+          "type": "paragraph",
+          "content": "Son architecture offre une lumière naturelle et de l’intimité dans tous les logements, tout en créant de grands espaces extérieurs. La maison dont vous avez toujours rêvé."
+        }
+      ]
+    },
+    "it": {
+      "title": "Unit? 8 a Nylva Homes (Manilva)",
+      "intro": "UnitÃ  disponibile nel complesso Nylva Homes a Manilva.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, calma e comfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes è una promozione di 45 esclusivi appartamenti a Manilva-Sotogrande con un design esterno moderno, dove poter godere di magnifiche terrazze con viste aperte sul mare, Gibilterra e Africa."
+        },
+        {
+          "type": "paragraph",
+          "content": "L’architettura offre luce naturale e privacy in tutte le abitazioni, creando al contempo ampi spazi esterni. La casa che hai sempre desiderato."
+        }
+      ]
+    },
+    "nl": {
+      "title": "Unit 8 in Nylva Homes (Manilva)",
+      "intro": "Beschikbare unit in het project Nylva Homes in Manilva.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "Nylva Homes, rust en comfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nylva Homes is een project met 45 exclusieve appartementen in Manilva-Sotogrande met een modern exterieur en prachtige terrassen met open uitzicht op zee, Gibraltar en Afrika."
+        },
+        {
+          "type": "paragraph",
+          "content": "De architectuur biedt natuurlijk licht en privacy in alle woningen en creëert tegelijk royale buitenruimtes. Het huis waar u altijd van heeft gedroomd."
+        }
+      ]
+    }
+  }
 }

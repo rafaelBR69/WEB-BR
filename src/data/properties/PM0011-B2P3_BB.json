@@ -1,191 +1,345 @@
 {
-    "id":  "PM0011-B2P3_BB",
-    "priority":  70,
-    "listing_type":  "unit",
-    "parent_id":  "PM0011",
-    "slugs":  {
-                  "es":  "unidad-bloque-2-portal-3-bajo-b-calahonda-sunset",
-                  "en":  "unit-bloque-2-portal-3-bajo-b-calahonda-sunset",
-                  "de":  "einheit-bloque-2-portal-3-bajo-b-calahonda-sunset",
-                  "fr":  "unite-bloque-2-portal-3-bajo-b-calahonda-sunset",
-                  "it":  "unita-bloque-2-portal-3-bajo-b-calahonda-sunset",
-                  "nl":  "unit-bloque-2-portal-3-bajo-b-calahonda-sunset"
-              },
-    "status":  "sold",
-    "featured":  false,
-    "languages":  [
-                      "es",
-                      "en",
-                      "de",
-                      "fr",
-                      "it",
-                      "nl"
-                  ],
-    "transaction":  "sale",
-    "price":  null,
-    "currency":  "EUR",
-    "phase":  "Bloque 2",
-    "location":  {
-                     "country":  "ES",
-                     "province":  "Malaga",
-                     "city":  "Mijas",
-                     "area":  "Calahonda",
-                     "coordinates":  {
-                                         "lat":  36.51162385658065,
-                                         "lng":  -4.730218545432794
-                                     }
-                 },
-    "property":  {
-                     "type":  "apartment",
-                     "market":  "obra_nueva",
-                     "year_built":  2026,
-                     "area_m2":  83.43,
-                     "usable_area_m2":  null,
-                     "terrace_m2":  55.05,
-                     "garden_m2":  null,
-                     "bedrooms":  2,
-                     "bathrooms":  null,
-                     "garages":  null,
-                     "floor_level":  0,
-                     "orientation":  null,
-                     "condition":  "new",
-                     "floor_label":  "Planta baja",
-                     "type_label":  "B",
-                     "block":  2,
-                     "portal":  3,
-                     "unit_code":  "2-3-BB",
-                     "useful_interior_m2":  83.43
-                 },
-    "features":  [
-                     "new_build",
-                     "terrace",
-                     "sea_views",
-                     "green_areas",
-                     "communal_pool",
-                     "gated_community"
-                 ],
-    "media":  {
-                  "cover":  null,
-                  "gallery":  {
-                                  "exterior":  [
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/edificio.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/facade-01.png"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/frontal.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza.png"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza2.png"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza3.png"
-                                                   }
-                                               ],
-                                  "interior":  [
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/bano.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/cocina.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/comedor.png"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio2.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon.png"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon2.png"
-                                                   }
-                                               ],
-                                  "views":  [
-                                                {
-                                                    "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas-03.png"
-                                                },
-                                                {
-                                                    "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas1.jpg"
-                                                },
-                                                {
-                                                    "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas2.png"
-                                                }
-                                            ],
-                                  "floorplan":  [
-
-                                                ]
-                              }
-              },
-    "seo":  {
-                "focus_keyphrase":  {
-                                        "es":  "apartamento calahonda sunset B2 P3 BB",
-                                        "en":  "calahonda sunset apartment B2 P3 BB",
-                                        "de":  "calahonda sunset apartment B2 P3 BB",
-                                        "fr":  "appartement calahonda sunset B2 P3 BB",
-                                        "it":  "appartamento calahonda sunset B2 P3 BB",
-                                        "nl":  "calahonda sunset appartement B2 P3 BB"
-                                    },
-                "meta_description":  {
-                                         "es":  "Unidad B2 P3 BB en Calahonda Sunset (vendida). Consulte disponibilidad, superficies y precio.",
-                                         "en":  "Unit B2 P3 BB at Calahonda Sunset (sold). Check availability, areas and price.",
-                                         "de":  "Einheit B2 P3 BB in Calahonda Sunset (verkauft). Verfuegbarkeit, Flaechen und Preis.",
-                                         "fr":  "Unite B2 P3 BB a Calahonda Sunset (vendue). Consultez disponibilite, surfaces et prix.",
-                                         "it":  "Unita B2 P3 BB a Calahonda Sunset (venduta). Verifica disponibilita, superfici e prezzo.",
-                                         "nl":  "Unit B2 P3 BB in Calahonda Sunset (verkocht). Bekijk beschikbaarheid, oppervlaktes en prijs."
-                                     }
-            },
-    "translations":  {
-                         "es":  {
-                                    "title":  "Unidad B2 P3 BB en Calahonda Sunset",
-                                    "intro":  "Unidad vendida en bloque 2, portal 3, Bajo, letra B.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "en":  {
-                                    "title":  "Unit B2 P3 BB at Calahonda Sunset",
-                                    "intro":  "Unit sold in block 2, portal 3, Ground floor, letter B.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "de":  {
-                                    "title":  "Einheit B2 P3 BB in Calahonda Sunset",
-                                    "intro":  "Einheit verkauft in Block 2, Portal 3, Erdgeschoss, Buchstabe B.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "fr":  {
-                                    "title":  "Unite B2 P3 BB a Calahonda Sunset",
-                                    "intro":  "Unite vendue dans le bloc 2, portail 3, Rez-de-chaussee, lettre B.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "it":  {
-                                    "title":  "Unita B2 P3 BB a Calahonda Sunset",
-                                    "intro":  "Unita venduta nel blocco 2, portale 3, Piano terra, lettera B.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "nl":  {
-                                    "title":  "Unit B2 P3 BB in Calahonda Sunset",
-                                    "intro":  "Unit verkocht in blok 2, portaal 3, Begane grond, letter B.",
-                                    "description":  [
-
-                                                    ]
-                                }
-                     }
+  "id": "PM0011-B2P3_BB",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM0011",
+  "slugs": {
+    "es": "unidad-bloque-2-portal-3-bajo-b-calahonda-sunset",
+    "en": "unit-bloque-2-portal-3-bajo-b-calahonda-sunset",
+    "de": "einheit-bloque-2-portal-3-bajo-b-calahonda-sunset",
+    "fr": "unite-bloque-2-portal-3-bajo-b-calahonda-sunset",
+    "it": "unita-bloque-2-portal-3-bajo-b-calahonda-sunset",
+    "nl": "unit-bloque-2-portal-3-bajo-b-calahonda-sunset"
+  },
+  "status": "sold",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": null,
+  "currency": "EUR",
+  "phase": "Bloque 2",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Calahonda",
+    "coordinates": {
+      "lat": 36.51162385658065,
+      "lng": -4.730218545432794
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2026,
+    "area_m2": 83.43,
+    "usable_area_m2": null,
+    "terrace_m2": 55.05,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": null,
+    "garages": null,
+    "floor_level": 0,
+    "orientation": null,
+    "condition": "new",
+    "floor_label": "Planta baja",
+    "type_label": "B",
+    "block": 2,
+    "portal": 3,
+    "unit_code": "2-3-BB",
+    "useful_interior_m2": 83.43
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "communal_pool",
+    "gated_community"
+  ],
+  "media": {
+    "cover": null,
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/edificio.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/facade-01.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/frontal.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza2.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/terraza3.png"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/bano.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/cocina.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/comedor.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/dormitorio2.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/interior/salon2.png"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas-03.png"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas2.png"
+        }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento calahonda sunset B2 P3 BB",
+      "en": "calahonda sunset apartment B2 P3 BB",
+      "de": "calahonda sunset apartment B2 P3 BB",
+      "fr": "appartement calahonda sunset B2 P3 BB",
+      "it": "appartamento calahonda sunset B2 P3 BB",
+      "nl": "calahonda sunset appartement B2 P3 BB"
+    },
+    "meta_description": {
+      "es": "Unidad B2 P3 BB en Calahonda Sunset (vendida). Consulte disponibilidad, superficies y precio.",
+      "en": "Unit B2 P3 BB at Calahonda Sunset (sold). Check availability, areas and price.",
+      "de": "Einheit B2 P3 BB in Calahonda Sunset (verkauft). Verfuegbarkeit, Flaechen und Preis.",
+      "fr": "Unite B2 P3 BB a Calahonda Sunset (vendue). Consultez disponibilite, surfaces et prix.",
+      "it": "Unita B2 P3 BB a Calahonda Sunset (venduta). Verifica disponibilita, superfici e prezzo.",
+      "nl": "Unit B2 P3 BB in Calahonda Sunset (verkocht). Bekijk beschikbaarheid, oppervlaktes en prijs."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Unidad B2 P3 BB en Calahonda Sunset",
+      "intro": "Unidad vendida en bloque 2, portal 3, Bajo, letra B.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Ventajas de la Promocion: Exclusividad y Estilo de Vida"
+        },
+        {
+          "type": "paragraph",
+          "content": "Calahonda Sunset es un exclusivo residencial de obra nueva en Mijas disenado para ofrecer un estilo de vida mediterraneo incomparable. Esta urbanizacion cerrada destaca por su espectacular piscina tipo infinity de cloracion salina, rodeada de zonas verdes con paisajismo autoctono y una terraza chill out ideal para eventos al aire libre. Con un enfoque en la sostenibilidad, el proyecto cuenta con certificacion energetica optima, gracias a su sistema de ventilacion cruzada y aislamiento termico SATE, garantizando un hogar responsable y eficiente. Es la oportunidad perfecta para invertir en calidad de vida y seguridad en la Costa del Sol."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Ubicacion y Conectividad: Comodidad y Servicios"
+        },
+        {
+          "type": "paragraph",
+          "content": "Vivir en Calahonda Sunset significa disfrutar de una ubicacion estrategica con conexion directa a la autovia A-7, facilitando desplazamientos rapidos a Malaga, Marbella y el aeropuerto. Situada en una zona consolidada de Mijas, la promocion ofrece la comodidad de tener supermercados, centros comerciales, farmacias y una variada oferta gastronomica a solo unos minutos. Ademas, la cercania a las mejores playas y campos de golf de la zona convierte a este residencial en el enclave ideal para quienes buscan la mezcla perfecta entre servicios urbanos y el relax de la costa."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Calidades de las Unidades: Confort y Tecnologia"
+        },
+        {
+          "type": "paragraph",
+          "content": "Basadas en una memoria de calidades premium, las viviendas de Calahonda Sunset ofrecen acabados de lujo y maxima eficiencia. Cada unidad cuenta con sistema de aerotermia individual para climatizacion y agua caliente, asegurando un ahorro energetico superior. Los interiores destacan por sus suelos de gres porcelanico de gran formato, cocinas totalmente equipadas con encimeras de piedra o porcelanico, y banos con platos de ducha antideslizantes y muebles integrados. Ademas, incluyen tecnologia avanzada como videoportero manos libres, preinstalacion de carga para vehiculos electricos y la posibilidad de personalizar acabados y extras como domotica o persianas motorizadas."
+        }
+      ]
+    },
+    "en": {
+      "title": "Unit B2 P3 BB at Calahonda Sunset",
+      "intro": "Unit sold in block 2, portal 3, Ground floor, letter B.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Development Advantages: Exclusivity and Lifestyle"
+        },
+        {
+          "type": "paragraph",
+          "content": "Calahonda Sunset is an exclusive new build residential development in Mijas designed to deliver an exceptional Mediterranean lifestyle. This gated community stands out for its spectacular salt-chlorinated infinity pool, surrounded by landscaped green areas with native planting and a chill-out terrace ideal for open-air events. With a strong focus on sustainability, the project enjoys an optimal energy certification thanks to cross ventilation and SATE thermal insulation, ensuring a responsible and efficient home. It is the perfect opportunity to invest in quality of life and security on the Costa del Sol."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Location and Connectivity: Convenience and Services"
+        },
+        {
+          "type": "paragraph",
+          "content": "Living at Calahonda Sunset means enjoying a strategic location with direct access to the A-7 motorway, making fast journeys to Malaga, Marbella and the airport easy. Set in an established area of Mijas, the development offers the convenience of supermarkets, shopping centres, pharmacies and a varied dining scene just minutes away. In addition, the proximity to some of the best beaches and golf courses in the area makes this residential development the ideal setting for buyers seeking the perfect mix of urban services and coastal relaxation."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Unit Specifications: Comfort and Technology"
+        },
+        {
+          "type": "paragraph",
+          "content": "Based on a premium specification, Calahonda Sunset homes offer luxury finishes and maximum efficiency. Each unit features an individual aerothermal system for climate control and hot water, ensuring superior energy savings. Interiors stand out for their large-format porcelain floors, fully fitted kitchens with stone or porcelain worktops, and bathrooms with anti-slip shower trays and integrated furniture. They also include advanced technology such as hands-free video entry, pre-installation for electric vehicle charging and the option to personalize finishes and extras such as home automation or motorized blinds."
+        }
+      ]
+    },
+    "de": {
+      "title": "Einheit B2 P3 BB in Calahonda Sunset",
+      "intro": "Einheit verkauft in Block 2, Portal 3, Erdgeschoss, Buchstabe B.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Vorteile des Projekts: Exklusivitaet und Lebensstil"
+        },
+        {
+          "type": "paragraph",
+          "content": "Calahonda Sunset ist eine exklusive Neubauwohnanlage in Mijas, die fuer einen unvergleichlichen mediterranen Lebensstil konzipiert wurde. Diese geschlossene Urbanisation besticht durch ihren spektakulaeren Infinity-Pool mit Salzwasserchlorierung, umgeben von Gruenflaechen mit einheimischer Bepflanzung und einer Chill-out-Terrasse, die ideal fuer Veranstaltungen im Freien ist. Mit einem klaren Fokus auf Nachhaltigkeit verfuegt das Projekt ueber eine optimale Energiezertifizierung dank Querlueftungssystem und SATE-Waermedaemmung und garantiert damit ein verantwortungsvolles und effizientes Zuhause. Es ist die perfekte Gelegenheit, in Lebensqualitaet und Sicherheit an der Costa del Sol zu investieren."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Lage und Anbindung: Komfort und Services"
+        },
+        {
+          "type": "paragraph",
+          "content": "In Calahonda Sunset zu wohnen bedeutet, eine strategische Lage mit direkter Anbindung an die A-7 zu geniessen, die schnelle Wege nach Malaga, Marbella und zum Flughafen ermoeglicht. In einer etablierten Gegend von Mijas gelegen, bietet die Anlage den Komfort, Supermaerkte, Einkaufszentren, Apotheken und ein vielfaeltiges gastronomisches Angebot nur wenige Minuten entfernt zu haben. Darueber hinaus macht die Naehe zu den besten Straenden und Golfplaetzen der Umgebung diese Wohnanlage zum idealen Standort fuer alle, die die perfekte Mischung aus urbanen Services und der Entspannung der Kueste suchen."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Qualitaeten der Einheiten: Komfort und Technologie"
+        },
+        {
+          "type": "paragraph",
+          "content": "Auf Basis einer Premium-Baubeschreibung bieten die Wohnungen von Calahonda Sunset hochwertige Ausstattungen und maximale Effizienz. Jede Einheit verfuegt ueber ein individuelles Aerothermie-System fuer Klimatisierung und Warmwasser, das hohe Energieeinsparungen sichert. Im Innenraum stechen grossformatige Feinsteinzeugboeden, voll ausgestattete Kuechen mit Arbeitsplatten aus Stein oder Porzellan sowie Baeder mit rutschhemmenden Duschtassen und integrierten Moebeln hervor. Darueber hinaus gehoeren moderne Technologien wie eine Freisprech-Video-Gegensprechanlage, die Vorinstallation fuer das Laden von Elektrofahrzeugen und die Moeglichkeit zur Personalisierung von Ausstattungen und Extras wie Smart-Home-Systemen oder motorisierten Rolllaeden dazu."
+        }
+      ]
+    },
+    "fr": {
+      "title": "Unite B2 P3 BB a Calahonda Sunset",
+      "intro": "Unite vendue dans le bloc 2, portail 3, Rez-de-chaussee, lettre B.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Avantages du programme : Exclusivite et style de vie"
+        },
+        {
+          "type": "paragraph",
+          "content": "Calahonda Sunset est une residence neuve exclusive a Mijas, concue pour offrir un style de vie mediterraneen incomparable. Cette urbanisation fermee se distingue par son spectaculaire bassin infinity a chloration saline, entoure d espaces verts au paysagisme autochtone et d une terrasse chill out ideale pour les evenements en plein air. Axe sur la durabilite, le projet beneficie d une certification energetique optimale grace a son systeme de ventilation croisee et a son isolation thermique SATE, garantissant un logement responsable et efficace. C est l occasion ideale d investir dans la qualite de vie et la securite sur la Costa del Sol."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Emplacement et connectivite : Confort et services"
+        },
+        {
+          "type": "paragraph",
+          "content": "Vivre a Calahonda Sunset signifie profiter d un emplacement strategique avec connexion directe a l autoroute A-7, facilitant des deplacements rapides vers Malaga, Marbella et l aeroport. Situe dans un secteur etabli de Mijas, le programme offre le confort d avoir supermarches, centres commerciaux, pharmacies et une offre gastronomique variee a seulement quelques minutes. De plus, la proximite des meilleures plages et des parcours de golf de la zone fait de cette residence l enclave ideale pour ceux qui recherchent l equilibre parfait entre services urbains et detente du littoral."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Qualites des unites : Confort et technologie"
+        },
+        {
+          "type": "paragraph",
+          "content": "Basees sur un cahier des charges premium, les habitations de Calahonda Sunset offrent des finitions haut de gamme et une efficacite maximale. Chaque unite dispose d un systeme individuel d aerothermie pour la climatisation et l eau chaude, garantissant d excellentes economies d energie. Les interieurs se distinguent par des sols en gres porcelanique grand format, des cuisines entierement equipees avec plans de travail en pierre ou porcelanique, et des salles de bains avec receveurs antiderapants et meubles integres. Elles incluent aussi une technologie avancee telle qu un visiophone mains libres, la preinstallation pour la recharge des vehicules electriques et la possibilite de personnaliser les finitions et extras comme la domotique ou les stores motorises."
+        }
+      ]
+    },
+    "it": {
+      "title": "Unita B2 P3 BB a Calahonda Sunset",
+      "intro": "Unita venduta nel blocco 2, portale 3, Piano terra, lettera B.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Vantaggi della Promozione: Esclusivita e Stile di Vita"
+        },
+        {
+          "type": "paragraph",
+          "content": "Calahonda Sunset e un esclusivo residenziale di nuova costruzione a Mijas progettato per offrire uno stile di vita mediterraneo impareggiabile. Questa urbanizzazione chiusa si distingue per la sua spettacolare piscina infinity con clorazione salina, circondata da aree verdi con paesaggistica autoctona e una terrazza chill out ideale per eventi all aperto. Con un forte orientamento alla sostenibilita, il progetto dispone di una certificazione energetica ottimale grazie al sistema di ventilazione incrociata e all isolamento termico SATE, garantendo una casa responsabile ed efficiente. E l opportunita perfetta per investire in qualita della vita e sicurezza sulla Costa del Sol."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Posizione e Collegamenti: Comfort e Servizi"
+        },
+        {
+          "type": "paragraph",
+          "content": "Vivere a Calahonda Sunset significa godere di una posizione strategica con collegamento diretto all autostrada A-7, che facilita spostamenti rapidi verso Malaga, Marbella e l aeroporto. Situata in una zona consolidata di Mijas, la promozione offre la comodita di avere supermercati, centri commerciali, farmacie e una varia offerta gastronomica a pochi minuti. Inoltre, la vicinanza alle migliori spiagge e ai campi da golf della zona rende questo residenziale l enclave ideale per chi cerca il perfetto equilibrio tra servizi urbani e il relax della costa."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Qualita delle Unita: Comfort e Tecnologia"
+        },
+        {
+          "type": "paragraph",
+          "content": "Basate su un capitolato premium, le abitazioni di Calahonda Sunset offrono finiture di lusso e massima efficienza. Ogni unita dispone di un sistema individuale di aerotermia per climatizzazione e acqua calda, garantendo un importante risparmio energetico. Gli interni si distinguono per i pavimenti in gres porcellanato di grande formato, cucine completamente attrezzate con piani di lavoro in pietra o porcellanato e bagni con piatti doccia antiscivolo e mobili integrati. Inoltre, includono tecnologia avanzata come videocitofono vivavoce, predisposizione per la ricarica di veicoli elettrici e la possibilita di personalizzare finiture ed extra come domotica o persiane motorizzate."
+        }
+      ]
+    },
+    "nl": {
+      "title": "Unit B2 P3 BB in Calahonda Sunset",
+      "intro": "Unit verkocht in blok 2, portaal 3, Begane grond, letter B.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Voordelen van het Project: Exclusiviteit en Levensstijl"
+        },
+        {
+          "type": "paragraph",
+          "content": "Calahonda Sunset is een exclusieve nieuwbouwresidentie in Mijas, ontworpen om een ongeevenaarde mediterrane levensstijl te bieden. Deze afgesloten urbanisatie onderscheidt zich door een spectaculaire infinity pool met zoutchlorering, omringd door groenzones met inheems landschapsontwerp en een chill-outterras dat ideaal is voor buitenbijeenkomsten. Met een sterke focus op duurzaamheid beschikt het project over een optimale energiecertificering dankzij kruisventilatie en SATE-thermische isolatie, wat een verantwoord en efficient huis garandeert. Het is de perfecte kans om te investeren in levenskwaliteit en veiligheid aan de Costa del Sol."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Ligging en Verbindingen: Comfort en Diensten"
+        },
+        {
+          "type": "paragraph",
+          "content": "Wonen in Calahonda Sunset betekent genieten van een strategische ligging met directe verbinding naar de A-7, waardoor snelle verplaatsingen naar Malaga, Marbella en de luchthaven mogelijk zijn. Gelegen in een gevestigde zone van Mijas biedt het project het gemak van supermarkten, winkelcentra, apotheken en een gevarieerd gastronomisch aanbod op slechts enkele minuten afstand. Bovendien maakt de nabijheid van de beste stranden en golfbanen van de omgeving deze residentie tot de ideale enclave voor wie de perfecte mix zoekt tussen stedelijke voorzieningen en de rust van de kust."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Kwaliteiten van de Woningen: Comfort en Technologie"
+        },
+        {
+          "type": "paragraph",
+          "content": "Gebaseerd op een premium kwaliteitsbestek bieden de woningen van Calahonda Sunset luxe afwerkingen en maximale efficientie. Elke unit beschikt over een individueel aerothermisch systeem voor klimaatregeling en warm water, wat aanzienlijke energiebesparing garandeert. De interieurs vallen op door grootformaat porcellanato vloeren, volledig uitgeruste keukens met werkbladen in steen of porcellanato en badkamers met antislipdouches en geintegreerde meubels. Daarnaast beschikken ze over geavanceerde technologie zoals een handsfree video-intercom, pre-installatie voor het opladen van elektrische voertuigen en de mogelijkheid om afwerkingen en extras zoals domotica of gemotoriseerde rolluiken te personaliseren."
+        }
+      ]
+    }
+  }
 }

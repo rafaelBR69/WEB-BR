@@ -1,183 +1,339 @@
 {
-    "id":  "PM0074-P3_4A",
-    "priority":  70,
-    "listing_type":  "unit",
-    "parent_id":  "PM0074",
-    "slugs":  {
-                  "es":  "unidad-portal-3-planta-4-a-orion-collection-almitak-mijas",
-                  "en":  "unit-portal-3-planta-4-a-orion-collection-almitak-mijas",
-                  "de":  "einheit-portal-3-planta-4-a-orion-collection-almitak-mijas",
-                  "fr":  "unite-portal-3-planta-4-a-orion-collection-almitak-mijas",
-                  "it":  "unita-portal-3-planta-4-a-orion-collection-almitak-mijas",
-                  "nl":  "unit-portal-3-planta-4-a-orion-collection-almitak-mijas"
-              },
-    "status":  "available",
-    "featured":  false,
-    "languages":  [
-                      "es",
-                      "en",
-                      "de",
-                      "fr",
-                      "it",
-                      "nl"
-                  ],
-    "transaction":  "sale",
-    "price":  472000,
-    "currency":  "EUR",
-    "location":  {
-                     "country":  "ES",
-                     "province":  "Malaga",
-                     "city":  "Mijas",
-                     "area":  "Las Lagunas",
-                     "coordinates":  {
-                                         "lat":  36.53577628175631,
-                                         "lng":  -4.639616603103012
-                                     }
-                 },
-    "property":  {
-                     "type":  "apartment",
-                     "market":  "obra_nueva",
-                     "year_built":  2027,
-                     "area_m2":  114.94,
-                     "usable_area_m2":  75.47,
-                     "terrace_m2":  25.8,
-                     "garden_m2":  null,
-                     "bedrooms":  2,
-                     "bathrooms":  null,
-                     "garages":  null,
-                     "floor_level":  4,
-                     "orientation":  null,
-                     "condition":  "new",
-                     "floor_label":  "Planta 4",
-                     "type_label":  "A",
-                     "useful_interior_m2":  71.87,
-                     "portal":  3,
-                     "unit_code":  "P3-4A"
-                 },
-    "features":  [
-                     "new_build",
-                     "terrace",
-                     "sea_views",
-                     "green_areas",
-                     "communal_pool",
-                     "gated_community"
-                 ],
-    "media":  {
-                  "cover":  null,
-                  "gallery":  {
-                                  "exterior":  [
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/02_EXT_PERGOLA-v1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/03_EXT_TERRAZAS--v1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/04_EXT_PISCINA-v1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/05_EXT_AGUA-v1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/12_EXT_AEREA_NOCTURNA-v1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-01.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-02.jpg"
-                                                   }
-                                               ],
-                                  "interior":  [
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/06_INT_SALON_sin-fondo-mar-v1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/07_INT_COCINA_sin-fondo-mar-v1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/08_TERRAZA_PISCINA_sin-fondo-mar-v1.jpg"
-                                                   },
-                                                   {
-                                                       "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/10_TERRAZA_FACHADA_sin-fondo-mar-v1.jpg"
-                                                   }
-                                               ],
-                                  "views":  [
-                                                {
-                                                    "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/02_EXT_PERGOLA-v1.jpg"
-                                                },
-                                                {
-                                                    "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/04_EXT_PISCINA-v1.jpg"
-                                                }
-                                            ],
-                                  "floorplan":  [
-                                                    {
-                                                        "url":  "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/planos/3-4-A.pdf"
-                                                    }
-                                                ]
-                              }
-              },
-    "seo":  {
-                "focus_keyphrase":  {
-                                        "es":  "apartamento orion collection almitak portal 3 planta 4 A mijas",
-                                        "en":  "orion collection almitak apartment portal 3 floor 4 A mijas",
-                                        "de":  "orion collection almitak apartment portal 3 etage 4 A mijas",
-                                        "fr":  "appartement orion collection almitak portail 3 etage 4 A mijas",
-                                        "it":  "appartamento orion collection almitak portale 3 piano 4 A mijas",
-                                        "nl":  "orion collection almitak appartement portaal 3 verdieping 4 A mijas"
-                                    },
-                "meta_description":  {
-                                         "es":  "Unidad P3-4A en Orion Collection: Almitak, Las Lagunas de Mijas. Consulte disponibilidad, superficies y precio.",
-                                         "en":  "Unit P3-4A at Orion Collection: Almitak, Las Lagunas de Mijas. Check availability, areas and price.",
-                                         "de":  "Einheit P3-4A in Orion Collection: Almitak, Las Lagunas de Mijas. Verfuegbarkeit, Flaechen und Preis pruefen.",
-                                         "fr":  "Unite P3-4A a Orion Collection: Almitak, Las Lagunas de Mijas. Consultez disponibilite, surfaces et prix.",
-                                         "it":  "Unita P3-4A a Orion Collection: Almitak, Las Lagunas de Mijas. Verifica disponibilita, superfici e prezzo.",
-                                         "nl":  "Unit P3-4A in Orion Collection: Almitak, Las Lagunas de Mijas. Bekijk beschikbaarheid, oppervlaktes en prijs."
-                                     }
-            },
-    "translations":  {
-                         "es":  {
-                                    "title":  "Unidad P3-4A en Orion Collection: Almitak",
-                                    "intro":  "Unidad disponible en portal 3, Planta 4, letra A con 2 dormitorios.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "en":  {
-                                    "title":  "Unit P3-4A at Orion Collection: Almitak",
-                                    "intro":  "Available unit in portal 3, Floor 4, letter A with 2 bedrooms.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "de":  {
-                                    "title":  "Einheit P3-4A in Orion Collection: Almitak",
-                                    "intro":  "Verfuegbare Einheit in Portal 3, Etage 4, Buchstabe A mit 2 Schlafzimmern.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "fr":  {
-                                    "title":  "Unite P3-4A a Orion Collection: Almitak",
-                                    "intro":  "Unite disponible au portail 3, Etage 4, lettre A avec 2 chambres.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "it":  {
-                                    "title":  "Unita P3-4A a Orion Collection: Almitak",
-                                    "intro":  "Unita disponibile nel portale 3, Piano 4, lettera A con 2 camere.",
-                                    "description":  [
-
-                                                    ]
-                                },
-                         "nl":  {
-                                    "title":  "Unit P3-4A in Orion Collection: Almitak",
-                                    "intro":  "Beschikbare unit in portaal 3, Verdieping 4, letter A met 2 slaapkamers.",
-                                    "description":  [
-
-                                                    ]
-                                }
-                     },
-    "phase":  "Portal 3"
+  "id": "PM0074-P3_4A",
+  "priority": 70,
+  "listing_type": "unit",
+  "parent_id": "PM0074",
+  "slugs": {
+    "es": "unidad-portal-3-planta-4-a-orion-collection-almitak-mijas",
+    "en": "unit-portal-3-planta-4-a-orion-collection-almitak-mijas",
+    "de": "einheit-portal-3-planta-4-a-orion-collection-almitak-mijas",
+    "fr": "unite-portal-3-planta-4-a-orion-collection-almitak-mijas",
+    "it": "unita-portal-3-planta-4-a-orion-collection-almitak-mijas",
+    "nl": "unit-portal-3-planta-4-a-orion-collection-almitak-mijas"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "price": 472000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Las Lagunas",
+    "coordinates": {
+      "lat": 36.53577628175631,
+      "lng": -4.639616603103012
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "obra_nueva",
+    "year_built": 2027,
+    "area_m2": 114.94,
+    "usable_area_m2": 75.47,
+    "terrace_m2": 25.8,
+    "garden_m2": null,
+    "bedrooms": 2,
+    "bathrooms": null,
+    "garages": null,
+    "floor_level": 4,
+    "orientation": null,
+    "condition": "new",
+    "floor_label": "Planta 4",
+    "type_label": "A",
+    "useful_interior_m2": 71.87,
+    "portal": 3,
+    "unit_code": "P3-4A"
+  },
+  "features": [
+    "new_build",
+    "terrace",
+    "sea_views",
+    "green_areas",
+    "communal_pool",
+    "gated_community"
+  ],
+  "media": {
+    "cover": null,
+    "gallery": {
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/02_EXT_PERGOLA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/03_EXT_TERRAZAS--v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/04_EXT_PISCINA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/05_EXT_AGUA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/12_EXT_AEREA_NOCTURNA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/exterior/street-02.jpg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/06_INT_SALON_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/07_INT_COCINA_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/08_TERRAZA_PISCINA_sin-fondo-mar-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/interior/10_TERRAZA_FACHADA_sin-fondo-mar-v1.jpg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/02_EXT_PERGOLA-v1.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/zonas-comunes/04_EXT_PISCINA-v1.jpg"
+        }
+      ],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/planos/3-4-A.pdf"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "apartamento orion collection almitak portal 3 planta 4 A mijas",
+      "en": "orion collection almitak apartment portal 3 floor 4 A mijas",
+      "de": "orion collection almitak apartment portal 3 etage 4 A mijas",
+      "fr": "appartement orion collection almitak portail 3 etage 4 A mijas",
+      "it": "appartamento orion collection almitak portale 3 piano 4 A mijas",
+      "nl": "orion collection almitak appartement portaal 3 verdieping 4 A mijas"
+    },
+    "meta_description": {
+      "es": "Unidad P3-4A en Orion Collection: Almitak, Las Lagunas de Mijas. Consulte disponibilidad, superficies y precio.",
+      "en": "Unit P3-4A at Orion Collection: Almitak, Las Lagunas de Mijas. Check availability, areas and price.",
+      "de": "Einheit P3-4A in Orion Collection: Almitak, Las Lagunas de Mijas. Verfuegbarkeit, Flaechen und Preis pruefen.",
+      "fr": "Unite P3-4A a Orion Collection: Almitak, Las Lagunas de Mijas. Consultez disponibilite, surfaces et prix.",
+      "it": "Unita P3-4A a Orion Collection: Almitak, Las Lagunas de Mijas. Verifica disponibilita, superfici e prezzo.",
+      "nl": "Unit P3-4A in Orion Collection: Almitak, Las Lagunas de Mijas. Bekijk beschikbaarheid, oppervlaktes en prijs."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Unidad P3-4A en Orion Collection: Almitak",
+      "intro": "Unidad disponible en portal 3, Planta 4, letra A con 2 dormitorios.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Ventajas de la Promocion: Exclusividad y Bienestar"
+        },
+        {
+          "type": "paragraph",
+          "content": "Almitak representa la excelencia en obra nueva, un conjunto residencial hermetico y seguro disenado para quienes buscan un estilo de vida superior. Esta promocion destaca por sus inigualables zonas comunes que incluyen piscina exterior e interior, un gimnasio totalmente equipado con sauna y amplias zonas verdes autoctonas de bajo consumo hidrico. Almitak no solo ofrece diseno vanguardista, sino tambien un compromiso real con la sostenibilidad y un ahorro energetico superior al 80%. Es el refugio perfecto que combina seguridad, salud con su espacio y el maximo confort moderno."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Ubicacion y Conectividad: Comodidad Urbana"
+        },
+        {
+          "type": "paragraph",
+          "content": "Situada en una ubicacion privilegiada, Almitak ofrece la combinacion perfecta entre tranquilidad residencial y conectividad urbana. La promocion cuenta con una facilidad de acceso inmejorable a la autovia, permitiendo desplazamientos rapidos hacia los principales centros de servicios y ocio. A pocos minutos, los residentes disponen de una amplia oferta de supermercados, farmacias y colegios, facilitando la logistica del dia a dia. Ademas, la zona esta en pleno desarrollo, lo que garantiza una excelente revalorizacion de la inversion y la comodidad de tener todo lo necesario al alcance de la mano sin renunciar a la paz de un entorno exclusivo."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Calidades de las Viviendas: Innovacion y Confort Interior"
+        },
+        {
+          "type": "paragraph",
+          "content": "Las viviendas de Almitak han sido proyectadas bajo los mas altos estandares de la memoria de calidades, destacando el uso de aerotermia para la produccion de agua caliente y climatizacion por conductos de alta eficiencia. El interior presume de acabados premium como tarima laminada AC5 en zonas secas y gres de primera calidad en banos y cocinas. La tecnologia es protagonista gracias a un sistema de domotica inteligente controlable por voz (Alexa/Google) y una puerta acorazada con cerradura digital. Ademas, muchas unidades incluyen piscina privada en sus terrazas o jardines, complementadas con carpinteria de PVC/aluminio con rotura de puente termico y grandes ventanales para maximizar la luz natural."
+        }
+      ]
+    },
+    "en": {
+      "title": "Unit P3-4A at Orion Collection: Almitak",
+      "intro": "Available unit in portal 3, Floor 4, letter A with 2 bedrooms.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Development Advantages: Exclusivity and Wellbeing"
+        },
+        {
+          "type": "paragraph",
+          "content": "Almitak represents excellence in new build living, a secure and self-contained residential community designed for buyers seeking a superior lifestyle. This development stands out for its exceptional communal areas, including outdoor and indoor pools, a fully equipped gym with sauna and generous native landscaped areas with low water consumption. Almitak delivers not only contemporary design but also a real commitment to sustainability and energy savings above 80%. It is the ideal refuge combining security, wellbeing through space and maximum modern comfort."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Location and Connectivity: Urban Convenience"
+        },
+        {
+          "type": "paragraph",
+          "content": "Set in a privileged location, Almitak offers the perfect balance between residential calm and urban connectivity. The development enjoys excellent access to the motorway, allowing quick journeys to the main service and leisure hubs. Just minutes away, residents benefit from a wide selection of supermarkets, pharmacies and schools, making day-to-day logistics straightforward. The area is also undergoing strong development, supporting long-term value growth while keeping everything essential within easy reach without giving up the peace of an exclusive setting."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Home Specifications: Innovation and Interior Comfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Almitak homes have been planned to the highest specification standards, with aerothermal energy for hot water production and high-efficiency ducted climate control. Interiors feature premium finishes such as AC5 laminated flooring in dry areas and first-quality porcelain surfaces in bathrooms and kitchens. Technology plays a leading role thanks to a smart home system controllable by voice (Alexa/Google) and an armoured entrance door with digital lock. In addition, many homes include a private pool on terraces or gardens, completed by PVC/aluminium carpentry with thermal break and large windows to maximize natural light."
+        }
+      ]
+    },
+    "de": {
+      "title": "Einheit P3-4A in Orion Collection: Almitak",
+      "intro": "Verfuegbare Einheit in Portal 3, Etage 4, Buchstabe A mit 2 Schlafzimmern.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Vorteile des Projekts: Exklusivitaet und Wohlbefinden"
+        },
+        {
+          "type": "paragraph",
+          "content": "Almitak steht fuer Exzellenz im Neubau, eine geschlossene und sichere Wohnanlage fuer Kaeufer mit hohem Anspruch an den Lebensstil. Das Projekt ueberzeugt mit aussergewoehnlichen Gemeinschaftsbereichen, darunter Aussen- und Innenpool, ein komplett ausgestattetes Fitnessstudio mit Sauna sowie grosszuegige einheimische Gruenflaechen mit geringem Wasserverbrauch. Almitak bietet nicht nur zeitgemaesses Design, sondern auch ein echtes Bekenntnis zu Nachhaltigkeit und Energieeinsparungen von ueber 80%. Es ist der perfekte Rueckzugsort, der Sicherheit, Wohlbefinden durch Raum und maximalen modernen Komfort vereint."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Lage und Anbindung: Urbaner Komfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "In privilegierter Lage bietet Almitak die perfekte Verbindung aus Wohnruhe und urbaner Anbindung. Die Anlage verfuegt ueber einen hervorragenden Zugang zur Autobahn und ermoeglicht schnelle Wege zu den wichtigsten Versorgungs- und Freizeitstandorten. Nur wenige Minuten entfernt finden Bewohner ein breites Angebot an Supermaerkten, Apotheken und Schulen, was den Alltag erheblich erleichtert. Zudem befindet sich die Gegend in voller Entwicklung, was eine ausgezeichnete Wertsteigerung der Investition beguenstigt und zugleich alles Wichtige in Reichweite haelt, ohne auf die Ruhe eines exklusiven Umfelds zu verzichten."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Wohnqualitaeten: Innovation und Innenkomfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "Die Wohnungen von Almitak wurden nach hoechsten Standards geplant. Hervorzuheben sind Aerothermie fuer Warmwasser und eine hocheffiziente Klimatisierung ueber Luftkanaele. Im Innenraum sorgen Premium-Oberflaechen wie AC5-Laminat in Trockenbereichen und erstklassiges Feinsteinzeug in Baedern und Kuechen fuer Qualitaet. Die Technologie spielt eine zentrale Rolle dank eines intelligenten Sprachsteuerungssystems (Alexa/Google) und einer gepanzerten Eingangstuer mit digitalem Schloss. Viele Einheiten verfuegen zusaetzlich ueber einen privaten Pool auf Terrasse oder im Garten sowie PVC/Aluminium-Fenster mit thermischer Trennung und grosse Verglasungen fuer maximalen Tageslichteinfall."
+        }
+      ]
+    },
+    "fr": {
+      "title": "Unite P3-4A a Orion Collection: Almitak",
+      "intro": "Unite disponible au portail 3, Etage 4, lettre A avec 2 chambres.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Avantages du programme : Exclusivite et bien-etre"
+        },
+        {
+          "type": "paragraph",
+          "content": "Almitak represente l excellence en programme neuf, un ensemble residentiel ferme et securise concu pour ceux qui recherchent un style de vie superieur. Cette promotion se distingue par ses espaces communs exceptionnels, incluant piscine exterieure et interieure, salle de sport entierement equipee avec sauna et vastes espaces verts autochtones a faible consommation d eau. Almitak offre non seulement un design contemporain, mais aussi un engagement reel en faveur de la durabilite et des economies d energie superieures a 80%. C est le refuge ideal qui combine securite, bien-etre grace a l espace et confort moderne maximal."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Emplacement et connectivite : Confort urbain"
+        },
+        {
+          "type": "paragraph",
+          "content": "Situe dans un emplacement privilegie, Almitak offre l equilibre parfait entre calme residentiel et connectivite urbaine. La promotion beneficie d un acces remarquable a l autoroute, facilitant des deplacements rapides vers les principaux centres de services et de loisirs. A quelques minutes, les residents disposent d une offre complete de supermarches, pharmacies et ecoles, simplifiant la logistique du quotidien. En outre, la zone est en plein developpement, ce qui favorise une excellente revalorisation de l investissement et la commodite d avoir tout le necessaire a portee de main sans renoncer a la paix d un environnement exclusif."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Qualites des logements : Innovation et confort interieur"
+        },
+        {
+          "type": "paragraph",
+          "content": "Les logements d Almitak ont ete concus selon les standards les plus eleves du cahier des charges, notamment avec aerothermie pour la production d eau chaude et climatisation gainable a haute efficacite. Les interieurs affichent des finitions premium comme parquet stratifie AC5 dans les zones seches et gres de premiere qualite dans les salles de bains et cuisines. La technologie tient un role central grace a un systeme domotique intelligent pilotable par la voix (Alexa/Google) et une porte blindee avec serrure numerique. De nombreuses unites disposent egalement d une piscine privee sur terrasse ou jardin, completee par des menuiseries PVC/aluminium avec rupture de pont thermique et de larges baies pour maximiser la lumiere naturelle."
+        }
+      ]
+    },
+    "it": {
+      "title": "Unita P3-4A a Orion Collection: Almitak",
+      "intro": "Unita disponibile nel portale 3, Piano 4, lettera A con 2 camere.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Vantaggi della Promozione: Esclusivita e Benessere"
+        },
+        {
+          "type": "paragraph",
+          "content": "Almitak rappresenta l eccellenza nella nuova costruzione, un complesso residenziale chiuso e sicuro progettato per chi cerca uno stile di vita superiore. Questa promozione si distingue per le sue straordinarie aree comuni, che includono piscina esterna e interna, palestra completamente attrezzata con sauna e ampie aree verdi autoctone a basso consumo idrico. Almitak non offre solo design contemporaneo, ma anche un impegno reale verso la sostenibilita e un risparmio energetico superiore all 80%. E il rifugio perfetto che combina sicurezza, benessere grazie allo spazio e massimo comfort moderno."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Posizione e Collegamenti: Comfort Urbano"
+        },
+        {
+          "type": "paragraph",
+          "content": "Situata in una posizione privilegiata, Almitak offre la combinazione perfetta tra tranquillita residenziale e connettivita urbana. La promozione gode di un accesso eccellente all autostrada, consentendo spostamenti rapidi verso i principali centri di servizi e tempo libero. A pochi minuti, i residenti dispongono di una vasta offerta di supermercati, farmacie e scuole, semplificando la logistica quotidiana. Inoltre, la zona e in pieno sviluppo, fattore che favorisce un ottima rivalutazione dell investimento e la comodita di avere tutto il necessario a portata di mano senza rinunciare alla pace di un contesto esclusivo."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Qualita delle Abitazioni: Innovazione e Comfort Interno"
+        },
+        {
+          "type": "paragraph",
+          "content": "Le abitazioni di Almitak sono state progettate secondo i piu alti standard del capitolato, con aerotermia per la produzione di acqua calda e climatizzazione canalizzata ad alta efficienza. Gli interni presentano finiture premium come pavimento laminato AC5 nelle zone asciutte e gres di prima qualita in bagni e cucine. La tecnologia ha un ruolo centrale grazie a un sistema di domotica intelligente controllabile con la voce (Alexa/Google) e a una porta blindata con serratura digitale. Molte unita includono inoltre piscina privata su terrazze o giardini, completata da serramenti in PVC/alluminio con taglio termico e ampie vetrate per massimizzare la luce naturale."
+        }
+      ]
+    },
+    "nl": {
+      "title": "Unit P3-4A in Orion Collection: Almitak",
+      "intro": "Beschikbare unit in portaal 3, Verdieping 4, letter A met 2 slaapkamers.",
+      "description": [
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "1. Voordelen van het Project: Exclusiviteit en Welzijn"
+        },
+        {
+          "type": "paragraph",
+          "content": "Almitak staat voor uitmuntendheid in nieuwbouw, een afgesloten en veilige woonontwikkeling voor kopers die een hogere levenskwaliteit zoeken. Deze promotie onderscheidt zich door uitzonderlijke gemeenschappelijke voorzieningen, waaronder een buiten- en binnenzwembad, een volledig uitgeruste fitnessruimte met sauna en royale inheemse groenzones met laag waterverbruik. Almitak biedt niet alleen eigentijds design, maar ook een echte inzet op duurzaamheid en een energiebesparing van meer dan 80%. Het is het perfecte toevluchtsoord dat veiligheid, welzijn dankzij ruimte en maximaal modern comfort samenbrengt."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "2. Ligging en Verbindingen: Stedelijk Gemak"
+        },
+        {
+          "type": "paragraph",
+          "content": "Gelegen op een bevoorrechte locatie biedt Almitak de perfecte combinatie van residentiele rust en stedelijke bereikbaarheid. Het project heeft een uitstekende toegang tot de snelweg, waardoor verplaatsingen naar de belangrijkste diensten- en recreatiekernen snel verlopen. Op enkele minuten afstand beschikken bewoners over een ruim aanbod aan supermarkten, apotheken en scholen, wat de dagelijkse logistiek vergemakkelijkt. Bovendien is de omgeving volop in ontwikkeling, wat zorgt voor een sterke herwaardering van de investering en het gemak van alles binnen handbereik zonder af te zien van de rust van een exclusieve omgeving."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "content": "3. Woonkwaliteiten: Innovatie en Interieurcomfort"
+        },
+        {
+          "type": "paragraph",
+          "content": "De woningen van Almitak zijn ontworpen volgens de hoogste standaarden van het kwaliteitsbestek, met aerothermie voor warmwaterproductie en hoogrendementsklimatisering via kanalen. Het interieur biedt premium afwerkingen zoals AC5-laminaat in droge zones en eersteklas gres in badkamers en keukens. Technologie speelt een hoofdrol dankzij een slim domoticasysteem dat met stem (Alexa/Google) kan worden bediend en een gepantserde deur met digitaal slot. Daarnaast beschikken veel units over een privezwembad op terras of in de tuin, aangevuld met PVC/aluminium schrijnwerk met thermische onderbreking en grote ramen om maximaal natuurlijk licht binnen te laten."
+        }
+      ]
+    }
+  },
+  "phase": "Portal 3"
 }
