@@ -7,7 +7,7 @@ import {
   normalizeFloorFilterLabel,
 } from "@shared/properties/floorFilter";
 
-export function applyFilters(cards: any[], filters: any) {
+export function hasUnitLevelFilters(filters: any) {
   const searchQuery = filters.search ? normalizeSearchText(filters.search) : "";
   const searchTerms = searchQuery ? searchQuery.split(" ").filter(Boolean) : [];
   const refQuery = filters.ref ? normalizeSearchText(filters.ref) : "";
@@ -22,13 +22,21 @@ export function applyFilters(cards: any[], filters: any) {
     .filter((value): value is string => typeof value === "string" && !isVillaFloorLabel(value));
   const hasFloorFilters = selectedFloors.length > 0;
 
-  const hasUnitFilters =
+  return (
     typeof filters.priceMin === "number" ||
     typeof filters.priceMax === "number" ||
     (Array.isArray(filters.bedrooms) && filters.bedrooms.length > 0) ||
     hasFloorFilters ||
     filters.listingType === "unit" ||
-    hasTextSearch;
+    hasTextSearch
+  );
+}
+
+export function applyFilters(cards: any[], filters: any) {
+  const searchQuery = filters.search ? normalizeSearchText(filters.search) : "";
+  const searchTerms = searchQuery ? searchQuery.split(" ").filter(Boolean) : [];
+  const refQuery = filters.ref ? normalizeSearchText(filters.ref) : "";
+  const hasUnitFilters = hasUnitLevelFilters(filters);
 
   return cards.filter((card) => {
     let searchScore = 0;

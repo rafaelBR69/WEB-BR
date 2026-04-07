@@ -782,10 +782,7 @@
 
 .map-wrapper {
   margin-top: 2rem;
-  box-shadow: 0 40px 80px rgba(32, 47, 78, 0.1);
   border-radius: 1rem;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
 }
 
 .map-note {

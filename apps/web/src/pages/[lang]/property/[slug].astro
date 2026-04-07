@@ -3,6 +3,7 @@ import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import RichContent from "@webapp/components/RichContent.astro";
 import PropertyHero from "@webapp/components/PropertyHero.astro";
 import GallerySection from "@webapp/components/GallerySection.astro";
+import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 
 import { SEO_LANDING_CITIES, SEO_LANDING_TYPES } from "@shared/config/seoSlugs";
 import { formatPrice } from "@shared/presentation/common";
@@ -14,6 +15,7 @@ import { appendCatalogFiltersToSearchParams } from "@shared/properties/catalogFi
 import { resolvePropertyLanding } from "@shared/seo/resolvePropertyLanding";
 import { DEFAULT_LANG, isSupportedLang } from "@shared/i18n/languages";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
+import { buildPropertyMapFeature } from "@shared/properties/compactMapFeatures";
 import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
 import "@webapp/styles/components/property-detail.css";
 
@@ -254,6 +256,16 @@ const projectSummary = (() => {
     deliveryYear: property.property?.year_built ?? null,
   };
 })();
+const mapboxToken = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
+const mapboxStyle = import.meta.env.PUBLIC_MAPBOX_STYLE ?? "mapbox://styles/mapbox/streets-v12";
+const propertyMapFeatureResult = buildPropertyMapFeature({
+  property: propertyResolved,
+  parentProperty,
+  card: propertyCard,
+  lang,
+  availableUnitsCount: isPromotion ? units.length : null,
+});
+const propertyMapFeatures = propertyMapFeatureResult.feature ? [propertyMapFeatureResult.feature] : [];
 
 const formatRangeValue = (range, decimals = 0) => {
   if (!range) return null;
@@ -1098,7 +1110,7 @@ const gallerySections = [
     }
   </script>
 
-  {data.location.coordinates && (
+  {propertyMapFeatures.length > 0 && (
     <section class="section-map" aria-labelledby="map-title">
       <div class="map-container">
         <span class="editorial-label">{t.mapLocation}</span>
@@ -1106,16 +1118,18 @@ const gallerySections = [
         <div class="luxury-divider"></div>
 
         <div class="map-wrapper">
-          <iframe
-            width="100%"
-            height="450"
-            style="border:0; border-radius: 1rem;"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            title={`${t.mapTitleIn} ${data.location.area}`}
-            src={`https://maps.google.com/maps?q=${data.location.coordinates.lat},${data.location.coordinates.lng}&z=15&output=embed`}
-          ></iframe>
+          <MapboxCostaMap
+            token={mapboxToken}
+            styleUrl={mapboxStyle}
+            features={propertyMapFeatures}
+            emptyMessage={t.mapNote}
+            mode="detail"
+            loadStrategy="visible"
+            showPois={true}
+            showZones={true}
+            enableRouting={true}
+            fitToFeaturesOnLoad={true}
+          />
         </div>
 
         <p class="map-note">{t.mapNote}</p>

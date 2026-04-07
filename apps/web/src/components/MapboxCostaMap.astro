@@ -94,11 +94,6 @@ const shouldRenderExploreButton =
         </p>
       </div>
 
-      <div class="map-poi-panel" data-map-poi-panel hidden>
-        <p class="map-poi-panel-title">{poiLabel}</p>
-        <div class="poi-filters" data-map-poi-filters></div>
-      </div>
-
       <div class="map-route-panel" data-map-route-panel hidden>
         <p class="map-route-title">{routePlannerTitle}</p>
         <button type="button" class="map-action map-action-alt" data-map-route-clear>
@@ -110,6 +105,11 @@ const shouldRenderExploreButton =
           <p><strong>{routeDurationLabel}:</strong> <span data-map-route-duration></span></p>
         </div>
       </div>
+    </div>
+
+    <div class="map-poi-panel" data-map-poi-panel hidden>
+      <p class="map-poi-panel-title">{poiLabel}</p>
+      <div class="poi-filters" data-map-poi-filters></div>
     </div>
   </div>
 </section>
@@ -181,7 +181,6 @@ const shouldRenderExploreButton =
   }
 
   .map-overlay-card,
-  .map-poi-panel,
   .map-route-panel {
     position: absolute;
     z-index: 4;
@@ -250,19 +249,20 @@ const shouldRenderExploreButton =
   }
 
   .map-poi-panel {
-    top: 1rem;
-    left: 1rem;
-    width: min(460px, calc(100% - 2rem));
-    padding: 0.72rem 0.78rem;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    background: rgba(255, 255, 255, 0.62);
-    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1);
+    display: grid;
+    gap: 0.7rem;
+    padding: 1rem 1.05rem 1.05rem;
+    border: 1px solid var(--map-border);
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.96));
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
   }
 
   .poi-filters {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.45rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
   }
 
   .poi-chip {
@@ -270,11 +270,17 @@ const shouldRenderExploreButton =
     background: rgba(255, 255, 255, 0.84);
     color: var(--map-brand);
     border-radius: 999px;
-    padding: 0.46rem 0.72rem;
+    padding: 0.62rem 0.95rem;
     font-size: 0.72rem;
     font-weight: 700;
     cursor: pointer;
     text-align: center;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  }
+
+  .poi-chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 16px rgba(15, 23, 42, 0.08);
   }
 
   .poi-chip.is-active {
@@ -391,9 +397,22 @@ const shouldRenderExploreButton =
     }
 
     .map-overlay-card,
-    .map-poi-panel,
     .map-route-panel {
       width: min(100%, calc(100% - 2rem));
+    }
+
+    .map-poi-panel {
+      padding: 0.9rem;
+    }
+
+    .poi-filters {
+      gap: 0.45rem;
+    }
+
+    .poi-chip {
+      flex: 1 1 calc(50% - 0.45rem);
+      min-width: 132px;
+      padding-inline: 0.8rem;
     }
   }
 </style>
