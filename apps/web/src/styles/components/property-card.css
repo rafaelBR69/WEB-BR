@@ -90,7 +90,53 @@
 }
 
 .card-gallery-nav {
-  display: none;
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(8, 16, 31, 0.18);
+  color: #fff;
+  cursor: pointer;
+  transform: translateY(-50%);
+  backdrop-filter: blur(8px);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.card-gallery-nav.is-prev {
+  left: 0.75rem;
+}
+
+.card-gallery-nav.is-next {
+  right: 0.75rem;
+}
+
+.card-gallery-nav span {
+  display: block;
+  font-size: 1.5rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.card-gallery-nav:hover,
+.card-gallery-nav:focus-visible {
+  background: rgba(8, 16, 31, 0.34);
+  border-color: rgba(255, 255, 255, 0.96);
+  transform: translateY(-50%) scale(1.04);
+}
+
+.card-gallery-nav:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
 }
 
 .card-gallery-dots {
@@ -381,5 +427,18 @@
 
   .property-card.is-compact .card-content {
     padding: 0.95rem 1rem 1rem;
+  }
+
+  .card-gallery-nav {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .card-gallery-nav.is-prev {
+    left: 0.55rem;
+  }
+
+  .card-gallery-nav.is-next {
+    right: 0.55rem;
   }
 }
