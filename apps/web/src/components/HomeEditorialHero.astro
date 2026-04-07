@@ -156,21 +156,6 @@ const hasSlides = slides.length > 0;
             ))}
           </div>
 
-          {slides.length > 1 ? (
-            <div class="home-editorial-mobile-pills" aria-label={t.progressLabel}>
-              {slides.map((slide, index) => (
-                <button
-                  type="button"
-                  class:list={["home-editorial-mobile-pill", index === 0 && "is-active"]}
-                  data-hero-pill
-                  aria-label={`${t.progressLabel}: ${slide.title}`}
-                  aria-pressed={index === 0 ? "true" : "false"}
-                >
-                  <span>{slide.title}</span>
-                </button>
-              ))}
-            </div>
-          ) : null}
         </div>
       ) : null}
     </div>
@@ -201,7 +186,6 @@ const hasSlides = slides.length > 0;
     const SWIPE_THRESHOLD = 48;
     const slides = Array.from(hero.querySelectorAll("[data-hero-slide]"));
     const progressButtons = Array.from(hero.querySelectorAll("[data-hero-progress]"));
-    const mobilePillButtons = Array.from(hero.querySelectorAll("[data-hero-pill]"));
     const fills = progressButtons.map((button) => button.querySelector("[data-hero-progress-fill]"));
     const detailCards = Array.from(hero.querySelectorAll("[data-hero-detail]"));
     const primaryCta = hero.querySelector("[data-hero-primary-cta]");
@@ -248,11 +232,6 @@ const hasSlides = slides.length > 0;
       });
 
       progressButtons.forEach((button, index) => {
-        button.classList.toggle("is-active", index === activeIndex);
-        button.setAttribute("aria-pressed", index === activeIndex ? "true" : "false");
-      });
-
-      mobilePillButtons.forEach((button, index) => {
         button.classList.toggle("is-active", index === activeIndex);
         button.setAttribute("aria-pressed", index === activeIndex ? "true" : "false");
       });
@@ -340,15 +319,6 @@ const hasSlides = slides.length > 0;
     };
 
     progressButtons.forEach((button, index) => {
-      button.addEventListener("click", () => {
-        setActive(index, true);
-        if (button instanceof HTMLButtonElement) {
-          button.blur();
-        }
-      });
-    });
-
-    mobilePillButtons.forEach((button, index) => {
       button.addEventListener("click", () => {
         setActive(index, true);
         if (button instanceof HTMLButtonElement) {

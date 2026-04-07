@@ -631,8 +631,8 @@
 
   .home-editorial-slide-shade {
     background:
-      linear-gradient(180deg, rgba(7, 12, 22, 0.1) 0%, rgba(7, 12, 22, 0.38) 42%, rgba(7, 12, 22, 0.9) 100%),
-      linear-gradient(90deg, rgba(18, 28, 46, 0.74) 0%, rgba(18, 28, 46, 0.36) 48%, rgba(18, 28, 46, 0.62) 100%);
+      linear-gradient(180deg, rgba(7, 12, 22, 0.04) 0%, rgba(7, 12, 22, 0.22) 42%, rgba(7, 12, 22, 0.68) 100%),
+      linear-gradient(90deg, rgba(18, 28, 46, 0.5) 0%, rgba(18, 28, 46, 0.22) 48%, rgba(18, 28, 46, 0.42) 100%);
   }
 
   .home-editorial-slide-layout {
