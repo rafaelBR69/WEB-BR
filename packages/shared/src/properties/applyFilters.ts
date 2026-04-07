@@ -36,6 +36,15 @@ export function applyFilters(cards: any[], filters: any) {
   const searchQuery = filters.search ? normalizeSearchText(filters.search) : "";
   const searchTerms = searchQuery ? searchQuery.split(" ").filter(Boolean) : [];
   const refQuery = filters.ref ? normalizeSearchText(filters.ref) : "";
+  const selectedFloorsRaw = Array.isArray(filters.floor)
+    ? filters.floor
+    : filters.floor
+      ? [filters.floor]
+      : [];
+  const selectedFloors = selectedFloorsRaw
+    .map((value) => normalizeFloorFilterLabel(value))
+    .filter((value): value is string => typeof value === "string" && !isVillaFloorLabel(value));
+  const hasFloorFilters = selectedFloors.length > 0;
   const hasUnitFilters = hasUnitLevelFilters(filters);
 
   return cards.filter((card) => {
