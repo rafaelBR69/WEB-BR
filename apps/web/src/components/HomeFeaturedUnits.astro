@@ -84,7 +84,14 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
     const nextButton = carousel.querySelector("[data-home-units-next]");
     const slides = Array.from(carousel.querySelectorAll(".home-units-slide"));
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mobileViewport = window.matchMedia("(max-width: 720px)");
+    const BREAKPOINTS = {
+      xs: 480,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+    };
+    const SWIPE_THRESHOLD = 48;
+    const mobileViewport = window.matchMedia(`(max-width: ${BREAKPOINTS.md - 1}px)`);
     const disableAutoplayOnMobile = carousel.dataset.disableAutoplayOnMobile === "true";
     const autoplayMs = 5200;
 
@@ -96,9 +103,10 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
     let touchStartY = 0;
 
     const getPageSize = () => {
-      if (window.innerWidth >= 1280) return 5;
-      if (window.innerWidth >= 900) return 3;
-      if (window.innerWidth >= 640) return 2;
+      if (window.innerWidth >= BREAKPOINTS.xl) return 5;
+      if (window.innerWidth >= BREAKPOINTS.lg) return 4;
+      if (window.innerWidth >= BREAKPOINTS.md) return 3;
+      if (window.innerWidth >= BREAKPOINTS.xs) return 2;
       return 1;
     };
 
@@ -173,7 +181,7 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
       if (!touch) return;
       const deltaX = touch.clientX - touchStartX;
       const deltaY = touch.clientY - touchStartY;
-      if (Math.abs(deltaX) <= 48 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      if (Math.abs(deltaX) <= SWIPE_THRESHOLD || Math.abs(deltaX) <= Math.abs(deltaY)) return;
       goToPage(currentPage + (deltaX < 0 ? 1 : -1));
       schedule();
     }, { passive: true });

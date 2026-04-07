@@ -1,22 +1,22 @@
 {
   "pageByLang": {
     "es": {
-      "title": "BlancaReal | Inmobiliaria, legal y comercializaciÃ³n en Costa del Sol",
-      "description": "Compra, venta e inversiÃ³n en Costa del Sol con un equipo inmobiliario, legal y comercial bajo una misma firma.",
+      "title": "BlancaReal | Inmobiliaria, legal y comercialización en Costa del Sol",
+      "description": "Compra, venta e inversión en Costa del Sol con un equipo inmobiliario, legal y comercial bajo una misma firma.",
       "heroEyebrow": "BlancaReal Group",
-      "heroHeading": "Compra, venta e inversiÃ³n en Costa del Sol con respaldo real",
-      "heroText": "Desde 1969 acompaÃ±amos operaciones residenciales e inversiones con equipo comercial y jurÃ­dico propio.",
+      "heroHeading": "Compra, venta e inversión en Costa del Sol con respaldo real",
+      "heroText": "Desde 1969 acompañamos operaciones residenciales e inversiones con equipo comercial y jurídico propio.",
       "heroPrimaryCta": "Explorar propiedades",
       "heroSecondaryCta": "Contactar con el equipo",
-      "heroTrustLabel": "SeÃ±ales de confianza BlancaReal",
+      "heroTrustLabel": "Señales de confianza BlancaReal",
       "heroTrustItems": [
         {
           "value": "+1.000",
-          "label": "clientes acompaÃ±ados"
+          "label": "clientes acompañados"
         },
         {
           "value": "__YEARS_ACTIVE__+",
-          "label": "aÃ±os en Costa del Sol"
+          "label": "años en Costa del Sol"
         },
         {
           "value": "6",
@@ -24,15 +24,15 @@
         },
         {
           "value": "Legal propio",
-          "label": "asesoramiento jurÃ­dico integrado"
+          "label": "asesoramiento jurídico integrado"
         }
       ],
-      "pillarsHeading": "Tres Ã¡reas conectadas, una sola firma",
-      "pillarsText": "Inmobiliaria, legal y comercializaciÃ³n coordinadas para que cada operaciÃ³n avance con mÃ¡s claridad, velocidad y control.",
+      "pillarsHeading": "Tres áreas conectadas, una sola firma",
+      "pillarsText": "Inmobiliaria, legal y comercialización coordinadas para que cada operación avance con más claridad, velocidad y control.",
       "navBuy": "Comprar vivienda",
       "navLegal": "Asesoramiento legal",
       "navPartners": "Promotoras y agentes",
-      "navAbout": "QuiÃ©nes somos",
+      "navAbout": "Quiénes somos",
       "navAgents": "Agentes",
       "navContact": "Contacto",
       "navPromoters": "Promotoras",
@@ -41,21 +41,21 @@
       "blocks": {
         "realEstate": {
           "title": "Inmobiliaria",
-          "text": "Propiedades, mapa, filtros y acompaÃ±amiento para comprar con criterio.",
+          "text": "Propiedades, mapa, filtros y acompañamiento para comprar con criterio.",
           "cta": "Entrar en Inmobiliaria",
           "imageAlt": "Bloque inmobiliario de BlancaReal"
         },
         "legal": {
           "title": "Servicios Legales",
-          "text": "Asesoramiento jurÃ­dico para compraventa, inversiÃ³n, herencias y alquiler.",
+          "text": "Asesoramiento jurídico para compraventa, inversión, herencias y alquiler.",
           "cta": "Entrar en Legal",
           "imageAlt": "Bloque de servicios legales BlancaReal"
         },
         "commercialization": {
-          "title": "ComercializaciÃ³n",
+          "title": "Comercialización",
           "text": "Estrategia, posicionamiento y ventas para promotoras y producto residencial.",
-          "cta": "Entrar en ComercializaciÃ³n",
-          "imageAlt": "Bloque de comercializaciÃ³n BlancaReal"
+          "cta": "Entrar en Comercialización",
+          "imageAlt": "Bloque de comercialización BlancaReal"
         }
       }
     },
@@ -367,7 +367,7 @@
       },
       {
         "value": "1.000+",
-        "label": "clientes acompaÃ±ados"
+        "label": "clientes acompañados"
       },
       {
         "value": "Legal + Ventas",
@@ -470,24 +470,24 @@
       "aboutRows": [
         {
           "title": "Trayectoria y confianza",
-          "text": "MÃ¡s de cinco dÃ©cadas asesorando compras, ventas e inversiones con conocimiento real del mercado local.",
+          "text": "Más de cinco décadas asesorando compras, ventas e inversiones con conocimiento real del mercado local.",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
-          "imageAlt": "PromociÃ³n residencial en Costa del Sol"
+          "imageAlt": "Promoción residencial en Costa del Sol"
         },
         {
           "title": "Servicios integrados",
-          "text": "Reunimos intermediaciÃ³n inmobiliaria, comercializaciÃ³n de obra nueva y apoyo legal-fiscal para que la operaciÃ³n no se rompa entre proveedores.",
+          "text": "Reunimos intermediación inmobiliaria, comercialización de obra nueva y apoyo legal-fiscal para que la operación no se rompa entre proveedores.",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0074/cover/01_EXT_AEREA-v1.jpg",
           "imageAlt": "Equipo y servicios inmobiliarios integrados"
         },
         {
           "title": "Cobertura local e internacional",
-          "text": "Desde Calahonda atendemos a clientes nacionales e internacionales con enfoque local, criterio comercial y atenciÃ³n multilingÃ¼e.",
+          "text": "Desde Calahonda atendemos a clientes nacionales e internacionales con enfoque local, criterio comercial y atención multilingüe.",
           "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0079/cover/1.webp",
           "imageAlt": "Vista de Costa del Sol con promociones residenciales"
         }
       ],
-      "collaboratorsTitle": "Red de colaboradores estratÃ©gicos",
+      "collaboratorsTitle": "Red de colaboradores estratégicos",
       "collaboratorsAria": "Ruleta de colaboradores de BlancaReal",
       "collaborators": [
         "Promotoras asociadas",
@@ -495,16 +495,16 @@
         "Notarias locales",
         "Tasadores homologados",
         "Brokers hipotecarios",
-        "Arquitectos y tÃ©cnicos",
+        "Arquitectos y técnicos",
         "Gestores patrimoniales",
         "Especialistas de marketing"
       ],
-      "footerTagline": "Inmobiliaria, asesoramiento legal y comercializaciÃ³n en Costa del Sol.",
+      "footerTagline": "Inmobiliaria, asesoramiento legal y comercialización en Costa del Sol.",
       "footerSections": "Secciones",
       "footerContact": "Contacto",
       "footerLegal": "Legal",
       "footerRights": "Todos los derechos reservados.",
-      "privacy": "PolÃ­tica de privacidad",
+      "privacy": "Política de privacidad",
       "cookies": "Cookies"
     },
     "en": {
@@ -721,15 +721,15 @@
       "toggleClose": "Cerrar formulario",
       "name": "Nombre",
       "email": "Email",
-      "phone": "TelÃ©fono",
-      "service": "Â¿En quÃ© Ã¡rea podemos ayudarle?",
+      "phone": "Teléfono",
+      "service": "¿En qué área podemos ayudarle?",
       "message": "Mensaje",
       "optionDefault": "Elige un servicio",
       "optionRealEstate": "Inmobiliaria",
       "optionLegal": "Asesoramiento legal",
-      "optionCommercialization": "ComercializaciÃ³n",
-      "consentPrefix": "He leÃ­do y acepto la",
-      "consentLink": "polÃ­tica de privacidad",
+      "optionCommercialization": "Comercialización",
+      "consentPrefix": "He leído y acepto la",
+      "consentLink": "política de privacidad",
       "consentSuffix": "antes de continuar.",
       "legalNote": "Usaremos estos datos solo para preparar su solicitud y contactar con usted.",
       "redirecting": "Le dirigimos al formulario seguro de contacto...",
@@ -845,14 +845,14 @@
     "es": {
       "eyebrow": "Redes sociales",
       "title": "Todas las novedades en nuestras Redes Sociales.",
-      "intro": "Seguimiento de obras, Ãºltimas novedades, informaciÃ³n de la Costa del Sol y mucho mÃ¡s en las redes sociales de BlancaReal.",
-      "linksLabel": "SÃ­ganos tambiÃ©n en estas plataformas",
+      "intro": "Seguimiento de obras, últimas novedades, información de la Costa del Sol y mucho más en las redes sociales de BlancaReal.",
+      "linksLabel": "Síganos también en estas plataformas",
       "cardCta": "Ver contenido",
       "ariaLabel": "Redes sociales de BlancaReal",
       "types": {
         "post": "Post",
         "reel": "Reel",
-        "video": "VÃ­deo"
+        "video": "Vídeo"
       }
     },
     "en": {
@@ -1010,7 +1010,7 @@
         "nl": "Uitgelichte nieuwbouwvideo aan de Costa del Sol"
       },
       "excerpt": {
-        "es": "Recorridos, contexto comercial y visiÃ³n general de nuestras promociones y localizaciones mÃ¡s activas.",
+        "es": "Recorridos, contexto comercial y visión general de nuestras promociones y localizaciones más activas.",
         "en": "Tours, market context and a broad overview of our most active developments and locations.",
         "de": "Rundgaenge, Marktcontext und ein Gesamtueberblick ueber unsere aktivsten Projekte und Standorte.",
         "fr": "Visites, contexte commercial et vue d ensemble de nos promotions et emplacements les plus actifs.",
@@ -1032,7 +1032,7 @@
         "nl": "Reels met lifestyle, product en locaties aan de Costa del Sol"
       },
       "excerpt": {
-        "es": "Piezas Ã¡giles para mostrar vivienda, entorno y novedades comerciales con un formato muy visual.",
+        "es": "Piezas ágiles para mostrar vivienda, entorno y novedades comerciales con un formato muy visual.",
         "en": "Fast-paced pieces to showcase homes, surroundings and commercial news in a highly visual format.",
         "de": "Dynamische Inhalte, um Immobilien, Umgebung und Vertriebsneuigkeiten in einem sehr visuellen Format zu zeigen.",
         "fr": "Formats dynamiques pour montrer logements, environnement et nouveautes commerciales de maniere tres visuelle.",
@@ -1054,7 +1054,7 @@
         "nl": "Posts met uitzichten, architectuur en residentiele kansen"
       },
       "excerpt": {
-        "es": "Historias visuales sobre propiedades, estilo de vida mediterrÃ¡neo y lanzamientos del portfolio.",
+        "es": "Historias visuales sobre propiedades, estilo de vida mediterráneo y lanzamientos del portfolio.",
         "en": "Visual stories about properties, Mediterranean lifestyle and portfolio launches.",
         "de": "Visuelle Geschichten ueber Immobilien, mediterranen Lebensstil und neue Portfoliolaunches.",
         "fr": "Recits visuels sur les proprietes, le style de vie mediterraneen et les lancements du portefeuille.",
@@ -1068,7 +1068,7 @@
       "href": "https://youtu.be/Z5i1V_h4am4?si=xGe1ofwK-9g5a8-z",
       "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04492/cover/facade-01.jpg",
       "title": {
-        "es": "Recorridos completos y contexto de mercado en vÃ­deo",
+        "es": "Recorridos completos y contexto de mercado en vídeo",
         "en": "Full tours and market context in video",
         "de": "Komplette Rundgaenge und Marktcontext im Videoformat",
         "fr": "Visites completes et contexte de marche en video",
@@ -1076,7 +1076,7 @@
         "nl": "Volledige tours en marktcontext in video"
       },
       "excerpt": {
-        "es": "Contenido pensado para entender mejor cada promociÃ³n, su producto y su posicionamiento.",
+        "es": "Contenido pensado para entender mejor cada promoción, su producto y su posicionamiento.",
         "en": "Content designed to better understand each development, its product and its positioning.",
         "de": "Inhalte, um jedes Projekt, sein Produkt und seine Positionierung besser zu verstehen.",
         "fr": "Contenu pense pour mieux comprendre chaque programme, son produit et son positionnement.",
@@ -1090,7 +1090,7 @@
       "href": "https://es.linkedin.com/company/blancareal-real-estate",
       "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044942/cover/terraza-04.jpg",
       "title": {
-        "es": "LinkedIn para mercado, inversiÃ³n y visiÃ³n profesional",
+        "es": "LinkedIn para mercado, inversión y visión profesional",
         "en": "LinkedIn for market updates, investment and professional insight",
         "de": "LinkedIn fuer Marktupdates, Investment und professionelle Einblicke",
         "fr": "LinkedIn pour le marche, l investissement et la vision professionnelle",
@@ -1098,7 +1098,7 @@
         "nl": "LinkedIn voor marktupdates, investeringen en professionele inzichten"
       },
       "excerpt": {
-        "es": "Publicaciones orientadas a promotoras, colaboradores y anÃ¡lisis comercial del producto residencial.",
+        "es": "Publicaciones orientadas a promotoras, colaboradores y análisis comercial del producto residencial.",
         "en": "Posts aimed at developers, collaborators and commercial analysis of residential product.",
         "de": "Beitraege fuer Bautraeger, Partner und die Vertriebsanalyse von Wohnprodukt.",
         "fr": "Publications orientees vers les promoteurs, partenaires et l analyse commerciale du residentiel.",
@@ -1112,7 +1112,7 @@
       "href": "https://www.tiktok.com/@blancarealspain?_r=1&_t=ZN-95JUb6wZ7rS",
       "image": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044943/cover/terraza-04.jpg",
       "title": {
-        "es": "TikTok con tours cortos y novedades rÃ¡pidas",
+        "es": "TikTok con tours cortos y novedades rápidas",
         "en": "TikTok with short tours and quick updates",
         "de": "TikTok mit kurzen Rundgaengen und schnellen Updates",
         "fr": "TikTok avec visites courtes et nouveautes rapides",
@@ -1120,7 +1120,7 @@
         "nl": "TikTok met korte tours en snelle updates"
       },
       "excerpt": {
-        "es": "Un formato directo para enseÃ±ar casas, detalles y momentos del dÃ­a a dÃ­a inmobiliario.",
+        "es": "Un formato directo para enseñar casas, detalles y momentos del día a día inmobiliario.",
         "en": "A direct format to show homes, details and day-to-day real estate moments.",
         "de": "Ein direktes Format, um Haeuser, Details und Momente aus dem Immobilienalltag zu zeigen.",
         "fr": "Un format direct pour montrer maisons, details et moments du quotidien immobilier.",
@@ -1142,7 +1142,7 @@
         "nl": "Facebook voor community, updates en merkzichtbaarheid"
       },
       "excerpt": {
-        "es": "Una vista mÃ¡s amplia del dÃ­a a dÃ­a de BlancaReal, novedades y contenido compartible.",
+        "es": "Una vista más amplia del día a día de BlancaReal, novedades y contenido compartible.",
         "en": "A broader view of BlancaReal day-to-day activity, updates and shareable content.",
         "de": "Ein breiterer Blick auf den Alltag von BlancaReal, Neuigkeiten und teilbare Inhalte.",
         "fr": "Une vue plus large du quotidien de BlancaReal, des nouveautes et des contenus partageables.",
@@ -1241,7 +1241,7 @@
       "languages": "Idiomas",
       "email": "Correo",
       "whatsappAction": "Hablar por WhatsApp",
-      "phone": "TelÃ©fono",
+      "phone": "Teléfono",
       "emailAction": "Enviar correo",
       "phoneAction": "Llamar",
       "noLanguages": "Consultar"
@@ -1309,7 +1309,7 @@
   },
   "teamLanguageBadges": {
     "es": {
-      "label": "EspaÃ±ol",
+      "label": "Español",
       "flagUrl": "/flags/es.svg"
     },
     "en": {
@@ -1336,8 +1336,8 @@
   "postsByLang": {
     "es": {
       "eyebrow": "Revista BlancaReal",
-      "title": "AnÃ¡lisis, producto y contexto para decidir mejor",
-      "intro": "ArtÃ­culos para entender el mercado, descubrir promociones y resolver dudas antes de comprar, vender o invertir.",
+      "title": "Análisis, producto y contexto para decidir mejor",
+      "intro": "Artículos para entender el mercado, descubrir promociones y resolver dudas antes de comprar, vender o invertir.",
       "viewAll": "Ir a la revista"
     },
     "en": {
@@ -1375,18 +1375,18 @@
     "es": {
       "eyebrow": "Grupo BlancaReal",
       "heading": "Propiedades y promociones con base real en Costa del Sol",
-      "text": "Obra nueva, producto seleccionado y acompaÃ±amiento legal integrado para comprar, vender o invertir con mÃ¡s seguridad.",
-      "primaryCta": "Ver promociÃ³n",
+      "text": "Obra nueva, producto seleccionado y acompañamiento legal integrado para comprar, vender o invertir con más seguridad.",
+      "primaryCta": "Ver promoción",
       "secondaryCta": "Ver proyectos",
-      "projectLabel": "PromociÃ³n destacada",
-      "locationLabel": "UbicaciÃ³n",
+      "projectLabel": "Promoción destacada",
+      "locationLabel": "Ubicación",
       "fromLabel": "Desde",
       "availableLabel": "Disponibles",
       "soldLabel": "Vendidas",
-      "progressLabel": "Seleccionar promociÃ³n destacada",
-      "detailLabel": "PromociÃ³n activa",
-      "prev": "PromociÃ³n anterior",
-      "next": "PromociÃ³n siguiente"
+      "progressLabel": "Seleccionar promoción destacada",
+      "detailLabel": "Promoción activa",
+      "prev": "Promoción anterior",
+      "next": "Promoción siguiente"
     },
     "en": {
       "eyebrow": "BlancaReal Group",
@@ -1472,28 +1472,28 @@
   "featuredServicesByLang": {
     "es": {
       "eyebrow": "Servicios clave",
-      "title": "Tres departamentos que refuerzan cada operaciÃ³n.",
-      "intro": "Servicios legales, marketing 3D coordinados para el Ã©xito de la comercializaciÃ³n de viviendas de obra nueva y segunda mano.",
+      "title": "Tres departamentos que refuerzan cada operación.",
+      "intro": "Servicios legales, marketing 3D coordinados para el éxito de la comercialización de viviendas de obra nueva y segunda mano.",
       "cards": [
         {
           "href": "/__LANG__/legal-services/",
           "image": "/images/home-sections/legal-services/legal.jpg",
           "title": "Servicios legales",
-          "text": "Cobertura jurÃ­dica para compraventas, contratos, fiscalidad e inversores nacionales e internacionales.",
+          "text": "Cobertura jurídica para compraventas, contratos, fiscalidad e inversores nacionales e internacionales.",
           "cta": "Ver servicios legales"
         },
         {
           "href": "/__LANG__/commercialization/",
           "image": "/images/home-sections/commercialization/entrada.png",
-          "title": "ComercializaciÃ³n",
-          "text": "Estudio de mercado, gestiÃ³n del proyecto, creaciÃ³n de marketing, publicidad, venta y postventa de obra nueva en Costa del Sol.",
-          "cta": "Ver comercializaciÃ³n"
+          "title": "Comercialización",
+          "text": "Estudio de mercado, gestión del proyecto, creación de marketing, publicidad, venta y postventa de obra nueva en Costa del Sol.",
+          "cta": "Ver comercialización"
         },
         {
           "href": "/__LANG__/marketing-3d/",
           "image": "/images/home-sections/marketing-3d/dron.jpg",
           "title": "Marketing 3D",
-          "text": "FotografÃ­a, dron, modelado 3D y campaÃ±as visuales para presentar cada activo con mÃ¡s impacto.",
+          "text": "Fotografía, dron, modelado 3D y campañas visuales para presentar cada activo con más impacto.",
           "cta": "Ver marketing 3D"
         }
       ]

@@ -321,6 +321,7 @@ const heroMobileQuickLinks = [
     projectsPath={projectsPath}
     mobileQuickLinks={heroMobileQuickLinks}
     mobileQuickActionsLabel={mobileHomeCopy.quickActionsLabel}
+    disableAutoplayOnMobile={true}
   />
   <HomeFeaturedUnits
     lang={lang}
@@ -646,10 +647,15 @@ const heroMobileQuickLinks = [
     const landingLeadStatus = document.getElementById("landingLeadStatus");
     const journalAccordion = document.querySelector(".home-journal-accordion");
     const teamCarousels = document.querySelectorAll("[data-team-carousel]");
+    const BREAKPOINTS = {
+      xs: 480,
+      md: 768,
+      lg: 1024,
+    };
 
     const syncHomeFormDisclosure = () => {
       if (!(homeFormDisclosure instanceof HTMLDetailsElement)) return;
-      if (window.innerWidth <= 720) {
+      if (window.innerWidth < BREAKPOINTS.md) {
         homeFormDisclosure.removeAttribute("open");
       } else {
         homeFormDisclosure.setAttribute("open", "");
@@ -698,7 +704,7 @@ const heroMobileQuickLinks = [
         return;
       }
 
-      journalAccordion.open = window.innerWidth > 1080;
+      journalAccordion.open = window.innerWidth >= BREAKPOINTS.md;
     };
 
     if (landingLeadForm instanceof HTMLFormElement && landingLeadStatus instanceof HTMLElement) {

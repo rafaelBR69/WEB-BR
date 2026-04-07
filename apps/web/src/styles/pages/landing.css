@@ -346,10 +346,10 @@
 }
 
 .landing-about-z.container {
-  width: min(1460px, calc(100% - 1rem));
+  width: min(1460px, calc(100% - (2 * var(--page-inline-padding))));
   max-width: none;
-  padding-left: clamp(0.95rem, 2vw, 2rem);
-  padding-right: clamp(0.95rem, 2vw, 2rem);
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .z-row {
@@ -1193,7 +1193,7 @@
   font-size: 0.78rem;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1023px) {
   .landing-pillars-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1328,7 +1328,25 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+  .home-journal-summary {
+    display: none;
+  }
+
+  .home-journal-accordion {
+    gap: 1rem;
+  }
+
+  .home-journal-accordion > .home-journal-stack {
+    display: grid;
+  }
+
+  .home-journal-secondary-link {
+    grid-template-columns: 8rem minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
   .landing-hero {
     min-height: 58svh;
     align-items: center;
@@ -1468,8 +1486,7 @@
 
   .landing-about-z.container {
     max-width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    width: min(1460px, calc(100% - (2 * var(--page-inline-padding-tight))));
   }
 
   #home-contact {
@@ -1537,7 +1554,7 @@
   }
 
   .z-team-card {
-    flex: 0 0 min(72vw, 16.5rem);
+    flex: 0 0 min(78vw, 17rem);
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 14px 28px rgba(16, 24, 40, 0.08);
@@ -1760,7 +1777,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 479px) {
   .landing-hero-mobile-shell {
     transform: translateY(-1.35rem);
     padding: 0 0.85rem;
@@ -1853,14 +1870,14 @@
   }
 }
 
-@media (min-width: 721px) and (max-width: 1280px) {
+@media (min-width: 768px) and (max-width: 1279px) {
   .landing-hero-top-card {
     margin-bottom: clamp(4rem, 8vw, 8rem);
   }
 
   .landing-intro.container,
   .landing-about-z.container {
-    width: min(1220px, calc(100% - 1.5rem));
+    width: min(1220px, calc(100% - (2 * var(--page-inline-padding))));
     max-width: none;
   }
 }
@@ -2134,7 +2151,7 @@
   color: #128c7e;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1023px) {
   .home-social-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2144,7 +2161,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 767px) {
   .home-social {
     gap: 1.05rem;
     padding-top: 1.5rem;
@@ -2169,7 +2186,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 479px) {
   .home-social-heading h2 {
     font-size: clamp(1.55rem, 7vw, 2rem);
   }

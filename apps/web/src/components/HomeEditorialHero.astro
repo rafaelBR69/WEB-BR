@@ -84,6 +84,18 @@ const hasSlides = slides.length > 0;
             {t.secondaryCta}
           </a>
         </div>
+        <div class="home-editorial-actions home-editorial-actions-mobile">
+          <a
+            class="home-editorial-cta"
+            href={slides[0]?.href ?? projectsPath}
+            data-hero-primary-cta-mobile
+          >
+            {t.primaryCta}
+          </a>
+          <a class="home-editorial-cta is-secondary" href={projectsPath}>
+            {t.secondaryCta}
+          </a>
+        </div>
       </div>
 
       {hasSlides ? (
@@ -143,6 +155,22 @@ const hasSlides = slides.length > 0;
               </article>
             ))}
           </div>
+
+          {slides.length > 1 ? (
+            <div class="home-editorial-mobile-pills" aria-label={t.progressLabel}>
+              {slides.map((slide, index) => (
+                <button
+                  type="button"
+                  class:list={["home-editorial-mobile-pill", index === 0 && "is-active"]}
+                  data-hero-pill
+                  aria-label={`${t.progressLabel}: ${slide.title}`}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  <span>{slide.title}</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>
@@ -169,17 +197,21 @@ const hasSlides = slides.length > 0;
     if (!(hero instanceof HTMLElement) || hero.dataset.bound === "true") return;
     hero.dataset.bound = "true";
 
+    const MOBILE_BREAKPOINT = 767;
+    const SWIPE_THRESHOLD = 48;
     const slides = Array.from(hero.querySelectorAll("[data-hero-slide]"));
     const progressButtons = Array.from(hero.querySelectorAll("[data-hero-progress]"));
+    const mobilePillButtons = Array.from(hero.querySelectorAll("[data-hero-pill]"));
     const fills = progressButtons.map((button) => button.querySelector("[data-hero-progress-fill]"));
     const detailCards = Array.from(hero.querySelectorAll("[data-hero-detail]"));
     const primaryCta = hero.querySelector("[data-hero-primary-cta]");
+    const primaryMobileCta = hero.querySelector("[data-hero-primary-cta-mobile]");
     const prevButton = hero.querySelector("[data-hero-prev]");
     const nextButton = hero.querySelector("[data-hero-next]");
     const defaultCtaHref = hero.getAttribute("data-projects-path") || "/";
     const duration = Number(hero.dataset.duration || "6000");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mobileViewport = window.matchMedia("(max-width: 720px)");
+    const mobileViewport = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`);
     const disableAutoplayOnMobile = hero.dataset.disableAutoplayOnMobile === "true";
     const shouldAutoplay = () =>
       slides.length > 1 &&
@@ -220,18 +252,27 @@ const hasSlides = slides.length > 0;
         button.setAttribute("aria-pressed", index === activeIndex ? "true" : "false");
       });
 
+      mobilePillButtons.forEach((button, index) => {
+        button.classList.toggle("is-active", index === activeIndex);
+        button.setAttribute("aria-pressed", index === activeIndex ? "true" : "false");
+      });
+
       detailCards.forEach((card, index) => {
         card.classList.toggle("is-active", index === activeIndex);
         card.setAttribute("aria-hidden", index === activeIndex ? "false" : "true");
       });
 
-      if (primaryCta instanceof HTMLAnchorElement) {
+      const updateCtaHref = (cta) => {
+        if (!(cta instanceof HTMLAnchorElement)) return;
         const activeSlide = slides[activeIndex];
         if (activeSlide instanceof HTMLElement) {
           const href = activeSlide.getAttribute("data-slide-href");
-          primaryCta.href = href || defaultCtaHref;
+          cta.href = href || defaultCtaHref;
         }
-      }
+      };
+
+      updateCtaHref(primaryCta);
+      updateCtaHref(primaryMobileCta);
     };
 
     const refreshAutoplay = () => {
@@ -307,6 +348,15 @@ const hasSlides = slides.length > 0;
       });
     });
 
+    mobilePillButtons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        setActive(index, true);
+        if (button instanceof HTMLButtonElement) {
+          button.blur();
+        }
+      });
+    });
+
     if (prevButton instanceof HTMLButtonElement) {
       prevButton.addEventListener("click", () => {
         setActive(activeIndex - 1, true);
@@ -344,7 +394,7 @@ const hasSlides = slides.length > 0;
       if (!touch) return;
       const deltaX = touch.clientX - touchStartX;
       const deltaY = touch.clientY - touchStartY;
-      if (Math.abs(deltaX) <= 48 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      if (Math.abs(deltaX) <= SWIPE_THRESHOLD || Math.abs(deltaX) <= Math.abs(deltaY)) return;
       setActive(activeIndex + (deltaX < 0 ? 1 : -1), autoplayEnabled);
     }, { passive: true });
     document.addEventListener("visibilitychange", () => {
