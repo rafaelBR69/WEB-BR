@@ -22,15 +22,8 @@ const navigation = buildPublicNavigation({
 });
 
 const commercializationContent = commercializationPageContent as Record<string, any>;
-const page = commercializationContent.pageByLang[lang] ?? commercializationContent.pageByLang.es;
-const chrome = commercializationContent.chromeByLang[lang] ?? commercializationContent.chromeByLang.es;
-
-const whyFlowItems = {
-  topLeft: page.whyItems[0],
-  topRight: page.whyItems[1],
-  bottomLeft: page.whyItems[3],
-  bottomRight: page.whyItems[2],
-};
+let page = commercializationContent.pageByLang[lang] ?? commercializationContent.pageByLang.es;
+let chrome = commercializationContent.chromeByLang[lang] ?? commercializationContent.chromeByLang.es;
 const workflowIcons = [
   {
     viewBox: "0 0 48 48",
@@ -145,42 +138,974 @@ const extraGroupMeta = [
   },
 ];
 
-const brandIcons = [
+const brandUniverseIcons = [
   {
     viewBox: "0 0 48 48",
     paths: [
-      "M10 36V18l14-8 14 8v18",
-      "M18 36V26h12v10",
+      "M10 35V18l14-8 14 8v17",
+      "M17 35V25h14v10",
       "M34 20h4",
     ],
   },
   {
     viewBox: "0 0 48 48",
     paths: [
-      "M11 31h10V17H11z",
-      "M25 31h12V11H25z",
-      "M16 36h16",
+      "M11 18h26",
+      "M15 18v18",
+      "M24 12v24",
+      "M33 22v14",
+      "M11 36h26",
     ],
   },
   {
     viewBox: "0 0 48 48",
     paths: [
-      "M24 10l12 8v18H12V18l12-8z",
-      "M19 24h10",
-      "M19 29h10",
+      "M14 33l5-11 5 7 4-10 6 14",
+      "M12 36h24",
+      "M16 18l4-6 4 4 4-8 4 5",
     ],
   },
   {
     viewBox: "0 0 48 48",
     paths: [
-      "M12 13h24v18H12z",
-      "M18 19h12",
-      "M16 35h16",
-      "M24 31v4",
+      "M24 10l11 5v8c0 7-4.6 11.9-11 14-6.4-2.1-11-7-11-14v-8l11-5z",
+      "M18 23h12",
+      "M20 28h8",
+    ],
+  },
+  {
+    viewBox: "0 0 48 48",
+    paths: [
+      "M10 28l14-10 14 10",
+      "M14 26v10h20V26",
+      "M22 36V28h4",
+      "M10 16h10",
+    ],
+  },
+  {
+    viewBox: "0 0 48 48",
+    paths: [
+      "M12 16h24v16H12z",
+      "M18 12h12",
+      "M18 24h12",
+      "M24 32v4",
     ],
   },
 ];
----
+
+const includedServiceCardIcons = [
+  {
+    viewBox: "0 0 48 48",
+    paths: [
+      "M10 36h28",
+      "M14 36V18l10-7 10 7v18",
+      "M21 36V26h6v10",
+      "M31 17v-5h4v7",
+    ],
+  },
+  {
+    viewBox: "0 0 48 48",
+    paths: [
+      "M10 14h28v18H10z",
+      "M16 21h16",
+      "M16 27h10",
+      "M24 32v4",
+      "M18 10h12",
+    ],
+  },
+  {
+    viewBox: "0 0 48 48",
+    paths: [
+      "M24 9l13 5v9c0 8-5.5 13.5-13 16-7.5-2.5-13-8-13-16v-9l13-5z",
+      "M18 24l4 4 8-9",
+    ],
+  },
+  {
+    viewBox: "0 0 48 48",
+    paths: [
+      "M16 14h16",
+      "M14 22h20",
+      "M18 14v22",
+      "M30 14v22",
+      "M12 36h24",
+    ],
+  },
+];
+
+const sectionLabelAt = (index: number, fallback: string) => page.sectionNav?.[index]?.label ?? fallback;
+
+const commercializationOverridesByLang = {
+  es: {
+    heroIntro:
+      "BlancaReal comercializa y gestiona proyectos en toda la Costa del Sol, desde el lanzamiento hasta la postventa.",
+    brandsEyebrow: "Ecosistema BlancaReal",
+    brandsTitle: "Nuestras marcas y áreas",
+    brandsLead:
+      "BlancaReal articula propiedades, servicios, inversiones, comercialización, legal y marketing dentro de un mismo ecosistema coordinado.",
+    whyEyebrow: "01 BlancaReal desde 1969",
+    workflowEyebrow: "02 Seguimiento del proceso",
+    extraEyebrow: "04 Qué más ofrece BlancaReal",
+    locationEyebrow: "05 Dónde puedes encontrarnos",
+    workflowMarketingTitle: "Branding y Estrategia de Marketing",
+    workflowItems: [
+      [
+        "Branding y namings",
+        "Implementacion de acciones organicas",
+        "Creacion material multimedia",
+        "Registro de landings especifica",
+        "Diseno de publicidad digital y fisica",
+        "Publicacion en portales y divulgacion",
+      ],
+      ["Asesoramiento legal"],
+      [
+        "Datos de leads, contactos, visitas y similares",
+        "Analisis de resultados, medios y campanas",
+        "Motivo de interes y evaluacion de la idoneidad de la promocion (diseno, precio, plazos, etc.)",
+      ],
+      [
+        "Incidencias relevantes",
+        "Acciones correctoras o preventivas",
+        "Gestion de personalizaciones",
+        "Postventa",
+        "Verificacion de entrega",
+      ],
+    ],
+    whyItems: [
+      { title: "Confianza", text: "BlancaReal desde 1969." },
+      {
+        title: "Transparencia",
+        text: "Disponer del departamento legal privado hace que nuestros procesos sean entendibles para todas las partes.",
+      },
+      {
+        title: "Innovación",
+        text: "Visualizarse en una experiencia 3D real es posible gracias a nuestro Departamento de Marketing y IA.",
+      },
+      {
+        title: "Profesionalidad",
+        text: "Nuestro equipo dispone de la titulación y formación multilingüe necesaria para abarcar cualquier mercado internacional.",
+      },
+    ],
+    brands: [
+      {
+        tone: "properties",
+        title: "Propiedades",
+        items: ["Obra nueva", "Cooperativas", "Residencial 2ª mano", "Off-market villas", "Alquileres"],
+      },
+      {
+        tone: "services",
+        title: "Servicios",
+        items: ["Administración y postventa", "Reformas, jardinería y mantenimiento", "Gestión alquileres"],
+      },
+      {
+        tone: "investments",
+        title: "Inversiones",
+        items: [
+          "Activos de inversión corporativa",
+          "Real Estate y Private Equity",
+          "Proyectos para fondos institucionales y Family Offices",
+          "Suelos, edificios, hoteles y logístico",
+        ],
+      },
+      {
+        tone: "legal",
+        title: "Legal",
+        items: [
+          "Gestión de documentación para extranjeros",
+          "Obligaciones tributarias",
+          "Ingeniería fiscal",
+          "Blanqueo de capitales",
+          "Gestión de contratos",
+        ],
+      },
+      {
+        tone: "commercial",
+        title: "Comercializadora",
+        items: [
+          "Gestión de proyectos y promociones",
+          "Marketing y publicidad en RRSS",
+          "Comercialización de viviendas",
+          "Gestión de contratos y pagos",
+          "Personalizaciones",
+        ],
+      },
+      {
+        tone: "marketing",
+        title: "Marketing",
+        items: [
+          "Pilotos de drone certificados",
+          "Renders y tour virtual",
+          "Creación de landing, SEO y SEM",
+          "Gestión de redes sociales y mailing",
+          "Business intelligence",
+          "Creación de CRM personalizados",
+        ],
+      },
+    ],
+  },
+  en: {
+    heroIntro:
+      "BlancaReal markets and manages projects across the Costa del Sol, from launch to after-sales.",
+    brandsEyebrow: "BlancaReal ecosystem",
+    brandsTitle: "Our brands and areas",
+    brandsLead:
+      "BlancaReal brings property, services, investment, commercialization, legal and marketing together within one coordinated ecosystem.",
+    whyEyebrow: "01 BlancaReal since 1969",
+    workflowEyebrow: "02 Process follow-up",
+    extraEyebrow: "04 What else BlancaReal offers",
+    locationEyebrow: "05 Where you can find us",
+    workflowMarketingTitle: "Branding and Marketing Strategy",
+    workflowItems: [
+      [
+        "Branding and naming",
+        "Implementation of organic actions",
+        "Creation of multimedia assets",
+        "Specific landing setup",
+        "Design of digital and physical advertising",
+        "Publication on portals and outreach",
+      ],
+      ["Legal advice"],
+      [
+        "Lead, contact, visit and similar data",
+        "Analysis of results, channels and campaigns",
+        "Reason for interest and evaluation of the suitability of the development (design, price, timelines, etc.)",
+      ],
+      [
+        "Relevant incidents",
+        "Corrective or preventive actions",
+        "Customization management",
+        "After-sales",
+        "Delivery verification",
+      ],
+    ],
+    whyItems: [
+      { title: "Trust", text: "BlancaReal since 1969." },
+      {
+        title: "Transparency",
+        text: "Having our own private legal department makes every process understandable for all parties.",
+      },
+      {
+        title: "Innovation",
+        text: "Seeing yourself inside a real 3D experience is possible thanks to our Marketing and AI Department.",
+      },
+      {
+        title: "Professionalism",
+        text: "Our team has the qualifications and multilingual training required to cover any international market.",
+      },
+    ],
+    brands: [
+      {
+        tone: "properties",
+        title: "Properties",
+        items: ["New build", "Cooperatives", "Second-hand residential", "Off-market villas", "Rentals"],
+      },
+      {
+        tone: "services",
+        title: "Services",
+        items: ["Administration and after-sales", "Refurbishment, gardening and maintenance", "Rental management"],
+      },
+      {
+        tone: "investments",
+        title: "Investments",
+        items: [
+          "Corporate investment assets",
+          "Real Estate and Private Equity",
+          "Projects for institutional funds and family offices",
+          "Land, buildings, hotels and logistics",
+        ],
+      },
+      {
+        tone: "legal",
+        title: "Legal",
+        items: [
+          "Documentation management for foreign buyers",
+          "Tax obligations",
+          "Tax engineering",
+          "Anti-money laundering",
+          "Contract management",
+        ],
+      },
+      {
+        tone: "commercial",
+        title: "Commercialization",
+        items: [
+          "Project and development management",
+          "Marketing and social media advertising",
+          "Home commercialization",
+          "Contract and payment management",
+          "Customizations",
+        ],
+      },
+      {
+        tone: "marketing",
+        title: "Marketing",
+        items: [
+          "Certified drone pilots",
+          "Renders and virtual tour",
+          "Landing creation, SEO and SEM",
+          "Social media and mailing management",
+          "Business intelligence",
+          "Custom CRM creation",
+        ],
+      },
+    ],
+  },
+  de: {
+    heroIntro:
+      "BlancaReal vermarktet und steuert Projekte an der gesamten Costa del Sol, vom Launch bis zum After-Sales.",
+    brandsEyebrow: "BlancaReal Oekosystem",
+    brandsTitle: "Unsere Marken und Bereiche",
+    brandsLead:
+      "BlancaReal vereint Immobilien, Services, Investments, Vermarktung, Recht und Marketing in einem koordinierten Oekosystem.",
+    whyEyebrow: "01 BlancaReal seit 1969",
+    workflowEyebrow: "02 Prozessbegleitung",
+    extraEyebrow: "04 Was BlancaReal sonst noch bietet",
+    locationEyebrow: "05 Wo Sie uns finden",
+    workflowMarketingTitle: "Branding und Marketingstrategie",
+    workflowItems: [
+      [
+        "Branding und Naming",
+        "Umsetzung organischer Massnahmen",
+        "Erstellung von Multimedia-Material",
+        "Einrichtung spezifischer Landingpages",
+        "Gestaltung digitaler und physischer Werbung",
+        "Veroeffentlichung in Portalen und Kommunikation",
+      ],
+      ["Rechtliche Beratung"],
+      [
+        "Daten zu Leads, Kontakten, Besichtigungen und aehnlichem",
+        "Analyse von Ergebnissen, Kanaelen und Kampagnen",
+        "Interessegruende und Bewertung der Eignung des Projekts (Design, Preis, Fristen usw.)",
+      ],
+      [
+        "Relevante Vorfaelle",
+        "Korrektur- oder Praeventivmassnahmen",
+        "Management von Individualisierungen",
+        "After-Sales",
+        "Uebergabepruefung",
+      ],
+    ],
+    whyItems: [
+      { title: "Vertrauen", text: "BlancaReal seit 1969." },
+      {
+        title: "Transparenz",
+        text: "Unsere eigene Rechtsabteilung macht die Prozesse fuer alle Beteiligten nachvollziehbar.",
+      },
+      {
+        title: "Innovation",
+        text: "Eine echte 3D-Erfahrung ist dank unserer Marketing- und KI-Abteilung moeglich.",
+      },
+      {
+        title: "Professionalitaet",
+        text: "Unser Team verfuegt ueber die notwendige Qualifikation und mehrsprachige Ausbildung fuer jeden internationalen Markt.",
+      },
+    ],
+    brands: [
+      {
+        tone: "properties",
+        title: "Immobilien",
+        items: ["Neubau", "Genossenschaften", "Bestandswohnen", "Off-market-Villen", "Vermietungen"],
+      },
+      {
+        tone: "services",
+        title: "Services",
+        items: ["Verwaltung und After-Sales", "Renovierung, Gartenarbeit und Instandhaltung", "Mietverwaltung"],
+      },
+      {
+        tone: "investments",
+        title: "Investments",
+        items: [
+          "Unternehmensnahe Investment-Assets",
+          "Real Estate und Private Equity",
+          "Projekte fuer institutionelle Fonds und Family Offices",
+          "Grundstuecke, Gebaeude, Hotels und Logistik",
+        ],
+      },
+      {
+        tone: "legal",
+        title: "Legal",
+        items: [
+          "Dokumentenmanagement fuer auslaendische Kaeufer",
+          "Steuerliche Pflichten",
+          "Steuergestaltung",
+          "Geldwaeschepraevention",
+          "Vertragsmanagement",
+        ],
+      },
+      {
+        tone: "commercial",
+        title: "Vermarktung",
+        items: [
+          "Projekt- und Promotionsmanagement",
+          "Marketing und Werbung in sozialen Netzwerken",
+          "Vermarktung von Wohnungen",
+          "Vertrags- und Zahlungsmanagement",
+          "Individualisierungen",
+        ],
+      },
+      {
+        tone: "marketing",
+        title: "Marketing",
+        items: [
+          "Zertifizierte Drohnenpiloten",
+          "Renderings und virtuelle Tour",
+          "Landing-Erstellung, SEO und SEM",
+          "Social Media und Mailing-Management",
+          "Business Intelligence",
+          "Individuelle CRM-Erstellung",
+        ],
+      },
+    ],
+  },
+  fr: {
+    heroIntro:
+      "BlancaReal commercialise et gere des projets sur toute la Costa del Sol, du lancement jusqu a l apres-vente.",
+    brandsEyebrow: "Ecosysteme BlancaReal",
+    brandsTitle: "Nos marques et domaines",
+    brandsLead:
+      "BlancaReal reunit proprietes, services, investissement, commercialisation, juridique et marketing dans un meme ecosysteme coordonne.",
+    whyEyebrow: "01 BlancaReal depuis 1969",
+    workflowEyebrow: "02 Suivi du processus",
+    extraEyebrow: "04 Ce que BlancaReal propose en plus",
+    locationEyebrow: "05 Ou nous trouver",
+    workflowMarketingTitle: "Branding et strategie marketing",
+    workflowItems: [
+      [
+        "Branding et naming",
+        "Mise en place d actions organiques",
+        "Creation de contenus multimedia",
+        "Creation de landings specifiques",
+        "Conception de publicite digitale et physique",
+        "Publication sur les portails et diffusion",
+      ],
+      ["Conseil juridique"],
+      [
+        "Donnees sur les leads, contacts, visites et similaires",
+        "Analyse des resultats, supports et campagnes",
+        "Motif d interet et evaluation de l adequation de la promotion (design, prix, delais, etc.)",
+      ],
+      [
+        "Incidents pertinents",
+        "Actions correctives ou preventives",
+        "Gestion des personnalisations",
+        "Apres-vente",
+        "Verification de livraison",
+      ],
+    ],
+    whyItems: [
+      { title: "Confiance", text: "BlancaReal depuis 1969." },
+      {
+        title: "Transparence",
+        text: "Notre departement juridique prive rend nos processus comprehensibles pour toutes les parties.",
+      },
+      {
+        title: "Innovation",
+        text: "Se projeter dans une experience 3D reelle est possible grace a notre departement Marketing et IA.",
+      },
+      {
+        title: "Professionnalisme",
+        text: "Notre equipe dispose de la qualification et de la formation multilingue necessaires pour couvrir tout marche international.",
+      },
+    ],
+    brands: [
+      {
+        tone: "properties",
+        title: "Proprietes",
+        items: ["Programme neuf", "Cooperatives", "Residentiel de revente", "Villas off-market", "Locations"],
+      },
+      {
+        tone: "services",
+        title: "Services",
+        items: ["Administration et apres-vente", "Renovation, jardinage et maintenance", "Gestion locative"],
+      },
+      {
+        tone: "investments",
+        title: "Investissements",
+        items: [
+          "Actifs d investissement corporate",
+          "Real Estate et Private Equity",
+          "Projets pour fonds institutionnels et family offices",
+          "Terrains, immeubles, hotels et logistique",
+        ],
+      },
+      {
+        tone: "legal",
+        title: "Legal",
+        items: [
+          "Gestion documentaire pour les clients etrangers",
+          "Obligations fiscales",
+          "Ingenierie fiscale",
+          "Lutte contre le blanchiment",
+          "Gestion des contrats",
+        ],
+      },
+      {
+        tone: "commercial",
+        title: "Commercialisation",
+        items: [
+          "Gestion de projets et promotions",
+          "Marketing et publicite sur les reseaux sociaux",
+          "Commercialisation de logements",
+          "Gestion des contrats et paiements",
+          "Personnalisations",
+        ],
+      },
+      {
+        tone: "marketing",
+        title: "Marketing",
+        items: [
+          "Pilotes de drone certifies",
+          "Rendus et visite virtuelle",
+          "Creation de landing, SEO et SEM",
+          "Gestion des reseaux sociaux et mailing",
+          "Business intelligence",
+          "Creation de CRM sur mesure",
+        ],
+      },
+    ],
+  },
+  it: {
+    heroIntro:
+      "BlancaReal commercializza e gestisce progetti in tutta la Costa del Sol, dal lancio fino al postvendita.",
+    brandsEyebrow: "Ecosistema BlancaReal",
+    brandsTitle: "I nostri marchi e aree",
+    brandsLead:
+      "BlancaReal integra proprieta, servizi, investimenti, commercializzazione, legale e marketing in un unico ecosistema coordinato.",
+    whyEyebrow: "01 BlancaReal dal 1969",
+    workflowEyebrow: "02 Monitoraggio del processo",
+    extraEyebrow: "04 Cosa offre in piu BlancaReal",
+    locationEyebrow: "05 Dove trovarci",
+    workflowMarketingTitle: "Branding e Strategia di Marketing",
+    workflowItems: [
+      [
+        "Branding e naming",
+        "Implementazione di azioni organiche",
+        "Creazione di materiale multimediale",
+        "Creazione di landing specifiche",
+        "Design di pubblicita digitale e fisica",
+        "Pubblicazione su portali e divulgazione",
+      ],
+      ["Consulenza legale"],
+      [
+        "Dati su lead, contatti, visite e simili",
+        "Analisi di risultati, canali e campagne",
+        "Motivo di interesse e valutazione dell idoneita della promozione (design, prezzo, tempistiche, ecc.)",
+      ],
+      [
+        "Incidenze rilevanti",
+        "Azioni correttive o preventive",
+        "Gestione delle personalizzazioni",
+        "Postvendita",
+        "Verifica di consegna",
+      ],
+    ],
+    whyItems: [
+      { title: "Fiducia", text: "BlancaReal dal 1969." },
+      {
+        title: "Trasparenza",
+        text: "Avere un dipartimento legale privato rende i nostri processi comprensibili per tutte le parti.",
+      },
+      {
+        title: "Innovazione",
+        text: "Vivere una reale esperienza 3D e possibile grazie al nostro Dipartimento Marketing e IA.",
+      },
+      {
+        title: "Professionalita",
+        text: "Il nostro team dispone della qualificazione e della formazione multilingue necessarie per coprire qualsiasi mercato internazionale.",
+      },
+    ],
+    brands: [
+      {
+        tone: "properties",
+        title: "Proprieta",
+        items: ["Nuova costruzione", "Cooperative", "Residenziale usato", "Ville off-market", "Affitti"],
+      },
+      {
+        tone: "services",
+        title: "Servizi",
+        items: ["Amministrazione e postvendita", "Ristrutturazioni, giardinaggio e manutenzione", "Gestione affitti"],
+      },
+      {
+        tone: "investments",
+        title: "Investimenti",
+        items: [
+          "Asset di investimento corporate",
+          "Real Estate e Private Equity",
+          "Progetti per fondi istituzionali e family office",
+          "Terreni, edifici, hotel e logistica",
+        ],
+      },
+      {
+        tone: "legal",
+        title: "Legal",
+        items: [
+          "Gestione documentale per clienti stranieri",
+          "Obblighi tributari",
+          "Ingegneria fiscale",
+          "Antiriciclaggio",
+          "Gestione contratti",
+        ],
+      },
+      {
+        tone: "commercial",
+        title: "Commercializzazione",
+        items: [
+          "Gestione di progetti e promozioni",
+          "Marketing e pubblicita sui social",
+          "Commercializzazione di abitazioni",
+          "Gestione di contratti e pagamenti",
+          "Personalizzazioni",
+        ],
+      },
+      {
+        tone: "marketing",
+        title: "Marketing",
+        items: [
+          "Piloti drone certificati",
+          "Render e tour virtuale",
+          "Creazione landing, SEO e SEM",
+          "Gestione social e mailing",
+          "Business intelligence",
+          "Creazione di CRM personalizzati",
+        ],
+      },
+    ],
+  },
+  nl: {
+    heroIntro:
+      "BlancaReal commercialiseert en beheert projecten aan de hele Costa del Sol, van lancering tot aftersales.",
+    brandsEyebrow: "BlancaReal ecosysteem",
+    brandsTitle: "Onze merken en gebieden",
+    brandsLead:
+      "BlancaReal verenigt vastgoed, diensten, investeringen, commercialisatie, juridisch en marketing binnen een gecoordineerd ecosysteem.",
+    whyEyebrow: "01 BlancaReal sinds 1969",
+    workflowEyebrow: "02 Procesopvolging",
+    extraEyebrow: "04 Wat BlancaReal nog meer biedt",
+    locationEyebrow: "05 Waar u ons vindt",
+    workflowMarketingTitle: "Branding en Marketingstrategie",
+    workflowItems: [
+      [
+        "Branding en naming",
+        "Uitvoering van organische acties",
+        "Creatie van multimediamateriaal",
+        "Opzet van specifieke landingspagina's",
+        "Ontwerp van digitale en fysieke reclame",
+        "Publicatie op portalen en verspreiding",
+      ],
+      ["Juridisch advies"],
+      [
+        "Gegevens over leads, contacten, bezoeken en vergelijkbaar",
+        "Analyse van resultaten, media en campagnes",
+        "Reden van interesse en beoordeling van de geschiktheid van het project (ontwerp, prijs, termijnen, enz.)",
+      ],
+      [
+        "Relevante incidenten",
+        "Corrigerende of preventieve acties",
+        "Beheer van personalisaties",
+        "Aftersales",
+        "Opleveringscontrole",
+      ],
+    ],
+    whyItems: [
+      { title: "Vertrouwen", text: "BlancaReal sinds 1969." },
+      {
+        title: "Transparantie",
+        text: "Onze eigen juridische afdeling maakt onze processen begrijpelijk voor alle partijen.",
+      },
+      {
+        title: "Innovatie",
+        text: "Uzelf zien in een echte 3D-ervaring is mogelijk dankzij onze afdeling Marketing en AI.",
+      },
+      {
+        title: "Professionaliteit",
+        text: "Ons team beschikt over de nodige kwalificaties en meertalige opleiding om elke internationale markt te bedienen.",
+      },
+    ],
+    brands: [
+      {
+        tone: "properties",
+        title: "Vastgoed",
+        items: ["Nieuwbouw", "Cooperatieven", "Bestaande residentiele woningen", "Off-market villa's", "Verhuur"],
+      },
+      {
+        tone: "services",
+        title: "Diensten",
+        items: ["Administratie en aftersales", "Renovaties, tuinonderhoud en onderhoud", "Verhuurbeheer"],
+      },
+      {
+        tone: "investments",
+        title: "Investeringen",
+        items: [
+          "Corporate investeringsactiva",
+          "Real Estate en Private Equity",
+          "Projecten voor institutionele fondsen en family offices",
+          "Gronden, gebouwen, hotels en logistiek",
+        ],
+      },
+      {
+        tone: "legal",
+        title: "Legal",
+        items: [
+          "Documentbeheer voor buitenlandse kopers",
+          "Fiscale verplichtingen",
+          "Fiscale engineering",
+          "Witwaspreventie",
+          "Contractbeheer",
+        ],
+      },
+      {
+        tone: "commercial",
+        title: "Commercialisatie",
+        items: [
+          "Beheer van projecten en promoties",
+          "Marketing en reclame op sociale media",
+          "Commercialisatie van woningen",
+          "Beheer van contracten en betalingen",
+          "Personalisaties",
+        ],
+      },
+      {
+        tone: "marketing",
+        title: "Marketing",
+        items: [
+          "Gecertificeerde dronepiloten",
+          "Renders en virtuele tour",
+          "Creatie van landing, SEO en SEM",
+          "Beheer van sociale media en mailing",
+          "Business intelligence",
+          "Creatie van maatwerk-CRM's",
+        ],
+      },
+    ],
+  },
+} as const;
+
+const includedServicesOverridesByLang = {
+  es: {
+    defaultNavLabel: "Servicios incluidos",
+    defaultEyebrow: "04 Servicios incluidos",
+    defaultTitle: "Qué ofrece BlancaReal por defecto",
+    defaultLead: "BlancaReal aporta todo su equipo y compromiso para operar desde el primer dia del proyecto.",
+    defaultIntroEyebrow: "Activacion inmediata",
+    defaultIntroTitle: "Estructura preparada para vender desde el primer dia.",
+    defaultIntroText:
+      "Todo el equipo de BlancaReal trabaja conjuntamente para garantizar la venta del activo.",
+    defaultTimelineTitle: "Seguimiento temporal",
+    defaultTimeline: [
+      "Reunion inicial: firma de acuerdos",
+      "Acceso a cronograma y carpeta compartida de promocion",
+      "Propuesta de branding y namings",
+      "Puesta en marcha del proyecto",
+      "Publicacion",
+      "Informes mensuales",
+    ],
+    defaultVisualAlt: "Equipo de BlancaReal preparando la comercializacion",
+    defaultGroups: [
+      { title: "Estructura comercial", items: ["Unidad de cierre"] },
+      { title: "Marketing", items: ["Motor de ventas"] },
+      { title: "Control legal", items: ["Seguridad juridica"] },
+      { title: "Atencion postventa", items: ["Continuidad de cliente"] },
+    ],
+    extraEyebrow: "05 Qué más ofrece BlancaReal",
+    locationEyebrow: "06 Dónde puedes encontrarnos",
+  },
+  en: {
+    defaultNavLabel: "Included services",
+    defaultEyebrow: "04 Included services",
+    defaultTitle: "What BlancaReal delivers by default",
+    defaultLead: "BlancaReal brings its full team and commitment to operate from day one of the project.",
+    defaultIntroEyebrow: "Immediate activation",
+    defaultIntroTitle: "A structure ready to sell from day one.",
+    defaultIntroText:
+      "The entire BlancaReal team works together to guarantee the sale of the asset.",
+    defaultTimelineTitle: "Timeline follow-up",
+    defaultTimeline: [
+      "Initial meeting: signing of agreements",
+      "Access to the schedule and shared promotion folder",
+      "Branding and naming proposal",
+      "Project launch",
+      "Publication",
+      "Monthly reports",
+    ],
+    defaultVisualAlt: "BlancaReal team preparing commercialization",
+    defaultGroups: [
+      { title: "Commercial structure", items: ["Closing unit"] },
+      { title: "Marketing", items: ["Sales engine"] },
+      { title: "Legal control", items: ["Legal security"] },
+      { title: "After-sales support", items: ["Client continuity"] },
+    ],
+    extraEyebrow: "05 What else BlancaReal offers",
+    locationEyebrow: "06 Where you can find us",
+  },
+  de: {
+    defaultNavLabel: "Inklusive Leistungen",
+    defaultEyebrow: "04 Inklusive Leistungen",
+    defaultTitle: "Was BlancaReal standardmaessig bietet",
+    defaultLead: "BlancaReal bringt sein gesamtes Team und Engagement ein, um das Projekt vom ersten Tag an operativ zu begleiten.",
+    defaultIntroEyebrow: "Sofort startklar",
+    defaultIntroTitle: "Eine Struktur, die vom ersten Tag an verkaufen kann.",
+    defaultIntroText:
+      "Das gesamte Team von BlancaReal arbeitet gemeinsam daran, den Verkauf des Assets sicherzustellen.",
+    defaultTimelineTitle: "Zeitlicher Ablauf",
+    defaultTimeline: [
+      "Erstgespraech: Unterzeichnung der Vereinbarungen",
+      "Zugang zum Zeitplan und zum gemeinsamen Projektordner",
+      "Branding- und Naming-Vorschlag",
+      "Projektstart",
+      "Veroeffentlichung",
+      "Monatsberichte",
+    ],
+    defaultVisualAlt: "BlancaReal Team bei der Vorbereitung der Vermarktung",
+    defaultGroups: [
+      { title: "Vertriebsstruktur", items: ["Abschlusseinheit"] },
+      { title: "Marketing", items: ["Vertriebsmotor"] },
+      { title: "Rechtliche Kontrolle", items: ["Rechtssicherheit"] },
+      { title: "After-Sales Betreuung", items: ["Kontinuitaet fuer den Kunden"] },
+    ],
+    extraEyebrow: "05 Was BlancaReal sonst noch bietet",
+    locationEyebrow: "06 Wo Sie uns finden",
+  },
+  fr: {
+    defaultNavLabel: "Services inclus",
+    defaultEyebrow: "04 Services inclus",
+    defaultTitle: "Ce que BlancaReal apporte par defaut",
+    defaultLead: "BlancaReal mobilise toute son equipe et son engagement pour operer des le premier jour du projet.",
+    defaultIntroEyebrow: "Activation immediate",
+    defaultIntroTitle: "Une structure prete a vendre des le premier jour.",
+    defaultIntroText:
+      "Toute l equipe de BlancaReal travaille ensemble pour garantir la vente de l actif.",
+    defaultTimelineTitle: "Suivi dans le temps",
+    defaultTimeline: [
+      "Reunion initiale : signature des accords",
+      "Acces au calendrier et au dossier partage de la promotion",
+      "Proposition de branding et naming",
+      "Mise en marche du projet",
+      "Publication",
+      "Rapports mensuels",
+    ],
+    defaultVisualAlt: "Equipe BlancaReal preparant la commercialisation",
+    defaultGroups: [
+      { title: "Structure commerciale", items: ["Unite de closing"] },
+      { title: "Marketing", items: ["Moteur des ventes"] },
+      { title: "Controle juridique", items: ["Securite juridique"] },
+      { title: "Suivi apres-vente", items: ["Continuite client"] },
+    ],
+    extraEyebrow: "05 Ce que BlancaReal propose en plus",
+    locationEyebrow: "06 Ou nous trouver",
+  },
+  it: {
+    defaultNavLabel: "Servizi inclusi",
+    defaultEyebrow: "04 Servizi inclusi",
+    defaultTitle: "Cosa offre BlancaReal di base",
+    defaultLead: "BlancaReal mette a disposizione tutto il suo team e il suo impegno per operare fin dal primo giorno del progetto.",
+    defaultIntroEyebrow: "Attivazione immediata",
+    defaultIntroTitle: "Una struttura pronta a vendere dal primo giorno.",
+    defaultIntroText:
+      "Tutto il team di BlancaReal lavora insieme per garantire la vendita dell asset.",
+    defaultTimelineTitle: "Monitoraggio temporale",
+    defaultTimeline: [
+      "Riunione iniziale: firma degli accordi",
+      "Accesso al cronoprogramma e alla cartella condivisa della promozione",
+      "Proposta di branding e naming",
+      "Avvio del progetto",
+      "Pubblicazione",
+      "Report mensili",
+    ],
+    defaultVisualAlt: "Team BlancaReal al lavoro sulla commercializzazione",
+    defaultGroups: [
+      { title: "Struttura commerciale", items: ["Unita di chiusura"] },
+      { title: "Marketing", items: ["Motore delle vendite"] },
+      { title: "Controllo legale", items: ["Sicurezza giuridica"] },
+      { title: "Assistenza postvendita", items: ["Continuita cliente"] },
+    ],
+    extraEyebrow: "05 Cosa offre ancora BlancaReal",
+    locationEyebrow: "06 Dove trovarci",
+  },
+  nl: {
+    defaultNavLabel: "Inbegrepen diensten",
+    defaultEyebrow: "04 Inbegrepen diensten",
+    defaultTitle: "Wat BlancaReal standaard biedt",
+    defaultLead: "BlancaReal zet zijn volledige team en betrokkenheid in om vanaf dag een operationeel te zijn binnen het project.",
+    defaultIntroEyebrow: "Direct inzetbaar",
+    defaultIntroTitle: "Een structuur die vanaf dag een klaarstaat om te verkopen.",
+    defaultIntroText:
+      "Het volledige team van BlancaReal werkt samen om de verkoop van het actief te garanderen.",
+    defaultTimelineTitle: "Tijdelijke opvolging",
+    defaultTimeline: [
+      "Startvergadering: ondertekening van overeenkomsten",
+      "Toegang tot planning en gedeelde promotiemap",
+      "Voorstel voor branding en naming",
+      "Opstart van het project",
+      "Publicatie",
+      "Maandelijkse rapporten",
+    ],
+    defaultVisualAlt: "BlancaReal team bereidt de commercialisatie voor",
+    defaultGroups: [
+      { title: "Commerciele structuur", items: ["Closing unit"] },
+      { title: "Marketing", items: ["Verkoopmotor"] },
+      { title: "Juridische controle", items: ["Juridische zekerheid"] },
+      { title: "Nazorg", items: ["Klantcontinuiteit"] },
+    ],
+    extraEyebrow: "05 Wat BlancaReal extra biedt",
+    locationEyebrow: "06 Waar u ons vindt",
+  },
+} as const;
+
+const commercializationOverrides =
+  commercializationOverridesByLang[lang as keyof typeof commercializationOverridesByLang] ??
+  commercializationOverridesByLang.es;
+const includedServicesOverrides =
+  includedServicesOverridesByLang[lang as keyof typeof includedServicesOverridesByLang] ??
+  includedServicesOverridesByLang.es;
+
+page = {
+  ...page,
+  intro: commercializationOverrides.heroIntro,
+  sectionNav: [
+    { id: "por-que", label: sectionLabelAt(0, chrome.whyTitle) },
+    { id: "trabajo", label: sectionLabelAt(1, chrome.workflowTitle) },
+    { id: "proyectos", label: sectionLabelAt(2, chrome.projectsTitle) },
+    { id: "ofrece-por-defecto", label: includedServicesOverrides.defaultNavLabel },
+    { id: "ofrece-mas", label: sectionLabelAt(7, chrome.extraTitle) },
+    { id: "encontrarnos", label: sectionLabelAt(8, chrome.locationTitle) },
+  ],
+  whyItems: commercializationOverrides.whyItems,
+  workflow: page.workflow.map((item: Record<string, any>, index: number) => ({
+    ...item,
+    title: index === 0 ? commercializationOverrides.workflowMarketingTitle : item.title,
+    items: commercializationOverrides.workflowItems[index] ?? item.items,
+  })),
+  defaultLead: includedServicesOverrides.defaultLead,
+  defaultGroups: includedServicesOverrides.defaultGroups,
+  brandsLead: commercializationOverrides.brandsLead,
+  brands: commercializationOverrides.brands,
+};
+
+chrome = {
+  ...chrome,
+  brandsEyebrow: commercializationOverrides.brandsEyebrow,
+  brandsTitle: commercializationOverrides.brandsTitle,
+  whyEyebrow: commercializationOverrides.whyEyebrow,
+  workflowEyebrow: commercializationOverrides.workflowEyebrow,
+  defaultEyebrow: includedServicesOverrides.defaultEyebrow,
+  defaultTitle: includedServicesOverrides.defaultTitle,
+  defaultIntroEyebrow: includedServicesOverrides.defaultIntroEyebrow,
+  defaultIntroTitle: includedServicesOverrides.defaultIntroTitle,
+  defaultIntroText: includedServicesOverrides.defaultIntroText,
+  defaultTimelineTitle: includedServicesOverrides.defaultTimelineTitle,
+  defaultVisualAlt: includedServicesOverrides.defaultVisualAlt,
+  extraEyebrow: includedServicesOverrides.extraEyebrow,
+  locationEyebrow: includedServicesOverrides.locationEyebrow,
+};
+
+const whyFlowItems = {
+  topLeft: page.whyItems[0],
+  topRight: page.whyItems[1],
+  bottomLeft: page.whyItems[3],
+  bottomRight: page.whyItems[2],
+};
+const brandEcosystemLeft = page.brands.slice(0, 3);
+const brandEcosystemRight = page.brands.slice(3);
+--- 
 
 <BaseLayout
   title={page.title}
@@ -263,87 +1188,126 @@ const brandIcons = [
             id="panel-por-que"
             data-panel-id="por-que"
           >
-          <section class="brand-section brand-section--why" aria-labelledby="por-que-title">
-            <div class="service-section-heading">
-              <span class="service-mini-eyebrow">{chrome.whyEyebrow}</span>
-              <h2 id="por-que-title">{chrome.whyTitle}</h2>
-              <p>{page.whyLead}</p>
-            </div>
-            <div class="brand-values-flow" aria-label={chrome.valuesAria}>
-              <article class="brand-value-card brand-value-card--top-left">
-                <h3>{whyFlowItems.topLeft.title}</h3>
-                <p>{whyFlowItems.topLeft.text}</p>
-              </article>
-
-              <article class="brand-value-card brand-value-card--top-right">
-                <h3>{whyFlowItems.topRight.title}</h3>
-                <p>{whyFlowItems.topRight.text}</p>
-              </article>
-
-              <article class="brand-value-card brand-value-card--bottom-left">
-                <h3>{whyFlowItems.bottomLeft.title}</h3>
-                <p>{whyFlowItems.bottomLeft.text}</p>
-              </article>
-
-              <article class="brand-value-card brand-value-card--bottom-right">
-                <h3>{whyFlowItems.bottomRight.title}</h3>
-                <p>{whyFlowItems.bottomRight.text}</p>
-              </article>
-
-              <div class="brand-values-flow__hub" aria-hidden="true">
-                <span class="brand-values-flow__badge">
-                  <BrandLogo variant="icon" class="brand-values-flow__logo" loading="lazy" />
-                </span>
+            <section class="brand-section brand-section--ecosystem" aria-labelledby="ecosistema-title">
+              <div class="service-section-heading">
+                <span class="service-mini-eyebrow">{chrome.brandsEyebrow}</span>
+                <h2 id="ecosistema-title">{chrome.brandsTitle}</h2>
+                <p>{page.brandsLead}</p>
               </div>
+              <div class="brand-ecosystem">
+                <div class="brand-ecosystem__cluster brand-ecosystem__cluster--left">
+                  {brandEcosystemLeft.map((item, index) => (
+                    <article class:list={["brand-ecosystem-card", `is-${item.tone}`]}>
+                      <div class="brand-ecosystem-card__head">
+                        <span class="brand-ecosystem-card__icon" aria-hidden="true">
+                          <svg viewBox={brandUniverseIcons[index].viewBox} focusable="false">
+                            {brandUniverseIcons[index].paths.map((path) => (
+                              <path d={path} />
+                            ))}
+                          </svg>
+                        </span>
+                        <span class="brand-ecosystem-card__title">{item.title}</span>
+                      </div>
+                      <ul>
+                        {item.items.map((entry) => (
+                          <li>{entry}</li>
+                        ))}
+                      </ul>
+                    </article>
+                  ))}
+                </div>
 
-              <svg
-                class="brand-values-flow__route"
-                viewBox="0 0 1000 620"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <defs>
-                  <marker
-                    id="brand-values-arrowhead"
-                    markerWidth="10"
-                    markerHeight="10"
-                    refX="8"
-                    refY="5"
-                    orient="auto"
-                  >
-                    <path d="M0 0L10 5L0 10" />
-                  </marker>
-                </defs>
-                <path d="M322 132H678" marker-end="url(#brand-values-arrowhead)" />
-                <path d="M808 182V438" marker-end="url(#brand-values-arrowhead)" />
-                <path d="M678 488H322" marker-end="url(#brand-values-arrowhead)" />
-                <path d="M192 438V182" marker-end="url(#brand-values-arrowhead)" />
-              </svg>
-            </div>
-          </section>
-          </article>
+                <div class="brand-ecosystem__center" aria-hidden="true">
+                  <div class="brand-ecosystem__center-shell">
+                    <span class="brand-ecosystem__center-icon">
+                      <BrandLogo variant="icon" class="brand-ecosystem__center-mark" loading="lazy" />
+                    </span>
+                    <BrandLogo variant="wordmark" class="brand-ecosystem__center-logo" loading="lazy" />
+                  </div>
+                </div>
 
-          <article
-            class="brand-panel"
-            id="panel-atencion"
-            data-panel-id="atencion"
-          >
-          <section class="brand-section brand-section--care" aria-labelledby="atencion-title">
-            <div class="service-section-heading">
-              <span class="service-mini-eyebrow">{chrome.careEyebrow}</span>
-              <h2 id="atencion-title">{chrome.careTitle}</h2>
-              <p>{page.careLead}</p>
-            </div>
-            <div class="brand-process-grid brand-process-grid--five">
-              {page.careModel.map((item) => (
-                <article class="brand-process-card">
-                  <span class="brand-process-card__step">{item.step}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
+                <div class="brand-ecosystem__cluster brand-ecosystem__cluster--right">
+                  {brandEcosystemRight.map((item, index) => (
+                    <article class:list={["brand-ecosystem-card", `is-${item.tone}`]}>
+                      <div class="brand-ecosystem-card__head">
+                        <span class="brand-ecosystem-card__icon" aria-hidden="true">
+                          <svg viewBox={brandUniverseIcons[index + brandEcosystemLeft.length].viewBox} focusable="false">
+                            {brandUniverseIcons[index + brandEcosystemLeft.length].paths.map((path) => (
+                              <path d={path} />
+                            ))}
+                          </svg>
+                        </span>
+                        <span class="brand-ecosystem-card__title">{item.title}</span>
+                      </div>
+                      <ul>
+                        {item.items.map((entry) => (
+                          <li>{entry}</li>
+                        ))}
+                      </ul>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section class="brand-section brand-section--why" aria-labelledby="por-que-title">
+              <div class="service-section-heading">
+                <span class="service-mini-eyebrow">{chrome.whyEyebrow}</span>
+                <h2 id="por-que-title">{chrome.whyTitle}</h2>
+                <p>{page.whyLead}</p>
+              </div>
+              <div class="brand-values-flow" aria-label={chrome.valuesAria}>
+                <article class="brand-value-card brand-value-card--top-left">
+                  <h3>{whyFlowItems.topLeft.title}</h3>
+                  <p>{whyFlowItems.topLeft.text}</p>
                 </article>
-              ))}
-            </div>
-          </section>
+
+                <article class="brand-value-card brand-value-card--top-right">
+                  <h3>{whyFlowItems.topRight.title}</h3>
+                  <p>{whyFlowItems.topRight.text}</p>
+                </article>
+
+                <article class="brand-value-card brand-value-card--bottom-left">
+                  <h3>{whyFlowItems.bottomLeft.title}</h3>
+                  <p>{whyFlowItems.bottomLeft.text}</p>
+                </article>
+
+                <article class="brand-value-card brand-value-card--bottom-right">
+                  <h3>{whyFlowItems.bottomRight.title}</h3>
+                  <p>{whyFlowItems.bottomRight.text}</p>
+                </article>
+
+                <div class="brand-values-flow__hub" aria-hidden="true">
+                  <span class="brand-values-flow__badge">
+                    <BrandLogo variant="icon" class="brand-values-flow__logo" loading="lazy" />
+                  </span>
+                </div>
+
+                <svg
+                  class="brand-values-flow__route"
+                  viewBox="0 0 1000 620"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <defs>
+                    <marker
+                      id="brand-values-arrowhead"
+                      markerWidth="10"
+                      markerHeight="10"
+                      refX="8"
+                      refY="5"
+                      orient="auto"
+                    >
+                      <path d="M0 0L10 5L0 10" />
+                    </marker>
+                  </defs>
+                  <path d="M322 132H678" marker-end="url(#brand-values-arrowhead)" />
+                  <path d="M808 182V438" marker-end="url(#brand-values-arrowhead)" />
+                  <path d="M678 488H322" marker-end="url(#brand-values-arrowhead)" />
+                  <path d="M192 438V182" marker-end="url(#brand-values-arrowhead)" />
+                </svg>
+              </div>
+            </section>
           </article>
 
           <article
@@ -377,70 +1341,6 @@ const brandIcons = [
                     </div>
                   </div>
                   <ul class="brand-workflow-stage__items">
-                    {item.items.map((entry) => (
-                      <li>{entry}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </section>
-          </article>
-
-          <article
-            class="brand-panel"
-            id="panel-recursos"
-            data-panel-id="recursos"
-          >
-          <section class="brand-section brand-section--resources" aria-labelledby="recursos-title">
-            <div class="service-section-heading">
-              <span class="service-mini-eyebrow">{chrome.resourcesEyebrow}</span>
-              <h2 id="recursos-title">{chrome.resourcesTitle}</h2>
-              <p>{page.resourcesLead}</p>
-            </div>
-            <div class="brand-card-grid">
-              {page.resourceGroups.map((item) => (
-                <article class="brand-card brand-card--list">
-                  <h3>{item.title}</h3>
-                  <ul>
-                    {item.items.map((entry) => (
-                      <li>{entry}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </section>
-          </article>
-
-          <article
-            class="brand-panel"
-            id="panel-marcas"
-            data-panel-id="marcas"
-          >
-          <section class="brand-section brand-section--brands" aria-labelledby="marcas-title">
-            <div class="service-section-heading">
-              <span class="service-mini-eyebrow">{chrome.brandsEyebrow}</span>
-              <h2 id="marcas-title">{chrome.brandsTitle}</h2>
-              <p>{page.brandsLead}</p>
-            </div>
-            <div class="brand-card-grid brand-card-grid--brands">
-              {page.brands.map((item, index) => (
-                <article class="brand-card brand-card--brand brand-card--list">
-                  <div class="brand-brand-card__head">
-                    <span class="brand-brand-card__icon" aria-hidden="true">
-                      <svg viewBox={brandIcons[index].viewBox} focusable="false">
-                        {brandIcons[index].paths.map((path) => (
-                          <path d={path} />
-                        ))}
-                      </svg>
-                    </span>
-                    <div class="brand-brand-card__title-wrap">
-                      <h3>{item.title}</h3>
-                      <p class="brand-card__tagline">{item.tagline}</p>
-                    </div>
-                  </div>
-                  <ul>
                     {item.items.map((entry) => (
                       <li>{entry}</li>
                     ))}
@@ -506,42 +1406,45 @@ const brandIcons = [
                 <span class="brand-default-intro__eyebrow">{chrome.defaultIntroEyebrow}</span>
                 <h3>{chrome.defaultIntroTitle}</h3>
                 <p>{chrome.defaultIntroText}</p>
+                <div class="brand-default-timeline">
+                  <span class="brand-default-timeline__title">{chrome.defaultTimelineTitle}</span>
+                  <ol class="brand-default-timeline__list">
+                    {includedServicesOverrides.defaultTimeline.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ol>
+                </div>
               </article>
-              <div class="brand-default-intro__stats" aria-label={chrome.defaultStatsAria}>
-                {page.defaultGroups.map((item) => (
-                  <article class="brand-default-stat">
-                    <strong>{item.items.length}</strong>
-                    <span>{item.title}</span>
-                    <small>{page.defaultStatsSuffix}</small>
-                  </article>
-                ))}
-              </div>
+
+              <article class="brand-default-intro__visual">
+                {page.portfolio[0] && (
+                  <img
+                    src={page.portfolio[0].image}
+                    alt={chrome.defaultVisualAlt}
+                    loading="lazy"
+                  />
+                )}
+              </article>
             </div>
+
             <div class="brand-card-grid brand-card-grid--default-enhanced">
               {page.defaultGroups.map((item, index) => (
-                <article class="brand-card brand-card--list brand-card--default-tier">
+                <article class="brand-card brand-card--default-tier">
                   <div class="brand-default-card__head">
                     <div class="brand-default-card__identity">
                       <span class="brand-default-card__icon" aria-hidden="true">
-                        <svg viewBox={defaultGroupMeta[index].icon.viewBox} focusable="false">
-                          {defaultGroupMeta[index].icon.paths.map((path) => (
+                        <svg viewBox={includedServiceCardIcons[index].viewBox} focusable="false">
+                          {includedServiceCardIcons[index].paths.map((path) => (
                             <path d={path} />
                           ))}
                         </svg>
                       </span>
                       <div class="brand-default-card__title-wrap">
-                        <span class="brand-default-card__eyebrow">{defaultGroupMeta[index].eyebrow}</span>
                         <h3>{item.title}</h3>
                       </div>
                     </div>
-                    <strong class="brand-default-card__stat">{defaultGroupMeta[index].stat}</strong>
                   </div>
-                  <p class="brand-default-card__caption">{defaultGroupMeta[index].caption}</p>
-                  <ul>
-                    {item.items.map((entry) => (
-                      <li>{entry}</li>
-                    ))}
-                  </ul>
+                  <p class="brand-default-card__caption">{item.items[0]}</p>
                 </article>
               ))}
             </div>
@@ -555,8 +1458,8 @@ const brandIcons = [
           >
           <section class="brand-section brand-section--extra" aria-labelledby="ofrece-mas-title">
             <div class="service-section-heading">
-              <span class="service-mini-eyebrow">08 Qué más ofrece BlancaReal</span>
-              <h2 id="ofrece-mas-title">Qué más ofrece BlancaReal</h2>
+              <span class="service-mini-eyebrow">{chrome.extraEyebrow}</span>
+              <h2 id="ofrece-mas-title">{chrome.extraTitle}</h2>
               <p>{page.extraLead}</p>
             </div>
             <div class="brand-extra-intro">

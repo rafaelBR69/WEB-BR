@@ -250,6 +250,27 @@
   position: relative;
 }
 
+.description-content h3 {
+  margin: 2rem 0 0.9rem;
+  color: var(--color-primary);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: 1.2;
+}
+
+.description-content h3:first-child {
+  margin-top: 0;
+}
+
+.description-content p {
+  margin: 0 0 1rem;
+  color: var(--color-text);
+  line-height: 1.85;
+}
+
+.description-content p:last-child {
+  margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
   .description-content {
     max-height: 250px; /* Altura estratégica para no aburrir */

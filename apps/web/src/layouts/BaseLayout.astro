@@ -291,6 +291,48 @@ const resolvedHeaderDesktopItems = resolvedHeaderNavItems.map((item) =>
     : item,
 );
 
+const menuSectionCopyByLang = {
+  es: {
+    relationshipTitle: "Para agentes y clientes particulares",
+    contentTitle: "Revista BlancaReal",
+    socialLabel: "Nuestras redes sociales",
+    socialHint: "Instagram, LinkedIn y contenidos de BlancaReal",
+  },
+  en: {
+    relationshipTitle: "For agents and private clients",
+    contentTitle: "BlancaReal Magazine",
+    socialLabel: "Our social networks",
+    socialHint: "Instagram, LinkedIn and BlancaReal content",
+  },
+  de: {
+    relationshipTitle: "Fuer Agenten und Privatkunden",
+    contentTitle: "BlancaReal Magazin",
+    socialLabel: "Unsere sozialen Netzwerke",
+    socialHint: "Instagram, LinkedIn und Inhalte von BlancaReal",
+  },
+  fr: {
+    relationshipTitle: "Pour agents et clients particuliers",
+    contentTitle: "Magazine BlancaReal",
+    socialLabel: "Nos reseaux sociaux",
+    socialHint: "Instagram, LinkedIn et contenus BlancaReal",
+  },
+  it: {
+    relationshipTitle: "Per agenti e clienti privati",
+    contentTitle: "Rivista BlancaReal",
+    socialLabel: "I nostri social",
+    socialHint: "Instagram, LinkedIn e contenuti BlancaReal",
+  },
+  nl: {
+    relationshipTitle: "Voor agenten en particuliere klanten",
+    contentTitle: "BlancaReal Magazine",
+    socialLabel: "Onze sociale netwerken",
+    socialHint: "Instagram, LinkedIn en BlancaReal-content",
+  },
+} as const;
+
+const menuSectionCopy =
+  menuSectionCopyByLang[lang as keyof typeof menuSectionCopyByLang] ?? menuSectionCopyByLang.es;
+
 const defaultSideMenuSections = [
   {
     title: ui.layout.menuMain,
@@ -313,7 +355,7 @@ const defaultSideMenuSections = [
     ],
   },
   {
-    title: ui.layout.menuRelationship,
+    title: menuSectionCopy.relationshipTitle,
     items: [
       { href: `/${lang}/sell-with-us/`, label: ui.layout.navSellWithUs, description: ui.layout.menuSellWithUsHint },
       { href: `/${lang}/portal/`, label: ui.layout.navForAgents, description: ui.layout.menuAgentsHint },
@@ -321,9 +363,10 @@ const defaultSideMenuSections = [
     ],
   },
   {
-    title: ui.layout.menuContent,
+    title: menuSectionCopy.contentTitle,
     items: [
       { href: `/${lang}/posts/`, label: ui.layout.navPosts, description: ui.layout.menuBlogHint },
+      { href: `/${lang}/#home-social-hub`, label: menuSectionCopy.socialLabel, description: menuSectionCopy.socialHint },
       { href: `/${lang}/about/`, label: ui.layout.navAbout, description: ui.layout.menuAboutHint },
     ],
   },

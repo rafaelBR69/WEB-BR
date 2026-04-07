@@ -110,6 +110,24 @@ const [parentPropertyResult, projectUnitsResult] = await Promise.all([
     : Promise.resolve({ properties: [] }),
 ]);
 const parentProperty = parentPropertyResult.properties[0] ?? null;
+const propertyTranslations = property.translations ?? {};
+const propertyLangTranslation = propertyTranslations?.[lang] ?? {};
+const parentLangTranslation = parentProperty?.translations?.[lang] ?? {};
+const hasOwnDescription =
+  Array.isArray(propertyLangTranslation?.description) && propertyLangTranslation.description.length > 0;
+const resolvedTranslations =
+  !hasOwnDescription &&
+  Array.isArray(parentLangTranslation?.description) &&
+  parentLangTranslation.description.length > 0
+    ? {
+        ...propertyTranslations,
+        [lang]: {
+          ...parentLangTranslation,
+          ...propertyLangTranslation,
+          description: parentLangTranslation.description,
+        },
+      }
+    : propertyTranslations;
 
 const ownGallery = property.media?.gallery ?? {};
 const galleryKeys = ["exterior", "interior", "views", "floorplan", "living", "bedroom", "kitchen", "bathroom"];
@@ -140,6 +158,7 @@ const resolvedMedia = {
 
 const propertyResolved = {
   ...property,
+  translations: resolvedTranslations,
   media: resolvedMedia,
 };
 

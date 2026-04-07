@@ -23,6 +23,11 @@ const CONTACT_PREFILL_STORAGE_KEY = "blancareal-contact-prefill";
 const OFFICE_ADDRESS = "Calle Monte Calahonda 10, Mijas Costa, Malaga";
 const OFFICE_MAP_EMBED =
   "https://www.google.com/maps?q=Calle+Monte+Calahonda+10,+Mijas+Costa,+Malaga&output=embed";
+const OFFICE_MAP_LINK =
+  "https://www.google.com/maps/search/?api=1&query=Calle+Monte+Calahonda+10,+Mijas+Costa,+Malaga";
+const OFFICE_PHONE_DISPLAY = "+34 952 599 159";
+const OFFICE_PHONE_TEL = "+34952599159";
+const OFFICE_WHATSAPP_LINK = "https://wa.me/34952599159";
 
 const serviceParamRaw = String(Astro.url.searchParams.get("service") ?? "").trim();
 const ALLOWED_SERVICES = new Set([
@@ -326,11 +331,37 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.es;
+const contactCopy =
+  lang === "es"
+    ? {
+        ...t,
+        heading: "Respondemos a todas sus consultas",
+        intro:
+          "Seleccione el departamento que necesite y nuestro equipo le responderá lo antes posible.",
+        phoneLabel: "Tlf",
+        officeLabel: "Dirección",
+        hoursValue: "10.00H a 18.00H de Lunes a Viernes",
+        channelsTitle: "Información y contacto de la oficina de BlancaReal",
+        channelsIntro: "Contacto directo",
+        linksTitle: "Todos nuestros departamentos",
+        linksIntro: "Acceso rápido",
+        formEyebrow: "Si prefiere ser contactado por escrito",
+        formTitle: "Solicitud de Contacto",
+        formIntro: "Complete el formulario y detalle lo que necesita.",
+        mapEyebrow: "Dónde Estamos",
+        mapTitle: "Ubicación de BlancaReal",
+        mapIntro:
+          "Atendemos únicamente con cita previa en nuestra oficina en Calahonda, Mijas Costa, un lugar único para todas sus operaciones en la Costa del Sol.",
+        whatsappLabel: "WhatsApp",
+        whatsappCta: "Escribir por WhatsApp",
+        officeMapsLabel: "Abrir en Google Maps",
+      }
+    : t;
 ---
 
 <BaseLayout
-  title={t.title}
-  description={t.description}
+  title={contactCopy.title}
+  description={contactCopy.description}
   lang={lang}
   availableLangs={SUPPORTED_LANGS}
   {...navigation}
@@ -339,38 +370,48 @@ const t = copyByLang[lang] ?? copyByLang.es;
     <section class="contact-hero container">
       <div class="contact-hero__shell">
         <div class="contact-hero__copy">
-          <span class="service-eyebrow">{t.eyebrow}</span>
-          <h1>{t.heading}</h1>
-          <p>{t.intro}</p>
+          <span class="service-eyebrow">{contactCopy.eyebrow}</span>
+          <h1>{contactCopy.heading}</h1>
+          <p>{contactCopy.intro}</p>
 
-          <div class="contact-service-tags" aria-label={t.formService}>
-            {t.serviceOptions.map((option) => (
-              <span class={`contact-service-tag ${option.value === selectedService ? "is-active" : ""}`}>
-                {option.label}
-              </span>
-            ))}
-          </div>
         </div>
 
-        <aside class="contact-hero__aside" aria-label={t.channelsTitle}>
+        <aside class="contact-hero__aside" aria-label={contactCopy.channelsTitle}>
           <div class="contact-hero__card">
-            <span class="contact-card__eyebrow">{t.channelsTitle}</span>
+            <span class="contact-card__eyebrow">{contactCopy.channelsTitle}</span>
             <div class="contact-hero__lead">
-              <a href="tel:+34952599159" class="contact-hero__phone">+34 952 599 159</a>
+              <p class="contact-hero__lead-label">{contactCopy.channelsIntro ?? contactCopy.channelsTitle}</p>
+              <a href={`tel:${OFFICE_PHONE_TEL}`} class="contact-hero__phone">{OFFICE_PHONE_DISPLAY}</a>
               <a href="mailto:info@blancareal.com" class="contact-hero__mail">info@blancareal.com</a>
+              <a
+                href={OFFICE_WHATSAPP_LINK}
+                class="contact-whatsapp-button"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {contactCopy.whatsappCta ?? "WhatsApp"}
+              </a>
             </div>
             <dl class="contact-hero__meta">
               <div>
-                <dt>{t.officeLabel}</dt>
-                <dd>{t.officeValue}</dd>
+                <dt>{contactCopy.officeLabel}</dt>
+                <dd>
+                  <a href={OFFICE_MAP_LINK} target="_blank" rel="noreferrer" class="contact-address-link">
+                    {contactCopy.officeValue}
+                  </a>
+                </dd>
               </div>
               <div>
-                <dt>{t.formService}</dt>
-                <dd>{t.serviceOptions.length}</dd>
+                <dt>{contactCopy.whatsappLabel ?? "WhatsApp"}</dt>
+                <dd>
+                  <a href={OFFICE_WHATSAPP_LINK} target="_blank" rel="noreferrer" class="contact-address-link">
+                    {contactCopy.whatsappCta ?? "WhatsApp"}
+                  </a>
+                </dd>
               </div>
               <div>
-                <dt>{t.hoursLabel}</dt>
-                <dd>{t.hoursValue}</dd>
+                <dt>{contactCopy.hoursLabel}</dt>
+                <dd>{contactCopy.hoursValue}</dd>
               </div>
             </dl>
           </div>
@@ -381,36 +422,45 @@ const t = copyByLang[lang] ?? copyByLang.es;
     <section class="contact-grid container">
       <article class="contact-panel contact-panel--channels">
         <div class="contact-panel__head">
-          <span class="contact-card__eyebrow">{t.channelsTitle}</span>
-          <h2>{t.channelsTitle}</h2>
+          <span class="contact-card__eyebrow">{contactCopy.channelsTitle}</span>
+          <h2>{contactCopy.channelsTitle}</h2>
+          <p>{contactCopy.channelsIntro ?? contactCopy.channelsTitle}</p>
         </div>
         <ul class="contact-channel-grid">
           <li class="contact-channel-card">
-            <span>{t.phoneLabel}</span>
-            <a href="tel:+34952599159">+34 952 599 159</a>
+            <span>{contactCopy.phoneLabel}</span>
+            <a href={`tel:${OFFICE_PHONE_TEL}`} class="contact-channel-card__phone">{OFFICE_PHONE_DISPLAY}</a>
           </li>
           <li class="contact-channel-card">
-            <span>{t.emailLabel}</span>
+            <span>{contactCopy.emailLabel}</span>
             <a href="mailto:info@blancareal.com">info@blancareal.com</a>
           </li>
           <li class="contact-channel-card">
-            <span>{t.officeLabel}</span>
-            <strong>{t.officeValue}</strong>
+            <span>{contactCopy.officeLabel}</span>
+            <a href={OFFICE_MAP_LINK} target="_blank" rel="noreferrer">{contactCopy.officeValue}</a>
           </li>
           <li class="contact-channel-card">
-            <span>{t.hoursLabel}</span>
-            <strong>{t.hoursValue}</strong>
+            <span>{contactCopy.hoursLabel}</span>
+            <strong>{contactCopy.hoursValue}</strong>
           </li>
         </ul>
+        <a
+          href={OFFICE_WHATSAPP_LINK}
+          class="contact-whatsapp-button contact-whatsapp-button--panel"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {contactCopy.whatsappCta ?? "WhatsApp"}
+        </a>
       </article>
 
       <article class="contact-panel contact-panel--links">
         <div class="contact-panel__head">
-          <span class="contact-card__eyebrow">{t.linksTitle}</span>
-          <h2>{t.linksTitle}</h2>
+          <span class="contact-card__eyebrow">{contactCopy.linksIntro ?? contactCopy.linksTitle}</span>
+          <h2>{contactCopy.linksTitle}</h2>
         </div>
         <ul class="contact-links-grid">
-          {t.links.map((link) => (
+          {contactCopy.links.map((link) => (
             <li>
               <a href={link.href} class="contact-link-card">
                 <span>{link.label}</span>
@@ -422,33 +472,33 @@ const t = copyByLang[lang] ?? copyByLang.es;
 
       <article class="contact-panel contact-panel--form">
         <div class="contact-panel__head">
-          <span class="contact-card__eyebrow">{t.formTitle}</span>
-          <h2>{t.formTitle}</h2>
-          <p>{t.formIntro}</p>
+          <span class="contact-card__eyebrow">{contactCopy.formEyebrow ?? contactCopy.formTitle}</span>
+          <h2>{contactCopy.formTitle}</h2>
+          <p>{contactCopy.formIntro}</p>
         </div>
 
         <form id="contactLeadForm" class="service-form contact-form">
           <div class="service-form-grid contact-form-grid">
             <label class="service-form-field">
-              <span>{t.formName}</span>
+              <span>{contactCopy.formName}</span>
               <input type="text" name="full_name" required />
             </label>
 
             <label class="service-form-field">
-              <span>{t.formEmail}</span>
+              <span>{contactCopy.formEmail}</span>
               <input type="email" name="email" required />
             </label>
 
             <label class="service-form-field">
-              <span>{t.formPhone}</span>
+              <span>{contactCopy.formPhone}</span>
               <input type="tel" name="phone" />
             </label>
 
             <label class="service-form-field">
-              <span>{t.formService}</span>
+              <span>{contactCopy.formService}</span>
               <select name="service" required>
-                <option value="">{t.serviceDefault}</option>
-                {t.serviceOptions.map((option) => (
+                <option value="">{contactCopy.serviceDefault}</option>
+                {contactCopy.serviceOptions.map((option) => (
                   <option value={option.value} selected={option.value === selectedService}>
                     {option.label}
                   </option>
@@ -458,23 +508,23 @@ const t = copyByLang[lang] ?? copyByLang.es;
           </div>
 
           <label class="service-form-field service-form-field-full">
-            <span>{t.formMessage}</span>
+            <span>{contactCopy.formMessage}</span>
             <textarea name="message" rows="5"></textarea>
           </label>
 
           <label class="service-form-consent service-form-field-full">
             <input type="checkbox" name="consent" required />
             <span>
-              {t.formConsentPrefix}{" "}
-              <a href={privacyPath}>{t.formConsentLink}</a>{" "}
-              {t.formConsentSuffix}
+              {contactCopy.formConsentPrefix}{" "}
+              <a href={privacyPath}>{contactCopy.formConsentLink}</a>{" "}
+              {contactCopy.formConsentSuffix}
             </span>
           </label>
 
-          <p class="service-form-legal-note service-form-field-full">{t.formLegalNote}</p>
+          <p class="service-form-legal-note service-form-field-full">{contactCopy.formLegalNote}</p>
 
           <div class="service-form-actions contact-form-actions">
-            <button type="submit" class="service-cta contact-submit" id="contactLeadSubmit">{t.formSubmit}</button>
+            <button type="submit" class="service-cta contact-submit" id="contactLeadSubmit">{contactCopy.formSubmit}</button>
             <p class="service-form-status" id="contactLeadStatus" aria-live="polite"></p>
           </div>
         </form>
@@ -482,14 +532,14 @@ const t = copyByLang[lang] ?? copyByLang.es;
 
       <article class="contact-panel contact-panel--map service-panel-full">
         <div class="contact-panel__head">
-          <span class="contact-card__eyebrow">{t.mapTitle}</span>
-          <h2>{t.mapTitle}</h2>
-          <p>{t.mapIntro}</p>
+          <span class="contact-card__eyebrow">{contactCopy.mapEyebrow ?? contactCopy.mapTitle}</span>
+          <h2>{contactCopy.mapTitle}</h2>
+          <p>{contactCopy.mapIntro}</p>
         </div>
         <div class="contact-map-shell">
           <iframe
             src={OFFICE_MAP_EMBED}
-            title={t.mapTitle}
+            title={contactCopy.mapTitle}
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>

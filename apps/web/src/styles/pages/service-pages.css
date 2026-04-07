@@ -725,6 +725,15 @@
   gap: 0.55rem;
 }
 
+.contact-hero__lead-label {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(18, 29, 51, 0.54);
+}
+
 .contact-hero__phone,
 .contact-hero__mail {
   text-decoration: none;
@@ -732,14 +741,42 @@
 }
 
 .contact-hero__phone {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  line-height: 0.94;
+  font-family: "Manrope", system-ui, sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
 }
 
 .contact-hero__mail {
   font-size: 0.95rem;
   font-weight: 700;
+}
+
+.contact-whatsapp-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #20b45f, #0c8f47);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 14px 28px rgba(12, 143, 71, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.contact-whatsapp-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(12, 143, 71, 0.26);
+  filter: saturate(1.04);
+}
+
+.contact-whatsapp-button--panel {
+  width: 100%;
 }
 
 .contact-hero__meta {
@@ -769,6 +806,17 @@
   font-size: 0.98rem;
   font-weight: 700;
   line-height: 1.45;
+}
+
+.contact-address-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-address-link:hover {
+  text-decoration: underline;
+  text-decoration-color: rgba(211, 44, 67, 0.4);
+  text-underline-offset: 0.22rem;
 }
 
 .contact-grid {
@@ -851,6 +899,13 @@
   color: var(--color-primary);
   font-size: 1rem;
   line-height: 1.5;
+}
+
+.contact-channel-card__phone {
+  font-family: "Manrope", system-ui, sans-serif;
+  font-size: 1.18rem !important;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .contact-map-shell {
@@ -2078,10 +2133,7 @@
 }
 
 #brand-tab-por-que:checked ~ .brand-subnav-shell label[for="brand-tab-por-que"],
-#brand-tab-atencion:checked ~ .brand-subnav-shell label[for="brand-tab-atencion"],
 #brand-tab-trabajo:checked ~ .brand-subnav-shell label[for="brand-tab-trabajo"],
-#brand-tab-recursos:checked ~ .brand-subnav-shell label[for="brand-tab-recursos"],
-#brand-tab-marcas:checked ~ .brand-subnav-shell label[for="brand-tab-marcas"],
 #brand-tab-proyectos:checked ~ .brand-subnav-shell label[for="brand-tab-proyectos"],
 #brand-tab-ofrece-por-defecto:checked ~ .brand-subnav-shell label[for="brand-tab-ofrece-por-defecto"],
 #brand-tab-ofrece-mas:checked ~ .brand-subnav-shell label[for="brand-tab-ofrece-mas"],
@@ -2092,10 +2144,7 @@
 }
 
 #brand-tab-por-que:checked ~ .brand-subnav-shell label[for="brand-tab-por-que"]::before,
-#brand-tab-atencion:checked ~ .brand-subnav-shell label[for="brand-tab-atencion"]::before,
 #brand-tab-trabajo:checked ~ .brand-subnav-shell label[for="brand-tab-trabajo"]::before,
-#brand-tab-recursos:checked ~ .brand-subnav-shell label[for="brand-tab-recursos"]::before,
-#brand-tab-marcas:checked ~ .brand-subnav-shell label[for="brand-tab-marcas"]::before,
 #brand-tab-proyectos:checked ~ .brand-subnav-shell label[for="brand-tab-proyectos"]::before,
 #brand-tab-ofrece-por-defecto:checked ~ .brand-subnav-shell label[for="brand-tab-ofrece-por-defecto"]::before,
 #brand-tab-ofrece-mas:checked ~ .brand-subnav-shell label[for="brand-tab-ofrece-mas"]::before,
@@ -2104,10 +2153,7 @@
 }
 
 #brand-tab-por-que:checked ~ .brand-panel-shell #panel-por-que,
-#brand-tab-atencion:checked ~ .brand-panel-shell #panel-atencion,
 #brand-tab-trabajo:checked ~ .brand-panel-shell #panel-trabajo,
-#brand-tab-recursos:checked ~ .brand-panel-shell #panel-recursos,
-#brand-tab-marcas:checked ~ .brand-panel-shell #panel-marcas,
 #brand-tab-proyectos:checked ~ .brand-panel-shell #panel-proyectos,
 #brand-tab-ofrece-por-defecto:checked ~ .brand-panel-shell #panel-ofrece-por-defecto,
 #brand-tab-ofrece-mas:checked ~ .brand-panel-shell #panel-ofrece-mas,
@@ -2137,6 +2183,196 @@
   width: clamp(5rem, 10vw, 7rem);
   height: 2px;
   background: linear-gradient(90deg, var(--color-accent), rgba(243, 92, 109, 0.18));
+}
+
+.brand-section--ecosystem .service-section-heading p {
+  max-width: 64ch;
+}
+
+.brand-ecosystem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.62fr) minmax(0, 1fr);
+  gap: 1rem 1.15rem;
+  align-items: start;
+}
+
+.brand-ecosystem__cluster {
+  display: grid;
+  gap: 1rem;
+}
+
+.brand-ecosystem__center {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: 0.85rem 0;
+}
+
+.brand-ecosystem__center-shell {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  width: 100%;
+  padding: 1.5rem 1rem;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top, rgba(211, 44, 67, 0.1), transparent 48%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 248, 251, 0.96));
+  border: 1px solid rgba(18, 29, 51, 0.08);
+  box-shadow: 0 18px 34px rgba(18, 29, 51, 0.08);
+}
+
+.brand-ecosystem__center-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(211, 44, 67, 0.14), rgba(243, 92, 109, 0.22));
+  box-shadow: 0 14px 28px rgba(211, 44, 67, 0.14);
+}
+
+.brand-ecosystem__center-mark img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.brand-ecosystem__center-logo,
+.brand-ecosystem__center-logo img {
+  display: block;
+}
+
+.brand-ecosystem__center-logo img {
+  width: clamp(8.4rem, 10vw, 10rem);
+  height: auto;
+}
+
+.brand-ecosystem-card {
+  --brand-tone: #2eacb3;
+  --brand-tone-soft: rgba(46, 172, 179, 0.14);
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.2rem;
+  border-radius: 24px;
+  border: 1.5px solid color-mix(in srgb, var(--brand-tone) 42%, white);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 248, 251, 0.98));
+  box-shadow: 0 18px 32px rgba(18, 29, 51, 0.08);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.brand-ecosystem-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 38px rgba(18, 29, 51, 0.12);
+  border-color: color-mix(in srgb, var(--brand-tone) 62%, white);
+}
+
+.brand-ecosystem-card__head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.brand-ecosystem-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--brand-tone) 28%, white);
+  background: var(--brand-tone-soft);
+  color: var(--brand-tone);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.brand-ecosystem-card__icon svg {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.brand-ecosystem-card__icon path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.brand-ecosystem-card__title {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.6rem;
+  width: fit-content;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand-tone), color-mix(in srgb, var(--brand-tone) 76%, white));
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--brand-tone) 22%, transparent);
+}
+
+.brand-ecosystem-card ul {
+  display: grid;
+  gap: 0.62rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.brand-ecosystem-card li {
+  position: relative;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--color-muted);
+  line-height: 1.58;
+}
+
+.brand-ecosystem-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 0.46rem;
+  height: 0.46rem;
+  border-radius: 50%;
+  background: var(--brand-tone);
+  box-shadow: 0 0 0 0.16rem color-mix(in srgb, var(--brand-tone) 16%, transparent);
+}
+
+.brand-ecosystem-card.is-properties {
+  --brand-tone: #29a8b0;
+  --brand-tone-soft: rgba(41, 168, 176, 0.14);
+}
+
+.brand-ecosystem-card.is-services {
+  --brand-tone: #e38a1f;
+  --brand-tone-soft: rgba(227, 138, 31, 0.14);
+}
+
+.brand-ecosystem-card.is-investments {
+  --brand-tone: #6db35b;
+  --brand-tone-soft: rgba(109, 179, 91, 0.15);
+}
+
+.brand-ecosystem-card.is-legal {
+  --brand-tone: #b18fd4;
+  --brand-tone-soft: rgba(177, 143, 212, 0.16);
+}
+
+.brand-ecosystem-card.is-commercial {
+  --brand-tone: #5498d7;
+  --brand-tone-soft: rgba(84, 152, 215, 0.15);
+}
+
+.brand-ecosystem-card.is-marketing {
+  --brand-tone: #e65d58;
+  --brand-tone-soft: rgba(230, 93, 88, 0.14);
 }
 
 .brand-values-flow {
@@ -3211,6 +3447,34 @@
   box-shadow: 0 18px 34px rgba(18, 29, 51, 0.08);
 }
 
+.brand-default-intro__visual {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(18, 29, 51, 0.08);
+  box-shadow: 0 18px 34px rgba(18, 29, 51, 0.08);
+  background: linear-gradient(180deg, rgba(19, 32, 56, 0.96), rgba(32, 49, 79, 0.96));
+}
+
+.brand-default-intro__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(19, 32, 56, 0.24), rgba(19, 32, 56, 0.62)),
+    linear-gradient(135deg, rgba(19, 32, 56, 0.85), rgba(211, 44, 67, 0.24));
+  pointer-events: none;
+}
+
+.brand-default-intro__visual img {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .brand-default-intro__panel {
   display: grid;
   gap: 0.8rem;
@@ -3246,6 +3510,59 @@
   max-width: 48ch;
   color: var(--color-muted);
   line-height: 1.74;
+}
+
+.brand-default-timeline {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.25rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid rgba(18, 29, 51, 0.08);
+}
+
+.brand-default-timeline__title {
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.brand-default-timeline__list {
+  display: grid;
+  gap: 0.72rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: timeline-step;
+}
+
+.brand-default-timeline__list li {
+  position: relative;
+  min-height: 2.7rem;
+  padding-left: 3rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
+.brand-default-timeline__list li::before {
+  counter-increment: timeline-step;
+  content: counter(timeline-step);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #132038, #31466f);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 12px 24px rgba(19, 32, 56, 0.16);
 }
 
 .brand-default-intro__stats {
@@ -3345,6 +3662,10 @@
   gap: 0.3rem;
 }
 
+.brand-default-card__title-wrap h3 {
+  margin: 0;
+}
+
 .brand-default-card__eyebrow {
   color: var(--color-accent);
   font-size: 0.68rem;
@@ -3376,6 +3697,7 @@
   background: rgba(255, 255, 255, 0.7);
   color: var(--color-muted);
   line-height: 1.7;
+  font-weight: 700;
 }
 
 .brand-section--extra .brand-card {
@@ -3772,6 +4094,22 @@
     gap: 1rem;
   }
 
+  .brand-ecosystem {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .brand-ecosystem__center {
+    grid-column: 1 / -1;
+    order: -1;
+    padding: 0 0 0.4rem;
+  }
+
+  .brand-ecosystem__center-shell {
+    max-width: 23rem;
+    margin-inline: auto;
+  }
+
   .brand-value-card {
     max-width: none;
     min-height: 0;
@@ -3882,6 +4220,29 @@
   .brand-values-flow {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+  }
+
+  .brand-ecosystem {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .brand-ecosystem__cluster {
+    gap: 0.9rem;
+  }
+
+  .brand-ecosystem__center {
+    order: initial;
+    padding: 0 0 0.15rem;
+  }
+
+  .brand-ecosystem__center-shell {
+    max-width: none;
+    padding: 1.25rem 1rem;
+  }
+
+  .brand-ecosystem-card {
+    padding: 1.08rem;
   }
 
   .brand-value-card--top-left,
@@ -4057,7 +4418,7 @@
   }
 
   .contact-hero__phone {
-    font-size: clamp(1.8rem, 9vw, 2.35rem);
+    font-size: clamp(1.5rem, 8vw, 2rem);
   }
 
   .contact-hero__mail {
@@ -4256,6 +4617,63 @@
     overflow-x: clip;
   }
 
+  .brand-default-intro__visual {
+    min-height: 17rem;
+  }
+
+  .brand-ecosystem__center-shell {
+    gap: 0.85rem;
+    padding: 1.15rem 0.95rem;
+    border-radius: 24px;
+  }
+
+  .brand-ecosystem__center-icon {
+    width: 4.85rem;
+    height: 4.85rem;
+  }
+
+  .brand-ecosystem__center-mark img {
+    width: 2.15rem;
+    height: 2.15rem;
+  }
+
+  .brand-ecosystem__center-logo img {
+    width: 8.2rem;
+  }
+
+  .brand-ecosystem-card {
+    gap: 0.8rem;
+    padding: 1rem;
+    border-radius: 20px;
+  }
+
+  .brand-ecosystem-card__head {
+    gap: 0.65rem;
+  }
+
+  .brand-ecosystem-card__icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 16px;
+  }
+
+  .brand-ecosystem-card__icon svg {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+
+  .brand-ecosystem-card__title {
+    min-height: 2.35rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.11em;
+  }
+
+  .brand-ecosystem-card li {
+    font-size: 0.91rem;
+    line-height: 1.55;
+  }
+
   .brand-section {
     padding: 1rem;
   }
@@ -4292,6 +4710,7 @@
   .brand-location__card,
   .brand-cta-band,
   .brand-default-intro__panel,
+  .brand-default-intro__visual,
   .brand-default-intro__stats,
   .brand-extra-intro__panel,
   .brand-timeline__body {
@@ -4368,6 +4787,7 @@
   .brand-project-grid,
   .brand-workflow-journey,
   .brand-default-intro,
+  .brand-default-intro__visual,
   .brand-card-grid--default-enhanced,
   .brand-card-grid--extra-enhanced {
     width: 100%;
@@ -4477,10 +4897,7 @@
   }
 
   #brand-tab-por-que:checked ~ .brand-subnav-shell label[for="brand-tab-por-que"],
-  #brand-tab-atencion:checked ~ .brand-subnav-shell label[for="brand-tab-atencion"],
   #brand-tab-trabajo:checked ~ .brand-subnav-shell label[for="brand-tab-trabajo"],
-  #brand-tab-recursos:checked ~ .brand-subnav-shell label[for="brand-tab-recursos"],
-  #brand-tab-marcas:checked ~ .brand-subnav-shell label[for="brand-tab-marcas"],
   #brand-tab-proyectos:checked ~ .brand-subnav-shell label[for="brand-tab-proyectos"],
   #brand-tab-ofrece-por-defecto:checked ~ .brand-subnav-shell label[for="brand-tab-ofrece-por-defecto"],
   #brand-tab-ofrece-mas:checked ~ .brand-subnav-shell label[for="brand-tab-ofrece-mas"],
@@ -4633,6 +5050,23 @@
 
   .brand-section .service-section-heading p {
     font-size: 0.9rem;
+  }
+
+  .brand-ecosystem {
+    gap: 0.8rem;
+  }
+
+  .brand-ecosystem__center-shell {
+    padding: 1.05rem 0.85rem;
+  }
+
+  .brand-ecosystem-card ul {
+    gap: 0.52rem;
+  }
+
+  .brand-ecosystem-card li {
+    padding-left: 1rem;
+    font-size: 0.88rem;
   }
 
   .brand-values-flow {
