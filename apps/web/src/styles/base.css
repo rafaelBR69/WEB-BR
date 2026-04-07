@@ -77,17 +77,24 @@ body {
   background: var(--color-bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.2s ease;
 }
 
 body.page-is-leaving {
-  opacity: 0;
+  opacity: 1;
+}
+
+body.page-is-leaving #mainContent,
+body.page-is-leaving .main-header,
+body.page-is-leaving footer {
+  opacity: 0.38;
+  transition: opacity 0.18s ease;
 }
 
 .page-loader {
   position: fixed;
   inset: 0;
-  background: rgba(247, 248, 248, 0.9);
+  background: rgba(247, 248, 248, 0.38);
   display: grid;
   place-items: center;
   opacity: 0;

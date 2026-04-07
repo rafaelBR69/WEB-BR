@@ -996,16 +996,46 @@ if (!isPortalPage && !Astro.response.headers.has("Cache-Control")) {
         }
       };
 
+      const normalizeNavigationHref = (value) => {
+        try {
+          const url = new URL(value, window.location.href);
+          url.hash = "";
+          return url.toString();
+        } catch {
+          return "";
+        }
+      };
+
+      const logNavigationDebug = (...args) => {
+        if (!import.meta.env.DEV) return;
+        console.debug("[nav-transition]", ...args);
+      };
+
+      let pageLeavingWatchdog = null;
+      let pageLeavingHref = "";
+
+      const clearPageLeavingWatchdog = () => {
+        if (pageLeavingWatchdog !== null) {
+          window.clearTimeout(pageLeavingWatchdog);
+          pageLeavingWatchdog = null;
+        }
+      };
+
       const shouldSkipTransition = (link) => {
         if (!link || link.hasAttribute("download")) return true;
         if (link.target && link.target !== "_self") return true;
         if (link.rel && link.rel.includes("external")) return true;
+        if (link.hasAttribute("data-no-page-transition")) return true;
         const href = link.getAttribute("href") || "";
+        if (!href.trim()) return true;
         if (href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return true;
         const isPropertiesManagedLink =
           link.closest(".properties-page") &&
           (href.startsWith("?") || href.includes("/properties/"));
         if (isPropertiesManagedLink) return true;
+        const nextHref = normalizeNavigationHref(link.href);
+        const currentHref = normalizeNavigationHref(window.location.href);
+        if (!nextHref || nextHref === currentHref) return true;
         return !isSameOrigin(link);
       };
 
@@ -1066,8 +1096,32 @@ if (!isPortalPage && !Astro.response.headers.has("Cache-Control")) {
         });
       };
 
-      const resetPageLeavingState = () => {
+      const resetPageLeavingState = (reason = "reset") => {
+        clearPageLeavingWatchdog();
+        if (document.body.classList.contains("page-is-leaving")) {
+          logNavigationDebug("reset", { reason, href: pageLeavingHref || window.location.href });
+        }
+        pageLeavingHref = "";
         document.body.classList.remove("page-is-leaving");
+      };
+
+      const markPageLeaving = (href) => {
+        const nextHref = normalizeNavigationHref(href);
+        if (!nextHref) return;
+
+        clearPageLeavingWatchdog();
+        pageLeavingHref = nextHref;
+        document.body.classList.add("page-is-leaving");
+        logNavigationDebug("start", { href: nextHref });
+
+        pageLeavingWatchdog = window.setTimeout(() => {
+          if (document.visibilityState === "hidden") return;
+          logNavigationDebug("watchdog-reset", {
+            href: nextHref,
+            currentHref: window.location.href,
+          });
+          resetPageLeavingState("watchdog");
+        }, 1800);
       };
 
       const syncLandingHeaderState = () => {
@@ -1087,24 +1141,28 @@ if (!isPortalPage && !Astro.response.headers.has("Cache-Control")) {
 
       resetPageLeavingState();
       syncLandingHeaderState();
-      window.addEventListener("pageshow", resetPageLeavingState);
+      window.addEventListener("pageshow", () => resetPageLeavingState("pageshow"));
+      window.addEventListener("pagehide", () => clearPageLeavingWatchdog());
+      window.addEventListener("beforeunload", () => clearPageLeavingWatchdog());
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+          resetPageLeavingState("visibilitychange");
+        }
+      });
       window.addEventListener("scroll", syncLandingHeaderState, { passive: true });
       initLangPicker("langPickerLanding", "langTriggerLanding", "langMenuLanding", "langLabelLanding");
       initLangPicker("langPickerDesktop", "langTriggerDesktop", "langMenuDesktop", "langLabelDesktop");
 
       document.addEventListener("click", (event) => {
         if (event.defaultPrevented) return;
+        if (event.button !== 0) return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         const link = event.target.closest("a");
         if (!link || shouldSkipTransition(link)) return;
         const href = link.href;
         if (!href) return;
-
-        event.preventDefault();
         closeSideMenu();
-        document.body.classList.add("page-is-leaving");
-        setTimeout(() => {
-          window.location.href = href;
-        }, 180);
+        markPageLeaving(href);
       });
     </script>
 
