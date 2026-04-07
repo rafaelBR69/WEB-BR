@@ -7,6 +7,7 @@ import {
   defaultMembershipScopeForRole,
   isPortalProjectPublished,
   mapPortalMembershipRow,
+  mapPortalPropertyMedia,
 } from "@shared/portal/domain";
 import { resolvePortalRequestContext } from "@shared/portal/auth";
 
@@ -18,6 +19,7 @@ const PROJECT_SELECT_COLUMNS = [
   "project_business_type",
   "status",
   "property_data",
+  "media",
   "translations",
   "commercialization_notes",
   "updated_at",
@@ -176,6 +178,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         const projectId = asText(project.id);
         return {
           ...project,
+          media: mapPortalPropertyMedia(project.media),
           membership:
             projectId && organizationId
               ? buildImplicitAdminMembership(portalAccountId, organizationId, projectId)
@@ -284,6 +287,7 @@ export const GET: APIRoute = async ({ url, request }) => {
       const projectId = asText(project.id);
       return {
         ...project,
+        media: mapPortalPropertyMedia(project.media),
         membership: projectId ? membershipsByProjectId.get(projectId) ?? null : null,
       };
     })

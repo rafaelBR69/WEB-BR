@@ -27,6 +27,72 @@ export const escapeHtml = (value) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 
+const PORTAL_MEDIA_KEYS = ["exterior", "interior", "living", "bedroom", "kitchen", "bathroom", "views", "floorplan"];
+
+const isPdfMediaUrl = (value) => {
+  const text = toText(value);
+  return Boolean(text && text.toLowerCase().endsWith(".pdf"));
+};
+
+const toMediaItem = (value) => {
+  if (typeof value === "string") {
+    const url = toText(value);
+    if (!url || isPdfMediaUrl(url)) return null;
+    return { url, label: null, alt: {} };
+  }
+
+  const row = asObject(value);
+  const url = toText(row.url);
+  if (!url || isPdfMediaUrl(url)) return null;
+  return {
+    url,
+    label: toText(row.label),
+    alt: asObject(row.alt),
+  };
+};
+
+export const getPortalMediaCover = (media) => {
+  const model = asObject(media);
+  return toMediaItem(model.cover) ?? toMediaItem(model.main) ?? null;
+};
+
+export const getPortalMediaItems = (media, limit = 12) => {
+  const model = asObject(media);
+  const gallery = asObject(model.gallery);
+  const candidates = [model.cover, model.main];
+
+  PORTAL_MEDIA_KEYS.forEach((key) => {
+    const rows = Array.isArray(gallery[key]) ? gallery[key] : [];
+    candidates.push(...rows);
+  });
+
+  const seen = new Set();
+  const items = [];
+
+  for (const candidate of candidates) {
+    const item = toMediaItem(candidate);
+    if (!item) continue;
+    if (seen.has(item.url)) continue;
+    seen.add(item.url);
+    items.push(item);
+    if (items.length >= limit) break;
+  }
+
+  return items;
+};
+
+export const getPortalMediaAlt = (item, lang = "es", fallback = "Portal image") => {
+  const mediaItem = asObject(item);
+  const altMap = asObject(mediaItem.alt);
+  return (
+    toText(altMap[lang]) ??
+    toText(altMap.es) ??
+    toText(altMap.en) ??
+    toText(mediaItem.label) ??
+    fallback
+  );
+};
+
 export const getBootstrap = () => {
   const raw = asObject(window.__portalBootstrap);
   return {

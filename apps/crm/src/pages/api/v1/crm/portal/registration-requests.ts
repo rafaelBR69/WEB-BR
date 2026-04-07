@@ -121,6 +121,7 @@ const mapRequestRow = (row: Record<string, unknown>) => {
       review_notes: asText(metadata.review_notes),
       approved_invite_id: asText(metadata.approved_invite_id),
       requester: {
+        professional_type: asText(requester.professional_type) ?? "company",
         full_name: asText(requester.full_name),
         email: asText(requester.email),
         company_name: asText(requester.company_name),

@@ -24,6 +24,7 @@ type MapState = {
   loading: boolean;
   map: any;
   mapboxgl: any;
+  observer: IntersectionObserver | null;
   featureCollection: FeatureCollection;
   featureCollectionPromise: Promise<FeatureCollection> | null;
   activePoiCategories: Set<string>;
@@ -31,6 +32,10 @@ type MapState = {
   routeOrigin: [number, number] | null;
   routeDestination: [number, number] | null;
   routeHelperPromise: Promise<typeof import("./mapbox-routing")> | null;
+};
+
+type InitMapboxOptions = {
+  eager?: boolean;
 };
 
 const mapStates = new WeakMap<HTMLElement, MapState>();
@@ -142,6 +147,68 @@ const loadFeatureCollection = async (root: HTMLElement, state: MapState) => {
 
   state.featureCollectionPromise = promise;
   return promise;
+};
+
+const getMapRoots = (container: ParentNode = document) => {
+  if (container instanceof HTMLElement && container.matches("[data-mapbox-root]")) {
+    return [container];
+  }
+
+  return Array.from(container.querySelectorAll<HTMLElement>("[data-mapbox-root]"));
+};
+
+const createInitialState = (root: HTMLElement): MapState => ({
+  booted: false,
+  loading: false,
+  map: null,
+  mapboxgl: null,
+  observer: null,
+  featureCollection: normalizeFeatureCollection(
+    parseJson<FeatureCollection>(root.dataset.features, {
+      type: "FeatureCollection",
+      features: [],
+    })
+  ),
+  featureCollectionPromise: null,
+  activePoiCategories: new Set<string>(),
+  extrasLoaded: false,
+  routeOrigin: null,
+  routeDestination: null,
+  routeHelperPromise: null,
+});
+
+const ensureState = (root: HTMLElement) => {
+  const existing = mapStates.get(root);
+  if (existing) return existing;
+  const state = createInitialState(root);
+  mapStates.set(root, state);
+  return state;
+};
+
+const resetMapState = (root: HTMLElement, state: MapState) => {
+  state.observer?.disconnect();
+  state.observer = null;
+
+  if (state.map && typeof state.map.remove === "function") {
+    state.map.remove();
+  }
+
+  state.booted = false;
+  state.loading = false;
+  state.map = null;
+  state.mapboxgl = null;
+  state.featureCollection = normalizeFeatureCollection(
+    parseJson<FeatureCollection>(root.dataset.features, {
+      type: "FeatureCollection",
+      features: [],
+    })
+  );
+  state.featureCollectionPromise = null;
+  state.activePoiCategories.clear();
+  state.extrasLoaded = false;
+  state.routeOrigin = null;
+  state.routeDestination = null;
+  state.routeHelperPromise = null;
 };
 
 const buildPopupHtml = (
@@ -457,25 +524,10 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
 };
 
 const bootMap = async (root: HTMLElement) => {
-  const existing = mapStates.get(root);
+  const existing = ensureState(root);
   if (existing?.booted || existing?.loading) return existing;
 
-  const state: MapState = existing ?? {
-    booted: false,
-    loading: true,
-    map: null,
-    mapboxgl: null,
-    featureCollection: normalizeFeatureCollection(parseJson<FeatureCollection>(root.dataset.features, {
-      type: "FeatureCollection",
-      features: [],
-    })),
-    featureCollectionPromise: null,
-    activePoiCategories: new Set<string>(),
-    extrasLoaded: false,
-    routeOrigin: null,
-    routeDestination: null,
-    routeHelperPromise: null,
-  };
+  const state: MapState = existing;
   state.loading = true;
   mapStates.set(root, state);
 
@@ -674,6 +726,7 @@ const bootMap = async (root: HTMLElement) => {
 const initRoot = (root: HTMLElement) => {
   if (root.dataset.mapboxBound === "true") return;
   root.dataset.mapboxBound = "true";
+  const state = ensureState(root);
 
   const resetButton = root.querySelector<HTMLElement>("[data-map-reset]");
   if (resetButton) {
@@ -695,6 +748,10 @@ const initRoot = (root: HTMLElement) => {
     (entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;
       observer.disconnect();
+      const state = mapStates.get(root);
+      if (state) {
+        state.observer = null;
+      }
       void bootMap(root);
     },
     {
@@ -703,9 +760,39 @@ const initRoot = (root: HTMLElement) => {
     }
   );
 
+  state.observer = observer;
   observer.observe(root);
 };
 
-document.querySelectorAll<HTMLElement>("[data-mapbox-root]").forEach((root) => {
-  initRoot(root);
-});
+const initRootWithOptions = (root: HTMLElement, options: InitMapboxOptions = {}) => {
+  if (root.dataset.mapboxBound !== "true") {
+    initRoot(root);
+  }
+
+  if (options.eager) {
+    const state = mapStates.get(root);
+    state?.observer?.disconnect();
+    if (state) {
+      state.observer = null;
+    }
+    void bootMap(root);
+  }
+};
+
+export const initMapboxRoots = (container: ParentNode = document, options: InitMapboxOptions = {}) => {
+  getMapRoots(container).forEach((root) => {
+    initRootWithOptions(root, options);
+  });
+};
+
+export const destroyMapboxRoots = (container: ParentNode = document) => {
+  getMapRoots(container).forEach((root) => {
+    const state = mapStates.get(root);
+    if (!state) return;
+    resetMapState(root, state);
+    mapStates.delete(root);
+    delete root.dataset.mapboxBound;
+  });
+};
+
+initMapboxRoots(document);

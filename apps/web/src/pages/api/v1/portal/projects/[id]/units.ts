@@ -6,6 +6,7 @@ import {
   asObject,
   asText,
   getActivePortalMembershipForProject,
+  mapPortalPropertyMedia,
 } from "@shared/portal/domain";
 import { resolvePortalRequestContext } from "@shared/portal/auth";
 
@@ -21,6 +22,7 @@ const UNIT_SELECT_COLUMNS = [
   "price_sale",
   "price_rent_monthly",
   "price_currency",
+  "media",
   "updated_at",
 ].join(", ");
 
@@ -67,6 +69,7 @@ const mapUnitRow = (row: Record<string, unknown>) => {
     building_portal: asText(propertyData.building_portal),
     building_door: asText(propertyData.building_door),
     updated_at: asText(row.updated_at),
+    media: mapPortalPropertyMedia(row.media),
   };
 };
 

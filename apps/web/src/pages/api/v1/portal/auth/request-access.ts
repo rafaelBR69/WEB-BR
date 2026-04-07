@@ -12,6 +12,7 @@ import {
 
 type RequestPortalAccessBody = {
   organization_id?: string;
+  professional_type?: string;
   email?: string;
   full_name?: string;
   company_name?: string;
@@ -32,6 +33,11 @@ const resolveDefaultOrganizationId = (): string | null => {
 };
 
 const buildExpiresAt = (hours = 168) => new Date(Date.now() + Math.max(1, hours) * 60 * 60 * 1000).toISOString();
+
+const normalizeProfessionalType = (value: unknown): "company" | "self_employed" => {
+  if (value === "self_employed") return "self_employed";
+  return "company";
+};
 
 const ensureProjectIsPromotion = async (
   client: ReturnType<typeof getSupabaseServerClient>,
@@ -88,11 +94,12 @@ export const POST: APIRoute = async ({ request }) => {
   if (!body) return jsonResponse({ ok: false, error: "invalid_json_body" }, { status: 400 });
 
   const organizationId = asText(body.organization_id) ?? resolveDefaultOrganizationId();
+  const professionalType = normalizeProfessionalType(body.professional_type);
   const email = asText(body.email)?.toLowerCase() ?? null;
   const fullName = asText(body.full_name);
-  const companyName = asText(body.company_name);
-  const commercialName = asText(body.commercial_name);
-  const legalName = asText(body.legal_name);
+  let companyName = asText(body.company_name);
+  let commercialName = asText(body.commercial_name);
+  let legalName = asText(body.legal_name);
   const cif = asText(body.cif);
   const phone = asText(body.phone);
   const language = asText(body.language) ?? "es";
@@ -103,8 +110,17 @@ export const POST: APIRoute = async ({ request }) => {
   if (!organizationId) return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
   if (!email) return jsonResponse({ ok: false, error: "email_required" }, { status: 422 });
   if (!fullName) return jsonResponse({ ok: false, error: "full_name_required" }, { status: 422 });
+
+  if (professionalType === "self_employed") {
+    legalName = legalName ?? fullName;
+    companyName = companyName ?? legalName ?? fullName;
+    commercialName = commercialName ?? companyName ?? legalName;
+  }
+
   if (!companyName) return jsonResponse({ ok: false, error: "company_name_required" }, { status: 422 });
-  if (!commercialName) return jsonResponse({ ok: false, error: "commercial_name_required" }, { status: 422 });
+  if (professionalType === "company" && !commercialName) {
+    return jsonResponse({ ok: false, error: "commercial_name_required" }, { status: 422 });
+  }
   if (!legalName) return jsonResponse({ ok: false, error: "legal_name_required" }, { status: 422 });
   if (!cif) return jsonResponse({ ok: false, error: "cif_required" }, { status: 422 });
 
@@ -115,6 +131,7 @@ export const POST: APIRoute = async ({ request }) => {
         data: {
           request_id: `req_${crypto.randomUUID()}`,
           organization_id: organizationId,
+          professional_type: professionalType,
           email,
           full_name: fullName,
           company_name: companyName,
@@ -232,7 +249,8 @@ export const POST: APIRoute = async ({ request }) => {
       approval_status: "requested",
       requested_at: new Date().toISOString(),
       requested_from: "portal_login",
-      requester: {
+        requester: {
+        professional_type: professionalType,
         full_name: fullName,
         email,
         company_name: companyName,

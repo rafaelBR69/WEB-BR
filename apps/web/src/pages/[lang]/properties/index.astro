@@ -1321,7 +1321,9 @@ const compactMapFeaturesUrl = buildMapFeaturesUrl(activeFilters);
   </div>
 </BaseLayout>
 
-<script is:inline>
+<script>
+  import { destroyMapboxRoots, initMapboxRoots } from "@webapp/scripts/mapbox-public";
+
   const MOBILE_FILTERS_MEDIA = "(max-width: 1023px)";
   const filtersPanel = document.getElementById("propertiesFiltersPanel");
   let filtersLastFocus = null;
@@ -1532,7 +1534,9 @@ const compactMapFeaturesUrl = buildMapFeaturesUrl(activeFilters);
       }
 
       if (currentContent && nextContent) {
+        destroyMapboxRoots(currentContent);
         currentContent.replaceWith(nextContent);
+        initMapboxRoots(nextContent, { eager: true });
       }
 
       if (currentFooter && nextFooter) {

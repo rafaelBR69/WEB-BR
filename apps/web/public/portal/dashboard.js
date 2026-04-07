@@ -4,6 +4,9 @@
   buildPortalAuthHeaders,
   clearSession,
   escapeHtml,
+  getPortalMediaAlt,
+  getPortalMediaCover,
+  getPortalMediaItems,
   getBootstrap,
   isPortalAuthErrorCode,
   isSessionAuthenticated,
@@ -41,6 +44,48 @@ const state = {
   me: null,
   projects: [],
   documentsCount: 0,
+};
+
+const renderProjectMedia = (project, title, href) => {
+  const mediaItems = getPortalMediaItems(project?.media, 8);
+  const cover = getPortalMediaCover(project?.media) ?? mediaItems[0] ?? null;
+  const altFallback = isSpanish ? `Imagen de ${title}` : `Image of ${title}`;
+  const extraCount = Math.max(0, mediaItems.length - 5);
+  const thumbItems = mediaItems.slice(1, 5);
+
+  const coverHtml = cover
+    ? `
+        <a class="portal-media-cover" href="${escapeHtml(href)}" aria-label="${escapeHtml(title)}">
+          <img src="${escapeHtml(cover.url)}" alt="${escapeHtml(getPortalMediaAlt(cover, lang, altFallback))}" loading="lazy" decoding="async" />
+          <span class="portal-media-count">${escapeHtml(String(mediaItems.length || 1))} ${escapeHtml(isSpanish ? "fotos" : "photos")}</span>
+        </a>
+      `
+    : `
+        <a class="portal-media-cover" href="${escapeHtml(href)}" aria-label="${escapeHtml(title)}">
+          <div class="portal-media-fallback">${escapeHtml(title)}</div>
+        </a>
+      `;
+
+  const thumbsHtml = thumbItems.length
+    ? `
+        <div class="portal-media-thumbs" aria-hidden="true">
+          ${thumbItems
+            .map((entry, index) => `
+              <span class="portal-media-thumb">
+                <img src="${escapeHtml(entry.url)}" alt="" loading="lazy" decoding="async" />
+                ${
+                  index === thumbItems.length - 1 && extraCount > 0
+                    ? `<span class="portal-media-thumb-more">+${escapeHtml(String(extraCount))}</span>`
+                    : ""
+                }
+              </span>
+            `)
+            .join("")}
+        </div>
+      `
+    : "";
+
+  return `<div class="portal-media-shell">${coverHtml}${thumbsHtml}</div>`;
 };
 
 const setFeedback = (message, kind = "warn") => {
@@ -172,8 +217,10 @@ const renderProjects = () => {
       const title = pickProjectTitle(project, lang);
       const status = toText(project.status) ?? "-";
       const availableUnitsCount = Number(project.available_units_count ?? 0);
+      const projectHref = portalPath(lang, `/portal/project/${projectId}`);
       return `
         <li class="portal-item">
+          ${renderProjectMedia(project, title, projectHref)}
           <p class="portal-item-title">${escapeHtml(title)}</p>
           <p class="portal-item-meta">${escapeHtml(
             isSpanish ? "Biblioteca visual y documental disponible para esta promocion." : "Visual and document library available for this project."
@@ -187,9 +234,7 @@ const renderProjects = () => {
             <span class="portal-badge ${statusBadgeClass(status)}">${escapeHtml(statusLabel(status, lang))}</span>
           </div>
           <div class="portal-actions">
-            <a class="portal-button portal-button-soft" href="${escapeHtml(
-              portalPath(lang, `/portal/project/${projectId}`)
-            )}">${isSpanish ? "Abrir biblioteca" : "Open library"}</a>
+            <a class="portal-button portal-button-soft" href="${escapeHtml(projectHref)}">${isSpanish ? "Abrir biblioteca" : "Open library"}</a>
           </div>
         </li>
       `;

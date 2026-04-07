@@ -36,6 +36,11 @@ const copyByLang = {
     requestStepOne: "Complete sus datos profesionales y fiscales.",
     requestStepTwo: "El equipo revisa la solicitud desde CRM > Portal.",
     requestStepThree: "Si se aprueba, recibirá la invitación en su email profesional.",
+    requestTypeLabel: "Tipo de solicitante",
+    requestTypeCompany: "Empresa o agencia",
+    requestTypeSelfEmployed: "Autonomo",
+    requestTypeCompanyHint: "Use esta opcion si solicita acceso en nombre de una empresa, despacho o agencia.",
+    requestTypeSelfEmployedHint: "Use esta opcion si trabaja por cuenta propia. Solo pediremos los datos fiscales necesarios.",
     requestNameLabel: "Persona de contacto",
     requestEmailLabel: "Email profesional",
     requestCompanyLabel: "Empresa o agencia",
@@ -45,7 +50,7 @@ const copyByLang = {
     requestPhoneLabel: "Teléfono (opcional)",
     requestCta: "Enviar solicitud",
     requestPrivacyHint: "Le contactaremos solo para gestionar el acceso al portal.",
-    activateHint: "Si aun no tienes la cuenta activada, completa primero la activacion.",
+    activateHint: "Si todavia no tiene credenciales, solicite acceso. La activacion solo se realiza despues de la aprobacion y desde el enlace enviado por email.",
     activateLink: "Ir a activacion",
     historyDesde: "Desde 1969",
     statOne: "Acceso seguro por token",
@@ -76,6 +81,11 @@ const copyByLang = {
     requestStepOne: "Complete your professional and tax details.",
     requestStepTwo: "The team reviews the request from CRM > Portal.",
     requestStepThree: "If approved, you receive the invitation in your professional email.",
+    requestTypeLabel: "Applicant type",
+    requestTypeCompany: "Company or agency",
+    requestTypeSelfEmployed: "Self-employed",
+    requestTypeCompanyHint: "Use this option when you request access on behalf of a company, firm or agency.",
+    requestTypeSelfEmployedHint: "Use this option if you work independently. We will only ask for the required tax details.",
     requestNameLabel: "Contact person",
     requestEmailLabel: "Professional email",
     requestCompanyLabel: "Company or agency",
@@ -85,7 +95,7 @@ const copyByLang = {
     requestPhoneLabel: "Phone (optional)",
     requestCta: "Submit request",
     requestPrivacyHint: "We will contact you only to process portal access.",
-    activateHint: "If you do not have an active account yet, activate first.",
+    activateHint: "If you do not have credentials yet, request access first. Activation is only available after approval and through the email link we send you.",
     activateLink: "Go to activation",
     historyDesde: "Since 1969",
     statOne: "Secure token-based access",
@@ -143,6 +153,13 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
       <section class="portal-auth-main">
         <div class="portal-auth-card" id="login-panel">
           <header class="portal-auth-card-head">
+            <img
+              class="portal-auth-brand"
+              src="/logos/blanca_real_logo_principal.png"
+              alt="BlancaReal"
+              loading="eager"
+              decoding="async"
+            />
             <span class="portal-auth-section">{t.sectionTitle}</span>
             <h2>{t.heading}</h2>
             <p>{t.intro}</p>
@@ -178,7 +195,6 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
                 <input id="portal-login-remember" name="remember" type="checkbox" checked />
                 <span>{t.rememberLabel}</span>
               </label>
-              <a class="portal-link" href={`/${lang}/portal/activate/`}>{t.activateLink}</a>
             </div>
 
             <div class="portal-auth-actions">
@@ -203,10 +219,7 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
               </button>
             </div>
             <div id="portal-login-session-state" class="portal-auth-session-card"></div>
-            <p class="portal-note">
-              {t.activateHint}
-              <a class="portal-link" href={`/${lang}/portal/activate/`}>{t.activateLink}</a>
-            </p>
+            <p class="portal-note">{t.activateHint}</p>
           </section>
         </div>
 
@@ -228,6 +241,14 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
 
           <form id="portal-access-request-form" class="portal-auth-form">
             <label class="portal-auth-field">
+              <span>{t.requestTypeLabel}</span>
+              <select id="portal-access-request-professional-type" name="professional_type">
+                <option value="company">{t.requestTypeCompany}</option>
+                <option value="self_employed">{t.requestTypeSelfEmployed}</option>
+              </select>
+            </label>
+            <p id="portal-access-request-identity-hint" class="portal-note">{t.requestTypeCompanyHint}</p>
+            <label class="portal-auth-field">
               <span>{t.requestNameLabel}</span>
               <input id="portal-access-request-full-name" name="full_name" type="text" required />
             </label>
@@ -235,20 +256,20 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
               <span>{t.requestEmailLabel}</span>
               <input id="portal-access-request-email" name="email" type="email" required />
             </label>
-            <label class="portal-auth-field">
-              <span>{t.requestCompanyLabel}</span>
+            <label id="portal-access-request-company-field" class="portal-auth-field">
+              <span id="portal-access-request-company-label">{t.requestCompanyLabel}</span>
               <input id="portal-access-request-company-name" name="company_name" type="text" required />
             </label>
-            <label class="portal-auth-field">
-              <span>{t.requestCommercialNameLabel}</span>
+            <label id="portal-access-request-commercial-field" class="portal-auth-field">
+              <span id="portal-access-request-commercial-label">{t.requestCommercialNameLabel}</span>
               <input id="portal-access-request-commercial-name" name="commercial_name" type="text" required />
             </label>
-            <label class="portal-auth-field">
-              <span>{t.requestLegalNameLabel}</span>
+            <label id="portal-access-request-legal-field" class="portal-auth-field">
+              <span id="portal-access-request-legal-label">{t.requestLegalNameLabel}</span>
               <input id="portal-access-request-legal-name" name="legal_name" type="text" required />
             </label>
-            <label class="portal-auth-field">
-              <span>{t.requestCifLabel}</span>
+            <label id="portal-access-request-cif-field" class="portal-auth-field">
+              <span id="portal-access-request-cif-label">{t.requestCifLabel}</span>
               <input id="portal-access-request-cif" name="cif" type="text" required />
             </label>
             <label class="portal-auth-field">
@@ -435,6 +456,14 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
     .portal-auth-card-head {
       display: grid;
       gap: 0.5rem;
+    }
+
+    .portal-auth-brand {
+      width: clamp(138px, 32%, 190px);
+      height: auto;
+      display: block;
+      object-fit: contain;
+      margin-bottom: 0.2rem;
     }
 
     .portal-auth-section {

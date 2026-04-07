@@ -21,6 +21,14 @@ const {
 const defaultOrganizationId = String(
   import.meta.env.PUBLIC_CRM_ORGANIZATION_ID ?? import.meta.env.CRM_ORGANIZATION_ID ?? ""
 ).trim();
+const portalPublicOrigin = String(
+  import.meta.env.PORTAL_PUBLIC_ORIGIN ??
+    import.meta.env.PUBLIC_PORTAL_PUBLIC_ORIGIN ??
+    import.meta.env.PUBLIC_SITE_URL ??
+    import.meta.env.VERCEL_PROJECT_PRODUCTION_URL ??
+    import.meta.env.VERCEL_URL ??
+    "https://web-br-iota.vercel.app"
+).trim();
 
 const navItems: NavItem[] = [
   { key: "dashboard", label: "Dashboard", href: "/crm/" },
@@ -189,8 +197,9 @@ const currentPathWithSearch = `${currentPath}${Astro.url.search}`;
         </main>
       </div>
     </div>
-    <script is:inline define:vars={{ defaultOrganizationId }}>
+    <script is:inline define:vars={{ defaultOrganizationId, portalPublicOrigin }}>
       window.__crmDefaultOrganizationId = defaultOrganizationId;
+      window.__crmPortalPublicOrigin = portalPublicOrigin;
     </script>
     <script is:inline>
       (() => {

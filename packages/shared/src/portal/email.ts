@@ -20,12 +20,57 @@ type PortalApprovalEmailResult = {
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
-const resolveOrigin = (request: Request) => {
+const normalizeOriginCandidate = (value: string | null) => {
+  const raw = asText(value);
+  if (!raw) return null;
+
   try {
-    return new URL(request.url).origin;
+    return new URL(raw).origin;
   } catch {
-    return "https://www.blancareal.com";
+    try {
+      return new URL(`https://${raw.replace(/^\/+|\/+$/g, "")}`).origin;
+    } catch {
+      return null;
+    }
   }
+};
+
+const isLocalOrigin = (origin: string | null) => {
+  if (!origin) return true;
+
+  try {
+    const hostname = new URL(origin).hostname.toLowerCase();
+    return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+  } catch {
+    return true;
+  }
+};
+
+const resolveOrigin = (request: Request) => {
+  const envOriginCandidates = [
+    asText(import.meta.env.PORTAL_PUBLIC_ORIGIN),
+    asText(import.meta.env.PUBLIC_PORTAL_PUBLIC_ORIGIN),
+    asText(import.meta.env.PUBLIC_SITE_URL),
+    asText(import.meta.env.SITE_URL),
+    asText(import.meta.env.VERCEL_PROJECT_PRODUCTION_URL),
+    asText(import.meta.env.VERCEL_URL),
+  ];
+
+  for (const candidate of envOriginCandidates) {
+    const normalized = normalizeOriginCandidate(candidate);
+    if (normalized) return normalized;
+  }
+
+  try {
+    const requestOrigin = new URL(request.url).origin;
+    if (!isLocalOrigin(requestOrigin)) {
+      return requestOrigin;
+    }
+  } catch {
+    // Fall back to the public production origin below.
+  }
+
+  return "https://web-br-iota.vercel.app";
 };
 
 const buildActivationUrl = ({

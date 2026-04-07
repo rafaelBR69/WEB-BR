@@ -32,16 +32,44 @@ const copy = {
   requestSending: isSpanish ? "Enviando solicitud..." : "Submitting request...",
   requestCreated:
     isSpanish
-      ? "Solicitud enviada. El equipo revisara el alta en CRM Portal y te contactaremos si se aprueba."
-      : "Request sent. The team will review the onboarding in CRM Portal and contact you if approved.",
+      ? "Solicitud enviada. El equipo la revisara en CRM y, si se aprueba, recibiras por email el enlace de activacion y tu codigo."
+      : "Request sent. The team will review it in CRM and, if approved, you will receive the activation link and one-time code by email.",
   requestPending:
     isSpanish
       ? "Ya existe una solicitud pendiente para este email en el modulo Portal. Te avisaremos tras revisarla."
       : "There is already a pending request for this email in the Portal module. We will notify you after review.",
   requestInviteExists:
     isSpanish
-      ? "Ya existe una invitacion pendiente para este email. Revisa tu canal de recepcion."
-      : "There is already a pending invite for this email. Check your delivery channel.",
+      ? "Ya existe una invitacion pendiente para este email. Revisa tu email: la activacion solo se completa desde el enlace recibido."
+      : "There is already a pending invite for this email. Check your email: activation is completed only from the received link.",
+  professionalType: {
+    company: {
+      hint: isSpanish
+        ? "Solicitas acceso en nombre de una empresa, despacho o agencia."
+        : "You are requesting access on behalf of a company, firm or agency.",
+      companyLabel: isSpanish ? "Empresa o agencia" : "Company or agency",
+      companyPlaceholder: isSpanish ? "Nombre de la empresa o agencia" : "Company or agency name",
+      commercialLabel: isSpanish ? "Nombre comercial" : "Trade name",
+      commercialPlaceholder: isSpanish ? "Marca comercial o nombre comercial" : "Trading name or brand",
+      legalLabel: isSpanish ? "Razon social" : "Legal name",
+      legalPlaceholder: isSpanish ? "Denominacion legal o sociedad" : "Registered legal entity",
+      cifLabel: isSpanish ? "CIF" : "VAT / Tax ID",
+      cifPlaceholder: isSpanish ? "CIF de la empresa" : "Company VAT / Tax ID",
+    },
+    selfEmployed: {
+      hint: isSpanish
+        ? "Solicitas acceso como autonomo. Solo pedimos tus datos fiscales y profesionales."
+        : "You are requesting access as a self-employed professional. We only ask for your fiscal and professional details.",
+      companyLabel: isSpanish ? "Nombre profesional o despacho (opcional)" : "Professional or practice name (optional)",
+      companyPlaceholder: isSpanish ? "Como quieres que identifiquemos tu actividad" : "How should we identify your activity",
+      commercialLabel: isSpanish ? "Nombre comercial (opcional)" : "Trading name (optional)",
+      commercialPlaceholder: isSpanish ? "Solo si trabajas con una marca comercial" : "Only if you use a trading name",
+      legalLabel: isSpanish ? "Nombre fiscal completo" : "Full legal name",
+      legalPlaceholder: isSpanish ? "Nombre y apellidos fiscales" : "Full legal name",
+      cifLabel: isSpanish ? "NIF / CIF" : "Tax ID",
+      cifPlaceholder: isSpanish ? "Tu NIF o CIF profesional" : "Your tax identification number",
+    },
+  },
 };
 
 const form = document.getElementById("portal-login-form");
@@ -52,11 +80,19 @@ const clearButton = document.getElementById("portal-login-clear");
 const feedback = document.getElementById("portal-login-feedback");
 const sessionState = document.getElementById("portal-login-session-state");
 const requestForm = document.getElementById("portal-access-request-form");
+const requestProfessionalTypeInput = document.getElementById("portal-access-request-professional-type");
 const requestFullNameInput = document.getElementById("portal-access-request-full-name");
 const requestEmailInput = document.getElementById("portal-access-request-email");
+const requestIdentityHint = document.getElementById("portal-access-request-identity-hint");
+const requestCompanyField = document.getElementById("portal-access-request-company-field");
+const requestCompanyLabel = document.getElementById("portal-access-request-company-label");
 const requestCompanyNameInput = document.getElementById("portal-access-request-company-name");
+const requestCommercialField = document.getElementById("portal-access-request-commercial-field");
+const requestCommercialLabel = document.getElementById("portal-access-request-commercial-label");
 const requestCommercialNameInput = document.getElementById("portal-access-request-commercial-name");
+const requestLegalLabel = document.getElementById("portal-access-request-legal-label");
 const requestLegalNameInput = document.getElementById("portal-access-request-legal-name");
+const requestCifLabel = document.getElementById("portal-access-request-cif-label");
 const requestCifInput = document.getElementById("portal-access-request-cif");
 const requestPhoneInput = document.getElementById("portal-access-request-phone");
 const requestFeedback = document.getElementById("portal-access-request-feedback");
@@ -84,6 +120,44 @@ const setRequestFeedback = (message, kind = "warn") => {
   if (kind === "ok") requestFeedback.classList.add("is-ok");
   else if (kind === "error") requestFeedback.classList.add("is-error");
   else requestFeedback.classList.add("is-warn");
+};
+
+const getProfessionalType = () =>
+  requestProfessionalTypeInput instanceof HTMLSelectElement && requestProfessionalTypeInput.value === "self_employed"
+    ? "self_employed"
+    : "company";
+
+const syncProfessionalTypeUi = () => {
+  const professionalType = getProfessionalType();
+  const mode = professionalType === "self_employed" ? copy.professionalType.selfEmployed : copy.professionalType.company;
+
+  if (requestIdentityHint instanceof HTMLElement) requestIdentityHint.textContent = mode.hint;
+  if (requestCompanyLabel instanceof HTMLElement) requestCompanyLabel.textContent = mode.companyLabel;
+  if (requestCommercialLabel instanceof HTMLElement) requestCommercialLabel.textContent = mode.commercialLabel;
+  if (requestLegalLabel instanceof HTMLElement) requestLegalLabel.textContent = mode.legalLabel;
+  if (requestCifLabel instanceof HTMLElement) requestCifLabel.textContent = mode.cifLabel;
+
+  if (requestCompanyNameInput instanceof HTMLInputElement) {
+    requestCompanyNameInput.placeholder = mode.companyPlaceholder;
+    requestCompanyNameInput.required = professionalType === "company";
+  }
+  if (requestCommercialNameInput instanceof HTMLInputElement) {
+    requestCommercialNameInput.placeholder = mode.commercialPlaceholder;
+    requestCommercialNameInput.required = professionalType === "company";
+  }
+  if (requestLegalNameInput instanceof HTMLInputElement) {
+    requestLegalNameInput.placeholder = mode.legalPlaceholder;
+  }
+  if (requestCifInput instanceof HTMLInputElement) {
+    requestCifInput.placeholder = mode.cifPlaceholder;
+  }
+
+  if (requestCommercialField instanceof HTMLElement) {
+    requestCommercialField.hidden = professionalType === "self_employed";
+  }
+  if (professionalType === "self_employed" && requestCommercialNameInput instanceof HTMLInputElement) {
+    requestCommercialNameInput.value = "";
+  }
 };
 
 const renderSessionState = (session) => {
@@ -214,6 +288,7 @@ clearButton?.addEventListener("click", () => {
 requestForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
+  const professionalType = getProfessionalType();
   const fullName = toText(requestFullNameInput?.value);
   const email = toText(requestEmailInput?.value)?.toLowerCase() ?? null;
   const companyName = toText(requestCompanyNameInput?.value);
@@ -238,7 +313,7 @@ requestForm?.addEventListener("submit", async (event) => {
     return;
   }
 
-  if (!companyName) {
+  if (professionalType === "company" && !companyName) {
     setRequestFeedback(
       isSpanish ? "Debes indicar la empresa o agencia." : "Company or agency is required.",
       "error"
@@ -246,7 +321,7 @@ requestForm?.addEventListener("submit", async (event) => {
     return;
   }
 
-  if (!commercialName) {
+  if (professionalType === "company" && !commercialName) {
     setRequestFeedback(
       isSpanish ? "Debes indicar el nombre comercial." : "Trade name is required.",
       "error"
@@ -279,11 +354,14 @@ requestForm?.addEventListener("submit", async (event) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        professional_type: professionalType,
         full_name: fullName,
         email,
-        company_name: companyName,
-        commercial_name: commercialName,
-        legal_name: legalName,
+        company_name: companyName ?? (professionalType === "self_employed" ? fullName : null),
+        commercial_name:
+          commercialName ??
+          (professionalType === "self_employed" ? companyName ?? legalName ?? fullName : null),
+        legal_name: legalName ?? (professionalType === "self_employed" ? fullName : null),
         cif,
         phone,
         language: lang,
@@ -316,4 +394,6 @@ requestForm?.addEventListener("submit", async (event) => {
 });
 
 restoreFromSession();
+requestProfessionalTypeInput?.addEventListener("change", syncProfessionalTypeUi);
+syncProfessionalTypeUi();
 setRequestFeedback(copy.requestReady, "warn");

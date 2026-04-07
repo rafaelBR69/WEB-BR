@@ -103,6 +103,43 @@
     return text.length ? text : null;
   };
 
+  const normalizeOriginCandidate = (value) => {
+    const raw = toText(value);
+    if (!raw) return null;
+
+    try {
+      return new URL(raw).origin;
+    } catch {
+      try {
+        return new URL(`https://${raw.replace(/^\/+|\/+$/g, "")}`).origin;
+      } catch {
+        return null;
+      }
+    }
+  };
+
+  const isLocalOrigin = (origin) => {
+    const normalized = toText(origin);
+    if (!normalized) return true;
+
+    try {
+      const hostname = new URL(normalized).hostname.toLowerCase();
+      return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+    } catch {
+      return true;
+    }
+  };
+
+  const resolvePortalPublicOrigin = () => {
+    const configured = normalizeOriginCandidate(window.__crmPortalPublicOrigin);
+    if (configured) return configured;
+
+    const current = normalizeOriginCandidate(window.location.origin);
+    if (current && !isLocalOrigin(current)) return current;
+
+    return "https://web-br-iota.vercel.app";
+  };
+
   const asObject = (value) => {
     if (!value || typeof value !== "object" || Array.isArray(value)) return {};
     return value;
@@ -290,7 +327,7 @@
     const inviteCode = toText(code);
     if (!inviteEmail || !inviteCode) return null;
 
-    const activationUrl = new URL("/es/portal/activate/", window.location.origin);
+    const activationUrl = new URL("/es/portal/activate/", resolvePortalPublicOrigin());
     activationUrl.searchParams.set("organization_id", state.organizationId);
     activationUrl.searchParams.set("email", inviteEmail);
     if (projectId) activationUrl.searchParams.set("project_property_id", projectId);
@@ -677,6 +714,9 @@
           const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : null;
           const requesterName = toText(requester.full_name);
           const requesterEmail = toText(requester.email) ?? toText(entry.email);
+          const requesterProfessionalType = toText(requester.professional_type) ?? "company";
+          const requesterProfessionalTypeLabel =
+            requesterProfessionalType === "self_employed" ? "Autonomo" : "Empresa / agencia";
           const requesterCompanyName = toText(requester.company_name);
           const requesterCommercialName = toText(requester.commercial_name);
           const requesterLegalName = toText(requester.legal_name);
@@ -718,6 +758,7 @@
               <td>
                 <strong>${esc(requesterName ?? requesterEmail ?? "-")}</strong>
                 ${requesterEmail ? `<br /><small>${esc(requesterEmail)}</small>` : ""}
+                <br /><small><strong>Perfil:</strong> ${esc(requesterProfessionalTypeLabel)}</small>
                 ${requesterCompanyName ? `<br /><small><strong>Empresa:</strong> ${esc(requesterCompanyName)}</small>` : ""}
                 ${requesterCommercialName ? `<br /><small><strong>Comercial:</strong> ${esc(requesterCommercialName)}</small>` : ""}
                 ${requesterLegalName ? `<br /><small><strong>Legal:</strong> ${esc(requesterLegalName)}</small>` : ""}

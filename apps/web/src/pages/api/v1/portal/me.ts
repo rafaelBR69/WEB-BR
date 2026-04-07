@@ -7,11 +7,12 @@ import {
   defaultMembershipScopeForRole,
   isPortalProjectPublished,
   mapPortalMembershipRow,
+  mapPortalPropertyMedia,
 } from "@shared/portal/domain";
 import { resolvePortalRequestContext } from "@shared/portal/auth";
 
 const PROJECT_SELECT_COLUMNS =
-  "id, organization_id, legacy_code, record_type, status, translations, parent_property_id, property_data, updated_at";
+  "id, organization_id, legacy_code, record_type, status, translations, parent_property_id, property_data, media, updated_at";
 
 const buildImplicitAdminMembership = (
   portalAccountId: string,
@@ -154,7 +155,10 @@ export const GET: APIRoute = async ({ url, request }) => {
   projects.forEach((row) => {
     const id = asText(row.id);
     if (!id) return;
-    projectsById.set(id, row);
+    projectsById.set(id, {
+      ...row,
+      media: mapPortalPropertyMedia(row.media),
+    });
   });
 
   const hydratedMemberships = filteredMemberships.map((entry) => ({
@@ -188,7 +192,7 @@ export const GET: APIRoute = async ({ url, request }) => {
       portal_account: auth.data.portal_account,
       auth_user_id: auth.data.auth_user_id,
       memberships: hydratedMemberships,
-      projects,
+      projects: Array.from(projectsById.values()),
     },
     meta: {
       storage: "supabase.crm.portal_accounts",

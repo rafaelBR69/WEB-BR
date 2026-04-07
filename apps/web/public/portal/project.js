@@ -6,6 +6,9 @@
   escapeHtml,
   formatCurrency,
   formatDateTime,
+  getPortalMediaAlt,
+  getPortalMediaCover,
+  getPortalMediaItems,
   getBootstrap,
   humanizeKey,
   isPortalAuthErrorCode,
@@ -39,6 +42,7 @@ const projectId = bootstrap.projectId ?? projectIdFromPath;
 
 const feedback = document.getElementById("portal-project-feedback");
 const projectHeader = document.getElementById("portal-project-header");
+const projectGallery = document.getElementById("portal-project-gallery");
 const contentList = document.getElementById("portal-project-content");
 const unitsList = document.getElementById("portal-project-units");
 const documentsList = document.getElementById("portal-project-documents");
@@ -54,6 +58,80 @@ const state = {
   availableUnits: [],
   documents: [],
   docsSearchTimer: null,
+};
+
+const buildMediaShell = (media, title, href = null) => {
+  const mediaItems = getPortalMediaItems(media, 8);
+  const cover = getPortalMediaCover(media) ?? mediaItems[0] ?? null;
+  const extraCount = Math.max(0, mediaItems.length - 5);
+  const thumbItems = mediaItems.slice(1, 5);
+  const altFallback = isSpanish ? `Imagen de ${title}` : `Image of ${title}`;
+  const tagName = href ? "a" : "div";
+  const hrefAttr = href ? ` href="${escapeHtml(href)}"` : "";
+  const coverHtml = cover
+    ? `
+        <${tagName} class="portal-media-cover"${hrefAttr} aria-label="${escapeHtml(title)}">
+          <img src="${escapeHtml(cover.url)}" alt="${escapeHtml(getPortalMediaAlt(cover, lang, altFallback))}" loading="lazy" decoding="async" />
+          <span class="portal-media-count">${escapeHtml(String(mediaItems.length || 1))} ${escapeHtml(isSpanish ? "fotos" : "photos")}</span>
+        </${tagName}>
+      `
+    : `
+        <${tagName} class="portal-media-cover"${hrefAttr} aria-label="${escapeHtml(title)}">
+          <div class="portal-media-fallback">${escapeHtml(title)}</div>
+        </${tagName}>
+      `;
+
+  const thumbsHtml = thumbItems.length
+    ? `
+        <div class="portal-media-thumbs" aria-hidden="true">
+          ${thumbItems
+            .map((entry, index) => `
+              <span class="portal-media-thumb">
+                <img src="${escapeHtml(entry.url)}" alt="" loading="lazy" decoding="async" />
+                ${
+                  index === thumbItems.length - 1 && extraCount > 0
+                    ? `<span class="portal-media-thumb-more">+${escapeHtml(String(extraCount))}</span>`
+                    : ""
+                }
+              </span>
+            `)
+            .join("")}
+        </div>
+      `
+    : "";
+
+  return `<div class="portal-media-shell">${coverHtml}${thumbsHtml}</div>`;
+};
+
+const renderProjectGallery = () => {
+  if (!(projectGallery instanceof HTMLElement)) return;
+  if (!state.project) {
+    projectGallery.innerHTML = `<div class="portal-empty">${
+      isSpanish ? "Promocion no disponible para esta cuenta." : "Project unavailable for this account."
+    }</div>`;
+    return;
+  }
+
+  const title = pickProjectTitle(state.project, lang);
+  const mediaItems = getPortalMediaItems(state.project.media, 32);
+  if (!mediaItems.length) {
+    projectGallery.innerHTML = `<div class="portal-empty">${
+      isSpanish ? "No hay imagenes publicadas para esta promocion." : "No published images for this project."
+    }</div>`;
+    return;
+  }
+
+  projectGallery.innerHTML = mediaItems
+    .map(
+      (item, index) => `
+        <a class="portal-media-gallery-item" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(
+          `${title} ${index + 1}`
+        )}">
+          <img src="${escapeHtml(item.url)}" alt="${escapeHtml(getPortalMediaAlt(item, lang, title))}" loading="lazy" decoding="async" />
+        </a>
+      `
+    )
+    .join("");
 };
 
 const audienceLabel = (value) => {
@@ -281,9 +359,12 @@ const renderUnits = () => {
         Number.isFinite(Number(row.price_sale)) ? `${isSpanish ? "Venta" : "Sale"}: ${salePrice}` : null,
         Number.isFinite(Number(row.price_rent_monthly)) ? `${isSpanish ? "Alquiler" : "Rent"}: ${rentPrice}` : null,
       ].filter((value) => Boolean(value));
+      const ownMediaItems = getPortalMediaItems(row.media, 8);
+      const mediaSource = ownMediaItems.length ? row.media : state.project?.media;
 
       return `
         <li class="portal-item">
+          ${buildMediaShell(mediaSource, title)}
           <p class="portal-item-title">${escapeHtml(title)}</p>
           ${
             legacyCode
@@ -359,6 +440,7 @@ const loadBaseData = async () => {
   state.contentBlocks = Array.isArray(contentPayload?.data) ? contentPayload.data : [];
 
   renderProjectHeader();
+  renderProjectGallery();
   renderContent();
 };
 

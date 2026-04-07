@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { normalizeMediaModel } from "@shared/properties/domain";
 
 export type PortalRole = "portal_agent_admin" | "portal_agent_member" | "portal_client";
 export type PortalInviteType = "agent" | "client";
@@ -331,6 +332,8 @@ export const mapPortalMembershipRow = (row: Record<string, unknown>) => ({
   created_at: asText(row.created_at),
   updated_at: asText(row.updated_at),
 });
+
+export const mapPortalPropertyMedia = (rawMedia: unknown) => normalizeMediaModel(rawMedia);
 
 export const getPortalAccountById = async (
   client: SupabaseClient,

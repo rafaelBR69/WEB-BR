@@ -10,6 +10,7 @@ import {
   normalizeProperty,
   normalizePropertyCard,
 } from "@shared/properties/public";
+import { appendCatalogFiltersToSearchParams } from "@shared/properties/catalogFilters";
 import { resolvePropertyLanding } from "@shared/seo/resolvePropertyLanding";
 import { DEFAULT_LANG, isSupportedLang } from "@shared/i18n/languages";
 import { getPublicPropertiesWithFallback } from "@shared/properties/public";
@@ -349,6 +350,7 @@ const copyByLang = {
     mapTitleIn: "Mapa de ubicación en",
     mapNote:
       "* La ubicación exacta se proporcionara tras agendar una visita privada por motivos de seguridad y privacidad.",
+    allProperties: "Todas las propiedades",
   },
   en: {
     quickSheet: "Quick facts",
@@ -436,6 +438,7 @@ const copyByLang = {
     mapTitleIn: "Location map in",
     mapNote:
       "* The exact address is shared after scheduling a private visit for safety and privacy reasons.",
+    allProperties: "All properties",
   },
 };
 
@@ -493,6 +496,71 @@ const currentTypeLanding =
   propertyCard?.typeKey && propertyCard?.cityKey
     ? resolveTypeLandingByKeys(propertyCard.cityKey, propertyCard.typeKey)
     : null;
+const buildCatalogHref = (filters) => {
+  const params = new URLSearchParams();
+  appendCatalogFiltersToSearchParams(params, filters);
+  const query = params.toString();
+  return `/${lang}/properties/${query ? `?${query}` : ""}`;
+};
+const parentPropertyTitle = parentProperty
+  ? String(
+      parentProperty.translations?.[lang]?.title ??
+        parentProperty.translations?.es?.title ??
+        ""
+    ).trim()
+  : "";
+const breadcrumbTrail = [
+  {
+    label: t.allProperties,
+    href: `/${lang}/properties/`,
+  },
+  currentCityLanding
+    ? {
+        label: currentCityLanding.city.label,
+        href: currentCityLanding.canonicalPath,
+      }
+    : propertyCard?.cityKey && propertyCard?.location?.city
+      ? {
+          label: propertyCard.location.city,
+          href: buildCatalogHref({ city: [propertyCard.cityKey] }),
+        }
+      : null,
+  currentAreaLanding
+    ? {
+        label: currentAreaLanding.area.label,
+        href: currentAreaLanding.canonicalPath,
+      }
+    : propertyCard?.areaKey && propertyCard?.location?.area
+      ? {
+          label: propertyCard.location.area,
+          href: buildCatalogHref({
+            city: propertyCard.cityKey ? [propertyCard.cityKey] : null,
+            area: [propertyCard.areaKey],
+          }),
+        }
+      : null,
+  !isPromotion && parentProperty?.slugs?.[lang] && parentPropertyTitle
+    ? {
+        label: parentPropertyTitle,
+        href: `/${lang}/property/${parentProperty.slugs[lang]}/`,
+      }
+    : null,
+  {
+    label: data.text.title,
+    href: null,
+    current: true,
+  },
+]
+  .filter((crumb) => Boolean(crumb?.label))
+  .filter((crumb, index, all) => {
+    const previous = all[index - 1];
+    if (!previous) return true;
+
+    return (
+      String(previous.label).trim().toLowerCase() !== String(crumb.label).trim().toLowerCase() ||
+      String(previous.href ?? "") !== String(crumb.href ?? "")
+    );
+  });
 const relatedSearchLinks = [
   currentCityLanding
     ? {
@@ -541,6 +609,22 @@ const gallerySections = [
   enableLightbox={true}
   {...navigation}
 >
+  <div class="property-breadcrumbs-shell">
+    <nav class="property-breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        {breadcrumbTrail.map((crumb) => (
+          <li class:list={[crumb.current && "is-current"]}>
+            {crumb.href && !crumb.current ? (
+              <a href={crumb.href}>{crumb.label}</a>
+            ) : (
+              <span aria-current={crumb.current ? "page" : undefined}>{crumb.label}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </div>
+
   <PropertyHero
     cover={data.media.cover}
     title={data.text.title}

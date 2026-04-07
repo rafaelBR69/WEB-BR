@@ -9,6 +9,7 @@ import {
   defaultMembershipScopeForRole,
   isPortalProjectPublished,
   mapPortalMembershipRow,
+  mapPortalPropertyMedia,
 } from "@shared/portal/domain";
 import { resolvePortalRequestContext } from "@shared/portal/auth";
 
@@ -19,6 +20,8 @@ const PROJECT_SELECT_COLUMNS = [
   "record_type",
   "status",
   "translations",
+  "property_data",
+  "media",
 ].join(", ");
 
 const UNIT_SELECT_COLUMNS = [
@@ -33,6 +36,7 @@ const UNIT_SELECT_COLUMNS = [
   "price_sale",
   "price_rent_monthly",
   "price_currency",
+  "media",
   "updated_at",
 ].join(", ");
 
@@ -98,6 +102,11 @@ const mapUnitRow = (
   const propertyData = asObject(row.property_data);
   const projectId = asText(row.parent_property_id);
   const projectRow = projectId ? projectById.get(projectId) ?? null : null;
+  const projectMedia = projectRow ? mapPortalPropertyMedia(projectRow.media) : null;
+  const unitMedia = mapPortalPropertyMedia(row.media);
+  const hasOwnMedia =
+    Boolean(unitMedia.cover?.url) ||
+    Object.values(unitMedia.gallery ?? {}).some((entries) => Array.isArray(entries) && entries.length > 0);
 
   return {
     unit_id: asText(row.id),
@@ -119,6 +128,7 @@ const mapUnitRow = (
     updated_at: asText(row.updated_at),
     project_title: projectRow ? pickProjectTitle(projectRow) : null,
     project_status: projectRow ? asText(projectRow.status) ?? "active" : null,
+    media: hasOwnMedia ? unitMedia : projectMedia,
   };
 };
 
@@ -172,6 +182,7 @@ export const GET: APIRoute = async ({ request, url }) => {
       .filter((project) => isPortalProjectPublished(project))
       .map((project) => ({
         ...project,
+        media: mapPortalPropertyMedia(project.media),
         membership:
           asText(project.id) && organizationId
             ? buildImplicitAdminMembership(portalAccountId, organizationId, asText(project.id) as string)
@@ -228,6 +239,7 @@ export const GET: APIRoute = async ({ request, url }) => {
       .filter((project) => isPortalProjectPublished(project))
       .map((project) => ({
         ...project,
+        media: mapPortalPropertyMedia(project.media),
         membership: membershipByProject.get(asText(project.id) ?? ""),
       }));
   }
