@@ -1,0 +1,181 @@
+---
+import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
+
+const portalAccountId = Astro.params.id ?? "";
+---
+<CrmLayout title="CRM | Portal | Ficha usuario" section="portal">
+  <div class="crm-stack portal-user-detail" data-portal-page="user-detail" data-portal-account-id={portalAccountId}>
+    <section class="crm-card crm-full">
+      <div class="crm-row-between" style="gap:1rem;align-items:flex-start;flex-wrap:wrap">
+        <div>
+          <p class="crm-context-eyebrow">Portal usuarios</p>
+          <h2>Ficha de usuario portal</h2>
+          <p>Perfil, origen de alta, estado y accesos del usuario seleccionado.</p>
+        </div>
+        <div class="crm-actions-row">
+          <a class="crm-link" href="/crm/portal/users/">Volver a usuarios</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Resumen</h3>
+        <div id="portal-user-detail-summary">
+          <p class="crm-inline-note">Cargando ficha...</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Estado de cuenta</h3>
+        <form id="portal-user-detail-status-form" class="crm-form crm-form-compact">
+          <label for="portal-user-detail-status">
+            Estado
+            <select id="portal-user-detail-status" name="status" data-dictionary="portal-status">
+              <option value="pending">pending</option>
+              <option value="active">active</option>
+              <option value="blocked">blocked</option>
+              <option value="revoked">revoked</option>
+            </select>
+          </label>
+          <div class="crm-actions-row">
+            <button type="submit" class="crm-button">Guardar estado</button>
+          </div>
+        </form>
+        <p id="portal-user-detail-status-note" class="crm-inline-note"></p>
+      </article>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Datos del perfil</h3>
+        <div id="portal-user-detail-profile">
+          <p class="crm-inline-note">Sin datos cargados.</p>
+        </div>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Origen y activacion</h3>
+        <div id="portal-user-detail-source">
+          <p class="crm-inline-note">Sin datos cargados.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="crm-grid">
+      <article class="crm-card crm-half">
+        <h3>Asignar membresia</h3>
+        <form id="portal-user-detail-membership-form" class="crm-form crm-form-compact">
+          <input type="hidden" name="portal_account_id" value={portalAccountId} />
+          <label for="portal-user-detail-project-select">
+            Promocion
+            <select id="portal-user-detail-project-select" name="project_property_id" required>
+              <option value="">Selecciona una promocion</option>
+              <option value="__all_projects__">Todas las promociones publicadas</option>
+            </select>
+            <small class="crm-field-help">Si eliges todas, la cuenta pasara a acceso global y vera todas las promociones publicadas.</small>
+          </label>
+          <label for="portal-user-detail-scope">
+            Access scope
+            <select id="portal-user-detail-scope" name="access_scope" data-dictionary="membership-scope">
+              <option value="read">read</option>
+              <option value="read_write">read_write</option>
+              <option value="full">full</option>
+            </select>
+          </label>
+          <label for="portal-user-detail-membership-status">
+            Estado
+            <select id="portal-user-detail-membership-status" name="status" data-dictionary="portal-status">
+              <option value="active">active</option>
+              <option value="paused">paused</option>
+              <option value="revoked">revoked</option>
+            </select>
+          </label>
+          <div class="crm-actions-row">
+            <button type="submit" class="crm-button">Guardar membresia</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="crm-card crm-half">
+        <h3>Acceso visible</h3>
+        <div id="portal-user-detail-access">
+          <p class="crm-inline-note">Sin datos cargados.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="crm-card crm-full">
+      <h3>Membresias</h3>
+      <div class="crm-table-wrap">
+        <table class="crm-table">
+          <caption class="sr-only">Membresias del usuario portal</caption>
+          <thead>
+            <tr>
+              <th>Promocion</th>
+              <th>Scope</th>
+              <th>Estado</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody id="portal-user-detail-memberships-tbody">
+            <tr><td colspan="4">Cargando membresias...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="crm-card crm-full">
+      <p id="crm-portal-feedback" class="crm-feedback" role="status" aria-live="polite">
+        Listo para operar.
+      </p>
+    </section>
+  </div>
+  <style>
+    .portal-user-detail .crm-inline-note {
+      margin-top: 0.25rem;
+    }
+
+    .portal-user-detail-block {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .portal-user-detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(23, 56, 91, 0.08);
+      padding-bottom: 0.45rem;
+    }
+
+    .portal-user-detail-row strong {
+      color: #17385b;
+      flex: 0 0 180px;
+    }
+
+    .portal-user-detail-row span {
+      flex: 1;
+      text-align: right;
+      color: rgba(23, 56, 91, 0.82);
+    }
+
+    .portal-user-detail-list {
+      display: grid;
+      gap: 0.55rem;
+      margin: 0;
+      padding-left: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .portal-user-detail-row {
+        flex-direction: column;
+      }
+
+      .portal-user-detail-row span {
+        text-align: left;
+      }
+    }
+  </style>
+  <script is:inline src="/crm/portal.js"></script>
+</CrmLayout>

@@ -152,8 +152,14 @@ const syncProfessionalTypeUi = () => {
     requestCifInput.placeholder = mode.cifPlaceholder;
   }
 
+  if (requestCompanyField instanceof HTMLElement) {
+    requestCompanyField.hidden = professionalType === "self_employed";
+  }
   if (requestCommercialField instanceof HTMLElement) {
     requestCommercialField.hidden = professionalType === "self_employed";
+  }
+  if (professionalType === "self_employed" && requestCompanyNameInput instanceof HTMLInputElement) {
+    requestCompanyNameInput.value = "";
   }
   if (professionalType === "self_employed" && requestCommercialNameInput instanceof HTMLInputElement) {
     requestCommercialNameInput.value = "";

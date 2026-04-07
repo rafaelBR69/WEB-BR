@@ -5,18 +5,20 @@ import { CRM_ADMIN_ROLES, resolveCrmOrgAccess } from "@shared/crm/access";
 import { isPortalMockFallbackEnabled, portalMockFallbackDisabledResponse } from "@shared/http/portal/mockFallback";
 import {
   PORTAL_ACCOUNT_SELECT_COLUMNS,
+  PORTAL_INVITE_SELECT_COLUMNS,
+  PORTAL_MEMBERSHIP_SELECT_COLUMNS,
   asObject,
   asText,
   asUuid,
   extractPortalProfile,
   mapPortalAccountRow,
+  mapPortalInviteRow,
+  mapPortalMembershipRow,
   normalizePortalRole,
-  toPositiveInt,
 } from "@shared/portal/domain";
 
 type PatchPortalAccountBody = {
   organization_id?: string;
-  portal_account_id?: string;
   status?: "pending" | "active" | "blocked" | "revoked";
   role?: "portal_agent_admin" | "portal_agent_member" | "portal_client";
   access_mode?: "all" | "selected";
@@ -29,15 +31,7 @@ const asPortalAccountStatus = (value: unknown) => {
   return null;
 };
 
-const decoratePortalAccountRow = (
-  row: ReturnType<typeof mapPortalAccountRow>,
-  membershipStats: {
-    memberships_total: number;
-    memberships_active: number;
-    memberships_revoked: number;
-    memberships_paused: number;
-  }
-) => {
+const decoratePortalAccount = (row: ReturnType<typeof mapPortalAccountRow>) => {
   const profile = extractPortalProfile(row.metadata);
   const metadata = row.metadata as Record<string, unknown>;
   return {
@@ -52,27 +46,34 @@ const decoratePortalAccountRow = (
     phone: profile.phone,
     language: profile.language,
     notes: profile.notes,
-    membership_stats: membershipStats,
     access: {
       mode: asText(metadata.access_mode) ?? (row.role === "portal_agent_admin" ? "all" : "selected"),
       approved_project_property_ids: Array.isArray(metadata.approved_project_property_ids)
         ? metadata.approved_project_property_ids
         : [],
     },
+    source: {
+      registration_request_id: asText(metadata.registration_request_id),
+      approval_invite_id: asText(metadata.approval_invite_id),
+      activation_invite_id: asText(metadata.activation_invite_id),
+    },
   };
 };
 
-export const GET: APIRoute = async ({ url, cookies }) => {
-  const organizationId = asText(url.searchParams.get("organization_id"));
-  const role = asText(url.searchParams.get("role"));
-  const status = asPortalAccountStatus(asText(url.searchParams.get("status")));
-  const q = asText(url.searchParams.get("q"))?.toLowerCase() ?? "";
-  const page = toPositiveInt(url.searchParams.get("page"), 1, 1, 10000);
-  const perPage = toPositiveInt(url.searchParams.get("per_page"), 25, 1, 200);
+const getPortalAccountId = (params: Record<string, string | undefined>) => {
+  const value = params.id;
+  if (!value) return null;
+  const trimmed = value.trim();
+  return trimmed.length ? trimmed : null;
+};
 
-  if (!organizationId) {
-    return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
-  }
+export const GET: APIRoute = async ({ params, url, cookies }) => {
+  const organizationId = asText(url.searchParams.get("organization_id"));
+  const portalAccountId = asUuid(getPortalAccountId(params));
+
+  if (!organizationId) return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
+  if (!portalAccountId) return jsonResponse({ ok: false, error: "portal_account_id_required" }, { status: 422 });
+
   const access = await resolveCrmOrgAccess(cookies, {
     organizationIdHint: organizationId,
     allowedRoles: CRM_ADMIN_ROLES,
@@ -92,19 +93,14 @@ export const GET: APIRoute = async ({ url, cookies }) => {
   if (!hasSupabaseServerClient()) {
     if (!isPortalMockFallbackEnabled()) {
       return portalMockFallbackDisabledResponse(
-        "portal_users_backend_unavailable",
+        "portal_user_detail_backend_unavailable",
         "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
       );
     }
     return jsonResponse({
       ok: true,
-      data: [],
+      data: null,
       meta: {
-        count: 0,
-        total: 0,
-        page,
-        per_page: perPage,
-        total_pages: 1,
         persisted: false,
         storage: "mock_in_memory",
       },
@@ -114,137 +110,108 @@ export const GET: APIRoute = async ({ url, cookies }) => {
   const client = getSupabaseServerClient();
   if (!client) return jsonResponse({ ok: false, error: "supabase_not_configured" }, { status: 500 });
 
-  const from = (page - 1) * perPage;
-  const to = from + perPage - 1;
-
-  let query = client
+  const { data: accountRow, error: accountError } = await client
     .schema("crm")
     .from("portal_accounts")
-    .select(PORTAL_ACCOUNT_SELECT_COLUMNS, { count: "exact" })
+    .select(PORTAL_ACCOUNT_SELECT_COLUMNS)
     .eq("organization_id", organizationId)
-    .order("created_at", { ascending: false })
-    .range(from, to);
+    .eq("id", portalAccountId)
+    .maybeSingle();
 
-  if (role) query = query.eq("role", role);
-  if (status) query = query.eq("status", status);
-
-  const { data, error, count } = await query;
-  if (error) {
+  if (accountError) {
     return jsonResponse(
       {
         ok: false,
-        error: "db_portal_accounts_read_error",
-        details: error.message,
+        error: "db_portal_account_read_error",
+        details: accountError.message,
+      },
+      { status: 500 }
+    );
+  }
+  if (!accountRow) return jsonResponse({ ok: false, error: "portal_account_not_found" }, { status: 404 });
+
+  const decoratedAccount = decoratePortalAccount(mapPortalAccountRow(accountRow as Record<string, unknown>));
+  const metadata = asObject(decoratedAccount.metadata);
+
+  const { data: membershipsRaw, error: membershipsError } = await client
+    .schema("crm")
+    .from("portal_memberships")
+    .select(PORTAL_MEMBERSHIP_SELECT_COLUMNS)
+    .eq("organization_id", organizationId)
+    .eq("portal_account_id", portalAccountId)
+    .order("created_at", { ascending: false });
+
+  if (membershipsError) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "db_portal_memberships_read_error",
+        details: membershipsError.message,
       },
       { status: 500 }
     );
   }
 
-  const rows = (data ?? []).map((row) => mapPortalAccountRow(row as Record<string, unknown>));
-  const accountIds = rows
-    .map((row) => asUuid(row.id))
-    .filter((value): value is string => Boolean(value));
+  const memberships = ((membershipsRaw ?? []) as Array<Record<string, unknown>>).map((row) =>
+    mapPortalMembershipRow(row)
+  );
 
-  const statsByAccount = new Map<
-    string,
-    {
-      memberships_total: number;
-      memberships_active: number;
-      memberships_revoked: number;
-      memberships_paused: number;
-    }
-  >();
+  const inviteIds = [
+    asUuid(metadata.registration_request_id),
+    asUuid(metadata.approval_invite_id),
+    asUuid(metadata.activation_invite_id),
+  ].filter((value): value is string => Boolean(value));
 
-  if (accountIds.length) {
-    const { data: membershipsRaw, error: membershipsError } = await client
+  let invitesById = new Map<string, ReturnType<typeof mapPortalInviteRow>>();
+  if (inviteIds.length) {
+    const { data: invitesRaw, error: invitesError } = await client
       .schema("crm")
-      .from("portal_memberships")
-      .select("portal_account_id, status")
-      .eq("organization_id", organizationId)
-      .in("portal_account_id", accountIds);
+      .from("portal_invites")
+      .select(PORTAL_INVITE_SELECT_COLUMNS)
+      .in("id", inviteIds);
 
-    if (membershipsError) {
+    if (invitesError) {
       return jsonResponse(
         {
           ok: false,
-          error: "db_portal_memberships_read_error",
-          details: membershipsError.message,
+          error: "db_portal_invites_read_error",
+          details: invitesError.message,
         },
         { status: 500 }
       );
     }
 
-    (membershipsRaw ?? []).forEach((item) => {
-      const row = item as Record<string, unknown>;
-      const portalAccountId = asUuid(row.portal_account_id);
-      if (!portalAccountId) return;
-
-      const current = statsByAccount.get(portalAccountId) ?? {
-        memberships_total: 0,
-        memberships_active: 0,
-        memberships_revoked: 0,
-        memberships_paused: 0,
-      };
-      current.memberships_total += 1;
-
-      const membershipStatus = asText(row.status);
-      if (membershipStatus === "active") current.memberships_active += 1;
-      if (membershipStatus === "revoked") current.memberships_revoked += 1;
-      if (membershipStatus === "paused") current.memberships_paused += 1;
-
-      statsByAccount.set(portalAccountId, current);
-    });
+    invitesById = new Map(
+      ((invitesRaw ?? []) as Array<Record<string, unknown>>)
+        .map((row) => mapPortalInviteRow(row))
+        .filter((entry) => entry.id)
+        .map((entry) => [entry.id as string, entry])
+    );
   }
-
-  const filtered = rows
-    .map((row) =>
-      decoratePortalAccountRow(row, statsByAccount.get(asUuid(row.id) ?? "") ?? {
-        memberships_total: 0,
-        memberships_active: 0,
-        memberships_revoked: 0,
-        memberships_paused: 0,
-      })
-    )
-    .filter((row) => {
-      if (!q) return true;
-      const roleText = asText(row.role) ?? "";
-      const statusText = asText(row.status) ?? "";
-      const emailText = asText(row.email) ?? "";
-      const nameText = asText(row.full_name) ?? "";
-      const companyText = asText(row.company_name) ?? "";
-      const commercialText = asText(row.commercial_name) ?? "";
-      const legalText = asText(row.legal_name) ?? "";
-      const cifText = asText(row.cif) ?? "";
-      const phoneText = asText(row.phone) ?? "";
-      const idText = asText(row.id) ?? "";
-      const composed =
-        `${roleText} ${statusText} ${emailText} ${nameText} ${companyText} ${commercialText} ${legalText} ${cifText} ${phoneText} ${idText}`.toLowerCase();
-      return composed.includes(q);
-    });
-
-  const total = typeof count === "number" ? count : filtered.length;
-  const totalPages = Math.max(1, Math.ceil(total / perPage));
 
   return jsonResponse({
     ok: true,
-    data: filtered,
+    data: {
+      account: decoratedAccount,
+      memberships,
+      sources: {
+        registration_request: invitesById.get(asUuid(metadata.registration_request_id) ?? ""),
+        approval_invite: invitesById.get(asUuid(metadata.approval_invite_id) ?? ""),
+        activation_invite: invitesById.get(asUuid(metadata.activation_invite_id) ?? ""),
+      },
+    },
     meta: {
-      count: filtered.length,
-      total,
-      page,
-      per_page: perPage,
-      total_pages: totalPages,
-      storage: "supabase.crm.portal_accounts + crm.portal_memberships",
+      storage: "supabase.crm.portal_accounts + crm.portal_memberships + crm.portal_invites",
     },
   });
 };
 
-export const PATCH: APIRoute = async ({ request, cookies }) => {
+export const PATCH: APIRoute = async ({ params, request, cookies }) => {
   const body = await parseJsonBody<PatchPortalAccountBody>(request);
   if (!body) return jsonResponse({ ok: false, error: "invalid_json_body" }, { status: 400 });
 
   const organizationId = asText(body.organization_id);
-  const portalAccountId = asUuid(body.portal_account_id);
+  const portalAccountId = asUuid(getPortalAccountId(params));
   const status = asPortalAccountStatus(body.status);
   const role = body.role ? normalizePortalRole(body.role) : null;
   const accessMode = body.access_mode === "all" || body.access_mode === "selected" ? body.access_mode : null;
@@ -252,6 +219,7 @@ export const PATCH: APIRoute = async ({ request, cookies }) => {
   if (!organizationId) return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
   if (!portalAccountId) return jsonResponse({ ok: false, error: "portal_account_id_required" }, { status: 422 });
   if (!status && !role && !accessMode) return jsonResponse({ ok: false, error: "no_fields_to_update" }, { status: 422 });
+
   const access = await resolveCrmOrgAccess(cookies, {
     organizationIdHint: organizationId,
     allowedRoles: CRM_ADMIN_ROLES,
@@ -271,25 +239,22 @@ export const PATCH: APIRoute = async ({ request, cookies }) => {
   if (!hasSupabaseServerClient()) {
     if (!isPortalMockFallbackEnabled()) {
       return portalMockFallbackDisabledResponse(
-        "portal_users_backend_unavailable",
+        "portal_user_detail_backend_unavailable",
         "Activa Supabase o habilita CRM_ENABLE_MOCK_FALLBACKS=true solo en desarrollo para usar mocks."
       );
     }
-    return jsonResponse(
-      {
-        ok: true,
-        data: {
-          id: portalAccountId,
-          organization_id: organizationId,
-          status,
-        },
-        meta: {
-          persisted: false,
-          storage: "mock_in_memory",
-        },
+    return jsonResponse({
+      ok: true,
+      data: {
+        id: portalAccountId,
+        organization_id: organizationId,
+        status,
       },
-      { status: 200 }
-    );
+      meta: {
+        persisted: false,
+        storage: "mock_in_memory",
+      },
+    });
   }
 
   const client = getSupabaseServerClient();
@@ -352,7 +317,7 @@ export const PATCH: APIRoute = async ({ request, cookies }) => {
 
   return jsonResponse({
     ok: true,
-    data: mapPortalAccountRow(data as Record<string, unknown>),
+    data: decoratePortalAccount(mapPortalAccountRow(data as Record<string, unknown>)),
     meta: {
       storage: "supabase.crm.portal_accounts",
     },

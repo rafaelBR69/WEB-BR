@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap");
 
 :root {
   --portal-bg: #f2f5f8;
@@ -9,8 +9,10 @@
   --portal-border: #c7d6e6;
   --portal-primary: #17385b;
   --portal-primary-strong: #0f2a47;
-  --portal-accent: #d2572c;
-  --portal-accent-soft: #fbe9e2;
+  --portal-accent: #d32c43;
+  --portal-accent-strong: #b41f34;
+  --portal-accent-soft: #fce8ec;
+  --portal-title: #d32c43;
   --portal-ok: #0f8a56;
   --portal-ok-soft: #e6f7ef;
   --portal-warn: #8a5a00;
@@ -29,7 +31,7 @@
     radial-gradient(circle at 100% -10%, rgba(210, 87, 44, 0.16) 0%, transparent 36%),
     linear-gradient(180deg, #f9fbfd 0%, var(--portal-bg) 46%, #ecf1f6 100%);
   color: var(--portal-text);
-  font-family: "Source Sans 3", "Inter", "Segoe UI", Arial, sans-serif;
+  font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .portal-shell {
@@ -124,11 +126,11 @@
 
 .portal-hero h1 {
   margin: 0.35rem 0 0.45rem;
-  font-family: "Outfit", "Source Sans 3", sans-serif;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
   font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.55rem);
   line-height: 1.07;
-  letter-spacing: -0.018em;
-  color: #ffffff;
+  letter-spacing: -0.024em;
+  color: #fff3f6;
 }
 
 .portal-hero p {
@@ -212,7 +214,7 @@
   width: 110px;
   height: 4px;
   border-radius: 0 0 8px 0;
-  background: linear-gradient(90deg, var(--portal-primary), #2a5a8f, rgba(42, 90, 143, 0));
+  background: linear-gradient(90deg, var(--portal-accent), #ef9aa7, rgba(239, 154, 167, 0));
 }
 
 .portal-card:hover {
@@ -230,11 +232,11 @@
 .portal-card h2,
 .portal-card h3 {
   margin: 0;
-  font-family: "Outfit", "Source Sans 3", sans-serif;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
   font-size: clamp(1.08rem, 1rem + 0.5vw, 1.36rem);
   line-height: 1.15;
   letter-spacing: -0.013em;
-  color: var(--portal-primary-strong);
+  color: var(--portal-title);
 }
 
 .portal-card h2 + p,
@@ -271,7 +273,7 @@
   border: 1px solid #d2deea;
   border-radius: 10px;
   background: #f4f9ff;
-  color: #4d647e;
+  color: #645d71;
   padding: 0.5rem 0.58rem;
   font-size: 0.83rem;
 }
@@ -299,8 +301,8 @@
 .portal-form select:focus,
 .portal-form textarea:focus {
   outline: none;
-  border-color: #7f9fc1;
-  box-shadow: 0 0 0 3px rgba(21, 59, 97, 0.14);
+  border-color: #de9aa5;
+  box-shadow: 0 0 0 3px rgba(211, 44, 67, 0.12);
   background: #fbfdff;
 }
 
@@ -352,19 +354,19 @@ a.portal-button {
 .portal-link:focus-visible,
 .portal-nav-link:focus-visible,
 a.portal-button:focus-visible {
-  outline: 3px solid rgba(22, 60, 97, 0.29);
+  outline: 3px solid rgba(211, 44, 67, 0.22);
   outline-offset: 2px;
 }
 
 .portal-button-primary {
-  background: linear-gradient(130deg, var(--portal-primary), #2f6196);
+  background: linear-gradient(130deg, var(--portal-accent), var(--portal-accent-strong));
   color: #ffffff;
 }
 
 .portal-button-soft {
-  background: #e8eff8;
-  color: var(--portal-primary-strong);
-  border: 1px solid #bfcfe1;
+  background: #fff1f4;
+  color: var(--portal-accent-strong);
+  border: 1px solid #efc4cc;
 }
 
 .portal-button-danger {
@@ -378,7 +380,7 @@ a.portal-button:focus-visible {
   border-radius: 11px;
   border: 1px solid var(--portal-border);
   background: var(--portal-surface-soft);
-  color: var(--portal-primary);
+  color: var(--portal-accent-strong);
   font-size: 0.91rem;
   font-weight: 600;
   padding: 0.62rem 0.74rem;
@@ -464,7 +466,7 @@ a.portal-button:focus-visible {
   padding: 1rem;
   text-align: center;
   color: rgba(244, 248, 252, 0.92);
-  font-family: "Outfit", "Source Sans 3", sans-serif;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -552,12 +554,12 @@ a.portal-button:focus-visible {
   font-size: 0.75rem;
   font-weight: 700;
   color: #ffffff;
-  background: linear-gradient(145deg, var(--portal-primary), #25598f);
+  background: linear-gradient(145deg, var(--portal-accent), var(--portal-accent-strong));
   box-shadow: 0 6px 12px rgba(19, 52, 82, 0.2);
 }
 
 .portal-link {
-  color: var(--portal-primary);
+  color: var(--portal-accent-strong);
   font-weight: 700;
   text-decoration: none;
 }
@@ -594,9 +596,9 @@ a.portal-button:focus-visible {
   display: block;
   margin-top: 0.18rem;
   font-size: clamp(1.25rem, 1.08rem + 0.9vw, 1.7rem);
-  color: var(--portal-primary-strong);
+  color: var(--portal-title);
   line-height: 1.05;
-  font-family: "Outfit", "Source Sans 3", sans-serif;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
 }
 
 .portal-list {
@@ -625,12 +627,12 @@ a.portal-button:focus-visible {
   width: 70px;
   height: 3px;
   border-radius: 0 0 5px 5px;
-  background: linear-gradient(90deg, rgba(23, 56, 91, 0.75), rgba(23, 56, 91, 0));
+  background: linear-gradient(90deg, rgba(211, 44, 67, 0.75), rgba(211, 44, 67, 0));
 }
 
 .portal-item-title {
   margin: 0;
-  color: var(--portal-primary-strong);
+  color: var(--portal-title);
   font-weight: 700;
   font-size: 1rem;
 }
@@ -659,9 +661,9 @@ a.portal-button:focus-visible {
 }
 
 .portal-badge.role {
-  background: #e9f1fb;
-  color: var(--portal-primary);
-  border-color: #c5d7ea;
+  background: #fdeef1;
+  color: var(--portal-accent-strong);
+  border-color: #f1c8d0;
 }
 
 .portal-badge.ok {
@@ -741,7 +743,7 @@ a.portal-button:focus-visible {
 
 .portal-timeline strong {
   display: block;
-  color: var(--portal-primary-strong);
+  color: var(--portal-title);
   font-size: 0.91rem;
 }
 
@@ -764,7 +766,7 @@ a.portal-button:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  color: #dceaf8;
+  color: #f8dbe2;
   text-decoration: none;
   font-weight: 700;
   font-size: 0.92rem;

@@ -10,8 +10,11 @@
     portalProjects: [],
     portalProjectsLoadedForOrg: null,
     portalProjectsById: new Map(),
+    registrationRequests: [],
+    registrationRequestsById: new Map(),
     portalAccounts: [],
     portalAccountsById: new Map(),
+    userDetail: null,
     lastInviteShare: null,
   };
 
@@ -45,6 +48,17 @@
     registrationKpiApproved: document.getElementById("portal-registration-kpi-approved"),
     registrationKpiRejected: document.getElementById("portal-registration-kpi-rejected"),
     registrationMeta: document.getElementById("portal-registration-meta"),
+    registrationApproveDialog: document.getElementById("portal-registration-approve-dialog"),
+    registrationApproveForm: document.getElementById("portal-registration-approve-form"),
+    registrationApproveSummary: document.getElementById("portal-registration-approve-summary"),
+    registrationApproveRequestId: document.getElementById("portal-registration-approve-request-id"),
+    registrationApproveRole: document.getElementById("portal-registration-approve-role"),
+    registrationApproveAccessMode: document.getElementById("portal-registration-approve-access-mode"),
+    registrationApproveProjects: document.getElementById("portal-registration-approve-projects"),
+    registrationApproveScope: document.getElementById("portal-registration-approve-scope"),
+    registrationApproveStatus: document.getElementById("portal-registration-approve-status"),
+    registrationApproveNotes: document.getElementById("portal-registration-approve-notes"),
+    registrationApproveCancel: document.getElementById("portal-registration-approve-cancel"),
     invitesFilterForm: document.getElementById("portal-invites-filter"),
     invitesClearBtn: document.getElementById("portal-invites-clear"),
     invitesMeta: document.getElementById("portal-invites-meta"),
@@ -55,6 +69,16 @@
     usersClearBtn: document.getElementById("portal-users-clear"),
     usersMeta: document.getElementById("portal-users-meta"),
     usersTbody: document.getElementById("portal-users-tbody"),
+    userDetailSummary: document.getElementById("portal-user-detail-summary"),
+    userDetailProfile: document.getElementById("portal-user-detail-profile"),
+    userDetailSource: document.getElementById("portal-user-detail-source"),
+    userDetailAccess: document.getElementById("portal-user-detail-access"),
+    userDetailStatusForm: document.getElementById("portal-user-detail-status-form"),
+    userDetailStatusInput: document.getElementById("portal-user-detail-status"),
+    userDetailStatusNote: document.getElementById("portal-user-detail-status-note"),
+    userDetailMembershipForm: document.getElementById("portal-user-detail-membership-form"),
+    userDetailMembershipProjectSelect: document.getElementById("portal-user-detail-project-select"),
+    userDetailMembershipsTbody: document.getElementById("portal-user-detail-memberships-tbody"),
     membershipForm: document.getElementById("portal-membership-form"),
     membershipAccountSelect: document.getElementById("portal-membership-account-select"),
     membershipProjectSelect: document.getElementById("portal-membership-project-select"),
@@ -308,6 +332,12 @@
     return label ?? "Cuenta portal";
   };
 
+  const getRegistrationRequestById = (requestId) => {
+    const normalized = toText(requestId);
+    if (!normalized) return null;
+    return state.registrationRequestsById.get(normalized) ?? null;
+  };
+
   const isSelfSignupInvite = (entry) => {
     const row = asObject(entry);
     const metadata = asObject(row.metadata);
@@ -419,6 +449,19 @@
     }
   };
 
+  const setProjectMultiSelectOptions = (select, projects, selectedValues = []) => {
+    if (!(select instanceof HTMLSelectElement)) return;
+    const selected = new Set((Array.isArray(selectedValues) ? selectedValues : []).map((entry) => toText(entry)).filter(Boolean));
+    select.innerHTML = projects
+      .map((entry) => {
+        const id = toText(entry.id);
+        if (!id) return "";
+        const isSelected = selected.has(id) ? " selected" : "";
+        return `<option value="${esc(id)}"${isSelected}>${esc(getProjectDisplayName(entry))}</option>`;
+      })
+      .join("");
+  };
+
   const setPortalAccountSelectOptions = (select, accounts, emptyLabel) => {
     if (!(select instanceof HTMLSelectElement)) return;
     const current = toText(select.value);
@@ -440,6 +483,18 @@
       orphan.selected = true;
       select.appendChild(orphan);
     }
+  };
+
+  const appendAllProjectsOption = (select) => {
+    if (!(select instanceof HTMLSelectElement)) return;
+    const current = toText(select.value);
+    const existing = Array.from(select.options).find((option) => option.value === "__all_projects__");
+    if (existing) return;
+    const option = document.createElement("option");
+    option.value = "__all_projects__";
+    option.textContent = "Todas las promociones publicadas";
+    if (current === "__all_projects__") option.selected = true;
+    select.appendChild(option);
   };
 
   const renderProjectSelectors = () => {
@@ -473,6 +528,14 @@
       "Selecciona una promocion"
     );
     setProjectSelectOptions(el.logsProjectSelect, projectOnlyRows, "Todas");
+    setProjectSelectOptions(
+      el.userDetailMembershipProjectSelect,
+      projectOnlyRows,
+      "Selecciona una promocion"
+    );
+    appendAllProjectsOption(el.membershipProjectSelect);
+    appendAllProjectsOption(el.userDetailMembershipProjectSelect);
+    setProjectMultiSelectOptions(el.registrationApproveProjects, projectOnlyRows, Array.from(el.registrationApproveProjects?.selectedOptions ?? []).map((option) => option.value));
   };
 
   const renderPortalAccountSelectors = () => {
@@ -737,7 +800,7 @@
                     data-action="approve-registration-request"
                     data-request-id="${esc(id)}"
                   >
-                    Aprobar
+                    Configurar y aprobar
                   </button>
                   <button
                     type="button"
@@ -803,7 +866,7 @@
       const pendingRequests = rows.filter((entry) => (toText(asObject(entry.request).approval_status) ?? "requested") === "requested").length;
       el.registrationRequestsNote.textContent =
         pendingRequests > 0
-          ? `Pendientes en esta vista: ${pendingRequests}. Aprobando una solicitud se genera una invite real y aparece en el bloque inferior.`
+          ? `Pendientes en esta vista: ${pendingRequests}. Al aprobar puedes fijar rol final, modo de acceso y promociones antes de enviar la activacion.`
           : "No hay aprobaciones pendientes en esta vista.";
       el.registrationRequestsNote.className = `crm-inline-note ${pendingRequests > 0 ? "warn" : ""}`;
     }
@@ -905,7 +968,14 @@
       rejected: rejectedPayload?.meta?.total || rejectedPayload?.meta?.count || 0,
     });
 
-    renderRegistrationRequests(Array.isArray(listPayload?.data) ? listPayload.data : [], asObject(listPayload?.meta));
+    state.registrationRequests = Array.isArray(listPayload?.data) ? listPayload.data : [];
+    state.registrationRequestsById = new Map(
+      state.registrationRequests
+        .map((entry) => [toText(entry?.id), entry])
+        .filter((entry) => Boolean(entry[0]))
+    );
+
+    renderRegistrationRequests(state.registrationRequests, asObject(listPayload?.meta));
   };
 
   const loadInvites = async () => {
@@ -1002,7 +1072,102 @@
     setFeedback("Invite revocada.", "ok");
   };
 
-  const approveRegistrationRequest = async (requestId) => {
+  const syncRegistrationApprovalWizard = () => {
+    const role = toText(el.registrationApproveRole?.value) || "portal_agent_member";
+    const accessMode = role === "portal_agent_admin" ? "all" : toText(el.registrationApproveAccessMode?.value) || "selected";
+
+    if (el.registrationApproveAccessMode instanceof HTMLSelectElement) {
+      el.registrationApproveAccessMode.value = accessMode;
+      el.registrationApproveAccessMode.disabled = role === "portal_agent_admin";
+    }
+
+    if (el.registrationApproveProjects instanceof HTMLSelectElement) {
+      const disabled = accessMode === "all";
+      el.registrationApproveProjects.disabled = disabled;
+      Array.from(el.registrationApproveProjects.options).forEach((option) => {
+        if (disabled) option.selected = false;
+      });
+    }
+
+    if (el.registrationApproveScope instanceof HTMLSelectElement) {
+      if (role === "portal_agent_admin") el.registrationApproveScope.value = "full";
+      if (role === "portal_agent_member" && el.registrationApproveScope.value === "read") {
+        el.registrationApproveScope.value = "read_write";
+      }
+    }
+  };
+
+  const openRegistrationApprovalWizard = (requestId) => {
+    const requestRow = getRegistrationRequestById(requestId);
+    if (!requestRow) {
+      setFeedback("No se encontro la solicitud seleccionada.", "error");
+      return;
+    }
+
+    if (!(el.registrationApproveDialog instanceof HTMLDialogElement)) {
+      void approveRegistrationRequest(requestId, {
+        role: "portal_agent_member",
+        access_mode: "selected",
+        project_property_ids: [],
+        access_scope: "read_write",
+        status: "pending",
+        review_notes: "",
+      });
+      return;
+    }
+
+    const request = asObject(requestRow.request);
+    const requester = asObject(request.requester);
+    const requestProjectId = toText(requestRow.project_property_id);
+    const projectOnlyRows = state.portalProjects.filter((entry) => (toText(entry?.record_type) ?? "project") === "project");
+
+    if (el.registrationApproveRequestId instanceof HTMLInputElement) {
+      el.registrationApproveRequestId.value = requestId;
+    }
+    if (el.registrationApproveRole instanceof HTMLSelectElement) {
+      el.registrationApproveRole.value = "portal_agent_member";
+    }
+    if (el.registrationApproveAccessMode instanceof HTMLSelectElement) {
+      el.registrationApproveAccessMode.value = "selected";
+    }
+    if (el.registrationApproveScope instanceof HTMLSelectElement) {
+      el.registrationApproveScope.value = "read_write";
+    }
+    if (el.registrationApproveStatus instanceof HTMLSelectElement) {
+      el.registrationApproveStatus.value = "pending";
+    }
+    if (el.registrationApproveNotes instanceof HTMLTextAreaElement) {
+      el.registrationApproveNotes.value = "";
+    }
+    setProjectMultiSelectOptions(
+      el.registrationApproveProjects,
+      projectOnlyRows,
+      requestProjectId ? [requestProjectId] : []
+    );
+    syncRegistrationApprovalWizard();
+
+    if (el.registrationApproveSummary instanceof HTMLElement) {
+      const lines = [
+        `<strong>${esc(toText(requester.full_name) || toText(requester.email) || "Solicitud portal")}</strong>`,
+        toText(requester.email) ? `<span>${esc(toText(requester.email))}</span>` : "",
+        toText(requester.company_name) ? `<span>${esc(toText(requester.company_name))}</span>` : "",
+        requestProjectId
+          ? `<span>Promocion pedida: ${esc(getProjectDisplayName(getProjectById(requestProjectId) || { id: requestProjectId }))}</span>`
+          : "<span>Sin promocion concreta en la solicitud.</span>",
+      ].filter(Boolean);
+      el.registrationApproveSummary.innerHTML = lines.join("<br />");
+    }
+
+    el.registrationApproveDialog.showModal();
+  };
+
+  const closeRegistrationApprovalWizard = () => {
+    if (el.registrationApproveDialog instanceof HTMLDialogElement && el.registrationApproveDialog.open) {
+      el.registrationApproveDialog.close();
+    }
+  };
+
+  const approveRegistrationRequest = async (requestId, config) => {
     if (!ensureOrganization() || !requestId) return;
 
     const response = await request("/api/v1/crm/portal/registration-requests", {
@@ -1012,6 +1177,12 @@
         organization_id: state.organizationId,
         request_id: requestId,
         action: "approve",
+        role: config?.role,
+        access_mode: config?.access_mode,
+        project_property_ids: Array.isArray(config?.project_property_ids) ? config.project_property_ids : undefined,
+        access_scope: config?.access_scope,
+        status: config?.status,
+        review_notes: toText(config?.review_notes),
       }),
     });
 
@@ -1025,6 +1196,7 @@
     const emailConfigMissing = toText(approvalEmail.error) === "portal_email_not_configured";
     const emailError = toText(approvalEmail.error);
 
+    closeRegistrationApprovalWizard();
     state.lastInviteShare = buildInviteSharePayload({
       email: inviteEmail,
       code,
@@ -1040,6 +1212,9 @@
 
     await loadRegistrationRequests();
     await loadInvites();
+    if (page === "users") {
+      await Promise.all([loadUsers(), loadMemberships()]);
+    }
     if (emailSent) {
       setFeedback("Solicitud aprobada, invitacion generada y email de confirmacion enviado.", "ok");
       return;
@@ -1088,10 +1263,10 @@
     state.portalAccounts.forEach((entry) => {
       const id = toText(entry?.id);
       if (!id) return;
-      const metadata = asObject(entry?.metadata);
-      const email = toText(metadata.email);
-      const fullName = toText(metadata.full_name);
-      const label = fullName && email ? `${fullName} | ${email}` : fullName || email || "Cuenta portal";
+      const email = toText(entry?.email);
+      const fullName = toText(entry?.full_name);
+      const company = toText(entry?.company_name) || toText(entry?.commercial_name);
+      const label = [fullName, email, company].filter(Boolean).join(" | ") || "Cuenta portal";
       state.portalAccountsById.set(id, label);
     });
     renderPortalAccountSelectors();
@@ -1102,24 +1277,38 @@
       el.usersTbody.innerHTML = rows
         .map((entry) => {
           const id = toText(entry.id) || "";
-          const metadata = asObject(entry.metadata);
-          const email = toText(metadata.email) || "-";
-          const fullName = toText(metadata.full_name) || "-";
+          const email = toText(entry.email) || "-";
+          const fullName = toText(entry.full_name) || "-";
+          const professionalType = toText(entry.professional_type) === "self_employed" ? "Autonomo" : "Empresa / agencia";
+          const company = toText(entry.company_name);
+          const commercialName = toText(entry.commercial_name);
+          const legalName = toText(entry.legal_name);
+          const cif = toText(entry.cif);
+          const phone = toText(entry.phone);
           const status = toText(entry.status) || "pending";
           const statusText = portalStatusLabel(status);
           const roleText = portalRoleLabel(entry.role);
           const stats = asObject(entry.membership_stats);
           const membershipsActive = Number(stats.memberships_active || 0);
           const membershipsTotal = Number(stats.memberships_total || 0);
+          const access = asObject(entry.access);
+          const accessMode = toText(access.mode) === "all" ? "Todas las promociones" : "Por membresias";
 
           return `
             <tr>
               <td>
-                <strong>${esc(email)}</strong>
+                <strong>${esc(fullName)}</strong>
                 <br />
-                <small>${esc(fullName)}</small>
+                <small>${esc(email)}</small>
+                <br />
+                <small><strong>Perfil:</strong> ${esc(professionalType)}</small>
+                ${company ? `<br /><small><strong>Empresa:</strong> ${esc(company)}</small>` : ""}
+                ${commercialName ? `<br /><small><strong>Comercial:</strong> ${esc(commercialName)}</small>` : ""}
+                ${legalName ? `<br /><small><strong>Legal:</strong> ${esc(legalName)}</small>` : ""}
+                ${cif ? `<br /><small><strong>CIF/NIF:</strong> ${esc(cif)}</small>` : ""}
+                ${phone ? `<br /><small><strong>Telefono:</strong> ${esc(phone)}</small>` : ""}
               </td>
-              <td>${esc(roleText)}</td>
+              <td>${esc(roleText)}<br /><small>${esc(accessMode)}</small></td>
               <td><span class="crm-badge ${statusClass(status)}">${esc(statusText)}</span></td>
               <td>${esc(`${membershipsActive}/${membershipsTotal}`)}</td>
               <td>${esc(formatDateTime(entry.last_login_at))}</td>
@@ -1137,6 +1326,9 @@
                   <button type="button" class="crm-mini-btn" data-action="use-account-id" data-account-id="${esc(id)}">
                     Usar en membresia
                   </button>
+                  <a class="crm-link" href="/crm/portal/users/${esc(id)}/">
+                    Abrir ficha
+                  </a>
                 </div>
               </td>
             </tr>
@@ -1159,7 +1351,7 @@
   const renderMemberships = (rows = []) => {
     if (!(el.membershipsTbody instanceof HTMLElement)) return;
     if (!rows.length) {
-      el.membershipsTbody.innerHTML = '<tr><td colspan="6">No hay membresias para el filtro seleccionado.</td></tr>';
+      el.membershipsTbody.innerHTML = '<tr><td colspan="5">No hay membresias para el filtro seleccionado.</td></tr>';
       return;
     }
 
@@ -1180,7 +1372,6 @@
             }</td>
             <td>${esc(accessScopeText)}</td>
             <td><span class="crm-badge ${statusClass(status)}">${esc(statusText)}</span></td>
-            <td>${esc(String(entry.dispute_window_hours ?? "-"))} h</td>
             <td>
               <button
                 type="button"
@@ -1228,13 +1419,197 @@
     renderMemberships(Array.isArray(payload?.data) ? payload.data : []);
   };
 
+  const renderDetailRows = (rows = []) =>
+    `<div class="portal-user-detail-block">${rows
+      .map(
+        (row) => `
+          <div class="portal-user-detail-row">
+            <strong>${esc(row.label || "-")}</strong>
+            <span>${row.valueHtml ?? esc(row.value || "-")}</span>
+          </div>
+        `
+      )
+      .join("")}</div>`;
+
+  const renderUserDetailMemberships = (rows = []) => {
+    if (!(el.userDetailMembershipsTbody instanceof HTMLElement)) return;
+    if (!rows.length) {
+      el.userDetailMembershipsTbody.innerHTML = '<tr><td colspan="4">No hay membresias para esta cuenta.</td></tr>';
+      return;
+    }
+
+    el.userDetailMembershipsTbody.innerHTML = rows
+      .map((entry) => {
+        const id = toText(entry.id) || "";
+        const status = toText(entry.status) || "active";
+        const projectId = toText(entry.project_property_id);
+        const linkedProject = getProjectById(projectId);
+        const projectLabel = linkedProject ? getProjectDisplayName(linkedProject) : projectId || "Promocion";
+        return `
+          <tr>
+            <td>${esc(projectLabel)}</td>
+            <td>${esc(membershipScopeLabel(entry.access_scope))}</td>
+            <td><span class="crm-badge ${statusClass(status)}">${esc(portalStatusLabel(status))}</span></td>
+            <td>
+              <button
+                type="button"
+                class="crm-mini-btn danger"
+                data-action="revoke-membership"
+                data-membership-id="${esc(id)}"
+                ${status === "revoked" ? "disabled" : ""}
+              >
+                Revocar
+              </button>
+            </td>
+          </tr>
+        `;
+      })
+      .join("");
+  };
+
+  const renderUserDetail = (payload) => {
+    const account = asObject(payload?.account);
+    const memberships = Array.isArray(payload?.memberships) ? payload.memberships : [];
+    const sources = asObject(payload?.sources);
+    const access = asObject(account.access);
+    const source = asObject(account.source);
+    const profileType = toText(account.professional_type) === "self_employed" ? "Autonomo" : "Empresa / agencia";
+    const approvedProjectIds = Array.isArray(access.approved_project_property_ids)
+      ? access.approved_project_property_ids.map((entry) => toText(entry)).filter(Boolean)
+      : [];
+    const visibleProjects =
+      toText(account.role) === "portal_agent_admin"
+        ? ["Acceso total a todas las promociones publicadas del portal."]
+        : approvedProjectIds.length
+          ? approvedProjectIds.map((projectId) => {
+              const linkedProject = getProjectById(projectId);
+              return linkedProject ? getProjectDisplayName(linkedProject) : projectId;
+            })
+          : ["Sin promociones asignadas."];
+
+    state.userDetail = {
+      account,
+      memberships,
+      sources,
+    };
+
+    if (el.userDetailStatusInput instanceof HTMLSelectElement) {
+      el.userDetailStatusInput.value = toText(account.status) || "pending";
+    }
+    if (el.userDetailStatusNote instanceof HTMLElement) {
+      el.userDetailStatusNote.textContent = `Rol actual: ${portalRoleLabel(account.role)}. Ultimo login: ${formatDateTime(account.last_login_at)}`;
+    }
+    if (el.userDetailSummary instanceof HTMLElement) {
+      el.userDetailSummary.innerHTML = renderDetailRows([
+        { label: "Nombre", value: toText(account.full_name) || "-" },
+        { label: "Email", value: toText(account.email) || "-" },
+        { label: "Rol", value: portalRoleLabel(account.role) },
+        { label: "Estado", value: portalStatusLabel(account.status) },
+        { label: "Acceso", value: toText(access.mode) === "all" ? "Total" : "Por membresias" },
+        { label: "Cuenta", value: toText(account.id) || "-" },
+      ]);
+    }
+    if (el.userDetailProfile instanceof HTMLElement) {
+      el.userDetailProfile.innerHTML = renderDetailRows([
+        { label: "Tipo", value: profileType },
+        { label: "Empresa", value: toText(account.company_name) || "-" },
+        { label: "Comercial", value: toText(account.commercial_name) || "-" },
+        { label: "Legal", value: toText(account.legal_name) || "-" },
+        { label: "CIF/NIF", value: toText(account.cif) || "-" },
+        { label: "Telefono", value: toText(account.phone) || "-" },
+        { label: "Idioma", value: toText(account.language) || "-" },
+        { label: "Notas", value: toText(account.notes) || "-" },
+      ]);
+    }
+    if (el.userDetailSource instanceof HTMLElement) {
+      el.userDetailSource.innerHTML = renderDetailRows([
+        { label: "Solicitud", value: toText(source.registration_request_id) || "-" },
+        {
+          label: "Invite aprobacion",
+          value: toText(source.approval_invite_id) || "-",
+        },
+        {
+          label: "Invite activacion",
+          value: toText(source.activation_invite_id) || "-",
+        },
+        {
+          label: "Aprobada",
+          value: formatDateTime(asObject(account.metadata).approved_at),
+        },
+        {
+          label: "Activada",
+          value: formatDateTime(asObject(account.metadata).activated_at),
+        },
+      ]);
+    }
+    if (el.userDetailAccess instanceof HTMLElement) {
+      el.userDetailAccess.innerHTML = `
+        <div class="portal-user-detail-block">
+          <div class="portal-user-detail-row">
+            <strong>Modo</strong>
+            <span>${esc(toText(access.mode) === "all" ? "Todas las promociones publicadas" : "Solo promociones asignadas por membresias")}</span>
+          </div>
+          <div class="portal-user-detail-row">
+            <strong>Visibilidad</strong>
+            <span>${esc(visibleProjects.join(" | "))}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    renderUserDetailMemberships(memberships);
+  };
+
+  const loadUserDetail = async () => {
+    if (!ensureOrganization()) return;
+    const portalAccountId = toText(root.dataset.portalAccountId);
+    if (!portalAccountId) {
+      setFeedback("Falta el identificador de la cuenta portal.", "error");
+      return;
+    }
+
+    await loadPortalProjects();
+    const payload = await request(
+      buildApiUrl(`/api/v1/crm/portal/users/${encodeURIComponent(portalAccountId)}`, {
+        organization_id: state.organizationId,
+      })
+    );
+    renderUserDetail(asObject(payload?.data));
+  };
+
   const saveMembership = async () => {
     if (!ensureOrganization() || !(el.membershipForm instanceof HTMLFormElement)) return;
     const formData = new FormData(el.membershipForm);
+    const portalAccountId = toText(formData.get("portal_account_id"));
+    const projectPropertyId = toText(formData.get("project_property_id"));
+    const isAllProjects = projectPropertyId === "__all_projects__";
+
+    if (!portalAccountId) {
+      setFeedback("Debes indicar una cuenta portal valida.", "error");
+      return;
+    }
+
+    if (isAllProjects) {
+      await request("/api/v1/crm/portal/users", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          organization_id: state.organizationId,
+          portal_account_id: portalAccountId,
+          role: "portal_agent_admin",
+          access_mode: "all",
+        }),
+      });
+
+      await Promise.all([loadUsers(), loadMemberships()]);
+      setFeedback("La cuenta ahora tiene acceso global a todas las promociones publicadas.", "ok");
+      return;
+    }
+
     const payload = {
       organization_id: state.organizationId,
-      portal_account_id: toText(formData.get("portal_account_id")),
-      project_property_id: toText(formData.get("project_property_id")),
+      portal_account_id: portalAccountId,
+      project_property_id: projectPropertyId,
       access_scope: toText(formData.get("access_scope")) || "read",
       status: toText(formData.get("status")) || "active",
       dispute_window_hours: Number(formData.get("dispute_window_hours") || 48),
@@ -1253,6 +1628,58 @@
 
     await Promise.all([loadUsers(), loadMemberships()]);
     setFeedback("Membresia guardada correctamente.", "ok");
+  };
+
+  const saveUserDetailMembership = async () => {
+    if (!ensureOrganization() || !(el.userDetailMembershipForm instanceof HTMLFormElement)) return;
+    const formData = new FormData(el.userDetailMembershipForm);
+    const portalAccountId = toText(formData.get("portal_account_id"));
+    const projectPropertyId = toText(formData.get("project_property_id"));
+    const isAllProjects = projectPropertyId === "__all_projects__";
+
+    if (!portalAccountId) {
+      setFeedback("Falta la cuenta portal para actualizar accesos.", "error");
+      return;
+    }
+
+    if (isAllProjects) {
+      await request(`/api/v1/crm/portal/users/${encodeURIComponent(portalAccountId)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          organization_id: state.organizationId,
+          role: "portal_agent_admin",
+          access_mode: "all",
+        }),
+      });
+
+      await loadUserDetail();
+      setFeedback("La cuenta ahora tiene acceso global a todas las promociones publicadas.", "ok");
+      return;
+    }
+
+    const payload = {
+      organization_id: state.organizationId,
+      portal_account_id: portalAccountId,
+      project_property_id: projectPropertyId,
+      access_scope: toText(formData.get("access_scope")) || "read",
+      status: toText(formData.get("status")) || "active",
+      dispute_window_hours: Number(formData.get("dispute_window_hours") || 48),
+    };
+
+    if (!payload.portal_account_id || !payload.project_property_id) {
+      setFeedback("Selecciona una promocion valida para guardar la membresia.", "error");
+      return;
+    }
+
+    await request("/api/v1/crm/portal/memberships", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    await loadUserDetail();
+    setFeedback("Membresia guardada en la ficha del usuario.", "ok");
   };
 
   const updateAccountStatus = async (portalAccountId) => {
@@ -1276,6 +1703,25 @@
     setFeedback("Estado de cuenta actualizado.", "ok");
   };
 
+  const updateUserDetailStatus = async () => {
+    if (!ensureOrganization()) return;
+    const portalAccountId = toText(root.dataset.portalAccountId);
+    const status = toText(el.userDetailStatusInput?.value);
+    if (!portalAccountId || !status) return;
+
+    await request(`/api/v1/crm/portal/users/${encodeURIComponent(portalAccountId)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        organization_id: state.organizationId,
+        status,
+      }),
+    });
+
+    await loadUserDetail();
+    setFeedback("Estado de cuenta actualizado.", "ok");
+  };
+
   const revokeMembership = async (membershipId) => {
     if (!ensureOrganization() || !membershipId) return;
     const confirmed = window.confirm("Se revocara esta membresia. Continuar?");
@@ -1290,7 +1736,11 @@
       }),
     });
 
-    await Promise.all([loadUsers(), loadMemberships()]);
+    if (page === "user-detail") {
+      await loadUserDetail();
+    } else {
+      await Promise.all([loadUsers(), loadMemberships()]);
+    }
     setFeedback("Membresia revocada.", "ok");
   };
 
@@ -2006,6 +2456,16 @@
         }
         await loadUsers();
         await loadMemberships();
+      } else if (page === "user-detail") {
+        try {
+          await loadPortalProjects();
+        } catch {
+          state.portalProjects = [];
+          state.portalProjectsLoadedForOrg = null;
+          state.portalProjectsById = new Map();
+          renderProjectSelectors();
+        }
+        await loadUserDetail();
       } else if (page === "content") {
         try {
           await loadPortalProjects();
@@ -2054,6 +2514,20 @@
 
   if (el.inviteTypeInput instanceof HTMLSelectElement) {
     el.inviteTypeInput.addEventListener("change", normalizeInviteRoleByType);
+  }
+
+  if (el.registrationApproveRole instanceof HTMLSelectElement) {
+    el.registrationApproveRole.addEventListener("change", syncRegistrationApprovalWizard);
+  }
+
+  if (el.registrationApproveAccessMode instanceof HTMLSelectElement) {
+    el.registrationApproveAccessMode.addEventListener("change", syncRegistrationApprovalWizard);
+  }
+
+  if (el.registrationApproveCancel instanceof HTMLButtonElement) {
+    el.registrationApproveCancel.addEventListener("click", () => {
+      closeRegistrationApprovalWizard();
+    });
   }
 
   if (el.documentsPropertySelect instanceof HTMLSelectElement) {
@@ -2185,14 +2659,7 @@
     if (approveButton) {
       const requestId = toText(approveButton.getAttribute("data-request-id"));
       if (!requestId) return;
-      void (async () => {
-        try {
-          await approveRegistrationRequest(requestId);
-        } catch (error) {
-          const message = error instanceof Error ? error.message : String(error);
-          setFeedback(`No se pudo aprobar solicitud: ${message}`, "error");
-        }
-      })();
+      openRegistrationApprovalWizard(requestId);
       return;
     }
 
@@ -2211,6 +2678,44 @@
       return;
     }
   });
+
+  if (el.registrationApproveForm instanceof HTMLFormElement) {
+    el.registrationApproveForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(el.registrationApproveForm);
+      const requestId = toText(formData.get("request_id"));
+      const role = toText(formData.get("role")) || "portal_agent_member";
+      const accessMode = role === "portal_agent_admin" ? "all" : toText(formData.get("access_mode")) || "selected";
+      const selectedProjects = Array.from(el.registrationApproveProjects?.selectedOptions ?? [])
+        .map((option) => toText(option.value))
+        .filter(Boolean);
+
+      if (!requestId) {
+        setFeedback("Falta la solicitud a aprobar.", "error");
+        return;
+      }
+      if (accessMode === "selected" && role !== "portal_agent_admin" && !selectedProjects.length) {
+        setFeedback("Selecciona al menos una promocion para acceso limitado.", "error");
+        return;
+      }
+
+      void (async () => {
+        try {
+          await approveRegistrationRequest(requestId, {
+            role,
+            access_mode: accessMode,
+            project_property_ids: selectedProjects,
+            access_scope: toText(formData.get("access_scope")) || "read",
+            status: toText(formData.get("status")) || "pending",
+            review_notes: toText(formData.get("review_notes")) || "",
+          });
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`No se pudo aprobar solicitud: ${message}`, "error");
+        }
+      })();
+    });
+  }
 
   el.invitesTbody?.addEventListener("click", (event) => {
     const target = event.target;
@@ -2316,7 +2821,52 @@
     }
   });
 
+  if (el.userDetailStatusForm instanceof HTMLFormElement) {
+    el.userDetailStatusForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void (async () => {
+        try {
+          await updateUserDetailStatus();
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`No se pudo actualizar el estado: ${message}`, "error");
+        }
+      })();
+    });
+  }
+
+  if (el.userDetailMembershipForm instanceof HTMLFormElement) {
+    el.userDetailMembershipForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void (async () => {
+        try {
+          await saveUserDetailMembership();
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          setFeedback(`No se pudo guardar la membresia: ${message}`, "error");
+        }
+      })();
+    });
+  }
+
   el.membershipsTbody?.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const button = target.closest("button[data-action='revoke-membership']");
+    if (!button) return;
+    const membershipId = toText(button.getAttribute("data-membership-id"));
+    if (!membershipId) return;
+    void (async () => {
+      try {
+        await revokeMembership(membershipId);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        setFeedback(`No se pudo revocar membresia: ${message}`, "error");
+      }
+    })();
+  });
+
+  el.userDetailMembershipsTbody?.addEventListener("click", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
     const button = target.closest("button[data-action='revoke-membership']");

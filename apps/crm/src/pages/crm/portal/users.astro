@@ -63,8 +63,9 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
             Promocion (Mis Propiedades)
             <select id="portal-membership-project-select" name="project_property_id">
               <option value="">Selecciona una promocion</option>
+              <option value="__all_projects__">Todas las promociones publicadas</option>
             </select>
-            <small class="crm-field-help">Solo promociones reales (record_type=project).</small>
+            <small class="crm-field-help">Si eliges todas, la cuenta pasara a acceso global y vera todas las promociones publicadas.</small>
           </label>
           <label for="portal-membership-scope">
             Access scope
@@ -81,10 +82,6 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
               <option value="paused">paused</option>
               <option value="revoked">revoked</option>
             </select>
-          </label>
-          <label for="portal-membership-dispute-window">
-            Ventana disputa (horas)
-            <input id="portal-membership-dispute-window" name="dispute_window_hours" type="number" min="24" max="72" value="48" />
           </label>
           <div class="crm-col-2 crm-actions-row">
             <button type="submit" class="crm-button">Guardar membresia</button>
@@ -137,12 +134,11 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
               <th>Proyecto</th>
               <th>Scope</th>
               <th>Estado</th>
-              <th>Disputa</th>
               <th>Accion</th>
             </tr>
           </thead>
           <tbody id="portal-memberships-tbody">
-            <tr><td colspan="6">Cargando membresias...</td></tr>
+            <tr><td colspan="5">Cargando membresias...</td></tr>
           </tbody>
         </table>
       </div>

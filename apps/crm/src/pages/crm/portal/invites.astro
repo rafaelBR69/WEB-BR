@@ -162,6 +162,64 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
       </div>
     </section>
 
+    <dialog id="portal-registration-approve-dialog" class="portal-approve-dialog">
+      <form id="portal-registration-approve-form" method="dialog" class="crm-form">
+        <input id="portal-registration-approve-request-id" name="request_id" type="hidden" />
+        <div class="portal-approve-header">
+          <div>
+            <h3>Configurar aprobacion</h3>
+            <p id="portal-registration-approve-summary" class="crm-inline-note">Selecciona rol, acceso y promociones antes de enviar activacion.</p>
+          </div>
+        </div>
+        <label for="portal-registration-approve-role">
+          Rol final
+          <select id="portal-registration-approve-role" name="role" data-dictionary="portal-role">
+            <option value="portal_agent_admin">portal_agent_admin</option>
+            <option value="portal_agent_member">portal_agent_member</option>
+            <option value="portal_client">portal_client</option>
+          </select>
+        </label>
+        <label for="portal-registration-approve-access-mode">
+          Modo de acceso
+          <select id="portal-registration-approve-access-mode" name="access_mode">
+            <option value="selected">Solo promociones seleccionadas</option>
+            <option value="all">Todas las promociones publicadas</option>
+          </select>
+          <small class="crm-field-help">Si eliges <code>portal_agent_admin</code>, se activan automaticamente todas las promociones y no hace falta seleccionar ninguna.</small>
+        </label>
+        <label for="portal-registration-approve-projects" class="crm-col-2">
+          Promociones asignadas
+          <select id="portal-registration-approve-projects" name="project_property_ids" multiple size="8"></select>
+          <small class="crm-field-help">Para acceso limitado selecciona una o varias promociones. Para acceso a todas, usa el modo superior.</small>
+        </label>
+        <label for="portal-registration-approve-scope">
+          Scope por defecto
+          <select id="portal-registration-approve-scope" name="access_scope" data-dictionary="membership-scope">
+            <option value="read">read</option>
+            <option value="read_write">read_write</option>
+            <option value="full">full</option>
+          </select>
+        </label>
+        <label for="portal-registration-approve-status">
+          Estado inicial cuenta
+          <select id="portal-registration-approve-status" name="status" data-dictionary="portal-status">
+            <option value="pending">pending</option>
+            <option value="active">active</option>
+            <option value="blocked">blocked</option>
+            <option value="revoked">revoked</option>
+          </select>
+        </label>
+        <label for="portal-registration-approve-notes" class="crm-col-2">
+          Notas de revision
+          <textarea id="portal-registration-approve-notes" name="review_notes" rows="3" placeholder="Visible en la traza interna"></textarea>
+        </label>
+        <div class="crm-col-2 crm-actions-row">
+          <button type="submit" class="crm-button">Aprobar y enviar activacion</button>
+          <button id="portal-registration-approve-cancel" type="button" class="crm-button crm-button-soft">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
     <section class="crm-card crm-full">
       <div class="crm-row-between portal-section-head">
         <div>
@@ -250,6 +308,30 @@ import CrmLayout from "@crmapp/layouts/CrmLayout.astro";
 
     .portal-request-note {
       white-space: pre-line;
+    }
+
+    .portal-approve-dialog {
+      width: min(860px, calc(100vw - 2rem));
+      border: 0;
+      border-radius: 1rem;
+      padding: 0;
+      box-shadow: 0 24px 80px rgba(8, 29, 49, 0.28);
+    }
+
+    .portal-approve-dialog::backdrop {
+      background: rgba(6, 24, 43, 0.42);
+    }
+
+    .portal-approve-dialog form {
+      padding: 1.25rem;
+    }
+
+    .portal-approve-header {
+      margin-bottom: 0.5rem;
+    }
+
+    .portal-approve-dialog select[multiple] {
+      min-height: 13rem;
     }
 
     @media (max-width: 900px) {

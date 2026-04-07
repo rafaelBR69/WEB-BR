@@ -4,9 +4,11 @@ import { getSupabaseServerClient, hasSupabaseServerClient } from "@shared/supaba
 import {
   asNumber,
   asObject,
+  asTextArray,
   asText,
   asUuid,
   defaultMembershipScopeForRole,
+  extractPortalProfile,
   findLatestPendingInviteRowByEmail,
   getRequestIp,
   getRequestUserAgent,
@@ -239,15 +241,93 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonResponse({ ok: false, error: "invalid_code" }, { status: 422 });
   }
 
-  let authUserId = explicitAuthUserId;
-  if (!authUserId) {
+  const inviteMetadata = asObject(inviteResult.data.metadata);
+  const linkedPortalAccountId = asUuid(inviteMetadata.portal_account_id);
+  const inviteRole = normalizePortalRole(inviteResult.data.role);
+  const inviteType = (asText(inviteResult.data.invite_type) === "agent" ? "agent" : "client") as
+    | "agent"
+    | "client";
+  const inviteProjectId = asUuid(inviteResult.data.project_property_id);
+  const inviteProfile = extractPortalProfile(inviteMetadata);
+  const fullName = resolveFullName(
+    email,
+    asText(body.full_name) ?? inviteProfile.full_name ?? asText(inviteMetadata.full_name)
+  );
+
+  let linkedAccountRecord: Record<string, unknown> | null = null;
+  if (linkedPortalAccountId) {
+    const { data: linkedAccountRow, error: linkedAccountError } = await client
+      .schema("crm")
+      .from("portal_accounts")
+      .select("*")
+      .eq("organization_id", organizationId)
+      .eq("id", linkedPortalAccountId)
+      .maybeSingle();
+
+    if (linkedAccountError) {
+      return jsonResponse(
+        {
+          ok: false,
+          error: "db_portal_account_read_error",
+          details: linkedAccountError.message,
+        },
+        { status: 500 }
+      );
+    }
+    linkedAccountRecord = (linkedAccountRow as Record<string, unknown> | null) ?? null;
+  }
+
+  let authUserId = explicitAuthUserId ?? asUuid(linkedAccountRecord?.auth_user_id);
+  if (authUserId) {
+    const updateUser = await client.auth.admin.updateUserById(authUserId, {
+      password: password as string,
+      email_confirm: true,
+      user_metadata: {
+        full_name: fullName,
+        portal_organization_id: organizationId,
+        portal_pending_activation: false,
+      },
+      app_metadata: {
+        portal_role: inviteRole,
+      },
+    });
+
+    if (updateUser.error || !updateUser.data?.user?.id) {
+      await safeInsertPortalAccessLog(client, {
+        organization_id: organizationId,
+        email,
+        project_property_id: asText(inviteResult.data.project_property_id),
+        event_type: "signup_fail",
+        ip: getRequestIp(request),
+        user_agent: getRequestUserAgent(request),
+        metadata: {
+          reason: "auth_update_user_failed",
+          detail: updateUser.error?.message ?? null,
+          linked_portal_account_id: linkedPortalAccountId,
+        },
+      });
+
+      return jsonResponse(
+        {
+          ok: false,
+          error: "auth_update_user_failed",
+          details: updateUser.error?.message ?? "unknown_auth_error",
+        },
+        { status: 500 }
+      );
+    }
+    authUserId = updateUser.data.user.id;
+  } else {
     const createUser = await client.auth.admin.createUser({
       email,
       password: password as string,
       email_confirm: true,
       user_metadata: {
-        full_name: resolveFullName(email, asText(body.full_name)),
+        full_name: fullName,
         portal_organization_id: organizationId,
+      },
+      app_metadata: {
+        portal_role: inviteRole,
       },
     });
 
@@ -277,13 +357,6 @@ export const POST: APIRoute = async ({ request }) => {
     authUserId = createUser.data.user.id;
   }
 
-  const inviteRole = normalizePortalRole(inviteResult.data.role);
-  const inviteType = (asText(inviteResult.data.invite_type) === "agent" ? "agent" : "client") as
-    | "agent"
-    | "client";
-  const inviteProjectId = asUuid(inviteResult.data.project_property_id);
-  const fullName = resolveFullName(email, asText(body.full_name));
-
   const contactResult = await findOrCreateContact(client, organizationId, email, fullName, inviteType);
   if (contactResult.error) {
     return jsonResponse(
@@ -297,6 +370,30 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const links = await resolveClientAndAgencyFromContact(client, organizationId, contactResult.contactId);
+  const existingAccountMetadata = asObject(linkedAccountRecord?.metadata);
+  const approvedProjectIds = asTextArray(existingAccountMetadata.approved_project_property_ids);
+  const mergedAccountMetadata = {
+    ...existingAccountMetadata,
+    ...inviteMetadata,
+    ...metadata,
+    email,
+    full_name: fullName,
+    professional_type: inviteProfile.professional_type,
+    company_name: inviteProfile.company_name,
+    commercial_name: inviteProfile.commercial_name,
+    legal_name: inviteProfile.legal_name,
+    cif: inviteProfile.cif,
+    phone: inviteProfile.phone,
+    language: inviteProfile.language,
+    notes: inviteProfile.notes,
+    activation_invite_id: asText(inviteResult.data.id),
+    activated_at: new Date().toISOString(),
+    approved_project_property_ids: approvedProjectIds.length
+      ? approvedProjectIds
+      : inviteProjectId
+        ? [inviteProjectId]
+        : [],
+  };
 
   const accountPayload = {
     organization_id: organizationId,
@@ -306,19 +403,27 @@ export const POST: APIRoute = async ({ request }) => {
     agency_id: links.agencyId,
     role: inviteRole,
     status: "active",
-    metadata: {
-      ...metadata,
-      activation_invite_id: asText(inviteResult.data.id),
-      activated_at: new Date().toISOString(),
-    },
+    metadata: mergedAccountMetadata,
   };
 
-  const { data: accountRow, error: accountError } = await client
-    .schema("crm")
-    .from("portal_accounts")
-    .upsert(accountPayload, { onConflict: "organization_id,auth_user_id" })
-    .select("*")
-    .single();
+  let accountMutation = client.schema("crm").from("portal_accounts");
+  let accountMutationResult;
+
+  if (linkedPortalAccountId && linkedAccountRecord) {
+    accountMutationResult = await accountMutation
+      .update(accountPayload)
+      .eq("organization_id", organizationId)
+      .eq("id", linkedPortalAccountId)
+      .select("*")
+      .single();
+  } else {
+    accountMutationResult = await accountMutation
+      .upsert(accountPayload, { onConflict: "organization_id,auth_user_id" })
+      .select("*")
+      .single();
+  }
+
+  const { data: accountRow, error: accountError } = accountMutationResult;
 
   if (accountError) {
     return jsonResponse(
@@ -334,7 +439,7 @@ export const POST: APIRoute = async ({ request }) => {
   const portalAccountId = asUuid((accountRow as Record<string, unknown>).id);
   let membershipRow: Record<string, unknown> | null = null;
 
-  if (portalAccountId && inviteProjectId) {
+  if (portalAccountId && inviteProjectId && inviteRole !== "portal_agent_admin") {
     const { data: membershipData, error: membershipError } = await client
       .schema("crm")
       .from("portal_memberships")
@@ -346,6 +451,7 @@ export const POST: APIRoute = async ({ request }) => {
           access_scope: defaultMembershipScopeForRole(inviteRole),
           status: "active",
           permissions: {},
+          revoked_at: null,
         },
         { onConflict: "portal_account_id,project_property_id" }
       )

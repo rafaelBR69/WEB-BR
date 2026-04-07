@@ -15,6 +15,21 @@ export type PortalLeadAttributionStatus =
   | "existing_client"
   | "manual_review";
 
+export type PortalProfessionalType = "company" | "self_employed";
+
+export type PortalProfileSnapshot = {
+  professional_type: PortalProfessionalType;
+  email: string | null;
+  full_name: string | null;
+  company_name: string | null;
+  commercial_name: string | null;
+  legal_name: string | null;
+  cif: string | null;
+  phone: string | null;
+  language: string | null;
+  notes: string | null;
+};
+
 export type PortalAccessEventType =
   | "invite_sent"
   | "invite_revoked"
@@ -138,6 +153,13 @@ export const asUuid = (value: unknown): string | null => {
   return UUID_RX.test(text) ? text : null;
 };
 
+export const asTextArray = (value: unknown): string[] => {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((entry) => asText(entry))
+    .filter((entry): entry is string => Boolean(entry));
+};
+
 export const toPositiveInt = (value: string | null, fallback: number, min: number, max: number) => {
   const parsed = Number(value);
   if (!Number.isFinite(parsed)) return fallback;
@@ -179,6 +201,11 @@ export const normalizePortalAudience = (value: unknown): PortalAudience => {
 export const normalizePortalDocumentVisibility = (value: unknown): PortalDocumentVisibility => {
   if (value === "crm_only" || value === "agent" || value === "client" || value === "both") return value;
   return "crm_only";
+};
+
+export const normalizePortalProfessionalType = (value: unknown): PortalProfessionalType => {
+  if (value === "self_employed") return "self_employed";
+  return "company";
 };
 
 export const normalizePortalLeadAttributionStatus = (value: unknown): PortalLeadAttributionStatus => {
@@ -332,6 +359,25 @@ export const mapPortalMembershipRow = (row: Record<string, unknown>) => ({
   created_at: asText(row.created_at),
   updated_at: asText(row.updated_at),
 });
+
+export const extractPortalProfile = (value: unknown): PortalProfileSnapshot => {
+  const metadata = asObject(value);
+  const requester = asObject(metadata.requester);
+  const source = Object.keys(requester).length ? requester : metadata;
+
+  return {
+    professional_type: normalizePortalProfessionalType(source.professional_type),
+    email: asText(source.email) ?? asText(metadata.email),
+    full_name: asText(source.full_name) ?? asText(metadata.full_name),
+    company_name: asText(source.company_name) ?? asText(metadata.company_name),
+    commercial_name: asText(source.commercial_name) ?? asText(metadata.commercial_name),
+    legal_name: asText(source.legal_name) ?? asText(metadata.legal_name),
+    cif: asText(source.cif) ?? asText(metadata.cif),
+    phone: asText(source.phone) ?? asText(metadata.phone),
+    language: asText(source.language) ?? asText(metadata.language),
+    notes: asText(source.notes) ?? asText(metadata.notes),
+  };
+};
 
 export const mapPortalPropertyMedia = (rawMedia: unknown) => normalizeMediaModel(rawMedia);
 

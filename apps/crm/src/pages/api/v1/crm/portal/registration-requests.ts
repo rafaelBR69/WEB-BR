@@ -6,13 +6,17 @@ import { isPortalMockFallbackEnabled, portalMockFallbackDisabledResponse } from 
 import {
   asNumber,
   asObject,
+  asTextArray,
   asText,
   asUuid,
+  defaultMembershipScopeForRole,
+  extractPortalProfile,
   generateInviteCode,
   getRequestIp,
   getRequestUserAgent,
   hashInviteCode,
   mapPortalInviteRow,
+  normalizePortalRole,
   safeInsertPortalAccessLog,
   toPositiveInt,
 } from "@shared/portal/domain";
@@ -22,11 +26,116 @@ type ReviewRegistrationRequestBody = {
   organization_id?: string;
   request_id?: string;
   action?: "approve" | "reject";
+  role?: "portal_agent_admin" | "portal_agent_member" | "portal_client";
+  access_mode?: "all" | "selected";
+  project_property_ids?: string[] | null;
   project_property_id?: string | null;
+  access_scope?: "read" | "read_write" | "full" | null;
+  status?: "pending" | "active" | "blocked" | "revoked" | null;
   expires_hours?: number | null;
   max_attempts?: number | null;
   review_notes?: string | null;
   reviewed_by?: string | null;
+};
+
+const isAlreadyRegisteredError = (details: string | null): boolean => {
+  const normalized = String(details ?? "").toLowerCase();
+  return normalized.includes("already registered") || normalized.includes("already been registered");
+};
+
+const normalizeAccessMode = (value: unknown): "all" | "selected" => {
+  if (value === "all") return "all";
+  return "selected";
+};
+
+const normalizePortalAccountStatus = (value: unknown): "pending" | "active" | "blocked" | "revoked" => {
+  if (value === "active" || value === "blocked" || value === "revoked") return value;
+  return "pending";
+};
+
+const normalizeMembershipScope = (value: unknown, role: "portal_agent_admin" | "portal_agent_member" | "portal_client") => {
+  if (value === "read" || value === "read_write" || value === "full") return value;
+  return defaultMembershipScopeForRole(role);
+};
+
+const resolveInviteTypeFromRole = (role: "portal_agent_admin" | "portal_agent_member" | "portal_client") =>
+  role === "portal_client" ? "client" : "agent";
+
+const findAuthUserByEmail = async (
+  client: NonNullable<ReturnType<typeof getSupabaseServerClient>>,
+  email: string
+): Promise<Record<string, unknown> | null> => {
+  const normalizedEmail = email.trim().toLowerCase();
+  if (!normalizedEmail) return null;
+
+  const perPage = 200;
+  for (let page = 1; page <= 50; page += 1) {
+    const { data, error } = await client.auth.admin.listUsers({ page, perPage });
+    if (error) throw new Error(`auth_list_users_error:${error.message}`);
+    const users = Array.isArray(data?.users) ? data.users : [];
+    const hit =
+      users.find((entry) => asText((entry as Record<string, unknown>).email)?.toLowerCase() === normalizedEmail) ?? null;
+    if (hit) return hit as unknown as Record<string, unknown>;
+    if (users.length < perPage) break;
+  }
+
+  return null;
+};
+
+const buildTemporaryPassword = () => {
+  const bytes = new Uint8Array(18);
+  crypto.getRandomValues(bytes);
+  const base = Array.from(bytes, (byte) => byte.toString(36)).join("");
+  return `BRtmp!${base.slice(0, 18)}9`;
+};
+
+const dedupeProjectIds = (values: Array<string | null | undefined>) =>
+  Array.from(new Set(values.filter((value): value is string => Boolean(value))));
+
+const buildApprovedProjectIds = (body: ReviewRegistrationRequestBody, requestRecord: Record<string, unknown>) => {
+  const fromBody = asTextArray(body.project_property_ids).map((value) => asUuid(value)).filter((value): value is string => Boolean(value));
+  const single = asUuid(body.project_property_id) ?? asUuid(requestRecord.project_property_id);
+  return dedupeProjectIds(single ? [single, ...fromBody] : fromBody);
+};
+
+const buildPortalAccountMetadata = ({
+  existingMetadata,
+  requester,
+  requestId,
+  approvalInviteId,
+  actorUserId,
+  accessMode,
+  approvedProjectIds,
+}: {
+  existingMetadata: Record<string, unknown>;
+  requester: Record<string, unknown>;
+  requestId: string;
+  approvalInviteId: string | null;
+  actorUserId: string | null;
+  accessMode: "all" | "selected";
+  approvedProjectIds: string[];
+}) => {
+  const profile = extractPortalProfile(requester);
+  return {
+    ...existingMetadata,
+    email: profile.email,
+    full_name: profile.full_name,
+    professional_type: profile.professional_type,
+    company_name: profile.company_name,
+    commercial_name: profile.commercial_name,
+    legal_name: profile.legal_name,
+    cif: profile.cif,
+    phone: profile.phone,
+    language: profile.language,
+    notes: profile.notes,
+    registration_request_id: requestId,
+    approval_invite_id: approvalInviteId,
+    approved_by: actorUserId,
+    approved_at: new Date().toISOString(),
+    access_mode: accessMode,
+    approved_project_property_ids: approvedProjectIds,
+    requester,
+  };
 };
 
 const normalizeApprovalStatusFilter = (value: string | null) => {
@@ -267,6 +376,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       { status: access.error?.status ?? 401 }
     );
   }
+  const reviewedByUserId = reviewedBy ?? access.data.auth_user_id;
 
   if (!hasSupabaseServerClient()) {
     if (!isPortalMockFallbackEnabled()) {
@@ -345,7 +455,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
           ...requestMetadata,
           approval_status: "rejected",
           reviewed_at: nowIso,
-          reviewed_by: reviewedBy,
+          reviewed_by: reviewedByUserId,
           review_notes: reviewNotes,
         },
       })
@@ -375,7 +485,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       metadata: {
         registration_request_id: requestId,
         review_action: "reject",
-        reviewed_by: reviewedBy,
+        reviewed_by: reviewedByUserId,
       },
     });
 
@@ -392,17 +502,32 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
   }
 
-  const projectPropertyId = asUuid(body.project_property_id) ?? asUuid(requestRecord.project_property_id);
-  const projectValidation = await ensureProjectIsPromotion(client, organizationId, projectPropertyId);
-  if (!projectValidation.ok) {
-    return jsonResponse(
-      {
-        ok: false,
-        error: projectValidation.error,
-        details: projectValidation.details,
-      },
-      { status: projectValidation.status }
-    );
+  const role = normalizePortalRole(body.role);
+  const accessMode = role === "portal_agent_admin" ? "all" : normalizeAccessMode(body.access_mode);
+  const accountStatus = normalizePortalAccountStatus(body.status);
+  const membershipScope = normalizeMembershipScope(body.access_scope, role);
+  const approvedProjectIds = buildApprovedProjectIds(body, requestRecord);
+  const inviteProjectId = role === "portal_agent_admin" ? null : approvedProjectIds[0] ?? null;
+
+  if (role !== "portal_agent_admin" && !approvedProjectIds.length) {
+    return jsonResponse({ ok: false, error: "project_property_ids_required_for_limited_access" }, { status: 422 });
+  }
+  if (accessMode === "selected" && role === "portal_agent_admin") {
+    return jsonResponse({ ok: false, error: "portal_agent_admin_must_use_all_access" }, { status: 422 });
+  }
+
+  for (const candidateProjectId of approvedProjectIds) {
+    const projectValidation = await ensureProjectIsPromotion(client, organizationId, candidateProjectId);
+    if (!projectValidation.ok) {
+      return jsonResponse(
+        {
+          ok: false,
+          error: projectValidation.error,
+          details: projectValidation.details,
+        },
+        { status: projectValidation.status }
+      );
+    }
   }
 
   const inviteCode = generateInviteCode(8);
@@ -410,24 +535,96 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const expiresAt = buildExpiresAt(asNumber(body.expires_hours));
   const maxAttempts = buildMaxAttempts(asNumber(body.max_attempts));
 
+  let authUser: Record<string, unknown> | null = null;
+  try {
+    authUser = await findAuthUserByEmail(client, requestEmail);
+  } catch (error) {
+    const details = error instanceof Error ? error.message : "auth_list_users_error";
+    return jsonResponse({ ok: false, error: "auth_lookup_failed", details }, { status: 500 });
+  }
+
+  if (!authUser) {
+    const createdUser = await client.auth.admin.createUser({
+      email: requestEmail,
+      password: buildTemporaryPassword(),
+      email_confirm: true,
+      user_metadata: {
+        full_name: asText(requester.full_name) ?? requestEmail,
+        portal_organization_id: organizationId,
+        portal_pending_activation: true,
+      },
+      app_metadata: {
+        portal_role: role,
+      },
+    });
+
+    if (createdUser.error || !createdUser.data?.user) {
+      const details = asText(createdUser.error?.message);
+      return jsonResponse(
+        {
+          ok: false,
+          error: isAlreadyRegisteredError(details) ? "email_already_registered" : "auth_create_user_failed",
+          details,
+        },
+        { status: isAlreadyRegisteredError(details) ? 409 : 500 }
+      );
+    }
+
+    authUser = createdUser.data.user as unknown as Record<string, unknown>;
+  }
+
+  const authUserId = asUuid(authUser.id);
+  if (!authUserId) {
+    return jsonResponse({ ok: false, error: "auth_user_invalid_shape" }, { status: 500 });
+  }
+
+  const { data: existingAccountRow, error: existingAccountError } = await client
+    .schema("crm")
+    .from("portal_accounts")
+    .select("*")
+    .eq("organization_id", organizationId)
+    .eq("auth_user_id", authUserId)
+    .maybeSingle();
+
+  if (existingAccountError) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "db_portal_account_read_error",
+        details: existingAccountError.message,
+      },
+      { status: 500 }
+    );
+  }
+
+  const existingAccountRecord = (existingAccountRow as Record<string, unknown> | null) ?? null;
+  if (existingAccountRecord && asText(existingAccountRecord.status) === "active") {
+    return jsonResponse({ ok: false, error: "portal_account_already_active_for_email" }, { status: 409 });
+  }
+
+  const approvalInviteMetadata = {
+    source: "self_signup_approval",
+    approval_status: "approved",
+    registration_request_id: requestId,
+    approved_at: nowIso,
+    approved_by: reviewedByUserId,
+    access_mode: accessMode,
+    approved_project_property_ids: approvedProjectIds,
+    requester,
+  };
+
   const approvalInvitePayload = {
     organization_id: organizationId,
     email: requestEmail,
-    invite_type: "client",
-    role: "portal_client",
-    project_property_id: projectPropertyId,
+    invite_type: resolveInviteTypeFromRole(role),
+    role,
+    project_property_id: inviteProjectId,
     code_hash: codeHash,
     code_last4: inviteCode.slice(-4),
     status: "pending",
     expires_at: expiresAt,
     max_attempts: maxAttempts,
-    metadata: {
-      source: "self_signup_approval",
-      approval_status: "approved",
-      registration_request_id: requestId,
-      approved_at: nowIso,
-      approved_by: reviewedBy,
-    },
+    metadata: approvalInviteMetadata,
   };
 
   const { data: approvalInviteRow, error: approvalInviteError } = await client
@@ -449,6 +646,152 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   }
 
   const approvedInviteId = asUuid((approvalInviteRow as Record<string, unknown>).id);
+  if (!approvedInviteId) {
+    return jsonResponse({ ok: false, error: "approval_invite_id_missing" }, { status: 500 });
+  }
+
+  const accountMetadata = buildPortalAccountMetadata({
+    existingMetadata: asObject(existingAccountRecord?.metadata),
+    requester,
+    requestId,
+    approvalInviteId: approvedInviteId,
+    actorUserId: reviewedByUserId,
+    accessMode,
+    approvedProjectIds,
+  });
+
+  const portalAccountPayload = {
+    organization_id: organizationId,
+    auth_user_id: authUserId,
+    role,
+    status: accountStatus,
+    metadata: accountMetadata,
+    created_by: access.data.auth_user_id,
+  };
+
+  const { data: portalAccountRow, error: portalAccountError } = await client
+    .schema("crm")
+    .from("portal_accounts")
+    .upsert(portalAccountPayload, { onConflict: "organization_id,auth_user_id" })
+    .select("*")
+    .single();
+
+  if (portalAccountError) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "db_portal_account_upsert_error",
+        details: portalAccountError.message,
+      },
+      { status: 500 }
+    );
+  }
+
+  const portalAccountId = asUuid((portalAccountRow as Record<string, unknown>).id);
+  if (!portalAccountId) {
+    return jsonResponse({ ok: false, error: "portal_account_id_missing" }, { status: 500 });
+  }
+
+  const { error: approvalInviteLinkError } = await client
+    .schema("crm")
+    .from("portal_invites")
+    .update({
+      metadata: {
+        ...approvalInviteMetadata,
+        portal_account_id: portalAccountId,
+      },
+    })
+    .eq("organization_id", organizationId)
+    .eq("id", approvedInviteId);
+
+  if (approvalInviteLinkError) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "db_portal_approval_invite_update_error",
+        details: approvalInviteLinkError.message,
+      },
+      { status: 500 }
+    );
+  }
+
+  if (role !== "portal_agent_admin") {
+    const { data: currentMembershipRows, error: currentMembershipsError } = await client
+      .schema("crm")
+      .from("portal_memberships")
+      .select("id, project_property_id")
+      .eq("organization_id", organizationId)
+      .eq("portal_account_id", portalAccountId);
+
+    if (currentMembershipsError) {
+      return jsonResponse(
+        {
+          ok: false,
+          error: "db_portal_membership_sync_error",
+          details: currentMembershipsError.message,
+        },
+        { status: 500 }
+      );
+    }
+
+    const membershipsToRevoke = ((currentMembershipRows ?? []) as Array<Record<string, unknown>>)
+      .map((entry) => ({
+        id: asUuid(entry.id),
+        project_property_id: asUuid(entry.project_property_id),
+      }))
+      .filter(
+        (entry): entry is { id: string; project_property_id: string | null } =>
+          Boolean(entry.id) && !approvedProjectIds.includes(entry.project_property_id ?? "")
+      )
+      .map((entry) => entry.id);
+
+    if (membershipsToRevoke.length) {
+      const { error: revokeOtherMembershipsError } = await client
+        .schema("crm")
+        .from("portal_memberships")
+        .update({ status: "revoked", revoked_at: nowIso })
+        .eq("organization_id", organizationId)
+        .in("id", membershipsToRevoke);
+
+      if (revokeOtherMembershipsError) {
+        return jsonResponse(
+          {
+            ok: false,
+            error: "db_portal_membership_sync_error",
+            details: revokeOtherMembershipsError.message,
+          },
+          { status: 500 }
+        );
+      }
+    }
+
+    const membershipPayloads = approvedProjectIds.map((candidateProjectId) => ({
+      organization_id: organizationId,
+      portal_account_id: portalAccountId,
+      project_property_id: candidateProjectId,
+      access_scope: membershipScope,
+      status: "active",
+      dispute_window_hours: 48,
+      permissions: {},
+      created_by: access.data.auth_user_id,
+    }));
+
+    const { error: membershipsError } = await client
+      .schema("crm")
+      .from("portal_memberships")
+      .upsert(membershipPayloads, { onConflict: "portal_account_id,project_property_id" });
+
+    if (membershipsError) {
+      return jsonResponse(
+        {
+          ok: false,
+          error: "db_portal_membership_upsert_error",
+          details: membershipsError.message,
+        },
+        { status: 500 }
+      );
+    }
+  }
 
   const { data: reviewedRequestRow, error: reviewedRequestError } = await client
     .schema("crm")
@@ -460,9 +803,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         ...requestMetadata,
         approval_status: "approved",
         reviewed_at: nowIso,
-        reviewed_by: reviewedBy,
+        reviewed_by: reviewedByUserId,
         review_notes: reviewNotes,
         approved_invite_id: approvedInviteId,
+        approved_portal_account_id: portalAccountId,
+        approved_role: role,
+        access_mode: accessMode,
+        approved_project_property_ids: approvedProjectIds,
       },
     })
     .eq("organization_id", organizationId)
@@ -484,7 +831,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   await safeInsertPortalAccessLog(client, {
     organization_id: organizationId,
     email: requestEmail,
-    project_property_id: projectPropertyId,
+    portal_account_id: portalAccountId,
+    project_property_id: inviteProjectId,
     event_type: "invite_sent",
     ip: getRequestIp(request),
     user_agent: getRequestUserAgent(request),
@@ -492,7 +840,11 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       registration_request_id: requestId,
       review_action: "approve",
       approved_invite_id: approvedInviteId,
-      reviewed_by: reviewedBy,
+      portal_account_id: portalAccountId,
+      role,
+      access_mode: accessMode,
+      approved_project_property_ids: approvedProjectIds,
+      reviewed_by: reviewedByUserId,
     },
   });
 
@@ -502,7 +854,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     organizationId,
     language: asText(requester.language),
     fullName: asText(requester.full_name),
-    projectPropertyId,
+    projectPropertyId: inviteProjectId,
     oneTimeCode: inviteCode,
   });
 
@@ -522,6 +874,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       data: {
         request: mapRequestRow(reviewedRequestRow as Record<string, unknown>),
         invite: mapPortalInviteRow(approvalInviteRow as Record<string, unknown>),
+        portal_account_id: portalAccountId,
         one_time_code: inviteCode,
       },
       meta: {
