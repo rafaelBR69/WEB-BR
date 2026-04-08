@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { SEO_MIGRATION_SNAPSHOT } from "@webapp/lib/seoMigrationSnapshot";
 
 export type MigrationTaskRow = {
   sequence: string;
@@ -89,6 +90,7 @@ export type CsvDataset<T> = {
 };
 
 export type SeoMigrationDashboardData = {
+  sourceMode?: "live_csv" | "snapshot";
   generatedAt: string;
   summary: {
     tasksTotal: number;
@@ -118,6 +120,19 @@ export type SeoMigrationDashboardData = {
   auditLangCounts: CountStat[];
   auditIndexStatusCounts: CountStat[];
   auditUrlTypeCounts: CountStat[];
+  redirectOldTypeCounts?: CountStat[];
+  gapActionOwnerCounts?: CountStat[];
+  gapActionTypeCounts?: CountStat[];
+  auditNoindexUrlTypeCounts?: CountStat[];
+  auditMatrix?: Array<{
+    key: string;
+    label: string;
+    indexable: number;
+    noindex: number;
+    excluded_public: number;
+    canonical_redirect: number;
+    total: number;
+  }>;
   availableDatasets: string[];
 };
 
@@ -285,14 +300,6 @@ const loadDataset = async <T extends Record<string, string>>(fileName: string): 
 
 let dashboardPromise: Promise<SeoMigrationDashboardData> | null = null;
 
-export const getSeoMigrationDashboardData = async (): Promise<SeoMigrationDashboardData> => {
-  if (!dashboardPromise) {
-    dashboardPromise = loadSeoMigrationDashboardData();
-  }
-
-  return dashboardPromise;
-};
-
 const loadSeoMigrationDashboardData = async (): Promise<SeoMigrationDashboardData> => {
   const [tasks, redirects, gapActions, contentGaps, audit] = await Promise.all([
     loadDataset<MigrationTaskRow>(FILES.tasks),
@@ -360,6 +367,7 @@ const loadSeoMigrationDashboardData = async (): Promise<SeoMigrationDashboardDat
     .map((dataset) => dataset.fileName);
 
   return {
+    sourceMode: "live_csv",
     generatedAt: new Intl.DateTimeFormat("es-ES", {
       dateStyle: "long",
       timeStyle: "short",
@@ -393,6 +401,66 @@ const loadSeoMigrationDashboardData = async (): Promise<SeoMigrationDashboardDat
     auditLangCounts,
     auditIndexStatusCounts,
     auditUrlTypeCounts,
+    redirectOldTypeCounts: countBy(redirectRows, (row) => row.old_type),
+    gapActionOwnerCounts: countBy(gapActions.rows, (row) => row.action_owner),
+    gapActionTypeCounts: countBy(gapActions.rows, (row) => row.action_type),
+    auditNoindexUrlTypeCounts: countBy(
+      audit.rows.filter((row) => row.index_status === "noindex"),
+      (row) => row.url_type,
+    ),
+    auditMatrix: Array.from(
+      new Set(audit.rows.map((row) => row.url_type).filter(Boolean)),
+    )
+      .sort()
+      .map((key) => {
+        const indexable = audit.rows.filter(
+          (row) => row.url_type === key && row.index_status === "indexable",
+        ).length;
+        const noindex = audit.rows.filter(
+          (row) => row.url_type === key && row.index_status === "noindex",
+        ).length;
+        const excluded_public = audit.rows.filter(
+          (row) => row.url_type === key && row.index_status === "excluded_public",
+        ).length;
+        const canonical_redirect = audit.rows.filter(
+          (row) => row.url_type === key && row.index_status === "canonical_redirect",
+        ).length;
+
+        return {
+          key,
+          label: humanizeKey(key),
+          indexable,
+          noindex,
+          excluded_public,
+          canonical_redirect,
+          total: indexable + noindex + excluded_public + canonical_redirect,
+        };
+      })
+      .sort((left, right) => right.total - left.total || left.label.localeCompare(right.label)),
     availableDatasets,
   };
+};
+
+const snapshotData: SeoMigrationDashboardData = SEO_MIGRATION_SNAPSHOT as SeoMigrationDashboardData;
+
+const hasLiveData = (data: SeoMigrationDashboardData) =>
+  data.summary.tasksTotal > 0 &&
+  data.summary.legacyUrlCount > 0 &&
+  data.summary.gapActionCount > 0 &&
+  data.summary.auditUrlCount > 0;
+
+const withSnapshotFallback = async (): Promise<SeoMigrationDashboardData> => {
+  const liveData = await loadSeoMigrationDashboardData();
+  if (hasLiveData(liveData)) {
+    return liveData;
+  }
+  return snapshotData;
+};
+
+export const getSeoMigrationDashboardData = async (): Promise<SeoMigrationDashboardData> => {
+  if (!dashboardPromise) {
+    dashboardPromise = withSnapshotFallback();
+  }
+
+  return dashboardPromise;
 };
