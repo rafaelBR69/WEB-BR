@@ -1,4 +1,4 @@
----
+﻿---
 export const prerender = false;
 
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
@@ -24,6 +24,7 @@ const { summary } = dashboard;
 
 const quickLinks = [
   { href: "#resumen", label: "Resumen" },
+  { href: "#estrategia", label: "Estrategia" },
   { href: "#cockpit", label: "Cockpit" },
   { href: "#tareas", label: "Plan" },
   { href: "#redirects", label: "Redirects" },
@@ -70,6 +71,17 @@ const auditIndexable =
   dashboard.auditIndexStatusCounts.find((item) => item.key === "indexable")?.count ?? 0;
 const auditNoindex =
   dashboard.auditIndexStatusCounts.find((item) => item.key === "noindex")?.count ?? 0;
+const indexableShare = summary.auditUrlCount
+  ? Math.round((auditIndexable / summary.auditUrlCount) * 100)
+  : 0;
+const propertyIndexable =
+  dashboard.auditMatrix?.find((item) => item.key === "property")?.indexable ?? 0;
+const propertyLandingIndexable =
+  dashboard.auditMatrix?.find((item) => item.key === "property_landing")?.indexable ?? 0;
+const agentIndexable =
+  dashboard.auditMatrix?.find((item) => item.key === "agent_detail")?.indexable ?? 0;
+const postIndexable =
+  dashboard.auditMatrix?.find((item) => item.key === "post_detail")?.indexable ?? 0;
 
 const cockpitCards = [
   {
@@ -176,7 +188,7 @@ const legendItems = [
             <h2>La migracion real, convertida en volumen manejable</h2>
           </div>
           <p>
-            La foto correcta no es �hay 1.869 URLs�. La foto correcta es cuantas entran en ola 1,
+            La foto correcta no es “hay 1.869 URLs”. La foto correcta es cuantas entran en ola 1,
             cuantas bloquean indexacion, cuantas requieren decision manual y donde esta la mayor
             presion de noindex dentro del nuevo site.
           </p>
@@ -214,6 +226,93 @@ const legendItems = [
             <p>Inventario nuevo ya clasificado</p>
           </article>
         </div>
+      </section>
+
+      <section class="migration-section" id="estrategia">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Estrategia indexable</p>
+            <h2>Por que 700 URLs indexables es mucho y no se debe tomar a la ligera</h2>
+          </div>
+          <p>
+            Tener {prettyNumber(auditIndexable)} URLs indexables no es automaticamente un error,
+            pero tampoco es una cifra “normal” que se deba aceptar sin criterio. En una web
+            inmobiliaria multidioma, ese volumen solo se sostiene si cada URL tiene stock,
+            intencion, contenido y diferenciacion real.
+          </p>
+        </div>
+
+        <div class="migration-strategy-grid">
+          <article class="migration-strategy-card migration-strategy-card--spotlight">
+            <span class="migration-strategy-card__eyebrow">Huella actual</span>
+            <strong>{prettyNumber(auditIndexable)} indexables</strong>
+            <p>
+              Eso representa el <strong>{indexableShare}%</strong> del inventario auditado. No es
+              una subida pequeña: es una huella SEO seria que exige control de calidad, enlazado
+              interno y mantenimiento continuo.
+            </p>
+          </article>
+
+          <article class="migration-strategy-card">
+            <span class="migration-strategy-card__eyebrow">La mayor carga</span>
+            <strong>{prettyNumber(propertyIndexable + propertyLandingIndexable)}</strong>
+            <p>
+              La presion principal no viene de posts ni paginas corporativas. Viene del inventario
+              de <strong>properties</strong> y <strong>property landings</strong>, que concentran la
+              mayor parte del volumen indexable.
+            </p>
+          </article>
+
+          <article class="migration-strategy-card">
+            <span class="migration-strategy-card__eyebrow">Long tail real</span>
+            <strong>{prettyNumber(agentIndexable + postIndexable)}</strong>
+            <p>
+              Agentes y posts ya aportan una capa editorial y de marca. Si el inventario principal
+              no esta fino, meter mas URLs aqui no compensa el ruido de las fichas débiles.
+            </p>
+          </article>
+        </div>
+
+        <div class="migration-premium-grid">
+          <article class="migration-card migration-card--premium">
+            <h3>Cuando 700 indexables si puede tener sentido</h3>
+            <ul class="migration-checklist">
+              <li>Si cada ficha o landing responde a una demanda concreta y no compite con otra casi igual.</li>
+              <li>Si hay stock real, contenido minimo util, media suficiente y estructura interna limpia.</li>
+              <li>Si el multidioma no es un duplicado pobre sino una oferta realmente servida por idioma.</li>
+              <li>Si puedes mantener actualizado el inventario y sacar rapido del indice lo que ya no tiene valor.</li>
+            </ul>
+          </article>
+
+          <article class="migration-card migration-card--premium">
+            <h3>Cuando 700 indexables seria demasiado</h3>
+            <ul class="migration-checklist">
+              <li>Si muchas URLs son thin content, stock fantasma o plantillas casi vacias.</li>
+              <li>Si varias fichas solo cambian dos campos y se pisan entre si por intencion de busqueda.</li>
+              <li>Si hay landings creadas por cubrir combinaciones sin demanda o sin autoridad interna.</li>
+              <li>Si el equipo no puede sostener revisiones, expiraciones y limpieza post-launch.</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="migration-card migration-card--decision">
+          <h3>Lectura recomendada para esta migracion</h3>
+          <p>
+            La cifra de {prettyNumber(auditIndexable)} no significa “vamos a empujar 700 URLs nuevas
+            porque si”. Significa que el sistema actual considera indexables unas {prettyNumber(auditIndexable)}
+            URLs, pero el trabajo real es validar que merecen seguir ahi.
+          </p>
+          <p>
+            En este proyecto, la regla deberia ser: <strong>primero calidad y equivalencia, luego volumen</strong>.
+            Si una ficha, landing o cluster no aguanta una revision editorial y SEO minima, es mejor
+            mantenerla fuera del indice que inflar la huella con paginas debiles.
+          </p>
+          <p>
+            La buena noticia es que el inventario ya trae separacion fuerte: {prettyNumber(auditNoindex)}
+            URLs estan en noindex. Eso te da margen para ser selectiva. El objetivo no es indexar mas;
+            es indexar mejor.
+          </p>
+        </article>
       </section>
 
       <section class="migration-section" id="cockpit">
@@ -467,7 +566,7 @@ const legendItems = [
             <h2>Donde se atasca el valor SEO</h2>
           </div>
           <p>
-            Aqui no hay que pensar en �filas�. Hay que pensar en propietarios del problema,
+            Aqui no hay que pensar en “filas”. Hay que pensar en propietarios del problema,
             tipo de accion y cola de resolucion.
           </p>
         </div>
@@ -759,3 +858,4 @@ const legendItems = [
     </div>
   </div>
 </BaseLayout>
+

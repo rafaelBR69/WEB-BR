@@ -392,7 +392,9 @@
 .migration-cockpit-grid,
 .migration-preview-grid,
 .migration-dual-grid,
-.migration-safe-grid {
+.migration-safe-grid,
+.migration-strategy-grid,
+.migration-premium-grid {
   display: grid;
   gap: 1rem;
 }
@@ -406,7 +408,8 @@
 }
 
 .migration-dual-grid,
-.migration-preview-grid {
+.migration-preview-grid,
+.migration-premium-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -415,8 +418,13 @@
   margin-top: 1rem;
 }
 
+.migration-strategy-grid {
+  grid-template-columns: 1.25fr 1fr 1fr;
+}
+
 .migration-cockpit-card,
-.migration-safe-card {
+.migration-safe-card,
+.migration-strategy-card {
   position: relative;
   overflow: hidden;
   padding: 1.15rem 1.1rem;
@@ -434,6 +442,63 @@
   height: 132px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.18);
+}
+
+.migration-strategy-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #af1e33 0%, #d78d44 100%);
+}
+
+.migration-strategy-card strong {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  line-height: 1;
+}
+
+.migration-strategy-card p {
+  margin: 0.7rem 0 0;
+}
+
+.migration-strategy-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.62rem;
+  border-radius: 999px;
+  background: rgba(32, 47, 78, 0.07);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.migration-strategy-card--spotlight {
+  background:
+    radial-gradient(circle at top right, rgba(215, 141, 68, 0.2), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 240, 230, 0.96));
+}
+
+.migration-card--premium {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 246, 240, 0.92));
+}
+
+.migration-card--decision {
+  padding: 1.4rem 1.4rem 1.45rem;
+  background:
+    linear-gradient(145deg, rgba(30, 43, 70, 0.98), rgba(72, 33, 58, 0.96)),
+    rgba(255, 255, 255, 0.92);
+  color: #fdf7f2;
+}
+
+.migration-card--decision h3,
+.migration-card--decision p,
+.migration-card--decision strong {
+  color: inherit;
 }
 
 .migration-cockpit-card p,
@@ -605,11 +670,13 @@
   .migration-kpi-grid--compact,
   .migration-cockpit-grid,
   .migration-cockpit-grid--audit,
+  .migration-strategy-grid,
   .migration-stat-grid,
   .migration-stat-grid--thirds,
   .migration-dual-grid,
   .migration-preview-grid,
   .migration-safe-grid,
+  .migration-premium-grid,
   .migration-steps,
   .migration-checklists,
   .migration-legend-grid {
