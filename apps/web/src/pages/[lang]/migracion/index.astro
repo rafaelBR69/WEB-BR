@@ -1,0 +1,698 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import { getSeoMigrationDashboardData } from "@webapp/lib/seoMigrationDashboard";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
+import { DEFAULT_LANG, isSupportedLang } from "@shared/i18n/languages";
+import "@webapp/styles/pages/migracion.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam) || langParam !== "es") {
+  return Astro.redirect("/es/migracion/", 302);
+}
+
+const lang = "es";
+const navigation = buildPublicNavigation({
+  lang,
+  family: "editorial",
+  section: "legal",
+});
+const dashboard = await getSeoMigrationDashboardData();
+const { summary } = dashboard;
+
+const quickLinks = [
+  { href: "#resumen", label: "Resumen ejecutivo" },
+  { href: "#uso", label: "Como usar esta pagina" },
+  { href: "#tareas", label: "Tabla maestra de tareas" },
+  { href: "#redirects", label: "Redirects" },
+  { href: "#gaps", label: "Gaps prioritarios" },
+  { href: "#diagnostico", label: "Diagnostico de contenido" },
+  { href: "#auditoria", label: "Auditoria del nuevo site" },
+  { href: "#checklists", label: "Checklists finales" },
+];
+
+const usageSteps = [
+  {
+    title: "1. Freeze del baseline",
+    text: "Empieza siempre por la tabla maestra de tareas y valida que los CSV base siguen siendo la fuente de verdad. Si se abren hojas paralelas, las decisiones de migracion dejan de ser fiables.",
+  },
+  {
+    title: "2. Ejecuta solo los redirects seguros",
+    text: "La primera ola debe ser el bloque exact_match + mapped_equivalent. Son los 301 de menor riesgo y los que puedes mover antes sin perder semantica.",
+  },
+  {
+    title: "3. Revisa uno a uno los merge_to_parent",
+    text: "No apruebes estos redirects por lote. Cada URL transaccional que cae en una landing padre puede perder señales si no existe una equivalencia real.",
+  },
+  {
+    title: "4. Resuelve blockers de indexacion",
+    text: "Las URLs legacy cuyo mejor destino actual esta en noindex son un bloqueo directo. Decide si ese target debe pasar a indexable o si hace falta crear una alternativa exacta.",
+  },
+  {
+    title: "5. Cierra gaps de contenido con trafico potencial",
+    text: "Los content gaps indican donde un redirect al listado o a una landing generica no basta. Prioriza estas filas si hay historico de trafico, backlinks o intencion fuerte.",
+  },
+  {
+    title: "6. Haz QA antes y despues del launch",
+    text: "Antes del lanzamiento valida redirects, canonicals, indexabilidad y sitemap. Despues comprueba 404s, cobertura de Search Console y comportamiento real de las URLs migradas.",
+  },
+];
+
+const checklists = [
+  {
+    title: "Antes de aprobar redirects",
+    items: [
+      "Confirmar que la URL destino responde a la misma intencion de busqueda que la URL legacy.",
+      "Separar el bucket seguro del bucket merge_to_parent y no mezclar decisiones.",
+      "Documentar cualquier redirect forzado a una URL padre con una justificacion concreta.",
+      "Verificar que no se crean cadenas ni redirecciones dobles.",
+    ],
+  },
+  {
+    title: "Antes de cambiar noindex a indexable",
+    items: [
+      "Confirmar que la pagina tiene contenido suficiente, canonical correcta y no esta duplicada.",
+      "Revisar que el target forma parte de la arquitectura publica y debe estar en sitemap.",
+      "Asegurar que metadatos, enlazado interno y contenido estan listos para indexacion real.",
+      "Validar que el cambio resuelve un gap concreto, no solo un conteo.",
+    ],
+  },
+  {
+    title: "Antes del launch",
+    items: [
+      "Subir el mapa final de 301 aprobado.",
+      "Comprobar que las URLs criticas responden con el status esperado.",
+      "Revisar sitemap, canonicals, robots y paginas indexables clave.",
+      "Guardar una version congelada de los CSV usados para salir a produccion.",
+    ],
+  },
+  {
+    title: "Despues del launch",
+    items: [
+      "Monitorizar 404s y errores de cobertura en Search Console.",
+      "Revisar las URLs legacy con trafico historico o backlinks relevantes.",
+      "Comparar impresiones, clics y rankings de las URLs mas sensibles.",
+      "Actualizar los CSV con decisiones resueltas y pendientes reales.",
+    ],
+  },
+];
+
+const prettyNumber = (value: number) => value.toLocaleString("es-ES");
+const humanize = (value: string) =>
+  String(value ?? "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+const slugify = (value: string) =>
+  String(value ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+const badgeClass = (value: string, prefix = "tone") => `${prefix}-${slugify(value) || "default"}`;
+const datasetError = (error: string | null) =>
+  error ? `No se pudo leer este CSV: ${error}` : null;
+
+const kpis = [
+  { label: "Tareas", value: prettyNumber(summary.tasksTotal), hint: "Plan maestro de ejecucion" },
+  { label: "Fases", value: prettyNumber(summary.phasesTotal), hint: "Bloques operativos" },
+  { label: "Criticas", value: prettyNumber(summary.criticalTasks), hint: "Prioridad maxima" },
+  { label: "Legacy URLs", value: prettyNumber(summary.legacyUrlCount), hint: "Universo a migrar" },
+  { label: "Redirects seguros", value: prettyNumber(summary.safeRedirectCount), hint: "Exact + mapped equivalent" },
+  { label: "Merge to parent", value: prettyNumber(summary.mergeToParentCount), hint: "Revision uno a uno" },
+  { label: "Decision manual", value: prettyNumber(summary.manualDecisionCount), hint: "Caso aun sin resolver" },
+  { label: "Gaps", value: prettyNumber(summary.gapActionCount), hint: "Bloqueos de contenido/indexacion" },
+  { label: "URLs auditadas", value: prettyNumber(summary.auditUrlCount), hint: "Nuevo site analizado" },
+];
+
+const legendItems = [
+  {
+    title: "indexable",
+    text: "URL publica y lista para captar trafico organico.",
+  },
+  {
+    title: "noindex",
+    text: "Existe, pero no debe entrar en indice tal y como esta ahora.",
+  },
+  {
+    title: "excluded_public",
+    text: "Fila de soporte o plantilla futura que no forma parte del inventario indexable.",
+  },
+  {
+    title: "canonical_redirect",
+    text: "La URL resuelve mediante canonical o consolidacion y no debe competir sola.",
+  },
+];
+---
+
+<BaseLayout
+  title="Panel de control de migracion SEO | BlancaReal"
+  description="Centro de mando interno para revisar redirects, gaps de contenido, indexabilidad y checklists de migracion SEO."
+  lang={lang}
+  availableLangs={["es"]}
+  noindex={true}
+  {...navigation}
+>
+  <div class="migration-page">
+    <div class="migration-shell">
+      <section class="migration-hero">
+        <div class="migration-hero__copy">
+          <p class="migration-eyebrow">Control interno SEO</p>
+          <h1>Panel de control de migracion SEO</h1>
+          <p class="migration-lead">
+            Esta pagina centraliza los cinco CSV maestros de migracion para que puedas decidir,
+            priorizar y revisar el trabajo sin salir de una sola vista.
+          </p>
+          <div class="migration-meta">
+            <span>Pagina interna, fuera de navegacion y no indexable</span>
+            <span>Basado en CSV del repositorio</span>
+            <span>Leido el {dashboard.generatedAt}</span>
+          </div>
+        </div>
+
+        <aside class="migration-hero__panel">
+          <h2>Fuentes activas</h2>
+          <ul class="migration-source-list">
+            {dashboard.availableDatasets.map((fileName) => (
+              <li>
+                <code>{fileName}</code>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </section>
+
+      <nav class="migration-anchor-nav" aria-label="Navegacion rapida">
+        {quickLinks.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
+      </nav>
+
+      <section class="migration-section" id="resumen">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Resumen ejecutivo</p>
+            <h2>Lectura rapida del estado actual</h2>
+          </div>
+          <p>
+            Esta es la foto operativa actual del trabajo de migracion a partir de los CSV
+            maestros versionados en el repo.
+          </p>
+        </div>
+
+        <div class="migration-kpi-grid">
+          {kpis.map((item) => (
+            <article class="migration-kpi-card">
+              <span class="migration-kpi-card__value">{item.value}</span>
+              <h3>{item.label}</h3>
+              <p>{item.hint}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="migration-stat-grid">
+          <article class="migration-card">
+            <h3>Distribucion por fase</h3>
+            <ul class="migration-stat-list">
+              {dashboard.taskPhaseCounts.map((item) => (
+                <li>
+                  <span>{item.label}</span>
+                  <strong>{prettyNumber(item.count)}</strong>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <article class="migration-card">
+            <h3>Prioridades del plan</h3>
+            <ul class="migration-stat-list">
+              {dashboard.taskPriorityCounts.map((item) => (
+                <li>
+                  <span class:list={["migration-badge", badgeClass(item.key)]}>{item.label}</span>
+                  <strong>{prettyNumber(item.count)}</strong>
+                </li>
+              ))}
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="migration-section" id="uso">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Metodo de trabajo</p>
+            <h2>Como usar esta pagina</h2>
+          </div>
+          <p>
+            Usa esta secuencia para evitar mezclar decisiones de contenido, redirects e
+            indexacion. La idea es moverse por bloques, no por intuicion.
+          </p>
+        </div>
+
+        <div class="migration-steps">
+          {usageSteps.map((step) => (
+            <article class="migration-card migration-step">
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="migration-section" id="tareas">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Plan maestro</p>
+            <h2>Tabla maestra de tareas</h2>
+          </div>
+          <p>
+            Fuente: <code>{dashboard.datasets.tasks.fileName}</code>. Ordenada por secuencia para
+            que el trabajo se haga en el orden correcto.
+          </p>
+        </div>
+
+        {datasetError(dashboard.datasets.tasks.error) ? (
+          <div class="migration-alert">{datasetError(dashboard.datasets.tasks.error)}</div>
+        ) : (
+          <div class="migration-table-wrap">
+            <table class="migration-table migration-table--dense">
+              <thead>
+                <tr>
+                  <th>Seq</th>
+                  <th>Phase</th>
+                  <th>Task ID</th>
+                  <th>Workstream</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Tarea</th>
+                  <th>Por que importa</th>
+                  <th>Depends on</th>
+                  <th>Owner</th>
+                  <th>Success criteria</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dashboard.datasets.tasks.rows.map((row) => (
+                  <tr>
+                    <td>{row.sequence}</td>
+                    <td>{row.phase}</td>
+                    <td>
+                      <code>{row.task_id}</code>
+                    </td>
+                    <td>{row.workstream}</td>
+                    <td>
+                      <span class:list={["migration-badge", badgeClass(row.priority)]}>
+                        {humanize(row.priority)}
+                      </span>
+                    </td>
+                    <td>
+                      <span class:list={["migration-badge", badgeClass(row.status)]}>
+                        {humanize(row.status)}
+                      </span>
+                    </td>
+                    <td>{row.task}</td>
+                    <td>{row.why_it_matters}</td>
+                    <td>{row.depends_on}</td>
+                    <td>{row.owner}</td>
+                    <td>{row.success_criteria}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <section class="migration-section" id="redirects">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Redirects</p>
+            <h2>Que puedes mover ya y que requiere revision</h2>
+          </div>
+          <p>
+            Fuente: <code>{dashboard.datasets.redirects.fileName}</code>. La primera ola son los
+            redirects seguros. Los <code>merge_to_parent</code> se revisan fila a fila.
+          </p>
+        </div>
+
+        {datasetError(dashboard.datasets.redirects.error) ? (
+          <div class="migration-alert">{datasetError(dashboard.datasets.redirects.error)}</div>
+        ) : (
+          <>
+            <div class="migration-kpi-grid migration-kpi-grid--compact">
+              {dashboard.redirectTypeCounts.map((item) => (
+                <article class="migration-kpi-card migration-kpi-card--compact">
+                  <span class="migration-kpi-card__value">{prettyNumber(item.count)}</span>
+                  <h3>{item.label}</h3>
+                </article>
+              ))}
+            </div>
+
+            <article class="migration-card">
+              <h3>Puedes hacer ya</h3>
+              <p>
+                Este resumen agrupa los 100 redirects de menor riesgo. Son los primeros que se
+                deberian validar para implementacion.
+              </p>
+              <div class="migration-table-wrap">
+                <table class="migration-table">
+                  <thead>
+                    <tr>
+                      <th>Bucket</th>
+                      <th>Cantidad</th>
+                      <th>Lectura operativa</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dashboard.safeRedirectBuckets.map((item) => (
+                      <tr>
+                        <td>
+                          <span class:list={["migration-badge", badgeClass(item.key)]}>{item.label}</span>
+                        </td>
+                        <td>{prettyNumber(item.count)}</td>
+                        <td>
+                          {item.key === "exact_match"
+                            ? "La URL legacy y la nueva encajan de forma directa y semantica."
+                            : "Hay equivalencia suficiente para un 301 razonable sin crear una pagina nueva."}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="migration-card">
+              <h3>Revision obligatoria antes de aprobar</h3>
+              <p>
+                Aqui estan los 50 <code>merge_to_parent</code> y la 1 URL en decision manual. No
+                deberian aprobarse en bloque.
+              </p>
+              <div class="migration-table-wrap">
+                <table class="migration-table migration-table--dense">
+                  <thead>
+                    <tr>
+                      <th>Legacy URL</th>
+                      <th>Tipo</th>
+                      <th>Destino actual</th>
+                      <th>HTTP redirect</th>
+                      <th>Migration bucket</th>
+                      <th>Confidence</th>
+                      <th>Notas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dashboard.manualReviewRows.map((row) => (
+                      <tr>
+                        <td class="migration-url-cell">
+                          <a href={row.old_url} target="_blank" rel="noreferrer">
+                            {row.old_url}
+                          </a>
+                        </td>
+                        <td>{row.old_type}</td>
+                        <td class="migration-url-cell">
+                          {row.matched_new_url ? (
+                            <a href={row.matched_new_url} target="_blank" rel="noreferrer">
+                              {row.matched_new_url}
+                            </a>
+                          ) : (
+                            <span>Sin destino confirmado</span>
+                          )}
+                        </td>
+                        <td>
+                          <span class:list={["migration-badge", badgeClass(row.redirect_type)]}>
+                            {row.redirect_type || "N/A"}
+                          </span>
+                        </td>
+                        <td>
+                          <span class:list={["migration-badge", badgeClass(row.migration_status)]}>
+                            {humanize(row.migration_status)}
+                          </span>
+                        </td>
+                        <td>{humanize(row.confidence)}</td>
+                        <td>{row.notes}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </>
+        )}
+      </section>
+
+      <section class="migration-section" id="gaps">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Gaps prioritarios</p>
+            <h2>Bloqueos que frenan la migracion SEO</h2>
+          </div>
+          <p>
+            Fuente: <code>{dashboard.datasets.gapActions.fileName}</code>. Estas filas son la
+            cola de decisiones mas importante despues del baseline y los redirects seguros.
+          </p>
+        </div>
+
+        {datasetError(dashboard.datasets.gapActions.error) ? (
+          <div class="migration-alert">{datasetError(dashboard.datasets.gapActions.error)}</div>
+        ) : (
+          <>
+            <div class="migration-kpi-grid migration-kpi-grid--compact">
+              {dashboard.gapTypeCounts.map((item) => (
+                <article class="migration-kpi-card migration-kpi-card--compact">
+                  <span class="migration-kpi-card__value">{prettyNumber(item.count)}</span>
+                  <h3>{item.label}</h3>
+                </article>
+              ))}
+            </div>
+
+            <div class="migration-table-wrap">
+              <table class="migration-table migration-table--dense">
+                <thead>
+                  <tr>
+                    <th>Legacy URL</th>
+                    <th>Old type</th>
+                    <th>Current target</th>
+                    <th>Target type</th>
+                    <th>Gap type</th>
+                    <th>Priority band</th>
+                    <th>Action owner</th>
+                    <th>Action type</th>
+                    <th>Implementation decision</th>
+                    <th>SEO risk</th>
+                    <th>Rationale</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dashboard.datasets.gapActions.rows.map((row) => (
+                    <tr>
+                      <td class="migration-url-cell">
+                        <a href={row.old_url} target="_blank" rel="noreferrer">
+                          {row.old_url}
+                        </a>
+                      </td>
+                      <td>{row.old_type}</td>
+                      <td class="migration-url-cell">
+                        <a href={row.current_target} target="_blank" rel="noreferrer">
+                          {row.current_target}
+                        </a>
+                      </td>
+                      <td>{humanize(row.current_target_type)}</td>
+                      <td>
+                        <span class:list={["migration-badge", badgeClass(row.gap_type)]}>
+                          {humanize(row.gap_type)}
+                        </span>
+                      </td>
+                      <td>
+                        <span class:list={["migration-badge", badgeClass(row.priority_band)]}>
+                          {row.priority_band}
+                        </span>
+                      </td>
+                      <td>{row.action_owner}</td>
+                      <td>{row.action_type}</td>
+                      <td>{row.implementation_decision}</td>
+                      <td>
+                        <span class:list={["migration-badge", badgeClass(row.seo_risk)]}>
+                          {humanize(row.seo_risk)}
+                        </span>
+                      </td>
+                      <td>{row.rationale}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+      </section>
+
+      <section class="migration-section" id="diagnostico">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Diagnostico de apoyo</p>
+            <h2>Lectura de gaps de contenido</h2>
+          </div>
+          <p>
+            Fuente: <code>{dashboard.datasets.contentGaps.fileName}</code>. Este bloque ayuda a
+            entender contra que tipo de destino se estan consolidando las URLs legacy.
+          </p>
+        </div>
+
+        {datasetError(dashboard.datasets.contentGaps.error) ? (
+          <div class="migration-alert">{datasetError(dashboard.datasets.contentGaps.error)}</div>
+        ) : (
+          <>
+            <div class="migration-stat-grid">
+              <article class="migration-card">
+                <h3>Distribucion por current target type</h3>
+                <ul class="migration-stat-list">
+                  {dashboard.contentGapTargetTypeCounts.map((item) => (
+                    <li>
+                      <span>{item.label}</span>
+                      <strong>{prettyNumber(item.count)}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+
+            <div class="migration-table-wrap">
+              <table class="migration-table migration-table--dense">
+                <thead>
+                  <tr>
+                    <th>Legacy URL</th>
+                    <th>Old type</th>
+                    <th>Current target</th>
+                    <th>Target index status</th>
+                    <th>Gap type</th>
+                    <th>Recommended action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dashboard.datasets.contentGaps.rows.map((row) => (
+                    <tr>
+                      <td class="migration-url-cell">
+                        <a href={row.old_url} target="_blank" rel="noreferrer">
+                          {row.old_url}
+                        </a>
+                      </td>
+                      <td>{row.old_type}</td>
+                      <td class="migration-url-cell">
+                        <a href={row.current_target} target="_blank" rel="noreferrer">
+                          {row.current_target}
+                        </a>
+                      </td>
+                      <td>
+                        <span class:list={["migration-badge", badgeClass(row.target_index_status)]}>
+                          {humanize(row.target_index_status)}
+                        </span>
+                      </td>
+                      <td>
+                        <span class:list={["migration-badge", badgeClass(row.gap_type)]}>
+                          {humanize(row.gap_type)}
+                        </span>
+                      </td>
+                      <td>{row.recommended_action}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+      </section>
+
+      <section class="migration-section" id="auditoria">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Auditoria del nuevo site</p>
+            <h2>Lectura agregada de las 1.869 URLs auditadas</h2>
+          </div>
+          <p>
+            Fuente: <code>{dashboard.datasets.audit.fileName}</code>. No se muestran las filas
+            completas para mantener la pagina util y ligera.
+          </p>
+        </div>
+
+        {datasetError(dashboard.datasets.audit.error) ? (
+          <div class="migration-alert">{datasetError(dashboard.datasets.audit.error)}</div>
+        ) : (
+          <>
+            <div class="migration-stat-grid migration-stat-grid--thirds">
+              <article class="migration-card">
+                <h3>Por idioma</h3>
+                <ul class="migration-stat-list">
+                  {dashboard.auditLangCounts.map((item) => (
+                    <li>
+                      <span>{item.label}</span>
+                      <strong>{prettyNumber(item.count)}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+
+              <article class="migration-card">
+                <h3>Por index status</h3>
+                <ul class="migration-stat-list">
+                  {dashboard.auditIndexStatusCounts.map((item) => (
+                    <li>
+                      <span class:list={["migration-badge", badgeClass(item.key)]}>{item.label}</span>
+                      <strong>{prettyNumber(item.count)}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+
+              <article class="migration-card">
+                <h3>Por url type</h3>
+                <ul class="migration-stat-list">
+                  {dashboard.auditUrlTypeCounts.map((item) => (
+                    <li>
+                      <span>{item.label}</span>
+                      <strong>{prettyNumber(item.count)}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+
+            <div class="migration-legend-grid">
+              {legendItems.map((item) => (
+                <article class="migration-card migration-card--legend">
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </>
+        )}
+      </section>
+
+      <section class="migration-section" id="checklists">
+        <div class="migration-section__head">
+          <div>
+            <p class="migration-eyebrow">Checklists finales</p>
+            <h2>Lo que debes tener en cuenta antes y despues de tocar produccion</h2>
+          </div>
+          <p>
+            Usa estos bloques como checklist de control para no perder decisiones entre CSV,
+            tickets y conversaciones sueltas.
+          </p>
+        </div>
+
+        <div class="migration-checklists">
+          {checklists.map((checklist) => (
+            <article class="migration-card">
+              <h3>{checklist.title}</h3>
+              <ul class="migration-checklist">
+                {checklist.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
