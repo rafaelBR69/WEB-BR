@@ -4,7 +4,7 @@ type Feature = {
   id?: string | number;
   geometry?: {
     type?: string;
-    coordinates?: [number, number];
+    coordinates?: any;
   };
   properties?: Record<string, unknown>;
 };
@@ -32,6 +32,18 @@ type MapState = {
   routeOrigin: [number, number] | null;
   routeDestination: [number, number] | null;
   routeHelperPromise: Promise<typeof import("./mapbox-routing")> | null;
+  zoneCollection: FeatureCollection;
+  poiCollection: FeatureCollection;
+  selectedZoneIds: Set<string>;
+  selectedAreaIds: Set<string>;
+  spatialHelperPromise: Promise<{
+    point: (coordinates: [number, number]) => unknown;
+    booleanPointInPolygon: (pointFeature: unknown, polygonFeature: Feature) => boolean;
+  }> | null;
+  spatialHelpers: {
+    point: (coordinates: [number, number]) => unknown;
+    booleanPointInPolygon: (pointFeature: unknown, polygonFeature: Feature) => boolean;
+  } | null;
 };
 
 type InitMapboxOptions = {
@@ -74,6 +86,89 @@ const withStableFeatures = (features: Feature[]) =>
       ...feature,
       id: feature.id ?? `feature-${index + 1}`,
     }));
+
+const slugify = (value: unknown) =>
+  String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const getFeatureCoordinates = (feature: Feature): [number, number] | null => {
+  const coords = feature.geometry?.coordinates;
+  if (!Array.isArray(coords) || coords.length < 2) return null;
+  const lng = Number(coords[0]);
+  const lat = Number(coords[1]);
+  if (!Number.isFinite(lng) || !Number.isFinite(lat)) return null;
+  return [lng, lat];
+};
+
+const normalizePropertyFeatures = (features: Feature[]) =>
+  withStableFeatures(features).map((feature) => {
+    const properties = feature.properties ?? {};
+    const city = String(properties.city ?? "").trim();
+    const area = String(properties.area ?? city).trim();
+    const areaId = String(properties.areaId ?? "").trim() || `${slugify(city)}::${slugify(area)}`;
+    return {
+      ...feature,
+      properties: {
+        ...properties,
+        city,
+        area,
+        areaId,
+      },
+    };
+  });
+
+const normalizePropertyFeatureCollection = (
+  value: FeatureCollection | null | undefined
+): FeatureCollection => ({
+  type: "FeatureCollection",
+  features: normalizePropertyFeatures(Array.isArray(value?.features) ? value.features : []),
+});
+
+const normalizePoiFeatures = (features: Feature[]) =>
+  withStableFeatures(features).map((feature, index) => {
+    const properties = feature.properties ?? {};
+    const city = String(properties.city ?? "").trim();
+    const area = String(properties.area ?? "").trim();
+    const areaId =
+      String(properties.areaId ?? "").trim() ||
+      (city && area ? `${slugify(city)}::${slugify(area)}` : "");
+    return {
+      ...feature,
+      id: feature.id ?? `poi-${index + 1}`,
+      properties: {
+        ...properties,
+        city,
+        area,
+        areaId,
+      },
+    };
+  });
+
+const normalizePoiFeatureCollection = (
+  value: FeatureCollection | null | undefined
+): FeatureCollection => ({
+  type: "FeatureCollection",
+  features: normalizePoiFeatures(Array.isArray(value?.features) ? value.features : []),
+});
+
+const normalizeZoneFeatureCollection = (
+  value: FeatureCollection | null | undefined
+): FeatureCollection => ({
+  type: "FeatureCollection",
+  features: withStableFeatures(Array.isArray(value?.features) ? value.features : []).map((feature, index) => ({
+    ...feature,
+    id: feature.id ?? `zone-${index + 1}`,
+    properties: {
+      ...(feature.properties ?? {}),
+      id: String(feature.properties?.id ?? feature.id ?? `zone-${index + 1}`),
+      name: String(feature.properties?.name ?? feature.properties?.id ?? `zone-${index + 1}`),
+    },
+  })),
+});
 
 const ensureMapboxStylesheet = () => {
   if (typeof document === "undefined") {
@@ -135,7 +230,7 @@ const loadFeatureCollection = async (root: HTMLElement, state: MapState) => {
       }
 
       const payload = await response.json();
-      const normalized = normalizeFeatureCollection(payload as FeatureCollection);
+      const normalized = normalizePropertyFeatureCollection(payload as FeatureCollection);
       state.featureCollection = normalized;
       state.featureCollectionPromise = null;
       return normalized;
@@ -163,7 +258,7 @@ const createInitialState = (root: HTMLElement): MapState => ({
   map: null,
   mapboxgl: null,
   observer: null,
-  featureCollection: normalizeFeatureCollection(
+  featureCollection: normalizePropertyFeatureCollection(
     parseJson<FeatureCollection>(root.dataset.features, {
       type: "FeatureCollection",
       features: [],
@@ -175,6 +270,12 @@ const createInitialState = (root: HTMLElement): MapState => ({
   routeOrigin: null,
   routeDestination: null,
   routeHelperPromise: null,
+  zoneCollection: { type: "FeatureCollection", features: [] },
+  poiCollection: { type: "FeatureCollection", features: [] },
+  selectedZoneIds: new Set<string>(),
+  selectedAreaIds: new Set<string>(),
+  spatialHelperPromise: null,
+  spatialHelpers: null,
 });
 
 const ensureState = (root: HTMLElement) => {
@@ -197,7 +298,7 @@ const resetMapState = (root: HTMLElement, state: MapState) => {
   state.loading = false;
   state.map = null;
   state.mapboxgl = null;
-  state.featureCollection = normalizeFeatureCollection(
+  state.featureCollection = normalizePropertyFeatureCollection(
     parseJson<FeatureCollection>(root.dataset.features, {
       type: "FeatureCollection",
       features: [],
@@ -209,6 +310,12 @@ const resetMapState = (root: HTMLElement, state: MapState) => {
   state.routeOrigin = null;
   state.routeDestination = null;
   state.routeHelperPromise = null;
+  state.zoneCollection = { type: "FeatureCollection", features: [] };
+  state.poiCollection = { type: "FeatureCollection", features: [] };
+  state.selectedZoneIds.clear();
+  state.selectedAreaIds.clear();
+  state.spatialHelperPromise = null;
+  state.spatialHelpers = null;
 };
 
 const buildPopupHtml = (
@@ -289,7 +396,7 @@ const moveLayerIfPresent = (map: any, layerId: string) => {
 };
 
 const prioritizePropertyLayers = (map: any) => {
-  ["route-line", "zones-fill", "zones-outline"].forEach((layerId) => {
+  ["route-line", "zones-fill", "zones-outline", "zones-selected", "areas-bubbles", "areas-count"].forEach((layerId) => {
     if (map.getLayer(layerId)) {
       map.moveLayer(layerId);
     }
@@ -340,10 +447,237 @@ const ensureRouteLayers = (map: any) => {
   prioritizePropertyLayers(map);
 };
 
+const ensureSpatialHelpers = async (state: MapState) => {
+  if (state.spatialHelpers) {
+    return state.spatialHelpers;
+  }
+
+  if (!state.spatialHelperPromise) {
+    state.spatialHelperPromise = Promise.all([
+      import("@turf/helpers"),
+      import("@turf/boolean-point-in-polygon"),
+    ]).then(([helpersModule, booleanModule]) => ({
+      point: helpersModule.point,
+      booleanPointInPolygon: booleanModule.default,
+    }));
+  }
+
+  state.spatialHelpers = await state.spatialHelperPromise;
+  return state.spatialHelpers;
+};
+
+const getSelectedZoneFeatures = (state: MapState) => {
+  if (!state.selectedZoneIds.size) return [];
+  return state.zoneCollection.features.filter((feature) =>
+    state.selectedZoneIds.has(String(feature.properties?.id ?? ""))
+  );
+};
+
+const pointInsideSelectedZones = (state: MapState, coordinates: [number, number]) => {
+  const selectedZones = getSelectedZoneFeatures(state);
+  if (!selectedZones.length) return true;
+  if (!state.spatialHelpers) return true;
+  return selectedZones.some((zoneFeature) =>
+    state.spatialHelpers!.booleanPointInPolygon(
+      state.spatialHelpers!.point(coordinates),
+      zoneFeature
+    )
+  );
+};
+
+const filterFeaturesBySelection = (state: MapState, features: Feature[]) => {
+  const byZone = features.filter((feature) => {
+    const coordinates = getFeatureCoordinates(feature);
+    if (!coordinates) return false;
+    return pointInsideSelectedZones(state, coordinates);
+  });
+
+  if (!state.selectedAreaIds.size) {
+    return byZone;
+  }
+
+  return byZone.filter((feature) =>
+    state.selectedAreaIds.has(String(feature.properties?.areaId ?? ""))
+  );
+};
+
+const getFilteredPropertyCollection = (state: MapState): FeatureCollection => ({
+  type: "FeatureCollection",
+  features: filterFeaturesBySelection(state, state.featureCollection.features),
+});
+
+const getFilteredPoiCollection = (state: MapState): FeatureCollection => ({
+  type: "FeatureCollection",
+  features: state.poiCollection.features
+    .filter((feature) => {
+      const coordinates = getFeatureCoordinates(feature);
+      return coordinates ? pointInsideSelectedZones(state, coordinates) : false;
+    })
+    .filter((feature) => {
+      if (!state.selectedAreaIds.size) return true;
+      const areaId = String(feature.properties?.areaId ?? "");
+      return !areaId || state.selectedAreaIds.has(areaId);
+    }),
+});
+
+const computeAreaFeatures = (state: MapState): FeatureCollection => {
+  if (!state.selectedZoneIds.size || !state.map || state.map.getZoom() < 10) {
+    return { type: "FeatureCollection", features: [] };
+  }
+
+  const grouped = new Map<
+    string,
+    {
+      areaId: string;
+      area: string;
+      city: string;
+      count: number;
+      points: [number, number][];
+    }
+  >();
+
+  filterFeaturesBySelection(
+    { ...state, selectedAreaIds: new Set<string>() },
+    state.featureCollection.features
+  ).forEach((feature) => {
+    const coordinates = getFeatureCoordinates(feature);
+    if (!coordinates) return;
+    const properties = feature.properties ?? {};
+    const areaId = String(properties.areaId ?? "").trim();
+    const area = String(properties.area ?? "").trim();
+    const city = String(properties.city ?? "").trim();
+    if (!areaId || !area) return;
+    const current = grouped.get(areaId) ?? {
+      areaId,
+      area,
+      city,
+      count: 0,
+      points: [],
+    };
+    current.count += 1;
+    current.points.push(coordinates);
+    grouped.set(areaId, current);
+  });
+
+  return {
+    type: "FeatureCollection",
+    features: Array.from(grouped.values()).map((entry, index) => {
+      const lngs = entry.points.map((point) => point[0]);
+      const lats = entry.points.map((point) => point[1]);
+      const minLng = Math.min(...lngs);
+      const maxLng = Math.max(...lngs);
+      const minLat = Math.min(...lats);
+      const maxLat = Math.max(...lats);
+      return {
+        id: `area-${index + 1}`,
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [(minLng + maxLng) / 2, (minLat + maxLat) / 2] as [number, number],
+        },
+        properties: {
+          areaId: entry.areaId,
+          area: entry.area,
+          city: entry.city,
+          count: entry.count,
+          minLng,
+          maxLng,
+          minLat,
+          maxLat,
+        },
+      };
+    }),
+  };
+};
+
+const updateAreasSource = (state: MapState) => {
+  const areasSource = state.map?.getSource?.("areas");
+  if (!areasSource) return;
+  areasSource.setData(computeAreaFeatures(state));
+};
+
+const updateZoneSelectionLayers = (state: MapState) => {
+  if (!state.map?.getLayer?.("zones-selected")) return;
+  const selectedIds = Array.from(state.selectedZoneIds);
+  state.map.setFilter(
+    "zones-selected",
+    selectedIds.length ? ["match", ["get", "id"], selectedIds, true, false] : ["==", ["get", "id"], ""]
+  );
+};
+
+const updateZoneLayerVisibility = (state: MapState) => {
+  const hideBaseZones = state.selectedZoneIds.size > 0 && state.map?.getZoom?.() >= 12.5;
+  const zoneVisibility = hideBaseZones ? "none" : "visible";
+  ["zones-fill", "zones-outline", "zones-count"].forEach((layerId) => {
+    if (state.map?.getLayer?.(layerId)) {
+      state.map.setLayoutProperty(layerId, "visibility", zoneVisibility);
+    }
+  });
+  ["areas-bubbles", "areas-count"].forEach((layerId) => {
+    if (state.map?.getLayer?.(layerId)) {
+      state.map.setLayoutProperty(
+        layerId,
+        "visibility",
+        state.selectedZoneIds.size > 0 ? "visible" : "none"
+      );
+    }
+  });
+};
+
+const applySelectionFilters = (state: MapState) => {
+  const propertySource = state.map?.getSource?.("properties");
+  if (propertySource) {
+    propertySource.setData(getFilteredPropertyCollection(state));
+  }
+  const poiSource = state.map?.getSource?.("pois");
+  if (poiSource) {
+    poiSource.setData(getFilteredPoiCollection(state));
+  }
+  updateZoneSelectionLayers(state);
+  updateZoneLayerVisibility(state);
+  updateAreasSource(state);
+};
+
+const extendBoundsWithGeometry = (bounds: any, geometry: Feature["geometry"]) => {
+  if (!geometry) return;
+  if (geometry.type === "Polygon") {
+    geometry.coordinates?.forEach((ring: [number, number][]) => {
+      ring?.forEach((coordinate) => bounds.extend(coordinate));
+    });
+    return;
+  }
+  if (geometry.type === "MultiPolygon") {
+    geometry.coordinates?.forEach((polygon: [number, number][][]) => {
+      polygon?.forEach((ring) => {
+        ring?.forEach((coordinate) => bounds.extend(coordinate));
+      });
+    });
+  }
+};
+
+const fitMapToAreaBounds = (map: any, boundsLike: [number, number, number, number]) => {
+  const [minLng, minLat, maxLng, maxLat] = boundsLike;
+  if (![minLng, minLat, maxLng, maxLat].every(Number.isFinite)) return;
+  map.fitBounds(
+    [
+      [minLng, minLat],
+      [maxLng, maxLat],
+    ],
+    { padding: 55, duration: 700, maxZoom: 16.2 }
+  );
+};
+
+const resetSelections = (state: MapState) => {
+  state.selectedZoneIds.clear();
+  state.selectedAreaIds.clear();
+  applySelectionFilters(state);
+};
+
 const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
   if (state.extrasLoaded || !(state.booted && state.map)) return;
 
   const map = state.map;
+  await ensureSpatialHelpers(state);
   const labels = {
     openDetailLabel: root.dataset.openDetailLabel || "Ver ficha",
     routeStartLabel: root.dataset.routeStartLabel || "Iniciar ruta",
@@ -351,21 +685,30 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
   const poiFilters = parseJson<PoiFilter[]>(root.dataset.poiFilters, []);
   const poiPanel = root.querySelector<HTMLElement>("[data-map-poi-panel]");
   const poiFiltersEl = root.querySelector<HTMLElement>("[data-map-poi-filters]");
+  const shouldShowPoisNow =
+    parseBoolean(root.dataset.showPois) || parseBoolean(root.dataset.canLoadExtras);
 
   if (parseBoolean(root.dataset.showZones) || parseBoolean(root.dataset.canLoadExtras)) {
     try {
       const response = await fetch(root.dataset.zonesUrl || "");
       if (response.ok) {
-        const zoneCollection = await response.json();
+        state.zoneCollection = normalizeZoneFeatureCollection(
+          (await response.json()) as FeatureCollection
+        );
         if (!map.getSource("zones")) {
-          map.addSource("zones", { type: "geojson", data: zoneCollection });
+          map.addSource("zones", { type: "geojson", data: state.zoneCollection });
           map.addLayer({
             id: "zones-fill",
             type: "fill",
             source: "zones",
             paint: {
               "fill-color": "#2563eb",
-              "fill-opacity": 0.08,
+              "fill-opacity": [
+                "case",
+                ["boolean", ["feature-state", "hover"], false],
+                0.2,
+                0.08,
+              ],
             },
           });
           map.addLayer({
@@ -377,8 +720,169 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
               "line-width": 1,
             },
           });
+          map.addLayer({
+            id: "zones-selected",
+            type: "line",
+            source: "zones",
+            filter: ["==", ["get", "id"], ""],
+            paint: {
+              "line-color": "#d32c43",
+              "line-width": 3,
+            },
+          });
+          map.addLayer({
+            id: "zones-count",
+            type: "symbol",
+            source: "zones",
+            layout: {
+              "text-field": [
+                "case",
+                [">", ["coalesce", ["get", "propertyCount"], 0], 0],
+                ["to-string", ["get", "propertyCount"]],
+                "",
+              ],
+              "text-size": 12,
+            },
+            paint: {
+              "text-color": "#0f172a",
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 1.2,
+            },
+          });
+          map.addSource("areas", {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] },
+          });
+          map.addLayer({
+            id: "areas-bubbles",
+            type: "circle",
+            source: "areas",
+            layout: {
+              visibility: "none",
+            },
+            paint: {
+              "circle-color": "#1d4ed8",
+              "circle-opacity": 0.18,
+              "circle-radius": ["interpolate", ["linear"], ["get", "count"], 1, 18, 12, 30],
+              "circle-stroke-color": "#ffffff",
+              "circle-stroke-width": 1.6,
+            },
+          });
+          map.addLayer({
+            id: "areas-count",
+            type: "symbol",
+            source: "areas",
+            layout: {
+              visibility: "none",
+              "text-field": ["to-string", ["get", "count"]],
+              "text-size": 11,
+            },
+            paint: {
+              "text-color": "#ffffff",
+            },
+          });
+
+          let hoveredZoneId: string | number | null = null;
+          map.on("mousemove", "zones-fill", (event: any) => {
+            const feature = event.features?.[0];
+            if (!feature) return;
+            if (hoveredZoneId !== null) {
+              map.setFeatureState({ source: "zones", id: hoveredZoneId }, { hover: false });
+            }
+            hoveredZoneId = feature.id ?? null;
+            if (hoveredZoneId !== null) {
+              map.setFeatureState({ source: "zones", id: hoveredZoneId }, { hover: true });
+            }
+            map.getCanvas().style.cursor = "pointer";
+          });
+          map.on("mouseleave", "zones-fill", () => {
+            if (hoveredZoneId !== null) {
+              map.setFeatureState({ source: "zones", id: hoveredZoneId }, { hover: false });
+            }
+            hoveredZoneId = null;
+            map.getCanvas().style.cursor = "";
+          });
+          map.on("click", "zones-fill", (event: any) => {
+            const feature = event.features?.[0] as Feature | undefined;
+            if (!feature) return;
+            const zoneId = String(feature.properties?.id ?? "");
+            if (!zoneId) return;
+            const wasSelected = state.selectedZoneIds.has(zoneId);
+            if (wasSelected) {
+              state.selectedZoneIds.delete(zoneId);
+            } else {
+              state.selectedZoneIds.add(zoneId);
+            }
+            state.selectedAreaIds.clear();
+            applySelectionFilters(state);
+            if (wasSelected) return;
+            const bounds = new state.mapboxgl.LngLatBounds();
+            extendBoundsWithGeometry(bounds, feature.geometry);
+            if (!bounds.isEmpty()) {
+              map.fitBounds(bounds, { padding: 55, duration: 700, maxZoom: 11.8 });
+            }
+          });
+          map.on("mouseenter", "areas-bubbles", () => {
+            map.getCanvas().style.cursor = "pointer";
+          });
+          map.on("mouseleave", "areas-bubbles", () => {
+            map.getCanvas().style.cursor = "";
+          });
+          map.on("click", "areas-bubbles", (event: any) => {
+            const feature = event.features?.[0] as Feature | undefined;
+            if (!feature) return;
+            const areaId = String(feature.properties?.areaId ?? "");
+            if (!areaId) return;
+            if (state.selectedAreaIds.has(areaId)) {
+              state.selectedAreaIds.delete(areaId);
+            } else {
+              state.selectedAreaIds.add(areaId);
+            }
+            applySelectionFilters(state);
+            fitMapToAreaBounds(map, [
+              Number(feature.properties?.minLng),
+              Number(feature.properties?.minLat),
+              Number(feature.properties?.maxLng),
+              Number(feature.properties?.maxLat),
+            ]);
+          });
+          map.on("click", (event: any) => {
+            if (!state.selectedZoneIds.size) return;
+            const layers = [
+              "zones-fill",
+              "zones-outline",
+              "zones-selected",
+              "areas-bubbles",
+              "points",
+              "clusters",
+              ...(map.getStyle?.().layers ?? [])
+                .map((layer: { id?: string }) => String(layer?.id ?? ""))
+                .filter((layerId: string) => layerId.startsWith("pois-")),
+            ].filter((layerId) => map.getLayer(layerId));
+            const hits = layers.length ? map.queryRenderedFeatures(event.point, { layers }) : [];
+            if (!hits.length) {
+              resetSelections(state);
+            }
+          });
           prioritizePropertyLayers(map);
         }
+
+        const counts = state.zoneCollection.features.map((feature) => {
+          const count = state.featureCollection.features.filter((propertyFeature) => {
+            const coordinates = getFeatureCoordinates(propertyFeature);
+            return coordinates ? pointInsideSelectedZones({ ...state, selectedZoneIds: new Set([String(feature.properties?.id ?? "")]) }, coordinates) : false;
+          }).length;
+          return {
+            ...feature,
+            properties: {
+              ...(feature.properties ?? {}),
+              propertyCount: count,
+            },
+          };
+        });
+        state.zoneCollection = { type: "FeatureCollection", features: counts };
+        map.getSource("zones")?.setData(state.zoneCollection);
+        applySelectionFilters(state);
       }
     } catch {
       // Continue without zones.
@@ -389,9 +893,11 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
     try {
       const response = await fetch(root.dataset.poisUrl || "");
       if (response.ok) {
-        const poiCollection = await response.json();
+        state.poiCollection = normalizePoiFeatureCollection(
+          (await response.json()) as FeatureCollection
+        );
         if (!map.getSource("pois")) {
-          map.addSource("pois", { type: "geojson", data: poiCollection });
+          map.addSource("pois", { type: "geojson", data: getFilteredPoiCollection(state) });
 
           poiFilters.forEach((filter) => {
             map.addLayer({
@@ -452,7 +958,7 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
                 )
                 .addTo(map);
 
-              if (!(parseBoolean(root.dataset.enableRouting) || parseBoolean(root.dataset.canLoadExtras))) {
+              if (!parseBoolean(root.dataset.enableRouting)) {
                 return;
               }
 
@@ -526,12 +1032,25 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
                 setPoiVisibility(map, categoryId, !isActive);
               });
             });
+
+            if (shouldShowPoisNow) {
+              poiFiltersEl
+                .querySelectorAll<HTMLElement>("[data-poi-category]")
+                .forEach((button) => {
+                  const categoryId = button.dataset.poiCategory;
+                  if (!categoryId) return;
+                  state.activePoiCategories.add(categoryId);
+                  button.classList.add("is-active");
+                  setPoiVisibility(map, categoryId, true);
+                });
+            }
           }
 
           if (poiPanel) {
             poiPanel.hidden = false;
           }
 
+          applySelectionFilters(state);
           prioritizePropertyLayers(map);
         }
       }
@@ -540,14 +1059,15 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
     }
   }
 
-  if (parseBoolean(root.dataset.enableRouting) || parseBoolean(root.dataset.canLoadExtras)) {
+  if (parseBoolean(root.dataset.enableRouting)) {
     ensureRouteLayers(map);
   }
 
+  applySelectionFilters(state);
   prioritizePropertyLayers(map);
 
   const routePanel = root.querySelector<HTMLElement>("[data-map-route-panel]");
-  if (routePanel && (parseBoolean(root.dataset.enableRouting) || parseBoolean(root.dataset.canLoadExtras))) {
+  if (routePanel && parseBoolean(root.dataset.enableRouting)) {
     routePanel.hidden = false;
   }
 
@@ -674,18 +1194,31 @@ const bootMap = async (root: HTMLElement) => {
             });
           });
       });
+      map.on("mouseenter", "clusters", () => {
+        map.getCanvas().style.cursor = "pointer";
+      });
+      map.on("mouseleave", "clusters", () => {
+        map.getCanvas().style.cursor = "";
+      });
     }
 
     map.on("click", "points", (event: any) => {
       const feature = event.features?.[0] as Feature | undefined;
       if (!feature) return;
+      const coordinates = getFeatureCoordinates(feature) ?? [-4.92, 36.58];
+      map.flyTo({
+        center: coordinates,
+        zoom: Math.max(map.getZoom(), compactMode ? 14.6 : 16.4),
+        duration: 780,
+        essential: true,
+      });
       new mapboxgl.Popup({ closeButton: true, offset: 12 })
-        .setLngLat(feature.geometry?.coordinates ?? [-4.92, 36.58])
+        .setLngLat(coordinates)
         .setHTML(
           buildPopupHtml(feature, {
             openDetailLabel,
             routeStartLabel,
-            enableRouting: parseBoolean(root.dataset.enableRouting) || state.extrasLoaded,
+            enableRouting: parseBoolean(root.dataset.enableRouting),
           })
         )
         .addTo(map);
@@ -709,6 +1242,12 @@ const bootMap = async (root: HTMLElement) => {
     if (parseBoolean(root.dataset.showPois) || parseBoolean(root.dataset.showZones)) {
       await ensureAdvancedExtras(root, state);
     }
+  });
+
+  map.on("moveend", () => {
+    if (!state.extrasLoaded) return;
+    updateZoneLayerVisibility(state);
+    updateAreasSource(state);
   });
 
   root.addEventListener("click", async (event) => {
@@ -767,6 +1306,17 @@ const initRoot = (root: HTMLElement) => {
     resetButton.addEventListener("click", async () => {
       const state = await bootMap(root);
       if (!(state?.map && state?.mapboxgl)) return;
+      resetSelections(state);
+      state.routeOrigin = null;
+      state.routeDestination = null;
+      if (state.map.getSource?.("route")) {
+        state.map.getSource("route").setData({ type: "FeatureCollection", features: [] });
+      }
+      updateRoutePanel(root, state, {
+        routeSelectionHint: root.dataset.routeSelectionHint || "Selecciona una vivienda para comenzar la ruta.",
+        routeWaiting: "Selecciona un punto de interes como destino.",
+        routeReady: "Ruta lista.",
+      });
       fitToFeatures(
         state.mapboxgl,
         state.map,
