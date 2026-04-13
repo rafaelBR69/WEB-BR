@@ -45,7 +45,7 @@ Este repo soporta dos superficies compatibles durante la separacion gradual:
 Para desplegar solo la web publica desde este mismo repo:
 
 1. Crea el proyecto en Vercel apuntando a la raiz del repo.
-2. Deja el comando de build en `npm run build`.
+2. Usa el comando de build `npm run build:production:web`.
 3. Anade la variable de entorno `APP_DEPLOY_SURFACE=web`.
 
 Con `APP_DEPLOY_SURFACE=web`:
@@ -109,6 +109,7 @@ Ambas siguen reutilizando el codigo fuente actual del repo durante la migracion,
 Nota:
 
 - `npm run build:web` y `npm run build:crm` pueden ejecutarse por separado sin problema
+- para despliegue de web publica usa `npm run build:production:web`
 - si lanzas `npm run build` a la vez que otro build de superficie puede aparecer un `EPERM` sobre `dist/web`; ejecutado en solitario funciona correctamente
 
 ## Documentacion completa

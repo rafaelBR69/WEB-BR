@@ -27,7 +27,8 @@ Si falta el token, el mapa no renderiza correctamente.
 ## Comandos utiles
 
 - Desarrollo: `npm run dev`
-- Build produccion: `npm run build`
+- Build web publica: `npm run build:production:web`
+- Build repo raiz/legacy: `npm run build`
 - Preview local build: `npm run preview`
 - Regenerar POIs: `npm run pois:fetch`
 - Regenerar zonas: `npm run zones:fetch`
@@ -36,4 +37,3 @@ Si falta el token, el mapa no renderiza correctamente.
 
 El mapa usa dependencias optimizadas por Vite (`mapbox-gl`, `@turf/*`).  
 Si ves errores de "Outdated Optimize Dep", revisa `docs/40-ops/02-troubleshooting.md`.
-

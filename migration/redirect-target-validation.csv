@@ -1,0 +1,31 @@
+target_url,route_exists_in_build,source_surface,risk_level,notes
+https://blancareal.com/de/post/steuern-zahlen-costa-del-sol-immobilie/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/de/posts/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/contact/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/post/5-reasons-invest-costa-del-sol-given-instability-middle-east/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/post/dorronsoro-architects-behind-calahonda-sunset/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/post/legal-information-illegal-occupation-spain/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/post/rent-your-home-to-tourists-andalucia/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/post/sell-your-home-blancareal/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/post/taxes-pay-costa-del-sol-property/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/post/why-buy-house-malaga-with-agency/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/posts/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/projects/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/properties/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/property/1-bedroom-apartment-carlos-haya-malaga/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/property/3-bedroom-apartment-paseo-maritimo-fuengirola/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/property/3-bedroom-penthouse-las-lagunas-de-mijas/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/property/4-bedroom-duplex-penthouse-fuengirola/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/property/apartment-san-pedro-de-alcantara/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/en/property/townhouses-san-pedro-de-alcantara/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/es/commercialization/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/es/post/impuestos-pagar-propiedad-costa-del-sol/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/es/posts/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/es/sell-with-us/,yes,apps/web -> dist/web,medium,"Exists in the web surface build but not in the root surface. If production still uses `npm run build`, this target is at risk."
+https://blancareal.com/fr/post/taxes-payer-propriete-costa-del-sol/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/fr/posts/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/it/post/tasse-pagare-proprieta-costa-del-sol/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/it/posts/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/nl/posts/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).
+https://blancareal.com/nl/projects/,yes,apps/web -> dist/web,low,Validated in the dedicated web surface build (`npm run build:production:web` -> `dist/web`).

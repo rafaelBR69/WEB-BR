@@ -19,7 +19,8 @@
 
 ## Build
 
-- Ejecutar: `npm run build`
+- Ejecutar para web publica: `npm run build:production:web`
+- Validar salida esperada en `dist/web`
 - No publicar si build falla.
 
 ## SEO y rutas
@@ -27,4 +28,3 @@
 - Revisar canonical.
 - Revisar slugs por idioma.
 - Revisar sitemap en `src/pages/sitemap.xml.ts` si se anadieron nuevos tipos de URL.
-

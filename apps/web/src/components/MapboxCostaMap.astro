@@ -29,6 +29,7 @@ const {
   fitToFeaturesOnLoad = false,
   mode = "listing",
   loadStrategy = "visible",
+  allowExtrasLoad = mode === "detail",
   showPois = mode === "detail",
   showZones = mode === "detail",
   enableRouting = mode === "detail",
@@ -43,7 +44,7 @@ const serializedFeatureCollection = featureCollection.features.length
   : "";
 
 const shouldRenderExploreButton =
-  mode === "detail" && !(showPois && showZones && enableRouting);
+  allowExtrasLoad && !(showPois && showZones && enableRouting);
 ---
 
 <section class:list={["map-layout", compact && "is-compact", mode === "listing" && "is-listing"]}>
@@ -70,7 +71,7 @@ const shouldRenderExploreButton =
     data-show-pois={showPois ? "true" : "false"}
     data-show-zones={showZones ? "true" : "false"}
     data-enable-routing={enableRouting ? "true" : "false"}
-    data-can-load-extras={mode === "detail" ? "true" : "false"}
+    data-can-load-extras={allowExtrasLoad ? "true" : "false"}
   >
     <div class="map-toolbar">
       <button type="button" class="map-action map-action-alt" data-map-reset>

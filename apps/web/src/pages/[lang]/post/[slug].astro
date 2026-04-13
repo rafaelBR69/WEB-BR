@@ -170,7 +170,15 @@ const coverAlt =
 const categoryLabel = t.categories?.[postRaw.category] ?? String(postRaw.category ?? "");
 const publishedLabel = formatDate(postRaw.published_at);
 const readTime = Number(postRaw.reading_time_min ?? 0) || 0;
-const title = `${translation.title} | BlancaReal`;
+const seoTitle =
+  postRaw.seo?.title?.[lang] ??
+  postRaw.seo?.title?.es ??
+  translation.title;
+const faqStructuredData =
+  postRaw.seo?.faq_schema?.[lang] ??
+  postRaw.seo?.faq_schema?.es ??
+  null;
+const title = `${seoTitle} | BlancaReal`;
 const description =
   postRaw.seo?.meta_description?.[lang] ??
   postRaw.seo?.meta_description?.es ??
@@ -207,6 +215,7 @@ const relatedPosts = posts
   description={description}
   lang={lang}
   availableLangs={availableLangs.length ? availableLangs : [lang]}
+  structuredData={faqStructuredData ? [faqStructuredData] : []}
   {...navigation}
 >
   <section class="post-detail-page container">

@@ -37,6 +37,32 @@ const { blocks } = Astro.props;
       );
     }
 
+    if (block.type === "table" && Array.isArray(block.headers) && Array.isArray(block.rows)) {
+      return (
+        <div key={index} class="rich-content-table-wrap">
+          <table class="rich-content-table">
+            <thead>
+              <tr>
+                {block.headers.map((header, i) => (
+                  <th key={`${index}-head-${i}`} set:html={header}></th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, rowIndex) => (
+                <tr key={`${index}-row-${rowIndex}`}>
+                  {Array.isArray(row) &&
+                    row.map((cell, cellIndex) => (
+                      <td key={`${index}-cell-${rowIndex}-${cellIndex}`} set:html={cell}></td>
+                    ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+
     if (block.type === "links" && Array.isArray(block.items)) {
       return (
         <ul key={index} class="rich-content-links">

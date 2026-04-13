@@ -283,6 +283,30 @@ const fitToFeatures = (mapboxgl: any, map: any, features: Feature[], compactMode
   });
 };
 
+const moveLayerIfPresent = (map: any, layerId: string) => {
+  if (!map.getLayer(layerId)) return;
+  map.moveLayer(layerId);
+};
+
+const prioritizePropertyLayers = (map: any) => {
+  ["route-line", "zones-fill", "zones-outline"].forEach((layerId) => {
+    if (map.getLayer(layerId)) {
+      map.moveLayer(layerId);
+    }
+  });
+
+  const poiLayers = (map.getStyle?.().layers ?? [])
+    .map((layer: { id?: string }) => String(layer?.id ?? ""))
+    .filter((layerId) => layerId.startsWith("pois-"));
+  poiLayers.forEach((layerId) => {
+    moveLayerIfPresent(map, layerId);
+  });
+
+  ["clusters", "cluster-count", "points"].forEach((layerId) => {
+    moveLayerIfPresent(map, layerId);
+  });
+};
+
 const setPoiVisibility = (map: any, categoryId: string, visible: boolean) => {
   const visibility = visible ? "visible" : "none";
   [`pois-${categoryId}`, `pois-symbol-${categoryId}`].forEach((layerId) => {
@@ -312,6 +336,8 @@ const ensureRouteLayers = (map: any) => {
       },
     });
   }
+
+  prioritizePropertyLayers(map);
 };
 
 const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
@@ -351,6 +377,7 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
               "line-width": 1,
             },
           });
+          prioritizePropertyLayers(map);
         }
       }
     } catch {
@@ -504,6 +531,8 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
           if (poiPanel) {
             poiPanel.hidden = false;
           }
+
+          prioritizePropertyLayers(map);
         }
       }
     } catch {
@@ -514,6 +543,8 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
   if (parseBoolean(root.dataset.enableRouting) || parseBoolean(root.dataset.canLoadExtras)) {
     ensureRouteLayers(map);
   }
+
+  prioritizePropertyLayers(map);
 
   const routePanel = root.querySelector<HTMLElement>("[data-map-route-panel]");
   if (routePanel && (parseBoolean(root.dataset.enableRouting) || parseBoolean(root.dataset.canLoadExtras))) {
@@ -618,12 +649,15 @@ const bootMap = async (root: HTMLElement) => {
       source: "properties",
       filter: ["!", ["has", "point_count"]],
       paint: {
-        "circle-color": "#d32c43",
-        "circle-radius": compactMode ? 9 : 8,
+        "circle-color": compactMode ? "#ff3158" : "#d32c43",
+        "circle-opacity": compactMode ? 0.98 : 0.94,
+        "circle-radius": compactMode ? 10.5 : 8.5,
         "circle-stroke-color": "#ffffff",
-        "circle-stroke-width": compactMode ? 2.6 : 2,
+        "circle-stroke-width": compactMode ? 3.1 : 2.2,
       },
     });
+
+    prioritizePropertyLayers(map);
 
     if (shouldCluster) {
       map.on("click", "clusters", (event: any) => {

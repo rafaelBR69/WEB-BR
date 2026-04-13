@@ -32,7 +32,6 @@ Entender la estructura minima para poder trabajar sin romper nada.
 1. Cambia un titulo en un post de prueba en `src/data/posts/*.json`
 2. Ejecuta `npm run dev`
 3. Revisa la ruta `/{lang}/posts/`
-4. Ejecuta `npm run build`
+4. Ejecuta `npm run build:production:web`
 
 Si esto funciona, tu entorno esta listo.
-

@@ -10,6 +10,7 @@ import { normalizeVisiblePublicPropertyCards } from "@shared/properties/public";
 import { normalizePropertyList } from "@shared/properties/public";
 import { buildFilters } from "@shared/properties/public";
 import { applyFilters } from "@shared/properties/public";
+import { buildCompactPropertyMapPayload } from "@shared/properties/compactMapFeatures";
 import { displayLocation, formatPropertyType } from "@shared/presentation/common";
 import { TYPES, MARKET_TYPE } from "@shared/data/properties/taxonomies";
 import { FEATURES } from "@shared/i18n/features";
@@ -679,20 +680,14 @@ const seoHubSections = shouldRenderSeoHubs
     })
   : [];
 const pageNoindex = isFiltered || hasTechnicalFilters;
-const propertyById = new Map(properties.map((property) => [String(property.id ?? ""), property]));
 const mapboxToken = import.meta.env.PUBLIC_MAPBOX_TOKEN ?? "";
 const mapboxStyle = import.meta.env.PUBLIC_MAPBOX_STYLE ?? "mapbox://styles/mapbox/streets-v12";
 const featuredShowcaseCard = sortedCards[0] ?? null;
 const listingCards = featuredShowcaseCard
   ? sortedCards.filter((card) => String(card.id) !== String(featuredShowcaseCard.id))
   : sortedCards;
-const canRenderCompactMapFeature = (card) => {
-  const property = propertyById.get(String(card.id ?? ""));
-  const lng = Number(property?.location?.coordinates?.lng);
-  const lat = Number(property?.location?.coordinates?.lat);
-  return Number.isFinite(lng) && Number.isFinite(lat) && Boolean(card.slug);
-};
-const compactMapFeatureCount = sortedCards.filter((card) => canRenderCompactMapFeature(card)).length;
+const compactMapPayload = buildCompactPropertyMapPayload(sortedCards, properties, lang);
+const compactMapFeatureCount = compactMapPayload.diagnostics.renderedFeatures;
 const buildMapFeaturesUrl = (filters) => {
   const params = new URLSearchParams();
   params.set("lang", lang);
@@ -1249,8 +1244,9 @@ const compactMapFeaturesUrl = buildMapFeaturesUrl(activeFilters);
                   resetViewLabel={t.mapReset}
                   mode="listing"
                   loadStrategy="visible"
-                  showPois={true}
-                  showZones={true}
+                  allowExtrasLoad={true}
+                  showPois={false}
+                  showZones={false}
                   enableRouting={false}
                   compact={true}
                   fitToFeaturesOnLoad={true}
