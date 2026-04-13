@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { jsonResponse, methodNotAllowed, parseJsonBody } from "@shared/api/json";
+import { asUuid } from "@shared/portal/domain";
 import { getSupabaseServerClient, hasSupabaseServerClient } from "@shared/supabase/server";
 import {
   type OperationType,
@@ -156,11 +157,30 @@ const resolvePortalStatePatch = (
   return { changed, data: next };
 };
 
-const getPropertyIdFromParams = (params: Record<string, string | undefined>): string | null => {
+const resolvePropertyIdFromParams = (
+  params: Record<string, string | undefined>
+):
+  | { ok: true; id: string }
+  | { ok: false; status: number; body: Record<string, unknown> } => {
   const raw = params.id;
-  if (!raw) return null;
-  const trimmed = raw.trim();
-  return trimmed.length ? trimmed : null;
+  if (!raw || !raw.trim()) {
+    return {
+      ok: false,
+      status: 400,
+      body: { ok: false, error: "property_id_required" },
+    };
+  }
+
+  const id = asUuid(raw);
+  if (!id) {
+    return {
+      ok: false,
+      status: 404,
+      body: { ok: false, error: "property_not_found" },
+    };
+  }
+
+  return { ok: true, id };
 };
 
 const resolveParentPropertyId = async (
@@ -208,10 +228,11 @@ const insertStatusHistory = async (payload: {
 };
 
 export const GET: APIRoute = async ({ params, url }) => {
-  const id = getPropertyIdFromParams(params);
-  if (!id) {
-    return jsonResponse({ ok: false, error: "property_id_required" }, { status: 400 });
+  const propertyId = resolvePropertyIdFromParams(params);
+  if (!propertyId.ok) {
+    return jsonResponse(propertyId.body, { status: propertyId.status });
   }
+  const id = propertyId.id;
 
   const organizationId = toOptionalText(url.searchParams.get("organization_id"));
 
@@ -262,10 +283,11 @@ export const GET: APIRoute = async ({ params, url }) => {
 };
 
 export const PATCH: APIRoute = async ({ params, request }) => {
-  const id = getPropertyIdFromParams(params);
-  if (!id) {
-    return jsonResponse({ ok: false, error: "property_id_required" }, { status: 400 });
+  const propertyId = resolvePropertyIdFromParams(params);
+  if (!propertyId.ok) {
+    return jsonResponse(propertyId.body, { status: propertyId.status });
   }
+  const id = propertyId.id;
 
   const body = await parseJsonBody<UpdatePropertyBody>(request);
   if (!body) {

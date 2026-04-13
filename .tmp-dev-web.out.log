@@ -2,13 +2,15 @@
 > web-br@0.0.1 dev:web
 > node scripts/run-surface.mjs web dev --config ./apps/web/astro.config.mjs
 
-[2m11:18:19[22m [34m[@astrojs/node][39m Enabling sessions with filesystem storage
+[2m14:41:37[22m [34m[@astrojs/node][39m Enabling sessions with filesystem storage
 [vite] connected.
-[2m11:18:21[22m [34m[types][39m Generated [2m1ms[22m
-[33m[1m11:18:21[22m [WARN] [content][39m Content config not loaded
-[2m11:18:21[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
-[42m[1m astro [22m[49m [32mv6.1.2[39m [2mready in[22m 3116 [2mms[22m
+[2m14:41:41[22m [34m[types][39m Generated [2m2ms[22m
+[33m[1m14:41:41[22m [WARN] [content][39m Content config not loaded
+[2m14:41:41[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[42m[1m astro [22m[49m [32mv6.1.2[39m [2mready in[22m 4025 [2mms[22m
 [2m┃[22m Local    [36mhttp://localhost:4321/[39m
 [2m┃[22m Network  [36mhttp://192.168.0.172:4321/[39m
-[2m11:18:22[22m [32mwatching for file changes...[39m
-[2m11:18:26[22m [34m[200][39m /es/properties/ [2m2677ms[22m
+[2m14:41:41[22m [32mwatching for file changes...[39m
+[2m14:41:54[22m [33m[404][39m /api/v1/properties/not-a-uuid [2m20ms[22m
+[properties-map] diagnostics {"rows":{"total":219,"available":78,"byListingType":{"promotion":12,"unit":57,"resale":9},"soldOrPrivate":141,"missingSlug":1,"missingCoordinates":1},"cards":{"normalized":218,"visible":218,"filtered":20,"sorted":20,"unitChildrenCollapsed":198,"excludedByFilters":0,"hasUnitFilters":false},"features":{"totalCards":20,"renderedFeatures":20,"byListingType":{"promotion":12,"resale":8},"exclusions":{"missingProperty":0,"missingSlug":0,"missingCoordinates":0},"fallbacks":{"coordinatesFromParent":0}}}
+[2m14:41:59[22m [34m[200][39m /api/v1/properties/map [2m1704ms[22m
