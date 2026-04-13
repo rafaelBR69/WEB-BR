@@ -34,12 +34,100 @@ const {
   showPois = mode === "detail",
   showZones = mode === "detail",
   enableRouting = mode === "detail",
+  lang = "es",
 } = Astro.props;
+
+const slugify = (value) =>
+  String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const isGeoJsonFeature = (item) =>
+  item &&
+  item.type === "Feature" &&
+  item.geometry &&
+  Array.isArray(item.geometry.coordinates) &&
+  item.geometry.coordinates.length >= 2;
+
+const propertyToMapFeature = (property, currentLang = "es") => {
+  const lng = Number(property?.location?.coordinates?.lng);
+  const lat = Number(property?.location?.coordinates?.lat);
+
+  if (!Number.isFinite(lng) || !Number.isFinite(lat)) {
+    return null;
+  }
+
+  const city = String(property?.location?.city ?? "").trim();
+  const area = String(property?.location?.area ?? city).trim();
+  const areaId = `${slugify(city)}::${slugify(area)}`;
+
+  const slug =
+    property?.slugs?.[currentLang] ??
+    property?.slugs?.es ??
+    "";
+
+  const title =
+    property?.translations?.[currentLang]?.title ??
+    property?.translations?.es?.title ??
+    property?.id ??
+    "Propiedad";
+
+  const bedrooms = property?.property?.bedrooms;
+  const areaM2 = property?.property?.area_m2;
+
+  const coverUrl =
+    property?.media?.cover ??
+    property?.media?.gallery?.exterior?.[0]?.url ??
+    property?.media?.gallery?.interior?.[0]?.url ??
+    property?.media?.gallery?.views?.[0]?.url ??
+    "";
+
+  return {
+    type: "Feature",
+    id: property.id,
+    geometry: {
+      type: "Point",
+      coordinates: [lng, lat],
+    },
+    properties: {
+      id: property.id,
+      slug,
+      href: slug ? `/${currentLang}/${slug}` : "#",
+      title,
+      city,
+      area,
+      areaId,
+      coverUrl,
+      coverUrlFallback: coverUrl,
+      summaryPrice:
+        property?.price != null
+          ? `${property.price} ${property?.currency ?? "EUR"}`
+          : "Precio a consultar",
+      summaryBedroomsMin: bedrooms ?? "",
+      summaryAreaMin: areaM2 ?? "",
+      status: property?.status ?? "",
+      rawId: property?.id ?? "",
+    },
+  };
+};
+
+const normalizedFeatures = Array.isArray(features)
+  ? features
+      .map((item) => {
+        if (isGeoJsonFeature(item)) return item;
+        return propertyToMapFeature(item, lang);
+      })
+      .filter(Boolean)
+  : [];
 
 const featureCollection = {
   type: "FeatureCollection",
-  features,
+  features: normalizedFeatures,
 };
+
 const serializedFeatureCollection = featureCollection.features.length
   ? JSON.stringify(featureCollection)
   : "";
