@@ -24,6 +24,8 @@ type PoiVisual = {
   svg: string;
 };
 
+const MAP_POI_POINT_COLOR = "#ff4f7d";
+
 type MapState = {
   booted: boolean;
   loading: boolean;
@@ -507,7 +509,7 @@ const setPoiVisibility = (
     map.setLayoutProperty(
       `pois-symbol-${categoryId}`,
       "visibility",
-      visible && showLabels ? "visible" : "none"
+      visible && showLabels ? "none" : "none"
     );
   }
 };
@@ -789,6 +791,7 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
   const poiPanel = root.querySelector<HTMLElement>("[data-map-poi-panel]");
   const poiFiltersEl = root.querySelector<HTMLElement>("[data-map-poi-filters]");
   const showPoiLabels = parseBoolean(root.dataset.enableRouting);
+  const shouldAutoLoadExtras = parseBoolean(root.dataset.autoLoadExtras);
 
   if (parseBoolean(root.dataset.showZones) || parseBoolean(root.dataset.canLoadExtras)) {
     try {
@@ -1003,7 +1006,6 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
           map.addSource("pois", { type: "geojson", data: getFilteredPoiCollection(state) });
 
           poiFilters.forEach((filter) => {
-            const visual = getPoiVisual(filter.id);
             map.addLayer({
               id: `pois-${filter.id}`,
               type: "circle",
@@ -1011,11 +1013,11 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
               filter: ["==", ["get", "category"], filter.id],
               layout: { visibility: "none" },
               paint: {
-                "circle-color": visual.color,
-                "circle-radius": 10,
-                "circle-opacity": 0.01,
-                "circle-stroke-color": visual.color,
-                "circle-stroke-width": 0,
+                "circle-color": MAP_POI_POINT_COLOR,
+                "circle-radius": 4.6,
+                "circle-opacity": 0.94,
+                "circle-stroke-color": "#ffffff",
+                "circle-stroke-width": 1.1,
               },
             });
 
@@ -1331,7 +1333,11 @@ const bootMap = async (root: HTMLElement) => {
       map.setZoom(compactMode ? 11.5 : 12.2);
     }
 
-    if (parseBoolean(root.dataset.showPois) || parseBoolean(root.dataset.showZones)) {
+    if (
+      parseBoolean(root.dataset.showPois) ||
+      parseBoolean(root.dataset.showZones) ||
+      shouldAutoLoadExtras
+    ) {
       await ensureAdvancedExtras(root, state);
     }
   });
