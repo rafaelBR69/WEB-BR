@@ -38,17 +38,35 @@ const findMatchingCard = (detail: PropertyMapFocusDetail) => {
   );
 };
 
+const buildFeaturedPreviewCard = (card: HTMLElement) => {
+  const clone = card.cloneNode(true);
+  if (!(clone instanceof HTMLElement)) {
+    return card;
+  }
+
+  clone.dataset.mapPreviewCard = "true";
+  return clone;
+};
+
 const promotePropertyCard = (card: HTMLElement) => {
   const featuredSlot = getFeaturedShowcaseSlot();
   const grid = getPropertiesGrid();
   const currentFeaturedCard = featuredSlot?.querySelector<HTMLElement>(".property-card") ?? null;
+  let activeCard = card;
 
   if (featuredSlot instanceof HTMLElement && grid instanceof HTMLElement) {
-    if (currentFeaturedCard && currentFeaturedCard !== card) {
-      grid.prepend(currentFeaturedCard);
-    }
-    if (currentFeaturedCard !== card) {
-      featuredSlot.replaceChildren(card);
+    const cardAlreadyFeatured =
+      featuredSlot.contains(card) ||
+      (currentFeaturedCard instanceof HTMLElement &&
+        normalizeHref(currentFeaturedCard.dataset.mapPropertyHref) ===
+          normalizeHref(card.dataset.mapPropertyHref) &&
+        normalizeHref(card.dataset.mapPropertyHref));
+
+    if (!cardAlreadyFeatured) {
+      activeCard = buildFeaturedPreviewCard(card);
+      featuredSlot.replaceChildren(activeCard);
+    } else if (currentFeaturedCard instanceof HTMLElement) {
+      activeCard = currentFeaturedCard;
     }
   } else {
     const cardGrid = card.closest(".properties-grid");
@@ -58,17 +76,17 @@ const promotePropertyCard = (card: HTMLElement) => {
   }
 
   clearFocusedCards(document);
-  card.classList.remove("is-map-focused");
-  void card.offsetWidth;
-  card.classList.add("is-map-focused");
-  card.scrollIntoView({
+  activeCard.classList.remove("is-map-focused");
+  void activeCard.offsetWidth;
+  activeCard.classList.add("is-map-focused");
+  activeCard.scrollIntoView({
     behavior: "smooth",
     block: "nearest",
     inline: "nearest",
   });
 
   window.setTimeout(() => {
-    card.classList.remove("is-map-focused");
+    activeCard.classList.remove("is-map-focused");
   }, 1800);
 };
 

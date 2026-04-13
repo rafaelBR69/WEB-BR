@@ -474,17 +474,17 @@ const buildPopupHtml = (
   ].filter(Boolean);
   const priceLabel = formatPopupPrice(feature);
   const media = coverUrl
-    ? `<img class="map-popup-cover" src="${coverUrl}" data-fallback-src="${coverFallback}" alt="${title}" loading="lazy" decoding="async" onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;}" />`
+    ? `<div class="map-popup-media"><img class="map-popup-cover" src="${coverUrl}" data-fallback-src="${coverFallback}" alt="${title}" loading="lazy" decoding="async" onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;}" />${priceLabel ? `<p class="map-popup-price">${escapeHtml(priceLabel)}</p>` : ""}</div>`
     : "";
-  return `<div class="map-popup">${media}<div class="map-popup-body">${priceLabel ? `<p class="map-popup-price">${escapeHtml(priceLabel)}</p>` : ""}<h3>${title}</h3>${locationParts.length ? `<p>${escapeHtml(locationParts.join(" · "))}</p>` : ""}${summaryParts.length ? `<p>${escapeHtml(summaryParts.join(" · "))}</p>` : ""}</div></div>`;
-  return `<div class="map-popup">${media}<div class="map-popup-body"><h3>${title}</h3><p>${escapeHtml(locationParts.join(" · "))}</p>${summaryParts.length ? `<p>${escapeHtml(summaryParts.join(" · "))}</p>` : ""}</div></div>`;
-  const [lng, lat] = feature.geometry?.coordinates ?? [];
-  const routeButton =
-    options.enableRouting && Number.isFinite(lng) && Number.isFinite(lat)
-      ? `<button type="button" data-route-origin="${lng},${lat}" data-route-name="${title}">${escapeHtml(options.routeStartLabel)}</button>`
-      : "";
+  const locationLine = locationParts.length
+    ? `<p class="map-popup-location">${escapeHtml(locationParts.join(" · "))}</p>`
+    : "";
+  const summaryLine = summaryParts.length
+    ? `<p class="map-popup-summary">${escapeHtml(summaryParts.join(" · "))}</p>`
+    : "";
 
-  return `<div class="map-popup">${media}<div class="map-popup-body"><h3>${title}</h3><p>${escapeHtml(locationParts.join(" · "))}</p>${summaryParts.length ? `<p>${escapeHtml(summaryParts.join(" · "))}</p>` : ""}<div class="map-popup-actions">${routeButton}<a href="${href}">${escapeHtml(options.openDetailLabel)}</a></div></div></div>`;
+  void options;
+  return `<div class="map-popup">${media}<div class="map-popup-body">${locationLine}<h3>${title}</h3>${summaryLine}</div></div>`;
 };
 
 const updateRoutePanel = (root: HTMLElement, state: MapState, labels: Record<string, string>) => {

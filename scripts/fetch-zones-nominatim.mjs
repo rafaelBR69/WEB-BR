@@ -3,7 +3,10 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const PROPERTIES_DIR = path.join(ROOT, "src", "data", "properties");
-const ZONES_PATH = path.join(ROOT, "public", "data", "zones.geojson");
+const ZONES_PATHS = [
+  path.join(ROOT, "apps", "web", "public", "data", "zones.geojson"),
+  path.join(ROOT, "public", "data", "zones.geojson"),
+];
 
 const DEFAULT_CONTEXT = {
   county: "Malaga",
@@ -59,16 +62,18 @@ const readCitiesFromProperties = () => {
 };
 
 const readCitiesFromExistingZones = () => {
-  if (!fs.existsSync(ZONES_PATH)) return [];
-  try {
-    const raw = fs.readFileSync(ZONES_PATH, "utf8");
-    const data = JSON.parse(raw);
-    return (data?.features || [])
-      .map((feature) => String(feature?.properties?.name || "").trim())
-      .filter(Boolean);
-  } catch {
-    return [];
-  }
+  return ZONES_PATHS.flatMap((zonesPath) => {
+    if (!fs.existsSync(zonesPath)) return [];
+    try {
+      const raw = fs.readFileSync(zonesPath, "utf8");
+      const data = JSON.parse(raw);
+      return (data?.features || [])
+        .map((feature) => String(feature?.properties?.name || "").trim())
+        .filter(Boolean);
+    } catch {
+      return [];
+    }
+  });
 };
 
 const uniqueCities = () => {
@@ -211,10 +216,13 @@ const run = async () => {
     ),
   };
 
-  fs.mkdirSync(path.dirname(ZONES_PATH), { recursive: true });
-  fs.writeFileSync(ZONES_PATH, `${JSON.stringify(collection, null, 2)}\n`);
+  for (const zonesPath of ZONES_PATHS) {
+    fs.mkdirSync(path.dirname(zonesPath), { recursive: true });
+    fs.writeFileSync(zonesPath, `${JSON.stringify(collection, null, 2)}\n`);
+  }
 
-  console.log(`\nZonas guardadas en ${ZONES_PATH}`);
+  console.log(`\nZonas guardadas en:`);
+  ZONES_PATHS.forEach((zonesPath) => console.log(`- ${zonesPath}`));
   console.log(`Total zonas generadas: ${features.length}`);
   if (failed.length) {
     console.log(`Ciudades sin resultado: ${failed.join(", ")}`);

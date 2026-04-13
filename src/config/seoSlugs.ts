@@ -212,6 +212,21 @@ export const SEO_LANDING_CITIES: SeoLandingCityConfig[] = [
     ],
   },
   {
+    slug: "estepona",
+    cityKey: "estepona",
+    priority: 90,
+    minResults: 2,
+    showInHub: true,
+    showInSitemap: true,
+    typeSlugs: ["villas", "pisos"],
+    popularSearches: [
+      DEFAULT_POPULAR_SEARCHES[1],
+      DEFAULT_POPULAR_SEARCHES[0],
+      DEFAULT_POPULAR_SEARCHES[4],
+    ],
+    areas: [],
+  },
+  {
     slug: "fuengirola",
     cityKey: "fuengirola",
     priority: 85,
@@ -260,6 +275,18 @@ export const SEO_LANDING_CITIES: SeoLandingCityConfig[] = [
 ];
 
 export const SEO_LANDING_RULES: Record<string, SeoLandingRuleConfig> = {
+  "estepona/villas": {
+    showInHub: true,
+    showInSitemap: true,
+  },
+  "estepona/pisos": {
+    showInHub: true,
+    showInSitemap: true,
+  },
+  "estepona/search/new-build": {
+    showInHub: true,
+    showInSitemap: true,
+  },
   "mijas/villas": {
     showInHub: true,
     showInSitemap: true,
