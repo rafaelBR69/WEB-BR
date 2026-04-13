@@ -57,6 +57,7 @@ const currentUrl = Astro.url;
 const canonicalPath = currentUrl.pathname;
 
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+const isDevMode = import.meta.env.DEV;
 
 const resolveLangs = () => {
   const list = Array.isArray(availableLangs) && availableLangs.length
@@ -862,7 +863,7 @@ if (!isPortalPage && !Astro.response.headers.has("Cache-Control")) {
       </div>
     )}
 
-    <script is:inline>
+    <script is:inline define:vars={{ isDevMode }}>
       const body = document.body;
       const landingHeader = document.querySelector("[data-landing-header='true']");
       const landingHeaderIsSolid = landingHeader?.getAttribute("data-landing-header-solid") === "true";
@@ -1007,7 +1008,7 @@ if (!isPortalPage && !Astro.response.headers.has("Cache-Control")) {
       };
 
       const logNavigationDebug = (...args) => {
-        if (!import.meta.env.DEV) return;
+        if (!isDevMode) return;
         console.debug("[nav-transition]", ...args);
       };
 
