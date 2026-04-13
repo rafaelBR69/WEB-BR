@@ -19,6 +19,11 @@ const clearFocusedCards = (scope: ParentNode = document) => {
   });
 };
 
+const getFeaturedShowcaseSlot = () =>
+  document.querySelector<HTMLElement>(".properties-showcase-featured");
+
+const getPropertiesGrid = () => document.querySelector<HTMLElement>(".properties-grid");
+
 const findMatchingCard = (detail: PropertyMapFocusDetail) => {
   const cards = Array.from(document.querySelectorAll<HTMLElement>(".property-card[data-map-property-href]"));
   const targetHref = normalizeHref(detail.href);
@@ -34,9 +39,22 @@ const findMatchingCard = (detail: PropertyMapFocusDetail) => {
 };
 
 const promotePropertyCard = (card: HTMLElement) => {
-  const grid = card.closest(".properties-grid");
-  if (grid instanceof HTMLElement && grid.firstElementChild !== card) {
-    grid.prepend(card);
+  const featuredSlot = getFeaturedShowcaseSlot();
+  const grid = getPropertiesGrid();
+  const currentFeaturedCard = featuredSlot?.querySelector<HTMLElement>(".property-card") ?? null;
+
+  if (featuredSlot instanceof HTMLElement && grid instanceof HTMLElement) {
+    if (currentFeaturedCard && currentFeaturedCard !== card) {
+      grid.prepend(currentFeaturedCard);
+    }
+    if (currentFeaturedCard !== card) {
+      featuredSlot.replaceChildren(card);
+    }
+  } else {
+    const cardGrid = card.closest(".properties-grid");
+    if (cardGrid instanceof HTMLElement && cardGrid.firstElementChild !== card) {
+      cardGrid.prepend(card);
+    }
   }
 
   clearFocusedCards(document);

@@ -78,6 +78,58 @@ const escapeHtml = (value: unknown) =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 
+const POPUP_LOCALE_BY_LANG: Record<string, string> = {
+  es: "es-ES",
+  en: "en-GB",
+  de: "de-DE",
+  fr: "fr-FR",
+  it: "it-IT",
+  nl: "nl-NL",
+};
+
+const POPUP_PRICE_PREFIX: Record<string, string> = {
+  es: "Desde",
+  en: "From",
+  de: "Ab",
+  fr: "Des",
+  it: "Da",
+  nl: "Vanaf",
+};
+
+const inferFeatureLang = (feature: Feature) => {
+  const href = String(feature.properties?.href ?? "").trim();
+  const match = href.match(/^\/(es|en|de|fr|it|nl)(?:\/|$)/i);
+  return (match?.[1]?.toLowerCase() ?? "es") as keyof typeof POPUP_LOCALE_BY_LANG;
+};
+
+const formatPopupPrice = (feature: Feature) => {
+  const props = feature.properties ?? {};
+  const rawValue = props.summaryPrice;
+  if (rawValue == null || rawValue === "") return "";
+
+  const lang = inferFeatureLang(feature);
+  const locale = POPUP_LOCALE_BY_LANG[lang] ?? POPUP_LOCALE_BY_LANG.es;
+  const currency = String(props.summaryCurrency ?? "EUR").trim() || "EUR";
+  const listingType = String(props.listingType ?? "").trim().toLowerCase();
+
+  if (typeof rawValue === "number" && Number.isFinite(rawValue)) {
+    const amount = new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(rawValue);
+    return listingType === "promotion"
+      ? `${POPUP_PRICE_PREFIX[lang] ?? POPUP_PRICE_PREFIX.es} ${amount}`
+      : amount;
+  }
+
+  const amount = String(rawValue).trim();
+  if (!amount) return "";
+  return listingType === "promotion"
+    ? `${POPUP_PRICE_PREFIX[lang] ?? POPUP_PRICE_PREFIX.es} ${amount}`
+    : amount;
+};
+
 const poiVisuals: Record<string, PoiVisual> = {
   restaurant: {
     color: "#c3953b",
@@ -410,7 +462,6 @@ const buildPopupHtml = (
 ) => {
   const props = feature.properties ?? {};
   const title = escapeHtml(props.title ?? "Propiedad");
-  const href = escapeHtml(props.href ?? "#");
   const coverUrl = escapeHtml(props.coverUrl ?? "");
   const coverFallback = escapeHtml(props.coverUrlFallback ?? props.coverUrl ?? "");
   const locationParts = [props.city, props.area]
@@ -418,13 +469,14 @@ const buildPopupHtml = (
     .filter(Boolean)
     .filter((part, index, list) => list.indexOf(part) === index);
   const summaryParts = [
-    props.summaryPrice ? String(props.summaryPrice) : "",
     props.summaryBedroomsMin ? `${props.summaryBedroomsMin} dorm.` : "",
     props.summaryAreaMin ? `${props.summaryAreaMin} m2` : "",
   ].filter(Boolean);
+  const priceLabel = formatPopupPrice(feature);
   const media = coverUrl
     ? `<img class="map-popup-cover" src="${coverUrl}" data-fallback-src="${coverFallback}" alt="${title}" loading="lazy" decoding="async" onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;}" />`
     : "";
+  return `<div class="map-popup">${media}<div class="map-popup-body">${priceLabel ? `<p class="map-popup-price">${escapeHtml(priceLabel)}</p>` : ""}<h3>${title}</h3>${locationParts.length ? `<p>${escapeHtml(locationParts.join(" · "))}</p>` : ""}${summaryParts.length ? `<p>${escapeHtml(summaryParts.join(" · "))}</p>` : ""}</div></div>`;
   return `<div class="map-popup">${media}<div class="map-popup-body"><h3>${title}</h3><p>${escapeHtml(locationParts.join(" · "))}</p>${summaryParts.length ? `<p>${escapeHtml(summaryParts.join(" · "))}</p>` : ""}</div></div>`;
   const [lng, lat] = feature.geometry?.coordinates ?? [];
   const routeButton =
@@ -1251,9 +1303,9 @@ const bootMap = async (root: HTMLElement) => {
       filter: ["!", ["has", "point_count"]],
       paint: {
         "circle-color": compactMode ? "#ff3158" : "#d32c43",
-        "circle-opacity": compactMode ? 0.28 : 0.22,
-        "circle-radius": compactMode ? 18 : 15,
-        "circle-blur": 0.7,
+        "circle-opacity": compactMode ? 0.18 : 0.14,
+        "circle-radius": compactMode ? 10.5 : 8.8,
+        "circle-blur": 0.62,
       },
     });
 
@@ -1265,9 +1317,9 @@ const bootMap = async (root: HTMLElement) => {
       paint: {
         "circle-color": compactMode ? "#ff3158" : "#d32c43",
         "circle-opacity": compactMode ? 0.98 : 0.94,
-        "circle-radius": compactMode ? 11.5 : 9.2,
+        "circle-radius": compactMode ? 7.4 : 6.1,
         "circle-stroke-color": "#ffffff",
-        "circle-stroke-width": compactMode ? 3.4 : 2.4,
+        "circle-stroke-width": compactMode ? 0.72 : 0.58,
       },
     });
 
