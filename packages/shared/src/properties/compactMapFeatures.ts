@@ -159,6 +159,7 @@ export function buildPropertyMapFeature({
         summaryBedroomsMax: summaryBedrooms,
         summaryAreaMin: summaryArea,
         summaryAreaMax: summaryArea,
+        slug,
         href: `/${lang}/property/${slug}/`,
       },
     },

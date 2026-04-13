@@ -86,7 +86,12 @@ const scarcityLabel =
     : "";
 ---
 
-<article class:list={["property-card", compact && "is-compact", data.shouldHighlightScarcity && "is-scarcity"]}>
+<article
+  class:list={["property-card", compact && "is-compact", data.shouldHighlightScarcity && "is-scarcity"]}
+  data-map-property-id={String(data.id ?? "")}
+  data-map-property-slug={String(data.slug ?? "")}
+  data-map-property-href={`/${lang}/property/${data.slug}/`}
+>
   <div class="card-image" data-gallery-size={gallerySlides.length}>
     {gallerySlides.length > 0 ? (
       <div class="card-gallery" data-gallery-index="0">

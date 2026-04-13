@@ -19,6 +19,11 @@ type PoiFilter = {
   label: string;
 };
 
+type PoiVisual = {
+  color: string;
+  svg: string;
+};
+
 type MapState = {
   booted: boolean;
   loading: boolean;
@@ -70,6 +75,81 @@ const escapeHtml = (value: unknown) =>
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+
+const poiVisuals: Record<string, PoiVisual> = {
+  restaurant: {
+    color: "#c3953b",
+    svg: '<path d="M7.6 5v5.8M5.9 5v3.4M9.3 5v3.4M7.6 10.8V19M15.9 5l-2.7 6.4h4.1M15 11.4 14.2 19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+  hospital: {
+    color: "#d32c43",
+    svg: '<path d="M12 6.4v11.2M6.4 12h11.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+  },
+  school: {
+    color: "#3c5e94",
+    svg: '<path d="M4.8 9 12 5.6 19.2 9 12 12.4 4.8 9Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.4 11.5v2.7c0 1.4 2 2.5 4.6 2.5s4.6-1.1 4.6-2.5v-2.7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+  },
+  pharmacy: {
+    color: "#202f4e",
+    svg: '<path d="M12 6.4v11.2M6.4 12h11.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="6.6" y="6.6" width="10.8" height="10.8" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>',
+  },
+  airport: {
+    color: "#5d7394",
+    svg: '<path d="M12 5.4v13.2M5.4 12h13.2M8.1 8.7 12 10.8l3.9-2.1M8.6 15.1 12 13.5l3.4 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+  leisure: {
+    color: "#8f6a45",
+    svg: '<path d="m12 6.3 1.7 3.4 3.8.6-2.8 2.6.7 3.8-3.4-1.9-3.4 1.9.7-3.8-2.8-2.6 3.8-.6L12 6.3Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>',
+  },
+};
+
+const getPoiVisual = (categoryId: string): PoiVisual => {
+  return poiVisuals[categoryId] ?? {
+    color: "#64748b",
+    svg: '<circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/>',
+  };
+};
+
+const buildPoiChipIconSvg = (categoryId: string) => {
+  const visual = getPoiVisual(categoryId);
+  return `<svg viewBox="0 0 24 24" class="poi-chip-icon-svg" aria-hidden="true" focusable="false">${visual.svg}</svg>`;
+};
+
+const buildPoiMarkerSvg = (categoryId: string) => {
+  const visual = getPoiVisual(categoryId);
+  const glyph = visual.svg.replaceAll("currentColor", visual.color);
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+      <circle cx="22" cy="22" r="14.5" fill="#ffffff" stroke="${visual.color}" stroke-width="2"/>
+      <g transform="translate(10 10)">
+        ${glyph}
+      </g>
+    </svg>
+  `.trim();
+};
+
+const encodeSvgDataUri = (svg: string) =>
+  `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+
+const loadImageElement = (src: string) =>
+  new Promise<HTMLImageElement>((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error("poi_icon_load_failed"));
+    image.src = src;
+  });
+
+const ensurePoiMarkerImages = async (map: any, poiFilters: PoiFilter[]) => {
+  await Promise.all(
+    poiFilters.map(async (filter) => {
+      const imageId = `poi-marker-${filter.id}`;
+      if (map.hasImage?.(imageId)) return;
+      const image = await loadImageElement(encodeSvgDataUri(buildPoiMarkerSvg(filter.id)));
+      map.addImage(imageId, image, { pixelRatio: 2 });
+    })
+  );
+};
 
 const toFeatureCollection = (features: Feature[]): FeatureCollection => ({
   type: "FeatureCollection",
@@ -409,18 +489,27 @@ const prioritizePropertyLayers = (map: any) => {
     moveLayerIfPresent(map, layerId);
   });
 
-  ["clusters", "cluster-count", "points"].forEach((layerId) => {
+  ["clusters", "cluster-count", "points-halo", "points"].forEach((layerId) => {
     moveLayerIfPresent(map, layerId);
   });
 };
 
-const setPoiVisibility = (map: any, categoryId: string, visible: boolean) => {
-  const visibility = visible ? "visible" : "none";
-  [`pois-${categoryId}`, `pois-symbol-${categoryId}`].forEach((layerId) => {
-    if (map.getLayer(layerId)) {
-      map.setLayoutProperty(layerId, "visibility", visibility);
-    }
-  });
+const setPoiVisibility = (
+  map: any,
+  categoryId: string,
+  visible: boolean,
+  showLabels = true
+) => {
+  if (map.getLayer(`pois-${categoryId}`)) {
+    map.setLayoutProperty(`pois-${categoryId}`, "visibility", visible ? "visible" : "none");
+  }
+  if (map.getLayer(`pois-symbol-${categoryId}`)) {
+    map.setLayoutProperty(
+      `pois-symbol-${categoryId}`,
+      "visibility",
+      visible && showLabels ? "visible" : "none"
+    );
+  }
 };
 
 const ensureRouteLayers = (map: any) => {
@@ -673,6 +762,20 @@ const resetSelections = (state: MapState) => {
   applySelectionFilters(state);
 };
 
+const dispatchPropertyFocusEvent = (feature: Feature) => {
+  const properties = feature.properties ?? {};
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(
+    new CustomEvent("property-map:focus", {
+      detail: {
+        id: String(properties.id ?? "").trim(),
+        slug: String(properties.slug ?? "").trim(),
+        href: String(properties.href ?? "").trim(),
+      },
+    })
+  );
+};
+
 const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
   if (state.extrasLoaded || !(state.booted && state.map)) return;
 
@@ -685,8 +788,7 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
   const poiFilters = parseJson<PoiFilter[]>(root.dataset.poiFilters, []);
   const poiPanel = root.querySelector<HTMLElement>("[data-map-poi-panel]");
   const poiFiltersEl = root.querySelector<HTMLElement>("[data-map-poi-filters]");
-  const shouldShowPoisNow =
-    parseBoolean(root.dataset.showPois) || parseBoolean(root.dataset.canLoadExtras);
+  const showPoiLabels = parseBoolean(root.dataset.enableRouting);
 
   if (parseBoolean(root.dataset.showZones) || parseBoolean(root.dataset.canLoadExtras)) {
     try {
@@ -897,9 +999,11 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
           (await response.json()) as FeatureCollection
         );
         if (!map.getSource("pois")) {
+          await ensurePoiMarkerImages(map, poiFilters);
           map.addSource("pois", { type: "geojson", data: getFilteredPoiCollection(state) });
 
           poiFilters.forEach((filter) => {
+            const visual = getPoiVisual(filter.id);
             map.addLayer({
               id: `pois-${filter.id}`,
               type: "circle",
@@ -907,21 +1011,11 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
               filter: ["==", ["get", "category"], filter.id],
               layout: { visibility: "none" },
               paint: {
-                "circle-color":
-                  filter.id === "restaurant"
-                    ? "#f97316"
-                    : filter.id === "hospital"
-                      ? "#ef4444"
-                      : filter.id === "school"
-                        ? "#2563eb"
-                        : filter.id === "pharmacy"
-                          ? "#16a34a"
-                          : filter.id === "airport"
-                            ? "#0ea5e9"
-                            : "#9333ea",
-                "circle-radius": 5,
-                "circle-stroke-color": "#ffffff",
-                "circle-stroke-width": 1.1,
+                "circle-color": visual.color,
+                "circle-radius": 10,
+                "circle-opacity": 0.01,
+                "circle-stroke-color": visual.color,
+                "circle-stroke-width": 0,
               },
             });
 
@@ -932,15 +1026,11 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
               filter: ["==", ["get", "category"], filter.id],
               layout: {
                 visibility: "none",
-                "text-field": ["get", "name"],
-                "text-size": 11,
-                "text-anchor": "top",
-                "text-offset": [0, 1.1],
-              },
-              paint: {
-                "text-color": "#202f4e",
-                "text-halo-color": "#ffffff",
-                "text-halo-width": 1,
+                "icon-image": `poi-marker-${filter.id}`,
+                "icon-size": showPoiLabels ? 0.82 : 0.76,
+                "icon-anchor": "center",
+                "icon-allow-overlap": true,
+                "icon-ignore-placement": true,
               },
             });
 
@@ -1010,13 +1100,13 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
             });
           });
 
-          if (poiFiltersEl) {
-            poiFiltersEl.innerHTML = poiFilters
-              .map(
+            if (poiFiltersEl) {
+              poiFiltersEl.innerHTML = poiFilters
+                .map(
                 (filter) =>
-                  `<button type="button" class="poi-chip" data-poi-category="${escapeHtml(filter.id)}">${escapeHtml(filter.label)}</button>`
-              )
-              .join("");
+                    `<button type="button" class="poi-chip" data-poi-category="${escapeHtml(filter.id)}" aria-label="${escapeHtml(filter.label)}" title="${escapeHtml(filter.label)}"><span class="poi-chip-icon" aria-hidden="true">${buildPoiChipIconSvg(filter.id)}</span></button>`
+                )
+                .join("");
 
             poiFiltersEl.querySelectorAll<HTMLElement>("[data-poi-category]").forEach((button) => {
               button.addEventListener("click", () => {
@@ -1029,21 +1119,9 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
                   state.activePoiCategories.add(categoryId);
                 }
                 button.classList.toggle("is-active", !isActive);
-                setPoiVisibility(map, categoryId, !isActive);
+                setPoiVisibility(map, categoryId, !isActive, showPoiLabels);
               });
             });
-
-            if (shouldShowPoisNow) {
-              poiFiltersEl
-                .querySelectorAll<HTMLElement>("[data-poi-category]")
-                .forEach((button) => {
-                  const categoryId = button.dataset.poiCategory;
-                  if (!categoryId) return;
-                  state.activePoiCategories.add(categoryId);
-                  button.classList.add("is-active");
-                  setPoiVisibility(map, categoryId, true);
-                });
-            }
           }
 
           if (poiPanel) {
@@ -1164,6 +1242,19 @@ const bootMap = async (root: HTMLElement) => {
     }
 
     map.addLayer({
+      id: "points-halo",
+      type: "circle",
+      source: "properties",
+      filter: ["!", ["has", "point_count"]],
+      paint: {
+        "circle-color": compactMode ? "#ff3158" : "#d32c43",
+        "circle-opacity": compactMode ? 0.28 : 0.22,
+        "circle-radius": compactMode ? 18 : 15,
+        "circle-blur": 0.7,
+      },
+    });
+
+    map.addLayer({
       id: "points",
       type: "circle",
       source: "properties",
@@ -1171,9 +1262,9 @@ const bootMap = async (root: HTMLElement) => {
       paint: {
         "circle-color": compactMode ? "#ff3158" : "#d32c43",
         "circle-opacity": compactMode ? 0.98 : 0.94,
-        "circle-radius": compactMode ? 10.5 : 8.5,
+        "circle-radius": compactMode ? 11.5 : 9.2,
         "circle-stroke-color": "#ffffff",
-        "circle-stroke-width": compactMode ? 3.1 : 2.2,
+        "circle-stroke-width": compactMode ? 3.4 : 2.4,
       },
     });
 
@@ -1205,6 +1296,7 @@ const bootMap = async (root: HTMLElement) => {
     map.on("click", "points", (event: any) => {
       const feature = event.features?.[0] as Feature | undefined;
       if (!feature) return;
+      dispatchPropertyFocusEvent(feature);
       const coordinates = getFeatureCoordinates(feature) ?? [-4.92, 36.58];
       map.flyTo({
         center: coordinates,

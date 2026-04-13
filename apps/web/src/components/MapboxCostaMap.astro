@@ -267,27 +267,53 @@ const shouldRenderExploreButton =
   }
 
   .poi-chip {
-    border: 1px solid rgba(32, 47, 78, 0.14);
-    background: rgba(255, 255, 255, 0.84);
-    color: var(--map-brand);
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: #202f4e;
     border-radius: 999px;
-    padding: 0.62rem 0.95rem;
-    font-size: 0.72rem;
-    font-weight: 700;
+    padding: 0.18rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    text-align: center;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    opacity: 0.46;
+    transition:
+      transform 0.18s ease,
+      opacity 0.18s ease,
+      filter 0.18s ease;
   }
 
   .poi-chip:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 16px rgba(15, 23, 42, 0.08);
+    opacity: 0.72;
   }
 
   .poi-chip.is-active {
-    background: linear-gradient(135deg, rgba(32, 47, 78, 0.94), rgba(29, 78, 216, 0.9));
-    color: #fff;
-    border-color: transparent;
+    opacity: 1;
+    transform: scale(1.04);
+    filter: drop-shadow(0 8px 12px rgba(32, 47, 78, 0.12));
+  }
+
+  .poi-chip-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+
+  .poi-chip-icon-svg {
+    width: 0.92rem;
+    height: 0.92rem;
+    display: block;
+    color: #202f4e;
+  }
+
+  .poi-chip:focus-visible {
+    outline: 0;
+    opacity: 1;
   }
 
   .map-route-panel {
