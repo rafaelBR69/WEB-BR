@@ -97,23 +97,27 @@ const shouldRenderExploreButton =
         </p>
       </div>
 
-      <div class="map-route-panel" data-map-route-panel hidden>
-        <p class="map-route-title">{routePlannerTitle}</p>
-        <button type="button" class="map-action map-action-alt" data-map-route-clear>
-          {routeClearLabel}
-        </button>
-        <p class="map-route-status" data-map-route-status>{routeSelectionHint}</p>
-        <div class="map-route-metrics" data-map-route-metrics hidden>
-          <p><strong>{routeDistanceLabel}:</strong> <span data-map-route-distance></span></p>
-          <p><strong>{routeDurationLabel}:</strong> <span data-map-route-duration></span></p>
+      {enableRouting && (
+        <div class="map-route-panel" data-map-route-panel hidden>
+          <p class="map-route-title">{routePlannerTitle}</p>
+          <button type="button" class="map-action map-action-alt" data-map-route-clear>
+            {routeClearLabel}
+          </button>
+          <p class="map-route-status" data-map-route-status>{routeSelectionHint}</p>
+          <div class="map-route-metrics" data-map-route-metrics hidden>
+            <p><strong>{routeDistanceLabel}:</strong> <span data-map-route-distance></span></p>
+            <p><strong>{routeDurationLabel}:</strong> <span data-map-route-duration></span></p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
 
-    <div class="map-poi-panel" data-map-poi-panel hidden>
-      <p class="map-poi-panel-title">{poiLabel}</p>
-      <div class="poi-filters" data-map-poi-filters></div>
-    </div>
+    {showPois && (
+      <div class="map-poi-panel" data-map-poi-panel hidden>
+        <p class="map-poi-panel-title">{poiLabel}</p>
+        <div class="poi-filters" data-map-poi-filters></div>
+      </div>
+    )}
   </div>
 </section>
 

@@ -425,6 +425,7 @@ const buildPopupHtml = (
   const media = coverUrl
     ? `<img class="map-popup-cover" src="${coverUrl}" data-fallback-src="${coverFallback}" alt="${title}" loading="lazy" decoding="async" onerror="if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='1';this.src=this.dataset.fallbackSrc||this.src;}" />`
     : "";
+  return `<div class="map-popup">${media}<div class="map-popup-body"><h3>${title}</h3><p>${escapeHtml(locationParts.join(" · "))}</p>${summaryParts.length ? `<p>${escapeHtml(summaryParts.join(" · "))}</p>` : ""}</div></div>`;
   const [lng, lat] = feature.geometry?.coordinates ?? [];
   const routeButton =
     options.enableRouting && Number.isFinite(lng) && Number.isFinite(lat)
@@ -994,7 +995,7 @@ const ensureAdvancedExtras = async (root: HTMLElement, state: MapState) => {
     }
   }
 
-  if (parseBoolean(root.dataset.showPois) || parseBoolean(root.dataset.canLoadExtras)) {
+  if (parseBoolean(root.dataset.showPois)) {
     try {
       const response = await fetch(root.dataset.poisUrl || "");
       if (response.ok) {

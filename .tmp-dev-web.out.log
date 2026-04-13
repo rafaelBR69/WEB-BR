@@ -2,14 +2,13 @@
 > web-br@0.0.1 dev:web
 > node scripts/run-surface.mjs web dev --config ./apps/web/astro.config.mjs
 
-[2m11:04:41[22m [34m[@astrojs/node][39m Enabling sessions with filesystem storage
+[2m11:18:19[22m [34m[@astrojs/node][39m Enabling sessions with filesystem storage
 [vite] connected.
-[2m11:04:45[22m [34m[types][39m Generated [2m2ms[22m
-[33m[1m11:04:45[22m [WARN] [content][39m Content config not loaded
-[2m11:04:45[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
-[42m[1m astro [22m[49m [32mv6.1.2[39m [2mready in[22m 4149 [2mms[22m
+[2m11:18:21[22m [34m[types][39m Generated [2m1ms[22m
+[33m[1m11:18:21[22m [WARN] [content][39m Content config not loaded
+[2m11:18:21[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[42m[1m astro [22m[49m [32mv6.1.2[39m [2mready in[22m 3116 [2mms[22m
 [2m┃[22m Local    [36mhttp://localhost:4321/[39m
 [2m┃[22m Network  [36mhttp://192.168.0.172:4321/[39m
-[2m11:04:45[22m [32mwatching for file changes...[39m
-[2m11:05:56[22m [34m[200][39m /es/properties/ [2m2106ms[22m
-[2m11:06:04[22m [34m[200][39m /es/properties/ [2m29ms[22m
+[2m11:18:22[22m [32mwatching for file changes...[39m
+[2m11:18:26[22m [34m[200][39m /es/properties/ [2m2677ms[22m
