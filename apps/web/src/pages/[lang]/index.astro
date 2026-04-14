@@ -15,7 +15,7 @@ import "@webapp/styles/pages/home.css";
 import "@webapp/styles/pages/home-editorial.css";
 import { formatPrice } from "@shared/presentation/common";
 import {
-  buildHomeFeaturedCards,
+  buildFeaturedChildUnitCards,
   buildProjectShowcaseCards,
   getPublicPropertiesWithFallback,
 } from "@shared/properties/public";
@@ -83,7 +83,6 @@ const HOME_PROJECT_IDS = ["PM0079", "PM0074", "PM0011"];
 const [
   { properties: homeProjects },
   { properties: homeProjectUnits },
-  { properties: homeFeaturedSourceProperties },
   { count: availableHomesCountRaw },
 ] = await Promise.all([
   getPublicPropertiesWithFallback({
@@ -102,12 +101,6 @@ const [
   }),
   getPublicPropertiesWithFallback({
     query: {
-      statuses: ["available"],
-      selectProfile: "card",
-    },
-  }),
-  getPublicPropertiesWithFallback({
-    query: {
       listingTypes: ["unit"],
       statuses: ["available"],
       countOnly: true,
@@ -115,14 +108,13 @@ const [
   }),
 ]);
 const properties = [...homeProjects, ...homeProjectUnits];
-const featuredHomeProperties = homeFeaturedSourceProperties;
 
 const projectCards = buildProjectShowcaseCards(properties, lang, {
   allowedIds: HOME_PROJECT_IDS,
   limit: 4,
 });
 
-const featuredUnits = buildHomeFeaturedCards(featuredHomeProperties, lang, {
+const featuredUnits = buildFeaturedChildUnitCards(properties, lang, {
   limit: 20,
 });
 

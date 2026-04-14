@@ -34,7 +34,7 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
         data-home-units-carousel
         data-disable-autoplay-on-mobile={disableAutoplayOnMobile ? "true" : "false"}
       >
-        <div class="home-units-carousel-head">
+        <div class="home-units-stage">
           <button
             type="button"
             class="home-units-arrow"
@@ -55,21 +55,21 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
               <path d="M9.5 5.5 16 12l-6.5 6.5"></path>
             </svg>
           </button>
-        </div>
 
-        <div class="home-units-viewport" data-home-units-viewport tabindex="0">
-          <div class="home-units-track">
-            {cards.map((card) => (
-              <div class="home-units-slide">
-                <PropertyCard
-                  data={card}
-                  lang={lang}
-                  maxGallerySlides={1}
-                  compact={true}
-                  disableSrcSet={true}
-                />
-              </div>
-            ))}
+          <div class="home-units-viewport" data-home-units-viewport tabindex="0">
+            <div class="home-units-track" data-home-units-track>
+              {cards.map((card) => (
+                <div class="home-units-slide">
+                  <PropertyCard
+                    data={card}
+                    lang={lang}
+                    maxGallerySlides={1}
+                    compact={true}
+                    disableSrcSet={true}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -84,9 +84,9 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
     carousel.dataset.bound = "true";
 
     const viewport = carousel.querySelector("[data-home-units-viewport]");
+    const track = carousel.querySelector("[data-home-units-track]");
     const prevButton = carousel.querySelector("[data-home-units-prev]");
     const nextButton = carousel.querySelector("[data-home-units-next]");
-    const slides = Array.from(carousel.querySelectorAll(".home-units-slide"));
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const BREAKPOINTS = {
       xs: 480,
@@ -97,12 +97,21 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
     const SWIPE_THRESHOLD = 48;
     const mobileViewport = window.matchMedia(`(max-width: ${BREAKPOINTS.md - 1}px)`);
     const disableAutoplayOnMobile = carousel.dataset.disableAutoplayOnMobile === "true";
-    const autoplayMs = 8200;
+    const CONTINUOUS_SPEED = 28;
+    const MANUAL_RESUME_DELAY = 1400;
 
-    if (!(viewport instanceof HTMLElement) || slides.length <= 1) return;
+    if (!(viewport instanceof HTMLElement) || !(track instanceof HTMLElement)) return;
 
-    let currentIndex = 0;
-    let timerId = 0;
+    let originalSlides = Array.from(track.children).filter((node) =>
+      node instanceof HTMLElement && node.classList.contains("home-units-slide")
+    );
+    if (originalSlides.length <= 1) return;
+
+    let rafId = 0;
+    let lastTimestamp = 0;
+    let loopWidth = 0;
+    let paused = false;
+    let manualResumeTimer = 0;
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -114,52 +123,147 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
       return 1;
     };
 
-    const getMaxStartIndex = () => Math.max(0, slides.length - getPageSize());
-    const getTotalSteps = () => getMaxStartIndex() + 1;
-    const shouldAutoplay = () =>
+    const shouldLoop = () =>
       !prefersReducedMotion.matches &&
-      getTotalSteps() > 1 &&
+      originalSlides.length > getPageSize() &&
       !(disableAutoplayOnMobile && mobileViewport.matches);
 
     const syncButtons = () => {
-      const disabled = getTotalSteps() <= 1;
+      const disabled = originalSlides.length <= getPageSize();
       if (prevButton instanceof HTMLButtonElement) prevButton.disabled = disabled;
       if (nextButton instanceof HTMLButtonElement) nextButton.disabled = disabled;
     };
 
-    const goToIndex = (index, behavior = "smooth") => {
-      const totalSteps = getTotalSteps();
-      currentIndex = ((index % totalSteps) + totalSteps) % totalSteps;
-      const targetIndex = Math.min(currentIndex, getMaxStartIndex());
-      const target = slides[targetIndex];
-      if (!(target instanceof HTMLElement)) return;
-      viewport.scrollTo({ left: target.offsetLeft, behavior });
+    const clearClones = () => {
+      Array.from(track.querySelectorAll("[data-home-units-clone='true']")).forEach((node) => node.remove());
+    };
+
+    const buildClones = () => {
+      clearClones();
+      if (!shouldLoop()) {
+        loopWidth = 0;
+        carousel.classList.remove("is-marquee");
+        return;
+      }
+
+      originalSlides.forEach((slide) => {
+        if (!(slide instanceof HTMLElement)) return;
+        const clone = slide.cloneNode(true);
+        if (!(clone instanceof HTMLElement)) return;
+        clone.dataset.homeUnitsClone = "true";
+        clone.classList.add("is-clone");
+        clone.setAttribute("aria-hidden", "true");
+        clone.setAttribute("inert", "");
+        track.appendChild(clone);
+      });
+
+      carousel.classList.add("is-marquee");
+      loopWidth = track.scrollWidth / 2;
+      if (loopWidth > 0) {
+        viewport.scrollLeft = viewport.scrollLeft % loopWidth;
+      }
+    };
+
+    const normalizeScroll = () => {
+      if (!loopWidth) return;
+      if (viewport.scrollLeft >= loopWidth) {
+        viewport.scrollLeft -= loopWidth;
+      } else if (viewport.scrollLeft < 0) {
+        viewport.scrollLeft += loopWidth;
+      }
+    };
+
+    const getStepSize = () => {
+      const first = originalSlides[0];
+      const second = originalSlides[1];
+      if (first instanceof HTMLElement && second instanceof HTMLElement) {
+        return second.offsetLeft - first.offsetLeft;
+      }
+      if (first instanceof HTMLElement) {
+        return first.getBoundingClientRect().width;
+      }
+      return viewport.clientWidth * 0.72;
+    };
+
+    const stopAnimation = () => {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      lastTimestamp = 0;
+    };
+
+    const tick = (timestamp) => {
+      if (!shouldLoop() || paused) {
+        lastTimestamp = timestamp;
+        rafId = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const delta = Math.min(48, timestamp - lastTimestamp);
+      lastTimestamp = timestamp;
+      viewport.scrollLeft += (CONTINUOUS_SPEED * delta) / 1000;
+      normalizeScroll();
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    const startAnimation = () => {
+      stopAnimation();
+      if (!shouldLoop()) return;
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    const pause = () => {
+      paused = true;
+      window.clearTimeout(manualResumeTimer);
+    };
+
+    const resume = () => {
+      paused = false;
+      window.clearTimeout(manualResumeTimer);
+    };
+
+    const resumeAfterManualInteraction = () => {
+      pause();
+      window.clearTimeout(manualResumeTimer);
+      if (!shouldLoop()) return;
+      manualResumeTimer = window.setTimeout(() => {
+        paused = false;
+      }, MANUAL_RESUME_DELAY);
+    };
+
+    const scrollByStep = (direction) => {
+      const step = getStepSize();
+      viewport.scrollBy({
+        left: step * direction,
+        behavior: "smooth",
+      });
+      window.setTimeout(normalizeScroll, 420);
+    };
+
+    const refreshLoop = () => {
+      originalSlides = Array.from(track.children).filter((node) =>
+        node instanceof HTMLElement &&
+        node.classList.contains("home-units-slide") &&
+        node.dataset.homeUnitsClone !== "true"
+      );
+      buildClones();
       syncButtons();
+      startAnimation();
     };
-
-    const schedule = () => {
-      window.clearTimeout(timerId);
-      if (!shouldAutoplay()) return;
-      timerId = window.setTimeout(() => {
-        goToIndex(currentIndex + 1);
-        schedule();
-      }, autoplayMs);
-    };
-
-    const pause = () => window.clearTimeout(timerId);
-    const resume = () => schedule();
 
     if (prevButton instanceof HTMLButtonElement) {
       prevButton.addEventListener("click", () => {
-        goToIndex(currentIndex - 1);
-        schedule();
+        scrollByStep(-1);
+        resumeAfterManualInteraction();
       });
     }
 
     if (nextButton instanceof HTMLButtonElement) {
       nextButton.addEventListener("click", () => {
-        goToIndex(currentIndex + 1);
-        schedule();
+        scrollByStep(1);
+        resumeAfterManualInteraction();
       });
     }
 
@@ -186,17 +290,16 @@ const t = homeContent.featuredUnitsByLang[lang] ?? homeContent.featuredUnitsByLa
       const deltaX = touch.clientX - touchStartX;
       const deltaY = touch.clientY - touchStartY;
       if (Math.abs(deltaX) <= SWIPE_THRESHOLD || Math.abs(deltaX) <= Math.abs(deltaY)) return;
-      goToIndex(currentIndex + (deltaX < 0 ? 1 : -1));
-      schedule();
+      scrollByStep(deltaX < 0 ? 1 : -1);
+      resumeAfterManualInteraction();
     }, { passive: true });
 
     window.addEventListener("resize", () => {
-      goToIndex(currentIndex, "auto");
-      schedule();
+      refreshLoop();
     });
-    mobileViewport.addEventListener?.("change", schedule);
+    mobileViewport.addEventListener?.("change", refreshLoop);
+    prefersReducedMotion.addEventListener?.("change", refreshLoop);
 
-    syncButtons();
-    schedule();
+    refreshLoop();
   })();
 </script>
