@@ -1,0 +1,24 @@
+[Unit]
+Description=BlancaReal public web (Astro Node)
+After=network.target
+
+[Service]
+Type=simple
+User=rafaadmin
+Group=rafaadmin
+WorkingDirectory=/var/www/web-br
+Environment=NODE_ENV=production
+Environment=PORT=3001
+Environment=APP_DEPLOY_SURFACE=web
+EnvironmentFile=-/etc/blancareal/app.env
+ExecStart=/usr/bin/node /var/www/web-br/dist/web/server/entry.mjs
+Restart=always
+RestartSec=5
+
+# Hardening and sane limits for a long-lived Node process.
+NoNewPrivileges=true
+PrivateTmp=true
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

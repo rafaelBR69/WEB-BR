@@ -1,0 +1,23 @@
+[Unit]
+Description=BlancaReal CRM surface (Astro Node)
+After=network.target
+
+[Service]
+Type=simple
+User=rafaadmin
+Group=rafaadmin
+WorkingDirectory=/var/www/web-br
+Environment=NODE_ENV=production
+Environment=PORT=3002
+Environment=APP_DEPLOY_SURFACE=crm
+EnvironmentFile=-/etc/blancareal/app.env
+ExecStart=/usr/bin/node /var/www/web-br/dist/crm/server/entry.mjs
+Restart=always
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
