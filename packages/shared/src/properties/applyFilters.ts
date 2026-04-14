@@ -8,10 +8,8 @@ import {
 } from "@shared/properties/floorFilter";
 
 export function hasUnitLevelFilters(filters: any) {
-  const searchQuery = filters.search ? normalizeSearchText(filters.search) : "";
-  const searchTerms = searchQuery ? searchQuery.split(" ").filter(Boolean) : [];
   const refQuery = filters.ref ? normalizeSearchText(filters.ref) : "";
-  const hasTextSearch = searchTerms.length > 0 || Boolean(refQuery);
+  const hasReferenceQuery = Boolean(refQuery);
 
   const selectedFloorsRaw = Array.isArray(filters.floor)
     ? filters.floor
@@ -25,20 +23,6 @@ export function hasUnitLevelFilters(filters: any) {
 
   const hasFloorFilters = selectedFloors.length > 0;
 
-  const hasCityFilter =
-    Array.isArray(filters.city) ? filters.city.length > 0 : Boolean(filters.city);
-
-  const hasAreaFilter =
-    Array.isArray(filters.area) ? filters.area.length > 0 : Boolean(filters.area);
-
-  const hasTypeFilter =
-    Array.isArray(filters.type) ? filters.type.length > 0 : Boolean(filters.type);
-
-  const hasFeatureFilter =
-    Array.isArray(filters.feature) ? filters.feature.length > 0 : Boolean(filters.feature);
-
-  const hasMarketFilter = Boolean(filters.market);
-
   const hasBedroomsFilter =
     Array.isArray(filters.bedrooms) ? filters.bedrooms.length > 0 : Boolean(filters.bedrooms);
 
@@ -48,12 +32,7 @@ export function hasUnitLevelFilters(filters: any) {
     hasBedroomsFilter ||
     hasFloorFilters ||
     filters.listingType === "unit" ||
-    hasTextSearch ||
-    hasCityFilter ||
-    hasAreaFilter ||
-    hasTypeFilter ||
-    hasFeatureFilter ||
-    hasMarketFilter
+    hasReferenceQuery
   );
 }
 

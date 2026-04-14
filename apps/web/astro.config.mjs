@@ -9,7 +9,7 @@ export default createAstroConfig({
   repoRoot,
   rootDir: repoRoot,
   srcDir: path.join(repoRoot, "apps", "web", "src"),
-  publicDir: path.join(repoRoot, "apps", "web", "public"),
+  publicDir: path.join(repoRoot, "public"),
   distDir: path.join(repoRoot, "dist", "web"),
   cacheDir: path.join(configDir, ".astro", "vite-cache"),
 });

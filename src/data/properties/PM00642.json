@@ -127,7 +127,12 @@
     "es": {
       "title": "Apartamentos en Fuengirola - Torreblanca",
       "intro": "Promoción de viviendas unifamiliares en fase de comercialización.",
-      "description": []
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La zona de Los Pacos, ubicada en Fuengirola, combina tranquilidad y calidad de vida, a solo 1,5 km del mar. Cuenta con magnificas conexiones de transporte, facil acceso a la autovia y cercania al tren de cercanias que conecta con Malaga y el aeropuerto, ademas de colegios, supermercados, zonas deportivas y restaurantes a pocos minutos."
+        }
+      ]
     },
     "en": {
       "title": "Apartments in Fuengirola - Torreblanca",

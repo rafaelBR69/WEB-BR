@@ -1,0 +1,253 @@
+{
+  "id": "PT0404",
+  "priority": 67,
+  "slugs": {
+    "es": "piso-3-dormitorios-las-lagunas-de-mijas",
+    "en": "3-bedroom-apartment-las-lagunas-de-mijas",
+    "de": "wohnung-3-schlafzimmer-las-lagunas-de-mijas",
+    "fr": "appartement-3-chambres-las-lagunas-de-mijas",
+    "it": "appartamento-3-camere-las-lagunas-de-mijas",
+    "nl": "appartement-3-slaapkamers-las-lagunas-de-mijas"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": [
+    "es",
+    "en",
+    "de",
+    "fr",
+    "it",
+    "nl"
+  ],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 445000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Mijas",
+    "area": "Las Lagunas de Mijas",
+    "address_line": "Calle Emilio Prados 4, portal 1, 1oD",
+    "coordinates": {
+      "lat": 36.54700404913596,
+      "lng": -4.643241189192493
+    }
+  },
+  "property": {
+    "type": "apartment",
+    "market": "segunda_mano",
+    "area_m2": 105,
+    "terrace_m2": 9.2,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "plot_m2": null,
+    "garages": 1,
+    "storage_rooms": null,
+    "floor_level": 1,
+    "floor_label": "Planta 1",
+    "building_portal": "1",
+    "building_door": "D",
+    "elevator": true,
+    "condition": "good",
+    "ibi_yearly": 500,
+    "community_fees_monthly": 112,
+    "waste_yearly": null,
+    "full_address": "Calle Emilio Prados 4, portal 1, 1oD, Las Lagunas de Mijas, Malaga",
+    "parking_notes": "Comunitario cubierto",
+    "storage_room_notes": "No",
+    "pool_notes": "Comunitaria",
+    "sea_views_notes": "No",
+    "elevator_notes": "Si",
+    "source_import_date": "2026-04-14",
+    "notes": "Buen estado. Piso en venta en Las Lagunas de Mijas con 105 m2 construidos, terraza de 9,2 m2, aparcamiento comunitario cubierto, piscina comunitaria, ascensor e IBI aproximado de 500 EUR con la basura incluida."
+  },
+  "features": [
+    "garage",
+    "private_terrace",
+    "communal_pool",
+    "elevator"
+  ],
+  "media": {
+    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/cover/terraza-cover.jpg",
+    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/cover/terraza-cover.jpg",
+    "gallery": {
+      "living": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Coworking-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Coworking-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Salon-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Salon-02.jpeg"
+      ],
+      "bedroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/dormitorio1-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/dormitorio-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/dormitorio2-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Dormitorio3-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Dormitorio3-02.jpeg"
+      ],
+      "kitchen": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/cocina-01.jpg"
+      ],
+      "bathroom": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/bano-01.jpg"
+      ],
+      "exterior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/cover/terraza-cover.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/exterior/terraza-01.jpg"
+      ],
+      "interior": [
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Coworking-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Coworking-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Dormitorio3-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Dormitorio3-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Salon-01.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/Salon-02.jpeg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/bano-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/cocina-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/dormitorio-02.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/dormitorio1-01.jpg",
+        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0404/interior/dormitorio2-01.jpg"
+      ],
+      "views": [],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "piso en venta las lagunas de mijas",
+      "en": "apartment for sale las lagunas de mijas",
+      "de": "wohnung kaufen las lagunas de mijas",
+      "fr": "appartement a vendre las lagunas de mijas",
+      "it": "appartamento in vendita las lagunas de mijas",
+      "nl": "appartement te koop las lagunas de mijas"
+    },
+    "meta_description": {
+      "es": "Piso de 3 dormitorios con 105 m2 construidos, terraza de 9,2 m2, garaje comunitario cubierto, piscina comunitaria y ascensor en Las Lagunas de Mijas.",
+      "en": "3-bedroom apartment with 105 sqm built area, 9.2 sqm terrace, covered communal parking, communal pool and lift in Las Lagunas de Mijas.",
+      "de": "Wohnung mit 3 Schlafzimmern, 105 m2 bebauter Flache, 9,2 m2 Terrasse, ueberdachtem Gemeinschaftsparkplatz, Gemeinschaftspool und Aufzug in Las Lagunas de Mijas.",
+      "fr": "Appartement de 3 chambres avec 105 m2 construits, terrasse de 9,2 m2, parking communautaire couvert, piscine commune et ascenseur a Las Lagunas de Mijas.",
+      "it": "Appartamento con 3 camere da letto, 105 m2 costruiti, terrazza di 9,2 m2, parcheggio comunitario coperto, piscina condominiale e ascensore a Las Lagunas de Mijas.",
+      "nl": "Appartement met 3 slaapkamers, 105 m2 bebouwde oppervlakte, terras van 9,2 m2, overdekte gemeenschappelijke parking, gemeenschappelijk zwembad en lift in Las Lagunas de Mijas."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Piso de 3 dormitorios en Las Lagunas de Mijas",
+      "intro": "Piso de segunda mano en Las Lagunas de Mijas con 105 m2 construidos, terraza de 9,2 m2 y zonas comunes con piscina, ideal para residencia habitual cerca de servicios y conexiones.",
+      "excerpt": "Piso de segunda mano en Las Lagunas de Mijas con 105 m2 construidos, terraza de 9,2 m2 y zonas comunes con piscina, ideal para residencia habitual cerca de servicios y conexiones.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La vivienda se ubica en Calle Emilio Prados 4, portal 1, 1oD, y ofrece 3 dormitorios, 2 banos y una planta primera con distribucion comoda para vida familiar o segunda residencia."
+        },
+        {
+          "type": "paragraph",
+          "content": "Incluye aparcamiento comunitario cubierto, ascensor y piscina comunitaria, sin trastero ni vistas al mar, con comunidad mensual de 112 EUR e IBI aproximado de 500 EUR con la basura incluida."
+        },
+        {
+          "type": "paragraph",
+          "content": "La zona donde esta ubicada esta vivienda en Las Lagunas de Mijas destaca por su tranquilidad y excelente ubicacion, rodeada de servicios esenciales como supermercados, colegios y transporte. A pocos minutos de Fuengirola y de la playa, ofrece una conexion muy comoda para el dia a dia en un entorno residencial moderno y en crecimiento."
+        }
+      ],
+      "seo": {
+        "title": "Piso de 3 dormitorios en Las Lagunas de Mijas | BlancaReal",
+        "description": "Piso de segunda mano en Las Lagunas de Mijas con 3 dormitorios, terraza, garaje comunitario cubierto, piscina comunitaria y ascensor."
+      }
+    },
+    "en": {
+      "title": "3-bedroom apartment in Las Lagunas de Mijas",
+      "intro": "Resale apartment in Las Lagunas de Mijas with 105 sqm built area, a 9.2 sqm terrace and communal pool areas, well suited to full-time living close to services and road links.",
+      "excerpt": "Resale apartment in Las Lagunas de Mijas with 105 sqm built area, a 9.2 sqm terrace and communal pool areas, well suited to full-time living close to services and road links.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "The property is located at Calle Emilio Prados 4, portal 1, 1oD, and offers 3 bedrooms, 2 bathrooms and a first-floor layout suited to family living or use as a second home."
+        },
+        {
+          "type": "paragraph",
+          "content": "It includes covered communal parking, lift access and a communal pool, without storage room or sea views, with monthly community fees of 112 EUR and annual IBI of about 500 EUR including refuse."
+        }
+      ],
+      "seo": {
+        "title": "3-bedroom apartment in Las Lagunas de Mijas | BlancaReal",
+        "description": "Resale apartment in Las Lagunas de Mijas with 3 bedrooms, terrace, covered communal parking, communal pool and lift."
+      }
+    },
+    "de": {
+      "title": "Wohnung mit 3 Schlafzimmern in Las Lagunas de Mijas",
+      "intro": "Gebrauchtwohnung in Las Lagunas de Mijas mit 105 m2 bebauter Flache, 9,2 m2 Terrasse und Gemeinschaftspool, geeignet fuer den Erstwohnsitz nahe Versorgung und Verkehrsachsen.",
+      "excerpt": "Gebrauchtwohnung in Las Lagunas de Mijas mit 105 m2 bebauter Flache, 9,2 m2 Terrasse und Gemeinschaftspool, geeignet fuer den Erstwohnsitz nahe Versorgung und Verkehrsachsen.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Die Wohnung befindet sich in der Calle Emilio Prados 4, Portal 1, 1oD, und bietet 3 Schlafzimmer, 2 Baeder sowie einen Grundriss im ersten Obergeschoss fuer Familienleben oder Zweitwohnsitz."
+        },
+        {
+          "type": "paragraph",
+          "content": "Sie verfuegt ueber ueberdachten Gemeinschaftsparkplatz, Aufzug und Gemeinschaftspool, ohne Abstellraum und ohne Meerblick, bei 112 EUR Gemeinschaftskosten pro Monat und etwa 500 EUR IBI pro Jahr inklusive Muell."
+        }
+      ],
+      "seo": {
+        "title": "Wohnung mit 3 Schlafzimmern in Las Lagunas de Mijas | BlancaReal",
+        "description": "Gebrauchtwohnung in Las Lagunas de Mijas mit 3 Schlafzimmern, Terrasse, ueberdachtem Gemeinschaftsparkplatz, Gemeinschaftspool und Aufzug."
+      }
+    },
+    "fr": {
+      "title": "Appartement de 3 chambres a Las Lagunas de Mijas",
+      "intro": "Appartement de revente a Las Lagunas de Mijas avec 105 m2 construits, terrasse de 9,2 m2 et piscine commune, adapte a une residence principale proche des services et des acces.",
+      "excerpt": "Appartement de revente a Las Lagunas de Mijas avec 105 m2 construits, terrasse de 9,2 m2 et piscine commune, adapte a une residence principale proche des services et des acces.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Le bien se situe Calle Emilio Prados 4, portail 1, 1oD, et propose 3 chambres, 2 salles de bain et une distribution au premier etage adaptee a la vie familiale ou a une residence secondaire."
+        },
+        {
+          "type": "paragraph",
+          "content": "Il comprend un parking communautaire couvert, un ascenseur et une piscine commune, sans debarras ni vue mer, avec 112 EUR de charges mensuelles et un IBI annuel d environ 500 EUR avec la taxe d ordures incluse."
+        }
+      ],
+      "seo": {
+        "title": "Appartement de 3 chambres a Las Lagunas de Mijas | BlancaReal",
+        "description": "Appartement de revente a Las Lagunas de Mijas avec 3 chambres, terrasse, parking communautaire couvert, piscine commune et ascenseur."
+      }
+    },
+    "it": {
+      "title": "Appartamento con 3 camere da letto a Las Lagunas de Mijas",
+      "intro": "Appartamento di seconda mano a Las Lagunas de Mijas con 105 m2 costruiti, terrazza di 9,2 m2 e piscina condominiale, adatto come residenza principale vicino a servizi e collegamenti.",
+      "excerpt": "Appartamento di seconda mano a Las Lagunas de Mijas con 105 m2 costruiti, terrazza di 9,2 m2 e piscina condominiale, adatto come residenza principale vicino a servizi e collegamenti.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "La proprieta si trova in Calle Emilio Prados 4, portale 1, 1oD, e offre 3 camere da letto, 2 bagni e una distribuzione al primo piano adatta alla vita familiare o come seconda casa."
+        },
+        {
+          "type": "paragraph",
+          "content": "Include parcheggio comunitario coperto, ascensore e piscina condominiale, senza ripostiglio e senza vista mare, con 112 EUR di spese condominiali mensili e circa 500 EUR di IBI annuo con la tassa rifiuti inclusa."
+        }
+      ],
+      "seo": {
+        "title": "Appartamento con 3 camere da letto a Las Lagunas de Mijas | BlancaReal",
+        "description": "Appartamento di seconda mano a Las Lagunas de Mijas con 3 camere, terrazza, parcheggio comunitario coperto, piscina condominiale e ascensore."
+      }
+    },
+    "nl": {
+      "title": "Appartement met 3 slaapkamers in Las Lagunas de Mijas",
+      "intro": "Wederverkoopappartement in Las Lagunas de Mijas met 105 m2 bebouwde oppervlakte, een terras van 9,2 m2 en gemeenschappelijk zwembad, geschikt als vaste woning dicht bij voorzieningen en uitvalswegen.",
+      "excerpt": "Wederverkoopappartement in Las Lagunas de Mijas met 105 m2 bebouwde oppervlakte, een terras van 9,2 m2 en gemeenschappelijk zwembad, geschikt als vaste woning dicht bij voorzieningen en uitvalswegen.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "De woning ligt aan Calle Emilio Prados 4, portaal 1, 1oD, en biedt 3 slaapkamers, 2 badkamers en een indeling op de eerste verdieping die geschikt is voor gezinsleven of als tweede verblijf."
+        },
+        {
+          "type": "paragraph",
+          "content": "Inclusief overdekte gemeenschappelijke parking, lift en gemeenschappelijk zwembad, zonder berging of zeezicht, met 112 EUR maandelijkse gemeenschapskosten en ongeveer 500 EUR jaarlijkse IBI inclusief afvalheffing."
+        }
+      ],
+      "seo": {
+        "title": "Appartement met 3 slaapkamers in Las Lagunas de Mijas | BlancaReal",
+        "description": "Wederverkoopappartement in Las Lagunas de Mijas met 3 slaapkamers, terras, overdekte gemeenschappelijke parking, gemeenschappelijk zwembad en lift."
+      }
+    }
+  }
+}
