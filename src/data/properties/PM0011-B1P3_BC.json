@@ -11,7 +11,7 @@
     "it": "unita-bloque-1-portal-3-bajo-c-calahonda-sunset",
     "nl": "unit-bloque-1-portal-3-bajo-c-calahonda-sunset"
   },
-  "status": "sold",
+  "status": "available",
   "featured": false,
   "languages": [
     "es",
@@ -22,7 +22,7 @@
     "nl"
   ],
   "transaction": "sale",
-  "price": null,
+  "price": 408675,
   "currency": "EUR",
   "phase": "Bloque 1",
   "location": {
@@ -134,18 +134,18 @@
       "nl": "calahonda sunset appartement B1 P3 BC"
     },
     "meta_description": {
-      "es": "Unidad B1 P3 BC en Calahonda Sunset (vendida). Consulte disponibilidad, superficies y precio.",
-      "en": "Unit B1 P3 BC at Calahonda Sunset (sold). Check availability, areas and price.",
-      "de": "Einheit B1 P3 BC in Calahonda Sunset (verkauft). Verfuegbarkeit, Flaechen und Preis.",
-      "fr": "Unite B1 P3 BC a Calahonda Sunset (vendue). Consultez disponibilite, surfaces et prix.",
-      "it": "Unita B1 P3 BC a Calahonda Sunset (venduta). Verifica disponibilita, superfici e prezzo.",
-      "nl": "Unit B1 P3 BC in Calahonda Sunset (verkocht). Bekijk beschikbaarheid, oppervlaktes en prijs."
+      "es": "Unidad B1 P3 BC en Calahonda Sunset (disponible). Consulte disponibilidad, superficies y precio.",
+      "en": "Unit B1 P3 BC at Calahonda Sunset (available). Check availability, areas and price.",
+      "de": "Einheit B1 P3 BC in Calahonda Sunset (verfuegbar). Verfuegbarkeit, Flaechen und Preis.",
+      "fr": "Unite B1 P3 BC a Calahonda Sunset (disponible). Consultez disponibilite, surfaces et prix.",
+      "it": "Unita B1 P3 BC a Calahonda Sunset (disponibile). Verifica disponibilita, superfici e prezzo.",
+      "nl": "Unit B1 P3 BC in Calahonda Sunset (beschikbaar). Bekijk beschikbaarheid, oppervlaktes en prijs."
     }
   },
   "translations": {
     "es": {
       "title": "Unidad B1 P3 BC en Calahonda Sunset",
-      "intro": "Unidad vendida en bloque 1, portal 3, Bajo, letra C.",
+      "intro": "Unidad disponible en bloque 1, portal 3, Bajo, letra C.",
       "description": [
         {
           "type": "heading",
@@ -178,7 +178,7 @@
     },
     "en": {
       "title": "Unit B1 P3 BC at Calahonda Sunset",
-      "intro": "Unit sold in block 1, portal 3, Ground floor, letter C.",
+      "intro": "Unit available in block 1, portal 3, Ground floor, letter C.",
       "description": [
         {
           "type": "heading",
@@ -211,7 +211,7 @@
     },
     "de": {
       "title": "Einheit B1 P3 BC in Calahonda Sunset",
-      "intro": "Einheit verkauft in Block 1, Portal 3, Erdgeschoss, Buchstabe C.",
+      "intro": "Einheit verfuegbar in Block 1, Portal 3, Erdgeschoss, Buchstabe C.",
       "description": [
         {
           "type": "heading",
@@ -244,7 +244,7 @@
     },
     "fr": {
       "title": "Unite B1 P3 BC a Calahonda Sunset",
-      "intro": "Unite vendue dans le bloc 1, portail 3, Rez-de-chaussee, lettre C.",
+      "intro": "Unite disponible dans le bloc 1, portail 3, Rez-de-chaussee, lettre C.",
       "description": [
         {
           "type": "heading",
@@ -277,7 +277,7 @@
     },
     "it": {
       "title": "Unita B1 P3 BC a Calahonda Sunset",
-      "intro": "Unita venduta nel blocco 1, portale 3, Piano terra, lettera C.",
+      "intro": "Unita disponibile nel blocco 1, portale 3, Piano terra, lettera C.",
       "description": [
         {
           "type": "heading",
@@ -310,7 +310,7 @@
     },
     "nl": {
       "title": "Unit B1 P3 BC in Calahonda Sunset",
-      "intro": "Unit verkocht in blok 1, portaal 3, Begane grond, letter C.",
+      "intro": "Unit beschikbaar in blok 1, portaal 3, Begane grond, letter C.",
       "description": [
         {
           "type": "heading",

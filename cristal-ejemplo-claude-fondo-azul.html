@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NORA · Triple Fusion Crystal</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#00274E;--navy-d:#010c18;
+  --gold:#DDB46C;--gold-l:#f0d49a;
+  --w:#fff;--m:rgba(210,228,255,0.62);--h:rgba(175,205,245,0.38);
+  --r:26px;--r2:14px;--r3:10px;
+}
+html,body{min-height:100%;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;color:var(--w)}
+body{min-height:100vh;overflow-x:hidden;background-color:var(--navy-d);perspective:1100px}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-grid{position:absolute;inset:0;background-size:50px 50px;
+  background-image:linear-gradient(to right,rgba(255,255,255,0.030) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,0.030) 1px,transparent 1px);
+  mask-image:radial-gradient(ellipse 75% 65% at 50% 50%,black 30%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 50%,black 30%,transparent 100%)}
+.orb{position:absolute;border-radius:50%;filter:blur(85px);animation:flt 15s ease-in-out infinite alternate}
+.oc{width:520px;height:520px;top:-12%;left:-12%;background:var(--navy);opacity:0.88}
+.ow{width:420px;height:420px;bottom:-12%;right:-8%;background:rgba(255,255,255,0.13);animation-delay:-5s}
+.og{width:320px;height:320px;top:38%;left:50%;transform:translateX(-50%);background:rgba(140,155,175,0.18);animation-delay:-10s}
+.ou{width:240px;height:240px;top:4%;right:16%;background:rgba(150,220,255,0.07);animation-delay:-3s}
+.slash{position:absolute;width:160vw;height:1.5px;top:47%;left:-30vw;
+  background:linear-gradient(90deg,transparent,rgba(150,220,255,0.22) 40%,rgba(150,220,255,0.22) 60%,transparent);
+  filter:blur(2px);opacity:0.35;transform:rotate(-24deg)}
+@keyframes flt{0%{transform:translate(0,0) scale(1)}50%{transform:translate(28px,-38px) scale(1.10)}100%{transform:translate(-18px,18px) scale(0.92)}}
+.wrap{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 22px;gap:28px}
+.topbar{width:min(1110px,100%);display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.lm{width:36px;height:36px;border-radius:11px;background:rgba(221,180,108,0.13);border:1px solid rgba(221,180,108,0.36);display:flex;align-items:center;justify-content:center}
+.lt{font-size:17px;font-weight:800;letter-spacing:-0.04em}
+.lt em{font-style:normal;color:var(--gold-l)}
+.topbar-r{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase}
+.p-live{background:rgba(60,200,120,0.10);border:0.5px solid rgba(80,210,130,0.26);color:rgba(120,245,180,0.90)}
+.p-dot{width:5px;height:5px;border-radius:50%;background:rgba(100,240,160,0.9);box-shadow:0 0 6px rgba(80,220,140,0.6);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.40}}
+.p-au{background:rgba(221,180,108,0.09);border:0.5px solid rgba(221,180,108,0.26);color:rgba(240,210,140,0.88)}
+.grid{width:min(1110px,100%);display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:18px}
+.card-tall{grid-row:span 2}
+.card{
+  position:relative;border-radius:var(--r);padding:28px 26px;display:flex;flex-direction:column;
+  transform-style:preserve-3d;cursor:crosshair;
+  --mx:50%;--my:50%;--rx:0deg;--ry:0deg;
+  transform:rotateX(var(--rx)) rotateY(var(--ry));
+  transition:transform 0.08s ease-out,box-shadow 0.30s ease;
+  box-shadow:0 32px 64px -14px rgba(0,0,0,0.82),0 10px 22px -5px rgba(0,0,0,0.42);
+}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;
+  background:rgba(5,22,44,0.85);}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:10;
+  padding:2px;
+  background:radial-gradient(620px circle at var(--mx) var(--my),rgba(150,220,255,0.88),rgba(255,255,255,0.06) 44%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.65),inset 0 2px 4px rgba(255,255,255,0.18),inset 0 -1px 1px rgba(0,0,0,0.48)}
+.card:hover{box-shadow:0 44px 88px -16px rgba(0,0,0,0.90),0 16px 28px -6px rgba(0,0,0,0.52)}
+.cg{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:radial-gradient(820px circle at var(--mx) var(--my),rgba(255,255,255,0.10),transparent 42%);
+  opacity:0;transition:opacity 0.28s ease}
+.card:hover .cg{opacity:1}
+.sp{position:absolute;top:-24%;left:-14%;width:260px;height:260px;border-radius:50%;pointer-events:none;z-index:1;
+  background:radial-gradient(circle,rgba(255,255,255,0.17) 0%,rgba(255,255,255,0.05) 30%,transparent 64%);
+  filter:blur(12px);opacity:0.75;transition:transform 300ms,opacity 250ms}
+.card:hover .sp{transform:translate(10px,-8px) scale(1.10);opacity:0.94}
+.sh{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,0.038) 30%,rgba(255,255,255,0.09) 35%,rgba(255,255,255,0.025) 40%,transparent 50%);
+  opacity:0.50;transform:translateX(-12px);transition:opacity 250ms,transform 340ms}
+.card:hover .sh{opacity:0.82;transform:translateX(7px)}
+.gn{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;
+  opacity:0.22;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.inn{position:relative;z-index:5;transform:translateZ(26px)}
+.ic{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.15);margin-bottom:18px}
+.ic svg{width:18px;height:18px;display:block}
+.lbl{font-size:10.5px;font-weight:700;letter-spacing:0.11em;text-transform:uppercase;color:var(--h);margin-bottom:6px}
+.val{font-size:48px;line-height:1;letter-spacing:-0.055em;font-weight:800;margin-bottom:12px;
+  background:linear-gradient(175deg,#ffffff 0%,#90aece 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,0.30))}
+.val-sm{font-size:34px}.val-xs{font-size:26px;letter-spacing:-0.03em}
+.val sub{font-size:17px;vertical-align:super;font-weight:600;opacity:0.72}
+.txt{font-size:13px;line-height:1.68;color:var(--m);margin-bottom:18px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:0.04em;margin-bottom:12px}
+.b-up{background:rgba(60,200,120,0.10);border:0.5px solid rgba(80,210,130,0.22);color:rgba(110,240,165,0.88)}
+.b-dn{background:rgba(230,80,80,0.08);border:0.5px solid rgba(220,90,90,0.18);color:rgba(255,130,130,0.88)}
+.b-au{background:rgba(221,180,108,0.09);border:0.5px solid rgba(221,180,108,0.22);color:rgba(240,210,140,0.88)}
+.div{height:0.5px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12) 25%,rgba(255,255,255,0.12) 75%,transparent);margin:16px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px}
+.stat{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.09);border-radius:var(--r3);padding:10px 11px}
+.stat-n{font-size:17px;font-weight:800;letter-spacing:-0.04em;
+  background:linear-gradient(160deg,#fff 0%,#90aece 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--h);margin-top:3px}
+.bars{margin-bottom:16px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bar-lbl{font-size:11px;color:var(--m);width:62px;flex-shrink:0}
+.bar-tr{flex:1;height:3.5px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+.bar-fi{height:100%;border-radius:100px}
+.bar-pct{font-size:11px;font-weight:700;color:rgba(255,255,255,0.78);width:28px;text-align:right}
+.risk-bar{height:5px;border-radius:100px;margin:12px 0;background:linear-gradient(90deg,rgba(60,200,120,0.36) 0%,rgba(221,180,108,0.46) 50%,rgba(230,80,80,0.46) 100%);position:relative}
+.risk-n{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;background:var(--w);box-shadow:0 0 0 2.5px rgba(255,255,255,0.30),0 2px 6px rgba(0,0,0,0.32);transform:translate(-50%,-50%);left:62%}
+.cc-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:16px}
+.cc-it{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:var(--r3);padding:9px 11px;display:flex;align-items:center;justify-content:space-between;transition:background 200ms,border-color 200ms}
+.cc-it:hover{background:rgba(255,255,255,0.07);border-color:rgba(150,220,255,0.22)}
+.cc-nm{font-size:11px;font-weight:700;color:rgba(255,255,255,0.80);display:flex;align-items:center;gap:5px}
+.cc-dot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0}
+.cc-pct{font-size:13px;font-weight:800;letter-spacing:-0.03em;
+  background:linear-gradient(160deg,var(--gold-l) 0%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  height:40px;padding:0 16px;border-radius:var(--r2);
+  border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.07);
+  color:var(--w);font-size:12.5px;font-weight:600;text-decoration:none;overflow:hidden;cursor:pointer;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 4px 12px rgba(0,0,0,0.22),inset 0 1px 0 rgba(255,255,255,0.22);
+  transition:all 0.28s ease}
+.btn::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent);
+  transform:translateX(-110%);transition:transform 0.50s ease}
+.btn:hover{background:rgba(255,255,255,0.12);border-color:rgba(150,220,255,0.35);
+  box-shadow:0 6px 18px rgba(0,0,0,0.28),inset 0 1px 0 rgba(255,255,255,0.32);transform:translateY(-2px)}
+.btn:hover::before{transform:translateX(110%)}
+.btn svg{width:13px;height:13px;opacity:0.72;flex-shrink:0}
+.btn-gold{border-color:rgba(221,180,108,0.26);background:rgba(221,180,108,0.08);color:var(--gold-l)}
+.btn-gold:hover{border-color:rgba(150,220,255,0.32);background:rgba(221,180,108,0.14)}
+.row-btns{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:840px){.grid{grid-template-columns:1fr}.card-tall{grid-row:span 1}}
+@media(prefers-reduced-motion:reduce){.orb,.card,.btn{animation:none!important;transition:none!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="bg-grid"></div>
+  <div class="orb oc"></div><div class="orb ow"></div><div class="orb og"></div><div class="orb ou"></div>
+  <div class="slash"></div>
+</div>
+<div class="wrap">
+  <div class="topbar">
+    <div class="logo">
+      <div class="lm">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 2L15.5 5.75V12.25L9 16L2.5 12.25V5.75L9 2Z" stroke="rgba(221,180,108,0.92)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          <circle cx="9" cy="9" r="2.2" fill="rgba(221,180,108,0.88)"/>
+        </svg>
+      </div>
+      <span class="lt">NORA <em>Motor</em></span>
+    </div>
+    <div class="topbar-r">
+      <div class="pill p-live"><span class="p-dot"></span>Motor activo</div>
+      <div class="pill p-au">17 CCAA</div>
+    </div>
+  </div>
+  <div class="grid">
+    <article class="card card-tall">
+      <div class="cg"></div><div class="sp"></div><div class="sh"></div><div class="gn"></div>
+      <div class="inn">
+        <div class="ic">
+          <svg viewBox="0 0 18 18" fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 14L3 10M7 14L7 7M11 14L11 9M15 14L15 4"/>
+            <path d="M3 10C5 7 7 7 9 9 11 11 13 4 15 4" stroke="rgba(221,180,108,0.78)" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <div class="lbl">Resumen de operación</div>
+        <div class="val"><sub>€</sub>34.820</div>
+        <div class="badge b-au">▲ 2,4% vs media CCAA</div>
+        <p class="txt">ITP Andalucía 7% + AJD 1,2% + gestoría sobre precio escritura €270.000.</p>
+        <div class="stats">
+          <div class="stat"><div class="stat-n">7%</div><div class="stat-l">ITP</div></div>
+          <div class="stat"><div class="stat-n">1,2%</div><div class="stat-l">AJD</div></div>
+          <div class="stat"><div class="stat-n">€820</div><div class="stat-l">Gestoría</div></div>
+        </div>
+        <div class="div"></div>
+        <div class="lbl" style="margin-bottom:10px">Distribución costes</div>
+        <div class="bars">
+          <div class="bar-row"><span class="bar-lbl">ITP</span><div class="bar-tr"><div class="bar-fi" style="width:72%;background:linear-gradient(90deg,rgba(221,180,108,0.70),rgba(221,180,108,0.40))"></div></div><span class="bar-pct">72%</span></div>
+          <div class="bar-row"><span class="bar-lbl">AJD</span><div class="bar-tr"><div class="bar-fi" style="width:18%;background:linear-gradient(90deg,rgba(150,220,255,0.68),rgba(110,185,245,0.38))"></div></div><span class="bar-pct">18%</span></div>
+          <div class="bar-row"><span class="bar-lbl">Gestoría</span><div class="bar-tr"><div class="bar-fi" style="width:10%;background:linear-gradient(90deg,rgba(180,180,195,0.50),rgba(140,140,158,0.26))"></div></div><span class="bar-pct">10%</span></div>
+        </div>
+        <div class="div"></div>
+        <div class="row-btns">
+          <button class="btn btn-gold">
+            <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 11L11 2M11 2H6M11 2V7"/></svg>
+            <span>Ver desglose</span>
+          </button>
+          <button class="btn">
+            <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="9" rx="1.5"/><path d="M4.5 6.5h4M4.5 8.5h2.5"/></svg>
+            <span>PDF</span>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="cg"></div><div class="sp"></div><div class="sh"></div><div class="gn"></div>
+      <div class="inn">
+        <div class="ic">
+          <svg viewBox="0 0 18 18" fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="9" r="6.5"/><path d="M9 6v6M6.5 8l2.5-2 2.5 2"/>
+          </svg>
+        </div>
+        <div class="lbl">Entrada mínima requerida</div>
+        <div class="val val-sm"><sub>€</sub>58.500</div>
+        <div class="badge b-au">20% + gastos escritura</div>
+        <p class="txt">Sobre tasación €270.000. Incluye ITP, notaría y gestoría estimada.</p>
+        <div class="div"></div>
+        <button class="btn">
+          <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l2 2"/></svg>
+          <span>Abrir estudio</span>
+        </button>
+      </div>
+    </article>
+    <article class="card">
+      <div class="cg"></div><div class="sp"></div><div class="sh"></div><div class="gn"></div>
+      <div class="inn">
+        <div class="ic">
+          <svg viewBox="0 0 18 18" fill="none" stroke="rgba(255,175,85,0.90)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2L16 15H2L9 2Z"/><path d="M9 8v3.5" stroke-width="1.5"/>
+            <circle cx="9" cy="13.2" r="0.7" fill="rgba(255,175,85,0.90)" stroke="none"/>
+          </svg>
+        </div>
+        <div class="lbl">Riesgo fiscal detectado</div>
+        <div class="val val-xs" style="margin-bottom:6px;background:linear-gradient(160deg,rgba(255,210,110,1) 0%,rgba(230,150,60,1) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Medio</div>
+        <div class="risk-bar"><div class="risk-n"></div></div>
+        <div class="badge b-dn" style="margin-top:8px">Valor de referencia alto</div>
+        <p class="txt" style="margin-top:8px">Catastral supera escriturado. Posible complementaria Hacienda.</p>
+        <div class="div"></div>
+        <button class="btn">
+          <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M6.5 4.5v3l2 1"/></svg>
+          <span>Ver explicación</span>
+        </button>
+      </div>
+    </article>
+    <article class="card">
+      <div class="cg"></div><div class="sp"></div><div class="sh"></div><div class="gn"></div>
+      <div class="inn">
+        <div class="ic">
+          <svg viewBox="0 0 18 18" fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 9h4l2-5 4 10 2-5h2"/>
+          </svg>
+        </div>
+        <div class="lbl">Comparador CCAA · ITP</div>
+        <div class="cc-grid">
+          <div class="cc-it"><span class="cc-nm"><span class="cc-dot" style="background:rgba(221,180,108,0.85)"></span>Madrid</span><span class="cc-pct">6%</span></div>
+          <div class="cc-it"><span class="cc-nm"><span class="cc-dot" style="background:rgba(150,220,255,0.85)"></span>Andalucía</span><span class="cc-pct">7%</span></div>
+          <div class="cc-it"><span class="cc-nm"><span class="cc-dot" style="background:rgba(180,140,255,0.85)"></span>C. Val.</span><span class="cc-pct">10%</span></div>
+          <div class="cc-it"><span class="cc-nm"><span class="cc-dot" style="background:rgba(255,130,130,0.85)"></span>Cataluña</span><span class="cc-pct">10%</span></div>
+        </div>
+        <div class="div"></div>
+        <button class="btn">
+          <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="2.5" height="3"/><rect x="5.5" y="5" width="2.5" height="6"/><rect x="9" y="2" width="2.5" height="9"/></svg>
+          <span>Comparar 17 CCAA</span>
+        </button>
+      </div>
+    </article>
+    <article class="card">
+      <div class="cg"></div><div class="sp"></div><div class="sh"></div><div class="gn"></div>
+      <div class="inn">
+        <div class="ic">
+          <svg viewBox="0 0 18 18" fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="2" width="12" height="14" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/>
+          </svg>
+        </div>
+        <div class="lbl">Informes generados</div>
+        <div class="val val-sm" style="margin-bottom:8px">4.210</div>
+        <div class="badge b-up">▲ 18% este mes</div>
+        <p class="txt" style="margin-top:8px">PDFs con membrete, descarga inmediata y firma de agencia.</p>
+        <div class="div"></div>
+        <button class="btn btn-gold">
+          <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 2v7M3.5 6.5l3 3 3-3"/><path d="M2 11h9"/></svg>
+          <span>Generar informe</span>
+        </button>
+      </div>
+    </article>
+  </div>
+</div>
+<script>
+const cards=document.querySelectorAll('.card');
+cards.forEach(c=>{
+  c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect();
+    const x=e.clientX-r.left,y=e.clientY-r.top;
+    c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');
+    const cx=r.width/2,cy=r.height/2;
+    c.style.setProperty('--rx',((y-cy)/cy*-7)+'deg');
+    c.style.setProperty('--ry',((x-cx)/cx*7)+'deg');
+  });
+  c.addEventListener('mouseleave',()=>{
+    c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg');
+    c.style.setProperty('--mx','50%');c.style.setProperty('--my','-100%');
+  });
+});
+</script>
+</body>
+</html>

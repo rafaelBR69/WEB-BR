@@ -34,6 +34,12 @@ const areaValue = formatArea(data.details.area_m2, lang);
 
 const ui = getUiCopy(lang);
 const label = ui.propertyCard.viewDetails;
+const marketBadge =
+  data.isPromotion
+    ? ui.propertyCard.newBuild
+    : data.marketKey === "segunda_mano" || data.listingType === "resale"
+      ? ui.propertyCard.resale
+      : null;
 const galleryCopyByLang = {
   es: { prev: "Imagen anterior", next: "Imagen siguiente" },
   en: { prev: "Previous image", next: "Next image" },
@@ -96,9 +102,14 @@ const galleryUi = galleryCopyByLang[lang] ?? galleryCopyByLang.es;
       <div class="no-image-placeholder"></div>
     )}
 
-    {data.isPromotion && (
-      <span class="badge-promotion">
-        {ui.propertyCard.newBuild}
+    {marketBadge && (
+      <span
+        class:list={[
+          "badge-promotion",
+          data.isPromotion ? "badge-promotion--new-build" : "badge-promotion--resale",
+        ]}
+      >
+        {marketBadge}
       </span>
     )}
   </div>

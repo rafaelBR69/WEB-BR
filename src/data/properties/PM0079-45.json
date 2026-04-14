@@ -11,7 +11,7 @@
     "it": "unita-45-nylva-homes-manilva",
     "nl": "unit-45-nylva-homes-manilva"
   },
-  "status": "available",
+  "status": "sold",
   "featured": false,
   "languages": [
     "es",
@@ -22,7 +22,7 @@
     "nl"
   ],
   "transaction": "sale",
-  "price": 564696,
+  "price": null,
   "currency": "EUR",
   "location": {
     "country": "ES",
@@ -168,7 +168,7 @@
   "translations": {
     "es": {
       "title": "Unidad 45 en Nylva Homes (Manilva)",
-      "intro": "Unidad disponible en la promociÃ³n Nylva Homes en Manilva.",
+      "intro": "Unidad vendida en la promociÃ³n Nylva Homes en Manilva.",
       "description": [
         {
           "type": "heading",
@@ -201,7 +201,7 @@
     },
     "en": {
       "title": "Unit 45 at Nylva Homes (Manilva)",
-      "intro": "Available unit in the Nylva Homes development in Manilva.",
+      "intro": "Sold unit in the Nylva Homes development in Manilva.",
       "description": [
         {
           "type": "heading",
@@ -220,7 +220,7 @@
     },
     "de": {
       "title": "Einheit 45 in Nylva Homes (Manilva)",
-      "intro": "VerfÃ¼gbare Einheit in der Wohnanlage Nylva Homes in Manilva.",
+      "intro": "Verkaufte Einheit in der Wohnanlage Nylva Homes in Manilva.",
       "description": [
         {
           "type": "heading",
@@ -239,7 +239,7 @@
     },
     "fr": {
       "title": "Unit? 45 ? Nylva Homes (Manilva)",
-      "intro": "UnitÃ© disponible dans le programme Nylva Homes Ã  Manilva.",
+      "intro": "UnitÃ© vendue dans le programme Nylva Homes Ã  Manilva.",
       "description": [
         {
           "type": "heading",
@@ -258,7 +258,7 @@
     },
     "it": {
       "title": "Unit? 45 a Nylva Homes (Manilva)",
-      "intro": "UnitÃ  disponibile nel complesso Nylva Homes a Manilva.",
+      "intro": "UnitÃ  venduta nel complesso Nylva Homes a Manilva.",
       "description": [
         {
           "type": "heading",
@@ -277,7 +277,7 @@
     },
     "nl": {
       "title": "Unit 45 in Nylva Homes (Manilva)",
-      "intro": "Beschikbare unit in het project Nylva Homes in Manilva.",
+      "intro": "Verkochte unit in het project Nylva Homes in Manilva.",
       "description": [
         {
           "type": "heading",

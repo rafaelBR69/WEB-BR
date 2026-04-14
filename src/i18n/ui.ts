@@ -42,6 +42,7 @@ type UiCopy = {
   propertyCard: {
     viewDetails: string;
     newBuild: string;
+    resale: string;
     fromPrice: string;
   };
 };
@@ -89,6 +90,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
     propertyCard: {
       viewDetails: "Ver detalles",
       newBuild: "Obra nueva",
+      resale: "2ª mano",
       fromPrice: "Desde",
     },
   },
@@ -134,6 +136,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
     propertyCard: {
       viewDetails: "View details",
       newBuild: "New build",
+      resale: "Resale",
       fromPrice: "From",
     },
   },
@@ -179,6 +182,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
     propertyCard: {
       viewDetails: "Details ansehen",
       newBuild: "Neubau",
+      resale: "Bestand",
       fromPrice: "Ab",
     },
   },
@@ -224,6 +228,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
     propertyCard: {
       viewDetails: "Voir details",
       newBuild: "Neuf",
+      resale: "Revente",
       fromPrice: "A partir de",
     },
   },
@@ -269,6 +274,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
     propertyCard: {
       viewDetails: "Vedi dettagli",
       newBuild: "Nuova costruzione",
+      resale: "Usato",
       fromPrice: "Da",
     },
   },
@@ -314,6 +320,7 @@ export const UI_COPY: Record<SupportedLang, UiCopy> = {
     propertyCard: {
       viewDetails: "Bekijk details",
       newBuild: "Nieuwbouw",
+      resale: "Bestaande bouw",
       fromPrice: "Vanaf",
     },
   },

@@ -11,7 +11,7 @@
     "it": "unita-portal-3-planta-3-c-orion-collection-almitak-mijas",
     "nl": "unit-portal-3-planta-3-c-orion-collection-almitak-mijas"
   },
-  "status": "sold",
+  "status": "available",
   "featured": false,
   "languages": [
     "es",
@@ -22,7 +22,7 @@
     "nl"
   ],
   "transaction": "sale",
-  "price": null,
+  "price": 389900,
   "currency": "EUR",
   "location": {
     "country": "ES",

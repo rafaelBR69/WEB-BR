@@ -1,0 +1,13 @@
+
+> web-br@0.0.1 dev:web
+> node scripts/run-surface.mjs web dev --config ./apps/web/astro.config.mjs --host 127.0.0.1 --port 4321
+
+[2m11:20:51[22m [34m[@astrojs/node][39m Enabling sessions with filesystem storage
+[vite] connected.
+[2m11:20:55[22m [34m[types][39m Generated [2m3ms[22m
+[33m[1m11:20:55[22m [WARN] [content][39m Content config not loaded
+[2m11:20:55[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[42m[1m astro [22m[49m [32mv6.1.2[39m [2mready in[22m 4907 [2mms[22m
+[2m┃[22m Local    [36mhttp://127.0.0.1:4321/[39m
+[2m11:20:55[22m [32mwatching for file changes...[39m
+[2m11:21:12[22m [34m[201][39m [34mPOST[39m /api/v1/leads [2m1389ms[22m

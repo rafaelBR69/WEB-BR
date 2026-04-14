@@ -153,6 +153,8 @@ const ogLocaleMap = {
 };
 
 const isLandingHeader = headerVariant === "landing";
+const landingLogoLightSrc = "/logos/blancareal_logo_principal_blanco.png";
+const landingLogoDarkSrc = "/logos/blanca_real_logo_principal.png";
 
 const normalizePath = (value) => {
   const path = String(value ?? "");
@@ -520,14 +522,14 @@ if (!isPortalPage && !Astro.response.headers.has("Cache-Control")) {
                 aria-label="BlancaReal"
               >
                 <img
-                  src="/logos/blancareal_logo_principal_blanco.png"
+                  src={landingLogoLightSrc}
                   alt="BlancaReal"
                   width="182"
                   height="44"
                   loading="eager"
                   data-logo-switch
-                  data-logo-light-src="/logos/blancareal_logo_principal_blanco.png"
-                  data-logo-dark-src="/logos/blanca_real_logo_principal.png"
+                  data-logo-light-src={landingLogoLightSrc}
+                  data-logo-dark-src={landingLogoDarkSrc}
                 />
               </a>
               <a
@@ -536,14 +538,14 @@ if (!isPortalPage && !Astro.response.headers.has("Cache-Control")) {
                 aria-label="BlancaReal"
               >
                 <img
-                  src="/logos/blancareal_logo_principal_blanco.png"
+                  src={landingLogoLightSrc}
                   alt="BlancaReal"
                   width="182"
                   height="44"
                   loading="eager"
                   data-logo-switch
-                  data-logo-light-src="/logos/blancareal_logo_principal_blanco.png"
-                  data-logo-dark-src="/logos/blanca_real_logo_principal.png"
+                  data-logo-light-src={landingLogoLightSrc}
+                  data-logo-dark-src={landingLogoDarkSrc}
                 />
               </a>
             </>

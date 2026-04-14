@@ -11,7 +11,7 @@
     "it": "unita-4-nylva-homes-manilva",
     "nl": "unit-4-nylva-homes-manilva"
   },
-  "status": "sold",
+  "status": "available",
   "featured": false,
   "languages": [
     "es",
@@ -22,7 +22,7 @@
     "nl"
   ],
   "transaction": "sale",
-  "price": null,
+  "price": 372669,
   "currency": "EUR",
   "location": {
     "country": "ES",

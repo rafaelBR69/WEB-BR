@@ -11,7 +11,7 @@
     "it": "unita-portal-2-planta-2-b-orion-collection-almitak-mijas",
     "nl": "unit-portal-2-planta-2-b-orion-collection-almitak-mijas"
   },
-  "status": "sold",
+  "status": "available",
   "featured": false,
   "languages": [
     "es",
@@ -22,7 +22,7 @@
     "nl"
   ],
   "transaction": "sale",
-  "price": null,
+  "price": 289900,
   "currency": "EUR",
   "location": {
     "country": "ES",
