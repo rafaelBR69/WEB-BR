@@ -4,15 +4,15 @@
 }
 
 .projects-hero {
-  padding-top: 3.5rem;
+  padding-top: var(--section-space-tight);
   padding-bottom: 1.5rem;
 }
 
 .projects-eyebrow {
   display: inline-block;
-  font-size: 0.74rem;
+  font-size: 0.69rem;
   font-weight: 800;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 0.75rem;
@@ -20,7 +20,7 @@
 
 .projects-hero h1 {
   margin: 0;
-  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.75rem);
   color: var(--color-primary);
 }
 
@@ -32,7 +32,7 @@
 
 .projects-grid {
   padding-top: 1.5rem;
-  padding-bottom: 4rem;
+  padding-bottom: var(--section-space);
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));

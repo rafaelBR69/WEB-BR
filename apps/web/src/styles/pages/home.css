@@ -28,22 +28,22 @@
   min-height: 72vh;
   display: grid;
   align-content: center;
-  gap: 0.7rem;
+  gap: 0.6rem;
   color: #fff;
 }
 
 .hero-eyebrow {
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   color: rgba(255, 255, 255, 0.82);
   font-weight: 800;
 }
 
 .hero-content h1 {
   margin: 0;
-  font-size: clamp(2rem, 4.5vw, 4rem);
-  line-height: 1.02;
+  font-size: clamp(1.95rem, 4.1vw, 3.65rem);
+  line-height: 1.04;
   max-width: 820px;
 }
 
@@ -51,7 +51,8 @@
   margin: 0;
   max-width: 730px;
   color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 1.66;
 }
 
 .home-search-wrap {
@@ -64,29 +65,29 @@
 .home-search {
   background: #fff;
   border: 1px solid var(--color-border);
-  border-radius: 1.1rem;
-  padding: 1.1rem;
-  box-shadow: 0 18px 50px rgba(13, 22, 40, 0.16);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 18px 44px rgba(13, 22, 40, 0.12);
   font-family: "Manrope", sans-serif;
 }
 
 .search-header h2 {
   margin: 0;
   color: var(--color-primary);
-  font-size: 1.2rem;
+  font-size: 1.08rem;
 }
 
 .search-header p {
   margin: 0.25rem 0 0;
   color: var(--color-muted);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
 }
 
 .search-grid {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: 2.2fr 1.2fr 1.4fr auto;
-  gap: 0.7rem;
+  gap: 0.65rem;
   align-items: end;
 }
 
@@ -96,7 +97,7 @@
 }
 
 .field span {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -106,12 +107,12 @@
 .field input,
 .field select {
   width: 100%;
-  min-height: 48px;
+  min-height: var(--field-height);
   border-radius: 10px;
   border: 1px solid var(--color-border);
   background: #fff;
   color: var(--color-primary);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   padding: 0.65rem 0.8rem;
   font-family: "Manrope", sans-serif;
 }
@@ -122,12 +123,12 @@
 
 .zone-trigger {
   width: 100%;
-  min-height: 48px;
+  min-height: var(--field-height);
   border-radius: 10px;
   border: 1px solid var(--color-border);
   background: #fff;
   color: var(--color-primary);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   padding: 0.65rem 2.2rem 0.65rem 0.8rem;
   text-align: left;
   cursor: pointer;
@@ -199,14 +200,14 @@
 }
 
 .search-btn {
-  min-height: 48px;
+  min-height: var(--field-height);
   border: 0;
   border-radius: 10px;
   background: var(--color-primary);
   color: #fff;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   padding: 0 1.1rem;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
@@ -236,7 +237,7 @@
 .home-map-head h2 {
   margin: 0;
   color: var(--color-primary);
-  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-size: clamp(1.42rem, 2.4vw, 2rem);
 }
 
 .home-map-head p {
@@ -262,7 +263,7 @@
 .home-properties-head h2 {
   margin: 0;
   color: var(--color-primary);
-  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  font-size: clamp(1.36rem, 2.3vw, 1.88rem);
 }
 
 .home-properties-head p {
@@ -312,8 +313,8 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: 2.85rem;
-  height: 2.85rem;
+  width: 2.65rem;
+  height: 2.65rem;
   padding: 0;
   border: 1px solid rgba(32, 47, 78, 0.22);
   border-radius: 999px;
@@ -324,7 +325,7 @@
   font-weight: 800;
   cursor: pointer;
   box-shadow:
-    0 12px 24px rgba(12, 20, 38, 0.14),
+    0 10px 22px rgba(12, 20, 38, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.65);
   transition:
     transform 0.18s ease,
@@ -335,8 +336,8 @@
 }
 
 .home-carousel-icon {
-  width: 1.08rem;
-  height: 1.08rem;
+  width: 0.96rem;
+  height: 0.96rem;
   display: block;
   pointer-events: none;
 }
@@ -413,13 +414,13 @@
   }
 
   .home-carousel-btn {
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.45rem;
+    height: 2.45rem;
   }
 
   .home-carousel-icon {
-    width: 1rem;
-    height: 1rem;
+    width: 0.92rem;
+    height: 0.92rem;
   }
 
   .home-carousel-track {
@@ -439,8 +440,8 @@
   }
 
   .home-search {
-    padding: 0.95rem;
-    border-radius: 0.9rem;
+    padding: 0.9rem;
+    border-radius: 0.85rem;
   }
 
   .search-grid {
@@ -474,15 +475,15 @@
   }
 
   .home-carousel-btn {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2.1rem;
+    height: 2.1rem;
     border-color: rgba(32, 47, 78, 0.28);
     background: rgba(255, 255, 255, 0.92);
   }
 
   .home-carousel-icon {
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 0.82rem;
+    height: 0.82rem;
   }
 
   .home-carousel-track {

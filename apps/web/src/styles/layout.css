@@ -8,7 +8,7 @@
   z-index: 1000;
   border-bottom: 1px solid var(--color-border);
   transition: all 0.3s ease;
-  min-height: 64px;
+  min-height: 68px;
 }
 
 .main-header-landing {
@@ -34,17 +34,17 @@
 .header-container {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 0.6rem 1.6rem;
+  padding: 0.72rem var(--page-inline-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 64px;
+  min-height: 68px;
 }
 
 .header-container-landing {
   min-height: auto;
-  padding-top: 0.65rem;
-  padding-bottom: 0.55rem;
+  padding-top: 0.78rem;
+  padding-bottom: 0.62rem;
 }
 
 .landing-subnav {
@@ -54,7 +54,7 @@
 .landing-subnav-inner {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 0.65rem 1.6rem 0.75rem;
+  padding: 0.65rem var(--page-inline-padding) 0.8rem;
   display: flex;
   justify-content: center;
 }
@@ -142,7 +142,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: clamp(1.2rem, 2vw, 1.8rem);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -157,13 +157,13 @@
 .landing-nav-group-trigger {
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
+  min-height: 2.7rem;
   text-decoration: none;
   color: var(--color-primary);
-  font-size: 0.84rem;
+  font-size: 0.79rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.11em;
   transition: color 0.25s ease;
 }
 
@@ -775,8 +775,8 @@
   justify-content: center;
   align-items: center;
   gap: 6px;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border: 1px solid rgba(32, 47, 78, 0.18);
   border-radius: 999px;
   background: rgba(247, 248, 248, 0.3);
@@ -1325,8 +1325,15 @@ main {
 }
 
 .container {
-  width: min(1200px, calc(100% - (2 * var(--page-inline-padding))));
+  width: min(var(--content-max-width), calc(100% - (2 * var(--page-inline-padding))));
   max-width: none;
   margin: 0 auto;
   padding: 0;
+}
+
+@media (min-width: 1600px) {
+  .header-container,
+  .landing-subnav-inner {
+    max-width: var(--content-max-width-wide);
+  }
 }

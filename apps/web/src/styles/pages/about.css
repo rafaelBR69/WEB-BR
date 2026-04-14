@@ -1,12 +1,12 @@
 .about-hero {
-  padding: 2.4rem 0 1.2rem;
+  padding: var(--section-space-tight) 0 1rem;
 }
 
 .about-eyebrow {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-muted);
 }
@@ -14,7 +14,7 @@
 .about-hero h1 {
   margin: 0.35rem 0 0;
   color: var(--color-primary);
-  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.55rem);
 }
 
 .about-hero p {
@@ -26,7 +26,7 @@
 .about-history {
   display: grid;
   gap: 1.25rem;
-  padding: 0.5rem 0 2rem;
+  padding: 0.35rem 0 var(--section-space-tight);
 }
 
 .about-history__heading {
@@ -37,7 +37,7 @@
 .about-history__heading h2 {
   margin: 0;
   color: var(--color-primary);
-  font-size: clamp(1.45rem, 2.8vw, 2.2rem);
+  font-size: clamp(1.38rem, 2.5vw, 2rem);
 }
 
 .about-history__heading p {
@@ -100,7 +100,7 @@
 }
 
 .about-team {
-  padding-bottom: 3.2rem;
+  padding-bottom: var(--section-space);
   display: grid;
   gap: 1.9rem;
 }

@@ -3,12 +3,12 @@
    ========================= */
 
 .property-container {
-  max-width: 1600px;
+  max-width: var(--content-max-width-wide);
   margin: 0 auto;
-  padding: 4rem 2rem 8rem;
+  padding: var(--section-space-tight) var(--page-inline-padding) calc(var(--section-space) + 1.5rem);
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4rem;
+  gap: 3.2rem;
   background: transparent;
 }
 
@@ -20,9 +20,9 @@
 }
 
 .property-breadcrumbs-shell {
-  max-width: 1600px;
+  max-width: var(--content-max-width-wide);
   margin: 0 auto;
-  padding: 1.4rem 2rem 0;
+  padding: 1.2rem var(--page-inline-padding) 0;
 }
 
 .property-breadcrumbs ol {
@@ -40,7 +40,7 @@
   gap: 0.9rem;
   min-width: 0;
   color: var(--color-muted);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -89,7 +89,7 @@
 /* Editorial Labels & Titles */
 .editorial-label {
   display: block;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.3em;
@@ -99,10 +99,10 @@
 
 .section-title {
   color: var(--color-primary);
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
   font-weight: 500;
   letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .luxury-divider {
@@ -118,21 +118,22 @@
 }
 
 .intro-subtitle {
-  font-size: 1rem;
+  font-size: 0.96rem;
   color: var(--color-muted);
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
   max-width: 720px;
+  line-height: 1.68;
 }
 
 .key-facts {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem 2rem;
+  gap: 1.15rem 1.4rem;
   margin: 0;
 }
 
 .key-fact {
-  padding: 1rem 1.25rem;
+  padding: 0.95rem 1.05rem;
   border-left: 2px solid var(--color-accent);
   background: var(--color-bg);
 }
@@ -148,7 +149,7 @@
 
 .key-fact dd {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--color-primary);
 }
@@ -167,9 +168,9 @@
 
 .promotion-overview {
   margin-top: 2rem;
-  padding: 1.1rem 1.25rem;
+  padding: 1rem 1.1rem;
   border: 1px solid var(--color-border);
-  border-radius: 1rem;
+  border-radius: 0.9rem;
   background: var(--color-bg);
 }
 
@@ -195,8 +196,8 @@
   flex-direction: column;
   justify-content: center;
   gap: 0.35rem;
-  min-height: 82px;
-  padding: 0.72rem 0.82rem;
+  min-height: 76px;
+  padding: 0.7rem 0.78rem;
   border: 1px solid var(--color-border);
   border-radius: 0.7rem;
   background: var(--color-surface);
@@ -213,7 +214,7 @@
 
 .promotion-overview-grid dd.snapshot-value {
   margin: 0;
-  font-size: 1.28rem;
+  font-size: 1.18rem;
   font-weight: 800;
   color: var(--color-primary);
   white-space: nowrap;
@@ -572,7 +573,7 @@
 
 /* Concierge Actions */
 .concierge-title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-primary);
   margin-bottom: 0.75rem;
@@ -581,10 +582,10 @@
 }
 
 .concierge-desc {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: var(--color-muted);
-  line-height: 1.6;
-  margin-bottom: 2.5rem;
+  line-height: 1.62;
+  margin-bottom: 2rem;
 }
 
 .action-buttons {
@@ -596,13 +597,13 @@
 .btn-premium {
   display: block;
   width: 100%;
-  padding: 1.1rem;
+  padding: 0.98rem 1rem;
   text-align: center;
   border-radius: 0.6rem;
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   cursor: pointer;
@@ -673,27 +674,28 @@
 .luxury-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .luxury-form input {
-  padding: 1rem;
+  min-height: var(--field-height);
+  padding: 0.85rem 0.9rem;
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   background-color: var(--color-bg);
   transition: border-color 0.3s;
 }
 
 .luxury-form textarea {
-  padding: 1rem;
+  min-height: 7rem;
+  padding: 0.9rem;
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   background-color: var(--color-bg);
   transition: border-color 0.3s;
   resize: vertical;
-  min-height: 7rem;
 }
 
 .luxury-form input:focus,
@@ -719,11 +721,12 @@
   background: var(--color-primary);
   color: #fff;
   border: none;
-  padding: 1rem;
+  min-height: var(--field-height);
+  padding: 0.9rem 1rem;
   border-radius: 0.5rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.09em;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -771,7 +774,7 @@
 /* Map Section */
 .section-map {
   background-color: var(--color-surface);
-  padding: 6rem 2rem;
+  padding: var(--section-space) var(--page-inline-padding);
   border-top: 1px solid var(--color-border);
 }
 
@@ -797,8 +800,8 @@
 @media (max-width: 1200px) {
   .property-container {
     grid-template-columns: 1fr;
-    padding: 2.5rem 1.5rem 6rem;
-    gap: 3rem;
+    padding: 2.2rem var(--page-inline-padding) 5.4rem;
+    gap: 2.6rem;
   }
 
   .property-sidebar {
@@ -811,7 +814,7 @@
     max-width: 800px;
     margin: 0 auto;
     box-shadow: 0 20px 50px rgba(0,0,0,0.06);
-    padding: 3rem;
+    padding: 2.5rem;
   }
 
   .price-section {
@@ -836,11 +839,11 @@
 
 @media (max-width: 768px) {
   .property-container {
-    padding: 1.5rem 1rem 4rem;
+    padding: 1.5rem var(--page-inline-padding-tight) 4rem;
   }
 
   .concierge-card {
-    padding: 2rem 1.5rem;
+    padding: 1.75rem 1.25rem;
   }
 
   .price-section {
@@ -886,7 +889,7 @@
   }
 
   .section-map {
-    padding: 4rem 1.5rem;
+    padding: var(--section-space-tight) var(--page-inline-padding-tight);
   }
 }
 

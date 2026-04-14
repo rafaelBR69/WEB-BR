@@ -14,14 +14,14 @@
 @import "@fontsource/fraunces/latin-ext-600.css";
 
 .service-hero {
-  padding-top: clamp(2rem, 5vw, 3.6rem);
+  padding-top: var(--section-space-tight);
   padding-bottom: 1.2rem;
   display: grid;
   gap: 0.7rem;
 }
 
 .service-eyebrow {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -31,7 +31,7 @@
 .service-hero h1 {
   margin: 0;
   color: var(--color-primary);
-  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-size: clamp(1.72rem, 3.4vw, 2.65rem);
   line-height: 1.08;
   max-width: 920px;
 }
@@ -48,13 +48,14 @@
   justify-content: center;
   justify-self: start;
   gap: 0.6rem;
-  padding: 0.78rem 1.1rem;
+  min-height: var(--control-pill-height);
+  padding: 0.72rem 1rem;
   border: 0;
   border-radius: 999px;
   background: var(--color-primary);
   color: #fff;
   text-transform: uppercase;
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-decoration: none;
@@ -70,21 +71,21 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
-  padding-bottom: 2.8rem;
+  padding-bottom: var(--section-space);
 }
 
 .service-panel {
   background: #fff;
   border: 1px solid var(--color-border);
-  border-radius: 18px;
-  padding: 1.05rem;
+  border-radius: 16px;
+  padding: 1rem;
   box-shadow: 0 14px 28px rgba(12, 20, 38, 0.07);
 }
 
 .service-panel h2 {
   margin: 0 0 0.7rem;
   color: var(--color-primary);
-  font-size: 1.08rem;
+  font-size: 1rem;
 }
 
 .service-panel > p {

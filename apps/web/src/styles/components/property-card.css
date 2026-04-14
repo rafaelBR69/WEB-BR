@@ -7,7 +7,7 @@
   border-radius: 0;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 28px rgba(12, 20, 38, 0.07);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -23,8 +23,8 @@
 }
 
 .property-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px -5px rgba(32, 47, 78, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(32, 47, 78, 0.1);
 }
 
 .property-card.is-scarcity:hover {
@@ -212,17 +212,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2rem;
-  padding: 0.35rem 0.8rem;
+  min-height: 1.9rem;
+  padding: 0.34rem 0.72rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.28);
   background: linear-gradient(135deg, rgba(18, 31, 58, 0.9), rgba(31, 52, 92, 0.82));
   color: #f8fafc;
   box-shadow: 0 12px 28px rgba(8, 15, 28, 0.2);
   backdrop-filter: blur(10px);
-  font-size: 0.73rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -257,11 +257,11 @@
 
 /* --- CONTENT --- */
 .card-content {
-  padding: 1.25rem 1.5rem;
+  padding: 1.15rem 1.3rem 1.25rem;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  gap: 0.9rem;
+  gap: 0.82rem;
 }
 
 .header {
@@ -272,8 +272,8 @@
 
 .property-card .title {
   margin: 0;
-  font-size: 1.15rem;
-  line-height: 1.3;
+  font-size: 1.08rem;
+  line-height: 1.28;
   font-weight: 700;
   color: var(--color-primary);
   letter-spacing: -0.01em;
@@ -291,19 +291,19 @@
 
 .card-location {
   margin: 0;
-  font-size: 0.84rem;
-  line-height: 1.45;
+  font-size: 0.8rem;
+  line-height: 1.42;
   color: var(--color-muted);
   letter-spacing: 0.01em;
 }
 
 .price-row {
-  min-height: 1.8rem;
+  min-height: 1.65rem;
 }
 
 /* --- PRICE --- */
 .property-card .price {
-  font-size: 1.35rem;
+  font-size: 1.28rem;
   font-weight: 800;
   color: var(--color-primary);
   margin: 0;
@@ -315,8 +315,8 @@
 .property-card .meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
-  gap: 0.5rem;
-  padding: 0.75rem 0;
+  gap: 0.45rem;
+  padding: 0.7rem 0;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -326,8 +326,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  min-height: 2rem;
-  font-size: 0.85rem;
+  min-height: 1.95rem;
+  font-size: 0.8rem;
   color: var(--color-primary);
   opacity: 0.9;
   font-weight: 700;
@@ -390,13 +390,13 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 2.75rem;
-  padding: 0.85rem;
+  min-height: 2.9rem;
+  padding: 0.82rem;
   background-color: var(--color-bg);
   color: var(--color-primary);
   border-radius: 0;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   transition: all 0.25s;
   text-decoration: none;
   border: 1px solid var(--color-border);
@@ -410,8 +410,8 @@
 }
 
 .property-card.is-compact .card-content {
-  gap: 0.65rem;
-  padding: 1rem 1.1rem 1.1rem;
+  gap: 0.6rem;
+  padding: 0.95rem 1rem 1rem;
 }
 
 .property-card.is-compact .price-row {
@@ -419,13 +419,13 @@
 }
 
 .property-card.is-compact .price {
-  font-size: 1.2rem;
+  font-size: 1.12rem;
 }
 
 .property-card.is-compact .compact-meta {
   margin: 0;
-  font-size: 0.82rem;
-  line-height: 1.45;
+  font-size: 0.78rem;
+  line-height: 1.42;
   color: var(--color-muted);
   border-top: 1px solid var(--color-border);
   padding-top: 0.65rem;
@@ -447,7 +447,7 @@
   }
 
   .card-content {
-    padding: 1rem 1.1rem;
+    padding: 1rem;
   }
 
   .card-image {
@@ -455,11 +455,11 @@
   }
 
   .property-card .title {
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 
   .property-card .price {
-    font-size: 1.25rem;
+    font-size: 1.18rem;
   }
 
   .property-card .meta {
@@ -468,14 +468,14 @@
   }
 
   .property-card .meta-item {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     min-height: 2.25rem;
     padding-inline: 0.35rem;
   }
 
   .btn-card {
-    min-height: 3rem;
-    font-size: 0.88rem;
+    min-height: 2.95rem;
+    font-size: 0.84rem;
   }
 
   .property-card.is-compact .card-content {
