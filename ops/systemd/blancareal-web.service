@@ -8,6 +8,7 @@ User=rafaadmin
 Group=rafaadmin
 WorkingDirectory=/var/www/web-br
 Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
 Environment=PORT=3001
 Environment=APP_DEPLOY_SURFACE=web
 EnvironmentFile=-/etc/blancareal/app.env
