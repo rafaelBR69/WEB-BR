@@ -1,5 +1,5 @@
 old_url,expected_target,expected_status,priority
-https://www.blancareal.com/,https://blancareal.com/en/,301,critical
+https://www.blancareal.com/,https://blancareal.com/es/,301,critical
 https://www.blancareal.com/who-pays-real-estate-commission-fees-in-spain/,https://blancareal.com/en/posts/,301,critical
 https://www.blancareal.com/it/tasse-comprare-casa-in-spagna/,https://blancareal.com/it/post/tasse-pagare-proprieta-costa-del-sol/,301,critical
 https://www.blancareal.com/our-developments/,https://blancareal.com/en/projects/,301,critical

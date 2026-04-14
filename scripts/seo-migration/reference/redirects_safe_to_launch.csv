@@ -1,5 +1,5 @@
 old_url,redirect_target,redirect_type,final_status,notes
-https://www.blancareal.com/,https://blancareal.com/en/,301,ready_to_launch,Validated against a live route in the new site.
+https://www.blancareal.com/,https://blancareal.com/es/,301,ready_to_launch,Updated during VPS cutover once the public homepage was confirmed as /es/.
 https://www.blancareal.com/5-reasons-invest-costa-del-sol-given-instability-middle-east/,https://blancareal.com/en/post/5-reasons-invest-costa-del-sol-given-instability-middle-east/,301,ready_to_launch,Validated against a live route in the new site.
 https://www.blancareal.com/contact/,https://blancareal.com/en/contact/,301,ready_to_launch,Validated against a live route in the new site.
 https://www.blancareal.com/de/steuern-haus-kaufen-spanien/,https://blancareal.com/de/post/steuern-zahlen-costa-del-sol-immobilie/,301,ready_to_launch,Matched to the live German version of the current taxes guide.

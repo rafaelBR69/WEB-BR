@@ -1,5 +1,5 @@
 old_url,target_url,redirect_type,source_group,notes
-https://www.blancareal.com/,https://blancareal.com/en/,301,core,Validated against a live route in the new site.
+https://www.blancareal.com/,https://blancareal.com/es/,301,core,Updated during VPS cutover once the public homepage was confirmed as /es/.
 https://www.blancareal.com/blog/,https://blancareal.com/en/posts/,301,core,Validated against a live route in the new site.
 https://www.blancareal.com/our-developments/,https://blancareal.com/en/projects/,301,core,Validated against a live route in the new site.
 https://www.blancareal.com/contact/,https://blancareal.com/en/contact/,301,core,Validated against a live route in the new site.
