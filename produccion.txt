@@ -22,3 +22,10 @@ node scripts/sync-public-property-copy-to-crm.mjs --codes=PM0011-B1P3_BC
 cd /var/www/web-br
 npm run properties:migrate-crm
 
+3. CUANDO METO PROPIEDADE NUEVAS CON COORDENADAS
+
+cd /var/www/web-br
+npm run zones:fetch
+npm run properties:audit-map-coverage
+npm run build:web
+sudo systemctl restart blancareal-web
