@@ -1,0 +1,10 @@
+cd /var/www/web-br
+git pull origin main
+npm run build:web
+sudo systemctl restart blancareal-web
+
+
+ssh blancareal-vps
+
+cd /var/www/web-br
+nano .env

@@ -121,7 +121,11 @@
           "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/exterior/vistas2.png"
         }
       ],
-      "floorplan": []
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PM0011/planos/1-3-BC.pdf"
+        }
+      ]
     }
   },
   "seo": {
