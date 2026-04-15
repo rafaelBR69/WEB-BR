@@ -1,10 +1,24 @@
+-----SINCRONIZACIÓN DE GITHUB CON VPS-----
+
 cd /var/www/web-br
 git pull origin main
 npm run build:web
 sudo systemctl restart blancareal-web
 
-
+-----ENTRAR AL SERVIDOR-----
 ssh blancareal-vps
 
+-----EDITAR .ENV-----
 cd /var/www/web-br
-nano .env
+nano app.env
+
+-----CAMBIOS EN EL JSON DE PROPIEDADES Y PARA SINCRONIZAR CON CRM Y VPS-----
+
+1. ESTO SINCRONIZA TRANSLATION, SLUGS, SEO Y MEDIA
+cd /var/www/web-br
+node scripts/sync-public-property-copy-to-crm.mjs --codes=PM0011-B1P3_BC
+
+2.SI CAMBIAS PARTE MAS PROFUNDA: location, property, features, status, price y listing_type
+cd /var/www/web-br
+npm run properties:migrate-crm
+

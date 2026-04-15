@@ -474,6 +474,8 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.en;
+const galleryTabLabel = lang === "es" ? "Galeria" : "Gallery";
+const mapTabLabel = lang === "es" ? "Mapa" : "Map";
 const conciergeTitleByLang = {
   es: "Quiero saber más",
   en: "I want to know more",
@@ -930,15 +932,87 @@ const gallerySections = [
         <h2 class="section-title" id="galleries-title">{t.propertyImmersion}</h2>
         <div class="luxury-divider"></div>
 
-        <div class="property-galleries">
-          {gallerySections.map((section) => (
-            <GallerySection
-              title={section.title}
-              items={data.media.gallery[section.key]}
-              category={section.key}
-              lang={lang}
-            />
-          ))}
+        <div class="property-media-tabs" data-property-media-tabs>
+          <div class="property-media-tablist" role="tablist" aria-label={t.propertyImmersion}>
+            <button
+              type="button"
+              class="property-media-tab is-active"
+              id="property-media-tab-gallery"
+              role="tab"
+              aria-selected="true"
+              aria-controls="property-media-panel-gallery"
+              data-media-tab="gallery"
+            >
+              {galleryTabLabel}
+            </button>
+            {propertyMapFeatures.length > 0 && (
+              <button
+                type="button"
+                class="property-media-tab"
+                id="property-media-tab-map"
+                role="tab"
+                aria-selected="false"
+                aria-controls="property-media-panel-map"
+                data-media-tab="map"
+                tabindex="-1"
+              >
+                {mapTabLabel}
+              </button>
+            )}
+          </div>
+
+          <div
+            class="property-media-panel is-active"
+            id="property-media-panel-gallery"
+            role="tabpanel"
+            aria-labelledby="property-media-tab-gallery"
+            data-media-panel="gallery"
+          >
+            <div class="property-galleries">
+              {gallerySections.map((section) => (
+                <GallerySection
+                  title={section.title}
+                  items={data.media.gallery[section.key]}
+                  category={section.key}
+                  lang={lang}
+                />
+              ))}
+            </div>
+          </div>
+
+          {propertyMapFeatures.length > 0 && (
+            <div
+              class="property-media-panel"
+              id="property-media-panel-map"
+              role="tabpanel"
+              aria-labelledby="property-media-tab-map"
+              data-media-panel="map"
+              hidden
+            >
+              <section class="section-map section-map-inline" aria-labelledby="map-title">
+                <div class="map-container">
+                  <span class="editorial-label">{t.mapLocation}</span>
+                  <h2 class="section-title" id="map-title">{t.privilegedLocation}</h2>
+                  <div class="luxury-divider"></div>
+
+                  <div class="map-wrapper map-wrapper-tab">
+                    <MapboxCostaMap
+                      token={mapboxToken}
+                      styleUrl={mapboxStyle}
+                      features={propertyMapFeatures}
+                      emptyMessage={t.mapNote}
+                      mode="detail"
+                      loadStrategy="visible"
+                      showPois={false}
+                      showZones={true}
+                      enableRouting={false}
+                      fitToFeaturesOnLoad={true}
+                    />
+                  </div>
+                </div>
+              </section>
+            </div>
+          )}
         </div>
       </section>
     </div>
@@ -1031,31 +1105,6 @@ const gallerySections = [
     </aside>
   </div>
 
-  {propertyMapFeatures.length > 0 && (
-    <section class="section-map section-map-featured" aria-labelledby="map-title">
-      <div class="map-container">
-        <span class="editorial-label">{t.mapLocation}</span>
-        <h2 class="section-title" id="map-title">{t.privilegedLocation}</h2>
-        <div class="luxury-divider"></div>
-
-        <div class="map-wrapper map-wrapper-square">
-          <MapboxCostaMap
-            token={mapboxToken}
-            styleUrl={mapboxStyle}
-            features={propertyMapFeatures}
-            emptyMessage={t.mapNote}
-            mode="detail"
-            loadStrategy="visible"
-            showPois={false}
-            showZones={true}
-            enableRouting={false}
-            fitToFeaturesOnLoad={true}
-          />
-        </div>
-      </div>
-    </section>
-  )}
-
   <script
     is:inline
     define:vars={{
@@ -1132,6 +1181,36 @@ const gallerySections = [
           leadSubmit.disabled = false;
           leadSubmit.textContent = propertyLeadCopy.submit;
         }
+      });
+    }
+
+    const mediaTabsRoot = document.querySelector("[data-property-media-tabs]");
+    if (mediaTabsRoot instanceof HTMLElement) {
+      const tabs = Array.from(mediaTabsRoot.querySelectorAll("[data-media-tab]"));
+      const panels = Array.from(mediaTabsRoot.querySelectorAll("[data-media-panel]"));
+
+      const activateMediaTab = (targetName) => {
+        tabs.forEach((tab) => {
+          if (!(tab instanceof HTMLButtonElement)) return;
+          const isActive = tab.dataset.mediaTab === targetName;
+          tab.classList.toggle("is-active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+          tab.tabIndex = isActive ? 0 : -1;
+        });
+
+        panels.forEach((panel) => {
+          if (!(panel instanceof HTMLElement)) return;
+          const isActive = panel.dataset.mediaPanel === targetName;
+          panel.classList.toggle("is-active", isActive);
+          panel.hidden = !isActive;
+        });
+      };
+
+      tabs.forEach((tab) => {
+        if (!(tab instanceof HTMLButtonElement)) return;
+        tab.addEventListener("click", () => {
+          activateMediaTab(tab.dataset.mediaTab ?? "gallery");
+        });
       });
     }
   </script>

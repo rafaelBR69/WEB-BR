@@ -520,6 +520,49 @@
   gap: 3rem;
 }
 
+.property-media-tabs {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.property-media-tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.property-media-tab {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border-radius: 999px;
+  padding: 0.8rem 1.15rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.property-media-tab.is-active,
+.property-media-tab:hover,
+.property-media-tab:focus-visible {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.property-media-panel {
+  display: none;
+}
+
+.property-media-panel.is-active {
+  display: block;
+}
+
 /* Sidebar & Concierge Card */
 .property-sidebar {
   position: relative;
@@ -792,6 +835,12 @@
   padding-top: 0;
 }
 
+.section-map-inline {
+  padding: 0;
+  border-top: none;
+  background: transparent;
+}
+
 .map-container {
   max-width: 1600px;
   margin: 0 auto;
@@ -821,6 +870,20 @@
 .map-wrapper-square :global(.costa-map) {
   height: 100%;
   min-height: 100%;
+}
+
+.map-wrapper-tab {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 24px 60px rgba(31, 42, 68, 0.08);
+}
+
+.map-wrapper-tab :global(.map-layout),
+.map-wrapper-tab :global(.map-shell),
+.map-wrapper-tab :global(.map-viewport),
+.map-wrapper-tab :global(.costa-map) {
+  min-height: 720px;
 }
 
 .section-map-sidebar .map-wrapper {
@@ -900,6 +963,15 @@
     padding: 1.75rem 1.25rem;
   }
 
+  .property-media-tablist {
+    gap: 0.6rem;
+  }
+
+  .property-media-tab {
+    width: 100%;
+    text-align: center;
+  }
+
   .price-section {
     flex-direction: column;
     align-items: center;
@@ -954,6 +1026,13 @@
     max-width: none;
     aspect-ratio: auto;
     min-height: 420px;
+  }
+
+  .map-wrapper-tab :global(.map-layout),
+  .map-wrapper-tab :global(.map-shell),
+  .map-wrapper-tab :global(.map-viewport),
+  .map-wrapper-tab :global(.costa-map) {
+    min-height: 560px;
   }
 
   .section-map-sidebar {
