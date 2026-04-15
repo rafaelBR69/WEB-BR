@@ -1025,6 +1025,33 @@ const gallerySections = [
             <span>{t.specialReference}</span>
             <strong>{data.id || slug}</strong>
           </div>
+
+          {propertyMapFeatures.length > 0 && (
+            <section class="section-map section-map-sidebar" aria-labelledby="map-title">
+              <div class="map-container">
+                <span class="editorial-label">{t.mapLocation}</span>
+                <h2 class="section-title" id="map-title">{t.privilegedLocation}</h2>
+                <div class="luxury-divider"></div>
+
+                <div class="map-wrapper">
+                  <MapboxCostaMap
+                    token={mapboxToken}
+                    styleUrl={mapboxStyle}
+                    features={propertyMapFeatures}
+                    emptyMessage={t.mapNote}
+                    mode="detail"
+                    loadStrategy="visible"
+                    showPois={false}
+                    showZones={true}
+                    enableRouting={false}
+                    fitToFeaturesOnLoad={true}
+                  />
+                </div>
+
+                <p class="map-note">{t.mapNote}</p>
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </aside>
@@ -1110,30 +1137,4 @@ const gallerySections = [
     }
   </script>
 
-  {propertyMapFeatures.length > 0 && (
-    <section class="section-map" aria-labelledby="map-title">
-      <div class="map-container">
-        <span class="editorial-label">{t.mapLocation}</span>
-        <h2 class="section-title" id="map-title">{t.privilegedLocation}</h2>
-        <div class="luxury-divider"></div>
-
-        <div class="map-wrapper">
-          <MapboxCostaMap
-            token={mapboxToken}
-            styleUrl={mapboxStyle}
-            features={propertyMapFeatures}
-            emptyMessage={t.mapNote}
-            mode="detail"
-            loadStrategy="visible"
-            showPois={false}
-            showZones={true}
-            enableRouting={false}
-            fitToFeaturesOnLoad={true}
-          />
-        </div>
-
-        <p class="map-note">{t.mapNote}</p>
-      </div>
-    </section>
-  )}
 </BaseLayout>
