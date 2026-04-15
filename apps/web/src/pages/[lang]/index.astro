@@ -33,6 +33,7 @@ const foundedYear = 1969;
 const teamCount = teamMembers.length;
 const contactPath = `/${lang}/contact/`;
 const aboutPath = `/${lang}/about/`;
+const legalNoticePath = `/${lang}/legal/notice/`;
 const privacyPath = `/${lang}/legal/privacy/`;
 const cookiesPath = `/${lang}/legal/cookies/`;
 const HERO_POSTER_URL =
@@ -614,6 +615,7 @@ const heroMobileQuickLinks = [
       <section class="footer-legal">
         <h3>{extra.footerLegal}</h3>
         <ul>
+          <li><a href={legalNoticePath}>{extra.legalNotice}</a></li>
           <li><a href={privacyPath}>{extra.privacy}</a></li>
           <li><a href={cookiesPath}>{extra.cookies}</a></li>
         </ul>

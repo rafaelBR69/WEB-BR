@@ -504,8 +504,9 @@
       "footerContact": "Contacto",
       "footerLegal": "Legal",
       "footerRights": "Todos los derechos reservados.",
+      "legalNotice": "Aviso legal",
       "privacy": "Política de privacidad",
-      "cookies": "Cookies"
+      "cookies": "Política de cookies"
     },
     "en": {
       "aboutRows": [
@@ -545,8 +546,9 @@
       "footerContact": "Contact",
       "footerLegal": "Legal",
       "footerRights": "All rights reserved.",
+      "legalNotice": "Legal notice",
       "privacy": "Privacy policy",
-      "cookies": "Cookies"
+      "cookies": "Cookie policy"
     },
     "de": {
       "aboutRows": [
@@ -586,8 +588,9 @@
       "footerContact": "Kontakt",
       "footerLegal": "Rechtliches",
       "footerRights": "Alle Rechte vorbehalten.",
+      "legalNotice": "Impressum",
       "privacy": "Datenschutz",
-      "cookies": "Cookies"
+      "cookies": "Cookie-Richtlinie"
     },
     "fr": {
       "aboutRows": [
@@ -627,8 +630,9 @@
       "footerContact": "Contact",
       "footerLegal": "Legal",
       "footerRights": "Tous droits reserves.",
+      "legalNotice": "Mentions legales",
       "privacy": "Politique de confidentialite",
-      "cookies": "Cookies"
+      "cookies": "Politique de cookies"
     },
     "it": {
       "aboutRows": [
@@ -668,8 +672,9 @@
       "footerContact": "Contatto",
       "footerLegal": "Legale",
       "footerRights": "Tutti i diritti riservati.",
-      "privacy": "Privacy policy",
-      "cookies": "Cookies"
+      "legalNotice": "Note legali",
+      "privacy": "Informativa sulla privacy",
+      "cookies": "Cookie policy"
     },
     "nl": {
       "aboutRows": [
@@ -709,8 +714,9 @@
       "footerContact": "Contact",
       "footerLegal": "Juridisch",
       "footerRights": "Alle rechten voorbehouden.",
+      "legalNotice": "Juridische kennisgeving",
       "privacy": "Privacybeleid",
-      "cookies": "Cookies"
+      "cookies": "Cookiebeleid"
     }
   },
   "formByLang": {

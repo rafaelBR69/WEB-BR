@@ -34,6 +34,9 @@ const CORE_PATHS = SUPPORTED_LANGS.flatMap((lang) => [
   `/${lang}/agents/`,
   `/${lang}/contact/`,
   `/${lang}/projects/`,
+  `/${lang}/legal/notice/`,
+  `/${lang}/legal/privacy/`,
+  `/${lang}/legal/cookies/`,
 ]);
 
 const asRecord = (value: unknown): Record<string, unknown> =>

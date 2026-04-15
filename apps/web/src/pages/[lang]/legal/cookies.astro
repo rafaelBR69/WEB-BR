@@ -18,102 +18,317 @@ const navigation = buildPublicNavigation({
   family: "editorial",
   section: "legal",
 });
-const CONTACT_EMAIL = "info@blancareal.com";
+
+const COMPANY = {
+  tradeName: "BLANCA REAL",
+  legalName: "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L.",
+  vatId: "B93153021",
+  address: "Calle Monte Calahonda 10, 29649 Mijas Costa",
+  phone: "+34 952 599 159",
+  email: "info@blancareal.com",
+  registry: "Registro Mercantil de Malaga, Hoja MA-00111198, Tomo 04941, Libro 3848.",
+};
 
 const copyByLang = {
   es: {
-    title: "Política de cookies | BlancaReal",
+    title: "Politica de cookies | BlancaReal",
     description:
-      "Política de cookies de BlancaReal con categorias, finalidades, base de consentimiento y gestión de preferencias.",
+      "Politica de cookies de BlancaReal con tipos de cookies, consentimiento, categorias y gestion de preferencias.",
     eyebrow: "Legal",
-    heading: "Política de cookies",
+    heading: "Politica de cookies",
     intro:
-      "Esta política describe las cookies y tecnologias similares que pueden utilizarse en la web de BlancaReal, la finalidad de cada categoria y la forma de aceptar, rechazar o revisar las preferencias de consentimiento.",
-    updated: "Actualizado en marzo de 2026",
-    meta: "BlancaReal · Mijas Costa · Costa del Sol",
+      "En cumplimiento de la normativa sobre servicios de la sociedad de la informacion y de los requisitos europeos de consentimiento, BLANCA REAL informa sobre el uso de cookies y tecnologias similares en blancareal.com.",
+    updated: "Actualizado en abril de 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
     sections: [
       {
         title: "1. Que son las cookies",
         paragraphs: [
-          "Las cookies son pequenos archivos de texto o identificadores similares que se almacenan en el navegador o dispositivo cuando visitas una web. Sirven para recordar preferencias, mantener funciones tecnicas, medir el uso del sitio o activar integraciones de terceros cuando el usuario lo permite.",
+          "Las cookies son pequenos archivos o identificadores que se descargan en el dispositivo del usuario al acceder a determinadas paginas web. Sirven para recordar preferencias, mantener funciones tecnicas o medir el uso del sitio.",
+          "Por si mismas no contienen virus ni sistemas maliciosos.",
         ],
       },
       {
-        title: "2. Como usamos las cookies",
-        paragraphs: [
-          "BlancaReal clasifica las cookies en necesarias, analiticas y de marketing. Las necesarias pueden ejecutarse para que la web funcione correctamente. Las cookies analiticas o de marketing no deben activarse hasta que el usuario haya otorgado su consentimiento a traves del gestor de consentimiento configurado en el sitio.",
-        ],
-      },
-      {
-        title: "3. Categorias de cookies",
+        title: "2. Tipos de cookies",
         items: [
-          "Necesarias: hacen posible funciones tecnicas basicas, seguridad, navegacion y almacenamiento del estado de consentimiento.",
-          "Analiticas: permiten medir uso, rendimiento y comportamiento agregado del sitio para mejorar contenidos y conversion.",
-          "Marketing: permiten activar etiquetas publicitarias, remarketing o medicion de campañas en plataformas de terceros.",
+          "Segun quien las gestione: cookies propias y cookies de terceros.",
+          "Segun su duracion: cookies de sesion y cookies persistentes.",
+          "Segun su finalidad: cookies tecnicas, de personalizacion, analiticas y, en su caso, de marketing.",
+        ],
+      },
+      {
+        title: "3. Consentimiento",
+        paragraphs: [
+          "Las cookies tecnicas o estrictamente necesarias pueden utilizarse sin consentimiento cuando sean imprescindibles para el funcionamiento del sitio.",
+          "Las cookies analiticas, de personalizacion o de marketing solo se instalaran cuando el usuario haya otorgado un consentimiento valido mediante el banner o panel de preferencias.",
         ],
       },
     ],
-    tableTitle: "Inventario y estado actual",
-    tableColumns: ["Categoria", "Cookie / tecnología", "Dominio", "Duracion", "Finalidad"],
+    tableTitle: "4. Inventario operativo",
+    tableColumns: ["Categoria", "Cookie o tecnologia", "Dominio", "Duracion", "Finalidad"],
     rows: [
-      ["Necesaria", "cookieyes-consent", "blancareal.com", "12 meses", "Guardar las preferencias de consentimiento del usuario cuando el CMP este activo."],
-      ["Necesaria", "Cookies tecnicas propias", "blancareal.com", "Sesión o variable", "Permitir la navegacion, formularios, seguridad basica y funcionamiento de la interfaz."],
-      ["Analitica", "No activada sin consentimiento", "N/A", "N/A", "BlancaReal no debe disparar analitica hasta que exista consentimiento valido."],
-      ["Marketing", "No activada sin consentimiento", "N/A", "N/A", "BlancaReal no debe disparar etiquetas publicitarias o remarketing sin consentimiento valido."],
+      ["Necesaria", "cookieyes-consent o equivalente", "blancareal.com", "Hasta 12 meses", "Guardar la preferencia de consentimiento del usuario."],
+      ["Necesaria", "Cookies tecnicas propias", "blancareal.com", "Sesion o variable", "Permitir navegacion segura, formularios y funcionamiento basico del sitio."],
+      ["Analitica", "Solo si existe consentimiento", "Segun proveedor", "Variable", "Medir el uso agregado del sitio y mejorar su rendimiento."],
+      ["Marketing", "Solo si existe consentimiento", "Segun proveedor", "Variable", "Activar etiquetas publicitarias o de remarketing si la empresa las utiliza."],
     ],
-    manageTitle: "4. Gestión de preferencias",
+    manageTitle: "5. Control y eliminacion",
     manageParagraphs: [
-      "Puede aceptar, rechazar o revisar las categorías de cookies desde el banner o panel de preferencias del sitio cuando esté disponible. Además, siempre puede modificar la configuración de cookies desde su navegador.",
-      "Si desactivas determinadas cookies necesarias, es posible que algunas funciones del sitio no se comporten correctamente.",
+      "El usuario puede aceptar, rechazar o revisar las cookies que requieren consentimiento desde el banner o panel de preferencias del sitio.",
+      "Tambien puede permitir, bloquear o eliminar cookies desde la configuracion de su navegador. Si se desactivan determinadas cookies necesarias, algunas funciones del sitio pueden dejar de operar correctamente.",
+      "Los principales navegadores, como Firefox, Chrome, Edge, Safari y Opera, ofrecen herramientas especificas para gestionar cookies.",
     ],
-    contactTitle: "5. Contacto",
+    contactTitle: "Contacto sobre cookies",
   },
   en: {
     title: "Cookie policy | BlancaReal",
     description:
-      "BlancaReal cookie policy with categories, purposes, consent basis and preference management.",
+      "BlancaReal cookie policy covering cookie types, consent, categories and preference management.",
     eyebrow: "Legal",
     heading: "Cookie policy",
     intro:
-      "This policy describes the cookies and similar technologies that may be used on the BlancaReal website, the purpose of each category and how users can accept, reject or review their consent preferences.",
-    updated: "Updated in March 2026",
-    meta: "BlancaReal · Mijas Costa · Costa del Sol",
+      "In compliance with information society rules and European consent requirements, BLANCA REAL provides the following information about cookies and similar technologies on blancareal.com.",
+    updated: "Updated in April 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
     sections: [
       {
         title: "1. What cookies are",
         paragraphs: [
-          "Cookies are small text files or similar identifiers stored in the browser or device when a user visits a website. They can be used to remember preferences, maintain technical functions, measure site usage or activate third-party integrations where consent has been granted.",
+          "Cookies are small files or identifiers downloaded to a user's device when certain webpages are accessed. They are used to remember preferences, keep technical functions running or measure site usage.",
+          "By themselves, they do not contain viruses or malicious systems.",
         ],
       },
       {
-        title: "2. How we use cookies",
-        paragraphs: [
-          "BlancaReal classifies cookies as necessary, analytics and marketing. Necessary cookies may run in order for the site to work correctly. Analytics and marketing cookies must not be activated until the user has granted consent through the consent manager configured on the site.",
-        ],
-      },
-      {
-        title: "3. Cookie categories",
+        title: "2. Types of cookies",
         items: [
-          "Necessary: support technical operation, security, navigation and storage of the user's consent status.",
-          "Analytics: measure site usage, performance and aggregated behaviour in order to improve content and conversion.",
-          "Marketing: enable advertising tags, remarketing or campaign measurement in third-party platforms.",
+          "By manager: first-party cookies and third-party cookies.",
+          "By duration: session cookies and persistent cookies.",
+          "By purpose: technical, personalization, analytics and, where applicable, marketing cookies.",
+        ],
+      },
+      {
+        title: "3. Consent",
+        paragraphs: [
+          "Technical or strictly necessary cookies may be used without consent where they are essential for the operation of the website.",
+          "Analytics, personalization or marketing cookies will only be installed when the user has granted valid consent through the banner or preference panel.",
         ],
       },
     ],
-    tableTitle: "Current inventory and status",
-    tableColumns: ["Category", "Cookie / technology", "Domain", "Duration", "Purpose"],
+    tableTitle: "4. Operational inventory",
+    tableColumns: ["Category", "Cookie or technology", "Domain", "Duration", "Purpose"],
     rows: [
-      ["Necessary", "cookieyes-consent", "blancareal.com", "12 months", "Stores user consent preferences when the CMP is active."],
-      ["Necessary", "First-party technical cookies", "blancareal.com", "Session or variable", "Enable navigation, forms, basic security and interface behaviour."],
-      ["Analytics", "Not activated without consent", "N/A", "N/A", "BlancaReal must not trigger analytics until valid consent exists."],
-      ["Marketing", "Not activated without consent", "N/A", "N/A", "BlancaReal must not trigger advertising or remarketing tags without valid consent."],
+      ["Necessary", "cookieyes-consent or equivalent", "blancareal.com", "Up to 12 months", "Store the user's consent preference."],
+      ["Necessary", "First-party technical cookies", "blancareal.com", "Session or variable", "Enable secure navigation, forms and core site behaviour."],
+      ["Analytics", "Only with consent", "Depending on provider", "Variable", "Measure aggregated site use and improve performance."],
+      ["Marketing", "Only with consent", "Depending on provider", "Variable", "Activate advertising or remarketing tags if used by the company."],
     ],
-    manageTitle: "4. Preference management",
+    manageTitle: "5. Control and deletion",
     manageParagraphs: [
-      "Users may accept, reject or review cookie categories from the site banner or preferences panel when available. Cookie settings can also be modified directly in the browser.",
-      "If some necessary cookies are disabled, parts of the site may stop working correctly.",
+      "Users may accept, reject or review cookies that require consent through the banner or preferences panel.",
+      "Cookies can also be allowed, blocked or deleted through browser settings. If certain necessary cookies are disabled, some site functions may stop working correctly.",
+      "Major browsers such as Firefox, Chrome, Edge, Safari and Opera offer dedicated cookie management tools.",
     ],
-    contactTitle: "5. Contact",
+    contactTitle: "Cookie contact",
+  },
+  de: {
+    title: "Cookie-Richtlinie | BlancaReal",
+    description:
+      "Cookie-Richtlinie von BlancaReal mit Cookie-Arten, Einwilligung, Kategorien und Praeferenzverwaltung.",
+    eyebrow: "Rechtliches",
+    heading: "Cookie-Richtlinie",
+    intro:
+      "In Erfuellung der spanischen Vorschriften und der europaeischen Einwilligungsanforderungen informiert BLANCA REAL ueber den Einsatz von Cookies und aehnlichen Technologien auf blancareal.com.",
+    updated: "Aktualisiert im April 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Was Cookies sind",
+        paragraphs: [
+          "Cookies sind kleine Dateien oder Kennungen, die beim Zugriff auf bestimmte Webseiten auf das Geraet des Nutzers geladen werden. Sie dienen der Speicherung von Praeferenzen, technischen Funktionen oder Messungen der Website-Nutzung.",
+          "Sie enthalten fuer sich genommen keine Viren oder schaedlichen Systeme.",
+        ],
+      },
+      {
+        title: "2. Arten von Cookies",
+        items: [
+          "Nach Verantwortlichem: Erstanbieter-Cookies und Drittanbieter-Cookies.",
+          "Nach Dauer: Sitzungs-Cookies und dauerhafte Cookies.",
+          "Nach Zweck: technische, Personalisierungs-, Analyse- und gegebenenfalls Marketing-Cookies.",
+        ],
+      },
+      {
+        title: "3. Einwilligung",
+        paragraphs: [
+          "Technische oder unbedingt erforderliche Cookies koennen ohne Einwilligung eingesetzt werden, wenn sie fuer den Betrieb der Website notwendig sind.",
+          "Analyse-, Personalisierungs- oder Marketing-Cookies werden nur gesetzt, wenn der Nutzer ueber Banner oder Praeferenzzentrum wirksam eingewilligt hat.",
+        ],
+      },
+    ],
+    tableTitle: "4. Technische Uebersicht",
+    tableColumns: ["Kategorie", "Cookie oder Technologie", "Domain", "Dauer", "Zweck"],
+    rows: [
+      ["Notwendig", "cookieyes-consent oder gleichwertig", "blancareal.com", "Bis zu 12 Monate", "Speichert die Einwilligungspraeferenz des Nutzers."],
+      ["Notwendig", "Eigene technische Cookies", "blancareal.com", "Sitzung oder variabel", "Ermoeglichen sichere Navigation, Formulare und Grundfunktionen der Website."],
+      ["Analyse", "Nur mit Einwilligung", "Je nach Anbieter", "Variabel", "Misst aggregierte Nutzung und verbessert die Leistung der Website."],
+      ["Marketing", "Nur mit Einwilligung", "Je nach Anbieter", "Variabel", "Aktiviert Werbe- oder Remarketing-Tags, falls diese eingesetzt werden."],
+    ],
+    manageTitle: "5. Kontrolle und Loeschung",
+    manageParagraphs: [
+      "Der Nutzer kann einwilligungsbeduerftige Cookies ueber Banner oder Praeferenzzentrum akzeptieren, ablehnen oder spaeter erneut konfigurieren.",
+      "Cookies lassen sich auch ueber die Browsereinstellungen zulassen, blockieren oder loeschen. Werden notwendige Cookies deaktiviert, koennen Teile der Website nicht korrekt funktionieren.",
+      "Gaengige Browser wie Firefox, Chrome, Edge, Safari und Opera stellen dafuer eigene Hilfefunktionen bereit.",
+    ],
+    contactTitle: "Cookie-Kontakt",
+  },
+  fr: {
+    title: "Politique de cookies | BlancaReal",
+    description:
+      "Politique de cookies de BlancaReal avec types de cookies, consentement, categories et gestion des preferences.",
+    eyebrow: "Legal",
+    heading: "Politique de cookies",
+    intro:
+      "Conformement aux regles sur les services de la societe de l'information et aux exigences europeennes en matiere de consentement, BLANCA REAL informe de l'utilisation de cookies et technologies similaires sur blancareal.com.",
+    updated: "Mise a jour en avril 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Que sont les cookies",
+        paragraphs: [
+          "Les cookies sont de petits fichiers ou identifiants telecharges sur l'appareil de l'utilisateur lors de l'acces a certaines pages web. Ils servent a memoriser des preferences, maintenir des fonctions techniques ou mesurer l'usage du site.",
+          "Ils ne contiennent pas eux-memes de virus ni de systemes malveillants.",
+        ],
+      },
+      {
+        title: "2. Types de cookies",
+        items: [
+          "Selon le gestionnaire : cookies internes et cookies tiers.",
+          "Selon la duree : cookies de session et cookies persistants.",
+          "Selon la finalite : cookies techniques, de personnalisation, d'analyse et, le cas echeant, de marketing.",
+        ],
+      },
+      {
+        title: "3. Consentement",
+        paragraphs: [
+          "Les cookies techniques ou strictement necessaires peuvent etre utilises sans consentement lorsqu'ils sont indispensables au fonctionnement du site.",
+          "Les cookies analytiques, de personnalisation ou de marketing ne seront installes que si l'utilisateur a donne un consentement valable via le bandeau ou le panneau de preferences.",
+        ],
+      },
+    ],
+    tableTitle: "4. Inventaire operationnel",
+    tableColumns: ["Categorie", "Cookie ou technologie", "Domaine", "Duree", "Finalite"],
+    rows: [
+      ["Necessaire", "cookieyes-consent ou equivalent", "blancareal.com", "Jusqu'a 12 mois", "Conserver la preference de consentement de l'utilisateur."],
+      ["Necessaire", "Cookies techniques internes", "blancareal.com", "Session ou variable", "Permettre navigation securisee, formulaires et fonctionnement de base du site."],
+      ["Analyse", "Uniquement avec consentement", "Selon le fournisseur", "Variable", "Mesurer l'usage agrege du site et ameliorer la performance."],
+      ["Marketing", "Uniquement avec consentement", "Selon le fournisseur", "Variable", "Activer des balises publicitaires ou de remarketing si l'entreprise les utilise."],
+    ],
+    manageTitle: "5. Controle et suppression",
+    manageParagraphs: [
+      "L'utilisateur peut accepter, refuser ou revoir les cookies soumis a consentement depuis le bandeau ou le panneau de preferences.",
+      "Les cookies peuvent aussi etre autorises, bloques ou supprimes depuis les parametres du navigateur. Si certains cookies necessaires sont desactives, certaines fonctions du site peuvent ne pas fonctionner correctement.",
+      "Les principaux navigateurs, tels que Firefox, Chrome, Edge, Safari et Opera, proposent des outils specifiques de gestion des cookies.",
+    ],
+    contactTitle: "Contact cookies",
+  },
+  it: {
+    title: "Cookie policy | BlancaReal",
+    description:
+      "Cookie policy di BlancaReal con tipi di cookie, consenso, categorie e gestione delle preferenze.",
+    eyebrow: "Legale",
+    heading: "Cookie policy",
+    intro:
+      "In conformita alla normativa sui servizi della societa dell'informazione e ai requisiti europei di consenso, BLANCA REAL informa sull'uso di cookie e tecnologie simili su blancareal.com.",
+    updated: "Aggiornato ad aprile 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Cosa sono i cookie",
+        paragraphs: [
+          "I cookie sono piccoli file o identificatori scaricati sul dispositivo dell'utente quando visita determinate pagine web. Servono a ricordare preferenze, mantenere funzioni tecniche o misurare l'uso del sito.",
+          "Di per se non contengono virus o sistemi dannosi.",
+        ],
+      },
+      {
+        title: "2. Tipi di cookie",
+        items: [
+          "In base al gestore: cookie di prima parte e cookie di terze parti.",
+          "In base alla durata: cookie di sessione e cookie persistenti.",
+          "In base alla finalita: cookie tecnici, di personalizzazione, analitici e, se del caso, di marketing.",
+        ],
+      },
+      {
+        title: "3. Consenso",
+        paragraphs: [
+          "I cookie tecnici o strettamente necessari possono essere utilizzati senza consenso quando sono indispensabili al funzionamento del sito.",
+          "I cookie analitici, di personalizzazione o di marketing saranno installati solo se l'utente avra fornito un consenso valido tramite il banner o il pannello preferenze.",
+        ],
+      },
+    ],
+    tableTitle: "4. Inventario operativo",
+    tableColumns: ["Categoria", "Cookie o tecnologia", "Dominio", "Durata", "Finalita"],
+    rows: [
+      ["Necessario", "cookieyes-consent o equivalente", "blancareal.com", "Fino a 12 mesi", "Memorizzare la preferenza di consenso dell'utente."],
+      ["Necessario", "Cookie tecnici proprietari", "blancareal.com", "Sessione o variabile", "Consentire navigazione sicura, moduli e funzioni base del sito."],
+      ["Analitico", "Solo con consenso", "Secondo il fornitore", "Variabile", "Misurare l'uso aggregato del sito e migliorarne le prestazioni."],
+      ["Marketing", "Solo con consenso", "Secondo il fornitore", "Variabile", "Attivare tag pubblicitari o di remarketing se l'azienda li utilizza."],
+    ],
+    manageTitle: "5. Controllo ed eliminazione",
+    manageParagraphs: [
+      "L'utente puo accettare, rifiutare o rivedere i cookie soggetti a consenso tramite il banner o il pannello preferenze.",
+      "I cookie possono anche essere consentiti, bloccati o eliminati tramite le impostazioni del browser. Se alcuni cookie necessari vengono disattivati, alcune funzioni del sito potrebbero non funzionare correttamente.",
+      "I principali browser, come Firefox, Chrome, Edge, Safari e Opera, mettono a disposizione strumenti specifici per la gestione dei cookie.",
+    ],
+    contactTitle: "Contatto cookie",
+  },
+  nl: {
+    title: "Cookiebeleid | BlancaReal",
+    description:
+      "Cookiebeleid van BlancaReal met cookietypen, toestemming, categorieen en voorkeursbeheer.",
+    eyebrow: "Juridisch",
+    heading: "Cookiebeleid",
+    intro:
+      "In overeenstemming met de regels voor diensten van de informatiemaatschappij en de Europese toestemmingsvereisten informeert BLANCA REAL over het gebruik van cookies en soortgelijke technologieen op blancareal.com.",
+    updated: "Bijgewerkt in april 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Wat cookies zijn",
+        paragraphs: [
+          "Cookies zijn kleine bestanden of identificatoren die op het apparaat van de gebruiker worden geplaatst wanneer bepaalde webpagina's worden bezocht. Ze dienen om voorkeuren te onthouden, technische functies te behouden of het gebruik van de site te meten.",
+          "Op zichzelf bevatten zij geen virussen of schadelijke systemen.",
+        ],
+      },
+      {
+        title: "2. Soorten cookies",
+        items: [
+          "Volgens beheerder: first-party cookies en third-party cookies.",
+          "Volgens duur: sessiecookies en permanente cookies.",
+          "Volgens doel: technische, personalisatie-, analytische en, indien van toepassing, marketingcookies.",
+        ],
+      },
+      {
+        title: "3. Toestemming",
+        paragraphs: [
+          "Technische of strikt noodzakelijke cookies mogen zonder toestemming worden gebruikt wanneer zij onmisbaar zijn voor de werking van de website.",
+          "Analytische, personalisatie- of marketingcookies worden alleen geplaatst wanneer de gebruiker via de banner of het voorkeurenpaneel geldige toestemming heeft gegeven.",
+        ],
+      },
+    ],
+    tableTitle: "4. Operationeel overzicht",
+    tableColumns: ["Categorie", "Cookie of technologie", "Domein", "Duur", "Doel"],
+    rows: [
+      ["Noodzakelijk", "cookieyes-consent of equivalent", "blancareal.com", "Tot 12 maanden", "De toestemmingsvoorkeur van de gebruiker opslaan."],
+      ["Noodzakelijk", "Eigen technische cookies", "blancareal.com", "Sessie of variabel", "Veilige navigatie, formulieren en basisfunctionaliteit van de site mogelijk maken."],
+      ["Analytisch", "Alleen met toestemming", "Afhankelijk van provider", "Variabel", "Geaggregeerd gebruik van de site meten en prestaties verbeteren."],
+      ["Marketing", "Alleen met toestemming", "Afhankelijk van provider", "Variabel", "Advertentie- of remarketingtags activeren indien de onderneming deze gebruikt."],
+    ],
+    manageTitle: "5. Controle en verwijdering",
+    manageParagraphs: [
+      "De gebruiker kan cookies waarvoor toestemming vereist is accepteren, weigeren of later opnieuw instellen via de banner of het voorkeurenpaneel.",
+      "Cookies kunnen ook via de browserinstellingen worden toegestaan, geblokkeerd of verwijderd. Wanneer bepaalde noodzakelijke cookies worden uitgeschakeld, kunnen sommige functies van de site niet correct werken.",
+      "Belangrijke browsers zoals Firefox, Chrome, Edge, Safari en Opera bieden specifieke hulpmiddelen voor cookiebeheer.",
+    ],
+    contactTitle: "Cookiecontact",
   },
 };
 
@@ -182,9 +397,14 @@ const t = copyByLang[lang] ?? copyByLang.en;
 
         <article class="legal-doc-card">
           <h2>{t.contactTitle}</h2>
-          <p>{CONTACT_EMAIL}</p>
+          <p>{COMPANY.tradeName}</p>
+          <p>{COMPANY.legalName}</p>
+          <p>CIF {COMPANY.vatId}</p>
+          <p>{COMPANY.address}</p>
+          <p>{COMPANY.registry}</p>
           <div class="legal-doc-contact">
-            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+            <a href={`tel:${COMPANY.phone.replace(/\s+/g, "")}`}>{COMPANY.phone}</a>
           </div>
         </article>
       </div>

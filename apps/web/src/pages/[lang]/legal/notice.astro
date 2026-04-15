@@ -1,0 +1,402 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@webapp/layouts/BaseLayout.astro";
+import { DEFAULT_LANG, isSupportedLang, SUPPORTED_LANGS } from "@shared/i18n/languages";
+import { buildPublicNavigation } from "@webapp/navigation/publicNavigation";
+import "@webapp/styles/pages/legal-docs.css";
+
+const langParam = Astro.params.lang ?? DEFAULT_LANG;
+
+if (!isSupportedLang(langParam)) {
+  return Astro.redirect(`/${DEFAULT_LANG}/legal/notice/`, 302);
+}
+
+const lang = langParam;
+const navigation = buildPublicNavigation({
+  lang,
+  family: "editorial",
+  section: "legal",
+});
+
+const COMPANY = {
+  tradeName: "BLANCA REAL",
+  legalName: "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L.",
+  vatId: "B93153021",
+  address: "Calle Monte Calahonda 10, 29649 Mijas Costa",
+  phone: "+34 952 599 159",
+  email: "info@blancareal.com",
+  registry: "Registro Mercantil de Malaga, Hoja MA-00111198, Tomo 04941, Libro 3848.",
+};
+
+const copyByLang = {
+  es: {
+    title: "Aviso legal | BlancaReal",
+    description:
+      "Aviso legal de BlancaReal con datos identificativos, condiciones de uso, propiedad intelectual y ley aplicable.",
+    eyebrow: "Legal",
+    heading: "Aviso legal",
+    intro:
+      "Para dar cumplimiento a la Ley 34/2002, de Servicios de la Sociedad de la Informacion y de Comercio Electronico, se indican a continuacion los datos generales y condiciones de uso del sitio web blancareal.com.",
+    updated: "Actualizado en abril de 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Entidad",
+        paragraphs: [
+          "Nombre comercial: BLANCA REAL.",
+          "Denominacion social: AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. CIF: B93153021.",
+          "Domicilio social: Calle Monte Calahonda 10, 29649 Mijas Costa. Telefono: 952599159. Email: info@blancareal.com.",
+          "Inscrita en el Registro Mercantil de Malaga, Hoja MA-00111198, Tomo 04941, Libro 3848.",
+        ],
+      },
+      {
+        title: "2. Utilizacion del sitio web",
+        paragraphs: [
+          "El sitio web se ofrece con fines promocionales e informativos sobre los servicios prestados por AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. como agencia inmobiliaria, apoyo legal y firma de comercializacion.",
+          "La entidad podra dejar de prestar servicios o modificar contenidos sin comunicacion previa, sin que ello genere obligacion legal frente al usuario o frente a terceros.",
+        ],
+      },
+      {
+        title: "3. Privacidad y vinculos a terceros",
+        paragraphs: [
+          "La informacion recabada a traves del sitio se utilizara exclusivamente para facilitar la informacion solicitada y para responder consultas o relaciones comerciales iniciadas por el usuario. Para informacion completa consulte la Politica de privacidad.",
+          "Si el usuario accede a sitios de terceros mediante enlaces, quedara sujeto a los terminos y politicas del nuevo sitio, sin que AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. asuma responsabilidad sobre dichos entornos externos.",
+        ],
+      },
+      {
+        title: "4. Propiedad intelectual e industrial",
+        paragraphs: [
+          "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L., por si o como cesionaria o licenciataria, es titular de todos los derechos de propiedad intelectual e industrial de los elementos del sitio web, con todos los derechos reservados.",
+          "Queda prohibida la reproduccion, distribucion, comunicacion publica, puesta a disposicion o transformacion total o parcial de los contenidos con fines comerciales sin autorizacion expresa. El usuario solo podra visualizarlos, imprimirlos, almacenarlos o copiarlos para uso personal y privado.",
+        ],
+      },
+      {
+        title: "5. Condiciones de uso y responsabilidad",
+        paragraphs: [
+          "El usuario se compromete a utilizar esta web conforme a la legalidad, la moral y el orden publico. Debera abstenerse de realizar, entre otros, usos no autorizados o fraudulentos, accesos no permitidos, actividades ilicitas o cualquier actuacion que cause danos a los sistemas del sitio.",
+          "El titular solo sera responsable de los contenidos creados y agregados por el propio titular, y se reserva el derecho de modificar, aprobar o retirar contenidos y servicios sin previo aviso.",
+        ],
+      },
+      {
+        title: "6. Modificaciones, ley aplicable y jurisdiccion",
+        paragraphs: [
+          "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. se reserva el derecho de modificar este aviso legal y la Politica de privacidad cuando lo considere adecuado. El usuario es responsable de revisar periodicamente estos textos.",
+          "La ley aplicable sera la ley espanola. Para la resolucion de cualquier conflicto derivado de la visita al portal o del uso de sus contenidos, las partes se someteran a los Juzgados y Tribunales que resulten competentes conforme a derecho.",
+        ],
+      },
+    ],
+    contactTitle: "Datos corporativos",
+  },
+  en: {
+    title: "Legal notice | BlancaReal",
+    description:
+      "BlancaReal legal notice with company details, website use, intellectual property and governing law.",
+    eyebrow: "Legal",
+    heading: "Legal notice",
+    intro:
+      "In compliance with Spanish Law 34/2002 on Information Society Services and Electronic Commerce, the following general information and website terms are provided for blancareal.com.",
+    updated: "Updated in April 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Company details",
+        paragraphs: [
+          "Trade name: BLANCA REAL.",
+          "Corporate name: AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. VAT number: B93153021.",
+          "Registered office: Calle Monte Calahonda 10, 29649 Mijas Costa. Phone: 952599159. Email: info@blancareal.com.",
+          "Registered with the Mercantile Registry of Malaga, file MA-00111198, volume 04941, book 3848.",
+        ],
+      },
+      {
+        title: "2. Website use",
+        paragraphs: [
+          "This website is provided for promotional and informational purposes regarding the services offered by AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. as a real estate, legal-support and commercialization business.",
+          "The company may modify or withdraw services and content without prior notice and without generating obligations towards users or third parties.",
+        ],
+      },
+      {
+        title: "3. Privacy and third-party links",
+        paragraphs: [
+          "Information collected through this website will only be used to provide requested information and answer enquiries or commercial requests initiated by the user. For full information please consult the Privacy policy.",
+          "If users access third-party sites through links, they will be governed by the terms and privacy policies of those sites. AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. accepts no responsibility for those external environments.",
+        ],
+      },
+      {
+        title: "4. Intellectual and industrial property",
+        paragraphs: [
+          "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L., either directly or as assignee or licensee, owns all intellectual and industrial property rights over the elements of this website.",
+          "Reproduction, distribution, public communication, making available or transformation of all or part of the content for commercial purposes is prohibited without express authorization. Users may only view, print, store or copy content for strictly personal and private use.",
+        ],
+      },
+      {
+        title: "5. Conditions of use and liability",
+        paragraphs: [
+          "Users undertake to use the website in accordance with the law, morality and public order. They must refrain from unauthorized or fraudulent uses, unauthorized access attempts, unlawful activity or any action causing damage to the site's systems.",
+          "The owner is only responsible for content created and published by the owner and reserves the right to modify, approve or remove content and services without prior notice.",
+        ],
+      },
+      {
+        title: "6. Amendments, governing law and jurisdiction",
+        paragraphs: [
+          "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. reserves the right to modify this legal notice and the Privacy policy whenever considered appropriate. Users are responsible for reviewing these texts periodically.",
+          "Spanish law shall apply. Any dispute arising from the website or its content shall be submitted to the competent Spanish courts.",
+        ],
+      },
+    ],
+    contactTitle: "Corporate details",
+  },
+  de: {
+    title: "Impressum | BlancaReal",
+    description:
+      "Rechtliche Hinweise von BlancaReal mit Unternehmensdaten, Nutzung, Eigentumsrechten und anwendbarem Recht.",
+    eyebrow: "Rechtliches",
+    heading: "Impressum",
+    intro:
+      "Zur Erfuellung der spanischen Vorschriften ueber Dienste der Informationsgesellschaft und den elektronischen Geschaeftsverkehr werden nachstehend die allgemeinen Angaben und Bedingungen fuer blancareal.com bereitgestellt.",
+    updated: "Aktualisiert im April 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Unternehmensdaten",
+        paragraphs: [
+          "Handelsname: BLANCA REAL.",
+          "Gesellschaftsname: AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. Steuernummer: B93153021.",
+          "Sitz: Calle Monte Calahonda 10, 29649 Mijas Costa. Telefon: 952599159. E-Mail: info@blancareal.com.",
+          "Eingetragen im Handelsregister Malaga, Blatt MA-00111198, Band 04941, Buch 3848.",
+        ],
+      },
+      {
+        title: "2. Nutzung der Website",
+        paragraphs: [
+          "Die Website dient Werbe- und Informationszwecken in Bezug auf die von AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. angebotenen Leistungen.",
+          "Das Unternehmen kann Inhalte und Leistungen ohne Vorankuendigung aendern oder entfernen, ohne dass hieraus Ansprueche gegenueber Nutzern oder Dritten entstehen.",
+        ],
+      },
+      {
+        title: "3. Datenschutz und Links zu Dritten",
+        paragraphs: [
+          "Die ueber die Website erhobenen Informationen werden ausschliesslich verwendet, um angeforderte Informationen bereitzustellen und Anfragen des Nutzers zu beantworten. Ausfuehrliche Informationen finden sich in der Datenschutzerklaerung.",
+          "Bei Links zu Drittseiten gelten die Bedingungen und Datenschutzbestimmungen der jeweiligen Zielseite. AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. uebernimmt keine Verantwortung fuer diese externen Umgebungen.",
+        ],
+      },
+      {
+        title: "4. Geistiges und gewerbliches Eigentum",
+        paragraphs: [
+          "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. ist Inhaberin aller Rechte des geistigen und gewerblichen Eigentums an den Elementen dieser Website.",
+          "Die kommerzielle Vervielfaeltigung, Verbreitung, oeffentliche Wiedergabe oder Bearbeitung der Inhalte ist ohne ausdrueckliche Genehmigung untersagt. Der Nutzer darf Inhalte nur fuer persoenliche und private Zwecke ansehen, ausdrucken, speichern oder kopieren.",
+        ],
+      },
+      {
+        title: "5. Nutzungsbedingungen, Aenderungen und Gerichtsstand",
+        paragraphs: [
+          "Der Nutzer verpflichtet sich, die Website rechtmaessig zu verwenden und insbesondere keine betruegerischen Nutzungen, unberechtigten Zugriffe, rechtswidrigen Handlungen oder Beschaedigungen der Systeme vorzunehmen.",
+          "Der Inhaber behaelt sich vor, Inhalte und Dienste ohne Vorankuendigung zu aendern. Es gilt spanisches Recht; fuer Streitigkeiten sind die nach spanischem Recht zustaendigen Gerichte massgeblich.",
+        ],
+      },
+    ],
+    contactTitle: "Unternehmensdaten",
+  },
+  fr: {
+    title: "Mentions legales | BlancaReal",
+    description:
+      "Mentions legales de BlancaReal avec les donnees de l'entreprise, l'utilisation du site et la loi applicable.",
+    eyebrow: "Legal",
+    heading: "Mentions legales",
+    intro:
+      "Conformement a la loi espagnole 34/2002 sur les services de la societe de l'information et le commerce electronique, les informations generales et les conditions d'utilisation de blancareal.com sont indiquees ci-dessous.",
+    updated: "Mise a jour en avril 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Donnees de l'entite",
+        paragraphs: [
+          "Nom commercial : BLANCA REAL.",
+          "Denomination sociale : AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. CIF : B93153021.",
+          "Siege social : Calle Monte Calahonda 10, 29649 Mijas Costa. Telephone : 952599159. Email : info@blancareal.com.",
+          "Inscrite au Registre du Commerce de Malaga, feuille MA-00111198, tome 04941, livre 3848.",
+        ],
+      },
+      {
+        title: "2. Utilisation du site",
+        paragraphs: [
+          "Le site est propose a des fins promotionnelles et informatives concernant les services de AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L.",
+          "La societe peut modifier ou retirer des contenus et services sans preavis, sans que cela ne cree d'obligation envers les utilisateurs ou les tiers.",
+        ],
+      },
+      {
+        title: "3. Confidentialite et liens tiers",
+        paragraphs: [
+          "Les informations recueillies via le site sont utilisees uniquement pour fournir les informations demandees et repondre aux demandes initiees par l'utilisateur. Pour plus d'informations, consultez la Politique de confidentialite.",
+          "En cas de liens vers des sites tiers, l'utilisateur sera regi par les conditions et la politique de confidentialite du site de destination. AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. n'assume aucune responsabilite sur ces environnements externes.",
+        ],
+      },
+      {
+        title: "4. Propriete intellectuelle",
+        paragraphs: [
+          "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. est titulaire de tous les droits de propriete intellectuelle et industrielle sur les elements composant ce site web.",
+          "Toute reproduction, distribution, communication publique ou transformation a des fins commerciales est interdite sans autorisation expresse. L'utilisateur peut uniquement consulter, imprimer, stocker ou copier ces contenus pour un usage personnel et prive.",
+        ],
+      },
+      {
+        title: "5. Conditions d'utilisation, modifications et juridiction",
+        paragraphs: [
+          "L'utilisateur s'engage a utiliser le site conformement a la loi et a s'abstenir de tout usage frauduleux, acces non autorise, activite illicite ou dommage aux systemes.",
+          "Le proprietaire se reserve le droit de modifier contenus et services sans preavis. La loi applicable est la loi espagnole et les juridictions competentes seront celles prevues par le droit espagnol.",
+        ],
+      },
+    ],
+    contactTitle: "Coordonnees de l'entreprise",
+  },
+  it: {
+    title: "Note legali | BlancaReal",
+    description:
+      "Note legali di BlancaReal con dati societari, uso del sito, diritti di proprieta e legge applicabile.",
+    eyebrow: "Legale",
+    heading: "Note legali",
+    intro:
+      "Ai sensi della legge spagnola 34/2002 sui servizi della societa dell'informazione e sul commercio elettronico, di seguito sono riportate le informazioni generali e le condizioni d'uso di blancareal.com.",
+    updated: "Aggiornato ad aprile 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Dati della societa",
+        paragraphs: [
+          "Nome commerciale: BLANCA REAL.",
+          "Denominazione sociale: AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. CIF: B93153021.",
+          "Sede legale: Calle Monte Calahonda 10, 29649 Mijas Costa. Telefono: 952599159. Email: info@blancareal.com.",
+          "Iscritta al Registro Mercantile di Malaga, scheda MA-00111198, tomo 04941, libro 3848.",
+        ],
+      },
+      {
+        title: "2. Uso del sito",
+        paragraphs: [
+          "Il sito e offerto per finalita promozionali e informative sui servizi prestati da AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L.",
+          "La societa puo modificare o ritirare contenuti e servizi senza preavviso, senza che cio generi obblighi verso utenti o terzi.",
+        ],
+      },
+      {
+        title: "3. Privacy e link esterni",
+        paragraphs: [
+          "Le informazioni raccolte tramite il sito sono utilizzate esclusivamente per fornire le informazioni richieste e rispondere alle richieste dell'utente. Per ulteriori informazioni consultare l'Informativa sulla privacy.",
+          "In presenza di link verso siti terzi, l'utente sara soggetto ai termini e alle politiche del sito di destinazione. AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. non assume responsabilita per tali ambienti esterni.",
+        ],
+      },
+      {
+        title: "4. Proprieta intellettuale",
+        paragraphs: [
+          "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. e titolare di tutti i diritti di proprieta intellettuale e industriale sugli elementi del sito web.",
+          "E vietata la riproduzione, distribuzione, comunicazione pubblica o trasformazione dei contenuti per fini commerciali senza autorizzazione espressa. L'utente puo soltanto consultarli, stamparli, archiviarli o copiarli per uso personale e privato.",
+        ],
+      },
+      {
+        title: "5. Condizioni d'uso, modifiche e foro competente",
+        paragraphs: [
+          "L'utente si impegna a usare il sito in modo lecito e ad astenersi da usi fraudolenti, accessi non autorizzati, attivita illecite o danni ai sistemi.",
+          "Il titolare si riserva il diritto di modificare contenuti e servizi senza preavviso. La legge applicabile e quella spagnola e il foro competente sara quello previsto dal diritto spagnolo.",
+        ],
+      },
+    ],
+    contactTitle: "Dati societari",
+  },
+  nl: {
+    title: "Juridische kennisgeving | BlancaReal",
+    description:
+      "Juridische kennisgeving van BlancaReal met bedrijfsgegevens, gebruik van de site, eigendomsrechten en toepasselijk recht.",
+    eyebrow: "Juridisch",
+    heading: "Juridische kennisgeving",
+    intro:
+      "Overeenkomstig de Spaanse wet 34/2002 inzake diensten van de informatiemaatschappij en elektronische handel worden hieronder de algemene gegevens en gebruiksvoorwaarden van blancareal.com verstrekt.",
+    updated: "Bijgewerkt in april 2026",
+    meta: "BlancaReal | Mijas Costa | Costa del Sol",
+    sections: [
+      {
+        title: "1. Bedrijfsgegevens",
+        paragraphs: [
+          "Handelsnaam: BLANCA REAL.",
+          "Maatschappelijke naam: AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. BTW-nummer: B93153021.",
+          "Maatschappelijke zetel: Calle Monte Calahonda 10, 29649 Mijas Costa. Telefoon: 952599159. Email: info@blancareal.com.",
+          "Ingeschreven in het Handelsregister van Malaga, blad MA-00111198, deel 04941, boek 3848.",
+        ],
+      },
+      {
+        title: "2. Gebruik van de site",
+        paragraphs: [
+          "De website wordt aangeboden voor promotionele en informatieve doeleinden over de diensten van AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L.",
+          "De vennootschap kan inhoud en diensten zonder voorafgaande kennisgeving wijzigen of verwijderen zonder verplichtingen tegenover gebruikers of derden.",
+        ],
+      },
+      {
+        title: "3. Privacy en externe links",
+        paragraphs: [
+          "Informatie die via de site wordt verzameld, wordt uitsluitend gebruikt om gevraagde informatie te verstrekken en om verzoeken van de gebruiker te beantwoorden. Raadpleeg voor meer informatie het Privacybeleid.",
+          "Bij links naar websites van derden is de gebruiker onderworpen aan de voorwaarden en het privacybeleid van de bestemmingssite. AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. aanvaardt geen verantwoordelijkheid voor deze externe omgevingen.",
+        ],
+      },
+      {
+        title: "4. Intellectuele eigendom",
+        paragraphs: [
+          "AZUGA SERVICIO GLOBAL INMOBILIARIO, S.L. is houder van alle intellectuele en industriele eigendomsrechten op de elementen van deze website.",
+          "Commerciele reproductie, distributie, openbare mededeling of bewerking van de inhoud is verboden zonder uitdrukkelijke toestemming. De gebruiker mag de inhoud uitsluitend bekijken, afdrukken, opslaan of kopieren voor persoonlijk en privegebruik.",
+        ],
+      },
+      {
+        title: "5. Gebruiksvoorwaarden, wijzigingen en bevoegde rechter",
+        paragraphs: [
+          "De gebruiker verbindt zich ertoe de site rechtmatig te gebruiken en zich te onthouden van frauduleus gebruik, ongeoorloofde toegang, onwettige activiteiten of schade aan de systemen.",
+          "De eigenaar behoudt zich het recht voor inhoud en diensten zonder voorafgaande kennisgeving te wijzigen. Spaans recht is van toepassing en geschillen worden behandeld door de volgens het Spaanse recht bevoegde rechtbanken.",
+        ],
+      },
+    ],
+    contactTitle: "Bedrijfsgegevens",
+  },
+};
+
+const t = copyByLang[lang] ?? copyByLang.en;
+---
+
+<BaseLayout title={t.title} description={t.description} lang={lang} availableLangs={SUPPORTED_LANGS} {...navigation}>
+  <main class="legal-doc-page">
+    <div class="legal-doc-shell">
+      <section class="legal-doc-hero">
+        <p class="legal-doc-eyebrow">{t.eyebrow}</p>
+        <h1>{t.heading}</h1>
+        <p>{t.intro}</p>
+        <div class="legal-doc-meta">
+          <span>{t.updated}</span>
+          <span>{t.meta}</span>
+        </div>
+      </section>
+
+      <div class="legal-doc-grid">
+        {t.sections.map((section) => (
+          <article class="legal-doc-card">
+            <h2>{section.title}</h2>
+            {Array.isArray(section.paragraphs) &&
+              section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            {Array.isArray(section.items) && (
+              <ul>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))}
+
+        <article class="legal-doc-card">
+          <h2>{t.contactTitle}</h2>
+          <p>{COMPANY.tradeName}</p>
+          <p>{COMPANY.legalName}</p>
+          <p>CIF {COMPANY.vatId}</p>
+          <p>{COMPANY.address}</p>
+          <p>{COMPANY.registry}</p>
+          <div class="legal-doc-contact">
+            <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+            <a href={`tel:${COMPANY.phone.replace(/\s+/g, "")}`}>{COMPANY.phone}</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

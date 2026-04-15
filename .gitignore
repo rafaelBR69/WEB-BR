@@ -1,0 +1,56 @@
+# Build output
+dist/
+.astro/
+apps/*/.astro/
+.vercel/
+.vercel/output/
+
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.production
+.env.local
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+
+# Local temporary files
+tmp_*
+temp.txt
+tmp_seo_inventory.ps1
+
+# Local-only media and scratch files
+imagenes_post/
+videos/
+image.png
+marbella-post.jpg
+
+# Local CRM / import work files
+scripts/agency-import/input/*.csv
+scripts/agency-import/input/*.json
+scripts/agency-import/reference/*.csv
+scripts/agency-import/reference/*.json
+scripts/agency-import/reports/*.csv
+scripts/agency-import/reports/*.json
+!scripts/agency-import/input/.gitkeep
+!scripts/agency-import/reference/.gitkeep
+!scripts/agency-import/reports/.gitkeep
+
+scripts/lead-import/input/*.csv
+scripts/lead-import/input/*.json
+scripts/lead-import/reports/*.csv
+scripts/lead-import/reports/*.json
+!scripts/lead-import/input/.gitkeep
+!scripts/lead-import/reports/.gitkeep
