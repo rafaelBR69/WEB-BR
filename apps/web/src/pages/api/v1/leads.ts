@@ -15,6 +15,7 @@ import {
 import {
   resolveDefaultLeadOrganizationId,
   resolvePublicPropertyLeadContext,
+  sendGenericLeadNotificationEmail,
   sendPropertyLeadNotificationEmail,
 } from "@shared/leads/publicPropertyLead";
 import { asText, asUuid } from "@shared/portal/domain";
@@ -24,6 +25,7 @@ type LeadInterest = (typeof LEAD_OPERATION_INTERESTS)[number];
 type LeadStatus = (typeof LEAD_STATUSES)[number];
 type LeadOriginType = (typeof LEAD_ORIGIN_TYPES)[number];
 type LeadKind = (typeof LEAD_KINDS)[number];
+const DEFAULT_GENERIC_LEAD_RECIPIENTS = ["info@blancareal.com", "sales@blancareal.com"];
 
 type CreateLeadBody = {
   organization_id?: string;
@@ -338,6 +340,28 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const leadId = `ld_${crypto.randomUUID()}`;
+  const emailDelivery = await sendGenericLeadNotificationEmail({
+    to: DEFAULT_GENERIC_LEAD_RECIPIENTS,
+    leadId,
+    fullName,
+    email: email || null,
+    phone: phone || null,
+    message: message ?? null,
+    source,
+    leadKind,
+    operationInterest,
+    lang,
+  });
+
+  if (!emailDelivery.sent) {
+    console.error("[generic-lead-email] delivery_failed", {
+      leadId,
+      source,
+      error: emailDelivery.error,
+      recipientCount: emailDelivery.recipientCount,
+    });
+  }
+
   return jsonResponse(
     {
       ok: true,
@@ -364,6 +388,7 @@ export const POST: APIRoute = async ({ request }) => {
       meta: {
         persisted: false,
         next_step: "insert_into_crm_leads_in_supabase",
+        email_delivery: emailDelivery,
       },
     },
     { status: 201 }

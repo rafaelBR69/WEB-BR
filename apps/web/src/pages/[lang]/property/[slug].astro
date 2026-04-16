@@ -476,7 +476,6 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.en;
-const mapTabLabel = lang === "es" ? "Mapa" : "Map";
 const conciergeTitleByLang = {
   es: "Quiero saber más",
   en: "I want to know more",
@@ -530,12 +529,32 @@ const currentTypeLanding =
   propertyCard?.typeKey && propertyCard?.cityKey
     ? resolveTypeLandingByKeys(propertyCard.cityKey, propertyCard.typeKey)
     : null;
+const currentTypeLabel = String(property?.property?.type ?? "").trim();
 const buildCatalogHref = (filters) => {
   const params = new URLSearchParams();
   appendCatalogFiltersToSearchParams(params, filters);
   const query = params.toString();
   return `/${lang}/properties/${query ? `?${query}` : ""}`;
 };
+const currentAreaBrowseLink = currentAreaLanding
+  ? {
+      href: currentAreaLanding.canonicalPath,
+      label: currentAreaLanding.area?.label ?? data.location.area,
+    }
+  : propertyCard?.areaKey
+    ? {
+        href: buildCatalogHref({
+          city: propertyCard.cityKey ? [propertyCard.cityKey] : null,
+          area: [propertyCard.areaKey],
+        }),
+        label: propertyCard.location?.area ?? data.location.area,
+      }
+    : propertyCard?.cityKey
+      ? {
+          href: buildCatalogHref({ city: [propertyCard.cityKey] }),
+          label: propertyCard.location?.city ?? data.location.area,
+        }
+      : null;
 const parentPropertyTitle = parentProperty
   ? String(
       parentProperty.translations?.[lang]?.title ??
@@ -601,6 +620,11 @@ const relatedSearchLinks = [
         href: currentCityLanding.canonicalPath,
         label: t.propertiesInCity.replace("{city}", currentCityLanding.city.label),
       }
+    : propertyCard?.cityKey && propertyCard?.location?.city
+      ? {
+          href: buildCatalogHref({ city: [propertyCard.cityKey] }),
+          label: t.propertiesInCity.replace("{city}", propertyCard.location.city),
+        }
     : null,
   currentTypeLanding
     ? {
@@ -609,6 +633,16 @@ const relatedSearchLinks = [
           .replace("{type}", currentTypeLanding.type?.label ?? "")
           .replace("{city}", currentTypeLanding.city.label),
       }
+    : propertyCard?.typeKey && propertyCard?.cityKey && currentTypeLabel && propertyCard?.location?.city
+      ? {
+          href: buildCatalogHref({
+            city: [propertyCard.cityKey],
+            type: [propertyCard.typeKey],
+          }),
+          label: t.sameTypeInCity
+            .replace("{type}", currentTypeLabel)
+            .replace("{city}", propertyCard.location.city),
+        }
     : null,
   parentProperty?.slugs?.[lang]
     ? {
@@ -898,44 +932,15 @@ const gallerySections = [
         }
       </script>
 
-      <section class="section-advisory" aria-labelledby="advisory-title">
-        <span class="editorial-label">{t.location}</span>
-        <h2 class="section-title" id="advisory-title">{t.lifeInArea} {data.location.area}</h2>
-        <div class="luxury-divider"></div>
-        <p class="advisory-text">
-          {t.advisoryText} {data.location.province}. {t.advisoryText2}
-        </p>
-        <div class="advisory-links">
-          <a href={`/${lang}/properties/`} class="text-link-luxury">{t.exploreAllProperties}</a>
-          {currentAreaLanding && (
-            <a href={currentAreaLanding.canonicalPath} class="text-link-luxury">
-              {t.propertiesInArea} {currentAreaLanding.area?.label ?? data.location.area}
-            </a>
-          )}
-        </div>
-        {propertyMapFeatures.length > 0 && (
+      {propertyMapFeatures.length > 0 && (
+        <section class="section-advisory property-location-section" aria-labelledby="map-title">
+          <span class="editorial-label">{t.mapLocation}</span>
+          <h2 class="section-title" id="map-title">{t.privilegedLocation}</h2>
+          <div class="luxury-divider"></div>
           <div class="property-location-map">
-            <button
-              type="button"
-              class="property-media-tab"
-              id="property-location-map-toggle"
-              aria-expanded="false"
-              aria-controls="property-location-map-panel"
-            >
-              {mapTabLabel}
-            </button>
-
-            <div
-              class="property-location-map-panel"
-              id="property-location-map-panel"
-              hidden
-            >
-              <section class="section-map section-map-inline section-map-sidebar" aria-labelledby="map-title">
+            <div class="property-location-map-panel">
+              <section class="section-map section-map-inline section-map-sidebar">
                 <div class="map-container">
-                  <span class="editorial-label">{t.mapLocation}</span>
-                  <h2 class="section-title" id="map-title">{t.privilegedLocation}</h2>
-                  <div class="luxury-divider"></div>
-
                   <div class="map-wrapper map-wrapper-tab">
                     <MapboxCostaMap
                       token={mapboxToken}
@@ -954,7 +959,24 @@ const gallerySections = [
               </section>
             </div>
           </div>
-        )}
+        </section>
+      )}
+
+      <section class="section-advisory" aria-labelledby="advisory-title">
+        <span class="editorial-label">{t.location}</span>
+        <h2 class="section-title" id="advisory-title">{t.lifeInArea} {currentAreaBrowseLink?.label ?? data.location.area}</h2>
+        <div class="luxury-divider"></div>
+        <p class="advisory-text">
+          {t.advisoryText} {data.location.province}. {t.advisoryText2}
+        </p>
+        <div class="advisory-links">
+          <a href={`/${lang}/properties/`} class="text-link-luxury">{t.exploreAllProperties}</a>
+          {currentAreaBrowseLink && (
+            <a href={currentAreaBrowseLink.href} class="text-link-luxury">
+              {t.propertiesInArea} {currentAreaBrowseLink.label}
+            </a>
+          )}
+        </div>
       </section>
 
       {relatedSearchLinks.length > 0 && (
@@ -1154,21 +1176,6 @@ const gallerySections = [
       });
     }
 
-    const locationMapToggle = document.getElementById("property-location-map-toggle");
-    const locationMapPanel = document.getElementById("property-location-map-panel");
-
-    if (
-      locationMapToggle instanceof HTMLButtonElement &&
-      locationMapPanel instanceof HTMLElement
-    ) {
-      locationMapToggle.addEventListener("click", () => {
-        const isExpanded = locationMapToggle.getAttribute("aria-expanded") === "true";
-        const nextExpanded = !isExpanded;
-        locationMapToggle.setAttribute("aria-expanded", String(nextExpanded));
-        locationMapToggle.classList.toggle("is-active", nextExpanded);
-        locationMapPanel.hidden = !nextExpanded;
-      });
-    }
   </script>
 
 </BaseLayout>

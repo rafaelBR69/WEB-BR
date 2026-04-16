@@ -61,6 +61,8 @@ export type PropertyLeadEmailResult = {
   recipientCount: number;
 };
 
+export type GenericLeadEmailResult = PropertyLeadEmailResult;
+
 const resolveOrigin = (request: Request) => {
   try {
     return new URL(request.url).origin;
@@ -274,6 +276,85 @@ const buildEmailMessage = (input: {
   return { subject, text, html };
 };
 
+const buildGenericLeadEmailMessage = (input: {
+  leadId: string;
+  fullName: string;
+  email: string | null;
+  phone: string | null;
+  message: string | null;
+  source: string;
+  leadKind: string;
+  operationInterest: string;
+  lang: string;
+}) => {
+  const subject = `[Lead web] ${input.source} | ${input.fullName}`;
+  const text = [
+    "Nuevo lead web",
+    "",
+    `Lead ID: ${input.leadId}`,
+    `Canal: ${input.source}`,
+    `Tipo de lead: ${input.leadKind}`,
+    `Operacion: ${input.operationInterest}`,
+    `Idioma: ${input.lang}`,
+    "",
+    "Datos del contacto",
+    `Nombre: ${input.fullName}`,
+    `Email: ${input.email ?? "-"}`,
+    `Telefono: ${input.phone ?? "-"}`,
+    "",
+    "Mensaje",
+    formatMessageText(input.message),
+  ].join("\n");
+
+  const html = `
+    <div style="margin:0;padding:24px;background:#f5f7fb;font-family:Arial,sans-serif;color:#17324d;">
+      <div style="max-width:720px;margin:0 auto;background:#ffffff;border-radius:24px;padding:28px;border:1px solid #dbe4f0;">
+        <p style="margin:0 0 16px 0;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#8a9ab0;">
+          Nuevo lead web
+        </p>
+        <h1 style="margin:0 0 20px 0;font-size:28px;line-height:1.15;color:#10243b;">
+          ${escapeHtml(input.fullName)}
+        </h1>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 24px 0;">
+          <div style="padding:16px;border-radius:16px;background:#f7fafc;border:1px solid #e2e8f0;">
+            <strong style="display:block;font-size:12px;text-transform:uppercase;color:#64748b;">Canal</strong>
+            <span style="display:block;margin-top:6px;font-size:16px;color:#10243b;">${escapeHtml(input.source)}</span>
+          </div>
+          <div style="padding:16px;border-radius:16px;background:#f7fafc;border:1px solid #e2e8f0;">
+            <strong style="display:block;font-size:12px;text-transform:uppercase;color:#64748b;">Tipo</strong>
+            <span style="display:block;margin-top:6px;font-size:16px;color:#10243b;">${escapeHtml(input.leadKind)}</span>
+          </div>
+          <div style="padding:16px;border-radius:16px;background:#f7fafc;border:1px solid #e2e8f0;">
+            <strong style="display:block;font-size:12px;text-transform:uppercase;color:#64748b;">Operacion</strong>
+            <span style="display:block;margin-top:6px;font-size:16px;color:#10243b;">${escapeHtml(input.operationInterest)}</span>
+          </div>
+          <div style="padding:16px;border-radius:16px;background:#f7fafc;border:1px solid #e2e8f0;">
+            <strong style="display:block;font-size:12px;text-transform:uppercase;color:#64748b;">Idioma</strong>
+            <span style="display:block;margin-top:6px;font-size:16px;color:#10243b;">${escapeHtml(input.lang)}</span>
+          </div>
+        </div>
+        <div style="margin:0 0 24px 0;padding:18px;border-radius:18px;background:#fff7ed;border:1px solid #fed7aa;">
+          <strong style="display:block;font-size:13px;text-transform:uppercase;color:#9a3412;">Contacto</strong>
+          <p style="margin:10px 0 0 0;line-height:1.7;">
+            <strong>Nombre:</strong> ${escapeHtml(input.fullName)}<br />
+            <strong>Email:</strong> ${escapeHtml(input.email ?? "-")}<br />
+            <strong>Telefono:</strong> ${escapeHtml(input.phone ?? "-")}
+          </p>
+        </div>
+        <div style="margin:0 0 24px 0;padding:18px;border-radius:18px;background:#f8fafc;border:1px solid #e2e8f0;">
+          <strong style="display:block;font-size:13px;text-transform:uppercase;color:#475569;">Mensaje</strong>
+          <p style="margin:10px 0 0 0;line-height:1.7;color:#0f172a;">${formatMessageHtml(input.message)}</p>
+        </div>
+        <div style="font-size:13px;color:#64748b;">
+          Lead ID: <strong style="color:#10243b;">${escapeHtml(input.leadId)}</strong>
+        </div>
+      </div>
+    </div>
+  `.trim();
+
+  return { subject, text, html };
+};
+
 export const resolveDefaultLeadOrganizationId = () => {
   const fromPublic = asText(import.meta.env.PUBLIC_CRM_ORGANIZATION_ID);
   if (fromPublic) return fromPublic;
@@ -385,6 +466,83 @@ export const sendPropertyLeadNotificationEmail = async (input: {
   }
 
   const message = buildEmailMessage(input);
+  const errors: string[] = [];
+  let sentCount = 0;
+
+  try {
+    for (const recipient of recipients) {
+      const response = await fetch(RESEND_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from,
+          to: [recipient],
+          reply_to: replyTo ? [replyTo] : undefined,
+          subject: message.subject,
+          text: message.text,
+          html: message.html,
+        }),
+      });
+
+      if (!response.ok) {
+        const raw = await response.text();
+        errors.push(`${recipient}: ${raw || `resend_http_${response.status}`}`);
+        continue;
+      }
+
+      sentCount += 1;
+    }
+
+    return {
+      attempted: true,
+      sent: sentCount > 0,
+      provider: "resend",
+      error: errors.length > 0 ? errors.join(" | ") : null,
+      recipientCount: recipients.length,
+    };
+  } catch (error) {
+    return {
+      attempted: true,
+      sent: false,
+      provider: "resend",
+      error: error instanceof Error ? error.message : String(error),
+      recipientCount: recipients.length,
+    };
+  }
+};
+
+export const sendGenericLeadNotificationEmail = async (input: {
+  to: string[];
+  leadId: string;
+  fullName: string;
+  email: string | null;
+  phone: string | null;
+  message: string | null;
+  source: string;
+  leadKind: string;
+  operationInterest: string;
+  lang: string;
+}): Promise<GenericLeadEmailResult> => {
+  const recipients = cleanRecipients(input.to);
+  const apiKey = asText(import.meta.env.RESEND_API_KEY);
+  const from = asText(import.meta.env.PORTAL_EMAIL_FROM) ?? asText(import.meta.env.EMAIL_FROM);
+  const fallbackReplyTo = asText(import.meta.env.PORTAL_EMAIL_REPLY_TO) ?? asText(import.meta.env.EMAIL_REPLY_TO);
+  const replyTo = input.email ?? fallbackReplyTo;
+
+  if (!apiKey || !from || recipients.length === 0) {
+    return {
+      attempted: false,
+      sent: false,
+      provider: null,
+      error: "generic_lead_email_not_configured",
+      recipientCount: recipients.length,
+    };
+  }
+
+  const message = buildGenericLeadEmailMessage(input);
   const errors: string[] = [];
   let sentCount = 0;
 

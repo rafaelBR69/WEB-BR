@@ -60,6 +60,8 @@ const copyByLang = {
     pointTwo: "Permisos controlados por rol y organización.",
     pointThree: "Preparado para clientes finales y agencias colaboradoras.",
     requestBack: "Volver al acceso",
+    navDashboard: "Dashboard",
+    navProperties: "Properties",
   },
   en: {
     title: "Portal | Access",
@@ -105,6 +107,8 @@ const copyByLang = {
     pointTwo: "Permissions controlled by role and organization.",
     pointThree: "Prepared for end clients and partner agencies.",
     requestBack: "Back to access",
+    navDashboard: "Dashboard",
+    navProperties: "Properties",
   },
 };
 
@@ -119,45 +123,73 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
   showMobileStickyCta={false}
 >
   <main class="portal-app">
-    <section class="portal-auth-shell">
-      <aside class="portal-auth-hero">
-        <div class="portal-auth-hero-inner">
-          <img
-            class="portal-auth-hero-brand"
-            src="/logos/blanca_real_logo_secundario_blanco.png"
-            alt="BlancaReal"
-            loading="eager"
-            decoding="async"
-          />
-          <span class="portal-auth-badge">{t.historyDesde}</span>
-          <p class="portal-kicker">{t.eyebrow}</p>
-          <h1 class="portal-auth-title">{t.heading}</h1>
-          <p class="portal-auth-copy">{t.intro}</p>
-
-          <div class="portal-auth-stats">
-            <article>
-              <strong>01</strong>
-              <span>{t.statOne}</span>
-            </article>
-            <article>
-              <strong>02</strong>
-              <span>{t.statTwo}</span>
-            </article>
-            <article>
-              <strong>03</strong>
-              <span>{t.statThree}</span>
-            </article>
-          </div>
-
-          <ul class="portal-auth-points">
-            <li>{t.pointOne}</li>
-            <li>{t.pointTwo}</li>
-            <li>{t.pointThree}</li>
-          </ul>
+    <div class="portal-scene portal-scene-auth">
+      <aside class="portal-sidebar desktop-only">
+        <div class="sidebar-brand">
+          <a href={`/${lang}/`} aria-label="BlancaReal">
+            <img src="/logos/blanca_real_logo_principal.png" alt="BlancaReal" class="portal-sidebar-brand-image" />
+          </a>
         </div>
+
+        <nav class="sidebar-nav">
+          <a href={`/${lang}/portal/`} class="nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            {t.navDashboard}
+          </a>
+          <a href={`/${lang}/portal/properties/`} class="nav-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            {t.navProperties}
+          </a>
+        </nav>
       </aside>
 
-      <section class="portal-auth-main">
+      <section class="portal-main portal-main-auth">
+        <header class="portal-header portal-header-auth">
+          <div class="header-welcome">
+            <h1>{t.heading}</h1>
+            <p>{t.intro}</p>
+          </div>
+        </header>
+
+        <section class="portal-auth-shell">
+          <aside class="portal-auth-hero">
+            <div class="portal-auth-hero-inner">
+              <img
+                class="portal-auth-hero-brand"
+                src="/logos/blanca_real_logo_secundario_blanco.png"
+                alt="BlancaReal"
+                loading="eager"
+                decoding="async"
+              />
+              <span class="portal-auth-badge">{t.historyDesde}</span>
+              <p class="portal-kicker">{t.eyebrow}</p>
+              <h2 class="portal-auth-title">{t.heading}</h2>
+              <p class="portal-auth-copy">{t.intro}</p>
+
+              <div class="portal-auth-stats">
+                <article>
+                  <strong>01</strong>
+                  <span>{t.statOne}</span>
+                </article>
+                <article>
+                  <strong>02</strong>
+                  <span>{t.statTwo}</span>
+                </article>
+                <article>
+                  <strong>03</strong>
+                  <span>{t.statThree}</span>
+                </article>
+              </div>
+
+              <ul class="portal-auth-points">
+                <li>{t.pointOne}</li>
+                <li>{t.pointTwo}</li>
+                <li>{t.pointThree}</li>
+              </ul>
+            </div>
+          </aside>
+
+          <section class="portal-auth-main">
         <div class="portal-auth-card" id="login-panel">
           <header class="portal-auth-card-head">
             <img
@@ -299,18 +331,42 @@ const t = (copyByLang as any)[lang] || copyByLang.en;
           <p id="portal-access-request-feedback" class="portal-feedback portal-feedback-compact" role="status" aria-live="polite"></p>
           <p class="portal-note portal-note-compact">{t.requestPrivacyHint}</p>
         </div>
+          </section>
+        </section>
       </section>
-    </section>
+    </div>
   </main>
 
   <style>
+    .portal-scene-auth {
+      min-height: calc(100vh - 84px);
+    }
+
+    .portal-sidebar-brand-image {
+      display: block;
+      width: min(180px, 100%);
+      height: auto;
+    }
+
+    .portal-main-auth {
+      gap: 1.5rem;
+    }
+
+    .portal-header-auth {
+      margin-bottom: 0;
+    }
+
     .portal-auth-shell {
-      min-height: 100vh;
+      min-height: 100%;
       display: grid;
       grid-template-columns: minmax(340px, 0.95fr) minmax(420px, 0.9fr);
       background:
         radial-gradient(circle at top left, rgba(211, 44, 67, 0.12), transparent 26%),
         linear-gradient(180deg, #f6f9fc 0%, #eef3f8 100%);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
     }
 
     .portal-auth-hero {
