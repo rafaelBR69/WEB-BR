@@ -4,6 +4,7 @@ const {
   slides = [],
   stats = [],
   projectsPath = "/",
+  propertiesPath = "/",
   mobileQuickLinks = [],
   mobileQuickActionsLabel = "Quick actions",
   disableAutoplayOnMobile = false,
@@ -13,6 +14,16 @@ import homePageContent from "@shared/data/pages/home.json";
 const homeContent = homePageContent as Record<string, any>;
 const t = homeContent.editorialHeroByLang[lang] ?? homeContent.editorialHeroByLang.es;
 const hasSlides = slides.length > 0;
+const primaryCtaLabelByLang = {
+  es: "Ver propiedades",
+  en: "View properties",
+  de: "Immobilien ansehen",
+  fr: "Voir les proprietes",
+  it: "Vedi proprieta",
+  nl: "Bekijk woningen",
+} as const;
+const primaryCtaLabel =
+  primaryCtaLabelByLang[lang as keyof typeof primaryCtaLabelByLang] ?? primaryCtaLabelByLang.es;
 ---
 
 <section
@@ -75,10 +86,10 @@ const hasSlides = slides.length > 0;
         <div class="home-editorial-actions home-editorial-actions-desktop">
           <a
             class="home-editorial-cta"
-            href={slides[0]?.href ?? projectsPath}
+            href={propertiesPath}
             data-hero-primary-cta
           >
-            {t.primaryCta}
+            {primaryCtaLabel}
           </a>
           <a class="home-editorial-cta is-secondary" href={projectsPath}>
             {t.secondaryCta}
@@ -87,10 +98,10 @@ const hasSlides = slides.length > 0;
         <div class="home-editorial-actions home-editorial-actions-mobile">
           <a
             class="home-editorial-cta"
-            href={slides[0]?.href ?? projectsPath}
+            href={propertiesPath}
             data-hero-primary-cta-mobile
           >
-            {t.primaryCta}
+            {primaryCtaLabel}
           </a>
           <a class="home-editorial-cta is-secondary" href={projectsPath}>
             {t.secondaryCta}

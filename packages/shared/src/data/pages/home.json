@@ -1396,7 +1396,7 @@
     },
     "en": {
       "eyebrow": "BlancaReal Group",
-      "heading": "The Costa del Sol Luxury Marketplace",
+      "heading": "Properties, developments and comprehensive services on the Costa del Sol",
       "text": "Our own developments, premium commercialization and integrated legal guidance for buyers and investors.",
       "primaryCta": "View project",
       "secondaryCta": "View all projects",
@@ -1412,7 +1412,7 @@
     },
     "de": {
       "eyebrow": "BlancaReal Gruppe",
-      "heading": "Der Luxus-Marktplatz der Costa del Sol",
+      "heading": "Immobilien, Projekte und integrierte Dienstleistungen an der Costa del Sol",
       "text": "Eigene Projekte, Premium-Vermarktung und integrierte Rechtsbegleitung fuer Kaeufer und Investoren.",
       "primaryCta": "Projekt ansehen",
       "secondaryCta": "Alle Projekte ansehen",
@@ -1428,7 +1428,7 @@
     },
     "fr": {
       "eyebrow": "Groupe BlancaReal",
-      "heading": "Le marketplace luxe de la Costa del Sol",
+      "heading": "Biens, programmes et services integres sur la Costa del Sol",
       "text": "Programmes propres, commercialisation premium et accompagnement juridique integre pour acheteurs et investisseurs.",
       "primaryCta": "Voir le programme",
       "secondaryCta": "Voir tous les programmes",
@@ -1444,7 +1444,7 @@
     },
     "it": {
       "eyebrow": "Gruppo BlancaReal",
-      "heading": "Il luxury marketplace della Costa del Sol",
+      "heading": "Immobili, promozioni e servizi integrati sulla Costa del Sol",
       "text": "Progetti propri, commercializzazione premium e supporto legale integrato per acquirenti e investitori.",
       "primaryCta": "Vedi progetto",
       "secondaryCta": "Vedi tutti i progetti",
@@ -1460,7 +1460,7 @@
     },
     "nl": {
       "eyebrow": "BlancaReal Groep",
-      "heading": "De luxe marketplace van de Costa del Sol",
+      "heading": "Woningen, projecten en integrale diensten aan de Costa del Sol",
       "text": "Eigen projecten, premium commercialisatie en geintegreerde juridische begeleiding voor kopers en investeerders.",
       "primaryCta": "Bekijk project",
       "secondaryCta": "Bekijk alle projecten",
@@ -1656,35 +1656,35 @@
     "en": {
       "eyebrow": "Featured properties",
       "title": "Featured developments and homes",
-      "intro": "We lead with our own new-build developments at promotion level, then combine them with resale homes, external new-build stock and other currently available listings.",
+      "intro": "Exclusive selection of the best investment opportunities and luxury homes on the Costa del Sol.",
       "prev": "View previous group",
       "next": "View next group"
     },
     "de": {
       "eyebrow": "Top-Immobilien",
       "title": "Ausgewaehlte Projekte und Immobilien",
-      "intro": "Zuerst zeigen wir unsere eigenen Neubauprojekte als Gesamtprojekt und ergaenzen sie mit Wiederverkauf, externem Neubau und weiterem verfuegbaren Bestand.",
+      "intro": "Exklusive Auswahl der besten Investitionsmoeglichkeiten und Luxusimmobilien an der Costa del Sol.",
       "prev": "Vorherige Gruppe anzeigen",
       "next": "Naechste Gruppe anzeigen"
     },
     "fr": {
       "eyebrow": "Biens en vedette",
       "title": "Programmes et biens en vedette",
-      "intro": "Nous mettons d abord en avant nos propres programmes neufs au niveau de la promotion, puis nous les combinons avec la revente, le neuf externe et d autres biens disponibles.",
+      "intro": "Selection exclusive des meilleures opportunites d investissement et des residences de luxe sur la Costa del Sol.",
       "prev": "Voir le groupe precedent",
       "next": "Voir le groupe suivant"
     },
     "it": {
       "eyebrow": "Immobili in evidenza",
       "title": "Promozioni e case in evidenza",
-      "intro": "Mostriamo prima le nostre promozioni di nuova costruzione come progetto generale e le combiniamo con rivendita, nuova costruzione esterna e altre proprieta disponibili.",
+      "intro": "Selezione esclusiva delle migliori opportunita di investimento e delle case di lusso sulla Costa del Sol.",
       "prev": "Vedi gruppo precedente",
       "next": "Vedi gruppo successivo"
     },
     "nl": {
       "eyebrow": "Uitgelichte woningen",
       "title": "Uitgelichte projecten en woningen",
-      "intro": "We tonen eerst onze eigen nieuwbouwprojecten als totaalproject en vullen die aan met wederverkoop, externe nieuwbouw en ander actueel beschikbaar aanbod.",
+      "intro": "Exclusieve selectie van de beste investeringskansen en luxe woningen aan de Costa del Sol.",
       "prev": "Bekijk vorige groep",
       "next": "Bekijk volgende groep"
     }
