@@ -289,8 +289,10 @@ const getUnitFloorLabel = (unit) => {
 const getUnitFloorplanUrl = (unit) => {
   const plans = unit?.raw?.media?.gallery?.floorplan ?? [];
   const firstPdf = plans.find((item) =>
-    typeof item?.url === "string" && item.url.toLowerCase().endsWith(".pdf")
+    (typeof item === "string" && item.toLowerCase().endsWith(".pdf")) ||
+    (typeof item?.url === "string" && item.url.toLowerCase().endsWith(".pdf"))
   );
+  if (typeof firstPdf === "string") return firstPdf;
   return firstPdf?.url ?? null;
 };
 
@@ -344,7 +346,7 @@ const copyByLang = {
     sameTypeInCity: "{type} en {city}",
     viewProject: "Ver proyecto",
     visualCatalog: "Catálogo visual",
-    propertyImmersion: "Inmersión en la propiedad",
+    propertyImmersion: "Galeria de imagenes de la propiedad",
     galleryLiving: "Salón",
     galleryBedroom: "Dormitorios",
     galleryKitchen: "Cocina",
@@ -432,7 +434,7 @@ const copyByLang = {
     sameTypeInCity: "{type} in {city}",
     viewProject: "View project",
     visualCatalog: "Visual catalog",
-    propertyImmersion: "Property immersion",
+    propertyImmersion: "Property image gallery",
     galleryLiving: "Living room",
     galleryBedroom: "Bedrooms",
     galleryKitchen: "Kitchen",
@@ -474,7 +476,6 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.en;
-const galleryTabLabel = lang === "es" ? "Galeria" : "Gallery";
 const mapTabLabel = lang === "es" ? "Mapa" : "Map";
 const conciergeTitleByLang = {
   es: "Quiero saber más",
@@ -912,84 +913,24 @@ const gallerySections = [
             </a>
           )}
         </div>
-      </section>
-
-      {relatedSearchLinks.length > 0 && (
-        <section class="section-advisory" aria-labelledby="related-searches-title">
-          <span class="editorial-label">{t.location}</span>
-          <h2 class="section-title" id="related-searches-title">{t.relatedSearches}</h2>
-          <div class="luxury-divider"></div>
-          <div class="advisory-links">
-            {relatedSearchLinks.map((link) => (
-              <a href={link.href} class="text-link-luxury">{link.label}</a>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section class="galleries-wrapper" aria-labelledby="galleries-title">
-        <span class="editorial-label">{t.visualCatalog}</span>
-        <h2 class="section-title" id="galleries-title">{t.propertyImmersion}</h2>
-        <div class="luxury-divider"></div>
-
-        <div class="property-media-tabs" data-property-media-tabs>
-          <div class="property-media-tablist" role="tablist" aria-label={t.propertyImmersion}>
+        {propertyMapFeatures.length > 0 && (
+          <div class="property-location-map">
             <button
               type="button"
-              class="property-media-tab is-active"
-              id="property-media-tab-gallery"
-              role="tab"
-              aria-selected="true"
-              aria-controls="property-media-panel-gallery"
-              data-media-tab="gallery"
+              class="property-media-tab"
+              id="property-location-map-toggle"
+              aria-expanded="false"
+              aria-controls="property-location-map-panel"
             >
-              {galleryTabLabel}
+              {mapTabLabel}
             </button>
-            {propertyMapFeatures.length > 0 && (
-              <button
-                type="button"
-                class="property-media-tab"
-                id="property-media-tab-map"
-                role="tab"
-                aria-selected="false"
-                aria-controls="property-media-panel-map"
-                data-media-tab="map"
-                tabindex="-1"
-              >
-                {mapTabLabel}
-              </button>
-            )}
-          </div>
 
-          <div
-            class="property-media-panel is-active"
-            id="property-media-panel-gallery"
-            role="tabpanel"
-            aria-labelledby="property-media-tab-gallery"
-            data-media-panel="gallery"
-          >
-            <div class="property-galleries">
-              {gallerySections.map((section) => (
-                <GallerySection
-                  title={section.title}
-                  items={data.media.gallery[section.key]}
-                  category={section.key}
-                  lang={lang}
-                />
-              ))}
-            </div>
-          </div>
-
-          {propertyMapFeatures.length > 0 && (
             <div
-              class="property-media-panel"
-              id="property-media-panel-map"
-              role="tabpanel"
-              aria-labelledby="property-media-tab-map"
-              data-media-panel="map"
+              class="property-location-map-panel"
+              id="property-location-map-panel"
               hidden
             >
-              <section class="section-map section-map-inline" aria-labelledby="map-title">
+              <section class="section-map section-map-inline section-map-sidebar" aria-labelledby="map-title">
                 <div class="map-container">
                   <span class="editorial-label">{t.mapLocation}</span>
                   <h2 class="section-title" id="map-title">{t.privilegedLocation}</h2>
@@ -1012,7 +953,36 @@ const gallerySections = [
                 </div>
               </section>
             </div>
-          )}
+          </div>
+        )}
+      </section>
+
+      {relatedSearchLinks.length > 0 && (
+        <section class="section-advisory" aria-labelledby="related-searches-title">
+          <span class="editorial-label">{t.location}</span>
+          <h2 class="section-title" id="related-searches-title">{t.relatedSearches}</h2>
+          <div class="luxury-divider"></div>
+          <div class="advisory-links">
+            {relatedSearchLinks.map((link) => (
+              <a href={link.href} class="text-link-luxury">{link.label}</a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section class="galleries-wrapper" aria-labelledby="galleries-title">
+        <span class="editorial-label">{t.visualCatalog}</span>
+        <h2 class="section-title" id="galleries-title">{t.propertyImmersion}</h2>
+        <div class="luxury-divider"></div>
+        <div class="property-galleries">
+          {gallerySections.map((section) => (
+            <GallerySection
+              title={section.title}
+              items={data.media.gallery[section.key]}
+              category={section.key}
+              lang={lang}
+            />
+          ))}
         </div>
       </section>
     </div>
@@ -1184,33 +1154,19 @@ const gallerySections = [
       });
     }
 
-    const mediaTabsRoot = document.querySelector("[data-property-media-tabs]");
-    if (mediaTabsRoot instanceof HTMLElement) {
-      const tabs = Array.from(mediaTabsRoot.querySelectorAll("[data-media-tab]"));
-      const panels = Array.from(mediaTabsRoot.querySelectorAll("[data-media-panel]"));
+    const locationMapToggle = document.getElementById("property-location-map-toggle");
+    const locationMapPanel = document.getElementById("property-location-map-panel");
 
-      const activateMediaTab = (targetName) => {
-        tabs.forEach((tab) => {
-          if (!(tab instanceof HTMLButtonElement)) return;
-          const isActive = tab.dataset.mediaTab === targetName;
-          tab.classList.toggle("is-active", isActive);
-          tab.setAttribute("aria-selected", String(isActive));
-          tab.tabIndex = isActive ? 0 : -1;
-        });
-
-        panels.forEach((panel) => {
-          if (!(panel instanceof HTMLElement)) return;
-          const isActive = panel.dataset.mediaPanel === targetName;
-          panel.classList.toggle("is-active", isActive);
-          panel.hidden = !isActive;
-        });
-      };
-
-      tabs.forEach((tab) => {
-        if (!(tab instanceof HTMLButtonElement)) return;
-        tab.addEventListener("click", () => {
-          activateMediaTab(tab.dataset.mediaTab ?? "gallery");
-        });
+    if (
+      locationMapToggle instanceof HTMLButtonElement &&
+      locationMapPanel instanceof HTMLElement
+    ) {
+      locationMapToggle.addEventListener("click", () => {
+        const isExpanded = locationMapToggle.getAttribute("aria-expanded") === "true";
+        const nextExpanded = !isExpanded;
+        locationMapToggle.setAttribute("aria-expanded", String(nextExpanded));
+        locationMapToggle.classList.toggle("is-active", nextExpanded);
+        locationMapPanel.hidden = !nextExpanded;
       });
     }
   </script>

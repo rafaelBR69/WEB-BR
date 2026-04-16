@@ -58,11 +58,17 @@ const t = labelsByLang[lang] ?? labelsByLang.es;
 
 if (!items || !items.length) return null;
 
+const getItemUrl = (item: any) => (typeof item === "string" ? item : String(item?.url ?? ""));
+const getItemAlt = (item: any, fallback: string) =>
+  typeof item === "object" && item !== null && typeof item.alt === "string" && item.alt.trim().length > 0
+    ? item.alt
+    : fallback;
+
 const imageIndexByItem = new Map<number, number>();
 let imageTotal = 0;
 
 items.forEach((img: any, index: number) => {
-  const url = String(img?.url ?? "");
+  const url = getItemUrl(img);
   if (url && !url.toLowerCase().endsWith(".pdf")) {
     imageTotal += 1;
     imageIndexByItem.set(index, imageTotal);
@@ -80,8 +86,8 @@ items.forEach((img: any, index: number) => {
   <div class="gallery-mosaic">
     {items.map((img: any, index: number) => {
       const fallbackAlt = `${title} - ${t.image} ${index + 1}`;
-      const altText = img.alt || fallbackAlt;
-      const url = img.url ?? "";
+      const altText = getItemAlt(img, fallbackAlt);
+      const url = getItemUrl(img);
       const isPdf = url.toLowerCase().endsWith(".pdf");
       const imagePosition = imageIndexByItem.get(index) ?? null;
       const previewWidth = index === 0 ? 1280 : 640;

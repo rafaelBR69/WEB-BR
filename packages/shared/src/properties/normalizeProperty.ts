@@ -1,5 +1,21 @@
 import { resolvePrimaryMediaItem } from "@shared/properties/resolvePropertyMedia";
 
+const normalizeMediaEntry = (entry: any) => {
+  if (typeof entry === "string") {
+    const url = entry.trim();
+    return url ? { url } : null;
+  }
+  if (entry && typeof entry === "object" && typeof entry.url === "string" && entry.url.trim()) {
+    return entry;
+  }
+  return null;
+};
+
+const normalizeMediaList = (value: any) =>
+  (Array.isArray(value) ? value : [])
+    .map((entry) => normalizeMediaEntry(entry))
+    .filter((entry): entry is { url: string } => Boolean(entry));
+
 export function normalizeProperty(property: any, lang: string) {
   if (!property) return null;
 
@@ -8,16 +24,15 @@ export function normalizeProperty(property: any, lang: string) {
   const rawLocation = property.location ?? {};
   const rawMedia = property.media ?? {};
   const rawGallery = rawMedia.gallery ?? {};
-  const asList = (value: any) => (Array.isArray(value) ? value : []);
-  const living = asList(rawGallery.living);
-  const bedroom = asList(rawGallery.bedroom);
-  const kitchen = asList(rawGallery.kitchen);
-  const bathroom = asList(rawGallery.bathroom);
-  const exterior = asList(rawGallery.exterior);
-  const interior = asList(rawGallery.interior);
-  const views = asList(rawGallery.views);
-  const floorplan = asList(rawGallery.floorplan);
-  const fallbackCover = resolvePrimaryMediaItem(rawMedia);
+  const living = normalizeMediaList(rawGallery.living);
+  const bedroom = normalizeMediaList(rawGallery.bedroom);
+  const kitchen = normalizeMediaList(rawGallery.kitchen);
+  const bathroom = normalizeMediaList(rawGallery.bathroom);
+  const exterior = normalizeMediaList(rawGallery.exterior);
+  const interior = normalizeMediaList(rawGallery.interior);
+  const views = normalizeMediaList(rawGallery.views);
+  const floorplan = normalizeMediaList(rawGallery.floorplan);
+  const fallbackCover = normalizeMediaEntry(resolvePrimaryMediaItem(rawMedia));
 
   const seoRaw = translations.seo ?? {};
   const status = property.status ?? "available";

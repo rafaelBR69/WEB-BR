@@ -492,6 +492,16 @@
   gap: 2rem;
 }
 
+.property-location-map {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.property-location-map-panel[hidden] {
+  display: none;
+}
+
 .text-link-luxury {
   font-size: 0.9rem;
   font-weight: 700;

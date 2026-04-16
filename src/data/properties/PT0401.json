@@ -56,31 +56,57 @@
     "elevator"
   ],
   "media": {
-    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg",
-    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg",
+    "main": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg"
+    },
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg"
+    },
     "gallery": {
       "living": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg",
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/salon/salon-01.jpg"
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/cover/salon-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/salon/salon-01.jpg"
+        }
       ],
       "bedroom": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/dormitorio/dormitorio-01.jpg"
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/dormitorio/dormitorio-01.jpg"
+        }
       ],
       "kitchen": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/cocina/cocina-01.jpg"
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/cocina/cocina-01.jpg"
+        }
       ],
       "bathroom": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/bano/bano-01.jpg"
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/bano/bano-01.jpg"
+        }
       ],
       "exterior": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/exterior/exterior-01.jpg",
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/exterior/facade-01.jpg"
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/exterior/exterior-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/exterior/facade-01.jpg"
+        }
       ],
       "interior": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/salon/salon-01.jpg",
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/bano/bano-01.jpg",
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/cocina/cocina-01.jpg",
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/dormitorio/dormitorio-01.jpg"
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/salon/salon-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/bano/bano-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/cocina/cocina-01.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0401/interior/dormitorio/dormitorio-01.jpg"
+        }
       ],
       "views": [],
       "floorplan": []

@@ -1050,11 +1050,10 @@ const compactMapFeaturesUrl = buildMapFeaturesUrl(activeFilters);
                     <label>
                       <span>{t.from}</span>
                       <input
-                        type="number"
+                        type="text"
                         name="priceMin"
-                        min={priceBounds.min}
-                        max={priceBounds.max}
-                        step={priceStep}
+                        inputmode="numeric"
+                        pattern="[0-9]*"
                         value={typeof activeFilters.priceMin === "number" ? activeFilters.priceMin : priceBounds.min}
                         data-price-min-input
                       />
@@ -1062,11 +1061,10 @@ const compactMapFeaturesUrl = buildMapFeaturesUrl(activeFilters);
                     <label>
                       <span>{t.to}</span>
                       <input
-                        type="number"
+                        type="text"
                         name="priceMax"
-                        min={priceBounds.min}
-                        max={priceBounds.max}
-                        step={priceStep}
+                        inputmode="numeric"
+                        pattern="[0-9]*"
                         value={typeof activeFilters.priceMax === "number" ? activeFilters.priceMax : priceBounds.max}
                         data-price-max-input
                       />
@@ -1446,10 +1444,24 @@ const compactMapFeaturesUrl = buildMapFeaturesUrl(activeFilters);
       const absoluteMin = Number(rangeRoot.dataset.min || 0);
       const absoluteMax = Number(rangeRoot.dataset.max || 0);
       const step = Number(rangeRoot.dataset.step || 1);
+      const parsePriceInputValue = (value, fallback) => {
+        const normalized = String(value ?? "")
+          .replace(/[^\d]/g, "")
+          .trim();
+        if (!normalized) return fallback;
+        const parsed = Number(normalized);
+        return Number.isFinite(parsed) ? parsed : fallback;
+      };
 
       const clampValues = (source = "range") => {
-        let minValue = source === "input" ? Number(minInput.value || absoluteMin) : Number(minRange.value);
-        let maxValue = source === "input" ? Number(maxInput.value || absoluteMax) : Number(maxRange.value);
+        let minValue =
+          source === "input"
+            ? parsePriceInputValue(minInput.value, absoluteMin)
+            : Number(minRange.value);
+        let maxValue =
+          source === "input"
+            ? parsePriceInputValue(maxInput.value, absoluteMax)
+            : Number(maxRange.value);
 
         minValue = Math.max(absoluteMin, Math.min(minValue, absoluteMax));
         maxValue = Math.max(absoluteMin, Math.min(maxValue, absoluteMax));

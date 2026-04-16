@@ -73,21 +73,33 @@
     "elevator"
   ],
   "media": {
-    "main": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
-    "cover": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
+    "main": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg"
+    },
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg"
+    },
     "gallery": {
       "living": [],
       "bedroom": [],
       "kitchen": [],
       "bathroom": [],
       "exterior": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/zonas-comunes/comunidad-views.jpeg"
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/zonas-comunes/comunidad-views.jpeg"
+        }
       ],
       "interior": [],
       "views": [
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg",
-        "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/zonas-comunes/comunidad-views.jpeg"
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/cover/terraza.jpg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/PT0402/zonas-comunes/comunidad-views.jpeg"
+        }
       ],
       "floorplan": []
     }

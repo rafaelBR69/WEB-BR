@@ -174,6 +174,17 @@ const normalizeAlt = (value: unknown): Record<string, string> => {
 };
 
 const toMediaItem = (value: unknown): PropertyMediaItem | null => {
+  if (typeof value === "string") {
+    const url = asString(value);
+    if (!url) return null;
+    return {
+      id: crypto.randomUUID(),
+      url,
+      label: null,
+      alt: {},
+    };
+  }
+
   const source = asRecord(value);
   const url = asString(source.url);
   if (!url) return null;
