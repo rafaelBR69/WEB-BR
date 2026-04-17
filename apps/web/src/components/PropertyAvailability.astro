@@ -1,0 +1,201 @@
+---
+import "@webapp/styles/components/property-availability.css";
+import { formatPrice } from "@shared/presentation/common";
+import type { PromotionAvailabilityModel, AvailabilityUnitViewModel } from "@shared/properties/propertyAvailability";
+
+const { availability, lang, mode = "promotion" } = Astro.props as {
+  availability: PromotionAvailabilityModel | null;
+  lang: string;
+  mode?: "promotion" | "unit";
+};
+
+if (!availability || !availability.tabs.length) return null;
+
+const copyByLang = {
+  es: {
+    available: "Disponible",
+    unavailable: "No disponible",
+    pinnedUnit: "Vivienda seleccionada",
+    currentUnit: "Vivienda actual",
+    viewUnit: "Ver ficha",
+    beds: "Dormitorios",
+    area: "Superficie",
+    terrace: "Terraza",
+    garden: "Jardin",
+    floor: "Planta",
+    mapUnavailable: "Hay viviendas del edificio sin ubicar todavia en el plano.",
+    legendAvailable: "Disponible",
+    legendUnavailable: "Reservada / Vendida",
+  },
+  en: {
+    available: "Available",
+    unavailable: "Unavailable",
+    pinnedUnit: "Selected unit",
+    currentUnit: "Current unit",
+    viewUnit: "View details",
+    beds: "Bedrooms",
+    area: "Area",
+    terrace: "Terrace",
+    garden: "Garden",
+    floor: "Floor",
+    mapUnavailable: "Some units in this building are not placed on the plan yet.",
+    legendAvailable: "Available",
+    legendUnavailable: "Reserved / Sold",
+  },
+} as const;
+
+const copy = copyByLang[lang as keyof typeof copyByLang] ?? copyByLang.es;
+
+const metricRows = (unit: AvailabilityUnitViewModel): Array<{ label: string; value: string }> =>
+  [
+    unit.bedrooms ? { label: copy.beds, value: String(unit.bedrooms) } : null,
+    unit.areaM2 ? { label: copy.area, value: `${unit.areaM2} m2` } : null,
+    unit.terraceM2 ? { label: copy.terrace, value: `${unit.terraceM2} m2` } : null,
+    unit.gardenM2 ? { label: copy.garden, value: `${unit.gardenM2} m2` } : null,
+    unit.floorLabel ? { label: copy.floor, value: unit.floorLabel } : null,
+  ].filter((row): row is { label: string; value: string } => Boolean(row));
+---
+
+<section
+  class:list={["property-availability", mode === "unit" && "is-unit-mode"]}
+  data-availability-root
+  data-initial-tab={availability.initialTabId ?? undefined}
+  data-selected-unit={availability.selectedUnitId ?? undefined}
+>
+  {availability.tabs.length > 1 && (
+    <div class="availability-tabs" role="tablist" aria-label="Building selector">
+      {availability.tabs.map((tab) => (
+        <button
+          type="button"
+          id={`availability-tab-${tab.tabId}`}
+          class="availability-tab"
+          role="tab"
+          aria-controls={`availability-panel-${tab.tabId}`}
+          aria-selected={tab.tabId === availability.initialTabId ? "true" : "false"}
+          tabindex={tab.tabId === availability.initialTabId ? 0 : -1}
+          data-availability-tab={tab.tabId}
+        >
+          <span>{tab.label}</span>
+          <small>{tab.availableCount}</small>
+        </button>
+      ))}
+    </div>
+  )}
+
+  {availability.tabs.map((tab) => (
+    <div
+      id={`availability-panel-${tab.tabId}`}
+      class="availability-panel"
+      role="tabpanel"
+      aria-labelledby={`availability-tab-${tab.tabId}`}
+      hidden={tab.tabId !== availability.initialTabId}
+      data-availability-panel={tab.tabId}
+      data-initial-selected-unit={tab.initialSelectedUnitId ?? undefined}
+    >
+      <div class="availability-map-column">
+        <div
+          class="availability-map-frame"
+          style={`--availability-image-ratio: ${tab.imageWidth ?? 1} / ${tab.imageHeight ?? 1};`}
+        >
+          <img
+            src={tab.imageSrc}
+            alt={tab.label}
+            loading="lazy"
+            decoding="async"
+            width={tab.imageWidth ?? undefined}
+            height={tab.imageHeight ?? undefined}
+          />
+          <svg
+            class="availability-map-overlay"
+            viewBox={tab.viewBox}
+            aria-label={tab.label}
+            preserveAspectRatio="none"
+          >
+            {tab.areas.map((area) => (
+              <polygon
+                points={area.points}
+                class:list={[
+                  "availability-area",
+                  area.isAvailable ? "is-available" : "is-unavailable",
+                  area.unitId === tab.initialSelectedUnitId && "is-selected",
+                ]}
+                tabindex="0"
+                role="button"
+                aria-label={area.label}
+                data-availability-area={area.areaId}
+                data-unit-id={area.unitId}
+                data-status={area.status}
+              />
+            ))}
+          </svg>
+        </div>
+
+        <div class="availability-legend" aria-hidden="true">
+          <span class="availability-legend-item">
+            <i class="availability-legend-dot is-available"></i>{copy.legendAvailable}
+          </span>
+          <span class="availability-legend-item">
+            <i class="availability-legend-dot is-unavailable"></i>{copy.legendUnavailable}
+          </span>
+        </div>
+      </div>
+
+      <div class="availability-selection-shell">
+        <p class="availability-cards-title">{copy.pinnedUnit}</p>
+        {tab.units.map((unit) => {
+          const rows = metricRows(unit).slice(0, 4);
+          const isCurrent = mode === "unit" && unit.id === availability.selectedUnitId;
+
+          return (
+            <article
+              class="availability-selection-card"
+              data-availability-selection={unit.id}
+              hidden={unit.id !== tab.initialSelectedUnitId}
+            >
+              <div class="availability-selection-head">
+                <div>
+                  <h3>{unit.unitCode ?? unit.title}</h3>
+                  <p class="availability-detail-title">{unit.title}</p>
+                  {isCurrent && <p class="availability-current-note">{copy.currentUnit}</p>}
+                </div>
+                <span class:list={["availability-status-pill", unit.isAvailable ? "is-available" : "is-unavailable"]}>
+                  {unit.isAvailable ? copy.available : copy.unavailable}
+                </span>
+              </div>
+
+              <div class="availability-price-row">
+                {typeof unit.price === "number" ? (
+                  <strong>{formatPrice(unit.price, unit.currency, lang)}</strong>
+                ) : (
+                  <strong>{unit.isAvailable ? copy.available : copy.unavailable}</strong>
+                )}
+              </div>
+
+              {rows.length > 0 && (
+                <ul class="availability-selection-metrics">
+                  {rows.map((row) => <li><span>{row.label}</span><strong>{row.value}</strong></li>)}
+                </ul>
+              )}
+
+              {unit.href && (
+                <a href={unit.href} class="availability-detail-link">
+                  {copy.viewUnit}
+                </a>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+      {tab.missingMappedUnits > 0 && (
+        <p class="availability-map-note">
+          {copy.mapUnavailable}
+        </p>
+      )}
+    </div>
+  ))}
+</section>
+
+<script>
+  import "@webapp/scripts/property-availability";
+</script>

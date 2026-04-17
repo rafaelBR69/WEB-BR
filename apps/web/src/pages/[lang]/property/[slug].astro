@@ -2,6 +2,7 @@
 import BaseLayout from "@webapp/layouts/BaseLayout.astro";
 import RichContent from "@webapp/components/RichContent.astro";
 import PropertyHero from "@webapp/components/PropertyHero.astro";
+import PropertyAvailability from "@webapp/components/PropertyAvailability.astro";
 import GallerySection from "@webapp/components/GallerySection.astro";
 import MapboxCostaMap from "@webapp/components/MapboxCostaMap.astro";
 
@@ -11,6 +12,7 @@ import {
   normalizeProperty,
   normalizePropertyCard,
 } from "@shared/properties/public";
+import { buildPromotionAvailabilityModel } from "@shared/properties/propertyAvailability";
 import { appendCatalogFiltersToSearchParams } from "@shared/properties/catalogFilters";
 import { resolvePropertyLanding } from "@shared/seo/resolvePropertyLanding";
 import { DEFAULT_LANG, isSupportedLang } from "@shared/i18n/languages";
@@ -93,7 +95,13 @@ if (!property) {
 }
 const propertyLegacyCode = String(property.legacy_code ?? property.id ?? slug).trim();
 
-const [parentPropertyResult, projectUnitsResult] = await Promise.all([
+const relatedUnitParentIds = property.listing_type === "promotion"
+  ? [String(property.id)]
+  : property.parent_id
+    ? [String(property.parent_id)]
+    : [];
+
+const [parentPropertyResult, relatedUnitsResult] = await Promise.all([
   property.parent_id
     ? getPublicPropertiesWithFallback({
         query: {
@@ -102,11 +110,11 @@ const [parentPropertyResult, projectUnitsResult] = await Promise.all([
         },
       })
     : Promise.resolve({ properties: [] }),
-  property.listing_type === "promotion"
+  relatedUnitParentIds.length
     ? getPublicPropertiesWithFallback({
         query: {
           listingTypes: ["unit"],
-          parentIds: [String(property.id)],
+          parentIds: relatedUnitParentIds,
         },
       })
     : Promise.resolve({ properties: [] }),
@@ -184,26 +192,8 @@ const propertyLangs = Array.isArray(property.languages) && property.languages.le
 
 const isPromotion = data.isPromotion ?? property.listing_type === "promotion";
 
-const allProjectUnitsRaw = isPromotion
-  ? projectUnitsResult.properties.filter((p) => (p.status ?? "available") !== "private")
-  : [];
-
-const unitsRaw = allProjectUnitsRaw.filter(
-  (p) => (p.status ?? "available") === "available" && p.slugs?.[lang]
-);
-
-const units = unitsRaw
-  .map((unit) => ({
-    raw: unit,
-    data: normalizeProperty(unit, lang),
-  }))
-  .filter((unit) => unit.data && unit.data.visible && unit.raw?.slugs?.[lang]);
-
-const getUnitNumber = (unit) => {
-  const id = unit?.raw?.id ?? "";
-  if (id.includes("-")) return id.split("-").pop();
-  return id || "-";
-};
+const relatedUnitsRaw = relatedUnitsResult.properties.filter((p) => (p.status ?? "available") !== "private");
+const allProjectUnitsRaw = isPromotion ? relatedUnitsRaw : [];
 
 const getNumericRange = (values) => {
   if (!values.length) return null;
@@ -263,9 +253,16 @@ const propertyMapFeatureResult = buildPropertyMapFeature({
   parentProperty,
   card: propertyCard,
   lang,
-  availableUnitsCount: isPromotion ? units.length : null,
+  availableUnitsCount: projectSummary?.availableCount ?? null,
 });
 const propertyMapFeatures = propertyMapFeatureResult.feature ? [propertyMapFeatureResult.feature] : [];
+const availabilityModel = buildPromotionAvailabilityModel({
+  promotionId: isPromotion ? String(property.id) : String(parentProperty?.id ?? ""),
+  units: relatedUnitsRaw,
+  lang,
+  selectedUnitId: isPromotion ? null : String(property.id),
+});
+const hasAvailabilityInventory = availabilityModel?.tabs.some((tab) => tab.units.length > 0) ?? false;
 
 const formatRangeValue = (range, decimals = 0) => {
   if (!range) return null;
@@ -273,27 +270,6 @@ const formatRangeValue = (range, decimals = 0) => {
   const max = decimals > 0 ? range.max.toFixed(decimals) : Math.round(range.max);
   if (min === max) return String(min);
   return `${min}-${max}`;
-};
-
-const getUnitFloorLabel = (unit) => {
-  const raw = unit?.raw?.property ?? {};
-  if (typeof raw.floor_label === "string" && raw.floor_label.trim().length > 0) {
-    return raw.floor_label;
-  }
-  if (typeof raw.floor_level === "number") {
-    return `P${raw.floor_level}`;
-  }
-  return "-";
-};
-
-const getUnitFloorplanUrl = (unit) => {
-  const plans = unit?.raw?.media?.gallery?.floorplan ?? [];
-  const firstPdf = plans.find((item) =>
-    (typeof item === "string" && item.toLowerCase().endsWith(".pdf")) ||
-    (typeof item?.url === "string" && item.url.toLowerCase().endsWith(".pdf"))
-  );
-  if (typeof firstPdf === "string") return firstPdf;
-  return firstPdf?.url ?? null;
 };
 
 const copyByLang = {
@@ -476,6 +452,15 @@ const copyByLang = {
 };
 
 const t = copyByLang[lang] ?? copyByLang.en;
+const unitAvailabilityTitleByLang = {
+  es: "Vivienda seleccionada en la promocion",
+  en: "Selected unit within the development",
+  de: "Ausgewahlte Einheit im Projekt",
+  fr: "Unite selectionnee dans le programme",
+  it: "Unita selezionata nella promozione",
+  nl: "Geselecteerde unit in het project",
+};
+const unitAvailabilityTitle = unitAvailabilityTitleByLang[lang] ?? unitAvailabilityTitleByLang.en;
 const conciergeTitleByLang = {
   es: "Quiero saber más",
   en: "I want to know more",
@@ -702,6 +687,15 @@ const gallerySections = [
 
   <div class="property-container">
     <div class="property-main">
+      {!isPromotion && availabilityModel && hasAvailabilityInventory && (
+        <section class="section-unit-availability" aria-labelledby="unit-availability-title">
+          <span class="editorial-label">{t.availability}</span>
+          <h2 class="section-title" id="unit-availability-title">{unitAvailabilityTitle}</h2>
+          <div class="luxury-divider"></div>
+          <PropertyAvailability availability={availabilityModel} lang={lang} mode="unit" />
+        </section>
+      )}
+
       <section class="section-intro" aria-labelledby="intro-title">
         <span class="editorial-label">{t.quickSheet}</span>
         <h2 class="section-title" id="intro-title">{t.executiveSummary}</h2>
@@ -824,7 +818,7 @@ const gallerySections = [
           </div>
         )}
 
-        {isPromotion && units.length > 0 && (
+        {isPromotion && availabilityModel && hasAvailabilityInventory && (
           <div class="summary-cta">
             <a href="#units" class="btn-premium primary">{t.seeAvailableUnits}</a>
             <p class="summary-note">{t.summaryNote}</p>
@@ -832,65 +826,12 @@ const gallerySections = [
         )}
       </section>
 
-      {isPromotion && units.length > 0 && (
+      {isPromotion && availabilityModel && hasAvailabilityInventory && (
         <section class="section-units" aria-labelledby="units-title" id="units">
           <span class="editorial-label">{t.availability}</span>
           <h2 class="section-title" id="units-title">{t.availableHomes}</h2>
           <div class="luxury-divider"></div>
-
-          <table class="units-table">
-            <caption class="sr-only">{t.availableHomesCaption}</caption>
-            <thead>
-              <tr>
-                <th>{t.unit}</th>
-                <th>{t.bedrooms}</th>
-                <th>{t.floor}</th>
-                <th>{t.areaM2}</th>
-                <th>{t.terrace}</th>
-                <th>{t.price}</th>
-                <th>{t.floorplan}</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {units.map((unit) => (
-                <tr>
-                  <td data-label={t.unit}>{getUnitNumber(unit)}</td>
-                  <td data-label={t.bedrooms}>{unit.data.details.bedrooms ?? "-"}</td>
-                  <td data-label={t.floor}>{getUnitFloorLabel(unit)}</td>
-                  <td data-label={t.areaM2}>{unit.data.details.area_m2 ?? "-"}</td>
-                  <td data-label={t.terrace}>{unit.data.details.terrace_m2 ?? "-"}</td>
-                  <td data-label={t.price}>
-                    {unit.data.price !== null
-                      ? formatPrice(unit.data.price, unit.data.currency, lang)
-                      : "-"}
-                  </td>
-                  <td data-label={t.floorplan}>
-                    {getUnitFloorplanUrl(unit) ? (
-                      <a
-                        href={getUnitFloorplanUrl(unit)}
-                        class="text-link-luxury"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {t.openPlan}
-                      </a>
-                    ) : (
-                      "-"
-                    )}
-                  </td>
-                  <td data-label="">
-                    <a
-                      href={`/${lang}/property/${unit.raw.slugs[lang]}`}
-                      class="text-link-luxury"
-                    >
-                      {t.viewUnit}
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <PropertyAvailability availability={availabilityModel} lang={lang} mode="promotion" />
         </section>
       )}
 
