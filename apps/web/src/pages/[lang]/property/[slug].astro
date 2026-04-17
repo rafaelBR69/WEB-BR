@@ -195,6 +195,40 @@ const isPromotion = data.isPromotion ?? property.listing_type === "promotion";
 const relatedUnitsRaw = relatedUnitsResult.properties.filter((p) => (p.status ?? "available") !== "private");
 const allProjectUnitsRaw = isPromotion ? relatedUnitsRaw : [];
 
+const resolveAvailabilityContext = ({
+  property,
+  parentProperty,
+  relatedUnits,
+}: {
+  property: any;
+  parentProperty: any;
+  relatedUnits: any[];
+}) => {
+  const propertyType = String(property?.listing_type ?? "").trim();
+  const parentType = String(parentProperty?.listing_type ?? "").trim();
+  const hasParentPromotion = Boolean(parentProperty?.id) && parentType === "promotion";
+  const isPromotionParent = propertyType === "promotion" && relatedUnits.length > 0;
+  const isPromotionChild = propertyType === "unit" && hasParentPromotion;
+
+  if (isPromotionParent) {
+    return {
+      mode: "promotion" as const,
+      promotionId: String(property.id),
+      selectedUnitId: null,
+    };
+  }
+
+  if (isPromotionChild) {
+    return {
+      mode: "unit" as const,
+      promotionId: String(parentProperty.id),
+      selectedUnitId: String(property.id),
+    };
+  }
+
+  return null;
+};
+
 const getNumericRange = (values) => {
   if (!values.length) return null;
   const min = Math.min(...values);
@@ -256,13 +290,22 @@ const propertyMapFeatureResult = buildPropertyMapFeature({
   availableUnitsCount: projectSummary?.availableCount ?? null,
 });
 const propertyMapFeatures = propertyMapFeatureResult.feature ? [propertyMapFeatureResult.feature] : [];
-const availabilityModel = buildPromotionAvailabilityModel({
-  promotionId: isPromotion ? String(property.id) : String(parentProperty?.id ?? ""),
-  units: relatedUnitsRaw,
-  lang,
-  selectedUnitId: isPromotion ? null : String(property.id),
+const availabilityContext = resolveAvailabilityContext({
+  property,
+  parentProperty,
+  relatedUnits: relatedUnitsRaw,
 });
+const availabilityModel = availabilityContext
+  ? buildPromotionAvailabilityModel({
+      promotionId: availabilityContext.promotionId,
+      units: relatedUnitsRaw,
+      lang,
+      selectedUnitId: availabilityContext.selectedUnitId,
+    })
+  : null;
 const hasAvailabilityInventory = availabilityModel?.tabs.some((tab) => tab.units.length > 0) ?? false;
+const showPromotionAvailability = availabilityContext?.mode === "promotion" && hasAvailabilityInventory;
+const showUnitAvailability = availabilityContext?.mode === "unit" && hasAvailabilityInventory;
 
 const formatRangeValue = (range, decimals = 0) => {
   if (!range) return null;
@@ -687,7 +730,7 @@ const gallerySections = [
 
   <div class="property-container">
     <div class="property-main">
-      {!isPromotion && availabilityModel && hasAvailabilityInventory && (
+      {showUnitAvailability && (
         <section class="section-unit-availability" aria-labelledby="unit-availability-title">
           <span class="editorial-label">{t.availability}</span>
           <h2 class="section-title" id="unit-availability-title">{unitAvailabilityTitle}</h2>
@@ -818,7 +861,7 @@ const gallerySections = [
           </div>
         )}
 
-        {isPromotion && availabilityModel && hasAvailabilityInventory && (
+        {showPromotionAvailability && (
           <div class="summary-cta">
             <a href="#units" class="btn-premium primary">{t.seeAvailableUnits}</a>
             <p class="summary-note">{t.summaryNote}</p>
@@ -826,7 +869,7 @@ const gallerySections = [
         )}
       </section>
 
-      {isPromotion && availabilityModel && hasAvailabilityInventory && (
+      {showPromotionAvailability && (
         <section class="section-units" aria-labelledby="units-title" id="units">
           <span class="editorial-label">{t.availability}</span>
           <h2 class="section-title" id="units-title">{t.availableHomes}</h2>
