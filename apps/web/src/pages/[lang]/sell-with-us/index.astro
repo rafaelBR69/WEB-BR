@@ -19,6 +19,8 @@ const navigation = buildPublicNavigation({
   section: "sell-with-us",
 });
 const privacyPath = `/${lang}/legal/privacy/`;
+const turnstileSiteKey = String(import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "").trim();
+const turnstileRequired = !import.meta.env.DEV || turnstileSiteKey.length > 0;
 
 const copyByLang = {
   es: {
@@ -495,6 +497,17 @@ const structuredData = {
               </span>
             </label>
 
+            <input type="hidden" name="form_rendered_at" value="" />
+            <label
+              aria-hidden="true"
+              style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+            >
+              <span>Website</span>
+              <input type="text" name="website" tabindex="-1" autocomplete="off" />
+            </label>
+
+            {turnstileSiteKey ? <div class="service-form-field-full" id="sellLeadTurnstile"></div> : null}
+
             <p class="service-form-legal-note service-form-field-full">{t.legalNote}</p>
 
             <div class="service-form-actions sell-form-actions">
@@ -509,10 +522,69 @@ const structuredData = {
     </section>
   </div>
 
-  <script is:inline define:vars={{ lang, t }}>
+  {turnstileSiteKey ? (
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+  ) : null}
+
+  <script is:inline define:vars={{ lang, t, turnstileSiteKey, turnstileRequired }}>
     const form = document.getElementById("sellLeadForm");
     const submitButton = document.getElementById("sellLeadSubmit");
     const statusNode = document.getElementById("sellLeadStatus");
+    const turnstileContainer = document.getElementById("sellLeadTurnstile");
+    let turnstileWidgetId = null;
+    let turnstileToken = "";
+
+    const setRenderedAt = () => {
+      if (!(form instanceof HTMLFormElement)) return;
+      const renderedAtInput = form.querySelector('input[name="form_rendered_at"]');
+      if (renderedAtInput instanceof HTMLInputElement) {
+        renderedAtInput.value = new Date().toISOString();
+      }
+    };
+
+    const mountTurnstile = () => {
+      if (!turnstileSiteKey || !turnstileContainer || turnstileWidgetId !== null) {
+        return turnstileWidgetId !== null;
+      }
+      if (!window.turnstile || typeof window.turnstile.render !== "function") {
+        return false;
+      }
+
+      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+        sitekey: turnstileSiteKey,
+        theme: "light",
+        callback: (token) => {
+          turnstileToken = String(token ?? "").trim();
+        },
+        "expired-callback": () => {
+          turnstileToken = "";
+        },
+        "error-callback": () => {
+          turnstileToken = "";
+        },
+      });
+
+      return true;
+    };
+
+    const resetTurnstile = () => {
+      turnstileToken = "";
+      if (turnstileWidgetId !== null && window.turnstile && typeof window.turnstile.reset === "function") {
+        window.turnstile.reset(turnstileWidgetId);
+      }
+    };
+
+    setRenderedAt();
+
+    if (turnstileSiteKey) {
+      const turnstilePoll = window.setInterval(() => {
+        if (mountTurnstile()) {
+          window.clearInterval(turnstilePoll);
+        }
+      }, 250);
+      mountTurnstile();
+      window.setTimeout(() => window.clearInterval(turnstilePoll), 10000);
+    }
 
     if (
       form instanceof HTMLFormElement &&
@@ -531,8 +603,17 @@ const structuredData = {
         const area = String(formData.get("area") ?? "").trim();
         const message = String(formData.get("message") ?? "").trim();
         const consent = formData.get("consent") === "on";
+        const honeypot = String(formData.get("website") ?? "").trim();
+        const renderedAt = String(formData.get("form_rendered_at") ?? "").trim();
 
         if (!consent) {
+          statusNode.textContent = t.formError;
+          statusNode.classList.add("is-error");
+          return;
+        }
+
+        if (turnstileRequired && !turnstileToken) {
+          mountTurnstile();
           statusNode.textContent = t.formError;
           statusNode.classList.add("is-error");
           return;
@@ -542,11 +623,15 @@ const structuredData = {
           full_name: fullName,
           email,
           phone,
+          consent,
           source: "website_sell_with_us_form",
-          origin_type: "website",
           lead_kind: "seller",
           operation_interest: "sale",
           message: `[service:sell-with-us][lang:${lang}][area:${area || "unspecified"}][consent:accepted] ${message}`.trim(),
+          website_form: "sell-with-us",
+          hp_field: honeypot,
+          form_rendered_at: renderedAt,
+          turnstile_token: turnstileToken,
         };
 
         submitButton.disabled = true;
@@ -568,11 +653,14 @@ const structuredData = {
           statusNode.textContent = t.formSuccess;
           statusNode.classList.add("is-success");
           form.reset();
+          resetTurnstile();
+          setRenderedAt();
         } catch (error) {
           statusNode.textContent = t.formError;
           statusNode.classList.add("is-error");
           console.error(error);
         } finally {
+          resetTurnstile();
           submitButton.disabled = false;
           submitButton.textContent = t.formSubmit;
         }

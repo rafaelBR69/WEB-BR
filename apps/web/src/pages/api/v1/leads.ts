@@ -1,51 +1,43 @@
 import type { APIRoute } from "astro";
 import { jsonResponse, methodNotAllowed, parseJsonBody } from "@shared/api/json";
+import { LEAD_KINDS, LEAD_OPERATION_INTERESTS, LEAD_ORIGIN_TYPES, LEAD_STATUSES } from "@shared/leads/domain";
 import {
-  LEAD_KINDS,
-  LEAD_OPERATION_INTERESTS,
-  LEAD_ORIGIN_TYPES,
-  LEAD_STATUSES,
-  normalizeEmail,
-  normalizeLeadKind,
-  normalizeLeadOriginType,
-  normalizeLeadStatus,
-  normalizeOperationInterest,
-  normalizePhone,
-} from "@shared/leads/domain";
+  PUBLIC_LEAD_LOG_SOURCE,
+  PUBLIC_LEAD_RATE_LIMITS,
+  checkPublicLeadRateLimit,
+  normalizePublicLeadRateLimitPhone,
+} from "@shared/leads/publicLeadRateLimit";
+import {
+  classifyPublicLeadContent,
+  evaluatePublicLeadTechnicalGuard,
+  parsePublicLeadBody,
+} from "@shared/leads/publicLeadSpamGuard";
 import {
   resolveDefaultLeadOrganizationId,
   resolvePublicPropertyLeadContext,
   sendGenericLeadNotificationEmail,
   sendPropertyLeadNotificationEmail,
 } from "@shared/leads/publicPropertyLead";
-import { asText, asUuid } from "@shared/portal/domain";
+import {
+  asText,
+  getRequestIp,
+  getRequestUserAgent,
+  safeInsertPortalAccessLog,
+} from "@shared/portal/domain";
 import { getSupabaseServerClient } from "@shared/supabase/server";
 
-type LeadInterest = (typeof LEAD_OPERATION_INTERESTS)[number];
-type LeadStatus = (typeof LEAD_STATUSES)[number];
-type LeadOriginType = (typeof LEAD_ORIGIN_TYPES)[number];
-type LeadKind = (typeof LEAD_KINDS)[number];
 const DEFAULT_GENERIC_LEAD_RECIPIENTS = ["info@blancareal.com", "sales@blancareal.com"];
-
-type CreateLeadBody = {
-  organization_id?: string;
-  full_name?: string;
-  email?: string;
-  phone?: string;
-  consent?: boolean;
-  lang?: string;
-  source?: string;
-  operation_interest?: LeadInterest;
-  status?: LeadStatus;
-  origin_type?: LeadOriginType;
-  lead_kind?: LeadKind;
-  agency_id?: string;
-  provider_id?: string;
-  referred_contact_id?: string;
-  discarded_reason?: string;
-  property_legacy_code?: string;
-  message?: string;
-};
+const LEAD_INSERT_SELECT_COLUMNS = [
+  "id",
+  "organization_id",
+  "property_id",
+  "lead_kind",
+  "origin_type",
+  "source",
+  "status",
+  "operation_interest",
+  "created_at",
+].join(", ");
 
 const MOCK_LEADS = [
   {
@@ -83,8 +75,94 @@ const MOCK_LEADS = [
   },
 ];
 
-const hasOwn = (value: unknown, key: string) =>
-  Boolean(value && typeof value === "object" && Object.prototype.hasOwnProperty.call(value, key));
+type EmailDeliveryResult = {
+  attempted: boolean;
+  sent: boolean;
+  provider: string | null;
+  error: string | null;
+  recipientCount: number;
+};
+
+const buildSkippedEmailDelivery = (): EmailDeliveryResult => ({
+  attempted: false,
+  sent: false,
+  provider: null,
+  error: null,
+  recipientCount: 0,
+});
+
+const buildBlockedResponse = (status = 400, error = "submission_blocked") =>
+  jsonResponse(
+    {
+      ok: false,
+      error,
+    },
+    { status }
+  );
+
+const buildSpamGuardSnapshot = (input: {
+  verdict: "blocked" | "junk" | "new";
+  reasons: string[];
+  ip: string | null;
+  userAgent: string | null;
+  renderMs: number | null;
+  websiteForm: string;
+  turnstileOk: boolean;
+}) => ({
+  verdict: input.verdict,
+  reasons: input.reasons,
+  ip: input.ip,
+  user_agent: input.userAgent,
+  render_ms: input.renderMs,
+  website_form: input.websiteForm,
+  turnstile_ok: input.turnstileOk,
+});
+
+const buildPublicLeadLogMetadata = (input: {
+  verdict: "blocked" | "junk" | "new";
+  reasons: string[];
+  websiteForm: string;
+  ip: string | null;
+  userAgent: string | null;
+  renderMs: number | null;
+  turnstileOk: boolean;
+  email: string | null;
+  phone: string | null;
+  hpField: string | null;
+  extra?: Record<string, unknown>;
+}) => ({
+  source: PUBLIC_LEAD_LOG_SOURCE,
+  website_form: input.websiteForm,
+  verdict: input.verdict,
+  reasons: input.reasons,
+  ip: input.ip,
+  user_agent: input.userAgent,
+  render_ms: input.renderMs,
+  turnstile_ok: input.turnstileOk,
+  email_normalized: input.email,
+  phone_normalized: normalizePublicLeadRateLimitPhone(input.phone),
+  hp_present: Boolean(input.hpField),
+  hp_length: input.hpField?.length ?? 0,
+  ...input.extra,
+});
+
+const insertPublicLead = async (
+  client: NonNullable<ReturnType<typeof getSupabaseServerClient>>,
+  insertPayload: Record<string, unknown>
+) => {
+  const { data, error } = await client
+    .schema("crm")
+    .from("leads")
+    .insert(insertPayload)
+    .select(LEAD_INSERT_SELECT_COLUMNS)
+    .single();
+
+  if (error || !data) {
+    throw new Error(error?.message ?? "insert_lead_failed");
+  }
+
+  return data as unknown as Record<string, unknown>;
+};
 
 export const GET: APIRoute = async ({ url }) => {
   const status = url.searchParams.get("status");
@@ -107,6 +185,8 @@ export const GET: APIRoute = async ({ url }) => {
       supports: {
         status: LEAD_STATUSES,
         origin_type: LEAD_ORIGIN_TYPES,
+        lead_kind: LEAD_KINDS,
+        operation_interest: LEAD_OPERATION_INTERESTS,
       },
       next_step: "connect_supabase_table_crm_leads",
     },
@@ -114,7 +194,7 @@ export const GET: APIRoute = async ({ url }) => {
 };
 
 export const POST: APIRoute = async ({ request }) => {
-  const body = await parseJsonBody<CreateLeadBody>(request);
+  const body = await parseJsonBody<Record<string, unknown>>(request);
   if (!body) {
     return jsonResponse(
       {
@@ -125,71 +205,159 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  const fullName = asText(body.full_name);
-  const email = normalizeEmail(body.email);
-  const phone = normalizePhone(body.phone);
-  const message = asText(body.message);
-  const propertyLegacyCode = asText(body.property_legacy_code);
-  const lang = asText(body.lang) ?? "es";
-  const source = asText(body.source) ?? "web_form";
-  const originType = normalizeLeadOriginType(asText(body.origin_type), "website");
-  const leadKind = normalizeLeadKind(asText(body.lead_kind), "buyer");
-  const operationInterest = normalizeOperationInterest(asText(body.operation_interest), "sale");
-  const status = normalizeLeadStatus(asText(body.status), "new");
-
-  if (originType === "agency" && !body.agency_id) {
-    return jsonResponse({ ok: false, error: "agency_id_required_for_agency_origin" }, { status: 422 });
+  const parsed = parsePublicLeadBody(body);
+  if (!parsed.ok) {
+    return jsonResponse({ ok: false, error: parsed.error }, { status: 422 });
   }
 
-  if (originType === "provider" && !body.provider_id) {
-    return jsonResponse({ ok: false, error: "provider_id_required_for_provider_origin" }, { status: 422 });
+  const payload = parsed.data;
+  const organizationId = resolveDefaultLeadOrganizationId();
+  if (!organizationId) {
+    return jsonResponse({ ok: false, error: "lead_organization_not_configured" }, { status: 500 });
   }
 
-  if (body.agency_id && body.provider_id) {
-    return jsonResponse({ ok: false, error: "agency_id_and_provider_id_are_mutually_exclusive" }, { status: 422 });
+  const client = getSupabaseServerClient();
+  if (!client) {
+    return jsonResponse({ ok: false, error: "supabase_not_configured" }, { status: 500 });
   }
 
-  if (propertyLegacyCode) {
-    if (!fullName) {
-      return jsonResponse({ ok: false, error: "full_name_required" }, { status: 422 });
-    }
+  const ip = getRequestIp(request);
+  const userAgent = getRequestUserAgent(request);
+  const technicalGuard = await evaluatePublicLeadTechnicalGuard({
+    payload,
+    ip,
+  });
+
+  if (technicalGuard.blocked) {
+    await safeInsertPortalAccessLog(client, {
+      organization_id: organizationId,
+      email: payload.email,
+      event_type: "blocked",
+      ip,
+      user_agent: userAgent,
+      metadata: buildPublicLeadLogMetadata({
+        verdict: "blocked",
+        reasons: technicalGuard.reasons,
+        websiteForm: payload.websiteForm,
+        ip,
+        userAgent,
+        renderMs: technicalGuard.renderMs,
+        turnstileOk: technicalGuard.turnstileOk,
+        email: payload.email,
+        phone: payload.phone,
+        hpField: payload.hpField,
+      }),
+    });
+
+    return buildBlockedResponse();
+  }
+
+  const rateLimit = await checkPublicLeadRateLimit(client, {
+    organizationId,
+    ip,
+    email: payload.email,
+    phone: payload.phone,
+  });
+
+  if (rateLimit.blocked) {
+    await safeInsertPortalAccessLog(client, {
+      organization_id: organizationId,
+      email: payload.email,
+      event_type: "blocked",
+      ip,
+      user_agent: userAgent,
+      metadata: buildPublicLeadLogMetadata({
+        verdict: "blocked",
+        reasons: rateLimit.reasons,
+        websiteForm: payload.websiteForm,
+        ip,
+        userAgent,
+        renderMs: technicalGuard.renderMs,
+        turnstileOk: technicalGuard.turnstileOk,
+        email: payload.email,
+        phone: payload.phone,
+        hpField: payload.hpField,
+        extra: {
+          rate_limit_counts: rateLimit.counts,
+          rate_limit_limits: {
+            ip: PUBLIC_LEAD_RATE_LIMITS.ip.attempts,
+            email: PUBLIC_LEAD_RATE_LIMITS.email.attempts,
+            phone: PUBLIC_LEAD_RATE_LIMITS.phone.attempts,
+          },
+        },
+      }),
+    });
+
+    return buildBlockedResponse(429, "too_many_requests");
+  }
+
+  const fullName = payload.fullName;
+  const email = payload.email;
+  const phone = payload.phone;
+  const message = payload.message;
+  const lang = payload.lang ?? "es";
+  const source = payload.source;
+  const leadKind = payload.leadKind;
+  const operationInterest = payload.operationInterest;
+  const propertyLegacyCode = payload.propertyLegacyCode;
+
+  if (!fullName) {
+    return jsonResponse({ ok: false, error: "full_name_required" }, { status: 422 });
+  }
+
+  if (payload.consent !== true) {
+    return jsonResponse({ ok: false, error: "consent_required" }, { status: 422 });
+  }
+
+  if (payload.websiteForm === "property") {
     if (!email) {
       return jsonResponse({ ok: false, error: "email_required" }, { status: 422 });
     }
-    if (body.consent !== true) {
-      return jsonResponse({ ok: false, error: "consent_required" }, { status: 422 });
+    if (!propertyLegacyCode) {
+      return jsonResponse({ ok: false, error: "property_legacy_code_required" }, { status: 422 });
     }
+  } else if (!email && !phone) {
+    return jsonResponse({ ok: false, error: "email_or_phone_required" }, { status: 422 });
+  }
 
-    const organizationId = asText(body.organization_id) ?? resolveDefaultLeadOrganizationId();
-    if (!organizationId) {
-      return jsonResponse({ ok: false, error: "organization_id_required" }, { status: 422 });
-    }
+  const contentGuard = classifyPublicLeadContent({
+    fullName,
+    email,
+    message,
+  });
 
-    const referredContactId = hasOwn(body, "referred_contact_id") ? asUuid(body.referred_contact_id) : null;
-    const agencyId = hasOwn(body, "agency_id") ? asUuid(body.agency_id) : null;
-    const providerId = hasOwn(body, "provider_id") ? asUuid(body.provider_id) : null;
+  const leadStatus = contentGuard.verdict === "junk" ? "junk" : "new";
+  const discardedReason = leadStatus === "junk" ? "spam_guard_gibberish" : null;
+  const insertedAt = new Date().toISOString();
+  const spamGuardSnapshot = buildSpamGuardSnapshot({
+    verdict: contentGuard.verdict,
+    reasons: contentGuard.reasons,
+    ip,
+    userAgent,
+    renderMs: technicalGuard.renderMs,
+    websiteForm: payload.websiteForm,
+    turnstileOk: technicalGuard.turnstileOk,
+  });
+  const logMetadata = buildPublicLeadLogMetadata({
+    verdict: contentGuard.verdict,
+    reasons: contentGuard.reasons,
+    websiteForm: payload.websiteForm,
+    ip,
+    userAgent,
+    renderMs: technicalGuard.renderMs,
+    turnstileOk: technicalGuard.turnstileOk,
+    email,
+    phone,
+    hpField: payload.hpField,
+  });
 
-    if (hasOwn(body, "referred_contact_id") && body.referred_contact_id != null && !referredContactId) {
-      return jsonResponse({ ok: false, error: "invalid_referred_contact_id" }, { status: 422 });
-    }
-    if (hasOwn(body, "agency_id") && body.agency_id != null && !agencyId) {
-      return jsonResponse({ ok: false, error: "invalid_agency_id" }, { status: 422 });
-    }
-    if (hasOwn(body, "provider_id") && body.provider_id != null && !providerId) {
-      return jsonResponse({ ok: false, error: "invalid_provider_id" }, { status: 422 });
-    }
-
-    const client = getSupabaseServerClient();
-    if (!client) {
-      return jsonResponse({ ok: false, error: "supabase_not_configured" }, { status: 500 });
-    }
-
+  if (payload.websiteForm === "property") {
     let propertyContext;
     try {
       propertyContext = await resolvePublicPropertyLeadContext(
         client,
         organizationId,
-        propertyLegacyCode,
+        propertyLegacyCode ?? "",
         lang,
         request
       );
@@ -208,7 +376,6 @@ export const POST: APIRoute = async ({ request }) => {
       return jsonResponse({ ok: false, error: "property_legacy_code_not_found" }, { status: 404 });
     }
 
-    const insertedAt = new Date().toISOString();
     const rawPayload = {
       created_via: "website_property_schedule_visit",
       mapped: {
@@ -242,63 +409,69 @@ export const POST: APIRoute = async ({ request }) => {
         channel: source,
         imported_at: insertedAt,
       },
+      spam_guard: spamGuardSnapshot,
     };
 
-    const insertPayload: Record<string, unknown> = {
-      organization_id: organizationId,
-      property_id: propertyContext.propertyId,
-      agency_id: agencyId,
-      provider_id: providerId,
-      referred_contact_id: referredContactId,
-      lead_kind: leadKind,
-      origin_type: originType,
-      source,
-      status,
-      operation_interest: operationInterest,
-      discarded_reason: body.discarded_reason ?? null,
-      discarded_at: status === "discarded" ? insertedAt : null,
-      raw_payload: rawPayload,
-    };
-
-    const { data: insertedLead, error: insertError } = await client
-      .schema("crm")
-      .from("leads")
-      .insert(insertPayload)
-      .select("id, organization_id, property_id, lead_kind, origin_type, source, status, operation_interest, created_at")
-      .single();
-
-    if (insertError || !insertedLead) {
+    let insertedLead;
+    try {
+      insertedLead = await insertPublicLead(client, {
+        organization_id: organizationId,
+        property_id: propertyContext.propertyId,
+        lead_kind: leadKind,
+        origin_type: "website",
+        source,
+        status: leadStatus,
+        operation_interest: operationInterest,
+        discarded_reason: discardedReason,
+        discarded_at: discardedReason ? insertedAt : null,
+        raw_payload: rawPayload,
+      });
+    } catch (error) {
       return jsonResponse(
         {
           ok: false,
           error: "db_lead_insert_error",
-          details: insertError?.message ?? "insert_lead_failed",
+          details: error instanceof Error ? error.message : String(error),
         },
         { status: 500 }
       );
     }
 
-    const leadId = asText((insertedLead as Record<string, unknown>).id) ?? "";
-    const emailDelivery = await sendPropertyLeadNotificationEmail({
-      request,
-      to: propertyContext.recipients,
-      leadId,
-      fullName,
+    const leadId = asText(insertedLead.id) ?? "";
+
+    await safeInsertPortalAccessLog(client, {
+      organization_id: organizationId,
+      lead_id: leadId,
       email,
-      phone,
-      message,
-      snapshot: propertyContext.snapshot,
-      projectDisplayName: propertyContext.projectDisplayName,
+      event_type: "lead_submitted",
+      ip,
+      user_agent: userAgent,
+      metadata: logMetadata,
     });
 
-    if (!emailDelivery.sent) {
-      console.error("[property-lead-email] delivery_failed", {
+    let emailDelivery = buildSkippedEmailDelivery();
+    if (leadStatus === "new") {
+      emailDelivery = await sendPropertyLeadNotificationEmail({
+        request,
+        to: propertyContext.recipients,
         leadId,
-        propertyLegacyCode: propertyContext.propertyLegacyCode,
-        projectLegacyCode: propertyContext.projectLegacyCode,
-        error: emailDelivery.error,
-        recipientCount: emailDelivery.recipientCount,
+        fullName,
+        email,
+        phone,
+        message,
+        snapshot: propertyContext.snapshot,
+        projectDisplayName: propertyContext.projectDisplayName,
       });
+
+      if (!emailDelivery.sent) {
+        console.error("[property-lead-email] delivery_failed", {
+          leadId,
+          propertyLegacyCode: propertyContext.propertyLegacyCode,
+          projectLegacyCode: propertyContext.projectLegacyCode,
+          error: emailDelivery.error,
+          recipientCount: emailDelivery.recipientCount,
+        });
+      }
     }
 
     return jsonResponse(
@@ -306,8 +479,8 @@ export const POST: APIRoute = async ({ request }) => {
         ok: true,
         data: {
           id: leadId,
-          organization_id: asText((insertedLead as Record<string, unknown>).organization_id),
-          property_id: asText((insertedLead as Record<string, unknown>).property_id),
+          organization_id: asText(insertedLead.organization_id),
+          property_id: asText(insertedLead.property_id),
           property_legacy_code: propertyContext.propertyLegacyCode,
           project_legacy_code: propertyContext.projectLegacyCode,
           full_name: fullName,
@@ -315,11 +488,13 @@ export const POST: APIRoute = async ({ request }) => {
           phone,
           message,
           source,
-          origin_type: originType,
+          origin_type: "website",
           lead_kind: leadKind,
           operation_interest: operationInterest,
-          status,
-          created_at: asText((insertedLead as Record<string, unknown>).created_at),
+          status: leadStatus,
+          discarded_reason: discardedReason,
+          discarded_at: discardedReason ? insertedAt : null,
+          created_at: asText(insertedLead.created_at),
         },
         meta: {
           persisted: true,
@@ -331,35 +506,86 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  if (!fullName) {
-    return jsonResponse({ ok: false, error: "full_name_required" }, { status: 422 });
+  const rawPayload = {
+    created_via: `website_${payload.websiteForm}_form`,
+    mapped: {
+      full_name: fullName,
+      email,
+      phone,
+      message,
+      lang,
+      consent: true,
+    },
+    notification: {
+      routing_source: "generic",
+      recipients: DEFAULT_GENERIC_LEAD_RECIPIENTS,
+    },
+    import: {
+      channel: source,
+      imported_at: insertedAt,
+    },
+    spam_guard: spamGuardSnapshot,
+  };
+
+  let insertedLead;
+  try {
+    insertedLead = await insertPublicLead(client, {
+      organization_id: organizationId,
+      lead_kind: leadKind,
+      origin_type: "website",
+      source,
+      status: leadStatus,
+      operation_interest: operationInterest,
+      discarded_reason: discardedReason,
+      discarded_at: discardedReason ? insertedAt : null,
+      raw_payload: rawPayload,
+    });
+  } catch (error) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: "db_lead_insert_error",
+        details: error instanceof Error ? error.message : String(error),
+      },
+      { status: 500 }
+    );
   }
 
-  if (!email && !phone) {
-    return jsonResponse({ ok: false, error: "email_or_phone_required" }, { status: 422 });
-  }
+  const leadId = asText(insertedLead.id) ?? "";
 
-  const leadId = `ld_${crypto.randomUUID()}`;
-  const emailDelivery = await sendGenericLeadNotificationEmail({
-    to: DEFAULT_GENERIC_LEAD_RECIPIENTS,
-    leadId,
-    fullName,
-    email: email || null,
-    phone: phone || null,
-    message: message ?? null,
-    source,
-    leadKind,
-    operationInterest,
-    lang,
+  await safeInsertPortalAccessLog(client, {
+    organization_id: organizationId,
+    lead_id: leadId,
+    email,
+    event_type: "lead_submitted",
+    ip,
+    user_agent: userAgent,
+    metadata: logMetadata,
   });
 
-  if (!emailDelivery.sent) {
-    console.error("[generic-lead-email] delivery_failed", {
+  let emailDelivery = buildSkippedEmailDelivery();
+  if (leadStatus === "new") {
+    emailDelivery = await sendGenericLeadNotificationEmail({
+      to: DEFAULT_GENERIC_LEAD_RECIPIENTS,
       leadId,
+      fullName,
+      email: email || null,
+      phone: phone || null,
+      message: message ?? null,
       source,
-      error: emailDelivery.error,
-      recipientCount: emailDelivery.recipientCount,
+      leadKind,
+      operationInterest,
+      lang,
     });
+
+    if (!emailDelivery.sent) {
+      console.error("[generic-lead-email] delivery_failed", {
+        leadId,
+        source,
+        error: emailDelivery.error,
+        recipientCount: emailDelivery.recipientCount,
+      });
+    }
   }
 
   return jsonResponse(
@@ -367,27 +593,25 @@ export const POST: APIRoute = async ({ request }) => {
       ok: true,
       data: {
         id: leadId,
-        organization_id: body.organization_id ?? null,
+        organization_id: asText(insertedLead.organization_id),
+        property_id: asText(insertedLead.property_id),
         full_name: fullName,
         email: email || null,
         phone: phone || null,
         source,
-        origin_type: originType,
+        origin_type: "website",
         lead_kind: leadKind,
-        agency_id: body.agency_id ?? null,
-        provider_id: body.provider_id ?? null,
-        referred_contact_id: body.referred_contact_id ?? null,
         operation_interest: operationInterest,
         property_legacy_code: null,
         message: message ?? null,
-        status,
-        discarded_reason: body.discarded_reason ?? null,
-        discarded_at: status === "discarded" ? new Date().toISOString() : null,
-        created_at: new Date().toISOString(),
+        status: leadStatus,
+        discarded_reason: discardedReason,
+        discarded_at: discardedReason ? insertedAt : null,
+        created_at: asText(insertedLead.created_at),
       },
       meta: {
-        persisted: false,
-        next_step: "insert_into_crm_leads_in_supabase",
+        persisted: true,
+        storage: "supabase.crm.leads",
         email_delivery: emailDelivery,
       },
     },

@@ -69,6 +69,8 @@ const agent = {
   phone: "+34 600 123 456",
   email: "info@blancareal.com",
 };
+const turnstileSiteKey = String(import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "").trim();
+const turnstileRequired = !import.meta.env.DEV || turnstileSiteKey.length > 0;
 
 /* =========================
    RESOLVE PROPERTY
@@ -1060,6 +1062,15 @@ const gallerySections = [
                   ></textarea>
                   <input type="hidden" name="property_legacy_code" value={propertyLegacyCode} />
                   <input type="hidden" name="lang" value={lang} />
+                  <input type="hidden" name="form_rendered_at" value="" />
+                  <label
+                    aria-hidden="true"
+                    style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+                  >
+                    <span>Website</span>
+                    <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                  </label>
+                  {turnstileSiteKey ? <div id="propertyLeadTurnstile"></div> : null}
                   <label class="luxury-form-consent">
                     <input type="checkbox" name="consent" required />
                     <span>{t.consentText}</span>
@@ -1081,12 +1092,18 @@ const gallerySections = [
     </aside>
   </div>
 
+  {turnstileSiteKey ? (
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+  ) : null}
+
   <script
     is:inline
     define:vars={{
       propertyLeadLang: lang,
       propertyLeadSource: "website_property_schedule_visit",
       propertyLeadOperation: property.operation_type ?? property.transaction ?? "sale",
+      turnstileSiteKey,
+      turnstileRequired,
       propertyLeadCopy: {
         sending: t.formSending,
         success: t.formSuccess,
@@ -1098,6 +1115,79 @@ const gallerySections = [
     const leadForm = document.getElementById("propertyLeadForm");
     const leadSubmit = document.getElementById("propertyLeadSubmit");
     const leadStatus = document.getElementById("propertyLeadStatus");
+    const turnstileContainer = document.getElementById("propertyLeadTurnstile");
+    const leadDetails = leadForm instanceof HTMLFormElement ? leadForm.closest("details") : null;
+    let turnstileWidgetId = null;
+    let turnstileToken = "";
+
+    const setRenderedAt = () => {
+      if (!(leadForm instanceof HTMLFormElement)) return;
+      const renderedAtInput = leadForm.querySelector('input[name="form_rendered_at"]');
+      if (renderedAtInput instanceof HTMLInputElement) {
+        renderedAtInput.value = new Date().toISOString();
+      }
+    };
+
+    const mountTurnstile = () => {
+      if (!turnstileSiteKey || !turnstileContainer || turnstileWidgetId !== null) {
+        return turnstileWidgetId !== null;
+      }
+      if (leadDetails instanceof HTMLDetailsElement && !leadDetails.open) {
+        return false;
+      }
+      if (!window.turnstile || typeof window.turnstile.render !== "function") {
+        return false;
+      }
+
+      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+        sitekey: turnstileSiteKey,
+        theme: "light",
+        callback: (token) => {
+          turnstileToken = String(token ?? "").trim();
+        },
+        "expired-callback": () => {
+          turnstileToken = "";
+        },
+        "error-callback": () => {
+          turnstileToken = "";
+        },
+      });
+
+      return true;
+    };
+
+    const resetTurnstile = () => {
+      turnstileToken = "";
+      if (turnstileWidgetId !== null && window.turnstile && typeof window.turnstile.reset === "function") {
+        window.turnstile.reset(turnstileWidgetId);
+      }
+    };
+
+    const pollTurnstileMount = () => {
+      if (!turnstileSiteKey) return;
+      const turnstilePoll = window.setInterval(() => {
+        if (mountTurnstile()) {
+          window.clearInterval(turnstilePoll);
+        }
+      }, 250);
+      mountTurnstile();
+      window.setTimeout(() => window.clearInterval(turnstilePoll), 10000);
+    };
+
+    setRenderedAt();
+
+    if (leadDetails instanceof HTMLDetailsElement) {
+      leadDetails.addEventListener("toggle", () => {
+        if (leadDetails.open) {
+          pollTurnstileMount();
+        }
+      });
+      if (leadDetails.open) {
+        pollTurnstileMount();
+      }
+    } else {
+      pollTurnstileMount();
+    }
 
     if (
       leadForm instanceof HTMLFormElement &&
@@ -1119,12 +1209,22 @@ const gallerySections = [
           property_legacy_code: String(formData.get("property_legacy_code") ?? "").trim(),
           lang: String(formData.get("lang") ?? propertyLeadLang).trim(),
           source: propertyLeadSource,
-          origin_type: "website",
           lead_kind: "buyer",
           operation_interest: propertyLeadOperation,
+          website_form: "property",
+          hp_field: String(formData.get("website") ?? "").trim(),
+          form_rendered_at: String(formData.get("form_rendered_at") ?? "").trim(),
+          turnstile_token: turnstileToken,
         };
 
         if (!payload.full_name || !payload.email || !payload.property_legacy_code || payload.consent !== true) {
+          leadStatus.textContent = propertyLeadCopy.error;
+          leadStatus.classList.add("is-error");
+          return;
+        }
+
+        if (turnstileRequired && !turnstileToken) {
+          mountTurnstile();
           leadStatus.textContent = propertyLeadCopy.error;
           leadStatus.classList.add("is-error");
           return;
@@ -1147,6 +1247,8 @@ const gallerySections = [
           }
 
           leadForm.reset();
+          resetTurnstile();
+          setRenderedAt();
           leadStatus.textContent = propertyLeadCopy.success;
           leadStatus.classList.add("is-success");
         } catch (error) {
@@ -1154,6 +1256,7 @@ const gallerySections = [
           leadStatus.classList.add("is-error");
           console.error(error);
         } finally {
+          resetTurnstile();
           leadSubmit.disabled = false;
           leadSubmit.textContent = propertyLeadCopy.submit;
         }
