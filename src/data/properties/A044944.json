@@ -1,0 +1,167 @@
+{
+  "id": "A044944",
+  "priority": 83,
+  "slugs": {
+    "es": "local-comercial-san-pedro-de-alcantara",
+    "en": "commercial-unit-san-pedro-de-alcantara",
+    "de": "gewerbeimmobilie-san-pedro-de-alcantara",
+    "fr": "local-commercial-san-pedro-de-alcantara",
+    "it": "locale-commerciale-san-pedro-de-alcantara",
+    "nl": "commerciele-unit-san-pedro-de-alcantara"
+  },
+  "status": "available",
+  "listing_type": "promotion",
+  "featured": false,
+  "is_own_project": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "price": 324731,
+  "currency": "EUR",
+  "pricing": {
+    "from": 324731,
+    "currency": "EUR"
+  },
+  "phase": "Comercializacion",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "San Pedro de Alcantara",
+    "area": "Alcantara del Mar",
+    "address_line": "Alcantara del Mar, San Pedro de Alcantara",
+    "coordinates": {
+      "lat": 36.47843294216684,
+      "lng": -4.993242172823544
+    }
+  },
+  "property": {
+    "type": "local",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 61.27,
+    "terrace_m2": null,
+    "garden_m2": null,
+    "usable_area_m2": null,
+    "bedrooms": null,
+    "bathrooms": null,
+    "garages": null,
+    "floors": 1,
+    "parking_type": null,
+    "sea_views": false,
+    "elevator": false,
+    "community_pool": false,
+    "private_pool": false,
+    "delivery_date": null,
+    "sales_stage": "Comercializacion",
+    "property_group": "LOCALES",
+    "commercial_agency": "BlancaReal",
+    "full_address": "Alcantara del Mar, San Pedro de Alcantara, Malaga",
+    "reference_drive": "A044944",
+    "reference_web": "A044944",
+    "source_import_date": "2026-04-22",
+    "parking_notes": "No especificado",
+    "pool_notes": "No",
+    "sea_views_notes": "No",
+    "elevator_notes": "No",
+    "notes": "Promocion externa comercializada por BlancaReal. Alcantara del Mar se presenta como un local comercial de obra nueva en San Pedro de Alcantara, en planta baja, con 61.27 m2, grandes ventanales de suelo a techo y entrega totalmente equipada."
+  },
+  "features": ["new_build"],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044944/cover/Localcomercial-01.jpg",
+      "alt": {
+        "es": "Local comercial en San Pedro de Alcantara",
+        "en": "Commercial unit in San Pedro de Alcantara",
+        "de": "Gewerbeimmobilie in San Pedro de Alcantara",
+        "fr": "Local commercial a San Pedro de Alcantara",
+        "it": "Locale commerciale a San Pedro de Alcantara",
+        "nl": "Commerciele unit in San Pedro de Alcantara"
+      }
+    },
+    "gallery": {
+      "exterior": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044944/cover/Localcomercial-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044944/exterior/localcomercial-02.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044944/exterior/localcomercial-03.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044944/exterior/localcomercial-04.jpg" }
+      ],
+      "interior": [],
+      "views": [
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044944/cover/Localcomercial-01.jpg" },
+        { "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A044944/exterior/localcomercial-02.jpg" }
+      ],
+      "floorplan": []
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "local comercial san pedro de alcantara",
+      "en": "commercial unit san pedro de alcantara",
+      "de": "gewerbeimmobilie san pedro de alcantara",
+      "fr": "local commercial san pedro de alcantara",
+      "it": "locale commerciale san pedro de alcantara",
+      "nl": "commerciele unit san pedro de alcantara"
+    },
+    "meta_description": {
+      "es": "Local comercial en San Pedro de Alcantara desde 324.731 EUR, en planta baja, con 61.27 m2 y grandes ventanales de suelo a techo.",
+      "en": "Commercial unit in San Pedro de Alcantara from EUR 324,731, on the ground floor with 61.27 sqm and full-height windows."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Local comercial en San Pedro de Alcantara",
+      "intro": "Local comercial de obra nueva en San Pedro de Alcantara desde 324.731 EUR, en planta baja, con 61.27 m2, grandes ventanales de suelo a techo y alto potencial comercial.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Oportunidad unica para tu negocio. Te presentamos este fantastico local comercial en planta baja, ubicado en Alcantara del Mar, con una superficie de 61.27 m2 disenada para aprovechar cada espacio."
+        },
+        {
+          "type": "paragraph",
+          "content": "Destaca por sus impresionantes ventanas de suelo a techo, que inundan el local de luz natural y crean un ambiente moderno, atractivo y perfecto para captar la atencion de clientes. Se entrega totalmente equipado, listo para empezar a funcionar desde el primer dia."
+        },
+        {
+          "type": "paragraph",
+          "content": "Ubicado a pocos pasos de la playa y rodeado de otros negocios, restaurantes y zonas de ocio, ofrece gran visibilidad, actividad comercial constante y un alto potencial tanto para emprendedores como para inversores."
+        }
+      ]
+    },
+    "en": {
+      "title": "Commercial unit in San Pedro de Alcantara",
+      "intro": "New-build commercial unit in San Pedro de Alcantara from EUR 324,731, on the ground floor with 61.27 sqm, full-height windows and strong commercial potential.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "A unique opportunity for your business. This ground-floor commercial unit in Alcantara del Mar offers 61.27 sqm planned to make the most of every part of the space."
+        },
+        {
+          "type": "paragraph",
+          "content": "Its striking floor-to-ceiling windows fill the unit with natural light and create a modern, attractive setting designed to draw customer attention. It is delivered fully equipped and ready to start operating from day one."
+        },
+        {
+          "type": "paragraph",
+          "content": "Just a short walk from the beach and surrounded by businesses, restaurants and leisure areas, it benefits from strong visibility, steady footfall and high potential for both entrepreneurs and investors."
+        }
+      ]
+    },
+    "de": {
+      "title": "Gewerbeimmobilie in San Pedro de Alcantara",
+      "intro": "Neubau-Gewerbeimmobilie in San Pedro de Alcantara ab 324.731 EUR, im Erdgeschoss mit 61.27 m2, bodentiefen Fenstern und starkem Geschaftspotenzial.",
+      "description": []
+    },
+    "fr": {
+      "title": "Local commercial a San Pedro de Alcantara",
+      "intro": "Local commercial neuf a San Pedro de Alcantara a partir de 324 731 EUR, en rez-de-chaussee avec 61.27 m2, grandes baies vitrees et fort potentiel commercial.",
+      "description": []
+    },
+    "it": {
+      "title": "Locale commerciale a San Pedro de Alcantara",
+      "intro": "Locale commerciale di nuova costruzione a San Pedro de Alcantara da 324.731 EUR, al piano terra con 61.27 m2, grandi vetrate a tutta altezza e forte potenziale commerciale.",
+      "description": []
+    },
+    "nl": {
+      "title": "Commerciele unit in San Pedro de Alcantara",
+      "intro": "Nieuwbouw commerciele unit in San Pedro de Alcantara vanaf EUR 324.731, op de begane grond met 61.27 m2, ramen van vloer tot plafond en sterk commercieel potentieel.",
+      "description": []
+    }
+  }
+}
