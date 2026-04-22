@@ -1,0 +1,323 @@
+{
+  "id": "A04541",
+  "priority": 66,
+  "slugs": {
+    "es": "villa-moderna-torreblanca-fuengirola",
+    "en": "modern-villa-torreblanca-fuengirola",
+    "de": "moderne-villa-torreblanca-fuengirola",
+    "fr": "villa-moderne-torreblanca-fuengirola",
+    "it": "villa-moderna-torreblanca-fuengirola",
+    "nl": "moderne-villa-torreblanca-fuengirola"
+  },
+  "status": "available",
+  "featured": false,
+  "languages": ["es", "en", "de", "fr", "it", "nl"],
+  "transaction": "sale",
+  "listing_type": "resale",
+  "price": 819000,
+  "currency": "EUR",
+  "location": {
+    "country": "ES",
+    "province": "Malaga",
+    "city": "Fuengirola",
+    "area": "Torreblanca",
+    "address_line": "Torreblanca, Fuengirola",
+    "coordinates": {
+      "lat": 36.56473642835458,
+      "lng": -4.6208777879849805
+    }
+  },
+  "property": {
+    "type": "villa",
+    "market": "obra_nueva",
+    "condition": "new",
+    "area_m2": 265,
+    "usable_area_m2": null,
+    "terrace_m2": 60,
+    "garden_m2": null,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "garages": 1,
+    "floors": null,
+    "parking_type": "privado_cubierto",
+    "elevator": true,
+    "sea_views": false,
+    "community_pool": false,
+    "private_pool": true,
+    "property_group": "UNIFAMILIARES",
+    "full_address": "Torreblanca, Fuengirola, Malaga",
+    "reference_drive": "A04541",
+    "reference_web": "A04541",
+    "source_import_date": "2026-04-22",
+    "parking_notes": "Garaje privado",
+    "pool_notes": "Privada",
+    "sea_views_notes": "No especificado",
+    "elevator_notes": "Si",
+    "notes": "Villa moderna en Torreblanca, Fuengirola, con 265 m2 construidos, 60 m2 de terraza, 3 dormitorios, 2 banos, ascensor, garaje, piscina y jardin privado. A 5 minutos de la playa y con posibilidad de personalizacion."
+  },
+  "features": ["private_garden", "elevator", "garage"],
+  "media": {
+    "cover": {
+      "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/exterior/facade.jpeg",
+      "alt": {
+        "es": "Villa moderna en Torreblanca, Fuengirola",
+        "en": "Modern villa in Torreblanca, Fuengirola",
+        "de": "Moderne Villa in Torreblanca, Fuengirola",
+        "fr": "Villa moderne a Torreblanca, Fuengirola",
+        "it": "Villa moderna a Torreblanca, Fuengirola",
+        "nl": "Moderne villa in Torreblanca, Fuengirola"
+      }
+    },
+    "gallery": {
+      "living": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/salon-01.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/salon-02.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/salon-03.jpeg"
+        }
+      ],
+      "bedroom": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/dormitorio-01.jpeg"
+        }
+      ],
+      "kitchen": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/cocina-01.jpeg"
+        }
+      ],
+      "bathroom": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/bano-01.jpeg"
+        }
+      ],
+      "exterior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/exterior/facade.jpeg"
+        }
+      ],
+      "interior": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/salon-01.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/salon-02.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/salon-03.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/dormitorio-01.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/cocina-01.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/interior/bano-01.jpeg"
+        }
+      ],
+      "views": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/exterior/facade.jpeg"
+        }
+      ],
+      "floorplan": [
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/plano/plano-01.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/plano/plano-02.jpeg"
+        },
+        {
+          "url": "https://gslfgcqwmcircqaslzij.supabase.co/storage/v1/object/public/properties/A04541/plano/plano-03.jpeg"
+        }
+      ]
+    }
+  },
+  "seo": {
+    "focus_keyphrase": {
+      "es": "villa moderna torreblanca fuengirola",
+      "en": "modern villa torreblanca fuengirola",
+      "de": "moderne villa torreblanca fuengirola",
+      "fr": "villa moderne torreblanca fuengirola",
+      "it": "villa moderna torreblanca fuengirola",
+      "nl": "moderne villa torreblanca fuengirola"
+    },
+    "meta_description": {
+      "es": "Villa moderna en Torreblanca, Fuengirola, con 3 dormitorios, 2 banos, 265 m2 construidos, terraza de 60 m2, ascensor, garaje, piscina y jardin privado. Desde 819.000 EUR.",
+      "en": "Modern villa in Torreblanca, Fuengirola, with 3 bedrooms, 2 bathrooms, 265 sqm built area, 60 sqm terrace, lift, garage, pool and private garden. From EUR 819,000.",
+      "de": "Moderne Villa in Torreblanca, Fuengirola, mit 3 Schlafzimmern, 2 Badern, 265 m2 bebauter Flache, 60 m2 Terrasse, Aufzug, Garage, Pool und Privatgarten. Ab 819.000 EUR.",
+      "fr": "Villa moderne a Torreblanca, Fuengirola, avec 3 chambres, 2 salles de bain, 265 m2 construits, terrasse de 60 m2, ascenseur, garage, piscine et jardin prive. A partir de 819 000 EUR.",
+      "it": "Villa moderna a Torreblanca, Fuengirola, con 3 camere, 2 bagni, 265 m2 costruiti, terrazza di 60 m2, ascensore, garage, piscina e giardino privato. Da 819.000 EUR.",
+      "nl": "Moderne villa in Torreblanca, Fuengirola, met 3 slaapkamers, 2 badkamers, 265 m2 bebouwde oppervlakte, terras van 60 m2, lift, garage, zwembad en prive tuin. Vanaf EUR 819.000."
+    }
+  },
+  "translations": {
+    "es": {
+      "title": "Villa moderna en Torreblanca, Fuengirola",
+      "intro": "Villa moderna en Torreblanca, Fuengirola, con 3 dormitorios, 2 banos, 265 m2 construidos, terraza de 60 m2, ascensor, garaje, piscina y jardin privado. Desde 819.000 EUR.",
+      "excerpt": "Villa moderna en Torreblanca, Fuengirola, con 3 dormitorios, 2 banos, 265 m2 construidos, terraza de 60 m2, ascensor, garaje, piscina y jardin privado. Desde 819.000 EUR.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Descubre esta exclusiva villa en una tranquila y demandada zona residencial de Torreblanca, ideal para disfrutar de privacidad y confort sin renunciar a la cercania de todos los servicios."
+        },
+        {
+          "type": "paragraph",
+          "content": "La vivienda cuenta con 3 amplios dormitorios y 2 banos, con 265 m2 construidos y una espectacular terraza de 60 m2 pensada para relajarse, aprovechar el clima mediterraneo o compartir momentos al aire libre."
+        },
+        {
+          "type": "paragraph",
+          "content": "Dispone de ascensor, garaje, piscina y jardin privado, y ademas ofrece la posibilidad de personalizarse a su gusto para adaptarse por completo a su estilo y necesidades. La playa se encuentra a solo 5 minutos."
+        },
+        {
+          "type": "paragraph",
+          "content": "Vivir en Torreblanca, Fuengirola, significa disfrutar de la tranquilidad de una zona residencial con un entorno natural privilegiado y excelente conexion con el centro de Fuengirola. El clima soleado durante todo el ano, la cercania a la playa y la calidad de vida del area convierten esta ubicacion en una oportunidad unica."
+        }
+      ],
+      "seo": {
+        "title": "Villa moderna en Torreblanca, Fuengirola | BlancaReal",
+        "description": "Villa moderna en Torreblanca, Fuengirola, con 3 dormitorios, 265 m2 construidos, terraza de 60 m2, ascensor, garaje, piscina y jardin privado. Desde 819.000 EUR."
+      }
+    },
+    "en": {
+      "title": "Modern villa in Torreblanca, Fuengirola",
+      "intro": "Modern villa in Torreblanca, Fuengirola, with 3 bedrooms, 2 bathrooms, 265 sqm built area, 60 sqm terrace, lift, garage, pool and private garden. From EUR 819,000.",
+      "excerpt": "Modern villa in Torreblanca, Fuengirola, with 3 bedrooms, 2 bathrooms, 265 sqm built area, 60 sqm terrace, lift, garage, pool and private garden. From EUR 819,000.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Discover this exclusive villa in a quiet and sought-after residential area of Torreblanca, ideal for enjoying privacy and comfort while staying close to everyday services."
+        },
+        {
+          "type": "paragraph",
+          "content": "The home offers 3 generous bedrooms and 2 bathrooms, with 265 sqm built area and a spectacular 60 sqm terrace designed for relaxing, enjoying the Mediterranean climate or sharing time outdoors."
+        },
+        {
+          "type": "paragraph",
+          "content": "It includes a lift, garage, pool and private garden, and it can also be customized to suit the buyer s preferred style and practical needs. The beach is just 5 minutes away."
+        },
+        {
+          "type": "paragraph",
+          "content": "Living in Torreblanca, Fuengirola, means enjoying the calm of a residential area with a privileged natural setting and excellent links to central Fuengirola. Year-round sunshine, nearby beaches and the local quality of life make this a standout location."
+        }
+      ],
+      "seo": {
+        "title": "Modern villa in Torreblanca, Fuengirola | BlancaReal",
+        "description": "Modern villa in Torreblanca, Fuengirola, with 3 bedrooms, 265 sqm built area, 60 sqm terrace, lift, garage, pool and private garden. From EUR 819,000."
+      }
+    },
+    "de": {
+      "title": "Moderne Villa in Torreblanca, Fuengirola",
+      "intro": "Moderne Villa in Torreblanca, Fuengirola, mit 3 Schlafzimmern, 2 Badern, 265 m2 bebauter Flache, 60 m2 Terrasse, Aufzug, Garage, Pool und Privatgarten. Ab 819.000 EUR.",
+      "excerpt": "Moderne Villa in Torreblanca, Fuengirola, mit 3 Schlafzimmern, 2 Badern, 265 m2 bebauter Flache, 60 m2 Terrasse, Aufzug, Garage, Pool und Privatgarten. Ab 819.000 EUR.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Entdecken Sie diese exklusive Villa in einer ruhigen und gefragten Wohnlage von Torreblanca, ideal fur Privatsphare und Komfort in unmittelbarer Nahe zu allen wichtigen Dienstleistungen."
+        },
+        {
+          "type": "paragraph",
+          "content": "Das Haus verfugt uber 3 grosszugige Schlafzimmer und 2 Bader, 265 m2 bebaute Flache und eine spektakulare Terrasse von 60 m2 zum Entspannen, fur das mediterrane Klima und fur gemeinsame Momente im Freien."
+        },
+        {
+          "type": "paragraph",
+          "content": "Zur Ausstattung gehoren Aufzug, Garage, Pool und Privatgarten. Zudem besteht die Moglichkeit zur Personalisierung, damit sich die Villa vollstandig an den gewunschten Stil und die eigenen Bedurfnisse anpassen lasst. Der Strand ist nur 5 Minuten entfernt."
+        },
+        {
+          "type": "paragraph",
+          "content": "In Torreblanca, Fuengirola, zu leben bedeutet die Ruhe einer Wohngegend mit privilegiertem Naturumfeld und sehr guter Anbindung an das Zentrum von Fuengirola zu geniessen. Ganzjahrig sonniges Wetter, nahe Strande und hohe Lebensqualitat machen diese Lage besonders attraktiv."
+        }
+      ],
+      "seo": {
+        "title": "Moderne Villa in Torreblanca, Fuengirola | BlancaReal",
+        "description": "Moderne Villa in Torreblanca, Fuengirola, mit 3 Schlafzimmern, 265 m2 bebauter Flache, 60 m2 Terrasse, Aufzug, Garage, Pool und Privatgarten. Ab 819.000 EUR."
+      }
+    },
+    "fr": {
+      "title": "Villa moderne a Torreblanca, Fuengirola",
+      "intro": "Villa moderne a Torreblanca, Fuengirola, avec 3 chambres, 2 salles de bain, 265 m2 construits, terrasse de 60 m2, ascenseur, garage, piscine et jardin prive. A partir de 819 000 EUR.",
+      "excerpt": "Villa moderne a Torreblanca, Fuengirola, avec 3 chambres, 2 salles de bain, 265 m2 construits, terrasse de 60 m2, ascenseur, garage, piscine et jardin prive. A partir de 819 000 EUR.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Decouvrez cette villa exclusive situee dans un quartier residentiel calme et recherche de Torreblanca, ideal pour profiter de l intimite et du confort sans renoncer a la proximite des services."
+        },
+        {
+          "type": "paragraph",
+          "content": "La maison dispose de 3 grandes chambres et 2 salles de bain, avec 265 m2 construits et une spectaculaire terrasse de 60 m2 parfaite pour se detendre, profiter du climat mediterraneen ou partager des moments en plein air."
+        },
+        {
+          "type": "paragraph",
+          "content": "Elle comprend ascenseur, garage, piscine et jardin prive, et offre egalement la possibilite d etre personnalisee selon vos gouts afin de s adapter a votre style et a vos besoins. La plage se trouve a seulement 5 minutes."
+        },
+        {
+          "type": "paragraph",
+          "content": "Vivre a Torreblanca, Fuengirola, c est profiter du calme d une zone residentielle avec un environnement naturel privilegie et une excellente connexion avec le centre de Fuengirola. Le soleil toute l annee, la proximite de la plage et la qualite de vie font de cet emplacement une opportunite remarquable."
+        }
+      ],
+      "seo": {
+        "title": "Villa moderne a Torreblanca, Fuengirola | BlancaReal",
+        "description": "Villa moderne a Torreblanca, Fuengirola, avec 3 chambres, 265 m2 construits, terrasse de 60 m2, ascenseur, garage, piscine et jardin prive. A partir de 819 000 EUR."
+      }
+    },
+    "it": {
+      "title": "Villa moderna a Torreblanca, Fuengirola",
+      "intro": "Villa moderna a Torreblanca, Fuengirola, con 3 camere, 2 bagni, 265 m2 costruiti, terrazza di 60 m2, ascensore, garage, piscina e giardino privato. Da 819.000 EUR.",
+      "excerpt": "Villa moderna a Torreblanca, Fuengirola, con 3 camere, 2 bagni, 265 m2 costruiti, terrazza di 60 m2, ascensore, garage, piscina e giardino privato. Da 819.000 EUR.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Scopra questa villa esclusiva in una zona residenziale tranquilla e richiesta di Torreblanca, ideale per godere di privacy e comfort senza rinunciare alla vicinanza di tutti i servizi."
+        },
+        {
+          "type": "paragraph",
+          "content": "La proprieta dispone di 3 ampie camere da letto e 2 bagni, con 265 m2 costruiti e una spettacolare terrazza di 60 m2 perfetta per rilassarsi, vivere il clima mediterraneo o condividere momenti all aperto."
+        },
+        {
+          "type": "paragraph",
+          "content": "Include ascensore, garage, piscina e giardino privato, oltre alla possibilita di personalizzazione per adattarsi pienamente allo stile e alle esigenze dell acquirente. La spiaggia si trova a soli 5 minuti."
+        },
+        {
+          "type": "paragraph",
+          "content": "Vivere a Torreblanca, Fuengirola, significa godere della tranquillita di una zona residenziale con un contesto naturale privilegiato e ottimi collegamenti con il centro di Fuengirola. Sole tutto l anno, spiagge vicine e qualita della vita rendono questa posizione particolarmente interessante."
+        }
+      ],
+      "seo": {
+        "title": "Villa moderna a Torreblanca, Fuengirola | BlancaReal",
+        "description": "Villa moderna a Torreblanca, Fuengirola, con 3 camere, 265 m2 costruiti, terrazza di 60 m2, ascensore, garage, piscina e giardino privato. Da 819.000 EUR."
+      }
+    },
+    "nl": {
+      "title": "Moderne villa in Torreblanca, Fuengirola",
+      "intro": "Moderne villa in Torreblanca, Fuengirola, met 3 slaapkamers, 2 badkamers, 265 m2 bebouwde oppervlakte, terras van 60 m2, lift, garage, zwembad en prive tuin. Vanaf EUR 819.000.",
+      "excerpt": "Moderne villa in Torreblanca, Fuengirola, met 3 slaapkamers, 2 badkamers, 265 m2 bebouwde oppervlakte, terras van 60 m2, lift, garage, zwembad en prive tuin. Vanaf EUR 819.000.",
+      "description": [
+        {
+          "type": "paragraph",
+          "content": "Ontdek deze exclusieve villa in een rustige en gewilde woonwijk van Torreblanca, ideaal om te genieten van privacy en comfort zonder afstand te doen van alle voorzieningen in de buurt."
+        },
+        {
+          "type": "paragraph",
+          "content": "De woning beschikt over 3 ruime slaapkamers en 2 badkamers, met 265 m2 bebouwde oppervlakte en een indrukwekkend terras van 60 m2 om te ontspannen, van het mediterrane klimaat te genieten of buiten samen tijd door te brengen."
+        },
+        {
+          "type": "paragraph",
+          "content": "Er is een lift, garage, zwembad en prive tuin aanwezig, en bovendien kan de villa naar wens worden gepersonaliseerd zodat ze volledig aansluit op stijl en behoeften van de koper. Het strand ligt op slechts 5 minuten afstand."
+        },
+        {
+          "type": "paragraph",
+          "content": "Wonen in Torreblanca, Fuengirola, betekent genieten van de rust van een woongebied met een bevoorrechte natuurlijke omgeving en een uitstekende verbinding met het centrum van Fuengirola. Zon het hele jaar door, nabijgelegen stranden en hoge levenskwaliteit maken deze locatie bijzonder aantrekkelijk."
+        }
+      ],
+      "seo": {
+        "title": "Moderne villa in Torreblanca, Fuengirola | BlancaReal",
+        "description": "Moderne villa in Torreblanca, Fuengirola, met 3 slaapkamers, 265 m2 bebouwde oppervlakte, terras van 60 m2, lift, garage, zwembad en prive tuin. Vanaf EUR 819.000."
+      }
+    }
+  }
+}
