@@ -7,7 +7,6 @@ import eva from "./eva.json";
 import marcelo from "./marcelo.json";
 import yolanda from "./yolanda.json";
 import tanis from "./tanis.json";
-import cristian from "./cristian.json";
 import santiago from "./santiago.json";
 
 export const TEAM_CATEGORY_ORDER = [
@@ -28,7 +27,6 @@ const teamMembers = [
   natascha,
   maria,
   tanis,
-  cristian,
   carlos,
   cristobal,
   santiago,
